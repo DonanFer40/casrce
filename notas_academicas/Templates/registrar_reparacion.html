@@ -4,23 +4,338 @@
 
 {% load static %}
 
+<style>
+    /* RESET Y CONTENEDOR PRINCIPAL */
+    #modulo_registrar_reparacion {
+        width: 100%;
+        padding: 30px;
+        box-sizing: border-box;
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .contenedor_registrar_reparacion {
+        width: 95%;
+        max-width: 1100px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .contenedor_registrar_reparacion h2 {
+        text-align: center;
+        color: #102f4e;
+        font-size: 26px;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+
+    /* FORMULARIO Y CAMPOS DE ENTRADA */
+    #formulario_registrar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .grupo_campo {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #formulario_registrar label {
+        color: #00445f;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    #formulario_registrar select,
+    #formulario_registrar input[type="text"] {
+        width: 100%;
+        height: 42px;
+        padding: 0 12px;
+        border-radius: 8px;
+        border: 1px solid #cfd8dc;
+        background: #f8fafb;
+        color: #333;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    /* ESTADO DESHABILITADO / READONLY PARA TRAYECTO */
+    #formulario_registrar input[readonly] {
+        background-color: #eceff1;
+        color: #546e7a;
+        cursor: not-allowed;
+        font-weight: 600;
+    }
+
+    #formulario_registrar select:hover {
+        border-color: #00779e;
+    }
+
+    #formulario_registrar select:focus {
+        border-color: #00779e;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, .15);
+    }
+
+    /* BOTÓN DE ACCIÓN */
+    .contenedor_boton_notas {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .contenedor_boton_notas input[type="submit"] {
+        width: 180px;
+        height: 45px;
+        border: none;
+        border-radius: 10px;
+        background: #00779e;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .contenedor_boton_notas input[type="submit"]:hover {
+        background: #00445f;
+        transform: translateY(-2px);
+    }
+
+    /* CONTENEDOR DE LA TABLA DINÁMICA */
+    #contenedor_evaluaciones {
+        grid-column: 1 / -1;
+        margin-top: 25px;
+        background: #f7f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* ESTILOS DE LA TABLA Y SUS ELEMENTOS */
+    .tabla_reparacion {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 10px;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .tabla_reparacion thead {
+        background: #102f4e;
+        color: #ffffff;
+    }
+
+    .tabla_reparacion th {
+        padding: 14px 12px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        text-align: center;
+    }
+
+    .tabla_reparacion th.text-left,
+    .tabla_reparacion td.text-left {
+        text-align: left;
+    }
+
+    .tabla_reparacion td {
+        padding: 12px;
+        font-size: 14px;
+        color: #333333;
+        border-bottom: 1px solid #edf2f7;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .tabla_reparacion tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .tabla_reparacion tbody tr:hover {
+        background: #f0f7fa;
+        transition: background 0.2s ease;
+    }
+
+    /* INSIGNIAS (BADGES) */
+    .badge-nota-reprobada {
+        background-color: #fee2e2;
+        color: #dc2626;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-block;
+    }
+
+    .badge-asistencia {
+        background-color: #e0f2fe;
+        color: #0369a1;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 13px;
+        display: inline-block;
+    }
+
+    /* INPUT DE NOTA DE REPARACIÓN DENTRO DE LA TABLA */
+    .input-nota-reparacion {
+        width: 95px !important;
+        height: 38px;
+        margin: 0 auto;
+        border-radius: 8px;
+        border: 1.5px solid #cfd8dc;
+        background-color: #f8fafb;
+        font-weight: 700;
+        font-size: 14px;
+        color: #102f4e;
+        text-align: center;
+        transition: all 0.25s ease;
+    }
+
+    .input-nota-reparacion:hover {
+        border-color: #00779e;
+        background-color: #ffffff;
+    }
+
+    .input-nota-reparacion:focus {
+        outline: none;
+        border-color: #00779e;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, 0.2);
+    }
+
+    /* Ocultar spinners de input number */
+    .input-nota-reparacion::-webkit-outer-spin-button,
+    .input-nota-reparacion::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    /* ESTILOS PARA LA TABLA USANDO CLASES DE BOOTSTRAP */
+    #contenedor_evaluaciones .table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 10px;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    #contenedor_evaluaciones .table thead {
+        background: #102f4e !important;
+        color: #ffffff;
+    }
+
+    #contenedor_evaluaciones .table th {
+        padding: 14px 12px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    #contenedor_evaluaciones .table td {
+        padding: 12px;
+        font-size: 14px;
+        color: #333333;
+        border-bottom: 1px solid #edf2f7;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    #contenedor_evaluaciones .table tbody tr:hover {
+        background: #f0f7fa;
+    }
+
+    /* INPUT Y CONTROLES DENTRO DE LA TABLA */
+    #contenedor_evaluaciones .input-nota-reparacion {
+        width: 95px !important;
+        height: 38px;
+        margin: 0 auto;
+        border-radius: 8px;
+        border: 1.5px solid #cfd8dc;
+        background-color: #f8fafb;
+        font-weight: 700;
+        font-size: 14px;
+        color: #102f4e;
+        text-align: center;
+        transition: all 0.25s ease;
+    }
+
+    #contenedor_evaluaciones .input-nota-reparacion:focus {
+        outline: none;
+        border-color: #00779e;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, 0.2);
+    }
+
+
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        #formulario_registrar {
+            grid-template-columns: 1fr;
+        }
+
+        .contenedor_registrar_reparacion {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+</style>
+
 <section id="modulo_registrar_reparacion">
     <div class="contenedor_registrar_reparacion">
         <h2>Registrar Reparación</h2>
 
         <form method="post" id="formulario_registrar">
             {% csrf_token %}
-            <label for="nucleo_asignado">Núcleo Asignado:</label>
-            <select name="nucleo_asignado" id="nucleo_asignado"></select>
 
-            <label for="pnf_asignado">P.N.F Asignado:</label>
-            <select name="pnf_asignado" id="pnf_asignado"></select>
+            <div class="grupo_campo">
+                <label for="nucleo_asignado">Núcleo Asignado:</label>
+                <select name="nucleo_asignado" id="nucleo_asignado"></select>
+            </div>
 
-            <label for="materia_asignada">Materia(s) Asignada(s):</label>
-            <select name="materia_asignada" id="materia_asignada"></select>
+            <div class="grupo_campo">
+                <label for="pnf_asignado">P.N.F Asignado:</label>
+                <select name="pnf_asignado" id="pnf_asignado"></select>
+            </div>
 
-            <label for="trayecto_academico">Trayecto:</label>
-            <select name="trayecto_academico" id="trayecto_academico"></select>
+            <div class="grupo_campo">
+                <label for="materia_asignada">Materia(s) a Reparar:</label>
+                <select name="materia_asignada" id="materia_asignada"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="trayecto_academico">Trayecto:</label>
+                <input type="text" name="trayecto_academico" id="trayecto_academico" readonly
+                    placeholder="Cargando trayecto...">
+            </div>
 
             <div class="contenedor_boton_notas">
                 <input type="submit" value="Registrar">

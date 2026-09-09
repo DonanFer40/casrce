@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {   
+document.addEventListener("DOMContentLoaded", () => {
 
     // Identificadores de los formularios
     const formulario_buscar_usuario = document.getElementById("buscar_usuario");
@@ -20,11 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const input_password = document.getElementById("password");
     const msg_password = document.getElementById("mensaje_password");
     const btn_registro = document.getElementById("btn_registro");
-    const input_check_oculta_aparecer = document.getElementById("oculta_aparecer");
+    const input_check_oculta_aparecer = document.getElementById("OcultaAparecer");
 
     // Botones para ocultar o mostrar la contraseña
-    const tag_i_mostrar = document.getElementById("mostrar_password");
-    const tag_i_ocultar = document.getElementById("ocultar_password");
+    const tag_i_mostrar = document.getElementById("aparecer_oculta");
+    const tag_i_ocultar = document.getElementById("oculta_aparecer");
 
     configurarCedula(select_nacionalidad, input_CI);
 
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-   formulario_registrar_credenciales.addEventListener("submit", async function (e) {
+    formulario_registrar_credenciales.addEventListener("submit", async function (e) {
         e.preventDefault();
         try {
             const datos = new FormData(formulario_registrar_credenciales);

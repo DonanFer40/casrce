@@ -1,131 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const FECHA_REPARACIONES = new Date("2027-12-06T08:00:00");
-
-    const FECHA_ACTUALIZACION_TRAYECTOS = new Date("2027-12-11T08:00:00");
-
-    const CLAVE_REPARACIONES = "reparaciones_2027_12_06_08_00";
-
-    const CLAVE_TRAYECTOS = "actualizacion_trayectos_2027_12_11_08_00";
-
-    function obtener_csrf_token() {
-        const nombre = "csrftoken=";
-        const cookies = document.cookie.split(";");
-
-        for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.startsWith(nombre)) {
-
-                return decodeURIComponent(cookie.substring(nombre.length));
-            }
-        }
-        return "";
-    }
-
-    // PROCESAR REPARACIONES
-    async function ejecutar_reparaciones() {
-
-        if (localStorage.getItem(CLAVE_REPARACIONES) === "true") {
-            console.log("Las reparaciones ya fueron procesadas.");
-            return;
-        }
-
+    async function calcular_promedios_finales() {
+        console.log("Ejecutando cálculo de promedios");
         try {
-            console.log("Procesando notas de reparación...");
-
-            const respuesta = await fetch("/notas_academicas/calc_prom_est/", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": obtener_csrf_token(),
-                }
-            });
+            const respuesta = await fetch("/notas_academicas/calc_prom_est/");
             const resultado = await respuesta.json();
+            console.log(resultado);
 
-            console.log("Resultado reparación:", resultado);
-
-            if (respuesta.ok && resultado.estado === "exito") {
-                localStorage.setItem(CLAVE_REPARACIONES, "true");
-                console.log("Las notas de reparación fueron procesadas correctamente.");
-            }
-
-        } catch (error) {
-            console.error("Error al procesar reparaciones:", error);
-        }
-    }
-
-    // ACTUALIZAR TRAYECTOS
-    async function ejecutar_actualizacion_trayectos() {
-
-        if (localStorage.getItem(CLAVE_TRAYECTOS) === "true") {
-            console.log("Los trayectos ya fueron actualizados.");
-            return;
-        }
-
-        // LAS REPARACIONES DEBEN HABER TERMINADO
-        if (localStorage.getItem(CLAVE_REPARACIONES) !== "true") {
-            console.log("Las reparaciones todavía no han sido procesadas.");
-            return;
-        }
-
-
-        try {
-            console.log("Actualizando trayectos...");
-
-            const respuesta = await fetch("/notas_academicas/act_tray_est/", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": obtener_csrf_token(),
-                }
+            Swal.fire({
+                title: resultado.title,
+                text: resultado.descripcion,
+                icon: resultado.icon
             });
-            const resultado = await respuesta.json();
-            console.log("Resultado trayectos:", resultado);
-
-            if (respuesta.ok && resultado.estado === "exito") {
-                localStorage.setItem(CLAVE_TRAYECTOS, "true");
-
-                console.log("Trayectos actualizados correctamente.");
-            }
-
         } catch (error) {
             console.error(error);
         }
     }
 
-    // COMPROBAR FECHA Y HORA
-    function comprobar_fecha_ejecucion() {
-        const ahora = new Date();
+    async function actualizar_promedio_reparacion() {
+        console.log("Ejecutando actualizar promedios reparación a promedios finales");
+        try {
+            const respuesta = await fetch("/notas_academicas/act_prom_rep/");
+            const resultado = await respuesta.json();
+            console.log(resultado);
 
-        // REPARACIONES
-        if (ahora.getTime() >= FECHA_REPARACIONES.getTime()) {
-            ejecutar_reparaciones();
-        }
-
-        // ACTUALIZACIÓN DE TRAYECTOS
-        if (ahora.getTime() >= FECHA_ACTUALIZACION_TRAYECTOS.getTime()) {
-            ejecutar_actualizacion_trayectos();
-        }
-
-        // VERIFICAR FINALIZACIÓN
-        const reparaciones_realizadas =
-            localStorage.getItem(
-                CLAVE_REPARACIONES
-            ) === "true";
-
-        const trayectos_realizados =
-            localStorage.getItem(
-                CLAVE_TRAYECTOS
-            ) === "true";
-
-
-        if (reparaciones_realizadas && trayectos_realizados) {
-            clearInterval(intervalo);
-            console.log("Proceso académico 2027 finalizado.");
+            Swal.fire({
+                title: resultado.title,
+                text: resultado.descripcion,
+                icon: resultado.icon
+            });
+        } catch (error) {
+            console.error(error);
         }
     }
 
-    // COMPROBAR CADA SEGUNDO
-    const intervalo = setInterval(comprobar_fecha_ejecucion, 1000);
+    async function actualizar_trayectos() {
+        console.log("Ejecutando actualización de trayectos");
 
-    // COMPROBAR AL CARGAR LA PÁGINA
-    comprobar_fecha_ejecucion();
+        try {
+            const respuesta = await fetch("/notas_academicas/act_tray_est/");
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            Swal.fire({
+                title: resultado.title,
+                text: resultado.descripcion,
+                icon: resultado.icon
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // actualizar_trayectos();
+    // actualizar_promedio_reparacion();
+    // calcular_promedios_finales();
 });

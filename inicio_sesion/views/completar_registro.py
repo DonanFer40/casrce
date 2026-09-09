@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import JsonResponse
+from django.db import transaction
 
 from django.utils import timezone
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 
-from inicio_sesion.models import Usuario, Nucleos, Pnf, Contacto, PNFNucleo,  Nacimiento, Residencia, Estudiante, Docente, CoordinadorPNF, ControlEstudio, DirectorGeneral, ContactoAuxiliar, Discapacidad, EstatusEstudiante, DocumentosEstudiante, InformacionSecundaria, DatosPreofesion 
+from inicio_sesion.models import Usuario, Nucleos, TrayectoAcademico, Pnf, Contacto, PNFNucleo,  Nacimiento, Residencia, Estudiante, Docente, CoordinadorPNF, ControlEstudio, DirectorGeneral, ContactoAuxiliar, Discapacidad, EstatusEstudiante, DocumentosEstudiante, InformacionSecundaria, DatosPreofesion 
 
 import os
 from reportlab.platypus import Table, TableStyle
@@ -214,7 +215,7 @@ def comp_registro(request):
         cedula_auxiliar = (
             nacionalidad_auxiliar + "-" + ci_auxiliar
             if nacionalidad_auxiliar and ci_auxiliar
-            else ""
+            else "N/A"
         )
 
         if not prefijo_auxiliar and num_telefono_secundaria:
@@ -380,35 +381,44 @@ def comp_registro(request):
                         "icon": "warning"
                     })
 
-            usuario.genero = genero
-            usuario.estado_civil = estado_civil
-            usuario.save()
-    
-            contacto, _ = Contacto.objects.get_or_create(id_usuario=usuario)
-            
-            contacto.telefono_personal = telefono_principal
-    
-            if telefono_secundario: 
-                contacto.telefono_suplete = telefono_secundario
-                
-            contacto.correo_electronico = correo_electronico1
-            contacto.correo_alternativo = correo_electronico2
-            contacto.save()
-    
-            Residencia.objects.create(condicion_residencia=condicion_residencia, municipio=municipio_residencia, parroquia=parroquia_residencia, direccion_residencia=direccion_domicilio, id_usuario=usuario)
-    
-            Nacimiento.objects.create(pais=pais_nacimiento, estado=estado_nacimiento, municipio=municipio_nacimiento, parroquia=parroquia_nacimiento, direccion_nacimiento=direccion_nacimiento, fecha_nacimiento=fecha_nacimiento, id_usuario=usuario)
-    
-            DatosPreofesion.objects.create(profesion_pregrado=profesion_pregrado, universidad_egreso_pregrado=universidad_pregrado, pais_profesion_pregrado=pais_profesion, id_usuario=usuario)
+            with transaction.atomic():
 
-            request.session['registro_completado'] = True
+                usuario.genero = genero
+                usuario.estado_civil = estado_civil
+                usuario.save()
+        
+                contacto, _ = Contacto.objects.get_or_create(id_usuario=usuario)
+                
+                contacto.telefono_personal = telefono_principal
+        
+                if telefono_secundario: 
+                    contacto.telefono_suplete = telefono_secundario
+                    
+                contacto.correo_electronico = correo_electronico1
+                contacto.correo_alternativo = correo_electronico2
+                contacto.save()
+        
+                Residencia.objects.create(condicion_residencia=condicion_residencia, municipio=municipio_residencia, parroquia=parroquia_residencia, direccion_residencia=direccion_domicilio, id_usuario=usuario)
+        
+                Nacimiento.objects.create(pais=pais_nacimiento, estado=estado_nacimiento, municipio=municipio_nacimiento, parroquia=parroquia_nacimiento, direccion_nacimiento=direccion_nacimiento, fecha_nacimiento=fecha_nacimiento, id_usuario=usuario)
+        
+                DatosPreofesion.objects.create(profesion_pregrado=profesion_pregrado, universidad_egreso_pregrado=universidad_pregrado, pais_profesion_pregrado=pais_profesion, id_usuario=usuario)
+
+                request.session['registro_completado'] = True
+
+                return JsonResponse({
+                    "estado": "exito",
+                    "title": "Exito",
+                    "descripcion": "Los datos del usuario se registraron exitosamente.",
+                    "icon": "success",
+                    "url": reverse("panel_usuario")
+                })
 
             return JsonResponse({
-                "estado": "exito",
-                "title": "Exito",
-                "descripcion": "Los datos del usuario se registraron exitosamente.",
-                "icon": "success",
-                "url": reverse("panel_usuario")
+                "estado": "fallo",
+                "title": "Error",
+                "descripcion": "Ocurrio un erro al momento de registrar los datos.",
+                "icon": "error"
             })
         else:
             campos_estudiantil = [
@@ -455,106 +465,116 @@ def comp_registro(request):
                     "descripcion": "Debe cargar todos los documentos requeridos para continuar.",
                     "icon": "warning"
                 })
-            
-            usuario.genero = genero
-            usuario.estado_civil = estado_civil
-            usuario.save()
-    
-            contacto = Contacto.objects.get(id_usuario=usuario)
-            
-            contacto.telefono_personal = telefono_principal
-    
-            if telefono_secundario: 
-                contacto.telefono_suplete = telefono_secundario
+
+            with transaction.atomic():
+                usuario.genero = genero
+                usuario.estado_civil = estado_civil
+                usuario.save()
+        
+                contacto = Contacto.objects.get(id_usuario=usuario)
                 
-            contacto.correo_electronico = correo_electronico1
-            contacto.correo_alternativo = correo_electronico2
-            contacto.save()
-    
-            Residencia.objects.create(condicion_residencia=condicion_residencia, municipio=municipio_residencia, parroquia=parroquia_residencia, direccion_residencia=direccion_domicilio, id_usuario=usuario)
-    
-            Nacimiento.objects.create(pais=pais_nacimiento, estado=estado_nacimiento, municipio=municipio_nacimiento, parroquia=parroquia_nacimiento, direccion_nacimiento=direccion_nacimiento, fecha_nacimiento=fecha_nacimiento, id_usuario=usuario)
-                
-            estudiante = Estudiante.objects.get(usuario=usuario)
+                contacto.telefono_personal = telefono_principal
+        
+                if telefono_secundario: 
+                    contacto.telefono_suplete = telefono_secundario
+                    
+                contacto.correo_electronico = correo_electronico1
+                contacto.correo_alternativo = correo_electronico2
+                contacto.save()
+        
+                Residencia.objects.create(condicion_residencia=condicion_residencia, municipio=municipio_residencia, parroquia=parroquia_residencia, direccion_residencia=direccion_domicilio, id_usuario=usuario)
+        
+                Nacimiento.objects.create(pais=pais_nacimiento, estado=estado_nacimiento, municipio=municipio_nacimiento, parroquia=parroquia_nacimiento, direccion_nacimiento=direccion_nacimiento, fecha_nacimiento=fecha_nacimiento, id_usuario=usuario)
+                    
+                estudiante = Estudiante.objects.get(usuario=usuario)
 
-            ContactoAuxiliar.objects.create(nombres=nombres_auxiliar, apellidos=apellidos_auxiliar, cedula_identidad=cedula_auxiliar, telefono=telefono_auxiliar, parentesco=parestenco_auxiliar, estudiante=estudiante)
+                ContactoAuxiliar.objects.create(nombres=nombres_auxiliar, apellidos=apellidos_auxiliar, cedula_identidad=cedula_auxiliar, telefono=telefono_auxiliar, parentesco=parestenco_auxiliar, id_usuario=usuario)
 
-            Discapacidad.objects.create(codigo_carnet_discapacidad=carnet_dispacidad, nro_registro_medico=registro_medico, tipo_discapacidad=tipo_discapacidad, grado_discapacidad=grado_discapacidad, causa_discapacidad=causa_discapacidad, estudiante=estudiante)
+                Discapacidad.objects.create(codigo_carnet_discapacidad=carnet_dispacidad, nro_registro_medico=registro_medico, tipo_discapacidad=tipo_discapacidad, grado_discapacidad=grado_discapacidad, causa_discapacidad=causa_discapacidad, id_usuario=usuario)
 
-            InformacionSecundaria.objects.create(tipo_institucion=tipos_secundaria, nombre_institucion=nombre_secundaria, fecha_grado=fecha_graduacion, codigo_sni_opsu=codigo_opsu, estudiante=estudiante)
+                InformacionSecundaria.objects.create(tipo_institucion=tipos_secundaria, nombre_institucion=nombre_secundaria, fecha_grado=fecha_graduacion, codigo_sni_opsu=codigo_opsu, id_usuario=usuario)
 
-            primer_registro = True
+                primer_registro = True
 
-            for nombre_nucleo, lista_pnfs in nucleos.items():
-                if not lista_pnfs:
-                    continue
-
-                nucleo = Nucleos.objects.filter(municipio=nombre_nucleo).first()
-                if not nucleo:
-                    continue
-
-                for id_pnf in lista_pnfs:
-                    pnf_nucleo = PNFNucleo.objects.filter(
-                        id_nucleo=nucleo,
-                        id_pnf_id=id_pnf
-                    ).select_related("id_pnf").first()
-                    if not pnf_nucleo:
+                for nombre_nucleo, lista_pnfs in nucleos.items():
+                    if not lista_pnfs:
                         continue
 
-                    if primer_registro:
-                        estudiante.nucleo = nucleo
-                        estudiante.pnf = pnf_nucleo.id_pnf
-                        estudiante.save()
+                    nucleo = Nucleos.objects.filter(municipio=nombre_nucleo).first()
+                    if not nucleo:
+                        continue
 
-                        primer_registro = False
-                    else:
-                        estudiante = Estudiante.objects.create(
-                            usuario=usuario,
-                            nucleo=nucleo,
-                            pnf=pnf_nucleo.id_pnf
+                    for id_pnf in lista_pnfs:
+                        pnf_nucleo = PNFNucleo.objects.filter(
+                            id_nucleo=nucleo,
+                            id_pnf_id=id_pnf
+                        ).select_related("id_pnf").first()
+                        if not pnf_nucleo:
+                            continue
+
+                        if primer_registro:
+                            estudiante.nucleo = nucleo
+                            estudiante.pnf = pnf_nucleo.id_pnf
+                            estudiante.save()
+
+                            primer_registro = False
+                        else:
+                            estudiante = Estudiante.objects.create(
+                                usuario=usuario,
+                                nucleo=nucleo,
+                                pnf=pnf_nucleo.id_pnf
+                            )
+
+                        trayecto_inicial = TrayectoAcademico.objects.get(nombre="Trayecto Inicial")
+
+                        EstatusEstudiante.objects.create(
+                            estudiante=estudiante,
+                            estatus="Espera",
+                            estado="Espera",
+                            ingreso="Bachiller",
+                            descripcion_ingreso="En espera de la aceptación.",
+                            trayecto=trayecto_inicial,
+                            fecha_ingreso=timezone.now().date()
                         )
 
-                    EstatusEstudiante.objects.create(
-                        estudiante=estudiante,
-                        estatus="Espera",
-                        estado="Espera",
-                        ingreso="Bachiller",
-                        descripcion_ingreso="En espera de la aceptación.",
-                        trayecto="Inicial",
-                        fecha_ingreso=timezone.now().date()
-                    )
+                nombre_estudiante = f"{usuario.nombres}_{usuario.apellidos}".replace(" ", "_")
 
-            nombre_estudiante = f"{usuario.nombres}_{usuario.apellidos}".replace(" ", "_")
+                base_path = os.path.join(settings.BASE_DIR, "media", "documentosEstudiante", nombre_estudiante)
+                
+                os.makedirs(base_path, exist_ok=True)
 
-            base_path = os.path.join(settings.BASE_DIR, "media", "documentosEstudiante", nombre_estudiante)
-            
-            os.makedirs(base_path, exist_ok=True)
+                fs = FileSystemStorage(location=base_path)
 
-            fs = FileSystemStorage(location=base_path)
+                for nombre, archivo in documentos.items():
+                    if archivo:
+                        extension = os.path.splitext(archivo.name)[1]
+                        nuevo_nombre = f"{nombre}{extension}"
+                        filename = fs.save(nuevo_nombre, archivo)
 
-            for nombre, archivo in documentos.items():
-                if archivo:
-                    extension = os.path.splitext(archivo.name)[1]
-                    nuevo_nombre = f"{nombre}{extension}"
-                    filename = fs.save(nuevo_nombre, archivo)
+                        file_path = os.path.join("media", "documentosEstudiante", nombre_estudiante, filename)
+                        DocumentosEstudiante.objects.update_or_create(
+                            id_usuario=usuario, 
+                            nombre_documento=nombre,
+                            defaults={
+                                "archivo": file_path
+                            }
+                        )
+                
+                request.session['registro_completado'] = True
 
-                    file_path = os.path.join("media", "documentosEstudiante", nombre_estudiante, filename)
-                    DocumentosEstudiante.objects.update_or_create(
-                        estudiante=estudiante, 
-                        nombre_documento=nombre,
-                        defaults={
-                            "archivo": file_path
-                        }
-                    )
-            
-            request.session['registro_completado'] = True
+                return JsonResponse({
+                    "estado": "exito",
+                    "title": "Exito",
+                    "descripcion": "Los datos del estudiante se registraron exitosamente.",
+                    "icon": "success",
+                    "url": reverse("panel_usuario")
+                })
 
             return JsonResponse({
-                "estado": "exito",
-                "title": "Exito",
-                "descripcion": "Los datos del estudiante se registraron exitosamente.",
-                "icon": "success",
-                "url": reverse("panel_usuario")
+                "estado": "fallo",
+                "title": "Error",
+                "descripcion": "Ocurrio un erro al momento de registrar los datos.",
+                "icon": "error"
             })
 
     return render(request, "Actualizaciones/completar_registro.html", {"sin_estilos": True})

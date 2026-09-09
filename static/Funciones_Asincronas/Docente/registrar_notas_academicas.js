@@ -10,7 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contenedor_notas_academicas = document.getElementById("contenedor_notas_academicas");
 
-    let materia, pnf, nucleo, periodo_academico, cantidad_evaluaciones;
+    let materia = "", pnf = "", nucleo = "", periodo_academico = "", cantidad_evaluaciones = "";
+
+    function obtener_csrf_token() {
+
+        const cookie = document.cookie
+            .split("; ")
+            .find(row => row.startsWith("csrftoken="));
+
+        return cookie
+            ? decodeURIComponent(cookie.split("=")[1])
+            : "";
+    }
 
     async function nucleos_asignados() {
         try {
@@ -50,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const respuesta = await fetch("/notas_academicas/pnfs_asig_doc/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": obtener_csrf_token()
                 },
                 body: formulario
             });
@@ -82,6 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function materias_asignadas() {
         try {
+            if (!pnf || !nucleo) return;
+
             const formulario = new FormData();
             formulario.append("id_nucleo", nucleo);
             formulario.append("id_pnf", pnf);
@@ -89,11 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const respuesta = await fetch("/notas_academicas/mat_not_acad/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": obtener_csrf_token()
                 },
                 body: formulario
             });
-
             const resultado = await respuesta.json();
             console.log(resultado);
 
@@ -101,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             select_materia_asignada.innerHTML = "<option value='' selected>Selecciona la materia</option>";
 
-            resultado.datos.forEach(materia => {
+            resultado.materias.forEach(materia => {
                 const option_materia = document.createElement("option");
                 option_materia.value = materia.id_materia_asignada;
                 option_materia.textContent = materia.nombre;
@@ -127,6 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function periodos_academicos() {
         try {
+            if (!pnf || !nucleo || !materia) return;
+
             const formulario = new FormData();
             formulario.append("id_nucleo", nucleo);
             formulario.append("id_pnf", pnf);
@@ -135,18 +149,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const respuesta = await fetch("/notas_academicas/per_not_acad/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": obtener_csrf_token()
                 },
                 body: formulario
             });
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            select_periodo_academico.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
+            select_periodo_academico.innerHTML = "<option value='' selected>Selecciona un periodo académico</option>";
 
             resultado.datos.forEach(periodo => {
                 const option_periodo = document.createElement("option");
-                option_periodo.value = periodo.id_periodo_materia;
+                option_periodo.value = periodo.id_periodo_academico;
                 option_periodo.textContent = periodo.nombre;
                 select_periodo_academico.append(option_periodo);
             });
@@ -163,19 +177,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function calificaciones_materia() {
         try {
-            if (!nucleo || !pnf || !materia || !periodo_academico) return;
+            if (!nucleo || !pnf || !materia || !periodo_academico) {
+                return;
+            }
 
             const formulario = new FormData();
             formulario.append("id_nucleo", nucleo);
             formulario.append("id_pnf", pnf);
             formulario.append("id_materia_asignada", materia);
-            formulario.append("id_periodo_academico", periodo_academico);
+            formulario.append("id_periodo_materia", periodo_academico);
+            formulario.append("trayecto", input_trayecto_academico.value);
 
             const [respuestaEstudiantes, respuestaActividades] = await Promise.all([
                 fetch("/notas_academicas/est_not_acad/", {
                     method: "POST",
                     headers: {
-                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                        "X-CSRFToken": obtener_csrf_token()
                     },
                     body: formulario
                 }),
@@ -183,57 +200,90 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetch("/notas_academicas/cant_det_pla/", {
                     method: "POST",
                     headers: {
-                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                        "X-CSRFToken": obtener_csrf_token()
                     },
                     body: formulario
                 })
             ]);
+
             const [resultadoEstudiantes, resultadoActividades] = await Promise.all([
                 respuestaEstudiantes.json(),
                 respuestaActividades.json()
             ]);
 
-            contenedor_notas_academicas.innerHTML = "";
-            if (!resultadoEstudiantes.estudiantes || resultadoEstudiantes.estudiantes.length === 0) {
+            console.log("Estudiante", resultadoEstudiantes);
+            console.log("Actividad", resultadoActividades);
+
+            if (
+                resultadoEstudiantes.estado === "fallo"
+            ) {
                 contenedor_notas_academicas.innerHTML = `
-                    <p>No hay estudiantes registrados para esta materia.</p>
-                `;
+                <p>No fue posible obtener los estudiantes.</p>
+            `;
                 return;
             }
 
-            cantidad_evaluaciones = 0;
-            cantidad_evaluaciones = resultadoActividades.cantidad_actividades;
-            console.log(cantidad_evaluaciones)
+            if (
+                resultadoActividades.estado === "fallo"
+            ) {
+                contenedor_notas_academicas.innerHTML = `
+                <p>No fue posible obtener las actividades de la materia.</p>
+            `;
+                return;
+            }
+
+            contenedor_notas_academicas.innerHTML = "";
+
+            if (
+                !resultadoEstudiantes.estudiantes ||
+                resultadoEstudiantes.estudiantes.length === 0
+            ) {
+                contenedor_notas_academicas.innerHTML = `
+                <p>No hay estudiantes registrados para esta materia.</p>
+            `;
+                return;
+            }
+
+            cantidad_evaluaciones = Number(
+                resultadoActividades.cantidad_actividades || 0
+            );
+
+            if (cantidad_evaluaciones <= 0) {
+                contenedor_notas_academicas.innerHTML = `
+                <p>No hay actividades académicas registradas para esta materia.</p>
+            `;
+                return;
+            }
 
             const tabla = document.createElement("table");
             tabla.classList.add("tabla-calificaciones");
 
-            // Encabezado
             let encabezado = `
-                <tr>
-                    <th>#</th>
-                    <th>Estudiante</th>
-                    <th>C.I</th>
-            `;
+            <tr>
+                <th>#</th>
+                <th>Estudiante</th>
+                <th>C.I</th>
+        `;
 
             for (let i = 1; i <= cantidad_evaluaciones; i++) {
                 encabezado += `
-                    <th>Unidad ${i}</th>
-                `;
+                <th>Unidad ${i}</th>
+            `;
             }
 
             encabezado += `
-                    <th>Asistencia</th>
-                    <th>Promedio</th>
-                </tr>
-            `;
+                <th>Asistencia</th>
+                <th>Promedio</th>
+            </tr>
+        `;
 
             tabla.innerHTML = `
-                <thead>
-                    ${encabezado}
-                </thead>
-                <tbody></tbody>
-            `;
+            <thead>
+                ${encabezado}
+            </thead>
+            <tbody></tbody>
+        `;
+
             const tbody = tabla.querySelector("tbody");
 
             resultadoEstudiantes.estudiantes.forEach((estudiante, indice) => {
@@ -243,20 +293,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 for (let i = 1; i <= cantidad_evaluaciones; i++) {
                     controles += `
-                        <td>
-                            <input
-                                type="text"
-                                class="input-calificacion"
-                                name="calificacion_${estudiante.id_estudiante}_${i}"
-                                data-id-estudiante="${estudiante.id_estudiante}"
-                                data-actividad="${i}"
-                                min="0"
-                                max="20"
-                                maxlength="2"
-                                step="0.01"
-                                placeholder="0 - 20">
-                        </td>
-                    `;
+                    <td>
+                        <input
+                            type="text"
+                            class="input-calificacion"
+                            name="calificacion_${estudiante.id_estudiante}_${i}"
+                            data-id-estudiante="${estudiante.id_estudiante}"
+                            data-actividad="${i}"
+                            min="0"
+                            max="20"
+                            maxlength="5"
+                            autocomplete="off"
+                            step="0.01"
+                            placeholder="0 - 20">
+                    </td>
+                `;
                 }
 
                 fila.innerHTML = `
@@ -273,9 +324,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             min="0"
                             max="100"
                             maxlength="3"
+                            autocomplete="off"
                             step="1"
-                            placeholder="%"
-                        >
+                            placeholder="%">
                     </td>
                     <td class="celda-promedio">
                         <input
@@ -283,24 +334,28 @@ document.addEventListener("DOMContentLoaded", () => {
                             class="input-promedio"
                             name="promedio_${estudiante.id_estudiante}"
                             data-id-estudiante="${estudiante.id_estudiante}"
-                            readonly
-                        >
+                            readonly>
                     </td>
                 `;
-
                 tbody.appendChild(fila);
             });
 
             contenedor_notas_academicas.appendChild(tabla);
+
         } catch (error) {
             console.error(error);
+
+            contenedor_notas_academicas.innerHTML = `
+            <p>Ocurrió un error al cargar las calificaciones.</p>
+        `;
         }
     }
 
     contenedor_notas_academicas.addEventListener("input", function (e) {
         const input = e.target;
 
-        if (input.classList.contains("input-calificacion")) { // CALIFICACIONES
+        // CALIFICACIONES
+        if (input.classList.contains("input-calificacion")) {
 
             input.value = input.value.replace(/[^0-9.]/g, ""); // Solo números y punto
             const partes = input.value.split("."); // Solo un punto
@@ -325,9 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // CALCULAR PROMEDIO DEL ESTUDIANTE
         const idEstudiante = input.dataset.idEstudiante;
 
-        const calificaciones = contenedor_notas_academicas.querySelectorAll(
-            `.input-calificacion[data-id-estudiante="${idEstudiante}"]`
-        );
+        const calificaciones = contenedor_notas_academicas.querySelectorAll(`.input-calificacion[data-id-estudiante="${idEstudiante}"]`);
 
         let suma = 0;
         let cantidad = 0;
@@ -335,6 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
         calificaciones.forEach(calificacion => {
             if (calificacion.value !== "") {
                 const valor = parseFloat(calificacion.value);
+
                 if (!isNaN(valor)) {
                     suma += valor;
                     cantidad++;
@@ -342,15 +396,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        const promedio = cantidad > 0 ? suma / cantidad : 0;
+        // Promedio entero
+        const promedio = cantidad > 0 ? Math.round(suma / cantidad) : 0;
 
         // Buscar promedio del mismo estudiante
-        const inputPromedio = contenedor_notas_academicas.querySelector(
-            `.input-promedio[data-id-estudiante="${idEstudiante}"]`
-        );
+        const inputPromedio = contenedor_notas_academicas.querySelector(`.input-promedio[data-id-estudiante="${idEstudiante}"]`);
 
         if (inputPromedio) {
-            inputPromedio.value = cantidad > 0 ? promedio.toFixed(2) : "";
+            inputPromedio.value = cantidad > 0 ? promedio : "";
         }
 
         // ASISTENCIA
@@ -367,6 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formulario_registrar.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         try {
             const formulario = new FormData(formulario_registrar);
             formulario.append("cantidad_evaluaciones", cantidad_evaluaciones);
@@ -374,12 +428,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const respuesta = await fetch("/notas_academicas/reg_nota_acad/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": obtener_csrf_token()
                 },
                 body: formulario
             });
             const resultado = await respuesta.json();
-            console.log(resultado)
+            console.log(resultado);
 
             await Swal.fire({
                 text: resultado.descripcion,
@@ -393,6 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 formulario_registrar.reset();
                 contenedor_notas_academicas.innerHTML = "";
             }
+
         } catch (error) {
             console.error(error);
         }

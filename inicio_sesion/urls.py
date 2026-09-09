@@ -13,6 +13,7 @@ urlpatterns = [
     path('datos_usr_admin/', views.datos_usr_admin, name="datos_usr_admin"),
     path('validar_ci_auxiliar/', views.validar_ci_auxiliar, name="validar_ci_auxiliar"),
     path('validar_cod_opsu/', views.validar_cod_opsu, name="validar_cod_opsu"),
+    path('tray_reg_acad/', views.tray_reg_acad, name="tray_reg_acad"),
     path('validar_ci_usr/', views.validar_ci_usr, name="validar_ci_usr"),
     path('validar_email/', views.validar_email, name="validar_email"),
     path('panel_registro/', views.panel_registro, name="panel_registro"),
@@ -22,9 +23,9 @@ urlpatterns = [
     path('confirmar_reg/', views.confirmar_reg, name="confirmar_reg"),
     path('guardar_cred/', views.guardar_cred, name="guardar_cred"),
     path('pnfs_cursar/', views.pnfs_cursar, name="pnfs_cursar"),
+
     path('pre_reg_personal/', views.pre_reg_personal, name="pre_reg_personal"),
     path('datos_perfiles/', views.datos_perfiles, name="datos_perfiles"),
-
     path('per_reg_asig/', views.per_reg_asig, name="per_reg_asig"),
     path('vis_per_asig/', views.vis_per_asig, name="vis_per_asig"),
     path('bus_per_asig/', views.bus_per_asig, name="bus_per_asig"),
@@ -46,11 +47,17 @@ urlpatterns = [
     path('mat_guardar/', views.mat_guardar, name="mat_guardar"),
     path('reg_mat/', views.reg_mat, name="reg_mat"),
 
+    path('tract_selec_mat/', views.tract_selec_mat, name="tract_selec_mat"),
+    path('pnf_selec_mat/', views.pnf_selec_mat, name="pnf_selec_mat"),
+
     path('reg_calendario/', views.reg_calendario, name="reg_calendario"),
+    path('per_acad_reg/', views.per_acad_reg, name="per_acad_reg"),
     path('periodos_lista/', views.periodos_lista, name="periodos_lista"),
     path('calendarios_lista/', views.calendarios_lista, name="calendarios_lista"),
     path('calendario_datos/', views.calendario_datos, name="calendario_datos"),
     path('calendario_guardar/', views.calendario_guardar, name="calendario_guardar"),
+    path('vis_cal_reg/', views.vis_cal_reg, name="vis_cal_reg"),
+    path('opc_reg_cal/', views.opc_reg_cal, name="opc_reg_cal"),
 
     path('auts_reg/', views.auts_reg, name="auts_reg"),
     path('datos_aut/', views.datos_aut, name="datos_aut"),
@@ -65,7 +72,7 @@ urlpatterns = [
     path('reg_auts/', views.reg_auts, name="reg_auts"),
 
     path('aulas_reg/', views.aulas_reg, name="aulas_reg"),
-    path('datos_a/', views.datos_a, name="datos_a"),
+    path('datos_aula/', views.datos_aula, name="datos_aula"),
     path('act_aula_acad/', views.act_aula_acad, name="act_aula_acad"),
     path('reg_aula/', views.reg_aula, name="reg_aula"),
     path('val_aula/', views.val_aula, name="val_aula"),
@@ -105,15 +112,14 @@ urlpatterns = [
     path('mat_asig/', views.mat_asig, name="mat_asig"),
     path('mats_desact/', views.mats_desact, name="mats_desact"),
     path('asig_desact/', views.asig_desact, name="asig_desact"),
+    path('tray_reg/', views.tray_reg, name="tray_reg"),
 
-    path('trayecto_hor/', views.trayecto_hor, name="trayecto_hor"),
-    path('periodo_academico_hor/', views.periodo_academico_hor, name="periodo_academico_hor"),
-    path('reg_hor/', views.reg_hor, name="reg_hor"),
-    path('asig_mat_reg/', views.asig_mat_reg, name="asig_mat_reg"),
-
+    path('obt_nucleos_asignados/', views.obt_nucleos_asignados, name="obt_nucleos_asignados"),
+    path('obt_pnfs_asignado/', views.obt_pnfs_asignado, name="obt_pnfs_asignado"),
     path('obt_pre_inscrt/', views.obt_pre_inscrt, name="obt_pre_inscrt"),
     path('obt_data_est/', views.obt_data_est, name="obt_data_est"),
     path('inscr_est/', views.inscr_est, name="inscr_est"),
+    path('rech_inscr_est/', views.rech_inscr_est, name="rech_inscr_est"),
 
     path('pl_reg_coord_pnf/', views.pl_reg_coord_pnf, name="pl_reg_coord_pnf"),
     path('pnf_asig_coord/', views.pnf_asig_coord, name="pnf_asig_coord"),

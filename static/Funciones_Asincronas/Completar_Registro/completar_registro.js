@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const CI_usuario = document.getElementById("CI");
     const genero_usuario = document.getElementById("genero_usuario");
     const estado_civil_usuario = document.getElementById("estado_civil_usuario");
-    
+
     // Campos que puede ser que el director lo regitra o no del usuario
     const prefijo_principal = document.getElementById("prefijo_principal");
     const numero_telefonico_principal = document.getElementById("numero_telefonico_principal");
-    
+
     const correo_principal = document.getElementById("correo_principal");
     const dominio_principal = document.getElementById("dominio_principal");
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const correo_secundario = document.getElementById("correo_secundario");
     const dominio_secundario = document.getElementById("dominio_secundario");
-    
+
     const fecha_grado = document.getElementById("fecha_grado");
     const codigo_sin_opsu = document.getElementById("codigo_sin_opsu");
     const discapacidad = document.getElementById("btn_discapacidad");
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     opciones_select();
-    
+
     async function datos_registrado() {
         try {
             const respuesta = await fetch("/datos_usr_admin/");
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 genero_usuario.classList.remove("no-interaccion");
             }
-            
+
             if (resultado.usuario.estado_civil) {
                 estado_civil_usuario.classList.add("no-interaccion");
 
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 correo_principal.readOnly = false;
                 dominio_principal.classList.remove("no-interaccion");
             }
-   
+
         } catch (error) {
             console.error(error);
         }
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (nacionalidad_auxiliar) {
         nacionalidad_auxiliar.addEventListener("change", async () => {
-            
+
             limpiarMensajeCedula();
 
             if (cedula_auxiliar.value.trim() !== "") {
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const formulario = new FormData();
             formulario.append("codigo", codigo_sin_opsu.value)
-            
+
             const respuesta = await fetch("/validar_cod_opsu/", {
                 method: "POST",
                 headers: {
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const resultado = await respuesta.json();
             console.log(resultado);
-        
+
             if (resultado.existe) {
                 codigo_sin_opsu.setCustomValidity("Ya se encuentra un estudiante con el mismo código OPSU.");
                 codigo_sin_opsu.classList.add("is-invalid");
@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
         }
     }
-    
+
     if (codigo_sin_opsu) {
         codigo_sin_opsu.addEventListener("input", codigo_opsu);
 
@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 allowOutsideClick: false,
                 allowEscapeKey: false
             });
-            
+
             if (resultado.estado == "exito") {
                 window.location.href = resultado.url;
             }
@@ -403,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-     
+
     nucleos.forEach(nucleo => {
         nucleo.addEventListener("change", async function () {
             const contenedor = document.getElementById(`contenedor_pnfs_${this.value}`);

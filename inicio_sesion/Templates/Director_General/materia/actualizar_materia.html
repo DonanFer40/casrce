@@ -32,15 +32,11 @@
             <input type="text" name="nombresmaterias" id="nombres_actualizar_materias" autocomplete="off" required>
 
             <label for="THEA">Hora Trabajo Estudio Acompañado:</label>
-            <input type="text" name="THEA" id="THEA" pattern="[0-9]{1,2}" maxlength="2" inputmode="numeric"
-                placeholder="Hora de Trabajo de Estudio Acompañado" autocomplete="off" required>
-            <input type="text" name="THEA" id="THEA" pattern="[0-9]{1,2}(,[0-9])?" maxlength="4" inputmode="decimal"
-                placeholder="Hora de Trabajo de Estudio Acompañado" autocomplete="off" required>
+            <input type="text" name="THEA" id="THEA" maxlength="2" placeholder="Hora de Trabajo de Estudio Acompañado"
+                autocomplete="off" required>
 
             <label for="THEI">Hora Trabajo Estudio Independiente:</label>
-            <input type="text" name="THEI" id="THEI" pattern="[0-9]{1,2}" maxlength="2" inputmode="numeric"
-                placeholder="Hora de Trabajo de Estudio Independiente" autocomplete="off" required>
-            <input type="text" name="THEI" id="THEI" pattern="[0-9]{1,2}(,[0-9])?" maxlength="4" inputmode="decimal"
+            <input type="text" name="THEI" id="THEI" maxlength="2"
                 placeholder="Hora de Trabajo de Estudio Independiente" autocomplete="off" required>
 
             <label for="reparacion_actualizar_materia">Reparación Materia:</label>
@@ -49,8 +45,36 @@
                 <option value="No">No</option>
             </select>
 
+            <label for="periodo_actualizar_materia">Periodo Académico de la Materia:</label>
+            <select name="periodomateria" id="periodo_actualizar_materia" required>
+                <optgroup label="Inicial">
+                    <option value="INICIAL_TRIMESTRE">Inicial Trimestre (P.I.U)</option>
+                    <option value="INICIAL_SEMESTRE">Inicial Semestre (P.I.U)</option>
+                </optgroup>
+                <optgroup label="Reparación">
+                    <option value="REPARACION">Reparación</option>
+                </optgroup>
+                <optgroup label="Tramo">
+                    <option value="TRIMESTRE">Trimestre</option>
+                    <option value="TRAMO_I">I Tramo</option>
+                    <option value="TRAMO_II">II Tramo</option>
+                    <option value="TRAMO_III">III Tramo</option>
+                    <option value="TRAMO_I_II">I y II Tramos</option>
+                    <option value="TRAMO_II_III">II y III Tramos</option>
+                    <option value="TRAMO_I_III">I y III Tramos</option>
+                </optgroup>
+                <optgroup label="Semestre">
+                    <option value="SEMESTRE">Semestre</option>
+                    <option value="SEMESTRE_I">I Semestre</option>
+                    <option value="SEMESTRE_II">II Semestre</option>
+                </optgroup>
+            </select>
+
             <label for="pnfs_actualizar_materia">P.N.F que Pertenece la Materia:</label>
             <select name="pnfmateria" id="pnfs_actualizar_materia"></select>
+
+            <label for="trayecto_actualizar_materia">Trayecto que Pertenece la Materia:</label>
+            <select name="trayecto" id="trayecto_actualizar_materia"></select>
 
             <input type="submit" id="btn_registrar" value="Actualizar Materia">
         </form>

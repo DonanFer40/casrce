@@ -63,12 +63,12 @@ def datos_sec(request):
 def guardar_act_sec(request):
     if request.method == "POST":
         id_seccion = request.POST.get("seccion")
-        turno = request.POST.get("actualizar_turno")
         nuevo_seccion = request.POST.get("actualizar_seccion")
+        turno = request.POST.get("actualizar_turno")
 
         controles = [
-            (turno, "Turno Académico", "Por favor, debe seleccionar el turno."),
-            (nuevo_seccion, "Nombre Sección", "Por favor, debe ingresar el nombre de la sección.")
+            (nuevo_seccion, "Nombre Sección", "Por favor, debe ingresar el nombre de la sección."),
+            (turno, "Turno Académico", "Por favor, debe seleccionar el turno académico.")
         ]
 
         for value, field_name, error_message in controles:
@@ -91,14 +91,14 @@ def guardar_act_sec(request):
                         "descripcion": "No se encuentra registrada la sección."
                     })
                 
-                seccion.turno = turno
                 seccion.nombre = nuevo_seccion
+                seccion.turno = turno
                 seccion.save()
 
                 Bitacora.objects.create(
                     nombre_usuario=request.session.get("usuario_nombre"),
                     fecha_hora=timezone.now(),
-                    accion=f"Se actualizo la sección {nuevo_seccion}."
+                    accion=f"Se actualizo la sección {nuevo_seccion} del turno {turno}."
                 )
                 
                 return JsonResponse({
@@ -120,12 +120,12 @@ def guardar_act_sec(request):
 # modulo_seccion
 def reg_sec(request):
     if request.method == "POST":
-        turno = request.POST.get("registro_turno")
         seccion = request.POST.get("registro_seccion")
+        turno = request.POST.get("registro_turno")
         
         controles = [
             (seccion, "Nombre de la Sección", "Por favor, debe ingresar el nombre de la sección."),
-            (turno, "Turno Académico", "Por favor, debe seleccionar el turno.")
+            (turno, "Turno Académico", "Por favor, debe seleccione un turno académico."),
         ]
 
         for value, field_name, error_message in controles:
@@ -137,23 +137,32 @@ def reg_sec(request):
                     "descripcion": error_message
                 })
     
-        SeccionAcademica.objects.create(
-            turno=turno, 
-            nombre=seccion
-        )
-
-        Bitacora.objects.create(
-            nombre_usuario=request.session.get("usuario_nombre"),
-            fecha_hora=timezone.now(),
-            accion=f"Se actualizo la sección {seccion}."
-        )
-
-        return JsonResponse({
-            "estado": "exito",
-            "icon": "success",
-            "title": "Exito",
-            "descripcion": "La sección se registro exitosamente."
-        })
+        try:
+            with transaction.atomic():
+                SeccionAcademica.objects.create(
+                    nombre=seccion,
+                    turno=turno
+                )
+        
+                Bitacora.objects.create(
+                    nombre_usuario=request.session.get("usuario_nombre"),
+                    fecha_hora=timezone.now(),
+                    accion=f"Se registro la sección {seccion} del turno {turno}."
+                )
+        
+                return JsonResponse({
+                    "estado": "exito",
+                    "icon": "success",
+                    "title": "Exito",
+                    "descripcion": "La sección se registro exitosamente."
+                })
+        except Exception as e:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "error",
+                "title": "Error",
+                "descripcion": "Ocurrio un error en registrar la sección académica."
+            })
     
     return render(request, "Director_General/session_academica/registrar_seccion.html")
 

@@ -4,6 +4,221 @@
 
 {% load static %}
 
+<style>
+    #modulo_visualizar_notas_academicas {
+        width: 100%;
+        padding: 30px 20px;
+        box-sizing: border-box;
+        font-family: "Montserrat", sans-serif;
+    }
+
+    #modulo_visualizar_notas_academicas .contenedor_visualizar_notas_academicas {
+        width: min(1200px, 100%);
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 30px;
+        box-sizing: border-box;
+        box-shadow: 0 8px 30px rgba(16, 47, 78, 0.10);
+        border: 1px solid #e6edf2;
+    }
+
+    #modulo_visualizar_notas_academicas h2 {
+        margin: 0 0 28px;
+        color: #102f4e;
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 0.2px;
+    }
+
+    #modulo_visualizar_notas_academicas .busqueda_notas_academicas {
+        background: #f6f9fb;
+        border: 1px solid #e1e9ee;
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 28px;
+    }
+
+    #modulo_visualizar_notas_academicas #formulario_busqueda {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 22px;
+    }
+
+    #modulo_visualizar_notas_academicas #formulario_busqueda label {
+        display: block;
+        margin-bottom: 7px;
+        color: #102f4e;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    #modulo_visualizar_notas_academicas #formulario_busqueda select,
+    #modulo_visualizar_notas_academicas #formulario_busqueda input[type="text"] {
+        width: 100%;
+        height: 45px;
+        padding: 0 13px;
+        border: 1px solid #cbd8e0;
+        border-radius: 9px;
+        background: #ffffff;
+        color: #263746;
+        font-family: "Montserrat", sans-serif;
+        font-size: 13px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #modulo_visualizar_notas_academicas #formulario_busqueda select {
+        cursor: pointer;
+    }
+
+    #modulo_visualizar_notas_academicas #formulario_busqueda select:focus,
+    #modulo_visualizar_notas_academicas #formulario_busqueda input[type="text"]:focus {
+        border-color: #00779e;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, 0.10);
+    }
+
+    #modulo_visualizar_notas_academicas #formulario_busqueda input[readonly] {
+        background: #edf3f6;
+        color: #00445f;
+        font-weight: 600;
+        cursor: default;
+    }
+
+    #modulo_visualizar_notas_academicas #contenedor_notas_academicas {
+        width: 100%;
+        overflow-x: auto;
+        box-sizing: border-box;
+    }
+
+    #modulo_visualizar_notas_academicas #contenedor_notas_academicas:empty {
+        display: none;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones {
+        width: 100%;
+        min-width: 750px;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        border: 1px solid #dce6ec;
+        border-radius: 12px;
+        background: #ffffff;
+        font-size: 12px;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones thead th {
+        padding: 13px 12px;
+        background: #102f4e;
+        color: #ffffff;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones thead th:last-child {
+        border-right: none;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones tbody td {
+        padding: 12px 10px;
+        border-right: 1px solid #e5edf1;
+        border-bottom: 1px solid #e5edf1;
+        color: #34495e;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones tbody td:last-child {
+        border-right: none;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones tbody tr:nth-child(even) {
+        background: #f8fafb;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones tbody tr:hover {
+        background: #eef6f9;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones .celda-calificacion {
+        color: #00445f;
+        font-weight: 600;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones .celda-asistencia {
+        color: #00779e;
+        font-weight: 600;
+    }
+
+    #modulo_visualizar_notas_academicas .tabla-calificaciones .celda-promedio {
+        color: #102f4e;
+        font-weight: 700;
+    }
+
+    #modulo_visualizar_notas_academicas #contenedor_notas_academicas>p {
+        margin: 0;
+        padding: 20px;
+        border: 1px solid #dce6ec;
+        border-radius: 12px;
+        background: #f8fafb;
+        color: #667784;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+        #modulo_visualizar_notas_academicas {
+            padding: 20px 12px;
+        }
+
+        #modulo_visualizar_notas_academicas .contenedor_visualizar_notas_academicas {
+            padding: 20px 16px;
+            border-radius: 14px;
+        }
+
+        #modulo_visualizar_notas_academicas h2 {
+            font-size: 22px;
+            margin-bottom: 22px;
+        }
+
+        #modulo_visualizar_notas_academicas .busqueda_notas_academicas {
+            padding: 18px;
+        }
+
+        #modulo_visualizar_notas_academicas #formulario_busqueda {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        #modulo_visualizar_notas_academicas {
+            padding: 14px 8px;
+        }
+
+        #modulo_visualizar_notas_academicas .contenedor_visualizar_notas_academicas {
+            padding: 16px 12px;
+        }
+
+        #modulo_visualizar_notas_academicas .busqueda_notas_academicas {
+            padding: 15px;
+        }
+
+        #modulo_visualizar_notas_academicas #formulario_busqueda select,
+        #modulo_visualizar_notas_academicas #formulario_busqueda input[type="text"] {
+            height: 42px;
+        }
+    }
+</style>
+
 <section id="modulo_visualizar_notas_academicas">
     <div class="contenedor_visualizar_notas_academicas">
         <h2>Visualizar Notas Académicas</h2>

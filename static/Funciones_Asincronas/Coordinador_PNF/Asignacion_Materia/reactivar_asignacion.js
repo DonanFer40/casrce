@@ -1,30 +1,54 @@
-document.addEventListener("DOMContentLoaded", function() {
- 
+document.addEventListener("DOMContentLoaded", function () {
+
     const select_trayecto = document.getElementById("trayecto");
     const input_materia = document.getElementById("materia");
 
     const contenedor_materias = document.getElementById("contenedor_materias");
 
+    let trayecto = "", nombre = "";
+
+    async function trayectos_registrados() {
+        try {
+            const respuesta = await fetch("/tray_reg/");
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            select_trayecto.innerHTML = '<option value="">Selecciona un trayecto.</option>';
+
+            resultado.trayectos.forEach(trayecto => {
+                const opcion = document.createElement("option");
+                opcion.value = trayecto.id_trayecto;
+                opcion.textContent = trayecto.nombre;
+                select_trayecto.appendChild(opcion);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    trayectos_registrados();
+
     input_materia.addEventListener("input", async () => {
+        nombre = input_materia.value;
+
         await MateriasRegistrada();
     });
 
     select_trayecto.addEventListener("change", async () => {
-       await MateriasRegistrada();
+        trayecto = select_trayecto.value;
+
+        await MateriasRegistrada();
     });
 
     async function MateriasRegistrada() {
         try {
             const formulario = new FormData();
-            formulario.append("trayecto", select_trayecto.value);
-            formulario.append("materia", input_materia.value);
+            formulario.append("trayecto", trayecto);
+            formulario.append("materia", nombre);
+
             const respuesta = await fetch("/mats_desact/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken":
-                        document.querySelector(
-                            "[name=csrfmiddlewaretoken]"
-                        ).value
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
                 },
                 body: formulario
             });
@@ -35,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // AGRUPAR MATERIAS POR TRAYECTO
             const materias_por_trayecto = {};
-
             resultado.materias.forEach(materia => {
                 if (!materias_por_trayecto[materia.trayecto]) {
                     materias_por_trayecto[materia.trayecto] = [];
@@ -51,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const titulo = document.createElement("h3");
                 titulo.textContent = trayecto;
 
-                const tabla =document.createElement("table");
+                const tabla = document.createElement("table");
                 tabla.classList.add("tabla-materias");
                 tabla.innerHTML = `
                     <thead>
@@ -66,7 +89,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             <th>ESTADO</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>`;
+                    <tbody></tbody>
+                `;
 
                 const tbody = tabla.querySelector("tbody");
 
@@ -83,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     // DOCENTE SECUNDARIO
                     const nombre_secundario = materia.docente_secundario ? materia.docente_secundario.nombre_completo : "No asignado";
-                    const fecha_suspension = materia.fecha_suspension? new Date(materia.fecha_suspension).toLocaleString("es-VE"): "No registrada";
+                    const fecha_suspension = materia.fecha_suspension ? new Date(materia.fecha_suspension).toLocaleString("es-VE") : "No registrada";
 
                     fila.innerHTML = `
                         <td>${index + 1}</td>
@@ -102,8 +126,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             </button>
                         </td>`;
 
-                        tbody.appendChild(fila);
-                    });
+                    tbody.appendChild(fila);
+                });
 
                 contenedor_trayecto.appendChild(titulo);
 
@@ -118,10 +142,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.addEventListener("click", async (e) => {
         const boton = e.target.closest(".btn-reactivar-materia");
-        if (!boton) {
-            return;
-        }
-            
+        if (!boton) return;
+
         try {
             const formulario = new FormData();
             formulario.append("materia_asignada", boton.dataset.id);

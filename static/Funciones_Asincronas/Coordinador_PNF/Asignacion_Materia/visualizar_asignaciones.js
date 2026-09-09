@@ -1,17 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    
+document.addEventListener("DOMContentLoaded", function () {
+
     const dialogo_actualizar_asignacion = document.getElementById("dialogo_actualizar");
     const btn_cerrar_dialogo = document.getElementById("cerrar_dialogo");
     const formulario_actualizar = document.getElementById("formulario_actualizar");
-    const input_id_asignacion = document.getElementById("materia_seleccionada");
-    
+
     const select_trayecto = document.getElementById("trayecto");
     const input_materia = document.getElementById("materia");
 
     const input_actualizar_id = document.getElementById("materia_asignada");
     const input_actualizar_nombre_materia = document.getElementById("nombre_materia");
     const input_actualizar_nombre_seccion = document.getElementById("nombre_seccion");
-    
+
     const input_actualizar_docente_principal_nombre = document.getElementById("docente_principal_nombre");
     const input_radius_principal_activo = document.getElementById("principal_activo");
     const input_radius_principal_inactivo = document.getElementById("principal_inactivo");
@@ -25,19 +24,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const contenedor_materias = document.getElementById("contenedor_materias");
 
+    let trayecto = "", nombre = "";
+
+    async function trayectos_registrados() {
+        try {
+            const respuesta = await fetch("/tray_reg/");
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            select_trayecto.innerHTML = '<option value="">Selecciona un trayecto.</option>';
+
+            resultado.trayectos.forEach(trayecto => {
+                const opcion = document.createElement("option");
+                opcion.value = trayecto.id_trayecto;
+                opcion.textContent = trayecto.nombre;
+                select_trayecto.appendChild(opcion);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    trayectos_registrados();
+
     input_materia.addEventListener("input", async () => {
+        nombre = input_materia.value;
+
         await MateriasRegistrada();
     });
 
     select_trayecto.addEventListener("change", async () => {
-       await MateriasRegistrada();
+        trayecto = select_trayecto.value;
+
+        await MateriasRegistrada();
     });
 
     async function MateriasRegistrada() {
         try {
             const formulario = new FormData();
-            formulario.append("trayecto", select_trayecto.value);
-            formulario.append("materia", input_materia.value);
+            formulario.append("trayecto", trayecto);
+            formulario.append("materia", nombre);
 
             const respuesta = await fetch("/mat_asig/", {
                 method: "POST",
@@ -51,38 +76,64 @@ document.addEventListener("DOMContentLoaded", function() {
 
             contenedor_materias.innerHTML = "";
 
-            // Agrupar materias por trayecto
-            const materias_por_trayecto = {};
+            if (resultado.estado !== "exito") {
+                contenedor_materias.innerHTML = `<p>${resultado.descripcion || "No se pudieron cargar las materias."}</p>`;
+                return;
+            }
+
+            if (!Array.isArray(resultado.materias) || resultado.materias.length === 0) {
+                contenedor_materias.innerHTML = "<p>No hay materias registradas.</p>";
+                return;
+            }
+
+            const materias_por_pnf = {};
             resultado.materias.forEach(materia => {
-                if (!materias_por_trayecto[materia.trayecto]) {
-                    materias_por_trayecto[materia.trayecto] = [];
+                const pnf = materia.pnf || "Sin PNF";
+                const trayecto = materia.trayecto || "Sin trayecto";
+
+                if (!materias_por_pnf[pnf]) {
+                    materias_por_pnf[pnf] = {};
                 }
-                materias_por_trayecto[materia.trayecto].push(materia);
+
+                if (!materias_por_pnf[pnf][trayecto]) {
+                    materias_por_pnf[pnf][trayecto] = [];
+                }
+
+                materias_por_pnf[pnf][trayecto].push(materia);
             });
 
-            // Crear una tabla por cada trayecto
-            Object.entries(materias_por_trayecto).forEach(([trayecto, materias]) => {
-                    const contenedor_trayecto = document.createElement("div");
+            Object.entries(materias_por_pnf).forEach(([pnf, trayectos]) => {
+                const contenedor_pnf = document.createElement("div");
+                contenedor_pnf.classList.add("contenedor_pnf_materias");
 
-                    const titulo = document.createElement("h3");
-                    titulo.textContent = trayecto;
+                const titulo_pnf = document.createElement("h2");
+                titulo_pnf.textContent = `P.N.F. ${pnf}`;
+
+                contenedor_pnf.appendChild(titulo_pnf);
+
+                Object.entries(trayectos).forEach(([trayecto, materias]) => {
+                    const contenedor_trayecto = document.createElement("div");
+                    contenedor_trayecto.classList.add("contenedor_trayecto_materias");
+
+                    const titulo_trayecto = document.createElement("h3");
+                    titulo_trayecto.textContent = trayecto;
 
                     const tabla = document.createElement("table");
                     tabla.classList.add("tabla-materias");
+
                     tabla.innerHTML = `
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>MATERIA</th>
                                 <th>CÓDIGO</th>
-                                <th>SECCIÓN</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     `;
 
                     const tbody = tabla.querySelector("tbody");
-                    
+
                     materias.forEach((materia, index) => {
                         const fila = document.createElement("tr");
                         fila.dataset.id = materia.id_materia_asignada;
@@ -91,21 +142,23 @@ document.addEventListener("DOMContentLoaded", function() {
                             <td>${index + 1}</td>
                             <td>${materia.nombre}</td>
                             <td>${materia.codigo}</td>
-                            <td>${materia.seccion}</td>
                         `;
                         tbody.appendChild(fila);
                     });
 
-                    contenedor_trayecto.appendChild(titulo);
+                    contenedor_trayecto.appendChild(titulo_trayecto);
                     contenedor_trayecto.appendChild(tabla);
-                    contenedor_materias.appendChild(contenedor_trayecto);
-                }
-            );
+                    contenedor_pnf.appendChild(contenedor_trayecto);
+                });
+
+                contenedor_materias.appendChild(contenedor_pnf);
+            });
         } catch (error) {
             console.error(error);
         }
     }
     MateriasRegistrada();
+
 
     document.addEventListener("click", async (e) => {
         const fila = e.target.closest(".tabla-materias tbody tr");
@@ -135,33 +188,45 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
                 return;
             }
-
             const materia = resultado.materia;
 
             dialogo_actualizar_asignacion.showModal();
 
             input_actualizar_id.value = materia.id_materia_asignada;
             input_actualizar_nombre_materia.value = materia.nombre;
-            input_actualizar_nombre_seccion.value = materia.seccion;
 
-            const docente_principal = materia.docentes.find(docente => docente.rol === "PRINCIPAL");
+            const docente_principal = materia.docentes.find(
+                docente => docente.rol === "PRINCIPAL"
+            );
 
-            const docente_secundario = materia.docentes.find(docente => docente.rol === "SECUNDARIO");
+            const docente_secundario = materia.docentes.find(
+                docente => docente.rol === "SECUNDARIO"
+            );
 
             if (docente_principal) {
-                input_actualizar_docente_principal_nombre.value = docente_principal.nombre_completo;
-                input_radius_principal_activo.checked =  docente_principal.activo;
-                input_radius_principal_inactivo.checked = !docente_principal.activo;
+                input_actualizar_docente_principal_nombre.value =
+                    docente_principal.nombre_completo;
+
+                input_radius_principal_activo.checked =
+                    docente_principal.activo;
+
+                input_radius_principal_inactivo.checked =
+                    !docente_principal.activo;
             } else {
-                input_actualizar_docente_principal_nombre.value = "";
+                input_actualizar_docente_principal_nombre.value = "No asignado";
                 input_radius_principal_activo.checked = false;
                 input_radius_principal_inactivo.checked = false;
             }
 
             if (docente_secundario) {
-                input_actualizar_docente_secundario_nombre.value = docente_secundario.nombre_completo;
-                input_radius_secundario_activo.checked = docente_secundario.activo;
-                input_radius_secundario_inactivo.checked = !docente_secundario.activo;
+                input_actualizar_docente_secundario_nombre.value =
+                    docente_secundario.nombre_completo;
+
+                input_radius_secundario_activo.checked =
+                    docente_secundario.activo;
+
+                input_radius_secundario_inactivo.checked =
+                    !docente_secundario.activo;
 
                 input_radius_secundario_activo.disabled = false;
                 input_radius_secundario_inactivo.disabled = false;
@@ -180,7 +245,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (materia.activo && docente_principal && !docente_secundario) {
                 input_radius_principal_activo.disabled = false;
                 input_radius_principal_inactivo.disabled = true;
-                input_radius_principal_activo.checked =  true;
+
+                input_radius_principal_activo.checked = true;
                 input_radius_principal_inactivo.checked = false;
             } else {
                 input_radius_principal_activo.disabled = false;
@@ -204,8 +270,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!existe_secundario) {
             input_radius_principal_activo.checked = true;
             input_radius_principal_inactivo.checked = false;
-            
-            input_radius_principal_inactivo.disabled =  true;
+
+            input_radius_principal_inactivo.disabled = true;
 
             input_radius_secundario_activo.disabled = true;
             input_radius_secundario_inactivo.disabled = true;
@@ -273,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // PRINCIPAL INACTIVO
-    input_radius_principal_inactivo.addEventListener("change",  () => {
+    input_radius_principal_inactivo.addEventListener("change", () => {
         if (!input_radius_principal_inactivo.checked) {
             return;
         }
@@ -285,13 +351,13 @@ document.addEventListener("DOMContentLoaded", function() {
             input_radius_principal_activo.checked = true; // No existe suplente.
             input_radius_principal_inactivo.checked = false; // El principal debe permanecer activo.
             return;
-        } 
+        }
 
         input_radius_secundario_activo.checked = true; // Principal inactivo
         input_radius_secundario_inactivo.checked = false; // Secundario activo
     });
 
-    formulario_actualizar.addEventListener("submit", async function(e) {
+    formulario_actualizar.addEventListener("submit", async function (e) {
         e.preventDefault();
         try {
             const formulario = new FormData(formulario_actualizar);

@@ -1,0 +1,259 @@
+/* ==========================================================================
+   Módulo: Visualización y Actualización de Perfiles de Personal
+   ========================================================================== */
+
+#modulo_visualizar_personal_registrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem 1rem;
+    min-height: 80vh;
+    background-color: var(--fondo);
+}
+
+.contenedor_visualizar_registrado {
+    width: 100%;
+    max-width: 680px;
+    background-color: var(--blanco);
+    padding: 2.5rem;
+    border-radius: var(--radio);
+    box-shadow: var(--shadows);
+    border: 1px solid var(--borde);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contenedor_visualizar_registrado h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--texto);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.contenedor_visualizar_registrado h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-azulE);
+    margin: 0.6rem auto 0;
+    border-radius: 2px;
+}
+
+/* Base de Formulario y Campos Standard
+   ========================================================================== */
+.contenedor_visualizar_registrado form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.contenedor_visualizar_registrado label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-secundario);
+    margin-bottom: -0.75rem;
+}
+
+.contenedor_visualizar_registrado input[type="text"],
+.contenedor_visualizar_registrado select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    border: 1.5px solid var(--borde);
+    border-radius: calc(var(--radio) / 2);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--blanco);
+    color: var(--texto);
+}
+
+.contenedor_visualizar_registrado input[type="text"]:focus,
+.contenedor_visualizar_registrado select:focus {
+    border-color: var(--primario);
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+}
+
+/* Grupo para la Cédula (Selector + Input)
+   ========================================================================== */
+.grupo-cedula {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.grupo-cedula select {
+    width: 85px;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+}
+
+.grupo-cedula input {
+    flex-grow: 1;
+}
+
+/* Campos de Solo Lectura (Readonly)
+   ========================================================================== */
+.contenedor_visualizar_registrado input[readonly] {
+    background-color: var(--background);
+    border-color: var(--borde);
+    color: var(--color-intermitente);
+    cursor: not-allowed;
+}
+
+/* Botones de Envío
+   ========================================================================== */
+.contenedor_visualizar_registrado input[type="submit"] {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-neutro);
+    background-color: var(--color-botones);
+    border: none;
+    border-radius: calc(var(--radio) / 2);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    margin-top: 0.5rem;
+    box-shadow: var(--sombra-suave);
+}
+
+.contenedor_visualizar_registrado input[type="submit"]:hover {
+    background-color: #ebd000;
+    box-shadow: var(--sombra-hover);
+}
+
+.contenedor_visualizar_registrado input[type="submit"]:active {
+    transform: scale(0.99);
+}
+
+/* Separadores de Sección
+   ========================================================================== */
+.contenedor_busqueda_personal {
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.contenedor_actualizar_perfil {
+    padding-top: 0.25rem;
+}
+
+/* ==========================================================================
+   Contenedores y Elementos Generados Dinámicamente (JavaScript)
+   ========================================================================== */
+
+#contenedor_perfiles_asignado,
+#contenedor_asignar_perfiles {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#contenedor_perfiles_asignado:empty,
+#contenedor_asignar_perfiles:empty {
+    display: none;
+}
+
+/* Tarjetas de Perfiles Asignados y Disponibles */
+.perfil_asignado,
+.perfil_disponible {
+    background-color: var(--background);
+    border: 1px solid var(--borde);
+    border-radius: calc(var(--radio) / 2);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.perfil_asignado {
+    border-left: 4px solid var(--verde);
+}
+
+.perfil_disponible {
+    border-left: 4px solid var(--primario);
+}
+
+.campo_perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.campo_perfil label {
+    margin-bottom: 0;
+}
+
+/* Selección de P.N.F (Checkboxes) */
+.contenedor_pnfs_disponibles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--borde);
+}
+
+.titulo_pnf {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--texto);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.lista_checkbox_pnf {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 30px;
+}
+
+.checkbox_pnf {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.60rem 1rem;
+    background-color: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    font-size: 0.9rem;
+    color: var(--texto);
+    margin-top: 5px;
+}
+
+.checkbox_pnf:hover {
+    border-color: var(--primario);
+    background-color: #f8fafc;
+}
+
+.checkbox_pnf input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--primario);
+    cursor: pointer;
+}
+
+/* Mensajes Informativos Varios */
+.mensaje_sin_perfiles {
+    padding: 1rem;
+    background-color: var(--background);
+    border: 1px dashed var(--borde);
+    border-radius: calc(var(--radio) / 2);
+    text-align: center;
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+}
+
+.mensaje_sin_pnf {
+    font-size: 0.85rem;
+    color: var(--naranja);
+    font-style: italic;
+    margin: 0;
+}

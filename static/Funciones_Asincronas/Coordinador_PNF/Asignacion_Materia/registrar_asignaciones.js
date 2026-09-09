@@ -1,16 +1,95 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     const formulario_registrar = document.getElementById("formulario_asignar_materia");
     const select_docentes_registrados = document.getElementById("docentes_registrados");
-    const select_secciones_registradas = document.getElementById("secciones_registradas");
-    const input_nombre_materia = document.getElementById("nombre_materia");
+    const select_rol_docente = document.getElementById("rol_docente");
+    const select_nucleos_asignados = document.getElementById("nucleos_asignados");
+    const select_pnfs_asignados = document.getElementById("pnfs_asignados");
     const contenedor_materias = document.getElementById("contenedor_materias");
-    
-    let seccion = "";
+
+    let pnf = "", nucleo = "", docente = "", rol_docente = "";
+
+    async function obtener_nucleos_asignados() {
+        try {
+            const respuesta = await fetch("/obt_nucleos_asignados/");
+            const resultado = await respuesta.json();
+            console.log(resultado)
+
+            select_nucleos_asignados.innerHTML = '<option value="">Selecciona un Núcleo.</option>';
+
+            resultado.nucleos.forEach(nucleo => {
+                const opcion = document.createElement("option");
+                opcion.value = nucleo.id_nucleo;
+                opcion.textContent = nucleo.municipio;
+                select_nucleos_asignados.appendChild(opcion);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    obtener_nucleos_asignados();
+
+    select_nucleos_asignados.addEventListener("change", async () => {
+        nucleo = select_nucleos_asignados.value;
+
+        await obtener_pnfs_asignados();
+
+        await obtener_docentes_registrados();
+
+        await obtener_materias_registradas();
+    });
+
+    async function obtener_pnfs_asignados() {
+        try {
+            const formulario = new FormData();
+            formulario.append("nucleo_asignado", nucleo);
+
+            const respuesta = await fetch("/obt_pnfs_asignado/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado)
+
+            select_pnfs_asignados.innerHTML = '<option value="">Selecciona un P.N.F.</option>';
+
+            resultado.pnfs.forEach(pnf => {
+                const opcion = document.createElement("option");
+                opcion.value = pnf.id_pnf;
+                opcion.textContent = pnf.pnf;
+                select_pnfs_asignados.appendChild(opcion);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    select_pnfs_asignados.addEventListener("change", async () => {
+        pnf = select_pnfs_asignados.value;
+
+        await obtener_docentes_registrados();
+
+        await obtener_materias_registradas();
+    });
 
     async function obtener_docentes_registrados() {
         try {
-            const respuesta = await fetch("/docs_reg/");
+            if (!pnf || !nucleo) return;
+
+            const formulario = new FormData();
+            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("pnf_asignado", pnf);
+
+            const respuesta = await fetch("/docs_reg/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                },
+                body: formulario
+            });
             const resultado = await respuesta.json();
             console.log(resultado)
 
@@ -22,45 +101,30 @@ document.addEventListener("DOMContentLoaded", function() {
                 opcion.textContent = usuario.nombre;
                 select_docentes_registrados.appendChild(opcion);
             });
-        
         } catch (error) {
             console.error(error);
-        }  
+        }
     }
-    obtener_docentes_registrados();
 
-    async function obtener_secciones_registrados() {
-        try {
-            const respuesta = await fetch("/sec_reg/");
-            const resultado = await respuesta.json();
-            console.log(resultado);
+    select_docentes_registrados.addEventListener("change", async () => {
+        docente = select_docentes_registrados.value;
+        await obtener_materias_registradas();
+    });
 
-            select_secciones_registradas.innerHTML = '<option value="">Selecciona la sección.</option>';
-
-            resultado.secciones.forEach(seccion => {
-                const opcion = document.createElement("option");
-                opcion.value = seccion.id_seccion;
-                opcion.textContent = seccion.nombre + " " + seccion.turno;
-                select_secciones_registradas.appendChild(opcion);
-            });
-        } catch (error) {
-            console.error(error);
-        }  
-    }
-    obtener_secciones_registrados();
-    
-    select_secciones_registradas.addEventListener("change", async () => {
+    select_rol_docente.addEventListener("change", async () => {
+        rol_docente = select_rol_docente.value;
         await obtener_materias_registradas();
     });
 
     async function obtener_materias_registradas() {
         try {
-            const seccion = select_secciones_registradas.value;
+            if (!pnf || !nucleo || !docente || !rol_docente) return;
 
             const formulario = new FormData();
-            if (seccion) {
-                formulario.append("seccion", seccion);
-            }
+            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("pnf_asignado", pnf);
+            formulario.append("docente_seleccionado", docente);
+            formulario.append("rol_docente", rol_docente);
 
             const respuesta = await fetch("/mats_reg/", {
                 method: "POST",
@@ -69,101 +133,125 @@ document.addEventListener("DOMContentLoaded", function() {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
-            console.log(resultado);
 
             contenedor_materias.innerHTML = "";
+
             if (resultado.estado !== "exito") {
-                contenedor_materias.innerHTML = `<p>${resultado.descripcion}</p>`;
+                contenedor_materias.innerHTML = `
+                <p>${resultado.descripcion || "No se pudieron cargar las materias."}</p>
+            `;
                 return;
             }
 
-            if (resultado.materias.length === 0) {
-                contenedor_materias.innerHTML = "<p>No hay materias registradas.</p>";
+            const materias = Array.isArray(resultado.materias)
+                ? resultado.materias
+                : [];
+
+            if (materias.length === 0) {
+                contenedor_materias.innerHTML = `
+                <p>No hay materias registradas.</p>
+            `;
                 return;
             }
-            
-            const materiasPorTrayecto = {}; // Agrupar materias por trayecto
-            resultado.materias.forEach(materia => {
-                if (!materiasPorTrayecto[materia.trayecto]) {
-                    materiasPorTrayecto[materia.trayecto] = [];
+
+            const materiasPorTrayecto = {};
+
+            materias.forEach(materia => {
+                const trayecto = String(
+                    materia.trayecto ?? "Sin trayecto"
+                );
+
+                if (!materiasPorTrayecto[trayecto]) {
+                    materiasPorTrayecto[trayecto] = [];
                 }
-                materiasPorTrayecto[materia.trayecto].push(materia);
+
+                materiasPorTrayecto[trayecto].push(materia);
             });
 
-            // Crear una tabla por cada trayecto
-            Object.keys(materiasPorTrayecto).forEach(trayecto => {
-                const titulo = document.createElement("h4");
-                titulo.textContent = `Trayecto ${trayecto}`;
-                contenedor_materias.appendChild(titulo);
+            Object.entries(materiasPorTrayecto).forEach(
+                ([trayecto, listaMaterias]) => {
 
-                const tabla = document.createElement("table");
-                tabla.classList.add("tabla-materias");
-                tabla.innerHTML = `
+                    const titulo = document.createElement("h4");
+                    titulo.textContent = trayecto;
+                    contenedor_materias.appendChild(titulo);
+
+                    const tabla = document.createElement("table");
+                    tabla.classList.add("tabla-materias");
+
+                    tabla.innerHTML = `
                     <thead>
                         <tr>
                             <th style="width:60px; text-align:center;">
                                 Asignar
                             </th>
-
-                            <th>
-                                Materia
+                            <th>Materia</th>
+                            <th style="width:160px; text-align:center;">
+                                Estado
                             </th>
                         </tr>
                     </thead>
-
                     <tbody></tbody>
                 `;
-                const tbody = tabla.querySelector("tbody");
 
-                materiasPorTrayecto[trayecto].forEach(materia => {
-                    const fila = document.createElement("tr");
-                    
-                    switch (materia.estado) { // Color según estado
-                        case "VERDE":
-                            fila.classList.add("materia-verde");
-                            break;
+                    const tbody = tabla.querySelector("tbody");
 
-                        case "AMARILLO":
-                            fila.classList.add("materia-amarillo");
-                            break;
+                    listaMaterias.forEach(materia => {
 
-                        case "ROJO":
-                            fila.classList.add("materia-rojo");
-                            break;
-                    }
-                  
-                    /* Si no hay sección seleccionada: todos los checkbox quedan deshabilitados. */
-                    /* Si hay sección: solamente ROJO queda deshabilitado. */
-                    const deshabilitado = !seccion || materia.estado === "ROJO" ? "disabled" : "";
+                        const fila = document.createElement("tr");
 
-                    fila.innerHTML = `
+                        const estados = {
+                            VERDE: "Disponible",
+                            AMARILLO: "Rol ocupado",
+                            NARANJA: "Un rol disponible",
+                            ROJO: "Ocupada",
+                            AZUL: "Ya asignada al docente"
+                        };
+
+                        const estado = materia.estado || "ROJO";
+
+                        fila.classList.add(
+                            `materia-${estado.toLowerCase()}`
+                        );
+
+                        const puedeAsignar = [
+                            "VERDE",
+                            "NARANJA"
+                        ].includes(estado);
+
+                        fila.innerHTML = `
                         <td style="text-align:center;">
                             <input
                                 type="checkbox"
                                 name="materias[]"
                                 value="${materia.id_materia}"
-                                ${deshabilitado}>
+                                ${puedeAsignar ? "" : "disabled"}
+                            >
                         </td>
 
                         <td>
                             ${materia.nombre}
                         </td>
+
+                        <td style="text-align:center;">
+                            ${estados[estado] || "Desconocido"}
+                        </td>
                     `;
 
-                    tbody.appendChild(fila);
-                });
+                        tbody.appendChild(fila);
+                    });
 
-                contenedor_materias.appendChild(tabla);
-            });
+                    contenedor_materias.appendChild(tabla);
+                }
+            );
+
         } catch (error) {
-            console.error(error);
-            contenedor_materias.innerHTML = `<p>Ocurrió un error al cargar las materias.</p>`;
+            console.error("Error al obtener las materias:", error);
         }
     }
-    obtener_materias_registradas();
-    
-    formulario_registrar.addEventListener("submit", async function(e) {
+
+    formulario_registrar.addEventListener("submit", async function (e) {
         e.preventDefault();
         try {
             const formulario = new FormData(formulario_registrar);
@@ -188,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (resultado.estado == "exito") {
                 formulario_registrar.reset();
-                await obtener_materias_registradas();
+                contenedor_materias.innerHTML = "";
             }
         } catch (error) {
             console.error(error);

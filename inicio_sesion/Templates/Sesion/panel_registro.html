@@ -10,23 +10,21 @@
             <a href="{% url 'inicio_sesion' %}" class="btn-regresar icon-left-open">Regresar</a>
         </div>
         <div class="contenedor_registro">
-                <a href="{% url 'confirmar_reg' %}">
-                    <article>
-                        <img src="{% static 'Imagenes/administrativo.png' %}" 
-                        alt="Personal">
-                    </article>
-                    <p>Personal</p>
-                </a>
+            <a href="{% url 'confirmar_reg' %}">
+                <article>
+                    <img src="{% static 'Imagenes/administrativo.png' %}" alt="Personal">
+                </article>
+                <p>Personal</p>
+            </a>
 
-                <a href="{% url 'registro_est' %}">
-                    <article>
-                        <img src="{% static 'Imagenes/estudiante.png' %}" 
-                        alt="Estudiante">
-                    </article>
-                    <p>Estudiante</p>
-                </a>
+            <a href="{% url 'registro_est' %}">
+                <article>
+                    <img src="{% static 'Imagenes/estudiante.png' %}" alt="Estudiante">
+                </article>
+                <p>Estudiante</p>
+            </a>
         </div>
-    </div>              
+    </div>
 </section>
 
 {% endblock %}

@@ -14,7 +14,7 @@ class Usuario(models.Model):
 
 class Cuenta(models.Model):
     id_cuenta = models.AutoField(primary_key=True)
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="cuenta")
     usuario = models.CharField(max_length=160, unique=True)
     clave = models.CharField(max_length=160)
     tipo_cuenta = models.CharField(
@@ -93,59 +93,73 @@ class PNFNucleo(models.Model):
     def __str__(self):
         return f"{self.id_pnf.pnf} - {self.id_nucleo.municipio}"
 
+class SeccionAcademica(models.Model):
+    id_seccion = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=5)
+    turno = models.CharField(max_length=10, blank=True, null=True)
+
+    def __str__(self):
+        return f"Sección {self.nombre}"
+    
 class AulaAcademica(models.Model):
     id_aula = models.AutoField(primary_key=True)
     nombre_aula = models.CharField(max_length=100)
-    nombre_edificio = models.CharField(max_length=100)
+    Nota = models.TextField()
     piso_edificio = models.CharField(max_length=100)
-    id_nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE)
+    tipo_aula = models.CharField(max_length=100)
+    id_seccion = models.ForeignKey(SeccionAcademica, on_delete=models.CASCADE, related_name="aulas") 
+    id_pnf = models.ForeignKey(Pnf, on_delete=models.CASCADE, related_name="aulas") 
+    id_nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE, related_name="aulas")
 
-class CorteAcademico(models.Model):
-    id_corte_academico = models.AutoField(primary_key=True)
+class TrayectoAcademico(models.Model):
+    id_periodo_academico = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre
+    
+class PeriodoAcademico(models.Model):
+    id_periodo_academico = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre
+
+class CalendarioAcademico(models.Model):
+    id_calendario_academico = models.AutoField(primary_key=True)
     fecha_inicio = models.DateField()
     fecha_final = models.DateField()
+    descripcion = models.CharField(max_length=150)
+    activo = models.BooleanField(default=True)
+    tipo = models.CharField(
+        max_length=30,
+        choices=[
+        ("PERIODO", "Período académico"),
+        ("CARGA_NOTAS", "Carga de notas"),
+        ("NO_LABORABLE", "No laborable"),
+        ("VACACIONES", "Vacaciones"),
+        ("INSCRIPCION_TRIMESTRE", "Inscripción Trimestre"),
+        ("INSCRIPCION_SEMESTRE", "Inscripción Semestre"),
+        ("ANIVERSARIO", "Días de aniversarios"),
+        ("GRADUACION", "Días de graduación"),
+        ("ACTIVIDADES", "Actividades o operativos"),
+    ])
 
-class VerificacionCodigo(models.Model):
-    id_codigo = models.AutoField(primary_key=True)
-    cedula_identidad = models.CharField(max_length=12)
-    token = models.CharField(null=True, blank=True)
-    codigo = models.CharField(max_length=10)
-    creado = models.DateTimeField()
-    intentos = models.PositiveIntegerField(default=0)
-    bloqueado_hasta = models.DateTimeField(null=True, blank=True)
-    activo = models.IntegerField()
-    descripcion = models.CharField(max_length=100)
-    fecha_expiracion = models.DateTimeField(null=True, blank=True)
-
-class PlanEspecial(models.Model):
-    id_plan_especial = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=20)
-
-class Autoridades(models.Model):
-    id_autoridad = models.AutoField(primary_key=True)
-    nombres = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100)
-    cedula_identidad = models.CharField(max_length=15, unique=True)
-    genero = models.CharField(max_length=50)
-    cargo = models.CharField(max_length=100)
-    resolucion = models.CharField(max_length=100, unique=True)
-
-class Bitacora(models.Model):
-    id_bitacora = models.AutoField(primary_key=True)
-    nombre_usuario = models.CharField(max_length=50)
-    fecha_hora = models.DateTimeField()
-    accion = models.TextField()
+class CalendarioPeriodo(models.Model):
+    periodo = models.ForeignKey(PeriodoAcademico, on_delete=models.PROTECT, related_name="calendarios")
+    calendario = models.ForeignKey(CalendarioAcademico, on_delete=models.PROTECT, related_name="periodo")
 
 class Materia(models.Model):
     id_materia = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20)
-    trayecto = models.CharField(max_length=50)
     recuperacion = models.CharField(max_length=100)
     htea = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null=True)
     htei = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null=True)
-    id_pnf = models.ForeignKey(Pnf, models.CASCADE, db_column='id_pnf')
     activa = models.BooleanField(default=True)
+    tipo_materia = models.CharField(max_length=20, default="Curso", blank=True, null=True)
+    id_trayecto = models.ForeignKey(TrayectoAcademico, models.CASCADE, db_column='trayecto')
+    id_pnf = models.ForeignKey(Pnf, models.CASCADE, db_column='pnf')
 
     @property
     def thte(self):
@@ -155,58 +169,10 @@ class Materia(models.Model):
     def uc(self):
         return self.thte // 25
 
-class GrupoActividad(models.Model):
-    nombre = models.CharField(max_length=100)
+class PeriodoAcademicoMateria(models.Model):
+    materia = models.ForeignKey(Materia, on_delete=models.CASCADE, related_name="periodos_academicos")
+    periodo = models.ForeignKey(PeriodoAcademico, on_delete=models.CASCADE, related_name="materias")
 
-    def __str__(self):
-        return self.nombre
-
-class Actividad(models.Model):
-    grupo = models.ForeignKey(GrupoActividad, on_delete=models.PROTECT)
-    nombre = models.CharField(max_length=150)
-    predeterminada = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.nombre
-
-class CalendarioAcademico(models.Model):
-    id_calendario = models.AutoField(primary_key=True)
-    actividad = models.ForeignKey(Actividad, models.CASCADE, db_column='id_actividad')
-    fecha_inicio = models.DateField()
-    fecha_final = models.DateField()
-    activo = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.actividad.actividad
-
-class PeriodoCargarNotas(models.Model):
-    id_periodo_academico = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.nombre
-
-class CalendarioCargarNotas(models.Model):
-    id_fecha_carga_nota = models.AutoField(primary_key=True)
-    periodo = models.ForeignKey(PeriodoCargarNotas, on_delete=models.PROTECT)
-    fecha_inicio = models.DateField()
-    fecha_final = models.DateField()
-    activo = models.BooleanField(default=True) 
-
-class PeriodoNotasMateria(models.Model):
-    materia = models.ForeignKey(Materia, on_delete=models.CASCADE)
-    periodo = models.ForeignKey(PeriodoCargarNotas, on_delete=models.CASCADE)
-
-class SeccionAcademica(models.Model):
-    id_seccion = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=5)
-    turno = models.CharField(max_length=20)
-
-    def __str__(self):
-        return f"Sección {self.nombre}"
-
-
-# Demás perfiles 
 class DatosPreofesion(models.Model):
     id_dato_academico = models.AutoField(primary_key=True)
     profesion_pregrado = models.CharField(max_length=150)
@@ -237,6 +203,47 @@ class Estudiante(RolAcademico):
     def __str__(self):
         return f"{self.usuario}"
 
+class EstatusEstudiante(models.Model):
+    id_estatus_estudiante = models.AutoField(primary_key=True)
+    estatus = models.CharField(max_length=50)
+    estado = models.CharField(max_length=50)
+    ingreso = models.CharField(max_length=50)
+    descripcion_ingreso = models.CharField(max_length=30)
+    trayecto = models.ForeignKey(TrayectoAcademico, models.CASCADE, db_column='trayecto')
+    fecha_ingreso = models.DateField()
+    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name="estatus")
+
+class AulaEstudiante(models.Model):
+    id_aula_estudiante = models.AutoField(primary_key=True)
+    aula = models.ForeignKey(AulaAcademica, on_delete=models.CASCADE, related_name="estudiantes")
+    estatus = models.ForeignKey(EstatusEstudiante, on_delete=models.CASCADE, related_name="aulas_estudiante")
+    fecha_inicio = models.DateField()
+    fecha_final = models.DateField(null=True, blank=True)
+    estado = models.CharField(
+        max_length=20,
+        choices=[
+            ("Retiro", "Retiro"),
+            ("Egreso", "Egreso"),
+            ("Congelado", "Congelado"),
+            ("Curso", "Curso")
+        ],
+        default="Curso"
+    )
+
+class DocumentosEstudiante(models.Model):
+    id_documento = models.AutoField(primary_key=True)
+    nombre_documento = models.CharField(max_length=50)
+    archivo = models.FileField(upload_to="documentos_estudiante/")
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="documentos")
+
+class InformacionSecundaria(models.Model):
+    id_secundaria = models.AutoField(primary_key=True)
+    tipo_institucion = models.CharField(max_length=100)
+    nombre_institucion = models.CharField(max_length=100)
+    fecha_grado = models.DateField()
+    codigo_sni_opsu = models.CharField(max_length=100, unique=True)
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="informacion_secundaria")
+
 class ContactoAuxiliar(models.Model):
     id_representante = models.AutoField(primary_key=True)
     nombres = models.CharField(max_length=100)
@@ -244,7 +251,7 @@ class ContactoAuxiliar(models.Model):
     cedula_identidad = models.CharField(max_length=15)
     telefono = models.CharField(max_length=15)
     parentesco = models.CharField(max_length=25)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="contactos_auxiliares")
 
 class Discapacidad(models.Model):
     id_discapacidad = models.AutoField(primary_key=True)
@@ -253,43 +260,7 @@ class Discapacidad(models.Model):
     tipo_discapacidad = models.CharField(max_length=20)
     grado_discapacidad = models.CharField(max_length=50)
     causa_discapacidad = models.CharField(max_length=50)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-
-class EstatusEstudiante(models.Model):
-    id_estatus_estudiante = models.AutoField(primary_key=True)
-    estatus = models.CharField(max_length=50)
-    estado = models.CharField(max_length=50)
-    ingreso = models.CharField(max_length=50)
-    descripcion_ingreso = models.CharField(max_length=30)
-    trayecto = models.CharField(max_length=10)
-    fecha_ingreso = models.DateField()
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-
-class DocumentosEstudiante(models.Model):
-    id_documento = models.AutoField(primary_key=True)
-    nombre_documento = models.CharField(max_length=50)
-    archivo = models.FileField(upload_to="documentos_estudiante/")
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-
-class InformacionSecundaria(models.Model):
-    id_secundaria = models.AutoField(primary_key=True)
-    tipo_institucion = models.CharField(max_length=100)
-    nombre_institucion = models.CharField(max_length=100)
-    fecha_grado = models.DateField()
-    codigo_sni_opsu = models.CharField(max_length=100, unique=True)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-
-class EstudianteCorte(models.Model):
-    id_estudiante_corte = models.AutoField(primary_key=True)
-    corte_academico = models.ForeignKey(CorteAcademico, on_delete=models.CASCADE)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name="cortes")
-
-class SeccionEstudiante(models.Model):
-    id_seccion_estudiante = models.AutoField(primary_key=True)
-    seccion = models.ForeignKey(SeccionAcademica, on_delete=models.CASCADE)
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-    fecha_inicio = models.DateField()
-    fecha_final = models.DateField(null=True, blank=True)
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="discapacidades")
 
 class Docente(RolAcademico):
     id_docente = models.AutoField(primary_key=True)
@@ -309,20 +280,10 @@ class Docente(RolAcademico):
 class MateriaAsignada(models.Model):
     id_materia_asignada = models.AutoField(primary_key=True)
     materia = models.ForeignKey(Materia, on_delete=models.CASCADE, related_name="asignaciones")
-    seccion = models.ForeignKey(SeccionAcademica, on_delete=models.CASCADE, related_name="materias_asignadas")
     activo = models.BooleanField(default=True)
     fecha_asignacion = models.DateTimeField(auto_now_add=True)
     fecha_suspension = models.DateTimeField(null=True, blank=True)
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["materia", "seccion"],
-                condition=models.Q(activo=True),
-                name="uq_materia_seccion_activa"
-            )
-        ]
-        
 class DocenteAsignadoMateria(models.Model):
     materia_asignada = models.ForeignKey(MateriaAsignada, on_delete=models.CASCADE, related_name="docentes")
     docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
@@ -356,53 +317,6 @@ class DocenteAsignadoMateria(models.Model):
             ),
         ]
 
-# Encabezado en la creación de horario acdémico
-class HorarioAcademica(models.Model):
-    id_horario = models.AutoField(primary_key=True)
-    id_nucleo = models.ForeignKey(Nucleos, on_delete=models.PROTECT)
-    id_pnf = models.ForeignKey(Pnf, on_delete=models.PROTECT)
-    id_periodo_academico = models.ForeignKey(PeriodoCargarNotas,  on_delete=models.PROTECT)
-    id_aula = models.ForeignKey(AulaAcademica, on_delete=models.PROTECT)
-    id_seccion = models.ForeignKey(SeccionAcademica, on_delete=models.PROTECT)
-    trayecto = models.CharField(max_length=10)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    activo = models.BooleanField(default=True)
-
-# Detalle en la creación del horario
-class DetalleHorario(models.Model):
-    horario = models.ForeignKey(HorarioAcademica, on_delete=models.CASCADE, related_name="detalles")
-    materia_asignada = models.ForeignKey(MateriaAsignada, on_delete=models.PROTECT)
-    dia = models.CharField(max_length=15)
-    hora_inicio = models.TimeField()
-    hora_fin = models.TimeField()
-
-# Conocer la carpeta donde fue enviado
-class CarpetaAcademica(models.Model):
-    id_carpeta = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=150)
-    carpeta_padre = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name="subcarpetas")
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    activa = models.BooleanField(default=True)
-
-# Control de versiones del horario
-class DocumentoHorario(models.Model):
-    id_documento = models.AutoField(primary_key=True)
-    horario = models.ForeignKey(HorarioAcademica, on_delete=models.CASCADE, related_name="documentos")
-    carpeta = models.ForeignKey(CarpetaAcademica, on_delete=models.PROTECT, related_name="documentos")
-    archivo = models.CharField(max_length=500)
-    nombre_archivo = models.CharField(max_length=200)
-    fecha_subida = models.DateTimeField(auto_now_add=True)
-    activo = models.BooleanField(default=True)
-
-# Contar con registro aquí va a compartir el documento
-class DocumentoCompartido(models.Model):
-    documento = models.ForeignKey(DocumentoHorario, on_delete=models.CASCADE, related_name="compartidos")
-    usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="documentos_recibidos")
-    fecha_compartido = models.DateTimeField(auto_now_add=True)
-    activo = models.BooleanField(default=True)
-    puede_ver = models.BooleanField(default=True)
-    puede_descargar = models.BooleanField(default=True)
-
 class CoordinadorPNF(RolAcademico):
     id_coordinador = models.AutoField(primary_key=True)
     activo = models.BooleanField(default=True)
@@ -420,8 +334,8 @@ class CoordinadorPNF(RolAcademico):
 
 class ControlEstudio(models.Model):
     id_control = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="docentes")
+    nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE, related_name="materias_asignadas")
     activo = models.BooleanField(default=True)
 
     class Meta:
@@ -437,8 +351,8 @@ class ControlEstudio(models.Model):
 
 class DirectorGeneral(models.Model):
     id_director = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="controles_estudio")
+    nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE, related_name="directores_generales")
     
     class Meta:
         constraints = [
@@ -452,3 +366,29 @@ class DirectorGeneral(models.Model):
         return f"{self.usuario}"
 
 
+class Autoridades(models.Model):
+    id_autoridad = models.AutoField(primary_key=True)
+    nombres = models.CharField(max_length=100)
+    apellidos = models.CharField(max_length=100)
+    cedula_identidad = models.CharField(max_length=15, unique=True)
+    genero = models.CharField(max_length=50)
+    cargo = models.CharField(max_length=100)
+    resolucion = models.CharField(max_length=100, unique=True)
+
+class Bitacora(models.Model):
+    id_bitacora = models.AutoField(primary_key=True)
+    nombre_usuario = models.CharField(max_length=50)
+    fecha_hora = models.DateTimeField()
+    accion = models.TextField()
+
+class VerificacionCodigo(models.Model):
+    id_codigo = models.AutoField(primary_key=True)
+    cedula_identidad = models.CharField(max_length=12)
+    token = models.CharField(null=True, blank=True)
+    codigo = models.CharField(max_length=10)
+    creado = models.DateTimeField()
+    intentos = models.PositiveIntegerField(default=0)
+    bloqueado_hasta = models.DateTimeField(null=True, blank=True)
+    activo = models.IntegerField()
+    descripcion = models.CharField(max_length=100)
+    fecha_expiracion = models.DateTimeField(null=True, blank=True)

@@ -1,0 +1,48 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="modulo_calendario">
+    <div class="contenedor_calendario">
+        <h3>Calendario Académico</h3>
+
+        <div class="contenedor_busqueda_calendario">
+            <form method="post">
+                {% csrf_token %}
+
+                <label for="periodos_academicos">Periodos Académicos Registrados:</label>
+                <select name="periodos_academicos" id="periodos_academicos"></select>
+            </form>
+        </div>
+
+        <div id="contenedor_visualizar_calendario"></div>
+    </div>
+</section>
+
+<dialog id="dialogo_fecha_academica">
+    <div class="contenedor_fecha_academica">
+        <i id="cerrar_dialogo" class="icon-cancel-circled" title="Cerrar"></i>
+        <h3>Rango de Fecha Académica</h3>
+
+        <div class="contenedor_modificar_fechas_academicas">
+            <form method="post" id="formulario_actualizar">
+                {% csrf_token %}
+                <input type="hidden" name="id_calendario" id="id_calendario">
+
+                <label for="fecha_inicio">Fecha de Inicio:</label>
+                <input type="date" name="fecha_inicio" id="fecha_inicio" required>
+
+                <label for="fecha_finalizado">Fecha de Finalizado:</label>
+                <input type="date" name="fecha_finalizado" id="fecha_finalizado" readonly required>
+
+                <input type="submit" value="Actualizar">
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<script src="{% static 'Funciones_Asincronas/Director_General/calendario/visualizar_calendario.js' %}"></script>
+
+{% endblock %}

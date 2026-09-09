@@ -1,0 +1,558 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* =========================================================
+   INSCRIPCIONES RECHAZADAS
+   ========================================================= */
+
+    #inscripcion_rechazada {
+        width: 100%;
+        padding: 25px;
+        box-sizing: border-box;
+    }
+
+    .contenedor_inscripcion_rechazada {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 25px;
+        background: #ffffff;
+        border: 1px solid #dbe7eb;
+        border-radius: 12px;
+        box-shadow: 0 4px 14px rgba(0, 68, 95, 0.08);
+        box-sizing: border-box;
+    }
+
+    .contenedor_inscripcion_rechazada h4 {
+        margin: 0 0 25px;
+        color: #00445f;
+        font-size: 22px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+
+    /* =========================================================
+   BUSCADOR
+   ========================================================= */
+
+    #inscripcion_rechazada .contenedor_busqueda {
+        display: grid;
+        grid-template-columns: auto minmax(180px, 1fr) auto minmax(180px, 1fr);
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 25px;
+        padding: 18px;
+        background: #f8fbfc;
+        border: 1px solid #dbe7eb;
+        border-radius: 10px;
+    }
+
+    #inscripcion_rechazada .contenedor_busqueda label {
+        color: #00445f;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    #inscripcion_rechazada .contenedor_busqueda select {
+        width: 100%;
+        min-height: 40px;
+        padding: 8px 12px;
+        border: 1px solid #b8ccd3;
+        border-radius: 7px;
+        background: #ffffff;
+        color: #333;
+        font-size: 14px;
+        outline: none;
+        cursor: pointer;
+        transition: border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    #inscripcion_rechazada .contenedor_busqueda select:focus {
+        border-color: #00b6ea;
+        box-shadow: 0 0 0 3px rgba(0, 182, 234, 0.12);
+    }
+
+
+    /* =========================================================
+   TABLA
+   ========================================================= */
+
+    #inscripcion_rechazada table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border: 1px solid #dbe7eb;
+        border-radius: 10px;
+    }
+
+    #inscripcion_rechazada thead {
+        background: #00445f;
+    }
+
+    #inscripcion_rechazada thead td {
+        padding: 13px 10px;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    #inscripcion_rechazada tbody tr {
+        border-bottom: 1px solid #e4ecef;
+        transition: background-color 0.2s ease;
+    }
+
+    #inscripcion_rechazada tbody tr:hover {
+        background: #f4fafc;
+    }
+
+    #inscripcion_rechazada tbody td {
+        padding: 12px 10px;
+        color: #333;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    #inscripcion_rechazada tbody tr:last-child {
+        border-bottom: none;
+    }
+
+
+    /* =========================================================
+   BOTONES DE LA TABLA
+   ========================================================= */
+
+    #inscripcion_rechazada .inscribir,
+    #inscripcion_rechazada .rechazar {
+        min-width: 90px;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.15s ease,
+            opacity 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    #inscripcion_rechazada .inscribir {
+        background: #008cba;
+    }
+
+    #inscripcion_rechazada .inscribir:hover {
+        background: #00b6ea;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(0, 182, 234, 0.25);
+    }
+
+    #inscripcion_rechazada .rechazar {
+        background: #c0392b;
+    }
+
+    #inscripcion_rechazada .rechazar:hover {
+        background: #e74c3c;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(192, 57, 43, 0.25);
+    }
+
+    #inscripcion_rechazada button:active {
+        transform: translateY(0);
+    }
+
+    #inscripcion_rechazada button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+
+    /* =========================================================
+   DIÁLOGO - DATOS DEL ESTUDIANTE
+   ========================================================= */
+
+    #datos_estudiantes {
+        width: min(900px, 90vw);
+        max-height: 90vh;
+        padding: 0;
+        border: none;
+        border-radius: 14px;
+        background: #ffffff;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+    }
+
+    #datos_estudiantes::backdrop {
+        background: rgba(0, 35, 48, 0.65);
+        backdrop-filter: blur(2px);
+    }
+
+    .contenedor_datos_estudiante {
+        position: relative;
+        max-height: 90vh;
+        padding: 25px;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .contenedor_datos_estudiante>h3 {
+        margin: 0 45px 25px 0;
+        color: #00445f;
+        font-size: 22px;
+        font-weight: 700;
+        border-bottom: 2px solid #00b6ea;
+        padding-bottom: 12px;
+    }
+
+
+    /* =========================================================
+   BOTÓN CERRAR
+   ========================================================= */
+
+    #cerrar_dialogo {
+        position: absolute;
+        top: 20px;
+        right: 22px;
+        color: #00445f;
+        font-size: 25px;
+        cursor: pointer;
+        transition: color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    #cerrar_dialogo:hover {
+        color: #00b6ea;
+        transform: scale(1.1);
+    }
+
+
+    /* =========================================================
+   CONTENEDORES DE DATOS
+   ========================================================= */
+
+    #datos_estudiantes form>div:not([id^="contenedor_"]):not(#contacto_estudiante),
+    #contenedor_datos_basicos,
+    #contacto_estudiante,
+    #contenedor_representante,
+    #contenedor_nacimiento,
+    #contenedor_residencia,
+    #contenedor_discapacidad,
+    #contenedor_ci_estudiante,
+    #contenedor_titulo_bachiller_estudiante,
+    #contenedor_sabana_nota_estudiante,
+    #contenedor_opsu_estudiante {
+        margin-bottom: 20px;
+        padding: 18px;
+        background: #f8fbfc;
+        border: 1px solid #dbe7eb;
+        border-radius: 10px;
+    }
+
+    #datos_estudiantes h4 {
+        margin: 0 0 15px;
+        padding-bottom: 8px;
+        color: #00445f;
+        font-size: 17px;
+        border-bottom: 1px solid #c9dce2;
+    }
+
+
+    /* =========================================================
+   CAMPOS
+   ========================================================= */
+
+    #datos_estudiantes label {
+        display: block;
+        margin: 10px 0 5px;
+        color: #36515c;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    #datos_estudiantes input {
+        width: 100%;
+        min-height: 38px;
+        padding: 8px 11px;
+        box-sizing: border-box;
+        border: 1px solid #c4d5da;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #333;
+        font-size: 14px;
+        outline: none;
+    }
+
+    #datos_estudiantes input[readonly] {
+        background: #f1f5f6;
+        color: #52666d;
+        cursor: default;
+    }
+
+
+    /* =========================================================
+   DOCUMENTOS
+   ========================================================= */
+
+    #contenedor_ci_estudiante,
+    #contenedor_titulo_bachiller_estudiante,
+    #contenedor_sabana_nota_estudiante,
+    #contenedor_opsu_estudiante {
+        min-height: 70px;
+    }
+
+    #contenedor_ci_estudiante h4,
+    #contenedor_titulo_bachiller_estudiante h4,
+    #contenedor_sabana_nota_estudiante h4,
+    #contenedor_opsu_estudiante h4 {
+        margin-bottom: 0;
+    }
+
+
+    /* =========================================================
+   NAVEGACIÓN DEL DIÁLOGO
+   ========================================================= */
+
+    .botones_navegacion {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 10px;
+        padding-top: 20px;
+        border-top: 1px solid #dbe7eb;
+    }
+
+    .botones_navegacion button {
+        min-width: 110px;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 7px;
+        background: #00445f;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease,
+            transform 0.15s ease;
+    }
+
+    .botones_navegacion button:hover {
+        background: #00b6ea;
+        transform: translateY(-1px);
+    }
+
+
+    /* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+    @media (max-width: 800px) {
+
+        #inscripcion_rechazada {
+            padding: 15px;
+        }
+
+        .contenedor_inscripcion_rechazada {
+            padding: 15px;
+        }
+
+        #inscripcion_rechazada .contenedor_busqueda {
+            grid-template-columns: 1fr;
+        }
+
+        #inscripcion_rechazada table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        #datos_estudiantes {
+            width: 95vw;
+        }
+
+        .contenedor_datos_estudiante {
+            padding: 18px;
+        }
+    }
+</style>
+
+<section id="inscripcion_rechazada">
+    <div class="contenedor_inscripcion_rechazada">
+
+        <h4>Inscripciones Rechazadas</h4>
+
+        <div class="contenedor_busqueda">
+            <form method="post">
+                {% csrf_token %}
+                <label for="nucleos_asignados">Núcleo Asignado:</label>
+                <select name="nucleos_asignados" id="nucleos_asignados"></select>
+
+                <label for="pnfs_asignados">P.N.F Asignado:</label>
+                <select name="pnfs_asignados" id="pnfs_asignados"></select>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Nombres</td>
+                    <td>Apellidos</td>
+                    <td>CI</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="contenedor_inscripciones_rechazadas"></tbody>
+        </table>
+    </div>
+</section>
+
+<dialog id="datos_estudiantes">
+    <div class="contenedor_datos_estudiante">
+        <h3>Datos del Estudiantes</h3>
+
+        <i id="cerrar_dialogo" class="icon-cancel-circled"></i>
+
+        <form method="post">
+            <div id="contenedor_datos_basicos">
+                <h4>Datos Básicos</h4>
+
+                <label for="nombres_estudiante">Nombres:</label>
+                <input type="text" name="nombreEstudiante" id="nombres_estudiante" readonly>
+
+                <label for="apellidos_estudiante">Apellidos:</label>
+                <input type="text" name="apellidosEstudiante" id="apellidos_estudiante" readonly>
+
+                <label for="ci_estudiante">Cedula de Identidad:</label>
+                <input type="text" name="ciEstudiante" id="ci_estudiante" readonly>
+
+                <label for="genero_estudiante">Genero:</label>
+                <input type="text" name="generoEstudiante" id="genero_estudiante" readonly>
+
+                <label for="estado_civil_estudiante">Estado Civil:</label>
+                <input type="text" name="estado_civilEstudiante" id="estado_civil_estudiante" readonly>
+            </div>
+
+            <div id="contacto_estudiante">
+                <h4>Datos de Contacto</h4>
+
+                <label for="telefono_principal">Telefono Principal:</label>
+                <input type="text" name="telefonoprincipal" id="telefono_principal" readonly>
+
+                <label for="telefono_secundario">Telefono Secundario:</label>
+                <input type="text" name="telefonosecundario" id="telefono_secundario" readonly>
+
+                <label for="correo_principal">Correo Electronico Principal:</label>
+                <input type="text" name="correoprincipal" id="correo_principal" readonly>
+
+                <label for="correo_secundario">Correo Electronico Secundario:</label>
+                <input type="text" name="correosecundario" id="correo_secundario" readonly>
+            </div>
+
+            <div id="contenedor_representante">
+                <h4>Datos del Representante</h4>
+
+                <label for="nombres_representante">Nombres del Representante:</label>
+                <input type="text" name="nombresrepresentante" id="nombres_representante" readonly>
+
+                <label for="apellidos_representante">Apellidos del Representante:</label>
+                <input type="text" name="apellidosrepresentante" id="apellidos_representante" readonly>
+
+                <label for="ci_representante">Cedula de Identidad del Representante:</label>
+                <input type="text" name="cirepresentante" id="ci_representante" readonly>
+
+                <label for="telefono_representante">Telefono del Representante:</label>
+                <input type="text" name="telefonorepresentante" id="telefono_representante" readonly>
+
+                <label for="parentesco_representante">Parentesco del Representante:</label>
+                <input type="text" name="parentescorepresentante" id="parentesco_representante" readonly>
+            </div>
+
+            <div id="contenedor_nacimiento">
+                <h4>Datos de Nacimiento</h4>
+
+                <label for="pais_nacimiento">Pais de nacimiento:</label>
+                <input type="text" name="paisnacimiento" id="pais_nacimiento" readonly>
+
+                <label for="estado_nacimiento">Estado de nacimiento:</label>
+                <input type="text" name="estadonacimiento" id="estado_nacimiento" readonly>
+
+                <label for="municipio_nacimiento">Municipio de nacimiento:</label>
+                <input type="text" name="municipionacimiento" id="municipio_nacimiento" readonly>
+
+                <label for="parroquia_nacimiento">Parroquia de nacimiento:</label>
+                <input type="text" name="parroquianacimiento" id="parroquia_nacimiento" readonly>
+
+                <label for="direccion_nacimiento">Dirección de nacimiento:</label>
+                <input type="text" name="direccionnacimiento" id="direccion_nacimiento" readonly>
+
+                <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                <input type="text" name="fechanacimiento" id="fecha_nacimiento" readonly>
+            </div>
+
+            <div id="contenedor_residencia">
+                <h4>Datos de Residencia</h4>
+
+                <label for="condicion_residencia">Condición de Residencia:</label>
+                <input type="text" name="condicionresidencia" id="condicion_residencia" readonly>
+
+                <label for="municipio_residencia">Municipio de Residencia:</label>
+                <input type="text" name="municipioresidencia" id="municipio_residencia" readonly>
+
+                <label for="parroquia_residencia">Parroquia de Residencia:</label>
+                <input type="text" name="parroquiaresidencia" id="parroquia_residencia" readonly>
+
+                <label for="direccion_residencia">Dirección de Residencia:</label>
+                <input type="text" name="direccionresidencia" id="direccion_residencia" readonly>
+            </div>
+
+            <div id="contenedor_discapacidad">
+                <h4>Datos de Discapacidad</h4>
+
+                <label for="codigo_carnet">Código de Carnet de Discapacidad:</label>
+                <input type="text" name="codigocarnet" id="codigo_carnet" readonly>
+
+                <label for="nro_registro">Nro de Registro Medico:</label>
+                <input type="text" name="nroregistro" id="nro_registro" readonly>
+
+                <label for="tipos_discapacidad">Tipos de Discapacidad:</label>
+                <input type="text" name="tiposdiscapacidad" id="tipos_discapacidad" readonly>
+
+                <label for="grados_discapacidad">Grados de Discapacidad:</label>
+                <input type="text" name="gradosdiscapacidad" id="grados_discapacidad" readonly>
+
+                <label for="causa_discapacidad">Causa de Discapacidad:</label>
+                <input type="text" name="causasdiscapacidad" id="causa_discapacidad" readonly>
+            </div>
+
+            <div id="contenedor_ci_estudiante">
+                <h4>Cedula de Identidad</h4>
+            </div>
+            <div id="contenedor_titulo_bachiller_estudiante">
+                <h4>Titulo de Bachiller</h4>
+            </div>
+            <div id="contenedor_sabana_nota_estudiante">
+                <h4>Sabana de Notas</h4>
+            </div>
+            <div id="contenedor_opsu_estudiante">
+                <h4>Certificado SNI OPSU</h4>
+            </div>
+        </form>
+
+        <div class="botones_navegacion">
+            <button type="button" id="retroceder">Retroceder</button>
+            <button type="button" id="avanzar">Avanzar</button>
+        </div>
+    </div>
+</dialog>
+
+<script src="{% static 'Funciones_Asincronas/Coordinador_PNF/Inscripcion/inscripciones_rechazada.js' %}"></script>
+
+{% endblock %}

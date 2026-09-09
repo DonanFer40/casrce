@@ -1,0 +1,57 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="modulo_visualizar_personal_registrado">
+    <div class="contenedor_visualizar_registrado">
+        <h2>Actualizar Perfil(es) del Personal</h2>
+
+        <div class="contenedor_busqueda_personal">
+            <form method="post" id="formulario_busqueda">
+                {% csrf_token %}
+
+                <label for="cedula_identidad">Cédula de Identidad:</label>
+                <div class="grupo-cedula">
+                    <select name="nacionalidad_registrar" id="nacionalidad" required>
+                        <option value="">N</option>
+                        <option value="V">V</option>
+                        <option value="E">E</option>
+                    </select>
+                    <input type="text" name="cedula_registrar" id="cedula_identidad" autocomplete="off" required>
+                </div>
+
+                <input type="submit" value="Buscar Usuario">
+            </form>
+        </div>
+
+
+        <div class="contenedor_actualizar_perfil">
+            <form method="post" id="formulario_actualizar">
+                {% csrf_token %}
+
+                <label for="nombres_usuario">Nombres:</label>
+                <input type="text" name="nombres_usuario" id="nombres_usuario" readonly>
+
+                <label for="apellidos_usuario">Apellidos:</label>
+                <input type="text" name="apellidos_usuario" id="apellidos_usuario" readonly>
+
+                <label for="cedula_usuario">Cedula Identidad:</label>
+                <input type="text" name="cedula_usuario" id="cedula_usuario" readonly>
+
+                <div id="contenedor_perfiles_asignado"></div>
+
+                <div id="contenedor_asignar_perfiles"></div>
+
+                <input type="submit" value="Actualizar Perfiles">
+            </form>
+        </div>
+    </div>
+</section>
+
+<script
+    src="{% static 'Funciones_Asincronas/Director_General/gestion_personal/actualizar_personal_registrado.js' %}"></script>
+<script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
+
+{% endblock %}

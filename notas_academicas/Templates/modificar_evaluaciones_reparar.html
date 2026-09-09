@@ -1,0 +1,325 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    #modulo_modificar_reparacion {
+        width: 100%;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+
+    .contenedor_modificar_reparacion {
+
+        max-width: 900px;
+        margin: auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    }
+
+
+    .contenedor_modificar_reparacion h2 {
+
+        text-align: center;
+        margin-bottom: 30px;
+        color: #102f4e;
+        font-size: 28px;
+        font-weight: 700;
+
+    }
+
+    /* Campos principales */
+    .grupo_campo {
+
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+    }
+
+    .grupo_campo label {
+
+        font-weight: 600;
+        color: #00445f;
+        margin-bottom: 8px;
+        font-size: 15px;
+
+    }
+
+    .grupo_campo select,
+    .grupo_campo input {
+
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #cfd8dc;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        transition: .3s;
+        box-sizing: border-box;
+
+    }
+
+    .grupo_campo select:focus,
+    .grupo_campo input:focus {
+
+        border-color: #00779e;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, .15);
+
+    }
+
+    .grupo_campo input[readonly] {
+        background: #f1f5f7;
+        cursor: not-allowed;
+    }
+
+    /* Contenedor de evaluaciones */
+    #contenedor_evaluaciones {
+
+        margin-top: 25px;
+    }
+
+    /* Contenedor de cada evaluación */
+    .detalle_evaluacion {
+
+        background: #f7fafc;
+
+        border-left: 5px solid #00779e;
+
+        padding: 20px;
+
+        margin-bottom: 15px;
+
+        border-radius: 10px;
+
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 12px;
+
+    }
+
+
+    /* Etiquetas */
+    .detalle_evaluacion label {
+
+        font-weight: 600;
+
+        color: #102f4e;
+
+        margin-top: 5px;
+
+        margin-bottom: 4px;
+
+    }
+
+
+    /* Select e input */
+    .detalle_evaluacion .tipo_evaluacion,
+    .detalle_evaluacion .porcentaje_evaluacion {
+
+        width: 100%;
+
+        padding: 11px;
+
+        border-radius: 7px;
+
+        border: 1px solid #cfd8dc;
+
+        font-size: 14px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    /* Porcentaje centrado */
+    .detalle_evaluacion .porcentaje_evaluacion {
+
+        text-align: center;
+
+    }
+
+
+    /* Enfoque */
+    .detalle_evaluacion select:focus,
+    .detalle_evaluacion input:focus {
+
+        border-color: #00779e;
+
+        outline: none;
+
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, .15);
+
+    }
+
+
+    /* Botón eliminar */
+    .btn_eliminar_detalle {
+
+        width: 100%;
+
+        background: #d9534f;
+
+        color: white;
+
+        border: none;
+
+        padding: 11px 15px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        font-weight: 600;
+
+        transition: .3s;
+
+    }
+
+
+    .btn_eliminar_detalle:hover {
+
+        background: #b52b27;
+
+    }
+
+    /* Botón agregar */
+    #btn_agregar_detalle {
+
+        margin-top: 15px;
+
+        background: #00779e;
+        color: white;
+
+        border: none;
+
+        padding: 12px 20px;
+
+        border-radius: 8px;
+
+        font-size: 15px;
+
+        cursor: pointer;
+
+        font-weight: 600;
+
+        transition: .3s;
+
+    }
+
+    #btn_agregar_detalle:hover {
+
+        background: #00445f;
+
+    }
+
+    #btn_agregar_detalle:disabled {
+
+        opacity: .5;
+        cursor: not-allowed;
+
+    }
+
+    /* Botón actualizar */
+    .contenedor_boton_notas {
+
+        display: flex;
+        justify-content: center;
+
+        margin-top: 30px;
+
+    }
+
+    .contenedor_boton_notas input {
+
+        background: #102f4e;
+
+        color: white;
+
+        border: none;
+
+        padding: 14px 45px;
+
+        border-radius: 10px;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: .3s;
+
+    }
+
+    .contenedor_boton_notas input:hover {
+
+        background: #00779e;
+
+    }
+
+    /* Responsive */
+    @media(max-width:700px) {
+        #modulo_modificar_reparacion {
+            padding: 15px;
+        }
+
+        .contenedor_modificar_reparacion {
+            padding: 20px;
+        }
+
+        .detalle_evaluacion {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section id="modulo_modificar_reparacion">
+    <div class="contenedor_modificar_reparacion">
+        <h2>Modificar Evaluaciones Reparación</h2>
+
+        <form method="post" id="formulario_actualizar">
+            {% csrf_token %}
+
+            <div class="grupo_campo">
+                <label for="nucleo_asignado">Núcleo Asignado:</label>
+                <select name="nucleo_asignado" id="nucleo_asignado"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="pnf_asignado">P.N.F Asignado:</label>
+                <select name="pnf_asignado" id="pnf_asignado"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="materia_asignada">Materia(s) Registrada:</label>
+                <select name="materia_asignada" id="materia_asignada"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="trayecto_academico">Trayecto Académico:</label>
+                <input type="text" name="trayecto_academico" id="trayecto_academico" readonly>
+            </div>
+
+            <div id="contenedor_evaluaciones"></div>
+            <button type="button" id="btn_agregar_detalle">+ Agregar detalle</button>
+
+            <div class="contenedor_boton_notas">
+                <input type="submit" value="Actualizar">
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Docente/modificar_evaluaciones_reparar.js' %}"></script>
+
+{% endblock %}

@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const formulario_registrar = document.getElementById("formulario_registrar");
-
-    const select_registrar_turno = document.getElementById("registro_turno");
     const input_registrar_seccion = document.getElementById("registro_seccion");
     const mensaje_nombre_seccion = document.getElementById("mensaje_nombre_seccion");
 
@@ -22,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const resultado = await respuesta.json();
             console.log(resultado);
-            
+
             if (resultado.existe) {
                 input_registrar_seccion.setCustomValidity("Ya existe una sección con el mismo nombre.");
                 input_registrar_seccion.classList.add("is-invalid");
@@ -77,6 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error(error);
         }
-    }); 
+    });
 
 });

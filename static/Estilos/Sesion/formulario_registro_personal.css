@@ -1,146 +1,279 @@
-#registrar_personal{
+#registrar_personal {
     min-height: 100vh;
     margin-top: 120px;
     padding: 30px;
-
     display: flex;
     justify-content: center;
     align-items: center;
     background: #f5f7fa;
 }
+
+.tarjeta_principal {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    overflow: hidden;
+}
+
 /* ============================
    INFORMACIÓN PERSONAL
 ============================ */
 
-#registrar_personal .lado_izquierdo{
-    width:48%;
-    position:relative;
-    display:flex;
-    flex-direction:column;
+#registrar_personal .lado_izquierdo {
+    width: 48%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-#registrar_personal .contenedor{
-    
+#registrar_personal .separador {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#registrar_personal .btn-regresar {
+    background: var(--color-azulE);
+    color: var(--color-base);
+    display: inline-block;
+    padding: 8px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom-right-radius: 2rem;
+    border-top-left-radius: 2rem;
+    transition: .3s;
+}
+
+#registrar_personal .btn-regresar:hover {
+    background: var(--color-neutro);
+    color: var(--color-base);
+}
+
+#registrar_personal .contenedor {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    padding: 20px 0;
 }
 
-#registrar_personal .lado_izquierdo img{    
-    width: 450px;
+#registrar_personal .lado_izquierdo img {
+    width: 320px;
     margin-top: 20px;
 }
 
-#registrar_personal .lado_izquierdo p{
+#registrar_personal .lado_izquierdo p {
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: center;
+    font-size: 0.9rem;
 }
 
 /* ============================
    FORMULARIO
 ============================ */
-#registrar_personal .lado_derecho{
-    width:52%;
+
+#registrar_personal .lado_derecho {
+    width: 52%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-#registrar_personal .lado_derecho label{
-    margin-bottom: 10px;
+#registrar_personal .lado_derecho label {
+    margin-bottom: 6px;
     font-weight: bold;
     color: var(--color-intermitente);
+    width: 100%;
+    text-align: left;
+    font-size: 0.9rem;
 }
 
-#registrar_personal .contenedor_busqueda{
+#registrar_personal .contenedor_busqueda {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 70px;
+    padding: 30px 40px;
+    box-sizing: border-box;
 }
 
-#registrar_personal .contenedor_busqueda h3{
-    font-size: 2rem;
+#registrar_personal .contenedor_busqueda h3 {
+    font-size: 1.5rem;
     color: var(--color-azulE);
+    margin-bottom: 15px;
 }
 
-#registrar_personal .grupo-input{
+#registrar_personal .grupo-input {
     display: flex;
     gap: 10px;
-    margin-bottom:20px;
+    margin-bottom: 15px;
+    width: 100%;
 }
 
-#registrar_personal .nacionalidad{
+#registrar_personal .nacionalidad {
     width: 50px;
-    height: 55px;
+    height: 42px;
     border: 2px solid var(--color-azulE);
-    border-radius: 12px;
+    border-radius: 10px;
     background: #636CCB;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-align: center;
     outline: none;
     transition: .3s;
     color: var(--color-base);
 }
 
-#registrar_personal .nacionalidad:focus{
+#registrar_personal .nacionalidad:focus {
     border-color: var(--color-hover-azulE);
 }
 
-#registrar_personal .cedula_identidad{
+#registrar_personal .cedula_identidad {
     flex: 1;
-    height: 55px;
+    height: 42px;
     border: 2px solid lightgray;
-    border-radius: 12px;
-    padding: 0 20px;
-    font-size: 1rem;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 0.95rem;
     outline: none;
     transition: .3s;
 }
 
-#registrar_personal .cedula_identidad:focus{
+#registrar_personal .cedula_identidad:focus {
     border-color: var(--color-azulE);
-    box-shadow: 0 0 10px rgba(0,0,0,.08);
-}
-
-/* BOTON */
-#registrar_personal input[type="submit"]{
-    width: 220px;
-    height: 55px;
-    border: none;
-    border-radius: 12px;
-    background: var(--color-azulE);
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .3s;
-}
-
-#registrar_personal input[type="submit"]:hover{
-    background: var(--color-hover-azulE);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,.15);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .08);
 }
 
 /* ============================
-   BOTON
+   CREDENCIALES Y CONTRASEÑA
 ============================ */
 
-#registrar_personal .btn-regresar{
-    background: var(--color-azulE);
-    color: var(--color-base);
-    display: inline-block;
-    border-bottom-right-radius: 2rem;
-    border-top-left-radius: 2rem;
+#registrar_personal input[type="text"]:not(.cedula_identidad) {
+    width: 100%;
+    height: 42px;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: .3s;
+    margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
-#registrar_personal .btn-regresar:hover{
-    background: var(--color-neutro);
-    color: var(--color-base);
+#registrar_personal input[type="text"]:not(.cedula_identidad):focus {
+    border-color: var(--color-azulE);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .08);
+}
+
+/* Contenedor Flexbox para la Contraseña (alinea el icono a la derecha) */
+#registrar_personal .password-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 42px;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 0 14px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    transition: .3s;
+    background: #fff;
+}
+
+#registrar_personal .password-group:focus-within {
+    border-color: var(--color-azulE);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .08);
+}
+
+/* El input interno toma todo el espacio sobrante */
+#registrar_personal .password-group input[type="password"],
+#registrar_personal .password-group input[type="text"] {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.95rem;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+/* Iconos */
+#registrar_personal .eye_off,
+#registrar_personal .eye_on {
+    cursor: pointer;
+    color: var(--color-intermitente);
+    font-size: 1.2rem;
+    margin-left: 10px;
+    align-items: center;
+    user-select: none;
+}
+
+#registrar_personal .eye_off:hover,
+#registrar_personal .eye_on:hover {
+    color: var(--color-azulE);
+}
+
+/* Checkbox oculto */
+#OcultaAparecer {
+    display: none !important;
+}
+
+/* Lógica de Toggle entre Ojo Abierto / Cerrado */
+#registrar_personal .eye_off,
+#registrar_personal .eye_on {
+    display: none;
+}
+
+#OcultaAparecer:not(:checked)~.eye_off:not([hidden]):not(.ocultar) {
+    display: flex !important;
+}
+
+#OcultaAparecer:checked~.eye_on:not([hidden]):not(.ocultar) {
+    display: flex !important;
+}
+
+#registrar_personal small {
+    width: 100%;
+    color: red;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+}
+
+/* BOTÓN */
+#registrar_personal input[type="submit"] {
+    width: 180px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: var(--color-azulE);
+    color: white;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+    margin-top: 5px;
+}
+
+#registrar_personal input[type="submit"]:hover {
+    background: var(--color-hover-azulE);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, .15);
+}
+
+/* =========================================================
+   CONTROL ABSOLUTO DE OCULTAMIENTO ([hidden] y clase .ocultar)
+========================================================= */
+#registrar_personal [hidden],
+#registrar_personal .ocultar,
+#registrar_personal .password-group[hidden],
+#registrar_personal .password-group.ocultar {
+    display: none !important;
 }

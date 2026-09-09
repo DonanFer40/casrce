@@ -15,22 +15,21 @@
                 {% csrf_token %}
 
                 <!-- FILA DE CAMPOS: Sección y Turno -->
-                <div class="fila-campos">
+                <div class="campos">
                     <div class="campo">
                         <label for="registro_seccion">Sección:</label>
-                        <input type="text" name="registro_seccion" id="registro_seccion" placeholder="Máximo 5 caracteres" maxlength="5" autocomplete="off" required>
+                        <input type="text" name="registro_seccion" id="registro_seccion"
+                            placeholder="Máximo 5 caracteres" maxlength="5" autocomplete="off" required>
                         <small id="mensaje_nombre_seccion"></small>
                     </div>
-
                     <div class="campo">
                         <label for="registro_turno">Turno:</label>
-                        <select name="registro_turno" id="registro_turno" required>
-                            <option value="" disabled selected>Selecciona el Turno Académico</option>
+                        <select name="registro_turno" id="registro_turno">
+                            <option value="">Seleccione un Turno</option>
                             <option value="Diurno">Diurno</option>
                             <option value="Nocturno">Nocturno</option>
-                            <option value="Fin de Semana">Fin de Semana</option>
+                            <option value="Fines de Semana">Fines de Semana</option>
                         </select>
-                        <small id="mensaje_aula_academica"></small>
                     </div>
                 </div>
 

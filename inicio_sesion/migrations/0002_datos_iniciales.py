@@ -1,5 +1,227 @@
 from django.db import migrations
 
+CALENDARIO_ACADEMICA = [
+    {
+        "fecha_inicio": "2026-01-01",
+        "fecha_final": "2026-01-01",
+        "descripcion": "Inicio de Año",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-02-12",
+        "fecha_final": "2026-02-13",
+        "descripcion": "Carnaval",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-03-28",
+        "fecha_final": "2026-03-29",
+        "descripcion": "Jueves y Viernes Santo",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-04-19",
+        "fecha_final": "2026-04-19",
+        "descripcion": "Declaración de Independencia",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-05-01",
+        "fecha_final": "2026-05-01",
+        "descripcion": "Día del Trabajador",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-06-24",
+        "fecha_final": "2026-06-24",
+        "descripcion": "Batalla de Carabobo",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-07-05",
+        "fecha_final": "2026-07-05",
+        "descripcion": "Día de la Independencia de Venezuela",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-07-24",
+        "fecha_final": "2026-07-24",
+        "descripcion": "Natalicio de Simón Bolívar",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-10-12",
+        "fecha_final": "2026-10-12",
+        "descripcion": "Día de la Resistencia Indígena",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-12-05",
+        "fecha_final": "2026-12-05",
+        "descripcion": "Día del Profesor Universitario",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-12-24",
+        "fecha_final": "2026-12-24",
+        "descripcion": "Noche Buena",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-12-25",
+        "fecha_final": "2026-12-25",
+        "descripcion": "Día de Navidad",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-12-31",
+        "fecha_final": "2026-12-31",
+        "descripcion": "Fin de Año",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-01-01",
+        "fecha_final": "2026-01-05",
+        "descripcion": "Período de Vacaciones",
+        "activo": True,
+        "tipo": "VACACIONES"
+    },
+    {
+        "fecha_inicio": "2026-02-12",
+        "fecha_final": "2026-02-16",
+        "descripcion": "Asueto Carnaval",
+        "activo": True,
+        "tipo": "VACACIONES"
+    },
+    {
+        "fecha_inicio": "2026-03-25",
+        "fecha_final": "2026-03-29",
+        "descripcion": "Asueto Semana Santa",
+        "activo": True,
+        "tipo": "VACACIONES"
+    },
+    {
+        "fecha_inicio": "2026-07-29",
+        "fecha_final": "2026-07-31",
+        "descripcion": "Período de Vacaciones",
+        "activo": True,
+        "tipo": "VACACIONES"
+    },
+    {
+        "fecha_inicio": "2026-08-01",
+        "fecha_final": "2026-08-31",
+        "descripcion": "Período de Vacaciones",
+        "activo": True,
+        "tipo": "VACACIONES"
+    },
+    {
+        "fecha_inicio": "2026-09-01",
+        "fecha_final": "2026-09-14",
+        "descripcion": "Período de Vacaciones",
+        "activo": True,
+        "tipo": "VACACIONES"
+    },
+    {
+        "fecha_inicio": "2026-12-16",
+        "fecha_final": "2026-12-31",
+        "descripcion": "Período de Vacaciones",
+        "activo": True,
+        "tipo": "VACACIONES"
+    },
+    {
+        "fecha_inicio": "2026-01-31",
+        "fecha_final": "2026-01-31",
+        "descripcion": "Muerte de José Félix Ribas",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-07-17",
+        "fecha_final": "2026-07-21",
+        "descripcion": "Semana Aniversario de la UPT del Estado Barinas José Félix Ribas y Actividades Académicas y Culturales",
+        "activo": True,
+        "tipo": "ANIVERSARIO"
+    },
+    {
+        "fecha_inicio": "2026-09-19",
+        "fecha_final": "2026-09-19",
+        "descripcion": "Natalicio de José Félix Ribas",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-11-21",
+        "fecha_final": "2026-11-21",
+        "descripcion": "Día del Estudiante",
+        "activo": True,
+        "tipo": "NO_LABORABLE"
+    },
+    {
+        "fecha_inicio": "2026-01-29",
+        "fecha_final": "2026-01-29",
+        "descripcion": "Inicio de solicitud de solvencia para grado",
+        "activo": True,
+        "tipo": "GRADUACION"
+    },
+    {
+        "fecha_inicio": "2026-04-25",
+        "fecha_final": "2026-04-25",
+        "descripcion": "Primer Acto de Grado Solemne",
+        "activo": True,
+        "tipo": "GRADUACION"
+    },
+    {
+        "fecha_inicio": "2026-06-03",
+        "fecha_final": "2026-06-03",
+        "descripcion": "Inicio de solicitud de solvencia para grado",
+        "activo": True,
+        "tipo": "GRADUACION"
+    },
+    {
+        "fecha_inicio": "2026-07-31",
+        "fecha_final": "2026-07-31",
+        "descripcion": "Segundo Acto de Grado Solemne 2024",
+        "activo": True,
+        "tipo": "GRADUACION"
+    },
+    {
+        "fecha_inicio": "2026-10-07",
+        "fecha_final": "2026-10-07",
+        "descripcion": "Inicio de solicitud de solvencia para grado",
+        "activo": True,
+        "tipo": "GRADUACION"
+    },
+    {
+        "fecha_inicio": "2026-12-05",
+        "fecha_final": "2026-12-05",
+        "descripcion": "Tercer Acto de Grado Solemne",
+        "activo": True,
+        "tipo": "GRADUACION"
+    },
+]
+
+TRAYECTOS_ACADEMICOS = [
+    {"nombre": "Trayecto Inicial"},
+    {"nombre": "Trayecto I"},
+    {"nombre": "Trayecto II"},
+    {"nombre": "Trayecto III"},
+    {"nombre": "Trayecto IV"},
+    {"nombre": "Trayecto V"},
+]
+
 PERIODOS_ACADEMICOS = [
     {"nombre": "Inicial Trimestre"},
     {"nombre": "Inicial Semestre"},
@@ -52,84 +274,26 @@ PNF_NUCLEO = [
     {"municipio": "Pedraza", "codigo": "CARRE003"},
 ]
 
-GRUPOS_ACTIVIDADES = [
-    {"nombre": "Feriados"},
-    {"nombre": "Contrato Colectivo"},
-    {"nombre": "Días Especiales"},
-    {"nombre": "Actos de Grado"},
-    {"nombre": "Actividades Académicas"},
-]
-
-ACTIVIDADES = [
-    # Feriados
-    {"grupo": "Feriados", "actividad": "Inicio de Año"},
-    {"grupo": "Feriados", "actividad": "Carnaval"},
-    {"grupo": "Feriados", "actividad": "Jueves y Viernes Santo"},
-    {"grupo": "Feriados", "actividad": "Declaración de Independencia"},
-    {"grupo": "Feriados", "actividad": "Día del Trabajador"},
-    {"grupo": "Feriados", "actividad": "Batalla de Carabobo"},
-    {"grupo": "Feriados", "actividad": "Día de la Independencia"},
-    {"grupo": "Feriados", "actividad": "Natalicio de Simón Bolívar"},
-    {"grupo": "Feriados", "actividad": "Día del Profesor Universitario"},
-    {"grupo": "Feriados", "actividad": "Noche Buena"},
-    {"grupo": "Feriados", "actividad": "Navidad"},
-    {"grupo": "Feriados", "actividad": "Fin de Año"},
-
-    # Contrato Colectivo
-    {"grupo": "Contrato Colectivo", "actividad": "Período de Vacaciones"},
-    {"grupo": "Contrato Colectivo", "actividad": "Asueto Carnaval"},
-    {"grupo": "Contrato Colectivo", "actividad": "Asueto Semana Santa"},
-
-    # Días Especiales
-    {"grupo": "Días Especiales", "actividad": "Muerte de José Félix Ribas"},
-    {"grupo": "Días Especiales", "actividad": "Semana Aniversario de la UPT"},
-    {"grupo": "Días Especiales", "actividad": "Natalicio José Félix Ribas"},
-    {"grupo": "Días Especiales", "actividad": "Día del Estudiante"},
-]
-
-AULAS = [
-    {"nombre_aula": "Aula 10", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 11", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 12", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 13", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 14", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 15", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 16", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 17", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 18", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 19", "nombre_edificio": "Edificio A", "piso_edificio": "Primer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 20", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 21", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 22", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 23", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 24", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 25", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 26", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 27", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 28", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 29", "nombre_edificio": "Edificio A", "piso_edificio": "Segundo Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 30", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 31", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 32", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 33", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 34", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 35", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 36", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 37", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 38", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 39", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-    {"nombre_aula": "Aula 40", "nombre_edificio": "Edificio A", "piso_edificio": "Tercer Piso", "nucleo": "Barinas",},
-]
-
 def crear_datos(apps, schema_editor):
     Nucleo = apps.get_model("inicio_sesion", "Nucleos")
-    PeriodoCargarNotas = apps.get_model("inicio_sesion", "PeriodoCargarNotas")
+    PeriodoAcademico = apps.get_model("inicio_sesion", "PeriodoAcademico")
+    TrayectoAcademico = apps.get_model("inicio_sesion", "TrayectoAcademico")
     carrera = apps.get_model("inicio_sesion", "Pnf")
-    PNFNucleo = apps.get_model("inicio_sesion", "PNFNucleo")    
-    GrupoActividad = apps.get_model("inicio_sesion", "GrupoActividad")
-    Actividad = apps.get_model("inicio_sesion", "Actividad")
-    AulaAcademica = apps.get_model("inicio_sesion", "AulaAcademica")
-    Nucleos = apps.get_model("inicio_sesion", "Nucleos")
+    PNFNucleo = apps.get_model("inicio_sesion", "PNFNucleo")
+    Calendario = apps.get_model("inicio_sesion", "CalendarioAcademico")
+        
+    # Calendario Académico
+    for calendario in CALENDARIO_ACADEMICA:
+        Calendario.objects.get_or_create(
+            fecha_inicio=calendario["fecha_inicio"],
+            fecha_final=calendario["fecha_final"],
+            tipo=calendario["tipo"],
+            defaults={
+                "descripcion": calendario["descripcion"],
+                "activo": calendario["activo"],
+            },
+        )
+
     # Núcleos
     for nucleo in NUCLEOS:
         Nucleo.objects.get_or_create(
@@ -139,9 +303,15 @@ def crear_datos(apps, schema_editor):
             },
         )
 
-    # Períodos para carga de notas
+    # Trayectos académicos
+    for trayecto in TRAYECTOS_ACADEMICOS:
+        TrayectoAcademico.objects.get_or_create(
+            nombre=trayecto["nombre"]
+        )
+
+    # Períodos académicos
     for periodo in PERIODOS_ACADEMICOS:
-        PeriodoCargarNotas.objects.get_or_create(
+        PeriodoAcademico.objects.get_or_create(
             nombre=periodo["nombre"]
         )
 
@@ -170,67 +340,6 @@ def crear_datos(apps, schema_editor):
             id_pnf=pnf,
         )
 
-    # Crear grupos
-    for grupo in GRUPOS_ACTIVIDADES:
-        GrupoActividad.objects.get_or_create(
-            nombre=grupo["nombre"]
-        )
-
-    # Crear actividades
-    for dato in ACTIVIDADES:
-        grupo = GrupoActividad.objects.get(
-            nombre=dato["grupo"]
-        )
-
-        Actividad.objects.get_or_create(
-            grupo=grupo,
-            nombre=dato["actividad"]
-        )
-
-    for aula in AULAS:
-        AulaAcademica.objects.create(
-            nombre_aula=aula["nombre_aula"],
-            nombre_edificio=aula["nombre_edificio"],
-            piso_edificio=aula["piso_edificio"],
-            id_nucleo=Nucleos.objects.get(municipio=aula["nucleo"]),
-        )
-
-def eliminar_datos(apps, schema_editor):
-    Nucleo = apps.get_model("inicio_sesion", "Nucleos")
-    PeriodoCargarNotas = apps.get_model("inicio_sesion", "PeriodoCargarNotas")
-    PNFNucleo = apps.get_model("inicio_sesion", "PNFNucleo")
-    Pnf = apps.get_model("inicio_sesion", "Pnf")
-    GrupoActividad = apps.get_model("inicio_sesion", "GrupoActividad")
-    Actividad = apps.get_model("inicio_sesion", "Actividad")
-    AulaAcademica = apps.get_model("inicio_sesion", "AulaAcademica")
-    SeccionAcademica = apps.get_model("inicio_sesion", "SeccionAcademica")
-    
-    PNFNucleo.objects.all().delete()
-
-    Pnf.objects.filter(
-        codigo__in=[p["codigo"] for p in PNF]
-    ).delete()
-
-    PeriodoCargarNotas.objects.filter(
-        nombre__in=[p["nombre"] for p in PERIODOS_ACADEMICOS]
-    ).delete()
-
-    Nucleo.objects.filter(
-        municipio__in=[n["municipio"] for n in NUCLEOS]
-    ).delete()
-
-    Actividad.objects.filter(
-        nombre__in=[a["actividad"] for a in ACTIVIDADES]
-    ).delete()
-
-    GrupoActividad.objects.filter(
-        nombre__in=[g["nombre"] for g in GRUPOS_ACTIVIDADES]
-    ).delete()
-
-    AulaAcademica.objects.filter(
-        nombre_aula__in=[g["nombre_aula"] for g in AULAS]
-    ).delete()
-
 class Migration(migrations.Migration):
     dependencies = [
         ("inicio_sesion", "0001_initial"),
@@ -239,6 +348,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(
             crear_datos,
-            eliminar_datos
         ),
     ]
+
+    

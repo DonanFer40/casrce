@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     const select_busqueda_pnf = document.getElementById("buscar_pnf");
     const contenedor_materias = document.getElementById("contenedor_tablas_materia");
-    
-    let pnf = "";
 
     async function pnfs_registrados() {
         try {
@@ -30,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const formulario = new FormData();
             formulario.append("pnf", select_busqueda_pnf.value);
-  
+
             const respuesta = await fetch("/mat_lista/", {
                 method: "POST",
                 headers: {
@@ -74,8 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <td>${materia.codigo}</td>
                             <td>${materia.htea}</td>
                             <td>${materia.htei}</td>
-                            <td>${materia.trayecto}</td>
+                            <td>${materia.id_trayecto__nombre}</td>
                             <td>${materia.recuperacion}</td>
+                            <td>${materia.tipo_materia}</td>
                         </tr>
                     `;
                 });
@@ -93,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <th>HTEI</th>
                             <th>Trayecto</th>
                             <th>Recuperación</th>
+                            <th>Tipo de Materia</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -2,9 +2,20 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import transaction
 from django.utils import timezone
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
-from inicio_sesion.models import Usuario, PNFNucleo, Bitacora, Pnf, Materia, PeriodoCargarNotas, PeriodoNotasMateria, DirectorGeneral, ControlEstudio
+from inicio_sesion.models import TrayectoAcademico, MateriaAsignada, Usuario, PNFNucleo, Bitacora, Pnf, Materia, PeriodoAcademico, PeriodoAcademicoMateria, DirectorGeneral, ControlEstudio
+
+def tray_reg_acad(request):
+    trayectos = TrayectoAcademico.objects.all().values(
+        "id_periodo_academico",
+        "nombre"
+    )
+
+    return JsonResponse({
+        "estado": "exito",
+        "trayectos": list(trayectos)
+    })
 
 def pnf_per_acad(request):
     if request.method == "POST":
@@ -75,7 +86,7 @@ def mat_lista(request):
         cedula_usuario = request.session.get("cedula_usuario")
         nucleo = None
 
-        # Buscar si es Director General
+        # BUSCAR DIRECTOR GENERAL
         director = DirectorGeneral.objects.filter(
             usuario__cedula_identidad=cedula_usuario
         ).select_related(
@@ -85,7 +96,7 @@ def mat_lista(request):
         if director:
             nucleo = director.nucleo
 
-        # Si no es Director, buscar Control de Estudio
+        # BUSCAR CONTROL DE ESTUDIO
         if not nucleo:
             control = ControlEstudio.objects.filter(
                 usuario__cedula_identidad=cedula_usuario
@@ -96,26 +107,37 @@ def mat_lista(request):
             if control:
                 nucleo = control.nucleo
 
+        # VALIDAR NÚCLEO
         if not nucleo:
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
                 "title": "Error",
-                "mensaje": "El usuario no tiene núcleo asignado."
+                "desccripcion": "El usuario no tiene núcleo asignado."
             })
 
-        # Obtener PNF asignados al núcleo
-        pnfs_usuario = Pnf.objects.filter(pnfnucleo__id_nucleo_id=nucleo.id_nucleo).distinct()
+        # PNF ASIGNADOS AL NÚCLEO
+        pnfs_usuario = Pnf.objects.filter(
+            pnfnucleo__id_nucleo_id=nucleo.id_nucleo
+        ).distinct()
 
         pnf = request.POST.get("pnf")
 
-        # Materias de esos PNF
-        materias_query = Materia.objects.select_related("id_pnf").filter(id_pnf__in=pnfs_usuario)
+        # MATERIAS
+        materias_query = Materia.objects.select_related(
+            "id_pnf",
+            "id_trayecto"
+        ).filter(
+            id_pnf__in=pnfs_usuario
+        )
 
-        # Filtrar por PNF seleccionado
+        # FILTRAR POR PNF
         if pnf and pnf != "ninguno":
-            materias_query = materias_query.filter(id_pnf=pnf)
+            materias_query = materias_query.filter(
+                id_pnf=pnf
+            )
 
+        # OBTENER MATERIAS
         materias = list(
             materias_query.values(
                 "id_materia",
@@ -125,10 +147,13 @@ def mat_lista(request):
                 "htei",
                 "recuperacion",
                 "id_pnf",
-                "trayecto"
+                "id_trayecto",
+                "id_trayecto__nombre",
+                "tipo_materia",
             )
         )
 
+        # OBTENER PNFS
         pnfs = list(
             pnfs_usuario.values(
                 "id_pnf",
@@ -149,35 +174,326 @@ def mat_datos(request):
     if request.method == "POST":
         codigo = request.POST.get("codigo")
 
+        if not codigo:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Código requerido",
+                "icon": "warning",
+                "descripcion": "Debe indicar el código de la materia."
+            })
+
         try:
-            materia = Materia.objects.select_related(
-                "id_pnf",
-            ).get(codigo=codigo)
+            materia = (
+                Materia.objects
+                .select_related(
+                    "id_pnf",
+                    "id_trayecto",
+                )
+                .prefetch_related(
+                    "periodos_academicos__periodo"
+                )
+                .get(codigo=codigo)
+            )
         except Materia.DoesNotExist:
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Error",
                 "icon": "error",
-                "descripcion": "La materia no se encuentra registrado."
+                "descripcion": "La materia no se encuentra registrada."
             })
-        
+
+        # PERÍODOS ACADÉMICOS
+        relaciones_periodos = materia.periodos_academicos.all()
+
+        periodos_materia = [
+            relacion.periodo.nombre
+            for relacion in relaciones_periodos
+        ]
+
+        periodos = [
+            {
+                "id_periodo_academico": relacion.periodo.id_periodo_academico,
+                "nombre": relacion.periodo.nombre,
+            }
+            for relacion in relaciones_periodos
+        ]
+
+        # TIPO DE PERÍODO
+        mapa_periodos = {
+            frozenset(["Inicial Trimestre"]):
+                "INICIAL_TRIMESTRE",
+            frozenset(["Inicial Semestre"]):
+                "INICIAL_SEMESTRE",
+            frozenset(["Reparación"]):
+                "REPARACION",
+            frozenset(["Tramo I"]):
+                "TRAMO_I",
+            frozenset(["Tramo II"]):
+                "TRAMO_II",
+            frozenset(["Tramo III"]):
+                "TRAMO_III",
+            frozenset(["Tramo I", "Tramo II"]):
+                "TRAMO_I_II",
+            frozenset(["Tramo II", "Tramo III"]):
+                "TRAMO_II_III",
+            frozenset(["Tramo I", "Tramo III"]):
+                "TRAMO_I_III",
+            frozenset([
+                "Tramo I",
+                "Tramo II",
+                "Tramo III"
+            ]):
+                "TRIMESTRE",
+            frozenset(["Semestre I"]):
+                "SEMESTRE_I",
+            frozenset(["Semestre II"]):
+                "SEMESTRE_II",
+            frozenset([
+                "Semestre I",
+                "Semestre II"
+            ]):
+                "SEMESTRE",
+        }
+
+        tipo_periodo = mapa_periodos.get(
+            frozenset(periodos_materia)
+        )
+
         return JsonResponse({
             "estado": "exito",
             "materia": {
                 "id_materia": materia.id_materia,
                 "nombre": materia.nombre,
+                "codigo": materia.codigo,
                 "recuperacion": materia.recuperacion,
                 "htea": materia.htea,
                 "htei": materia.htei,
-                "trayecto": materia.trayecto
+                "thte": materia.thte,
+                "uc": materia.uc,
+                "activa": materia.activa,
+                "tipo_materia": materia.tipo_materia,
+                "trayecto": {
+                    "id_trayecto": materia.id_trayecto.pk,
+                    "nombre": materia.id_trayecto.nombre,
+                },
+                "periodos_academicos": periodos,
+                "tipo_periodo": tipo_periodo,
             },
             "pnf": {
                 "id_pnf": materia.id_pnf.id_pnf,
                 "pnf": materia.id_pnf.pnf,
-                "codigo": materia.id_pnf.codigo
+                "codigo": materia.id_pnf.codigo,
             }
         })
 
+def tract_selec_mat(request):
+    if request.method == "POST":
+        periodo_academico = request.POST.get("periodo_academico")
+
+        if not periodo_academico:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Periodo requerido",
+                "icon": "warning",
+                "descripcion": "Debe seleccionar un periodo académico."
+            })
+
+        # TRAYECTO INICIAL
+        periodos_iniciales = {
+            "INICIAL_TRIMESTRE",
+            "INICIAL_SEMESTRE",
+        }
+
+        # TRIMESTRE / TRAMOS
+        periodos_trimestre = {
+            "TRIMESTRE",
+            "TRAMO_I",
+            "TRAMO_II",
+            "TRAMO_III",
+            "TRAMO_I_II",
+            "TRAMO_II_III",
+            "TRAMO_I_III",
+        }
+
+        # SEMESTRE
+        periodos_semestre = {
+            "SEMESTRE",
+            "SEMESTRE_I",
+            "SEMESTRE_II",
+        }
+
+        # DETERMINAR TRAYECTOS
+        if periodo_academico in periodos_iniciales:
+            trayectos = TrayectoAcademico.objects.filter(nombre="Trayecto Inicial")
+
+        elif periodo_academico in periodos_trimestre:
+            trayectos = TrayectoAcademico.objects.filter(
+                nombre__in=[
+                    "Trayecto I",
+                    "Trayecto II",
+                    "Trayecto III",
+                    "Trayecto IV",
+                ]
+            )
+
+        elif periodo_academico in periodos_semestre:
+            trayectos = TrayectoAcademico.objects.filter(
+                nombre__in=[
+                    "Trayecto I",
+                    "Trayecto II",
+                    "Trayecto III",
+                    "Trayecto IV",
+                    "Trayecto V",
+                ]
+            )
+
+        elif periodo_academico == "REPARACION":
+            # Reparación puede corresponder a cualquiera
+            trayectos = TrayectoAcademico.objects.all()
+
+        else:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Periodo inválido",
+                "icon": "warning",
+                "descripcion": "El periodo académico seleccionado no es válido."
+            })
+
+        trayectos = trayectos.order_by("id_periodo_academico")
+        datos_trayectos = [
+            {
+                "id_trayecto": trayecto.id_periodo_academico,
+                "nombre": trayecto.nombre,
+            }
+            for trayecto in trayectos
+        ]
+
+        return JsonResponse({
+            "estado": "exito",
+            "trayectos": datos_trayectos
+        })
+
+def pnf_selec_mat(request):
+    if request.method == "POST":
+        periodo_academico = request.POST.get("periodo_academico")
+
+        if not periodo_academico:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Periodo requerido",
+                "icon": "warning",
+                "descripcion": "Debe seleccionar un periodo académico."
+            })
+
+        # OBTENER USUARIO
+        try:
+            usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))
+        except Usuario.DoesNotExist:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Usuario no encontrado",
+                "icon": "error",
+                "descripcion": "No se pudo identificar el usuario."
+            })
+
+        # OBTENER NÚCLEOS DEL USUARIO
+        if DirectorGeneral.objects.filter(usuario=usuario).exists():
+            nucleos = DirectorGeneral.objects.filter(
+                usuario=usuario
+            ).values_list(
+                "nucleo_id",
+                flat=True
+            )
+
+        elif ControlEstudio.objects.filter(usuario=usuario).exists():
+            nucleos = ControlEstudio.objects.filter(
+                usuario=usuario
+            ).values_list(
+                "nucleo_id",
+                flat=True
+            )
+        else:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Acceso denegado",
+                "icon": "error",
+                "descripcion": "El usuario no tiene un núcleo asignado."
+            })
+
+        # DETERMINAR TIPO DE PNF
+        periodos_trimestre = {
+            "TRIMESTRE",
+            "TRAMO_I",
+            "TRAMO_II",
+            "TRAMO_III",
+            "TRAMO_I_II",
+            "TRAMO_II_III",
+            "TRAMO_I_III",
+            "INICIAL_TRIMESTRE",
+        }
+
+        periodos_semestre = {
+            "SEMESTRE",
+            "SEMESTRE_I",
+            "SEMESTRE_II",
+            "INICIAL_SEMESTRE",
+        }
+
+        # REPARACIÓN
+        if periodo_academico == "REPARACION":
+            tipo_pnf = "Todos"
+
+            pnfs = Pnf.objects.filter(
+                pnfnucleo__id_nucleo__in=nucleos
+            ).order_by("pnf")
+
+        # TRIMESTRE
+        elif periodo_academico in periodos_trimestre:
+            tipo_pnf = "Trimestre"
+
+            pnfs = Pnf.objects.filter(
+                periodo_academico="Trimestre",
+                pnfnucleo__id_nucleo__in=nucleos
+            ).order_by("pnf")
+
+        # SEMESTRE
+        elif periodo_academico in periodos_semestre:
+            tipo_pnf = "Semestre"
+
+            pnfs = Pnf.objects.filter(
+                periodo_academico="Semestre",
+                pnfnucleo__id_nucleo__in=nucleos
+            ).order_by("pnf")
+
+        # PERIODO INVÁLIDO
+        else:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Periodo inválido",
+                "icon": "warning",
+                "descripcion": "El periodo académico seleccionado no es válido."
+            })
+
+        # ELIMINAR DUPLICADOS
+        pnfs = pnfs.distinct()
+
+        # CONSTRUIR RESPUESTA
+        datos_pnf = [
+            {
+                "id_pnf": pnf.id_pnf,
+                "pnf": pnf.pnf,
+                "codigo": pnf.codigo,
+                "periodo_academico": pnf.periodo_academico,
+            }
+            for pnf in pnfs
+        ]
+
+        return JsonResponse({
+            "estado": "exito",
+            "tipo_pnf": tipo_pnf,
+            "pnfs": datos_pnf
+        })
+    
 def mat_guardar(request):
     if request.method == "POST":
         id_materia = request.POST.get("materiaseleccionado")
@@ -186,13 +502,18 @@ def mat_guardar(request):
         thei = request.POST.get("THEI")
         reparacion_materia = request.POST.get("reparacionmateria")
         pnf_materia = request.POST.get("pnfmateria")
+        periodo_materia = request.POST.get("periodomateria")
+        trayecto_materia = request.POST.get("trayecto")
+        tipo_materia = request.POST.get("tipo_materia")
 
         controles = [
             (nombre, "Nombre de la Materia", "Por favor, debe ingresar el nombre de la materia."),
-            (reparacion_materia, "Reparación de la Materia", "Por favor, seleccione si la materia hay la posibilidad de haber o no reparación."),
-            (pnf_materia, "PNF de la Materia", "Por favor, seleccione el pnf que pertenecera la materia."),
-            (thea, "Hora Trabajo Estudio Acompañado (HTEA)", "Por favor, debe ingresar las hotas totales de estudio acompañado."),
-            (thei, "Hora Trabajo Estudio Independiente (HTEI)", "Por favor, debe ingresar las hotas totales de estudio independiente.")
+            (reparacion_materia, "Reparación de la Materia", "Por favor, seleccione si la materia tiene posibilidad de reparación."),
+            (pnf_materia, "PNF de la Materia", "Por favor, seleccione el PNF al que pertenecerá la materia."),
+            (periodo_materia, "Periodo Académico", "Por favor, seleccione el periodo académico de la materia."),
+            (trayecto_materia, "Trayecto", "Por favor, seleccione el trayecto de la materia."),
+            (thea, "Hora Trabajo Estudio Acompañado (HTEA)", "Por favor, debe ingresar las horas totales de estudio acompañado."),
+            (thei, "Hora Trabajo Estudio Independiente (HTEI)", "Por favor, debe ingresar las horas totales de estudio independiente.")
         ]
 
         for value, field_name, error_message in controles:
@@ -204,36 +525,123 @@ def mat_guardar(request):
                     "descripcion": error_message
                 })
 
+        # BUSCAR MATERIA
+        try:
+            materia = Materia.objects.get(id_materia=id_materia)
+        except Materia.DoesNotExist:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "error",
+                "title": "No Existe",
+                "descripcion": "La materia no se encuentra registrada."
+            })
+
+        # COMPROBAR SI LA MATERIA YA ESTÁ ASIGNADA
+        asignacion = MateriaAsignada.objects.filter(materia=materia).first()
+        if asignacion:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Materia no modificable",
+                "descripcion": (
+                    "La materia no puede modificarse porque "
+                    "ya se encuentra asignada a un docente."
+                )
+            })
+
+        # CONVERTIR HORAS
+        try:
+            htea = Decimal(thea.replace(",", "."))
+            htei = Decimal(thei.replace(",", "."))
+        except (InvalidOperation, AttributeError):
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Horas inválidas",
+                "descripcion": (
+                    "Las horas ingresadas no tienen un formato válido."
+                )
+            })
+
+        # ACTUALIZAR
         with transaction.atomic():
-            try:
-                materia = Materia.objects.get(id_materia=id_materia)
-            except Materia.DoesNotExist:
+            materia.nombre = nombre
+            materia.recuperacion = reparacion_materia
+            materia.htea = htea
+            materia.htei = htei
+            materia.id_pnf_id = pnf_materia
+            materia.id_trayecto_id = trayecto_materia
+            materia.save()
+
+            # ACTUALIZAR PERÍODOS ACADÉMICOS
+            mapa_periodos = {
+                "INICIAL_TRIMESTRE": ["Inicial Trimestre"],
+                "INICIAL_SEMESTRE": ["Inicial Semestre"],
+                "REPARACION": ["Reparación"],
+                "TRAMO_I": ["Tramo I"],
+                "TRAMO_II": ["Tramo II"],
+                "TRAMO_III": ["Tramo III"],
+                "TRAMO_I_II": ["Tramo I", "Tramo II"],
+                "TRAMO_II_III": ["Tramo II", "Tramo III"],
+                "TRAMO_I_III": ["Tramo I", "Tramo III"],
+                "TRIMESTRE": ["Tramo I", "Tramo II", "Tramo III"],
+                "SEMESTRE_I": ["Semestre I"],
+                "SEMESTRE_II": ["Semestre II"],
+                "SEMESTRE": ["Semestre I", "Semestre II"],
+            }
+
+            nombres_periodos = mapa_periodos.get(periodo_materia)
+
+            if not nombres_periodos:
+                return JsonResponse({
+                    "estado": "fallo",
+                    "icon": "warning",
+                    "title": "Periodo inválido",
+                    "descripcion": "El periodo académico seleccionado no es válido."
+                })
+
+            # Buscar los períodos reales en la BD
+            periodos = PeriodoAcademico.objects.filter(nombre__in=nombres_periodos)
+
+            # Comprobar que existan todos
+            if periodos.count() != len(nombres_periodos):
                 return JsonResponse({
                     "estado": "fallo",
                     "icon": "error",
-                    "title": "No Existe",
-                    "descripcion": "La materia no se encuentra registrada."
+                    "title": "Periodo no encontrado",
+                    "descripcion": (
+                        "Uno o más períodos académicos no se encuentran "
+                        "registrados en el sistema."
+                    )
                 })
 
-            materia.nombre = nombre
-            materia.recuperacion = reparacion_materia
-            materia.htea = Decimal(thea.replace(",", "."))
-            materia.htei = Decimal(thei.replace(",", "."))
-            materia.id_pnf_id = pnf_materia
-            materia.save()
+            # Eliminar los períodos anteriores
+            PeriodoAcademicoMateria.objects.filter(materia=materia).delete()
 
+            # Registrar los nuevos períodos
+            PeriodoAcademicoMateria.objects.bulk_create([
+                PeriodoAcademicoMateria(
+                    materia=materia,
+                    periodo=periodo
+                )
+                for periodo in periodos
+            ])
+
+            # BITÁCORA
             Bitacora.objects.create(
-                nombre_usuario=request.session.get("usuario_nombre"),
+                nombre_usuario=request.session.get(
+                    "usuario_nombre"
+                ),
                 fecha_hora=timezone.now(),
                 accion=f"Actualizó la materia '{materia.nombre}'."
             )
 
-            return JsonResponse({
-                "estado": "exito",
-                "icon": "success",
-                "title": "Éxito",
-                "descripcion": "La materia se actualizó exitosamente."
-            })
+        return JsonResponse({
+            "estado": "exito",
+            "icon": "success",
+            "title": "Éxito",
+            "descripcion": "La materia se actualizó exitosamente."
+        })
 
     return render(request, "Director_General/materia/actualizar_materia.html")
 
@@ -267,6 +675,7 @@ def reg_mat(request):
         trayecto = request.POST.get("trayectomateria")
         reparacion = request.POST.get("reparacionmateria")
         pnf = request.POST.get("pnfmateria")
+        tipo_materia = request.POST.get("tipo_materia")
 
         controles = [
             (nombre, "Nombre de la Materia", "Por favor, debe ingresar el nombre de la materia."),
@@ -276,7 +685,8 @@ def reg_mat(request):
             (reparacion, "Reparación", "Por favor, debe seleccionar la posibilidad de reparación."),
             (thea, "Hora Trabajo Estudio Acompañado (HTEA)", "Por favor, debe ingresar las hotas totales de estudio acompañado."),
             (thei, "Hora Trabajo Estudio Independiente (HTEI)", "Por favor, debe ingresar las hotas totales de estudio independiente."),
-            (pnf, "P.N.F", "Por favor, debe seleccionar el PNF.")
+            (pnf, "P.N.F", "Por favor, debe seleccionar el PNF."),
+            (tipo_materia, "Tipo de Materia", "Por favor, debe seleccionar el Tipo de Materia.")
         ]
 
         for value, field_name, error_message in controles:
@@ -289,6 +699,7 @@ def reg_mat(request):
                 })
 
         pnf_obj = Pnf.objects.get(id_pnf=pnf)
+        trayecto_obj = TrayectoAcademico.objects.get(id_periodo_academico=trayecto)
 
         mapa_periodo_bd = {
             "INICIAL_TRIMESTRE": ["Inicial Trimestre"],
@@ -302,8 +713,8 @@ def reg_mat(request):
             "TRAMO_II_III": ["Tramo II", "Tramo III"],
             "TRAMO_I_III": ["Tramo I", "Tramo III"],
             "SEMESTRE": ["Semestre I", "Semestre II"],
-            "SEMESTRE I": ["Semestre I"],
-            "SEMESTRE II": ["Semestre II"],
+            "SEMESTRE_I": ["Semestre I"],
+            "SEMESTRE_II": ["Semestre II"],
         }
 
         valores = mapa_periodo_bd.get(periodo_materia)
@@ -315,7 +726,7 @@ def reg_mat(request):
                 "descripcion": "Periodo inválido."
             })
 
-        periodos = PeriodoCargarNotas.objects.filter(nombre__in=valores)
+        periodos = PeriodoAcademico.objects.filter(nombre__in=valores)
         if not periodos.exists():
             return JsonResponse({
                 "estado": "fallo",
@@ -327,17 +738,18 @@ def reg_mat(request):
             materia = Materia.objects.create(
                 nombre=nombre,
                 codigo=codigo,
-                trayecto=trayecto,
                 htea = Decimal(thea.replace(",", ".")),
                 htei = Decimal(thei.replace(",", ".")),
                 recuperacion=reparacion,
-                id_pnf=pnf_obj
+                id_trayecto=trayecto_obj,
+                id_pnf=pnf_obj,
+                tipo_materia=tipo_materia
             )
 
             periodo_materias = []
 
             for periodo in periodos:
-                pm = PeriodoNotasMateria.objects.create(
+                pm = PeriodoAcademicoMateria.objects.create(
                     materia=materia,
                     periodo=periodo
                 )

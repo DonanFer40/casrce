@@ -5,14 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn_cerrar = document.getElementById("cerrar_dialogo");
 
     const formulario_actualizar = document.getElementById("formulario_actualizar_seccion");
-    
+
     const input_seccion_oculto = document.getElementById("secciones_seleccionado");
     const select_actualizar_turno = document.getElementById("actualizar_turno_registrado");
     const input_actualizar_seccion = document.getElementById("actualizar_seccion_registrado");
     const mensaje_actualizar_seccion = document.getElementById("mensaje_actualizar_seccion");
 
     const btn_actualizar = document.getElementById("btn_actualizar");
-  
+
     let filas = "";
 
     async function secciones_registradas() {
@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             contenedor_secciones.innerHTML = filas;
-        } catch(error){
+        } catch (error) {
             console.error(error);
-            
+
         }
     }
     secciones_registradas();
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const formulario = new FormData();
             formulario.append("seccion", input_actualizar_seccion.value);
-            formulario.append("id_seccion", secciones_seleccionado.value);
+            formulario.append("id_seccion", input_seccion_oculto.value);
 
             const respuesta = await fetch("/val_sec/", {
                 method: "POST",
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const resultado = await respuesta.json();
             console.log(resultado);
-            
+
             if (resultado.existe) {
                 input_actualizar_seccion.setCustomValidity("Ya existe una sección con el mismo nombre.");
                 input_actualizar_seccion.classList.add("is-invalid");
@@ -98,13 +98,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const resultado = await respuesta.json();
             console.log(resultado);
-            
+
             dialogo_actualizar.showModal();
-         
+
             input_seccion_oculto.value = resultado.seccion.id_seccion;
             input_actualizar_seccion.value = resultado.seccion.seccion;
-            
-            select_actualizar_turno.innerHTML = "";
+
 
             const option_turno = document.createElement("option");
             option_turno.value = resultado.seccion.turno;
@@ -141,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             filas = "";
             await secciones_registradas();
 
-            Swal.fire({
+            await Swal.fire({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 allowOutsideClick: false,

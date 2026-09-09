@@ -18,8 +18,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Aula</th>
-                            <th>Edificio</th>
+                            <th>Nota</th>
                             <th>Piso</th>
+                            <th>Tipo de Aula</th>
+                            <th>Sección</th>
+                            <th>P.N.F</th>
                         </tr>
                     </thead>
                     <tbody id="contenedor_aulas">
@@ -39,9 +42,9 @@
 
         <div id="mensajede_error"></div>
 
-        <form method="post" id="formulario_actualizar_aula">
+        <form method="post" id="formulario_actualizar">
             {% csrf_token %}
-            <input type="hidden" name="aulaseleccionar" id="aula_seleccionar">
+            <input type="hidden" name="aula_seleccionar" id="aula_seleccionar">
 
             <!-- FILA 1: Nombre del Aula -->
             <div class="campo">
@@ -49,21 +52,37 @@
                 <input type="text" name="actualizar_aula" id="actualizar_nombre_aula" autocomplete="off" required>
             </div>
 
-            <!-- FILA 2: Edificio y Piso -->
-            <div class="fila-campos">
-                <div class="campo">
-                    <label for="actualizar_nombre_edificio">Nombre del Edificio:</label>
-                    <input type="text" name="actualizar_edificio" id="actualizar_nombre_edificio" autocomplete="off" required>
-                </div>
+            <div class="campo">
+                <label for="actualizar_nota_aula">Nota / Descripción del Aula:</label>
+                <input type="text" name="actualizar_nota" id="actualizar_nota_aula" autocomplete="off" required>
+            </div>
 
-                <div class="campo">
-                    <label for="actualizar_piso_edificio">Piso del Edificio:</label>
-                    <input type="text" name="actualizar_piso" id="actualizar_piso_edificio" autocomplete="off" required>
-                </div>
+            <div class="campo">
+                <label for="actualizar_piso_edificio">Piso del Edificio:</label>
+                <input type="text" name="actualizar_piso" id="actualizar_piso_edificio" autocomplete="off" required>
+            </div>
+
+            <div class="campo">
+                <label for="actualizar_tipos_aulas">Tipo del Aula:</label>
+                <select name="actualizar_tipos" id="actualizar_tipos_aulas">
+                    <option value="">Selecciona una de las opciones</option>
+                    <option value="ACADEMICA">Aula Académica</option>
+                    <option value="PRACTICA">Aula Práctica o Laboratorios</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="actualizar_seccion">Sección Académica:</label>
+                <select name="actualizar_seccion" id="actualizar_seccion"></select>
+            </div>
+
+            <div class="campo">
+                <label for="actualizar_pnf">P.N.F:</label>
+                <select name="actualizar_pnf" id="actualizar_pnf"></select>
             </div>
 
             <input type="submit" id="btn_actualizar_aula" value="Actualizar Aula">
-        </form> 
+        </form>
     </div>
 </dialog>
 

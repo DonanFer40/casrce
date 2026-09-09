@@ -15,8 +15,9 @@
 
             <div class="contenedor">
                 <img src="{% static 'Imagenes/registro_personal.png' %}" alt="Personal">
-            
-                <p>El presente formulario está destinado a los Docentes, Coordinadores de PNFs y los encargados del Control de Estudio.</p>
+
+                <p>El presente formulario está destinado a los Docentes, Coordinadores de PNFs y los encargados del
+                    Control de Estudio.</p>
                 <p>Debe estar previamente registrado; si aún no lo está, debe dirigirse al Director General.</p>
             </div>
         </div>
@@ -26,7 +27,7 @@
             <form method="post" id="buscar_usuario" class="contenedor_busqueda">
                 {% csrf_token %}
                 <h3 id="titulo_busqueda">Buscar Usuario</h3>
-                
+
                 <label for="cedula_identidad" id="label_CI">Ingrese su cédula de identidad</label>
                 <div class="grupo-input">
                     <select name="nacionalidad" id="nacionalidad" class="nacionalidad">
@@ -34,7 +35,8 @@
                         <option value="V">V</option>
                         <option value="E">E</option>
                     </select>
-                    <input type="text" name="usuario_ci" autocomplete="off" id="cedula_identidad" class="cedula_identidad">
+                    <input type="text" name="usuario_ci" autocomplete="off" id="cedula_identidad"
+                        class="cedula_identidad">
                 </div>
 
                 <input type="submit" id="validar_usuario" value="Validar">
@@ -45,19 +47,23 @@
                 {% csrf_token %}
                 <h3 id="titulo_guardar">Guardar Credenciales</h3>
 
-                <label for="nombre_usuario" id="label_nombre_usuario" hidden>Ingrese el nombre de usuario</label>   
-                <input type="text" name="nombre_usuario" autocomplete="off" id="nombre_usuario" hidden>   
+                <label for="nombre_usuario" id="label_nombre_usuario">Ingrese el nombre de usuario</label>
+                <input type="text" name="nombre_usuario" autocomplete="off" id="nombre_usuario">
                 <small id="mensaje_nombre_usuario"></small>
-                
+
                 <div class="input-group password-group">
-                    <label for="password" id="label_contrasenia" hidden>Ingrese la contraseña</label>
-                    <input type="password" name="password_usuario" autocomplete="off" id="password" hidden>
-                    <input type="checkbox" id="oculta_aparecer">
-                    <label class="icon-eye-off eye_off" id="ocultar_password" for="oculta_aparecer" hidden></label>
-                    <label class="icon-eye eye_on" id="mostrar_password" for="oculta_aparecer" hidden></label>
+
+                    <!-- Contenedor relativo para fijar los iconos a la derecha del input -->
+                    <div class="input-wrapper">
+                        <input type="password" name="password_usuario" autocomplete="off" id="password">
+
+                        <input type="checkbox" id="OcultaAparecer">
+                        <label class="icon-eye-off eye_off" for="OcultaAparecer" id="aparecer_oculta"></label>
+                        <label class="icon-eye eye_on" for="OcultaAparecer" id="oculta_aparecer"></label>
+                    </div>
                 </div>
                 <small id="mensaje_password"></small>
-                
+
                 <input type="submit" id="btn_registro" value="Guardar" hidden>
             </form>
         </div>

@@ -8,6 +8,8 @@ urlpatterns = [
     path('perd_acad_reg/', views.perd_acad_reg, name="perd_acad_reg"),
     path('cant_und_reg/', views.cant_und_reg, name="cant_und_reg"),
     path('reg_pl_act/', views.reg_pl_act, name="reg_pl_act"),
+    path('fech_cal_mat/', views.fech_cal_mat, name="fech_cal_mat"),
+    path('fech_reg_mat/', views.fech_reg_mat, name="fech_reg_mat"),
 
     path('vis_plan_est/', views.vis_plan_est, name="vis_plan_est"),
     path('env_pla/', views.env_pla, name="env_pla"),
@@ -44,7 +46,30 @@ urlpatterns = [
     path('info_acad_est/', views.info_acad_est, name="info_acad_est"),
 
     path('calc_prom_est/', views.calc_prom_est, name="calc_prom_est"),
+    path('act_prom_rep/', views.act_prom_rep, name="act_prom_rep"),
+    
     path('act_tray_est/', views.act_tray_est, name="act_tray_est"),
 
+    path('reg_eval_rep/', views.reg_eval_rep, name="reg_eval_rep"),
+    path('mat_rep_not/', views.mat_rep_not, name="mat_rep_not"),
+
+    path('dato_eval_rep/', views.dato_eval_rep, name="dato_eval_rep"),
+    path('vis_eval_rep/', views.vis_eval_rep, name="vis_eval_rep"),
+
+    path('mat_reg_eval/', views.mat_reg_eval, name="mat_reg_eval"),
+    path('eval_reg_rep/', views.eval_reg_rep, name="eval_reg_rep"),
+    path('mod_eval_rep/', views.mod_eval_rep, name="mod_eval_rep"),
+
+    path('eval_mat_rep/', views.eval_mat_rep, name="eval_mat_rep"),
+    path('est_rep_not/', views.est_rep_not, name="est_rep_not"),
     path('reg_rep_not/', views.reg_rep_not, name="reg_rep_not"),
+   
+    path('vis_rep_not/', views.vis_rep_not, name="vis_rep_not"),
+    path('mat_vis_not/', views.mat_vis_not, name="mat_vis_not"),
+    path('fech_reg_rep/', views.fech_reg_rep, name="fech_reg_rep"),
+    path('reg_est_rep/', views.reg_est_rep, name="reg_est_rep"),
+
+    path('mod_mat_rep_reg/', views.mod_mat_rep_reg, name="mod_mat_rep_reg"),
+    path('mod_not_rep_reg/', views.mod_not_rep_reg, name="mod_not_rep_reg"),
+    path('mod_rep_reg/', views.mod_rep_reg, name="mod_rep_reg"),
 ]

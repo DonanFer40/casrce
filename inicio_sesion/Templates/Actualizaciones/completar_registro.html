@@ -102,7 +102,7 @@
                 <div class="campo">
                     <label for="numero_telefonico_secundario">Telefono Secundaria (Opcional):</label>
                     <div class="campo_horizontal">
-                        <select name="prefijo_telefono_secundaria" id="prefijo_secundario" ></select>
+                        <select name="prefijo_telefono_secundaria" id="prefijo_secundario"></select>
                         <input type="text" name="num_telefono_secundaria" id="numero_telefonico_secundario"
                             placeholder="Ejemplo: 1234567" autocomplete="off">
                     </div>
@@ -229,21 +229,21 @@
 
                 <div class="campo">
                     <label for="nombres_auxiliar">Nombres del Individuo Auxiliar:</label>
-                    <input type="text" name="nombres_auxiliar" id="nombres_auxiliar" autocomplete="off" required>
+                    <input type="text" name="nombres_auxiliar" id="nombres_auxiliar" autocomplete="off">
                 </div>
                 <div class="campo">
                     <label for="apellidos_auxiliar">Apellidos del Individuo Auxiliar:</label>
-                    <input type="text" name="apellidos_auxiliar" id="apellidos_auxiliar" autocomplete="off" required>
+                    <input type="text" name="apellidos_auxiliar" id="apellidos_auxiliar" autocomplete="off">
                 </div>
                 <div class="campo">
                     <label for="cedula_auxiliar">Cédula de Identidad:</label>
                     <div class="campo_horizontal">
-                        <select name="nacionalidad_auxiliar" id="nacionalidad_auxiliar" required>
+                        <select name="nacionalidad_auxiliar" id="nacionalidad_auxiliar">
                             <option value="">N</option>
                             <option value="V">V</option>
                             <option value="E">E</option>
                         </select>
-                        <input type="text" name="ci_auxiliar" id="cedula_auxiliar" autocomplete="off" required>
+                        <input type="text" name="ci_auxiliar" id="cedula_auxiliar" autocomplete="off">
                     </div>
                 </div>
                 <small id="msg_ced_aux"></small>
@@ -251,15 +251,15 @@
                 <div class="campo">
                     <label for="numero_telefono_auxiliar">Teléfono:</label>
                     <div class="campo_horizontal">
-                        <select name="prefijo_auxiliar" id="prefijo_telefono_auxiliar" required></select>
+                        <select name="prefijo_auxiliar" id="prefijo_telefono_auxiliar"></select>
                         <input type="text" name="telefono_auxiliar" id="numero_telefono_auxiliar" maxlength="7"
-                            minlength="7" placeholder="Número telefónico debe llevar 7 dígitos" autocomplete="off" required>
+                            minlength="7" placeholder="Número telefónico debe llevar 7 dígitos" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="campo">
                     <label for="parestenco">Parentesco:</label>
-                    <select name="parestenco_auxiliar" id="parestenco" required>
+                    <select name="parestenco_auxiliar" id="parestenco">
                         <option value="">Elige una opción</option>
                         <option value="Padre">Padre</option>
                         <option value="Madre">Madre</option>
@@ -300,7 +300,8 @@
                 <div class="campo">
                     <label for="codigo_sin_opsu">Código SNI OPSU:</label>
                     <input type="text" name="codigo_opsu" id="codigo_sin_opsu"
-                        placeholder="Códgio OPSU debe ser 5 digito" minlength="5" maxlength="5" autocomplete="off" required>
+                        placeholder="Códgio OPSU debe ser 5 digito" minlength="5" maxlength="5" autocomplete="off"
+                        required>
                 </div>
                 <small id="msg_codigo_opsu"></small>
             </div>
@@ -316,17 +317,17 @@
                 <div id="campos_discapacidad">
                     <div class="campo">
                         <label for="codigo_carnet_dispacidad">Carnet de Discapacidad:</label>
-                        <input type="text" name="carnet_dispacidad" id="codigo_carnet_dispacidad" autocomplete="off" required>
+                        <input type="text" name="carnet_dispacidad" id="codigo_carnet_dispacidad" autocomplete="off">
                     </div>
 
                     <div class="campo">
                         <label for="nro_registro_medico">Nro de Registro Médico:</label>
-                        <input type="text" name="registro_medico" id="nro_registro_medico" autocomplete="off" required>
+                        <input type="text" name="registro_medico" id="nro_registro_medico" autocomplete="off">
                     </div>
 
                     <div class="campo">
                         <label for="tipos_discapacidad">Tipo de Discapacidad:</label>
-                        <select name="tipos_discapacidad" id="tipos_discapacidad" required>
+                        <select name="tipos_discapacidad" id="tipos_discapacidad">
                             <option value="">Elije una opción</option>
                             <option value="Visual">Visual</option>
                             <option value="Auditiva">Auditiva</option>
@@ -340,7 +341,7 @@
 
                     <div class="campo">
                         <label for="grado_discapacidad">Grado de Discapacidad:</label>
-                        <select name="grado_discapacidad" id="grado_discapacidad" required>
+                        <select name="grado_discapacidad" id="grado_discapacidad">
                             <option value="">Elije una opción</option>
                             <option value="Leve">Leve</option>
                             <option value="Moderada">Moderada</option>
@@ -350,7 +351,7 @@
 
                     <div class="campo">
                         <label for="causa_discapacidad">Causa de Discapacidad:</label>
-                        <select name="causa_discapacidad" id="causa_discapacidad" required>
+                        <select name="causa_discapacidad" id="causa_discapacidad">
                             <option value="">Elije una opción</option>
                             <option value="Congenita">Congenita</option>
                             <option value="Adquirida">Adquirida</option>
@@ -375,7 +376,7 @@
                 <div id="contenedor_pnfs_Socopo"></div>
 
                 <label for="nucleo_Pedraza">Núcleo Pedraza:<input type="checkbox" name="nucleoPedraza"
-                        id="nucleo_Pedraza" value="Pedraza" ></label>
+                        id="nucleo_Pedraza" value="Pedraza"></label>
                 <div id="contenedor_pnfs_Pedraza"></div>
             </div>
 

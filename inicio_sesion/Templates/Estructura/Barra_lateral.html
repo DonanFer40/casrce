@@ -7,11 +7,11 @@
     {% if "Director General" in request.session.rol %}
     <a href="{% url 'panel_usuario' %}">Inicio</a>
     <details>
-        <summary>Pre Registro</summary>
+        <summary>Gestión Personal</summary>
 
-        <a href="{% url 'pre_reg_personal' %}">Pre-Registro Personal</a>
-        <a href="{% url 'vis_per_asig' %}">Visualizar Personal Registrado</a>
-        <a href="{% url 'act_per_asig' %}">Actualizar Personal Registrados</a>
+        <a href="{% url 'pre_reg_personal' %}">Registro Personal</a>
+        <a href="{% url 'vis_per_asig' %}">Visualizar Personal Registrados</a>
+        <a href="{% url 'act_per_asig' %}">Gestionar Cargos Personal</a>
     </details>
     <details>
         <summary>P.N.F</summary>
@@ -21,10 +21,10 @@
         <a href="{% url 'act_pnf' %}">Actualizar P.N.F</a>
     </details>
     <details>
-        <summary>Calendario</summary>
+        <summary>Calendario Académico</summary>
 
         <a href="{% url 'reg_calendario' %}">Registrar Calendario</a>
-        <a href="{% url 'calendario_datos' %}">Visualizar Calendario</a>
+        <a href="{% url 'vis_cal_reg' %}">Visualizar Calendario</a>
     </details>
     <details>
         <summary>Materia</summary>
@@ -56,18 +56,7 @@
     {% endif %}
 
     {% if "Control de Estudio" in request.session.rol %}
-    <details>
-        <summary>Materia</summary>
 
-        <a href="{% url 'reg_mat' %}">Registrar Materia</a>
-        <a href="{% url 'mat_lista' %}">Visualizar Materia</a>
-        <a href="{% url 'mat_guardar' %}">Actualizar Materia</a>
-    </details>
-    <details>
-        <summary>Plan de Estudio</summary>
-
-        <a href="{% url 'vis_pl_env' %}">Plan de Estudio</a>
-    </details>
     {% endif %}
 
     {% if "Coordinador PNF" in request.session.rol %}
@@ -76,12 +65,24 @@
 
         <a href="{% url 'asig_mat_doc' %}">Registrar Asignación</a>
         <a href="{% url 'act_asig' %}">Visualizar Asignación</a>
+        <a href="{% url 'asig_desact' %}">Reasignar Materia</a>
+    </details>
+    <details>
+        <summary>Planificacion Académica</summary>
+
+        <a href="{% url 'vis_pl_env' %}">Gestión Plan de Actividades</a>
+    </details>
+    <details>
+        <summary>Inscripción</summary>
+
+        <a href="{% url 'inscr_est' %}">Inscripción Estudiante</a>
+        <a href="{% url 'rech_inscr_est' %}">Inscribir Rechazados</a>
     </details>
     {% endif %}
 
     {% if "Docente" in request.session.rol %}
     <details>
-        <summary>Plan de Estudio</summary>
+        <summary>Planificacion Académica</summary>
 
         <a href="{% url 'reg_pl_act' %}">Registrar Plan de Actividades</a>
         <a href="{% url 'vis_plan_est' %}">Visualizar Plan de Actividades</a>
@@ -92,6 +93,18 @@
         <a href="{% url 'reg_nota_acad' %}">Registrar Notas Académicas</a>
         <a href="{% url 'vis_not_acad' %}">Visualizar Notas Académicas</a>
         <a href="{% url 'mod_not_acad' %}">Modificar Notas Académicas</a>
+    </details>
+    <details>
+        <summary>Evaluaciones Reparación</summary>
+        <a href="{% url 'reg_eval_rep' %}">Registrar Evaluación a Reparar</a>
+        <a href="{% url 'vis_eval_rep' %}">Visualizar Evaluaciones a Reparar</a>
+        <a href="{% url 'mod_eval_rep' %}">Modificar Evaluaciones a Reparar</a>
+    </details>
+    <details>
+        <summary>Reparación</summary>
+        <a href="{% url 'reg_rep_not' %}">Registrar Notas de Reparación</a>
+        <a href="{% url 'vis_rep_not' %}">Visualizar Notas de Reparación</a>
+        <a href="{% url 'mod_rep_reg' %}">Modificar Notas de Reparación</a>
     </details>
     {% endif %}
 

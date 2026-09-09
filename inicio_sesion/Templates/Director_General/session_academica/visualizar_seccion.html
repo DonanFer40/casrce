@@ -42,14 +42,18 @@
 
             <div class="campo">
                 <label for="actualizar_seccion_registrado">Sección:</label>
-                <input type="text" name="actualizar_seccion" id="actualizar_seccion_registrado" autocomplete="off" required>
+                <input type="text" name="actualizar_seccion" id="actualizar_seccion_registrado" autocomplete="off"
+                    required>
                 <small id="mensaje_actualizar_seccion"></small>
             </div>
 
             <div class="campo">
                 <label for="actualizar_turno_registrado">Turno:</label>
-                <select name="actualizar_turno" id="actualizar_turno_registrado" required>
-                    <!-- Opciones cargadas dinámicamente por JS -->
+                <select name="actualizar_turno" id="actualizar_turno_registrado">
+                    <option value="">Seleccione un Turno</option>
+                    <option value="Diurno">Diurno</option>
+                    <option value="Nocturno">Nocturno</option>
+                    <option value="Fines de Semana">Fines de Semana</option>
                 </select>
             </div>
 

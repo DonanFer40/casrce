@@ -44,110 +44,178 @@ document.addEventListener("DOMContentLoaded", () => {
     const control_img_sabana = document.getElementById("contenedor_sabana_nota_estudiante")
     const control_img_opsu = document.getElementById("contenedor_opsu_estudiante")
 
-    let pnf = "", nucleo = ""
+    const select_nucleos_asignados = document.getElementById("nucleos_asignados");
+    const select_pnfs_asignado = document.getElementById("pnfs_asignados");
 
-    function getCookie(nombre) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-            const cookies = document.cookie.split(";");
+    const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value
 
-            for (let cookie of cookies) {
-                cookie = cookie.trim();
+    let pnf = "", nucleo = "";
 
-                if (cookie.startsWith(nombre + "=")) {
-                    cookieValue = decodeURIComponent(
-                        cookie.substring(nombre.length + 1)
-                    );
-                    break;
-                }
-            }
-        }
-
-        return cookieValue;
-    }
-    const csrftoken = getCookie("csrftoken");
-
-    async function estudiante_pre_inscripcion() {
+    async function nucleos_asignados() {
         try {
-            const respuesta = await fetch("/obt_pre_inscrt/");
+            const respuesta = await fetch("/obt_nucleos_asignados/");
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            contenedor_pre_inscripcion.innerHTML = "";
+            select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona el núcleo primero</option>";
 
-            let opciones = "";
-            if (resultado.secciones.length > 0) {
-                opciones += `
-                    <option value="" selected>
-                        Seleccione una sección
-                    </option>`;
+            select_nucleos_asignados.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
 
-                resultado.secciones.forEach(seccion => {
-                    opciones += `
-                        <option value="${seccion.id_seccion}">
-                            ${seccion.nombre} | ${seccion.turno}
-                        </option>
-                    `;
-                });
-            } else {
-                opciones = ` <option value=""> No hay secciones disponibles</option>`;
-            }
-
-            resultado.estudiantes.forEach((estudiante, index) => {
-                contenedor_pre_inscripcion.innerHTML += `
-                    <tr data-cedula="${estudiante.cedula_identidad}">
-                        <td>${index + 1}</td>
-                        <td>${estudiante.nombres}</td>
-                        <td>${estudiante.apellidos}</td>
-                        <td>${estudiante.cedula_identidad}</td>
-
-                        <td>
-                            <select name="seccion" class="select_seccion">
-                                ${opciones}
-                            </select>
-                        </td>
-                        <td>
-                            <button type="button" class="inscribir">
-                                Inscribir
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="rechazar">
-                                Rechazar
-                            </button>
-                        </td>
-                    </tr>
-                `;
+            resultado.nucleos.forEach(nucleo => {
+                const option_nucleo = document.createElement("option");
+                option_nucleo.value = nucleo.id_nucleo;
+                option_nucleo.textContent = nucleo.municipio;
+                select_nucleos_asignados.append(option_nucleo);
             });
         } catch (error) {
             console.error(error);
         }
     }
-    estudiante_pre_inscripcion();
+    nucleos_asignados();
 
-    document.addEventListener("change", async function (e) {
-        if (!e.target.classList.contains("select_seccion")) return;
-        const select = e.target;
-        const opcionSeleccionada = select.options[select.selectedIndex];
+    select_nucleos_asignados.addEventListener("change", async (e) => {
+        nucleo = select_nucleos_asignados.value;
 
-        const cantidad = parseInt(opcionSeleccionada.dataset.cantidad || 0);
-        if (cantidad >= 48) {
-            const resultado = await Swal.fire({
-                title: "Sección llena",
-                text: `La sección ya posee ${cantidad} estudiantes. ¿Desea continuar con la inscripción?`,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí, continuar",
-                cancelButtonText: "Cancelar",
-                allowOutsideClick: false,
-                allowEscapeKey: false
+        await pnfs_asignados();
+
+        await estudiante_pre_inscripcion();
+    });
+
+    async function pnfs_asignados() {
+        try {
+            const formulario = new FormData();
+            formulario.append("nucleo_asignado", nucleo);
+
+            const respuesta = await fetch("/obt_pnfs_asignado/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
+
+            resultado.pnfs.forEach(pnf => {
+                const option_pnf = document.createElement("option");
+                option_pnf.value = pnf.id_pnf;
+                option_pnf.textContent = pnf.pnf;
+                select_pnfs_asignado.append(option_pnf);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    select_pnfs_asignado.addEventListener("change", async (e) => {
+        pnf = select_pnfs_asignado.value;
+
+        await estudiante_pre_inscripcion();
+    });
+
+    async function estudiante_pre_inscripcion() {
+        try {
+            if (!nucleo || !pnf) return;
+
+            const formulario = new FormData();
+            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("pnf_asignado", pnf);
+
+            const respuesta = await fetch("/obt_pre_inscrt/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            // VALIDAR RESPUESTA DEL SERVIDOR
+            if (resultado.estado !== "exito") {
+                contenedor_pre_inscripcion.innerHTML = "";
+                Swal.fire({
+                    title: resultado.titulo || "¡Advertencia!",
+                    text: resultado.descripcion || "No se pudo obtener la información.",
+                    icon: resultado.icon || "warning"
+                });
+                return;
+            }
+
+            // LIMPIAR CONTENEDOR
+            contenedor_pre_inscripcion.innerHTML = "";
+
+            let opciones = "";
+            // AULAS
+            if (resultado.aulas && resultado.aulas.length > 0) {
+
+                opciones += `
+                <option value="" selected>
+                    Seleccione un aula
+                </option>
+            `;
+                resultado.aulas.forEach(aula => {
+                    opciones += `
+                        <option value="${aula.id_aula}">
+                            ${aula.nombre_aula} |
+                            ${aula.tipo_aula} |
+                            Piso ${aula.piso_edificio}
+                        </option>
+                    `;
+                });
+            } else {
+                opciones = `
+                    <option value="">
+                        No hay aulas disponibles
+                    </option>
+                `;
+            }
+
+            // ESTUDIANTES
+            if (!resultado.estudiantes || resultado.estudiantes.length === 0) {
+                contenedor_pre_inscripcion.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            No hay estudiantes pendientes de inscripción.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            resultado.estudiantes.forEach((estudiante, index) => {
+
+                contenedor_pre_inscripcion.innerHTML += `
+                <tr data-cedula="${estudiante.cedula_identidad}">
+                    <td>${index + 1}</td>
+                    <td>${estudiante.nombres}</td>
+                    <td>${estudiante.apellidos}</td>
+                    <td>${estudiante.cedula_identidad}</td>
+                    <td>
+                        <select name="aula" class="select_aula">
+                            ${opciones}
+                        </select>
+                    </td>
+                    <td>
+                        <button type="button" class="inscribir">
+                            Inscribir
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="rechazar">
+                            Rechazar
+                        </button>
+                    </td>
+                </tr>
+            `;
             });
 
-            if (!resultado.isConfirmed) {
-                select.value = "";
-            }
+        } catch (error) {
+            console.error(error);
         }
-    });
+    }
 
     contenedor_pre_inscripcion.addEventListener("click", async (e) => {
         const fila = e.target.closest("tr");
@@ -160,6 +228,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const formulario = new FormData();
         formulario.append("cedula_estudiante", fila.dataset.cedula);
+        formulario.append("nucleo_asignado", nucleo);
+        formulario.append("pnf_asignado", pnf);
 
         const respuesta = await fetch("/obt_data_est/", {
             method: "POST",
@@ -171,25 +241,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const resultado = await respuesta.json();
         console.log(resultado);
 
-        control_nombre_estudiante.value = resultado.usuario.nombres
-        control_apellido_estudiante.value = resultado.usuario.apellidos
-        control_ci_estudiante.value = resultado.usuario.cedula_identidad
-        control_genero_estudiante.value = resultado.usuario.genero
-        control_estado_civil_estudiante.value = resultado.usuario.estado_civil
+        control_nombre_estudiante.value = resultado.usuario.nombres;
+        control_apellido_estudiante.value = resultado.usuario.apellidos;
+        control_ci_estudiante.value = resultado.usuario.cedula_identidad;
+        control_genero_estudiante.value = resultado.usuario.genero;
+        control_estado_civil_estudiante.value = resultado.usuario.estado_civil;
 
-        control_telefono_principal.value = resultado.contacto.telefono_suplete
-        control_telefono_secundario.value = resultado.contacto.telefono_personal
-        control_correo_principal.value = resultado.contacto.correo_electronico
-        control_correo_secundario.value = resultado.contacto.correo_alternativo
+        control_telefono_principal.value = resultado.contacto.telefono_suplete;
+        control_telefono_secundario.value = resultado.contacto.telefono_personal;
+        control_correo_principal.value = resultado.contacto.correo_electronico;
+        control_correo_secundario.value = resultado.contacto.correo_alternativo;
 
-        if (resultado.representantes.length > 0) {
-            const representante = resultado.representantes[0];
-            control_nombres_representante.value = representante.nombres;
-            control_apellidos_representante.value = representante.apellidos;
-            control_ci_representante.value = representante.cedula_identidad;
-            control_telefono_representante.value = representante.telefono;
-            control_parentesco_representante.value = representante.parentesco;
-        }
+        control_nombres_representante.value = resultado.representantes.nombres;
+        control_apellidos_representante.value = resultado.representantes.apellidos;
+        control_ci_representante.value = resultado.representantes.cedula_identidad;
+        control_telefono_representante.value = resultado.representantes.telefono;
+        control_parentesco_representante.value = resultado.representantes.parentesco;
 
         control_pais_nacimiento.value = resultado.nacimiento.pais
         control_estado_nacimiento.value = resultado.nacimiento.estado
@@ -208,6 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
         control_tipos_discapacidad.value = resultado.discapacidad.tipo_discapacidad
         control_grados_discapacidad.value = resultado.discapacidad.grado_discapacidad
         control_causa_discapacidad.value = resultado.discapacidad.causa_discapacidad
+
+        console.log(resultado.documentos);
 
         control_img_ci.innerHTML = "";
         control_img_bachiller.innerHTML = "";
@@ -307,14 +376,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const fila = e.target.closest("tr");
         const cedula = fila.dataset.cedula;
-        const seccion = fila.querySelector(".select_seccion").value;
+
         const accion = e.target.classList.contains("inscribir") ? "aceptado" : "rechazado";
+
+        // Solo necesitamos aula al inscribir
+        const aula = e.target.classList.contains("inscribir") ? fila.querySelector(".select_aula").value : "";
 
         try {
             const formulario = new FormData();
             formulario.append("cedula", cedula);
-            formulario.append("seccion", seccion);
+            formulario.append("aula", aula);
             formulario.append("accion", accion);
+            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("pnf_asignado", pnf);
 
             const respuesta = await fetch("/inscr_est/", {
                 method: "POST",
@@ -331,6 +405,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 text: resultado.descripcion,
                 icon: resultado.icon
             });
+
+            if (resultado.estado === "exito") {
+                await estudiante_pre_inscripcion();
+            }
         } catch (error) {
             console.error(error);
         }

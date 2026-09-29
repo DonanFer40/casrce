@@ -154,12 +154,21 @@ class Materia(models.Model):
     nombre = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20)
     recuperacion = models.CharField(max_length=100)
-    htea = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null=True)
-    htei = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null=True)
+    htea = models.DecimalField(max_digits=3, decimal_places=1)
+    htei = models.DecimalField(max_digits=3, decimal_places=1)
     activa = models.BooleanField(default=True)
-    tipo_materia = models.CharField(max_length=20, default="Curso", blank=True, null=True)
+    tipo_materia = models.CharField(max_length=20, default="Curso")
+
     id_trayecto = models.ForeignKey(TrayectoAcademico, models.CASCADE, db_column='trayecto')
     id_pnf = models.ForeignKey(Pnf, models.CASCADE, db_column='pnf')
+
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="materias_registradas", blank=True, null=True)
+    fecha_registro = models.DateTimeField(blank=True, null=True)
+    perfil_registro = models.CharField(max_length=50, blank=True, null=True)
+
+    modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="materias_modificadas", blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)
+    perfil_modificacion = models.CharField(max_length=50, blank=True, null=True)
 
     @property
     def thte(self):
@@ -181,6 +190,22 @@ class DatosPreofesion(models.Model):
     id_usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='id_profesional')
 
 #ACTUALIZACION / PROPUESTA
+
+class HistorialAsignaciones(models.Model):
+    id_historial = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="historial_asignaciones")
+    tipo_perfil = models.CharField(max_length=50)
+    nucleo = models.ForeignKey(Nucleos, on_delete=models.SET_NULL, null=True, blank=True)
+    pnf = models.ForeignKey(Pnf, on_delete=models.SET_NULL, null=True, blank=True)
+    accion = models.CharField(max_length=30)
+    fecha_hora = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-fecha_hora"]
+
+    def __str__(self):
+        return f"{self.usuario} - {self.tipo_perfil} - {self.accion}"
+
 class RolAcademico(models.Model): # Modelo creado para no redundar en datos de 3 usuarios
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE, blank=True, null=True)
@@ -204,14 +229,27 @@ class Estudiante(RolAcademico):
         return f"{self.usuario}"
 
 class EstatusEstudiante(models.Model):
+    PERFIL_COORDINADOR_PNF = "COORDINADOR_PNF"
+    PERFIL_CONTROL_ESTUDIO = "CONTROL_ESTUDIO"
+
+    PERFILES_REGISTRO = [
+        (PERFIL_COORDINADOR_PNF, "Coordinador de PNF"),
+        (PERFIL_CONTROL_ESTUDIO, "Control de Estudio"),
+    ]
+
     id_estatus_estudiante = models.AutoField(primary_key=True)
     estatus = models.CharField(max_length=50)
     estado = models.CharField(max_length=50)
     ingreso = models.CharField(max_length=50)
     descripcion_ingreso = models.CharField(max_length=30)
-    trayecto = models.ForeignKey(TrayectoAcademico, models.CASCADE, db_column='trayecto')
     fecha_ingreso = models.DateField()
+
+    trayecto = models.ForeignKey(TrayectoAcademico, models.CASCADE, db_column='trayecto')
     estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name="estatus")
+
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="estatus_estudiantes_registrados", blank=True, null=True)
+    fecha_registro = models.DateTimeField(blank=True, null=True)
+    perfil_registro = models.CharField(max_length=50, choices=PERFILES_REGISTRO, blank=True, null=True)
 
 class AulaEstudiante(models.Model):
     id_aula_estudiante = models.AutoField(primary_key=True)
@@ -284,9 +322,19 @@ class MateriaAsignada(models.Model):
     fecha_asignacion = models.DateTimeField(auto_now_add=True)
     fecha_suspension = models.DateTimeField(null=True, blank=True)
 
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="asignaciones_materias_registradas", blank=True, null=True)
+    fecha_registro = models.DateTimeField(blank=True, null=True)
+    perfil_registro = models.CharField(max_length=50, blank=True, null=True)
+    observacion_registro = models.TextField(blank=True, null=True)
+
+    modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="asignaciones_materias_modificadas", blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)
+    perfil_modificacion = models.CharField(max_length=50, blank=True, null=True)
+    observacion_modificacion = models.TextField(blank=True, null=True)
+
 class DocenteAsignadoMateria(models.Model):
     materia_asignada = models.ForeignKey(MateriaAsignada, on_delete=models.CASCADE, related_name="docentes")
-    docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
+    docente = models.ForeignKey(Docente, on_delete=models.CASCADE, related_name="materias_asignadas")
     rol = models.CharField(
         max_length=20,
         choices=[
@@ -297,6 +345,16 @@ class DocenteAsignadoMateria(models.Model):
     activo = models.BooleanField(default=True)
     fecha_asignacion = models.DateTimeField(auto_now_add=True)
     fecha_suspension = models.DateTimeField(null=True, blank=True)
+
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="asignaciones_docentes_registradas", blank=True, null=True)
+    fecha_registro = models.DateTimeField(blank=True, null=True)
+    perfil_registro = models.CharField(max_length=50, blank=True, null=True)
+    observacion_registro = models.TextField(blank=True, null=True)
+
+    modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="asignaciones_docentes_modificadas", blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)
+    perfil_modificacion = models.CharField(max_length=50, blank=True, null=True)
+    observacion_modificacion = models.TextField(blank=True, null=True)
 
     class Meta:
         constraints = [
@@ -334,8 +392,16 @@ class CoordinadorPNF(RolAcademico):
 
 class ControlEstudio(models.Model):
     id_control = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="docentes")
-    nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE, related_name="materias_asignadas")
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name="controles_estudio"
+    )
+    nucleo = models.ForeignKey(
+        Nucleos,
+        on_delete=models.CASCADE,
+        related_name="controles_estudio"
+    )
     activo = models.BooleanField(default=True)
 
     class Meta:
@@ -351,8 +417,16 @@ class ControlEstudio(models.Model):
 
 class DirectorGeneral(models.Model):
     id_director = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="controles_estudio")
-    nucleo = models.ForeignKey(Nucleos, on_delete=models.CASCADE, related_name="directores_generales")
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name="directores_generales"
+    )
+    nucleo = models.ForeignKey(
+        Nucleos,
+        on_delete=models.CASCADE,
+        related_name="directores_generales"
+    )
     
     class Meta:
         constraints = [

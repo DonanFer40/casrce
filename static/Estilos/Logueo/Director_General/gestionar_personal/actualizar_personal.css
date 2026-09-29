@@ -1,0 +1,1264 @@
+/* =========================================================
+   ACTUALIZAR PERSONAL REGISTRADO - CARSCE
+   DIRECTOR GENERAL
+   ========================================================= */
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+#director-personal-actualizar-carsce {
+    width: 100%;
+    min-width: 0;
+    min-height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+.director-personal-actualizar-carsce-contenedor {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.director-personal-actualizar-carsce-encabezado {
+    width: 100%;
+
+    margin-bottom: 27px;
+}
+
+
+.director-personal-actualizar-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 16px;
+}
+
+
+.director-personal-actualizar-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 30px;
+
+    padding: 5px 12px;
+
+    color: #1D4ED8;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 7px;
+
+    font-size: 0.72rem;
+    font-weight: 600;
+
+    letter-spacing: 0.035em;
+}
+
+
+.director-personal-actualizar-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #64748B;
+
+    font-size: 0.76rem;
+    font-weight: 500;
+}
+
+
+.director-personal-actualizar-carsce-seccion i {
+    color: #2563EB;
+
+    font-size: 0.82rem;
+}
+
+
+/* =========================================================
+   PRESENTACIÓN
+   ========================================================= */
+
+.director-personal-actualizar-carsce-presentacion {
+    width: 100%;
+}
+
+
+.director-personal-actualizar-carsce-titulo {
+    margin: 0;
+
+    color: #0F172A;
+
+    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.035em;
+}
+
+
+.director-personal-actualizar-carsce-descripcion {
+    max-width: 790px;
+
+    margin: 10px 0 0;
+
+    color: #64748B;
+
+    font-size: 0.88rem;
+    font-weight: 400;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   BÚSQUEDA
+   ========================================================= */
+
+.director-personal-actualizar-carsce-busqueda {
+    width: 100%;
+
+    margin-bottom: 20px;
+
+    padding: 21px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.04),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+
+.director-personal-actualizar-carsce-busqueda-cabecera {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding-bottom: 17px;
+
+    margin-bottom: 19px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+.director-personal-actualizar-carsce-busqueda-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 9px;
+
+    font-size: 0.9rem;
+}
+
+
+.director-personal-actualizar-carsce-busqueda-titulo {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.director-personal-actualizar-carsce-busqueda-titulo h2 {
+    margin: 0;
+
+    color: #0F172A;
+
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+
+.director-personal-actualizar-carsce-busqueda-titulo span {
+    color: #64748B;
+
+    font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   FORMULARIO DE BÚSQUEDA
+   ========================================================= */
+
+.director-personal-actualizar-carsce-formulario-busqueda {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+
+.director-personal-actualizar-carsce-campo-cedula {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.director-personal-actualizar-carsce-campo-cedula label {
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.77rem;
+    font-weight: 600;
+}
+
+
+.director-personal-actualizar-carsce-grupo-cedula {
+    display: flex;
+
+    width: 100%;
+}
+
+
+.director-personal-actualizar-carsce-grupo-cedula select,
+.director-personal-actualizar-carsce-grupo-cedula input {
+    height: 43px;
+
+    color: #0F172A;
+
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 0.79rem;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.director-personal-actualizar-carsce-grupo-cedula select {
+    width: 65px;
+
+    flex-shrink: 0;
+
+    padding: 0 9px;
+
+    border-radius: 7px 0 0 7px;
+
+    cursor: pointer;
+}
+
+
+.director-personal-actualizar-carsce-grupo-cedula input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 0 12px;
+
+    border-left: none;
+
+    border-radius: 0 7px 7px 0;
+}
+
+
+.director-personal-actualizar-carsce-grupo-cedula input::placeholder {
+    color: #94A3B8;
+}
+
+
+.director-personal-actualizar-carsce-grupo-cedula select:focus,
+.director-personal-actualizar-carsce-grupo-cedula input:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   BOTÓN BUSCAR
+   ========================================================= */
+
+.director-personal-actualizar-carsce-boton-buscar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    height: 43px;
+
+    min-width: 145px;
+
+    padding: 0 17px;
+
+    color: #FFFFFF;
+
+    background: #2563EB;
+
+    border: 1px solid #2563EB;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    box-shadow:
+        0 2px 5px rgba(37, 99, 235, 0.18);
+
+    transition:
+        background-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.director-personal-actualizar-carsce-boton-buscar:hover {
+    background: #1D4ED8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+}
+
+
+.director-personal-actualizar-carsce-boton-buscar:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   BLOQUE DE PERFILES
+   ========================================================= */
+
+.director-personal-actualizar-carsce-perfiles {
+    width: 100%;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.04),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CABECERA DEL BLOQUE
+   ========================================================= */
+
+.director-personal-actualizar-carsce-perfiles-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px 21px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+.director-personal-actualizar-carsce-identidad-usuario {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+.director-personal-actualizar-carsce-identidad-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 41px;
+    height: 41px;
+
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 9px;
+}
+
+
+.director-personal-actualizar-carsce-identidad-datos {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+}
+
+
+.director-personal-actualizar-carsce-identidad-datos span {
+    color: #64748B;
+
+    font-size: 0.69rem;
+}
+
+
+.director-personal-actualizar-carsce-identidad-datos strong {
+    color: #0F172A;
+
+    font-size: 0.88rem;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.director-personal-actualizar-carsce-acciones {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    flex-shrink: 0;
+}
+
+
+.director-personal-actualizar-carsce-boton-secundario,
+.director-personal-actualizar-carsce-boton-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 38px;
+
+    padding: 7px 13px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 600;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+.director-personal-actualizar-carsce-boton-secundario {
+    color: #475569;
+
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+}
+
+
+.director-personal-actualizar-carsce-boton-secundario:hover {
+    color: #0F172A;
+
+    background: #F8FAFC;
+
+    border-color: #94A3B8;
+}
+
+
+.director-personal-actualizar-carsce-boton-principal {
+    color: #FFFFFF;
+
+    background: #2563EB;
+
+    border: 1px solid #2563EB;
+}
+
+
+.director-personal-actualizar-carsce-boton-principal:hover:not(:disabled) {
+    background: #1D4ED8;
+
+    border-color: #1D4ED8;
+
+    transform: translateY(-1px);
+}
+
+
+.director-personal-actualizar-carsce-boton-principal:disabled {
+    color: #94A3B8;
+
+    background: #F1F5F9;
+
+    border-color: #E2E8F0;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   DATOS DEL USUARIO
+   ========================================================= */
+
+.director-personal-actualizar-carsce-datos-usuario {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 17px;
+
+    padding: 20px 21px;
+}
+
+
+.director-personal-actualizar-carsce-dato {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.director-personal-actualizar-carsce-dato label {
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+
+.director-personal-actualizar-carsce-dato input {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 11px;
+
+    color: #475569;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.director-personal-actualizar-carsce-tabla-contenedor {
+    width: 100%;
+
+    border-top: 1px solid #E2E8F0;
+}
+
+
+.director-personal-actualizar-carsce-tabla-cabecera {
+    padding: 17px 21px;
+}
+
+
+.director-personal-actualizar-carsce-tabla-titulo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.director-personal-actualizar-carsce-tabla-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 39px;
+    height: 39px;
+
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 9px;
+}
+
+
+.director-personal-actualizar-carsce-tabla-titulo h2 {
+    margin: 0 0 3px;
+
+    color: #0F172A;
+
+    font-size: 0.98rem;
+    font-weight: 650;
+}
+
+
+.director-personal-actualizar-carsce-tabla-titulo span {
+    color: #64748B;
+
+    font-size: 0.72rem;
+}
+
+
+/* =========================================================
+   SCROLL DE TABLA
+   ========================================================= */
+
+.director-personal-actualizar-carsce-tabla-scroll {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.director-personal-actualizar-carsce-tabla {
+    width: 100%;
+    min-width: 850px;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+
+.director-personal-actualizar-carsce-tabla thead {
+    background: #0F172A;
+}
+
+
+.director-personal-actualizar-carsce-tabla th {
+    height: 47px;
+
+    padding: 11px 12px;
+
+    color: #F8FAFC;
+
+    font-size: 0.69rem;
+    font-weight: 650;
+
+    text-align: center;
+
+    letter-spacing: 0.045em;
+
+    white-space: nowrap;
+}
+
+
+.director-personal-actualizar-carsce-tabla td {
+    padding: 13px 12px;
+
+    color: #334155;
+
+    background: #FFFFFF;
+
+    border-bottom: 1px solid #E8EDF0;
+
+    font-size: 0.75rem;
+
+    text-align: center;
+    vertical-align: middle;
+
+    line-height: 1.45;
+
+    word-wrap: break-word;
+}
+
+
+.director-personal-actualizar-carsce-tabla tbody tr {
+    transition: background-color 0.18s ease;
+}
+
+
+.director-personal-actualizar-carsce-tabla tbody tr:hover td {
+    background: #F8FAFC;
+}
+
+
+.director-personal-actualizar-carsce-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   COLUMNAS
+   ========================================================= */
+
+.director-personal-actualizar-carsce-tabla th:nth-child(1),
+.director-personal-actualizar-carsce-tabla td:nth-child(1) {
+    width: 70px;
+}
+
+
+.director-personal-actualizar-carsce-tabla th:nth-child(2),
+.director-personal-actualizar-carsce-tabla td:nth-child(2) {
+    width: 210px;
+}
+
+
+.director-personal-actualizar-carsce-tabla th:nth-child(3),
+.director-personal-actualizar-carsce-tabla td:nth-child(3) {
+    width: 250px;
+}
+
+
+.director-personal-actualizar-carsce-tabla th:nth-child(4),
+.director-personal-actualizar-carsce-tabla td:nth-child(4) {
+    width: 180px;
+}
+
+
+.director-personal-actualizar-carsce-tabla th:nth-child(5),
+.director-personal-actualizar-carsce-tabla td:nth-child(5) {
+    width: 140px;
+}
+
+
+/* =========================================================
+   DIALOGS
+   ========================================================= */
+
+#dialogo_actualizar,
+#dialogo_registrar {
+    width: min(500px, calc(100vw - 30px));
+
+    max-width: 500px;
+
+    padding: 0;
+
+    color: #0F172A;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.22);
+}
+
+
+#dialogo_actualizar::backdrop,
+#dialogo_registrar::backdrop {
+    background: rgba(15, 23, 42, 0.58);
+
+    backdrop-filter: blur(2px);
+}
+
+
+/* =========================================================
+   CONTENIDO DEL DIALOG
+   ========================================================= */
+
+.director-personal-actualizar-carsce-dialogo {
+    position: relative;
+
+    width: 100%;
+
+    padding: 24px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 13px;
+}
+
+
+/* =========================================================
+   BOTÓN CERRAR
+   ========================================================= */
+
+.director-personal-actualizar-carsce-dialogo-cerrar {
+    position: absolute;
+
+    top: 17px;
+    right: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    color: #64748B;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 0.8rem;
+
+    transition:
+        color 0.18s ease,
+        background-color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+
+.director-personal-actualizar-carsce-dialogo-cerrar:hover {
+    color: #DC2626;
+
+    background: #FEF2F2;
+
+    border-color: #FECACA;
+}
+
+
+/* =========================================================
+   CABECERA DEL DIALOG
+   ========================================================= */
+
+.director-personal-actualizar-carsce-dialogo-cabecera {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding-right: 40px;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+.director-personal-actualizar-carsce-dialogo-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 9px;
+}
+
+
+.director-personal-actualizar-carsce-dialogo-cabecera h2 {
+    margin: 0 0 3px;
+
+    color: #0F172A;
+
+    font-size: 1.05rem;
+    font-weight: 650;
+}
+
+
+.director-personal-actualizar-carsce-dialogo-cabecera span {
+    color: #64748B;
+
+    font-size: 0.72rem;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FORMULARIO DEL DIALOG
+   ========================================================= */
+
+.director-personal-actualizar-carsce-dialogo-formulario {
+    width: 100%;
+}
+
+
+.director-personal-actualizar-carsce-dialogo-pnf {
+    margin-bottom: 20px;
+}
+
+
+.director-personal-actualizar-carsce-dialogo-pnf > label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+
+#contenedor_pnfs {
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 9px 11px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 7px;
+}
+
+
+/* =========================================================
+   ESTADO DEL PERFIL
+   ========================================================= */
+
+.director-personal-actualizar-carsce-estado {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    margin-bottom: 20px;
+}
+
+
+.director-personal-actualizar-carsce-estado-titulo {
+    margin-bottom: 2px;
+
+    color: #334155;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+
+.director-personal-actualizar-carsce-radio-opcion {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    width: 100%;
+
+    min-height: 39px;
+
+    padding: 8px 11px;
+
+    color: #475569;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 0.76rem;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+
+.director-personal-actualizar-carsce-radio-opcion:hover {
+    background: #F1F5F9;
+
+    border-color: #CBD5E1;
+}
+
+
+.director-personal-actualizar-carsce-radio-opcion input {
+    margin: 0;
+
+    accent-color: #2563EB;
+}
+
+
+/* =========================================================
+   NUEVOS PERFILES
+   ========================================================= */
+
+.director-personal-actualizar-carsce-nuevos-perfiles {
+    width: 100%;
+
+    min-height: 60px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   ACCIONES DEL DIALOG
+   ========================================================= */
+
+.director-personal-actualizar-carsce-dialogo-acciones {
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #E2E8F0;
+}
+
+
+.director-personal-actualizar-carsce-boton-dialogo {
+    min-width: 120px;
+    min-height: 40px;
+
+    padding: 8px 16px;
+
+    color: #FFFFFF;
+
+    background: #2563EB;
+
+    border: 1px solid #2563EB;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 0.77rem;
+    font-weight: 600;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+.director-personal-actualizar-carsce-boton-dialogo:hover {
+    background: #1D4ED8;
+
+    border-color: #1D4ED8;
+
+    transform: translateY(-1px);
+}
+
+
+.director-personal-actualizar-carsce-boton-dialogo-verde {
+    background: #16A34A;
+
+    border-color: #16A34A;
+}
+
+
+.director-personal-actualizar-carsce-boton-dialogo-verde:hover {
+    background: #15803D;
+
+    border-color: #15803D;
+}
+
+
+/* =========================================================
+   RESPONSIVE - 900PX
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .director-personal-actualizar-carsce-busqueda {
+        padding: 18px;
+    }
+
+
+    .director-personal-actualizar-carsce-perfiles-cabecera {
+        padding: 17px 18px;
+    }
+
+
+    .director-personal-actualizar-carsce-datos-usuario {
+        padding: 18px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 700PX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .director-personal-actualizar-carsce-identificacion {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+
+    .director-personal-actualizar-carsce-formulario-busqueda {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .director-personal-actualizar-carsce-boton-buscar {
+        width: 100%;
+    }
+
+
+    .director-personal-actualizar-carsce-perfiles-cabecera {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .director-personal-actualizar-carsce-acciones {
+        width: 100%;
+    }
+
+
+    .director-personal-actualizar-carsce-boton-secundario,
+    .director-personal-actualizar-carsce-boton-principal {
+        flex: 1;
+    }
+
+
+    .director-personal-actualizar-carsce-datos-usuario {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 520PX
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .director-personal-actualizar-carsce-titulo {
+        font-size: 1.55rem;
+    }
+
+
+    .director-personal-actualizar-carsce-descripcion {
+        font-size: 0.8rem;
+    }
+
+
+    .director-personal-actualizar-carsce-busqueda {
+        padding: 16px;
+    }
+
+
+    .director-personal-actualizar-carsce-dialogo {
+        padding: 19px;
+    }
+
+
+    .director-personal-actualizar-carsce-dialogo-cabecera {
+        align-items: flex-start;
+    }
+
+
+    .director-personal-actualizar-carsce-acciones {
+        flex-direction: column;
+    }
+
+
+    .director-personal-actualizar-carsce-boton-secundario,
+    .director-personal-actualizar-carsce-boton-principal {
+        width: 100%;
+    }
+
+
+    .director-personal-actualizar-carsce-dialogo-acciones {
+        justify-content: stretch;
+    }
+
+
+    .director-personal-actualizar-carsce-boton-dialogo {
+        width: 100%;
+    }
+
+}

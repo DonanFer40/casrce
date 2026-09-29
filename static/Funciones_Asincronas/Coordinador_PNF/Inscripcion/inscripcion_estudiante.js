@@ -44,47 +44,183 @@ document.addEventListener("DOMContentLoaded", () => {
     const control_img_sabana = document.getElementById("contenedor_sabana_nota_estudiante")
     const control_img_opsu = document.getElementById("contenedor_opsu_estudiante")
 
-    const select_nucleos_asignados = document.getElementById("nucleos_asignados");
+    const label_pnf = document.getElementById("label_pnf");
     const select_pnfs_asignado = document.getElementById("pnfs_asignados");
 
-    const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value
+    const select_resultado_admision = document.getElementById("resultado_admision");
 
-    let pnf = "", nucleo = "";
+    const select_perfiles_asignados = document.getElementById("perfiles_asignados");
+    const input_perfil_asignado = document.getElementById("perfil_asignado");
+    const select_seleccion_coordinador = document.getElementById("seleccion_coordinador");
+    const contenedor_seleccion_coordinador = document.getElementById("contenedor_seleccion_coordinador");
 
-    async function nucleos_asignados() {
+    const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+    const paginas = [
+        document.getElementById("contenedor_datos_basicos"),
+        document.getElementById("contacto_estudiante"),
+        document.getElementById("contenedor_representante"),
+        document.getElementById("contenedor_nacimiento"),
+        document.getElementById("contenedor_residencia"),
+        document.getElementById("contenedor_discapacidad"),
+        document.getElementById("contenedor_ci_estudiante"),
+        document.getElementById("contenedor_titulo_bachiller_estudiante"),
+        document.getElementById("contenedor_sabana_nota_estudiante"),
+        document.getElementById("contenedor_opsu_estudiante")
+    ];
+
+    const btnAvanzar = document.getElementById("avanzar");
+    const btnRetroceder = document.getElementById("retroceder");
+
+    let paginaActual = 0, pnf = "", admision = "";
+    let perfil_seleccionado = "";
+
+    admision = select_resultado_admision.value;
+
+    select_resultado_admision.addEventListener("change", async () => {
+        admision = select_resultado_admision.value;
+
+        await estudiante_pre_inscripcion(perfil_seleccionado);
+    });
+
+    async function perfiles_asignados() {
         try {
-            const respuesta = await fetch("/obt_nucleos_asignados/");
+            const respuesta = await fetch("/perf_asig_coord/");
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
-            select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona el núcleo primero</option>";
+            const tiene_coordinador = resultado.coordinador_pnf;
+            const tiene_control = resultado.control_estudio;
 
-            select_nucleos_asignados.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
+            input_perfil_asignado.value = "";
 
-            resultado.nucleos.forEach(nucleo => {
-                const option_nucleo = document.createElement("option");
-                option_nucleo.value = nucleo.id_nucleo;
-                option_nucleo.textContent = nucleo.municipio;
-                select_nucleos_asignados.append(option_nucleo);
-            });
+            select_perfiles_asignados.innerHTML = `
+            <option value="" selected>
+                Selecciona un perfil
+            </option>
+        `;
+
+            if (tiene_coordinador && tiene_control) {
+
+                const option_coordinador = document.createElement("option");
+                option_coordinador.value = "COORDINADOR_PNF";
+                option_coordinador.textContent = "Coordinador de PNF";
+
+                const option_control = document.createElement("option");
+                option_control.value = "CONTROL_ESTUDIO";
+                option_control.textContent =
+                    "Encargado de Control de Estudio";
+
+                select_perfiles_asignados.append(
+                    option_coordinador,
+                    option_control
+                );
+
+                select_perfiles_asignados.style.display = "";
+                input_perfil_asignado.style.display = "";
+
+                perfil_seleccionado = "";
+
+                label_pnf.style.display = "none";
+                select_pnfs_asignado.style.display = "none";
+
+            } else if (tiene_coordinador) {
+
+                perfil_seleccionado = "COORDINADOR_PNF";
+
+                input_perfil_asignado.value =
+                    "Coordinador de PNF";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                label_pnf.style.display = "none";
+                select_pnfs_asignado.style.display = "none";
+
+            } else if (tiene_control) {
+
+                perfil_seleccionado = "CONTROL_ESTUDIO";
+
+                input_perfil_asignado.value =
+                    "Encargado de Control de Estudio";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                label_pnf.style.display = "";
+                select_pnfs_asignado.style.display = "";
+
+            } else {
+
+                perfil_seleccionado = "";
+
+                input_perfil_asignado.value = "";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                label_pnf.style.display = "none";
+                select_pnfs_asignado.style.display = "none";
+            }
+
+            await pnfs_asignados(perfil_seleccionado);
+
+            admision = select_resultado_admision.value;
+
+            if (admision) {
+                await estudiante_pre_inscripcion(
+                    perfil_seleccionado
+                );
+            }
+
         } catch (error) {
             console.error(error);
         }
     }
-    nucleos_asignados();
 
-    select_nucleos_asignados.addEventListener("change", async (e) => {
-        nucleo = select_nucleos_asignados.value;
+    perfiles_asignados();
 
-        await pnfs_asignados();
+    select_perfiles_asignados.addEventListener("change", async () => {
+        perfil_seleccionado = select_perfiles_asignados.value;
 
-        await estudiante_pre_inscripcion();
+        if (!perfil_seleccionado) {
+            label_pnf.style.display = "none";
+            select_pnfs_asignado.style.display = "none";
+
+            contenedor_seleccion_coordinador.style.display = "none";
+            return;
+        }
+
+        if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+            label_pnf.style.display = "";
+            select_pnfs_asignado.style.display = "";
+
+            contenedor_seleccion_coordinador.style.display = "";
+        } else {
+
+            label_pnf.style.display = "none";
+            select_pnfs_asignado.style.display = "none";
+
+            select_pnfs_asignado.value = "";
+
+            contenedor_seleccion_coordinador.style.display = "none";
+
+            select_seleccion_coordinador.innerHTML = `
+                <option value="" selected>
+                    Selecciona un Coordinador de PNF
+                </option>
+            `;
+        }
+
+        await pnfs_asignados(perfil_seleccionado);
+        await estudiante_pre_inscripcion(perfil_seleccionado);
     });
 
-    async function pnfs_asignados() {
+    async function pnfs_asignados(perfil_seleccionado) {
         try {
             const formulario = new FormData();
-            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/obt_pnfs_asignado/", {
                 method: "POST",
@@ -112,18 +248,19 @@ document.addEventListener("DOMContentLoaded", () => {
     select_pnfs_asignado.addEventListener("change", async (e) => {
         pnf = select_pnfs_asignado.value;
 
-        await estudiante_pre_inscripcion();
+        await estudiante_pre_inscripcion(perfil_seleccionado);
     });
 
-    async function estudiante_pre_inscripcion() {
+    async function estudiante_pre_inscripcion(perfil_seleccionado) {
         try {
-            if (!nucleo || !pnf) return;
-
             const formulario = new FormData();
-            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("perfil", perfil_seleccionado);
             formulario.append("pnf_asignado", pnf);
+            formulario.append("admision", admision);
 
-            const respuesta = await fetch("/obt_pre_inscrt/", {
+            const endpoint = admision === "NO_ADMITIDO" ? "/rech_inscr_est/" : "/obt_pre_inscrt/";
+
+            const respuesta = await fetch(endpoint, {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": csrftoken
@@ -133,31 +270,30 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            // VALIDAR RESPUESTA DEL SERVIDOR
             if (resultado.estado !== "exito") {
                 contenedor_pre_inscripcion.innerHTML = "";
                 Swal.fire({
-                    title: resultado.titulo || "¡Advertencia!",
-                    text: resultado.descripcion || "No se pudo obtener la información.",
-                    icon: resultado.icon || "warning"
+                    title: resultado.titulo,
+                    text: resultado.descripcion,
+                    icon: resultado.icon
                 });
                 return;
             }
 
-            // LIMPIAR CONTENEDOR
             contenedor_pre_inscripcion.innerHTML = "";
 
-            let opciones = "";
             // AULAS
-            if (resultado.aulas && resultado.aulas.length > 0) {
+            let opciones_aula = "";
 
-                opciones += `
-                <option value="" selected>
-                    Seleccione un aula
-                </option>
-            `;
+            if (resultado.aulas && resultado.aulas.length > 0) {
+                opciones_aula = `
+                    <option value="" selected>
+                        Seleccione un aula
+                    </option>
+                `;
+
                 resultado.aulas.forEach(aula => {
-                    opciones += `
+                    opciones_aula += `
                         <option value="${aula.id_aula}">
                             ${aula.nombre_aula} |
                             ${aula.tipo_aula} |
@@ -166,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
                 });
             } else {
-                opciones = `
+                opciones_aula = `
                     <option value="">
                         No hay aulas disponibles
                     </option>
@@ -178,7 +314,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 contenedor_pre_inscripcion.innerHTML = `
                     <tr>
                         <td colspan="7">
-                            No hay estudiantes pendientes de inscripción.
+                            ${perfil_seleccionado === "CONTROL_ESTUDIO" && !pnf
+                        ? "Debe seleccionar un PNF para consultar los estudiantes preinscritos."
+                        : admision === "NO_ADMITIDO"
+                            ? "No hay estudiantes no admitidos."
+                            : "No hay estudiantes pendientes de admisión."
+                    }
                         </td>
                     </tr>
                 `;
@@ -186,30 +327,47 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             resultado.estudiantes.forEach((estudiante, index) => {
-
-                contenedor_pre_inscripcion.innerHTML += `
-                <tr data-cedula="${estudiante.cedula_identidad}">
-                    <td>${index + 1}</td>
-                    <td>${estudiante.nombres}</td>
-                    <td>${estudiante.apellidos}</td>
-                    <td>${estudiante.cedula_identidad}</td>
-                    <td>
-                        <select name="aula" class="select_aula">
-                            ${opciones}
-                        </select>
-                    </td>
-                    <td>
-                        <button type="button" class="inscribir">
-                            Inscribir
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" class="rechazar">
-                            Rechazar
-                        </button>
-                    </td>
-                </tr>
-            `;
+                if (admision === "NO_ADMITIDO") {
+                    contenedor_pre_inscripcion.innerHTML += `
+                    <tr data-cedula="${estudiante.cedula_identidad}">
+                        <td>${index + 1}</td>
+                        <td>${estudiante.nombres}</td>
+                        <td>${estudiante.apellidos}</td>
+                        <td>${estudiante.cedula_identidad}</td>
+                        <td>
+                            <span class="estado_no_admitido">${estudiante.estado}</span>
+                        </td>
+                        <td>
+                            <select name="aula" class="select_aula">
+                                ${opciones_aula}
+                            </select>
+                        </td>
+                        <td>
+                            <button type="button" class="inscribir"> Admitir</button>
+                        </td>
+                    </tr>
+                `;
+                } else {
+                    contenedor_pre_inscripcion.innerHTML += `
+                        <tr data-cedula="${estudiante.cedula_identidad}">
+                            <td>${index + 1}</td>
+                            <td>${estudiante.nombres}</td>
+                            <td>${estudiante.apellidos}</td>
+                            <td>${estudiante.cedula_identidad}</td>
+                            <td>
+                                <select name="aula" class="select_aula">
+                                    ${opciones_aula}
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" class="inscribir">Admitir</button>
+                            </td>
+                            <td>
+                                <button type="button" class="rechazar">No Admitir</button>
+                            </td>
+                        </tr>
+                    `;
+                }
             });
 
         } catch (error) {
@@ -228,7 +386,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const formulario = new FormData();
         formulario.append("cedula_estudiante", fila.dataset.cedula);
-        formulario.append("nucleo_asignado", nucleo);
         formulario.append("pnf_asignado", pnf);
 
         const respuesta = await fetch("/obt_data_est/", {
@@ -275,8 +432,6 @@ document.addEventListener("DOMContentLoaded", () => {
         control_tipos_discapacidad.value = resultado.discapacidad.tipo_discapacidad
         control_grados_discapacidad.value = resultado.discapacidad.grado_discapacidad
         control_causa_discapacidad.value = resultado.discapacidad.causa_discapacidad
-
-        console.log(resultado.documentos);
 
         control_img_ci.innerHTML = "";
         control_img_bachiller.innerHTML = "";
@@ -325,24 +480,6 @@ document.addEventListener("DOMContentLoaded", () => {
         dialogo.close()
     });
 
-    const paginas = [
-        document.getElementById("contenedor_datos_basicos"),
-        document.getElementById("contacto_estudiante"),
-        document.getElementById("contenedor_representante"),
-        document.getElementById("contenedor_nacimiento"),
-        document.getElementById("contenedor_residencia"),
-        document.getElementById("contenedor_discapacidad"),
-        document.getElementById("contenedor_ci_estudiante"),
-        document.getElementById("contenedor_titulo_bachiller_estudiante"),
-        document.getElementById("contenedor_sabana_nota_estudiante"),
-        document.getElementById("contenedor_opsu_estudiante")
-    ];
-
-    const btnAvanzar = document.getElementById("avanzar");
-    const btnRetroceder = document.getElementById("retroceder");
-
-    let paginaActual = 0;
-
     function mostrarPagina() {
         paginas.forEach((pagina, indice) => {
             pagina.style.display = indice === paginaActual ? "block" : "none";
@@ -370,25 +507,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     contenedor_pre_inscripcion.addEventListener("click", async (e) => {
-        if (!e.target.classList.contains("inscribir") && !e.target.classList.contains("rechazar")) {
+        if (!e.target.classList.contains("inscribir") &&
+            !e.target.classList.contains("rechazar")) {
             return;
         }
 
         const fila = e.target.closest("tr");
         const cedula = fila.dataset.cedula;
 
-        const accion = e.target.classList.contains("inscribir") ? "aceptado" : "rechazado";
+        const accion = e.target.classList.contains("inscribir")
+            ? "Admitido"
+            : "No Admitido";
 
-        // Solo necesitamos aula al inscribir
-        const aula = e.target.classList.contains("inscribir") ? fila.querySelector(".select_aula").value : "";
+        const aula = e.target.classList.contains("inscribir")
+            ? fila.querySelector(".select_aula").value
+            : "";
 
         try {
             const formulario = new FormData();
+
             formulario.append("cedula", cedula);
             formulario.append("aula", aula);
             formulario.append("accion", accion);
-            formulario.append("nucleo_asignado", nucleo);
             formulario.append("pnf_asignado", pnf);
+            formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/inscr_est/", {
                 method: "POST",
@@ -397,7 +539,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
             await Swal.fire({
@@ -407,10 +551,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (resultado.estado === "exito") {
-                await estudiante_pre_inscripcion();
+                await estudiante_pre_inscripcion(perfil_seleccionado);
             }
+
         } catch (error) {
             console.error(error);
         }
     });
+
 });

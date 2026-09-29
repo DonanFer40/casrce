@@ -1,0 +1,680 @@
+/* =========================================================
+   PANEL DEL COORDINADOR PNF - CARSCE
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE {
+    width: 100%;
+    min-height: calc(100vh - 140px);
+    padding: 30px;
+    background: var(--color-fondo-pagina);
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contenedor {
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 24px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-identificacion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-indicador {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-blanco);
+    background: var(--color-azul-profundo);
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-identificacion h1 {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-identificacion p {
+    margin: 5px 0 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   CONTEXTO DEL PNF
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contexto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 22px;
+    margin-bottom: 22px;
+    background: var(--color-azul-profundo);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contexto-principal {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contexto-icono {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-azul-profundo);
+    background: var(--color-blanco);
+    border-radius: 9px;
+    font-size: 17px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contexto-texto span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--texto-mutado);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contexto-texto strong {
+    display: block;
+    color: var(--color-blanco);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contexto-sede {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--texto-claro);
+    font-size: 13px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-contexto-sede i {
+    color: var(--color-amarillo-accion);
+}
+
+
+/* =========================================================
+   TARJETAS DE RESUMEN
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-resumen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-tarjeta-resumen {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 92px;
+    padding: 18px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    box-sizing: border-box;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-tarjeta-resumen:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-hover);
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-resumen-icono {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-resumen-datos {
+    min-width: 0;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-resumen-datos strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--texto-principal);
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-resumen-datos span {
+    display: block;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DISTRIBUCIÓN PRINCIPAL
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-principal {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: 22px;
+    align-items: start;
+}
+
+
+/* =========================================================
+   MÓDULO PRINCIPAL
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-modulo {
+    padding: 24px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-modulo-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-modulo-cabecera h2 {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-modulo-cabecera p {
+    margin: 5px 0 0;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   ACCESOS RÁPIDOS
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-accesos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 78px;
+    padding: 16px;
+    color: inherit;
+    text-decoration: none;
+    background: var(--color-fondo-pagina);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition:
+        border-color .2s ease,
+        background-color .2s ease,
+        transform .2s ease;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso:hover {
+    background: #F1F5F9;
+    border-color: var(--color-azul-hover);
+    transform: translateY(-2px);
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso-icono {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-azul-hover);
+    background: var(--color-blanco);
+    border-radius: 9px;
+    font-size: 16px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso-texto strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--texto-principal);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso-texto span {
+    display: block;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso-flecha {
+    color: var(--texto-mutado);
+    font-size: 12px;
+    transition:
+        color .2s ease,
+        transform .2s ease;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-acceso:hover
+.PanelCoordinadorPNFCASRCE-acceso-flecha {
+    color: var(--color-azul-hover);
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   PANEL LATERAL
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-modulo-lateral {
+    padding: 20px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-modulo-lateral h3 {
+    margin: 0 0 17px;
+    color: var(--texto-principal);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DATOS DEL PNF
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-datos-pnf {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-dato-pnf {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-dato-pnf:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-dato-pnf span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--texto-mutado);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-dato-pnf strong {
+    display: block;
+    color: var(--texto-principal);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   ACTIVIDAD RECIENTE
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad {
+    display: flex;
+    flex-direction: column;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad-item:first-child {
+    padding-top: 0;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad-icono {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad-texto {
+    min-width: 0;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad-texto strong {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--texto-principal);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-actividad-texto span {
+    display: block;
+    color: var(--texto-mutado);
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   AVISO INSTITUCIONAL
+   ========================================================= */
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    background: var(--color-rojo-soft);
+    border: 1px solid rgba(220, 38, 38, .15);
+    border-radius: 9px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-aviso-icono {
+    color: var(--color-rojo-acento);
+    font-size: 15px;
+    padding-top: 2px;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-aviso-contenido {
+    flex: 1;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-aviso-contenido strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--texto-principal);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+#PanelCoordinadorPNFCASRCE
+.PanelCoordinadorPNFCASRCE-aviso-contenido p {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 1100 PX
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-resumen {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-principal {
+        grid-template-columns: 1fr;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-lateral {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 800 PX
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    #PanelCoordinadorPNFCASRCE {
+        padding: 22px 18px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-cabecera {
+        align-items: flex-start;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-contexto {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-accesos {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 600 PX
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #PanelCoordinadorPNFCASRCE {
+        padding: 18px 14px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-cabecera {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-identificacion h1 {
+        font-size: 21px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-resumen {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-tarjeta-resumen {
+        padding: 14px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-resumen-icono {
+        width: 40px;
+        height: 40px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-modulo {
+        padding: 18px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-lateral {
+        display: flex;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 420 PX
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-resumen {
+        grid-template-columns: 1fr;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-contexto {
+        padding: 17px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-modulo {
+        padding: 15px;
+    }
+
+    #PanelCoordinadorPNFCASRCE
+    .PanelCoordinadorPNFCASRCE-acceso {
+        padding: 14px;
+    }
+
+}

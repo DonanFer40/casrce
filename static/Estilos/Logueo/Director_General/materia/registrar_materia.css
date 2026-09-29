@@ -1,158 +1,836 @@
-/* ========================================================= REGISTRAR MATERIA (SCOPED) ========================================================= */
-#modulo_materias {
-    display: flex;
-    justify-content: center;
+/* =========================================================
+   REGISTRAR MATERIAS - CARSCE
+   ========================================================= */
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+#director-materias-registrar-carsce {
+
+    width: 100%;
+    min-height: 100%;
+
+    padding: 4px 0 30px;
+
+    color: var(--texto-principal);
+}
+
+
+.director-materias-registrar-carsce-contenedor {
+
+    width: 100%;
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.director-materias-registrar-carsce-encabezado {
+
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+
+.director-materias-registrar-carsce-identificacion {
+
+    display: inline-flex;
     align-items: center;
-    width: 100%;
-}
-
-#modulo_materias .contenedor_modulo_materias {
-    width: 100%;
-    max-width: 750px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#modulo_materias .contenedor_modulo_materias h3 {
-    color: var(--texto);
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin: 0;
-}
-
-#modulo_materias .card_registrar_materia {
-    background: var(--color-base);
-    border-radius: var(--radio);
-    padding: 40px 45px;
-    box-shadow: var(--sombra-suave);
-    border: 1px solid var(--borde);
-    position: relative;
-}
-
-#modulo_materias .card_registrar_materia h4 {
-    color: var(--texto);
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--background);
-    position: relative;
-}
-
-#modulo_materias .card_registrar_materia h4::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background: var(--color-azulE);
-}
-
-/* ========================================================= FORMULARIO Y FILAS ========================================================= */
-#modulo_materias #formulario_registrar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#modulo_materias .fila-campos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-#modulo_materias .campo {
-    display: flex;
-    flex-direction: column;
     gap: 8px;
+
+    margin-bottom: 12px;
+    padding: 7px 12px;
+
+    color: var(--color-azul-hover);
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+
+.director-materias-registrar-carsce-identificacion i {
+
+    font-size: 0.72rem;
+}
+
+
+.director-materias-registrar-carsce-presentacion {
+
     width: 100%;
 }
 
-#modulo_materias .campo label {
-    font-size: 0.92rem;
+
+.director-materias-registrar-carsce-titulo {
+
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+
+.director-materias-registrar-carsce-titulo span {
+
+    color: var(--color-azul-hover);
+
     font-weight: 600;
-    color: var(--texto);
 }
 
-#modulo_materias #formulario_registrar input[type="text"],
-#modulo_materias #formulario_registrar select {
+
+.director-materias-registrar-carsce-descripcion {
+
+    max-width: 800px;
+
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   TARJETA PRINCIPAL
+   ========================================================= */
+
+.director-materias-registrar-carsce-tarjeta {
+
     width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--borde);
+
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA DE LA TARJETA
+   ========================================================= */
+
+.director-materias-registrar-carsce-tarjeta-cabecera {
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+
+.director-materias-registrar-carsce-tarjeta-icono {
+
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        145deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.20);
+}
+
+
+.director-materias-registrar-carsce-tarjeta-icono i {
+
+    font-size: 1rem;
+}
+
+
+.director-materias-registrar-carsce-tarjeta-informacion {
+
+    min-width: 0;
+}
+
+
+.director-materias-registrar-carsce-tarjeta-titulo {
+
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+
+    line-height: 1.3;
+}
+
+
+.director-materias-registrar-carsce-tarjeta-descripcion {
+
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.director-materias-registrar-carsce-formulario {
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   BLOQUES DEL FORMULARIO
+   ========================================================= */
+
+.director-materias-registrar-carsce-bloque {
+
+    width: 100%;
+
+    padding: 21px 20px 22px;
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
     border-radius: 10px;
-    background: var(--background);
-    color: var(--texto);
-    font-size: 0.95rem;
-    outline: none;
-    transition: all 0.2s ease;
+
     box-sizing: border-box;
 }
 
-#modulo_materias #formulario_registrar optgroup {
-    font-weight: 700;
-    color: var(--color-azulE);
-    background: var(--background);
+
+.director-materias-registrar-carsce-bloque + .director-materias-registrar-carsce-bloque {
+
+    margin-top: 17px;
 }
 
-#modulo_materias #formulario_registrar option {
-    font-weight: 400;
-    color: var(--texto);
-    background: var(--color-base);
+
+/* =========================================================
+   CABECERA DE CADA BLOQUE
+   ========================================================= */
+
+.director-materias-registrar-carsce-bloque-cabecera {
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 18px;
 }
 
-#modulo_materias #formulario_registrar input[type="text"]:focus,
-#modulo_materias #formulario_registrar select:focus {
-    border-color: var(--color-azulE);
-    background: var(--color-base);
-    box-shadow: 0 0 0 3px rgba(33, 28, 132, 0.12);
+
+.director-materias-registrar-carsce-bloque-icono {
+
+    width: 35px;
+    height: 35px;
+
+    flex: 0 0 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-azul-hover);
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
 }
 
-/* Mensajes de validación */
-#modulo_materias #formulario_registrar small {
+
+.director-materias-registrar-carsce-bloque-icono i {
+
+    font-size: 0.78rem;
+}
+
+
+.director-materias-registrar-carsce-bloque-titulo {
+
+    margin: 0;
+
+    color: var(--color-azul-card);
+
     font-size: 0.82rem;
-    color: var(--rojo);
-    margin-top: 2px;
+    font-weight: 650;
+
+    line-height: 1.3;
+}
+
+
+.director-materias-registrar-carsce-bloque-descripcion {
+
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.68rem;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   GRIDS
+   ========================================================= */
+
+.director-materias-registrar-carsce-grid-2 {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+
+.director-materias-registrar-carsce-grid-3 {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 17px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.director-materias-registrar-carsce-campo {
+
+    width: 100%;
+    min-width: 0;
+}
+
+
+.director-materias-registrar-carsce-etiqueta {
+
     display: block;
-    min-height: 16px;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.73rem;
+    font-weight: 600;
+
+    line-height: 1.35;
 }
 
-/* ========================================================= BOTÓN DE ACCIÓN ========================================================= */
-#modulo_materias #btn_registrar,
-#modulo_materias input[type="submit"] {
-    margin-top: 10px;
-    padding: 14px 24px;
-    background: var(--color-botones);
-    color: var(--color-neutro);
-    font-weight: 700;
-    font-size: 0.95rem;
-    border: none;
-    border-radius: 12px;
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+.director-materias-registrar-carsce-control {
+
+    position: relative;
+
+    width: 100%;
+}
+
+
+.director-materias-registrar-carsce-control
+> i:first-child {
+
+    position: absolute;
+
+    top: 50%;
+    left: 14px;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: 0.81rem;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   INPUTS Y SELECTS
+   ========================================================= */
+
+.director-materias-registrar-carsce-control input,
+.director-materias-registrar-carsce-control select {
+
+    width: 100%;
+    height: 45px;
+
+    box-sizing: border-box;
+
+    padding: 0 40px;
+
+    color: #334155;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins";
+    font-size: 0.74rem;
+    font-weight: 400;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   SELECTS
+   ========================================================= */
+
+.director-materias-registrar-carsce-control select {
+
+    appearance: none;
+    -webkit-appearance: none;
+
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-#modulo_materias #btn_registrar:hover,
-#modulo_materias input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    filter: brightness(0.95);
+
+/* =========================================================
+   FLECHA DE SELECT
+   ========================================================= */
+
+.director-materias-registrar-carsce-flecha {
+
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: 0.63rem;
+
+    pointer-events: none;
 }
 
-#modulo_materias #btn_registrar:active,
-#modulo_materias input[type="submit"]:active {
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.director-materias-registrar-carsce-control input:hover,
+.director-materias-registrar-carsce-control select:hover {
+
+    border-color: #94A3B8;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.director-materias-registrar-carsce-control input:focus,
+.director-materias-registrar-carsce-control select:focus {
+
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.director-materias-registrar-carsce-control input::placeholder {
+
+    color: #94A3B8;
+}
+
+
+/* =========================================================
+   MENSAJE DE VALIDACIÓN
+   ========================================================= */
+
+.director-materias-registrar-carsce-mensaje {
+
+    display: block;
+
+    min-height: 16px;
+
+    margin-top: 5px;
+    padding-left: 2px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 0.65rem;
+    font-weight: 500;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   OPCIONES DE SELECT
+   ========================================================= */
+
+.director-materias-registrar-carsce-control select option,
+.director-materias-registrar-carsce-control select optgroup {
+
+    font-family: "Poppins";
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.director-materias-registrar-carsce-acciones {
+
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+
+    margin-top: 21px;
+    padding-top: 21px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   BOTÓN REGISTRAR
+   ========================================================= */
+
+.director-materias-registrar-carsce-boton {
+
+    min-width: 225px;
+    height: 44px;
+
+    padding: 0 22px;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+
+    cursor: pointer;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 600;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.director-materias-registrar-carsce-boton:hover {
+
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 8px 17px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+.director-materias-registrar-carsce-boton:active {
+
     transform: translateY(0);
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18);
 }
 
-/* RESPONSIVE */
-@media (max-width: 680px) {
-    #modulo_materias .fila-campos {
-        grid-template-columns: 1fr;
+
+.director-materias-registrar-carsce-boton:focus-visible {
+
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - 900PX
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .director-materias-registrar-carsce-titulo {
+
+        font-size: 1.4rem;
     }
 
-    #modulo_materias .card_registrar_materia {
-        padding: 28px 20px;
+    .director-materias-registrar-carsce-tarjeta {
+
+        padding: 23px;
+    }
+
+    .director-materias-registrar-carsce-grid-3 {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+    }
+
+    .director-materias-registrar-carsce-grid-3
+    .director-materias-registrar-carsce-campo:last-child {
+
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 700PX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .director-materias-registrar-carsce-titulo {
+
+        font-size: 1.28rem;
+    }
+
+    .director-materias-registrar-carsce-descripcion {
+
+        font-size: 0.78rem;
+    }
+
+    .director-materias-registrar-carsce-tarjeta {
+
+        padding: 21px;
+    }
+
+    .director-materias-registrar-carsce-grid-2,
+    .director-materias-registrar-carsce-grid-3 {
+
+        grid-template-columns: 1fr;
+
+        gap: 17px;
+    }
+
+    .director-materias-registrar-carsce-grid-3
+    .director-materias-registrar-carsce-campo:last-child {
+
+        grid-column: auto;
+    }
+
+    .director-materias-registrar-carsce-bloque {
+
+        padding: 19px 17px 20px;
+    }
+
+    .director-materias-registrar-carsce-acciones {
+
+        justify-content: stretch;
+    }
+
+    .director-materias-registrar-carsce-boton {
+
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 520PX
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .director-materias-registrar-carsce-identificacion {
+
+        font-size: 0.62rem;
+    }
+
+    .director-materias-registrar-carsce-titulo {
+
+        font-size: 1.15rem;
+    }
+
+    .director-materias-registrar-carsce-descripcion {
+
+        font-size: 0.74rem;
+    }
+
+    .director-materias-registrar-carsce-tarjeta {
+
+        padding: 18px 16px 20px;
+    }
+
+    .director-materias-registrar-carsce-tarjeta-cabecera {
+
+        align-items: flex-start;
+
+        gap: 11px;
+
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    .director-materias-registrar-carsce-tarjeta-icono {
+
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+    }
+
+    .director-materias-registrar-carsce-tarjeta-titulo {
+
+        font-size: 0.88rem;
+    }
+
+    .director-materias-registrar-carsce-tarjeta-descripcion {
+
+        font-size: 0.68rem;
+    }
+
+    .director-materias-registrar-carsce-bloque {
+
+        padding: 17px 14px 18px;
+    }
+
+    .director-materias-registrar-carsce-bloque-cabecera {
+
+        align-items: flex-start;
+    }
+
+    .director-materias-registrar-carsce-bloque-icono {
+
+        width: 32px;
+        height: 32px;
+
+        flex-basis: 32px;
+    }
+
+    .director-materias-registrar-carsce-bloque-titulo {
+
+        font-size: 0.77rem;
+    }
+
+    .director-materias-registrar-carsce-bloque-descripcion {
+
+        font-size: 0.64rem;
+    }
+
+    .director-materias-registrar-carsce-control input,
+    .director-materias-registrar-carsce-control select {
+
+        height: 43px;
+    }
+
+    .director-materias-registrar-carsce-boton {
+
+        height: 43px;
+
+        font-size: 0.71rem;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 390PX
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .director-materias-registrar-carsce-titulo {
+
+        font-size: 1.05rem;
+    }
+
+    .director-materias-registrar-carsce-tarjeta {
+
+        padding: 16px 13px 18px;
+    }
+
+    .director-materias-registrar-carsce-identificacion {
+
+        padding: 6px 9px;
+    }
+
+    .director-materias-registrar-carsce-bloque {
+
+        padding: 15px 11px 16px;
+    }
+
+    .director-materias-registrar-carsce-bloque-icono {
+
+        width: 30px;
+        height: 30px;
+
+        flex-basis: 30px;
     }
 }

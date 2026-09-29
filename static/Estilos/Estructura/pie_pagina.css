@@ -1,46 +1,142 @@
+/* =========================================================
+   FOOTER - CARSCE
+   ========================================================= */
+
 #footer{
-    background: var(--color-base);
-    color: var(--color-neutro);
-    padding: 20px 0;
-    border-top: 20px solid var(--color-azulE);
+    width:100%;
+    margin-top:40px;
+
+    background:var(--color-azul-profundo);
+    border-top:1px solid var(--color-borde-oscuro);
+
+    box-sizing:border-box;
 }
 
-#footer .footer-contenedor{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px;
+.footer-contenedor{
+    width:min(1200px, 92%);
+    min-height:110px;
+
+    margin:0 auto;
+    padding:22px 0;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:30px;
+
+    box-sizing:border-box;
 }
 
-#footer .footer-logo img{
-    width: 80px;
-    height: auto;
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.footer-logo{
+    display:flex;
+    align-items:center;
+    flex-shrink:0;
 }
 
-#footer .footer-texto{
-    flex: 1;
-    text-align: center;
-    font-size: 16px;
-    line-height: 1.5;
-    padding: 0 15px;
-    color: var(--color-neutro);
+.footer-logo img{
+    width:78px;
+    height:auto;
+
+    display:block;
+    object-fit:contain;
 }
 
-#footer .footer-redes{
-    display: flex;
-    gap: 15px;
-    font-size: 22px;
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.footer-texto{
+    flex:1;
+
+    color:var(--texto-claro);
+
+    font-size:12px;
+    line-height:1.7;
+
+    text-align:center;
+
+    opacity:.85;
 }
 
-#footer .footer-redes a{
-    color: var(--color-neutro);
-    transition: 0.3s;
+/* =========================================================
+   REDES SOCIALES
+   ========================================================= */
+
+.footer-redes{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    flex-shrink:0;
 }
 
-#footer .footer-redes a:hover{
-    color: var(--color-hover-azulE);
-    transform: scale(1.2);
+.footer-redes a{
+    width:36px;
+    height:36px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid var(--color-borde-oscuro);
+    border-radius:8px;
+
+    background:var(--color-azul-card);
+
+    color:var(--texto-claro);
+
+    text-decoration:none;
+
+    font-size:16px;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+.footer-redes a:hover{
+    background:var(--color-azul-hover);
+    border-color:var(--color-azul-hover);
+
+    color:var(--color-blanco);
+
+    transform:translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width:700px){
+
+    .footer-contenedor{
+        flex-direction:column;
+
+        justify-content:center;
+
+        gap:16px;
+
+        padding:25px 0;
+    }
+
+    .footer-logo img{
+        width:70px;
+    }
+
+    .footer-texto{
+        order:2;
+        font-size:11px;
+    }
+
+    .footer-redes{
+        order:3;
+    }
 }

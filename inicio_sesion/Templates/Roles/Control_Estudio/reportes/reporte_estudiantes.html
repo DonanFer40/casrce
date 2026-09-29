@@ -1,0 +1,108 @@
+<!-- =========================================================
+     REPORTE GENERAL DE ESTUDIANTES
+     ========================================================= -->
+
+<section id="ReporteEstudiantesCASRCE">
+
+    <div class="ReporteEstudiantesCASRCE-cabecera">
+
+        <div class="ReporteEstudiantesCASRCE-icono">
+            <i class="fa-solid fa-users"></i>
+        </div>
+
+        <div class="ReporteEstudiantesCASRCE-informacion">
+
+            <span class="ReporteEstudiantesCASRCE-categoria">
+                REPORTE ESTUDIANTIL
+            </span>
+
+            <h2>
+                Reporte General de Estudiantes
+            </h2>
+
+            <p>
+                Consulta la información general de los estudiantes
+                registrados en el sistema CARSCE.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- INFORMACIÓN DEL REPORTE -->
+    <div class="ReporteEstudiantesCASRCE-detalles">
+
+        <div class="ReporteEstudiantesCASRCE-detalle">
+
+            <i class="fa-solid fa-user-graduate"></i>
+
+            <div>
+                <span>
+                    Información
+                </span>
+
+                <strong>
+                    Estudiantes registrados
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="ReporteEstudiantesCASRCE-detalle">
+
+            <i class="fa-solid fa-building-columns"></i>
+
+            <div>
+                <span>
+                    Organización
+                </span>
+
+                <strong>
+                    Núcleo y PNF
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="ReporteEstudiantesCASRCE-detalle">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <div>
+                <span>
+                    Formato
+                </span>
+
+                <strong>
+                    Documento PDF
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACCIONES -->
+    <div class="ReporteEstudiantesCASRCE-acciones">
+
+        <a
+            href="{% url 'reporte_estudiantes_pdf' %}"
+            class="ReporteEstudiantesCASRCE-boton-pdf"
+            target="_blank"
+        >
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            <span>
+                Generar reporte PDF
+            </span>
+
+        </a>
+
+    </div>
+
+</section>

@@ -1,16 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const select_registrar_pnfs = document.getElementById("pnfs_registrar_materia");
-
-    const codigos_registrar_materias = document.getElementById("codigos_registrar_materias");
-    const mensaje_codigo_materia = document.getElementById("mensaje_codigo_materia");
 
     const btn_registro = document.getElementById("btn_registrar");
 
+    const input_nombres_materias = document.getElementById("nombres_registrar_materias");
     const select_periodo_academico = document.getElementById("periodo_registrar_materia");
     const select_trayecto_academico = document.getElementById("trayecto_registrar_materia");
-
+    const select_registrar_pnfs = document.getElementById("pnfs_registrar_materia");
     const select_tipo_materia = document.getElementById("tipo_materia");
 
+    const codigos_registrar_materias = document.getElementById("codigos_registrar_materias");
+    const mensaje_codigo_materia = document.getElementById("mensaje_codigo_materia");
 
     const formulario_registrar = document.getElementById("formulario_registrar");
 
@@ -35,93 +34,53 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    function soloTexto(input) {
+        input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
+    }
+
+    input_nombres_materias.addEventListener("input", () => {
+        soloTexto(input_nombres_materias);
+    });
+
     select_periodo_academico.addEventListener("change", async () => {
-
-        select_registrar_pnfs.innerHTML = `
-            <option value="">Seleccionar el P.N.F</option>
-        `;
-
-        select_trayecto_academico.innerHTML = `
-            <option value="">Seleccionar el Trayecto</option>
-        `;
+        select_registrar_pnfs.innerHTML = "<option value=''>Seleccionar el P.N.F</option>";
+        select_trayecto_academico.innerHTML = "<option value=''>Seleccionar el Trayecto</option>";
+        select_tipo_materia.innerHTML = "<option value=''>Seleccionar el Tipo de Materia</option>";
 
         select_trayecto_academico.disabled = true;
-
         const valor = select_periodo_academico.value;
-
         if (!valor) {
             return;
         }
 
-        // ==========================================
-        // TIPO DE MATERIA
-        // ==========================================
-
-        select_tipo_materia.innerHTML = "";
-
-
-        // CURSO
         const option_curso = document.createElement("option");
-
         option_curso.value = "Curso";
         option_curso.textContent = "Curso";
 
-        select_tipo_materia.appendChild(
-            option_curso
-        );
-
-
-        // ELECTIVA
         const option_electiva = document.createElement("option");
-
         option_electiva.value = "Electiva";
         option_electiva.textContent = "Electiva";
 
-        select_tipo_materia.appendChild(
-            option_electiva
-        );
+        select_tipo_materia.appendChild(option_curso);
+        select_tipo_materia.appendChild(option_electiva);
 
 
-        // ==========================================
         // VALIDAR PERÍODO ACADÉMICO
-        // ==========================================
-
-        if (
-            valor === "INICIAL_TRIMESTRE" ||
+        if (valor === "INICIAL_TRIMESTRE" ||
             valor === "INICIAL_SEMESTRE" ||
-            valor === "TRIMESTRE"
-        ) {
-
-            // No se permite Electiva
+            valor === "TRIMESTRE") {
             option_electiva.hidden = true;
-
-            // Asegurar que quede Curso
             select_tipo_materia.value = "Curso";
-
         } else {
-
-            // Se permite Electiva
             option_electiva.hidden = false;
+            select_tipo_materia.value = "";
         }
-
         try {
-
             const formulario = new FormData();
+            formulario.append("periodo_academico", valor);
 
-            formulario.append(
-                "periodo_academico",
-                valor
-            );
-
-
-            // ==========================================
             // CARGAR PNF Y TRAYECTOS SIMULTÁNEAMENTE
-            // ==========================================
-
-            const [
-                respuesta_pnf,
-                respuesta_trayectos
-            ] = await Promise.all([
+            const [respuesta_pnf, respuesta_trayectos] = await Promise.all([
 
                 fetch("/pnf_per_acad/", {
                     method: "POST",
@@ -138,86 +97,44 @@ document.addEventListener("DOMContentLoaded", () => {
             ]);
 
 
-            const [
-                resultado_pnf,
-                resultado_trayectos
+            const [resultado_pnf, resultado_trayectos
             ] = await Promise.all([
-
                 respuesta_pnf.json(),
-
                 respuesta_trayectos.json()
-
             ]);
 
-
-            // ==========================================
             // PNF
-            // ==========================================
-
             if (resultado_pnf.estado === "exito") {
-
                 resultado_pnf.nucleos.forEach(nucleo => {
-
                     nucleo.pnfs.forEach(pnf => {
-
-                        const option =
-                            document.createElement("option");
-
-                        option.value =
-                            pnf.id_pnf;
-
-                        option.textContent =
-                            pnf.pnf;
-
-                        select_registrar_pnfs.appendChild(
-                            option
-                        );
+                        const option = document.createElement("option");
+                        option.value = pnf.id_pnf;
+                        option.textContent = pnf.pnf;
+                        select_registrar_pnfs.appendChild(option);
 
                     });
-
                 });
-
             }
 
-
-            // ==========================================
             // TRAYECTOS
-            // ==========================================
-
             if (resultado_trayectos.estado === "exito") {
-
                 let opciones = [];
 
-
-                // ==========================================
                 // TRAYECTO INICIAL
-                // ==========================================
-
-                if (
-                    valor === "INICIAL_TRIMESTRE" ||
-                    valor === "INICIAL_SEMESTRE"
-                ) {
+                if (valor === "INICIAL_TRIMESTRE" ||
+                    valor === "INICIAL_SEMESTRE") {
 
                     opciones = [
                         "Trayecto Inicial"
                     ];
 
-                }
-
-
-                // ==========================================
-                // TRIMESTRE / TRAMOS
-                // ==========================================
-
-                else if (
-                    valor === "TRIMESTRE" ||
+                } else if (valor === "TRIMESTRE" ||
                     valor === "TRAMO_I" ||
                     valor === "TRAMO_II" ||
                     valor === "TRAMO_III" ||
                     valor === "TRAMO_I_II" ||
                     valor === "TRAMO_II_III" ||
-                    valor === "TRAMO_I_III"
-                ) {
+                    valor === "TRAMO_I_III") {
 
                     opciones = [
                         "Trayecto I",
@@ -226,17 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Trayecto IV"
                     ];
 
-                }
-
-
-                // ==========================================
-                // REPARACIÓN
-                // ==========================================
-
-                else if (
-                    valor === "REPARACION"
-                ) {
-
+                } else if (valor === "REPARACION") {
                     opciones = [
                         "Trayecto I",
                         "Trayecto II",
@@ -244,19 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Trayecto IV",
                         "Trayecto V"
                     ];
-
-                }
-
-
-                // ==========================================
-                // SEMESTRE
-                // ==========================================
-
-                else if (
-                    valor === "SEMESTRE" ||
+                } else if (valor === "SEMESTRE" ||
                     valor === "SEMESTRE_I" ||
-                    valor === "SEMESTRE_II"
-                ) {
+                    valor === "SEMESTRE_II") {
 
                     opciones = [
                         "Trayecto I",
@@ -268,80 +165,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-
-                // ==========================================
-                // FILTRAR CATÁLOGO
-                // ==========================================
-
-                const trayectos =
-                    resultado_trayectos.trayectos.filter(
-                        trayecto =>
-                            opciones.includes(
-                                trayecto.nombre
-                            )
-                    );
-
-
-                // ==========================================
-                // MOSTRAR TRAYECTOS
-                // ==========================================
+                const trayectos = resultado_trayectos.trayectos.filter(
+                    trayecto => opciones.includes(trayecto.nombre)
+                );
 
                 if (trayectos.length > 0) {
-
                     select_trayecto_academico.disabled = false;
 
                     trayectos.forEach(trayecto => {
-
-                        const option =
-                            document.createElement("option");
-
-                        option.value =
-                            trayecto.id_periodo_academico;
-
-                        option.textContent =
-                            trayecto.nombre;
-
-                        select_trayecto_academico.appendChild(
-                            option
-                        );
-
+                        const option = document.createElement("option");
+                        option.value = trayecto.id_periodo_academico;
+                        option.textContent = trayecto.nombre;
+                        select_trayecto_academico.appendChild(option);
                     });
-
                 } else {
-
                     select_trayecto_academico.innerHTML = `
-            <option value="">
-                No disponible
-            </option>
-        `;
-
+                        <option value="">
+                            No disponible
+                        </option>
+                    `;
                 }
 
             }
-
         } catch (error) {
-
-            console.error(
-                "Error al cargar los datos:",
-                error
-            );
-
-
+            console.error(error);
             select_registrar_pnfs.innerHTML = `
-            <option value="">
-                Error al cargar P.N.F
-            </option>
-        `;
-
-
+                <option value="">
+                    Error al cargar P.N.F
+                </option>
+            `;
             select_trayecto_academico.innerHTML = `
-            <option value="">
-                Error al cargar Trayectos
-            </option>
+                <option value="">
+                    Error al cargar Trayectos
+                </option>
+            `;
+
+            select_periodo_academico.addEventListener("change", async () => {
+                try {
+                    const valor = select_periodo_academico.value;
+
+                    select_periodo_academico.innerHTML = `
+            <option value="">Seleccionar el Tipo de Materia</option>
         `;
 
-        }
+                    select_trayecto_academico.innerHTML = `
+            <option value="">Seleccionar el Trayecto</option>
+        `;
 
+                    select_trayecto_academico.disabled = true;
+
+                    if (!valor) {
+                        return;
+                    }
+
+                    const option_curso = document.createElement("option");
+                    option_curso.value = "Curso";
+                    option_curso.textContent = "Curso";
+
+                    const option_electiva = document.createElement("option");
+                    option_electiva.value = "Electiva";
+                    option_electiva.textContent = "Electiva";
+
+                    select_registrar_pnfs.appendChild(option_curso);
+                    select_registrar_pnfs.appendChild(option_electiva);
+
+
+                    // VALIDAR PERÍODO ACADÉMICO
+                    if (valor === "INICIAL_TRIMESTRE" ||
+                        valor === "INICIAL_SEMESTRE" ||
+                        valor === "TRIMESTRE") {
+
+                        option_electiva.hidden = true;
+                        select_tipo_actualizar_materia.value = "Curso";
+                    } else {
+                        option_electiva.hidden = false;
+                        select_tipo_actualizar_materia.value = "";
+                    }
+
+                    // CARGAR PNF
+                    await pnfs_registrados(valor);
+
+                    // CARGAR TRAYECTOS
+                    await trayectos_registrados(valor);
+
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+        }
     });
 
     formulario_registrar.addEventListener("submit", async (e) => {
@@ -366,6 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (resultado.estado == "exito") {
                 formulario_registrar.reset()
+                select_tipo_materia.innerHTML = "<option value=''>Seleccionar el Tipo de Materia</option>";
             }
         } catch (error) {
             console.error(error)
@@ -409,6 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
         }
     }
+
     codigos_registrar_materias.addEventListener("input", validar_codigo_materia);
 
     codigos_registrar_materias.addEventListener("input", function () {

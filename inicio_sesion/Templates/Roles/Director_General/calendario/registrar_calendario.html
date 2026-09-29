@@ -1,0 +1,216 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-calendario-registrar-carsce">
+
+    <div class="director-calendario-registrar-carsce-contenedor">
+
+        <!-- ENCABEZADO -->
+        <div class="director-calendario-registrar-carsce-encabezado">
+
+            <div class="director-calendario-registrar-carsce-identificacion">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-calendario-registrar-carsce-presentacion">
+
+                <h3 class="director-calendario-registrar-carsce-titulo">
+                    Calendario Notas Académicas
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-calendario-registrar-carsce-descripcion">
+                    Registra los períodos y actividades correspondientes al calendario académico.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TARJETA PRINCIPAL -->
+        <div class="director-calendario-registrar-carsce-tarjeta">
+
+            <!-- CABECERA DE LA TARJETA -->
+            <div class="director-calendario-registrar-carsce-tarjeta-cabecera">
+
+                <div class="director-calendario-registrar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                </div>
+
+                <div class="director-calendario-registrar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-calendario-registrar-carsce-tarjeta-titulo">
+                        Registrar Calendario Notas Académicas
+                    </h4>
+
+                    <p class="director-calendario-registrar-carsce-tarjeta-descripcion">
+                        Completa los datos para registrar una nueva actividad o período académico.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORMULARIO -->
+            <form method="post"
+                  id="formulario_registrar"
+                  class="director-calendario-registrar-carsce-formulario">
+
+                {% csrf_token %}
+
+
+                <!-- TIPO -->
+                <div class="director-calendario-registrar-carsce-campo">
+
+                    <label for="tipo">
+                        Tipo:
+                    </label>
+
+                    <div class="director-calendario-registrar-carsce-control director-calendario-registrar-carsce-control-select">
+
+                        <i class="fa-solid fa-list-check"></i>
+
+                        <select
+                            name="tipo"
+                            id="tipo"
+                            required>
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down director-calendario-registrar-carsce-flecha"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PERÍODO ACADÉMICO -->
+                <div id="contenedor_periodo"
+                     class="director-calendario-registrar-carsce-periodo"
+                     style="display: none;">
+
+                    <label for="periodo">
+                        Período académico:
+                    </label>
+
+                    <div class="director-calendario-registrar-carsce-control director-calendario-registrar-carsce-control-select">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                        <select
+                            name="periodo"
+                            id="periodo">
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down director-calendario-registrar-carsce-flecha"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FILA DE FECHAS -->
+                <div class="director-calendario-registrar-carsce-fila-fechas">
+
+                    <!-- FECHA DE INICIO -->
+                    <div class="director-calendario-registrar-carsce-campo">
+
+                        <label for="fecha_inicio">
+                            Fecha de inicio:
+                        </label>
+
+                        <div class="director-calendario-registrar-carsce-control">
+
+                            <i class="fa-solid fa-calendar-day"></i>
+
+                            <input
+                                type="date"
+                                name="fecha_inicio"
+                                id="fecha_inicio"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FECHA FINAL -->
+                    <div class="director-calendario-registrar-carsce-campo">
+
+                        <label for="fecha_final">
+                            Fecha final:
+                        </label>
+
+                        <div class="director-calendario-registrar-carsce-control">
+
+                            <i class="fa-solid fa-calendar-check"></i>
+
+                            <input
+                                type="date"
+                                name="fecha_final"
+                                id="fecha_final"
+                                required>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPCIÓN -->
+                <div class="director-calendario-registrar-carsce-campo director-calendario-registrar-carsce-campo-descripcion">
+
+                    <label for="descripcion">
+                        Descripción:
+                    </label>
+
+                    <div class="director-calendario-registrar-carsce-control-textarea">
+
+                        <i class="fa-solid fa-align-left"></i>
+
+                        <textarea
+                            name="descripcion"
+                            id="descripcion"
+                            maxlength="150"
+                            placeholder="Descripción del período o actividad"
+                            autocomplete="off"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACCIONES -->
+                <div class="director-calendario-registrar-carsce-acciones">
+
+                    <button
+                        type="submit"
+                        id="btn_registro"
+                        class="director-calendario-registrar-carsce-boton">
+
+                        <i class="fa-solid fa-calendar-plus"></i>
+
+                        <span>Registrar Calendario Académico</span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Calendario/registrar_calendario.js' %}"></script>
+
+{% endblock %}

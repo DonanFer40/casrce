@@ -48,19 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     input_nombre_aula.addEventListener("input", async () => {
-        input_nombre_aula.value = input_nombre_aula.value.replace(
-            /[^A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\s_-]/g, ""
-        );
+        input_nombre_aula.value = input_nombre_aula.value.replace(/[^A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\s_-]/g, "");
         await validar_aula();
     });
 
     input_nombre_aula.addEventListener("paste", async () => {
-        setTimeout(async () => {
-            input_nombre_aula.value = input_nombre_aula.value.replace(
-                /[^A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\s_-]/g, ""
-            );
-            await validar_seccion();
-        }, 0);
+        input_nombre_aula.value = input_nombre_aula.value.replace(/[^A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\s_-]/g, "");
+        await validar_seccion();
     });
 
     async function pnfs_registrados() {

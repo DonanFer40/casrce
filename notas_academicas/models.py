@@ -27,10 +27,16 @@ class DetallePlanificacion(models.Model):
     ponderacion = models.DecimalField(max_digits=5, decimal_places=2)
     contenido_unidad = models.TextField()
 
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT,  related_name="detalles_planificacion_registrados", blank=True, null=True)
+    fecha_registro = models.DateTimeField(blank=True, null=True)
+
+    modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="detalles_planificacion_modificados", blank=True, null=True)
+    fecha_modificado = models.DateTimeField(blank=True, null=True)
+
 class DetalleEvaluacion(models.Model):
     id_evaluacion = models.AutoField(primary_key=True)
     detalle_plan = models.ForeignKey(DetallePlanificacion, on_delete=models.CASCADE, related_name="evaluaciones")
-    metodo_evaluacion = models.CharField(max_length=100)
+    metodo_evaluacion = models.TextField()
     porcentaje_evaluacion = models.DecimalField(max_digits=5, decimal_places=2)
     fecha_evaluacion = models.DateField()
 
@@ -132,6 +138,19 @@ class Calificaciones(models.Model):
     trayecto = models.ForeignKey(TrayectoAcademico, models.CASCADE, db_column='trayecto', blank=True, null=True)
     fecha_promedio = models.DateField(blank=True, null=True)
 
+    # REGISTRO
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="calificaciones_registradas", blank=True, null=True)
+    fecha_registro = models.DateTimeField(blank=True, null=True)
+    perfil_registro = models.CharField(max_length=50, blank=True, null=True)
+
+    # MODIFICACIÓN
+    modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="calificaciones_modificadas", blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)
+    perfil_modificacion = models.CharField(max_length=50, blank=True, null=True)
+
+    congelada = models.BooleanField(default=False)
+    fecha_congelacion = models.DateTimeField(blank=True, null=True)
+
 class DetalleCalificacionesUnidad(models.Model):
     id_detalle_calificaciones_unidad = models.AutoField(primary_key=True)
     calificacion = models.ForeignKey(Calificaciones, on_delete=models.PROTECT, related_name="detalles_unidad")
@@ -139,16 +158,41 @@ class DetalleCalificacionesUnidad(models.Model):
     nota_unidad = models.DecimalField(max_digits=5, decimal_places=2)
     fecha_calificacion = models.DateField(auto_now_add=True)
 
+    # REGISTRO
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="detalles_calificaciones_registrados", blank=True, null=True)
+    fecha_registro = models.DateTimeField(blank=True, null=True)
+    perfil_registro = models.CharField(max_length=50, blank=True, null=True)
+
+    # MODIFICACIÓN
+    modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="detalles_calificaciones_modificados", blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)
+    perfil_modificacion = models.CharField(max_length=50, blank=True, null=True)
+   
+    congelada = models.BooleanField(default=False)
+    fecha_congelacion = models.DateTimeField(blank=True, null=True)
+
 # Respaldo de notas académicas
 
 class HistorialModificacionNotas(models.Model):
     id_historial = models.AutoField(primary_key=True)
-    docente_asignado = models.ForeignKey(DocenteAsignadoMateria, on_delete=models.PROTECT)
-    periodo_academico = models.ForeignKey(PeriodoAcademico, on_delete=models.PROTECT)
+    docente_asignado = models.ForeignKey(DocenteAsignadoMateria, on_delete=models.PROTECT, related_name="historial_modificaciones_notas", blank=True, null=True)
+    periodo_academico = models.ForeignKey(PeriodoAcademico, on_delete=models.PROTECT, related_name="historial_modificaciones_notas", blank=True, null=True)
     trayecto = models.ForeignKey(TrayectoAcademico, models.CASCADE, db_column='trayecto', blank=True, null=True)
-    fecha_modificacion = models.DateTimeField(auto_now_add=True)
-    usuario_modifica = models.ForeignKey(Usuario, on_delete=models.PROTECT)
-    motivo = models.TextField()
+    calificacion = models.ForeignKey(Calificaciones, on_delete=models.PROTECT, related_name="historial_modificaciones", blank=True, null=True)
+    
+    usuario_modifica = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="historial_modificaciones_notas")
+    perfil_modificacion = models.CharField(max_length=50, blank=True, null=True)
+    fecha_modificacion = models.DateTimeField(blank=True, null=True)
+    motivo = models.TextField(blank=True, null=True)
+    
+    tipo_modificacion = models.CharField(
+        max_length=20,
+        choices=[
+            ("MODIFICACION", "Modificación"),
+            ("REVERSION", "Reversión"),
+        ],
+        default="MODIFICACION"
+    )
 
     def __str__(self):
         return f"Modificación {self.id_historial}"
@@ -156,8 +200,9 @@ class HistorialModificacionNotas(models.Model):
 class HistorialDetalleNota(models.Model):
     id_detalle = models.AutoField(primary_key=True)
     historial = models.ForeignKey(HistorialModificacionNotas, on_delete=models.CASCADE, related_name="detalles")
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.PROTECT)
-    numero_unidad = models.PositiveSmallIntegerField(null=True, blank=True)
+    estudiante = models.ForeignKey(Estudiante, on_delete=models.PROTECT, related_name="historial_detalles_notas", blank=True, null=True)
+    detalle_calificacion_unidad = models.ForeignKey(DetalleCalificacionesUnidad, on_delete=models.PROTECT, related_name="historial_modificaciones", blank=True, null=True)
+    
     nota_anterior = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     nota_nueva = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     asistencia_anterior = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)

@@ -1,0 +1,662 @@
+/* =========================================================
+   VISUALIZAR PERSONAL REGISTRADO - CARSCE
+   DIRECTOR GENERAL
+   ========================================================= */
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+#director-personal-registrado-carsce {
+    width: 100%;
+    min-width: 0;
+    min-height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+.director-personal-registrado-carsce-contenedor {
+    width: 100%;
+    max-width: 1250px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.director-personal-registrado-carsce-encabezado {
+    width: 100%;
+
+    margin-bottom: 27px;
+}
+
+
+.director-personal-registrado-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 16px;
+}
+
+
+.director-personal-registrado-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 30px;
+
+    padding: 5px 12px;
+
+    color: #1D4ED8;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 7px;
+
+    font-size: 0.72rem;
+    font-weight: 600;
+
+    letter-spacing: 0.035em;
+}
+
+
+.director-personal-registrado-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #64748B;
+
+    font-size: 0.76rem;
+    font-weight: 500;
+}
+
+
+.director-personal-registrado-carsce-seccion i {
+    color: #2563EB;
+
+    font-size: 0.82rem;
+}
+
+
+/* =========================================================
+   PRESENTACIÓN
+   ========================================================= */
+
+.director-personal-registrado-carsce-presentacion {
+    width: 100%;
+}
+
+
+.director-personal-registrado-carsce-titulo {
+    margin: 0;
+
+    color: #0F172A;
+
+    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.035em;
+}
+
+
+.director-personal-registrado-carsce-descripcion {
+    max-width: 780px;
+
+    margin: 10px 0 0;
+
+    color: #64748B;
+
+    font-size: 0.88rem;
+    font-weight: 400;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CONTENEDOR DE FILTROS
+   ========================================================= */
+
+.director-personal-registrado-carsce-filtros {
+    width: 100%;
+
+    margin-bottom: 20px;
+
+    padding: 21px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.04),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =========================================================
+   CABECERA DE FILTROS
+   ========================================================= */
+
+.director-personal-registrado-carsce-filtros-cabecera {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding-bottom: 17px;
+
+    margin-bottom: 19px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+.director-personal-registrado-carsce-filtros-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 9px;
+
+    font-size: 0.9rem;
+}
+
+
+.director-personal-registrado-carsce-filtros-titulo {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.director-personal-registrado-carsce-filtros-titulo h2 {
+    margin: 0;
+
+    color: #0F172A;
+
+    font-size: 1rem;
+    font-weight: 650;
+
+    line-height: 1.3;
+}
+
+
+.director-personal-registrado-carsce-filtros-titulo span {
+    color: #64748B;
+
+    font-size: 0.75rem;
+    font-weight: 400;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FORMULARIO DE FILTROS
+   ========================================================= */
+
+.director-personal-registrado-carsce-formulario-filtros {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   FILTRO INDIVIDUAL
+   ========================================================= */
+
+.director-personal-registrado-carsce-filtro {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.director-personal-registrado-carsce-filtro label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.77rem;
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+
+.director-personal-registrado-carsce-filtro select {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 11px;
+
+    color: #0F172A;
+
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 0.79rem;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.director-personal-registrado-carsce-filtro select:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla-contenedor {
+    width: 100%;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.04),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CABECERA DE TABLA
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla-cabecera {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 18px 21px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+
+.director-personal-registrado-carsce-tabla-titulo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.director-personal-registrado-carsce-tabla-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    border-radius: 9px;
+
+    font-size: 0.85rem;
+}
+
+
+.director-personal-registrado-carsce-tabla-titulo h2 {
+    margin: 0 0 3px;
+
+    color: #0F172A;
+
+    font-size: 1rem;
+    font-weight: 650;
+
+    line-height: 1.25;
+}
+
+
+.director-personal-registrado-carsce-tabla-titulo span {
+    color: #64748B;
+
+    font-size: 0.73rem;
+    font-weight: 400;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   SCROLL HORIZONTAL
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla-scroll {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla {
+    width: 100%;
+    min-width: 950px;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+
+/* =========================================================
+   ENCABEZADOS
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla thead {
+    background: #0F172A;
+}
+
+
+.director-personal-registrado-carsce-tabla th {
+    height: 49px;
+
+    padding: 12px 13px;
+
+    color: #F8FAFC;
+
+    font-size: 0.7rem;
+    font-weight: 650;
+
+    text-align: center;
+
+    letter-spacing: 0.045em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CELDAS
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla td {
+    padding: 14px 13px;
+
+    color: #334155;
+
+    background: #FFFFFF;
+
+    border-bottom: 1px solid #E8EDF0;
+
+    font-size: 0.76rem;
+    font-weight: 400;
+
+    text-align: center;
+    vertical-align: middle;
+
+    line-height: 1.45;
+
+    word-wrap: break-word;
+}
+
+
+.director-personal-registrado-carsce-tabla tbody tr {
+    transition:
+        background-color 0.18s ease;
+}
+
+
+.director-personal-registrado-carsce-tabla tbody tr:hover td {
+    background: #F8FAFC;
+}
+
+
+.director-personal-registrado-carsce-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   ANCHOS DE COLUMNAS
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla th:nth-child(1),
+.director-personal-registrado-carsce-tabla td:nth-child(1) {
+    width: 70px;
+
+    text-align: center;
+}
+
+
+.director-personal-registrado-carsce-tabla th:nth-child(2),
+.director-personal-registrado-carsce-tabla td:nth-child(2) {
+    width: 180px;
+}
+
+
+.director-personal-registrado-carsce-tabla th:nth-child(3),
+.director-personal-registrado-carsce-tabla td:nth-child(3) {
+    width: 180px;
+}
+
+
+.director-personal-registrado-carsce-tabla th:nth-child(4),
+.director-personal-registrado-carsce-tabla td:nth-child(4) {
+    width: 130px;
+}
+
+
+.director-personal-registrado-carsce-tabla th:nth-child(5),
+.director-personal-registrado-carsce-tabla td:nth-child(5) {
+    width: 180px;
+}
+
+
+.director-personal-registrado-carsce-tabla th:nth-child(6),
+.director-personal-registrado-carsce-tabla td:nth-child(6) {
+    width: 260px;
+}
+
+
+/* =========================================================
+   ID
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla td:first-child {
+    color: #2563EB;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CÉDULA
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla td:nth-child(4) {
+    color: #334155;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PNF
+   ========================================================= */
+
+.director-personal-registrado-carsce-tabla td:nth-child(6) {
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVE - 900PX
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .director-personal-registrado-carsce-formulario-filtros {
+        gap: 13px;
+    }
+
+
+    .director-personal-registrado-carsce-filtros {
+        padding: 18px;
+    }
+
+
+    .director-personal-registrado-carsce-tabla-cabecera {
+        padding: 17px 18px;
+    }
+
+
+    .director-personal-registrado-carsce-tabla th {
+        height: 46px;
+
+        padding: 11px 10px;
+
+        font-size: 0.67rem;
+    }
+
+
+    .director-personal-registrado-carsce-tabla td {
+        padding: 12px 10px;
+
+        font-size: 0.72rem;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 700PX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .director-personal-registrado-carsce-identificacion {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+
+    .director-personal-registrado-carsce-formulario-filtros {
+        grid-template-columns: 1fr;
+    }
+
+
+    .director-personal-registrado-carsce-filtros-cabecera {
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 520PX
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .director-personal-registrado-carsce-titulo {
+        font-size: 1.55rem;
+    }
+
+
+    .director-personal-registrado-carsce-descripcion {
+        font-size: 0.8rem;
+    }
+
+
+    .director-personal-registrado-carsce-filtros {
+        padding: 16px;
+    }
+
+
+    .director-personal-registrado-carsce-tabla-cabecera {
+        padding: 15px;
+    }
+
+
+    .director-personal-registrado-carsce-tabla-icono {
+        width: 38px;
+        height: 38px;
+    }
+
+}

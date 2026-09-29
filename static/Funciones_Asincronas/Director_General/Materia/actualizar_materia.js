@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const select_actualizar_pnf = document.getElementById("pnfs_actualizar_materia");
     const select_periodo_actualizar_materia = document.getElementById("periodo_actualizar_materia");
     const select_trayecto_actualizar_materia = document.getElementById("trayecto_actualizar_materia");
+    const select_tipo_actualizar_materia = document.getElementById("tipo_actualizar_materia");
     const input_thea = document.getElementById("THEA");
     const input_thei = document.getElementById("THEI");
 
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         select_actualizar_pnf,
         select_periodo_actualizar_materia,
         select_trayecto_actualizar_materia,
+        select_tipo_actualizar_materia,
         input_thea,
         input_thei,
         btn_registrar
@@ -69,8 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function bloquear_controles(controles, estado) {
         controles.forEach(control => control.disabled = estado);
     }
-
     bloquear_controles(controles, true);
+
+    codigos_buscar_materias.addEventListener("input", function () {
+        this.value = this.value
+            .toUpperCase()
+            .replace(/[^A-Z0-9]/g, "")
+            .slice(0, 7);
+    });
 
     formulario_buscar.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -99,8 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 return;
             }
-
             bloquear_controles(controles, false);
+
+            await Swal.fire({
+                text: "Se encontraron los datos de la materia.",
+                icon: "success",
+                title: "Exito",
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            });
 
             // MATERIA
             input_materia_oculta.value = resultado.materia.id_materia;
@@ -134,6 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
             option_pnf.hidden = true;
             select_actualizar_pnf.append(option_pnf);
 
+            const option_tipo_materia = document.createElement("option");
+            option_tipo_materia.value = resultado.materia.tipo_materia;
+            option_tipo_materia.textContent = resultado.materia.tipo_materia;
+            option_tipo_materia.selected = true;
+            option_tipo_materia.hidden = true;
+            select_tipo_actualizar_materia.append(option_tipo_materia);
+
             // TRAYECTO ALMACENADO
             const option_trayecto = document.createElement("option");
             option_trayecto.value = resultado.materia.trayecto.id_trayecto;
@@ -142,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
             option_trayecto.hidden = true;
             select_trayecto_actualizar_materia.append(option_trayecto);
 
+            await trayectos_registrados(periodo, resultado.materia.trayecto.id_trayecto);
         } catch (error) {
             console.error(error);
         }
@@ -154,6 +177,30 @@ document.addEventListener("DOMContentLoaded", () => {
             periodo_academico = select_periodo_actualizar_materia.value;
             if (!periodo_academico) {
                 return;
+            }
+
+            select_tipo_actualizar_materia.innerHTML = "<option value=''>Seleccione un Tipo de Materia</option>";
+
+            const option_curso = document.createElement("option");
+            option_curso.value = "Curso";
+            option_curso.textContent = "Curso";
+
+            const option_electiva = document.createElement("option");
+            option_electiva.value = "Electiva";
+            option_electiva.textContent = "Electiva";
+
+            select_tipo_actualizar_materia.appendChild(option_curso);
+            select_tipo_actualizar_materia.appendChild(option_electiva);
+
+            // VALIDAR PERÍODO ACADÉMICO
+            if (periodo_academico === "INICIAL_TRIMESTRE" ||
+                periodo_academico === "INICIAL_SEMESTRE" ||
+                periodo_academico === "TRIMESTRE") {
+                option_electiva.hidden = true;
+                select_tipo_actualizar_materia.value = "Curso";
+            } else {
+                option_electiva.hidden = false;
+                select_tipo_actualizar_materia.value = "";
             }
 
             // Cargar PNF correspondientes
@@ -192,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const option = document.createElement("option");
                 option.value = trayecto.id_trayecto;
                 option.textContent = trayecto.nombre;
-                // Seleccionar el trayecto actual
+
                 if (Number(trayecto.id_trayecto) === Number(id_trayecto_actual)) {
                     option.selected = true;
                 }
@@ -245,6 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault()
         try {
             const formulario = new FormData(formulario_actualizar)
+
             const respuesta = await fetch("/mat_guardar/", {
                 method: "POST",
                 headers: {
@@ -265,16 +313,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (resultado.estado == "exito") {
                 formulario_actualizar.reset();
                 bloquear_controles(controles, true);
+                select_trayecto_actualizar_materia.innerHTML = `<option value="">Seleccionar Trayecto</option>`;
+                select_actualizar_pnf.innerHTML = `<option value="">Seleccionar PNF</option>`;
+                select_tipo_actualizar_materia.innerHTML = "<option value=''>Seleccione un Tipo de Materia</option>";
             }
+
         } catch (error) {
             console.error(error)
         }
     });
 
-    codigos_buscar_materias.addEventListener("input", function () {
-        this.value = this.value
-            .toUpperCase()
-            .replace(/[^A-Z0-9]/g, "")
-            .slice(0, 7);
-    });
 });

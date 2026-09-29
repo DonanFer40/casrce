@@ -23,14 +23,10 @@ def pnf_per_acad(request):
         usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))
 
         if DirectorGeneral.objects.filter(usuario=usuario).exists():
-            nucleos = DirectorGeneral.objects.filter(
-                usuario=usuario
-            ).values_list("nucleo_id", flat=True)
+            nucleos = DirectorGeneral.objects.filter(usuario=usuario).values_list("nucleo_id", flat=True)
 
         elif ControlEstudio.objects.filter(usuario=usuario).exists():
-            nucleos = ControlEstudio.objects.filter(
-                usuario=usuario
-            ).values_list("nucleo_id", flat=True)
+            nucleos = ControlEstudio.objects.filter(usuario=usuario).values_list("nucleo_id", flat=True)
 
         # Si es reparación muestra todos los PNF del núcleo
         if periodo_materia == "REPARACION":
@@ -117,9 +113,7 @@ def mat_lista(request):
             })
 
         # PNF ASIGNADOS AL NÚCLEO
-        pnfs_usuario = Pnf.objects.filter(
-            pnfnucleo__id_nucleo_id=nucleo.id_nucleo
-        ).distinct()
+        pnfs_usuario = Pnf.objects.filter(pnfnucleo__id_nucleo_id=nucleo.id_nucleo).distinct()
 
         pnf = request.POST.get("pnf")
 
@@ -133,9 +127,7 @@ def mat_lista(request):
 
         # FILTRAR POR PNF
         if pnf and pnf != "ninguno":
-            materias_query = materias_query.filter(
-                id_pnf=pnf
-            )
+            materias_query = materias_query.filter(id_pnf=pnf)
 
         # OBTENER MATERIAS
         materias = list(
@@ -168,7 +160,7 @@ def mat_lista(request):
             "pnfs": pnfs
         })
 
-    return render(request, "Director_General/materia/visualizar_materia.html")
+    return render(request, "Roles/Director_General/materia/visualizar_materia.html")
 
 def mat_datos(request):
     if request.method == "POST":
@@ -496,6 +488,7 @@ def pnf_selec_mat(request):
     
 def mat_guardar(request):
     if request.method == "POST":
+
         id_materia = request.POST.get("materiaseleccionado")
         nombre = request.POST.get("nombresmaterias")
         thea = request.POST.get("THEA")
@@ -506,6 +499,65 @@ def mat_guardar(request):
         trayecto_materia = request.POST.get("trayecto")
         tipo_materia = request.POST.get("tipo_materia")
 
+        cedula_usuario = request.session.get("cedula_usuario")
+
+        if not cedula_usuario:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Sesión no válida",
+                "descripcion": (
+                    "No se encontró el usuario en la sesión."
+                )
+            })
+
+        # OBTENER USUARIO
+        usuario_registro = Usuario.objects.filter(
+            cedula_identidad=cedula_usuario
+        ).first()
+
+        if not usuario_registro:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Usuario no encontrado",
+                "descripcion": (
+                    "No se encontró el usuario que realiza "
+                    "la modificación."
+                )
+            })
+
+        # DETERMINAR PERFIL
+        perfil_modificacion = None
+
+        director = DirectorGeneral.objects.filter(
+            usuario__cedula_identidad=cedula_usuario
+        ).first()
+
+        if director:
+            perfil_modificacion = "DIRECTOR_GENERAL"
+
+        else:
+            control_estudio = ControlEstudio.objects.filter(
+                usuario__cedula_identidad=cedula_usuario,
+                activo=True
+            ).first()
+
+            if control_estudio:
+                perfil_modificacion = "CONTROL_ESTUDIO"
+
+        if not perfil_modificacion:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Perfil no autorizado",
+                "descripcion": (
+                    "El usuario no posee un perfil autorizado "
+                    "para modificar materias."
+                )
+            })
+
+        # VALIDAR DATOS
         controles = [
             (nombre, "Nombre de la Materia", "Por favor, debe ingresar el nombre de la materia."),
             (reparacion_materia, "Reparación de la Materia", "Por favor, seleccione si la materia tiene posibilidad de reparación."),
@@ -513,7 +565,8 @@ def mat_guardar(request):
             (periodo_materia, "Periodo Académico", "Por favor, seleccione el periodo académico de la materia."),
             (trayecto_materia, "Trayecto", "Por favor, seleccione el trayecto de la materia."),
             (thea, "Hora Trabajo Estudio Acompañado (HTEA)", "Por favor, debe ingresar las horas totales de estudio acompañado."),
-            (thei, "Hora Trabajo Estudio Independiente (HTEI)", "Por favor, debe ingresar las horas totales de estudio independiente.")
+            (thei, "Hora Trabajo Estudio Independiente (HTEI)", "Por favor, debe ingresar las horas totales de estudio independiente."),
+            (tipo_materia, "Tipo de Materia", "Por favor, debe seleccionar el tipo de la materia.")
         ]
 
         for value, field_name, error_message in controles:
@@ -533,10 +586,12 @@ def mat_guardar(request):
                 "estado": "fallo",
                 "icon": "error",
                 "title": "No Existe",
-                "descripcion": "La materia no se encuentra registrada."
+                "descripcion": (
+                    "La materia no se encuentra registrada."
+                )
             })
 
-        # COMPROBAR SI LA MATERIA YA ESTÁ ASIGNADA
+        # COMPROBAR ASIGNACIÓN
         asignacion = MateriaAsignada.objects.filter(materia=materia).first()
         if asignacion:
             return JsonResponse({
@@ -552,6 +607,7 @@ def mat_guardar(request):
         # CONVERTIR HORAS
         try:
             htea = Decimal(thea.replace(",", "."))
+
             htei = Decimal(thei.replace(",", "."))
         except (InvalidOperation, AttributeError):
             return JsonResponse({
@@ -559,91 +615,124 @@ def mat_guardar(request):
                 "icon": "warning",
                 "title": "Horas inválidas",
                 "descripcion": (
-                    "Las horas ingresadas no tienen un formato válido."
+                    "Las horas ingresadas no tienen "
+                    "un formato válido."
                 )
             })
 
-        # ACTUALIZAR
-        with transaction.atomic():
-            materia.nombre = nombre
-            materia.recuperacion = reparacion_materia
-            materia.htea = htea
-            materia.htei = htei
-            materia.id_pnf_id = pnf_materia
-            materia.id_trayecto_id = trayecto_materia
-            materia.save()
+        try:
+            with transaction.atomic():
+                # ACTUALIZAR MATERIA
+                materia.nombre = nombre
+                materia.recuperacion = reparacion_materia
+                materia.htea = htea
+                materia.htei = htei
+                materia.tipo_materia = tipo_materia
+                materia.id_pnf_id = pnf_materia
+                materia.id_trayecto_id = trayecto_materia
 
-            # ACTUALIZAR PERÍODOS ACADÉMICOS
-            mapa_periodos = {
-                "INICIAL_TRIMESTRE": ["Inicial Trimestre"],
-                "INICIAL_SEMESTRE": ["Inicial Semestre"],
-                "REPARACION": ["Reparación"],
-                "TRAMO_I": ["Tramo I"],
-                "TRAMO_II": ["Tramo II"],
-                "TRAMO_III": ["Tramo III"],
-                "TRAMO_I_II": ["Tramo I", "Tramo II"],
-                "TRAMO_II_III": ["Tramo II", "Tramo III"],
-                "TRAMO_I_III": ["Tramo I", "Tramo III"],
-                "TRIMESTRE": ["Tramo I", "Tramo II", "Tramo III"],
-                "SEMESTRE_I": ["Semestre I"],
-                "SEMESTRE_II": ["Semestre II"],
-                "SEMESTRE": ["Semestre I", "Semestre II"],
-            }
+                # DATOS DE MODIFICACIÓN
+                materia.modificado_por = usuario_registro
+                materia.fecha_modificacion = timezone.now()
+                materia.perfil_modificacion = perfil_modificacion
+                materia.save()
 
-            nombres_periodos = mapa_periodos.get(periodo_materia)
+                # ACTUALIZAR PERÍODOS ACADÉMICOS
+                mapa_periodos = {
+                    "INICIAL_TRIMESTRE": ["Inicial Trimestre"],
+                    "INICIAL_SEMESTRE": ["Inicial Semestre"],
+                    "REPARACION": ["Reparación"],
+                    "TRAMO_I": ["Tramo I"],
+                    "TRAMO_II": ["Tramo II"],
+                    "TRAMO_III": ["Tramo III"],
+                    "TRAMO_I_II": ["Tramo I", "Tramo II"],
+                    "TRAMO_II_III": ["Tramo II", "Tramo III"],
+                    "TRAMO_I_III": ["Tramo I", "Tramo III"],
+                    "TRIMESTRE": [
+                        "Tramo I",
+                        "Tramo II",
+                        "Tramo III"
+                    ],
+                    "SEMESTRE_I": ["Semestre I"],
+                    "SEMESTRE_II": ["Semestre II"],
+                    "SEMESTRE": [
+                        "Semestre I",
+                        "Semestre II"
+                    ],
+                }
 
-            if not nombres_periodos:
-                return JsonResponse({
-                    "estado": "fallo",
-                    "icon": "warning",
-                    "title": "Periodo inválido",
-                    "descripcion": "El periodo académico seleccionado no es válido."
-                })
-
-            # Buscar los períodos reales en la BD
-            periodos = PeriodoAcademico.objects.filter(nombre__in=nombres_periodos)
-
-            # Comprobar que existan todos
-            if periodos.count() != len(nombres_periodos):
-                return JsonResponse({
-                    "estado": "fallo",
-                    "icon": "error",
-                    "title": "Periodo no encontrado",
-                    "descripcion": (
-                        "Uno o más períodos académicos no se encuentran "
-                        "registrados en el sistema."
-                    )
-                })
-
-            # Eliminar los períodos anteriores
-            PeriodoAcademicoMateria.objects.filter(materia=materia).delete()
-
-            # Registrar los nuevos períodos
-            PeriodoAcademicoMateria.objects.bulk_create([
-                PeriodoAcademicoMateria(
-                    materia=materia,
-                    periodo=periodo
+                nombres_periodos = mapa_periodos.get(
+                    periodo_materia
                 )
-                for periodo in periodos
-            ])
 
-            # BITÁCORA
-            Bitacora.objects.create(
-                nombre_usuario=request.session.get(
-                    "usuario_nombre"
-                ),
-                fecha_hora=timezone.now(),
-                accion=f"Actualizó la materia '{materia.nombre}'."
-            )
+                if not nombres_periodos:
+                    return JsonResponse({
+                        "estado": "fallo",
+                        "icon": "warning",
+                        "title": "Periodo inválido",
+                        "descripcion": (
+                            "El periodo académico seleccionado "
+                            "no es válido."
+                        )
+                    })
 
-        return JsonResponse({
-            "estado": "exito",
-            "icon": "success",
-            "title": "Éxito",
-            "descripcion": "La materia se actualizó exitosamente."
-        })
+                periodos = PeriodoAcademico.objects.filter(
+                    nombre__in=nombres_periodos
+                )
 
-    return render(request, "Director_General/materia/actualizar_materia.html")
+                if periodos.count() != len(nombres_periodos):
+                    return JsonResponse({
+                        "estado": "fallo",
+                        "icon": "error",
+                        "title": "Periodo no encontrado",
+                        "descripcion": (
+                            "Uno o más períodos académicos no "
+                            "se encuentran registrados en el sistema."
+                        )
+                    })
+
+                PeriodoAcademicoMateria.objects.filter(materia=materia).delete()
+
+                PeriodoAcademicoMateria.objects.bulk_create([
+                    PeriodoAcademicoMateria(
+                        materia=materia,
+                        periodo=periodo
+                    )
+                    for periodo in periodos
+                ])
+
+                Bitacora.objects.create(
+                    nombre_usuario=request.session.get("usuario_nombre"),
+                    fecha_hora=timezone.now(),
+                    accion=(
+                        f"Actualizó la materia "
+                        f"'{materia.nombre}'."
+                    )
+                )
+
+            return JsonResponse({
+                "estado": "exito",
+                "icon": "success",
+                "title": "Éxito",
+                "descripcion": (
+                    "La materia se actualizó exitosamente."
+                )
+            })
+
+        except Exception as e:
+            print(e)
+
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "error",
+                "title": "Error al actualizar",
+                "descripcion": (
+                    "Ocurrió un error inesperado al actualizar "
+                    "la materia. Por favor, intente nuevamente."
+                )
+            })
+
+    return render(request, "Roles/Director_General/materia/actualizar_materia.html")
 
 def nombre_materia(request):
     if request.method == "POST":
@@ -734,16 +823,73 @@ def reg_mat(request):
                 "descripcion": "No existen periodos académicos."
             })
 
+        cedula_usuario = request.session.get("cedula_usuario")
+
+        usuario_registro = Usuario.objects.filter(
+            cedula_identidad=cedula_usuario
+        ).first()
+
+        if not usuario_registro:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Usuario no encontrado",
+                "descripcion": (
+                    "No se encontró el usuario que realiza el registro."
+                )
+            })
+        
+        perfil_registro = None
+        nucleo_registro = None
+
+        director = DirectorGeneral.objects.select_related(
+            "nucleo"
+        ).filter(
+            usuario=usuario_registro
+        ).first()
+
+        if director:
+            perfil_registro = "DIRECTOR_GENERAL"
+            nucleo_registro = director.nucleo
+
+        else:
+            control_estudio = ControlEstudio.objects.select_related(
+                "nucleo"
+            ).filter(
+                usuario=usuario_registro,
+                activo=True
+            ).first()
+
+            if control_estudio:
+                perfil_registro = "CONTROL_ESTUDIO"
+                nucleo_registro = control_estudio.nucleo
+
+        pnf_nucleo = PNFNucleo.objects.filter(id_nucleo=nucleo_registro, id_pnf=pnf_obj).exists()
+        if not pnf_nucleo:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "PNF no válido",
+                "descripcion": (
+                    "El PNF seleccionado no pertenece al núcleo "
+                    "asignado al usuario."
+                )
+            })
+
+
         with transaction.atomic():
             materia = Materia.objects.create(
                 nombre=nombre,
                 codigo=codigo,
-                htea = Decimal(thea.replace(",", ".")),
-                htei = Decimal(thei.replace(",", ".")),
+                htea=Decimal(thea.replace(",", ".")),
+                htei=Decimal(thei.replace(",", ".")),
                 recuperacion=reparacion,
                 id_trayecto=trayecto_obj,
                 id_pnf=pnf_obj,
-                tipo_materia=tipo_materia
+                tipo_materia=tipo_materia,
+                registrado_por=usuario_registro,
+                fecha_registro=timezone.now(),
+                perfil_registro=perfil_registro
             )
 
             periodo_materias = []
@@ -775,5 +921,5 @@ def reg_mat(request):
             "descripcion": "Hubo un error al registrar los datos del PNF."
         })
 
-    return render(request, "Director_General/materia/registrar_materias.html")
+    return render(request, "Roles/Director_General/materia/registrar_materias.html")
 

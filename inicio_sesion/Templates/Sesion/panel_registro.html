@@ -1,30 +1,111 @@
 {% extends 'Estructura/base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<section id="SeleccionRegistroCASRCE" class="reveal">
 
-<section id="panel_registro">
-    <div class="tarjeta_principal">
-        <div class="separador">
-            <a href="{% url 'inicio_sesion' %}" class="btn-regresar icon-left-open">Regresar</a>
-        </div>
-        <div class="contenedor_registro">
-            <a href="{% url 'confirmar_reg' %}">
-                <article>
-                    <img src="{% static 'Imagenes/administrativo.png' %}" alt="Personal">
-                </article>
-                <p>Personal</p>
+    <div class="SeleccionRegistroCASRCE-marco">
+
+        <div class="SeleccionRegistroCASRCE-cabecera">
+
+            <a href="{% url 'inicio_sesion' %}"
+               class="SeleccionRegistroCASRCE-regresar">
+
+                <i class="icon-left-open"></i>
+                <span>Regresar</span>
+
             </a>
 
-            <a href="{% url 'registro_est' %}">
-                <article>
-                    <img src="{% static 'Imagenes/estudiante.png' %}" alt="Estudiante">
-                </article>
-                <p>Estudiante</p>
-            </a>
+            <div class="SeleccionRegistroCASRCE-titulos">
+
+                <span class="SeleccionRegistroCASRCE-indicador">
+                    REGISTRO INSTITUCIONAL
+                </span>
+
+                <h1>
+                    Crear una cuenta
+                </h1>
+
+                <p>
+                    Selecciona el tipo de usuario que deseas registrar
+                    para continuar con el proceso.
+                </p>
+
+            </div>
+
         </div>
+
+
+        <div class="SeleccionRegistroCASRCE-opciones">
+
+            <a href="{% url 'confirmar_reg' %}"
+               class="SeleccionRegistroCASRCE-opcion">
+
+                <div class="SeleccionRegistroCASRCE-imagen">
+
+                    <img src="{% static 'Imagenes/administrativo.png' %}"
+                         alt="Personal">
+
+                </div>
+
+                <div class="SeleccionRegistroCASRCE-contenido">
+
+                    <span class="SeleccionRegistroCASRCE-numero">
+                        01
+                    </span>
+
+                    <div>
+                        <h2>Personal</h2>
+
+                        <p>
+                            Registro para personal administrativo
+                            y docente de la institución.
+                        </p>
+                    </div>
+
+                    <i class="icon-right-open SeleccionRegistroCASRCE-flecha"></i>
+
+                </div>
+
+            </a>
+
+
+            <a href="{% url 'registro_est' %}"
+               class="SeleccionRegistroCASRCE-opcion">
+
+                <div class="SeleccionRegistroCASRCE-imagen">
+
+                    <img src="{% static 'Imagenes/estudiante.png' %}"
+                         alt="Estudiante">
+
+                </div>
+
+                <div class="SeleccionRegistroCASRCE-contenido">
+
+                    <span class="SeleccionRegistroCASRCE-numero">
+                        02
+                    </span>
+
+                    <div>
+                        <h2>Estudiante</h2>
+
+                        <p>
+                            Registro para estudiantes de la
+                            Universidad Politécnica Territorial.
+                        </p>
+                    </div>
+
+                    <i class="icon-right-open SeleccionRegistroCASRCE-flecha"></i>
+
+                </div>
+
+            </a>
+
+        </div>
+
     </div>
+
 </section>
 
 {% endblock %}

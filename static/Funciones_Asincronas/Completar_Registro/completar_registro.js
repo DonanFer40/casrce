@@ -39,9 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const fecha_grado = document.getElementById("fecha_grado");
     const codigo_sin_opsu = document.getElementById("codigo_sin_opsu");
-    const discapacidad = document.getElementById("btn_discapacidad");
-
-    const btn_registro = document.getElementById("btn_registro");
 
     const nucleos = document.querySelectorAll("#contenedor_pnfs_cursar input[type='checkbox']");
 
@@ -184,43 +181,111 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarPaises(pais_profesion);
     }
 
-    async function validar_cedula_auxiliar(nacionalidad_auxiliar, cedula_auxiliar) {
+    async function validar_cedula_auxiliar(nacionalidad_auxiliar, cedula_auxiliar, msg) {
+
+        if (!nacionalidad_auxiliar.value || !cedula_auxiliar.value.trim()) {
+            msg.textContent = "";
+            msg.classList.remove("exito", "error");
+
+            cedula_auxiliar.setCustomValidity("");
+            cedula_auxiliar.classList.remove("is-valid", "is-invalid");
+
+            return;
+        }
+
+        let longitudMinima;
+        let longitudMaxima;
+
+        switch (nacionalidad_auxiliar.value) {
+            case "V":
+                longitudMinima = 7;
+                longitudMaxima = 8;
+                break;
+
+            case "E":
+                longitudMinima = 8;
+                longitudMaxima = 10;
+                break;
+
+            default:
+                return;
+        }
+
+        const cedula = cedula_auxiliar.value.trim();
+
+        if (cedula.length < longitudMinima || cedula.length > longitudMaxima) {
+
+            msg.textContent = "";
+            msg.classList.remove("exito", "error");
+
+            cedula_auxiliar.setCustomValidity(
+                `La cédula debe tener entre ${longitudMinima} y ${longitudMaxima} números.`
+            );
+
+            cedula_auxiliar.classList.remove("is-valid");
+            cedula_auxiliar.classList.add("is-invalid");
+
+            return;
+        }
+
         try {
             const formulario = new FormData();
-            formulario.append("nacionalidad", nacionalidad_auxiliar.value);
-            formulario.append("cedula", cedula_auxiliar.value);
+
+            formulario.append(
+                "nacionalidad",
+                nacionalidad_auxiliar.value
+            );
+
+            formulario.append(
+                "cedula",
+                cedula
+            );
 
             const respuesta = await fetch("/validar_ci_auxiliar/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": document.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    ).value
                 },
-                body: formulario_registro
+                body: formulario
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
             if (resultado.existe) {
-                cedula_auxiliar.setCustomValidity("Ya existe un usuario con esta cedula de identidad.");
+
+                cedula_auxiliar.setCustomValidity(
+                    "Ya se encuentra la cédula de identidad registrada."
+                );
+
                 cedula_auxiliar.classList.add("is-invalid");
                 cedula_auxiliar.classList.remove("is-valid");
 
-                msg_ced_aux.textContent = "Ya existe un usuario con esta cedula de identidad.";
-                msg_ced_aux.style.color = "#dc3545";
+                msg.textContent =
+                    "Ya se encuentra la cédula de identidad registrada.";
 
-                btn_registro.disabled = true;
+                msg.classList.add("error");
+                msg.classList.remove("exito");
+
             } else {
+
                 cedula_auxiliar.setCustomValidity("");
+
                 cedula_auxiliar.classList.add("is-valid");
                 cedula_auxiliar.classList.remove("is-invalid");
 
-                msg_ced_aux.textContent = "La cedula de identidad está disponible.";
-                msg_ced_aux.style.color = "#198754";
+                msg.textContent =
+                    "Cédula de Identidad disponible.";
 
-                btn_registro.disabled = false;
+                msg.classList.add("exito");
+                msg.classList.remove("error");
             }
+
         } catch (error) {
-            console.error(error);
+            console.error("Error al validar la cédula del auxiliar:", error);
         }
     }
 
@@ -232,126 +297,280 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    if (nacionalidad_auxiliar) {
-        nacionalidad_auxiliar.addEventListener("change", async () => {
-
-            limpiarMensajeCedula();
-
-            if (cedula_auxiliar.value.trim() !== "") {
-                await validar_cedula_auxiliar(nacionalidad_auxiliar, cedula_auxiliar);
-            }
-        });
-    }
-
     if (cedula_auxiliar) {
         cedula_auxiliar.addEventListener("input", async () => {
 
-            if (cedula_auxiliar.value.trim() === "") {
+            const nacionalidad = nacionalidad_auxiliar.value;
+            const cedula = cedula_auxiliar.value.trim();
+
+            if (!nacionalidad || !cedula) {
                 limpiarMensajeCedula();
                 return;
             }
 
-            validar_cedula_auxiliar(nacionalidad_auxiliar, cedula_auxiliar);
+            await validar_cedula_auxiliar(
+                nacionalidad_auxiliar,
+                cedula_auxiliar,
+                msg_ced_aux
+            );
         });
     }
 
-    async function validar_correos(correo, dominio, msg) {
+    if (nacionalidad_auxiliar) {
+        nacionalidad_auxiliar.addEventListener("change", async () => {
+
+            const nacionalidad = nacionalidad_auxiliar.value;
+            const cedula = cedula_auxiliar.value.trim();
+
+            if (!nacionalidad || !cedula) {
+                limpiarMensajeCedula();
+                return;
+            }
+
+            await validar_cedula_auxiliar(
+                nacionalidad_auxiliar,
+                cedula_auxiliar,
+                msg_ced_aux
+            );
+        });
+    }
+
+    let controlador_correo_principal = null;
+    let controlador_correo_secundario = null;
+
+    async function validar_correos(correo, dominio, msg, tipo) {
+        const valorCorreo = correo.value.trim();
+        const valorDominio = dominio.value;
+
+        let controlador;
+
+        if (tipo === "principal") {
+            if (controlador_correo_principal) {
+                controlador_correo_principal.abort();
+            }
+
+            controlador_correo_principal = new AbortController();
+            controlador = controlador_correo_principal;
+
+        } else {
+            if (controlador_correo_secundario) {
+                controlador_correo_secundario.abort();
+            }
+
+            controlador_correo_secundario = new AbortController();
+            controlador = controlador_correo_secundario;
+        }
+
+        if (!valorDominio || !valorCorreo) {
+            msg.textContent = "";
+            msg.classList.remove("exito", "error");
+
+            correo.setCustomValidity("");
+            correo.classList.remove("is-valid", "is-invalid");
+
+            return;
+        }
+
         try {
             const formulario = new FormData();
-            formulario.append("correo", correo.value);
-            formulario.append("dominio", dominio.value);
+
+            formulario.append("correo", valorCorreo);
+            formulario.append("dominio", valorDominio);
 
             const respuesta = await fetch("/validar_email/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": document.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    ).value
                 },
-                body: formulario
+                body: formulario,
+                signal: controlador.signal
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
+            // Verificar que los valores sigan siendo los mismos
+            if (
+                correo.value.trim() !== valorCorreo ||
+                dominio.value !== valorDominio
+            ) {
+                return;
+            }
+
             if (resultado.existe) {
-                correo.setCustomValidity("Ya existe un usuario con este correo electrónico.");
+
+                correo.setCustomValidity(
+                    "Ya existe un usuario con este correo electrónico."
+                );
+
                 correo.classList.add("is-invalid");
                 correo.classList.remove("is-valid");
 
-                msg.textContent = "Ya existe un usuario con este correo electrónico.";
-                msg.style.color = "#dc3545";
+                msg.textContent =
+                    "Ya existe un usuario con este correo electrónico.";
 
-                btn_registro.disabled = true;
+                msg.classList.add("error");
+                msg.classList.remove("exito");
+
             } else {
+
                 correo.setCustomValidity("");
+
                 correo.classList.add("is-valid");
                 correo.classList.remove("is-invalid");
 
-                msg.textContent = "El correo electrónico está disponible.";
-                msg.style.color = "#198754";
+                msg.textContent =
+                    "El correo electrónico está disponible.";
 
-                btn_registro.disabled = false;
+                msg.classList.add("exito");
+                msg.classList.remove("error");
             }
+
         } catch (error) {
-            console.error(error);
+
+            if (error.name === "AbortError") {
+                return;
+            }
+
+            console.error(
+                "Error al validar el correo electrónico:",
+                error
+            );
         }
     }
 
     correo_secundario.addEventListener("input", async () => {
-        validar_correos(correo_secundario, dominio_secundario, msg_correo_sec);
+        await validar_correos(
+            correo_secundario,
+            dominio_secundario,
+            msg_correo_sec,
+            "secundario"
+        );
     });
 
     dominio_secundario.addEventListener("change", async () => {
-        validar_correos(correo_secundario, dominio_secundario, msg_correo_sec);
+        await validar_correos(
+            correo_secundario,
+            dominio_secundario,
+            msg_correo_sec,
+            "secundario"
+        );
     });
 
     correo_principal.addEventListener("input", async () => {
-        validar_correos(correo_principal, dominio_principal, msg_correo_princ);
+        await validar_correos(
+            correo_principal,
+            dominio_principal,
+            msg_correo_princ,
+            "principal"
+        );
     });
 
     dominio_principal.addEventListener("change", async () => {
-        validar_correos(correo_principal, dominio_principal, msg_correo_princ);
+        await validar_correos(
+            correo_principal,
+            dominio_principal,
+            msg_correo_princ,
+            "principal"
+        );
     });
 
+    let controlador_codigo_opsu = null;
+
     async function codigo_opsu() {
+        const valorCodigo = codigo_sin_opsu.value.trim();
+
+        if (controlador_codigo_opsu) {
+            controlador_codigo_opsu.abort();
+        }
+
+        if (!valorCodigo) {
+            msg_codigo_opsu.textContent = "";
+            msg_codigo_opsu.classList.remove("exito", "error");
+
+            codigo_sin_opsu.setCustomValidity("");
+            codigo_sin_opsu.classList.remove("is-valid", "is-invalid");
+
+            return;
+        }
+
+        controlador_codigo_opsu = new AbortController();
+
         try {
             const formulario = new FormData();
-            formulario.append("codigo", codigo_sin_opsu.value)
+
+            formulario.append("codigo", valorCodigo);
 
             const respuesta = await fetch("/validar_cod_opsu/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": document.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    ).value
                 },
-                body: formulario
+                body: formulario,
+                signal: controlador_codigo_opsu.signal
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
+            // Comprobar que el código siga siendo el mismo
+            if (codigo_sin_opsu.value.trim() !== valorCodigo) {
+                return;
+            }
+
             if (resultado.existe) {
-                codigo_sin_opsu.setCustomValidity("Ya se encuentra un estudiante con el mismo código OPSU.");
+
+                codigo_sin_opsu.setCustomValidity(
+                    "Ya se encuentra un estudiante con el mismo código OPSU."
+                );
+
                 codigo_sin_opsu.classList.add("is-invalid");
                 codigo_sin_opsu.classList.remove("is-valid");
 
-                msg_codigo_opsu.textContent = "Ya se encuentra un estudiante con el mismo código OPSU.";
-                msg_codigo_opsu.style.color = "#dc3545";
+                msg_codigo_opsu.textContent =
+                    "Ya se encuentra un estudiante con el mismo código OPSU.";
 
-                btn_registro.disabled = true;
+                msg_codigo_opsu.classList.add("error");
+                msg_codigo_opsu.classList.remove("exito");
+
             } else {
+
                 codigo_sin_opsu.setCustomValidity("");
+
                 codigo_sin_opsu.classList.add("is-valid");
                 codigo_sin_opsu.classList.remove("is-invalid");
 
-                msg_codigo_opsu.textContent = "Código OPSU se encuentra disponible.";
-                msg_codigo_opsu.style.color = "#198754";
+                msg_codigo_opsu.textContent =
+                    "Código OPSU se encuentra disponible.";
 
-                btn_registro.disabled = false;
+                msg_codigo_opsu.classList.add("exito");
+                msg_codigo_opsu.classList.remove("error");
             }
+
         } catch (error) {
-            console.error(error);
+
+            if (error.name === "AbortError") {
+                return;
+            }
+
+            console.error(
+                "Error al validar el código OPSU:",
+                error
+            );
         }
     }
 
     if (codigo_sin_opsu) {
-        codigo_sin_opsu.addEventListener("input", codigo_opsu);
+
+        codigo_sin_opsu.addEventListener("input", async () => {
+            await codigo_opsu();
+        });
 
         codigo_sin_opsu.addEventListener("keypress", function (e) {
             if (!/[0-9]/.test(e.key)) {
@@ -391,16 +610,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    if (discapacidad) {
-        // Ocultar o visualizar los campos visualizar
-        discapacidad.addEventListener("click", () => {
+    if (btn_discapacidad && campos_discapacidad) {
+
+        btn_discapacidad.addEventListener("click", () => {
+
             campos_discapacidad.classList.toggle("activo");
 
             if (campos_discapacidad.classList.contains("activo")) {
-                discapacidad.textContent = "Ocultar";
+                btn_discapacidad.textContent = "Ocultar";
             } else {
-                discapacidad.textContent = "Mostrar";
+                btn_discapacidad.textContent = "Mostrar";
             }
+
         });
     }
 

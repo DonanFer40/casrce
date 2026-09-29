@@ -1,0 +1,345 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-autoridades-actualizar-carsce">
+
+    <div class="director-autoridades-actualizar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-autoridades-actualizar-carsce-encabezado">
+
+            <div class="director-autoridades-actualizar-carsce-identificacion">
+                <i class="fa-solid fa-user-shield"></i>
+                <span>GESTIÓN INSTITUCIONAL</span>
+            </div>
+
+            <div class="director-autoridades-actualizar-carsce-presentacion">
+
+                <h3 class="director-autoridades-actualizar-carsce-titulo">
+                    Gestión de Autoridades
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-autoridades-actualizar-carsce-descripcion">
+                    Actualiza la información de las autoridades registradas en la institución.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA 1: BÚSQUEDA DE AUTORIDAD
+             ===================================================== -->
+
+        <div class="director-autoridades-actualizar-carsce-tarjeta">
+
+            <div class="director-autoridades-actualizar-carsce-tarjeta-cabecera">
+
+                <div class="director-autoridades-actualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div class="director-autoridades-actualizar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-autoridades-actualizar-carsce-tarjeta-titulo">
+                        Buscar Autoridad
+                    </h4>
+
+                    <p class="director-autoridades-actualizar-carsce-tarjeta-descripcion">
+                        Localiza una autoridad mediante su número de cédula de identidad.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO DE BÚSQUEDA
+                 ================================================= -->
+
+            <form
+                method="post"
+                id="formulario_buscar"
+                class="director-autoridades-actualizar-carsce-formulario-busqueda"
+            >
+
+                {% csrf_token %}
+
+                <div class="director-autoridades-actualizar-carsce-campo-busqueda">
+
+                    <label
+                        for="cedula"
+                        class="director-autoridades-actualizar-carsce-etiqueta"
+                    >
+                        Cédula de Identidad:
+                    </label>
+
+                    <div class="director-autoridades-actualizar-carsce-grupo-cedula">
+
+                        <select
+                            name="nacionalidad"
+                            id="nacionalidad"
+                            class="director-autoridades-actualizar-carsce-nacionalidad"
+                            required
+                        >
+                            <option value="">N</option>
+                            <option value="V">V</option>
+                            <option value="E">E</option>
+                        </select>
+
+                        <input
+                            type="text"
+                            name="cedula"
+                            id="cedula"
+                            class="director-autoridades-actualizar-carsce-cedula"
+                            autocomplete="off"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <input
+                    type="submit"
+                    id="btn_buscar"
+                    class="director-autoridades-actualizar-carsce-boton-buscar"
+                    value="Buscar Autoridad"
+                >
+
+            </form>
+
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA 2: ACTUALIZACIÓN DE AUTORIDAD
+             ===================================================== -->
+
+        <div class="director-autoridades-actualizar-carsce-tarjeta">
+
+            <div class="director-autoridades-actualizar-carsce-tarjeta-cabecera">
+
+                <div class="director-autoridades-actualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-user-pen"></i>
+                </div>
+
+                <div class="director-autoridades-actualizar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-autoridades-actualizar-carsce-tarjeta-titulo">
+                        Actualizar Datos de Autoridad
+                    </h4>
+
+                    <p class="director-autoridades-actualizar-carsce-tarjeta-descripcion">
+                        Modifica la información correspondiente a la autoridad seleccionada.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO DE ACTUALIZACIÓN
+                 ================================================= -->
+
+            <form
+                method="post"
+                id="formulario_actualizar"
+                class="director-autoridades-actualizar-carsce-formulario-edicion"
+            >
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="usuarioseleccionado"
+                    id="usuario_seleccionado"
+                >
+
+
+                <!-- =================================================
+                     FILA 1: NOMBRES Y APELLIDOS
+                     ================================================= -->
+
+                <div class="director-autoridades-actualizar-carsce-fila">
+
+                    <div class="director-autoridades-actualizar-carsce-campo">
+
+                        <label
+                            for="nombres_actualizar"
+                            class="director-autoridades-actualizar-carsce-etiqueta"
+                        >
+                            Nombres:
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nombres_actualizar"
+                            id="nombres_actualizar"
+                            class="director-autoridades-actualizar-carsce-input"
+                            autocomplete="off"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="director-autoridades-actualizar-carsce-campo">
+
+                        <label
+                            for="apellidos_actualizar"
+                            class="director-autoridades-actualizar-carsce-etiqueta"
+                        >
+                            Apellidos:
+                        </label>
+
+                        <input
+                            type="text"
+                            name="apellidos_actualizar"
+                            id="apellidos_actualizar"
+                            class="director-autoridades-actualizar-carsce-input"
+                            autocomplete="off"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FILA 2: GÉNERO Y CARGO
+                     ================================================= -->
+
+                <div class="director-autoridades-actualizar-carsce-fila">
+
+                    <div class="director-autoridades-actualizar-carsce-campo">
+
+                        <label
+                            for="genero_actualizar"
+                            class="director-autoridades-actualizar-carsce-etiqueta"
+                        >
+                            Género:
+                        </label>
+
+                        <select
+                            name="genero_actualizar"
+                            id="genero_actualizar"
+                            class="director-autoridades-actualizar-carsce-select"
+                            required
+                        >
+                            <option value="">
+                                Debe realizar la busqueda
+                            </option>
+
+                            <option value="Masculino">
+                                Masculino
+                            </option>
+
+                            <option value="Femenino">
+                                Femenino
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="director-autoridades-actualizar-carsce-campo">
+
+                        <label
+                            for="cargo_actualizar"
+                            class="director-autoridades-actualizar-carsce-etiqueta"
+                        >
+                            Cargo:
+                        </label>
+
+                        <select
+                            name="cargo_actualizar"
+                            id="cargo_actualizar"
+                            class="director-autoridades-actualizar-carsce-select"
+                            required
+                        >
+                            <option value="">
+                                Debe realizar la busqueda
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FILA 3: RESOLUCIÓN
+                     ================================================= -->
+
+                <div class="director-autoridades-actualizar-carsce-fila">
+
+                    <div class="director-autoridades-actualizar-carsce-campo director-autoridades-actualizar-carsce-campo-completo">
+
+                        <label
+                            for="resolucion_actualizar"
+                            class="director-autoridades-actualizar-carsce-etiqueta"
+                        >
+                            Resolución:
+                        </label>
+
+                        <input
+                            type="text"
+                            name="resolucion_actualizar"
+                            id="resolucion_actualizar"
+                            class="director-autoridades-actualizar-carsce-input"
+                            minlength="5"
+                            maxlength="5"
+                            pattern="[A-Z]{3}[0-9]{2}"
+                            title="Debe contener exactamente 3 letras mayúsculas seguidas de 2 números."
+                            autocomplete="off"
+                            required
+                        >
+
+                        <small
+                            id="msg_resolucion"
+                            class="director-autoridades-actualizar-carsce-mensaje"
+                        ></small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     BOTÓN ACTUALIZAR
+                     ================================================= -->
+
+                <input
+                    type="submit"
+                    id="btn_actualizar"
+                    class="director-autoridades-actualizar-carsce-boton-actualizar"
+                    value="Actualizar Autoridad"
+                >
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Autoridad/actualizar_autoridad.js' %}"></script>
+
+{% endblock %}

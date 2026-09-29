@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-    const formulario_actualizar = document.getElementById("formulario_actualizar_autoridades");
-
     const contenedor_autoridades = document.getElementById("contenedor_autoridades");
 
     async function obtener_autoridades() {

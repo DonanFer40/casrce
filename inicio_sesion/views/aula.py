@@ -240,7 +240,7 @@ def act_aula_acad(request):
                 )
             })
 
-    return render(request, "Director_General/aula/visualizar_aulas.html")
+    return render(request, "Roles/Director_General/aula/visualizar_aulas.html")
 
 # modulo_aula_academica
 def reg_aula(request):
@@ -306,6 +306,6 @@ def reg_aula(request):
                 "descripcion": "Ocurrio un error al momento de regsitrar el aula académica."
             })
 
-    return render(request, "Director_General/aula/registrar_aula.html")
+    return render(request, "Roles/Director_General/aula/registrar_aula.html")
 
 

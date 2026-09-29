@@ -115,9 +115,9 @@ def datos_pnf(request):
 # guardar_actuailizacion_pnf
 def act_pnf(request):
     if request.method == "POST":
-        id_pnf = request.POST.get("pnfseleccionado")
-        nombre_pnf = request.POST.get("nombrepnf")
-        periodoacademico_pnf = request.POST.get("periodoacademico")
+        id_pnf = request.POST.get("id_pnf")
+        nombre_pnf = request.POST.get("nombre")
+        periodoacademico_pnf = request.POST.get("periodo_academico")
 
         controles = [
             (nombre_pnf, "Nombre del PNF", "Debe ingresar el nombre del PNF."),
@@ -163,7 +163,7 @@ def act_pnf(request):
                 "descripcion": "El PNF seleccionado no existe."
             })
 
-    return render(request, "Director_General/pnf/actualizar_pnf.html")
+    return render(request, "Roles/Director_General/pnf/actualizar_pnf.html")
 
 def nombre_pnf(request):
     if request.method == "POST":
@@ -241,7 +241,7 @@ def reg_pnf(request):
             "descripcion": "Hubo un error al registrar los datos del PNF."
         })
     
-    return render(request, "Director_General/pnf/registrar_pnfs.html")
+    return render(request, "Roles/Director_General/pnf/registrar_pnfs.html")
 
 def ver_pnf(request):
-    return render(request, "Director_General/pnf/visualizar_pnf.html")
+    return render(request, "Roles/Director_General/pnf/visualizar_pnf.html")

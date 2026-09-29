@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const select_tipo = document.getElementById("tipo");
     const input_fecha_inicio = document.getElementById("fecha_inicio");
     const input_fecha_final = document.getElementById("fecha_final");
+    const textarea_descripcion = document.getElementById("descripcion");
     const contenedor_periodo = document.getElementById("contenedor_periodo");
 
     const meses_periodos = {
@@ -38,6 +39,26 @@ document.addEventListener("DOMContentLoaded", () => {
         "INSCRIPCION_TRIMESTRE": 9,
         "INSCRIPCION_SEMESTRE": 9
     };
+
+    function soloTexto(input) {
+        input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
+    }
+
+    textarea_descripcion.addEventListener("input", () => {
+        soloTexto(textarea_descripcion);
+    });
+
+    [input_fecha_inicio, input_fecha_final].forEach(input => {
+
+        input.addEventListener("keydown", (e) => {
+            e.preventDefault();
+        });
+
+        input.addEventListener("paste", (e) => {
+            e.preventDefault();
+        });
+
+    });
 
     async function cargarTiposCalendario() {
         try {
@@ -175,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contenedor_periodo.style.display = "none";
 
                 // GRADO ACADÉMICO Y ACTIVIDADES
-                if (tipo_periodo == "GRADO_ACADEMICO" || tipo_periodo == "ACTIVIDADES") {
+                if (tipo_periodo == "GRADUACION" || tipo_periodo == "ACTIVIDADES") {
                     configurarAñoActual();
                 }
             }
@@ -192,10 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const año_actual = new Date().getFullYear();
 
-        // ==========================================================
         // CARGA DE NOTAS
-        // ==========================================================
-
         if (select_tipo.value == "CARGA_NOTAS") {
 
             const mes = meses_carga_notas[periodo];
@@ -229,10 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // ==========================================================
         // PERIODO ACADÉMICO
-        // ==========================================================
-
         if (select_tipo.value == "PERIODO") {
 
             const rango = meses_periodos[periodo];
@@ -244,10 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const mes_inicio = rango[0];
             const mes_final = rango[1];
 
-            // ======================================================
             // FECHA INICIAL
-            // ======================================================
-
             const mes_inicio_formateado =
                 String(mes_inicio).padStart(2, "0");
 
@@ -266,10 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ultimo_dia_inicio
                 ).padStart(2, "0")}`;
 
-            // ======================================================
-            // FECHA FINAL
-            // SOLO EL ÚLTIMO MES
-            // ======================================================
+            // FECHA FINAL SOLO EL ÚLTIMO MES
 
             const mes_final_formateado =
                 String(mes_final).padStart(2, "0");
@@ -289,10 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ultimo_dia_final
                 ).padStart(2, "0")}`;
 
-            // ======================================================
             // APLICAR
-            // ======================================================
-
             input_fecha_inicio.min = fecha_minima_inicio;
             input_fecha_inicio.max = fecha_maxima_inicio;
 
@@ -316,10 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // ==========================================================
         // INSCRIPCIÓN
-        // ==========================================================
-
         if (
             select_tipo.value == "INSCRIPCION_TRIMESTRE" ||
             select_tipo.value == "INSCRIPCION_SEMESTRE"
@@ -347,9 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // ==========================================================
         // CARGA DE NOTAS
-        // ==========================================================
 
         if (select_tipo.value == "CARGA_NOTAS") {
 
@@ -380,7 +381,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
     });
-
 
     formulario_registrar.addEventListener("submit", async (e) => {
         e.preventDefault()

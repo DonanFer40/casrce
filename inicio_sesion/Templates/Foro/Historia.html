@@ -1,51 +1,175 @@
 {% extends 'Estructura/Base.html' %}
 {% load static %}
+
 {% block content %}
-<section id="Contenido" class="reveal">
-    <div class="contenedor">
-        <div class="contenedor-info">
-            <h2>¿Que es la Misión Alma Mater?</h2>
-            <div class="ALM">
-                <p>La Misión Alma Mater es una política educativa creada en el año 2009 por el presidente Hugo Chávez con el propósito de transformar y fortalecer la educación universitaria en Venezuela. Su objetivo principal es garantizar una formación académica de calidad, inclusiva y vinculada a las necesidades de cada región del país. Gracias a esta iniciativa surgieron diversas universidades politécnicas territoriales, entre ellas la Universidad Politécnica Territorial del Estado Barinas José Félix Ribas, producto de la transformación de antiguos institutos universitarios. Asimismo, otras instituciones como la Universidad Politécnica Territorial de Aragua Federico Brito Figueroa y la Universidad Politécnica Territorial del Estado Portuguesa Juan de Jesús Montilla también nacieron bajo este mismo programa, contribuyendo al desarrollo educativo, científico y tecnológico del país.</p>
-                <img src="{% static 'Imagenes/alma_mater.png' %}" alt="">
+
+<section id="InformacionInstitucional" class="reveal">
+
+    <div class="InformacionInstitucional-contenedor">
+
+        <div class="InformacionInstitucional-seccion">
+
+            <h2 class="InformacionInstitucional-titulo">
+                ¿Qué es la Misión Alma Mater?
+            </h2>
+
+            <div class="InformacionInstitucional-alma-mater">
+
+                <p class="InformacionInstitucional-texto">
+                    La Misión Alma Mater es una política educativa creada en el año 2009 por el presidente Hugo Chávez
+                    con el propósito de transformar y fortalecer la educación universitaria en Venezuela. Su objetivo
+                    principal es garantizar una formación académica de calidad, inclusiva y vinculada a las necesidades
+                    de cada región del país. Gracias a esta iniciativa surgieron diversas universidades politécnicas
+                    territoriales, entre ellas la Universidad Politécnica Territorial del Estado Barinas José Félix
+                    Ribas, producto de la transformación de antiguos institutos universitarios. Asimismo, otras
+                    instituciones como la Universidad Politécnica Territorial de Aragua Federico Brito Figueroa y la
+                    Universidad Politécnica Territorial del Estado Portuguesa Juan de Jesús Montilla también nacieron
+                    bajo este mismo programa, contribuyendo al desarrollo educativo, científico y tecnológico del país.
+                </p>
+
+                <img
+                    class="InformacionInstitucional-imagen-alma-mater"
+                    src="{% static 'Imagenes/alma_mater.png' %}"
+                    alt="Misión Alma Mater">
             </div>
+
         </div>
 
-        <div class="contenedor-info">
-            <h2>La UPT en cifras</h2>
-            <strong>Sedes:</strong>
-            <ul>
-                <li>Barinas (Sede Principal).</li>
-                <li>Barinitas.</li>
-                <li>Pedraza.</li>
-                <li>Socopo.</li>
-            </ul>
-            <strong>Enfoque:</strong>
-            <li>50% Teoría / 50% Práctica.</li>
-            <strong>Modalidades:</strong>
-            <li>Técnico Superior Universitario (TSU).</li>
-            <li>Ingeniero (ING).</li>
-            <li>Licenciado (LIC).</li>
+
+        <div class="InformacionInstitucional-seccion">
+
+            <h2 class="InformacionInstitucional-titulo">
+                La UPT en cifras
+            </h2>
+
+            <div class="InformacionInstitucional-cifras">
+
+                <div class="InformacionInstitucional-cifra">
+
+                    <div class="InformacionInstitucional-cifra-icono">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div class="InformacionInstitucional-cifra-contenido">
+
+                        <strong class="InformacionInstitucional-cifra-titulo">
+                            Sedes
+                        </strong>
+
+                        <ul class="InformacionInstitucional-lista">
+                            <li>Barinas <span>Sede Principal</span></li>
+                            <li>Barinitas</li>
+                            <li>Pedraza</li>
+                            <li>Socopó</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <div class="InformacionInstitucional-cifra">
+
+                    <div class="InformacionInstitucional-cifra-icono">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+
+                    <div class="InformacionInstitucional-cifra-contenido">
+
+                        <strong class="InformacionInstitucional-cifra-titulo">
+                            Enfoque
+                        </strong>
+
+                        <p class="InformacionInstitucional-valor">
+                            50% <span>Teoría</span><br><br>
+                            50% <span>Práctica</span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="InformacionInstitucional-cifra">
+
+                    <div class="InformacionInstitucional-cifra-icono">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <div class="InformacionInstitucional-cifra-contenido">
+
+                        <strong class="InformacionInstitucional-cifra-titulo">
+                            Modalidades
+                        </strong>
+
+                        <ul class="InformacionInstitucional-lista">
+                            <li>Técnico Superior Universitario (TSU)</li>
+                            <li>Ingeniero (ING)</li>
+                            <li>Licenciado (LIC)</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="contenedor-info">
-            <h2>¿En que año se fundó?</h2>
-            <p>La Universidad Politécnica Territorial del Estado Barinas "José Félix Ribas" (UPTJFR) fue creada el 16 de julio de 2010 mediante el Decreto Presidencial N.º 7.567, publicado en la Gaceta Oficial N.º 5.987 Extraordinaria. Surge de la transformación del Instituto Universitario de Tecnología del Estado Barinas (IUTEBA), fundado en 2001, como parte de la Misión Alma Mater impulsada por el Estado venezolano.</p>
-            <br>
-            <p>Sin embargo, la institución tiene sus orígenes en el antiguo Instituto Universitario de Tecnología del Estado Barinas (IUTEBA), creado el 29 de enero de 2001 mediante el Decreto Presidencial N.º 1.184. Posteriormente, este instituto fue transformado en la universidad que hoy conocemos como UPT José Félix Ribas.</p>
+
+        <div class="InformacionInstitucional-seccion">
+
+            <h2 class="InformacionInstitucional-titulo">
+                ¿En qué año se fundó?
+            </h2>
+
+            <p class="InformacionInstitucional-texto">
+                La Universidad Politécnica Territorial del Estado Barinas "José Félix Ribas" (UPTJFR) fue creada el
+                16 de julio de 2010 mediante el Decreto Presidencial N.º 7.567, publicado en la Gaceta Oficial
+                N.º 5.987 Extraordinaria. Surge de la transformación del Instituto Universitario de Tecnología del
+                Estado Barinas (IUTEBA), fundado en 2001, como parte de la Misión Alma Mater impulsada por el Estado
+                venezolano.
+            </p>
+
+            <p class="InformacionInstitucional-texto InformacionInstitucional-parrafo-secundario">
+                Sin embargo, la institución tiene sus orígenes en el antiguo Instituto Universitario de Tecnología
+                del Estado Barinas (IUTEBA), creado el 29 de enero de 2001 mediante el Decreto Presidencial N.º 1.184.
+                Posteriormente, este instituto fue transformado en la universidad que hoy conocemos como UPT José Félix
+                Ribas.
+            </p>
+
         </div>
-        
-        <div class="contenedor-info">
-            <h2>Acerca de la Universidad</h2>
-            <p>La Universidad Politécnica Territorial del Estado Barinas “José Félix Ribas” despliega su labor educativa a través de una sólida infraestructura académica distribuida estratégicamente en la región. La institución cuenta con cuatro sedes geográficas ubicadas en Barinas, Barinitas, Socopó y Pedraza, funcionando la sede de Barinas como la Sede Central y núcleo principal de las operaciones universitarias. En este complejo académico se imparten diversas carreras diseñadas bajo modelos de formación adaptados a las necesidades profesionales. Estas opciones de estudio se organizan bajo distintas modalidades pedagógicas según la especialidad académica. <br><br>
 
-            <!-- <li>Técnico Superior Universitario (TSU) e Ingeniería: Esta modalidad está diseñada como un ciclo continuo de cuatro años en total. Los dos primeros años corresponden a la formación de TSU, orientada a la práctica funcional y a una rápida inserción laboral. Posteriormente, el estudiante tiene la oportunidad de continuar durante dos años adicionales para optar al título de Ingeniero, completando así el nivel profesional superior.</li>
 
-            <li>Licenciatura: Por su parte, las carreras que conllevan al título de Licenciatura se desarrollan bajo un régimen académico independiente, con una duración estipulada de cinco años en su totalidad.</li> <br> -->
+        <div class="InformacionInstitucional-seccion">
 
-            Lo que verdaderamente diferencia la realidad educativa de esta institución es su enfoque pedagógico equilibrado de 50% teoría y 50% práctica. Lejos de limitarse a la ejecución netamente operativa, este modelo integral garantiza que los estudiantes adquieran tanto las habilidades técnicas en el campo real como los fundamentos conceptuales sólidos que las respaldan. El objetivo final de este balance es maximizar el potencial académico de los profesionales, asegurando que egresen con un nivel superior de conocimiento, capacidad analítica y liderazgo para resolver problemas críticos en sus respectivas áreas.</p>
+            <h2 class="InformacionInstitucional-titulo">
+                Acerca de la Universidad
+            </h2>
+
+            <p class="InformacionInstitucional-texto">
+                La Universidad Politécnica Territorial del Estado Barinas “José Félix Ribas” despliega su labor
+                educativa a través de una sólida infraestructura académica distribuida estratégicamente en la región.
+                La institución cuenta con cuatro sedes geográficas ubicadas en Barinas, Barinitas, Socopó y Pedraza,
+                funcionando la sede de Barinas como la Sede Central y núcleo principal de las operaciones universitarias.
+                En este complejo académico se imparten diversas carreras diseñadas bajo modelos de formación adaptados
+                a las necesidades profesionales. Estas opciones de estudio se organizan bajo distintas modalidades
+                pedagógicas según la especialidad académica.
+            </p>
+
+            <p class="InformacionInstitucional-texto InformacionInstitucional-parrafo-secundario">
+                Lo que verdaderamente diferencia la realidad educativa de esta institución es su enfoque pedagógico
+                equilibrado de 50% teoría y 50% práctica. Lejos de limitarse a la ejecución netamente operativa, este
+                modelo integral garantiza que los estudiantes adquieran tanto las habilidades técnicas en el campo real
+                como los fundamentos conceptuales sólidos que las respaldan. El objetivo final de este balance es
+                maximizar el potencial académico de los profesionales, asegurando que egresen con un nivel superior de
+                conocimiento, capacidad analítica y liderazgo para resolver problemas críticos en sus respectivas áreas.
+            </p>
+
         </div>
+
     </div>
+
 </section>
 
 {% endblock %}

@@ -1,32 +1,60 @@
-{% extends 'Estructura/base.html' %}
-
-{% block content %}
-
-{% load static %}
-
-<section id="Carreras" class="reveal">
-    <div class="contenedor">
-        <h2 id="info_sedes"></h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre de la Carrera</th>
-                    <th>Nivel Academico</th>
-                    <th>Duración</th>
-                </tr>
-            </thead>
-            <tbody id="contenedor_carrera">
-
-            </tbody>
-        </table>
-
-        <div class="botones">
-            <button id="retoceder">Retroceder</button>
-            <button id="avanzar">Avanzar</button>
+{% extends 'Estructura/base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css">
+<section id="OfertaAcademica" class="reveal">
+    <div class="OfertaAcademica-contenedor">
+        <div class="OfertaAcademica-encabezado"> <span class="OfertaAcademica-etiqueta"> Oferta Académica </span>
+            <h2 id="OfertaAcademica-info-sedes" class="OfertaAcademica-titulo"> </h2>
+            <p class="OfertaAcademica-descripcion"> Conoce las carreras disponibles, ubicación y datos de cada núcleo de
+                la Universidad Politécnica Territorial del Estado Barinas “José Félix Ribas”. </p>
+        </div>
+        <div class="OfertaAcademica-ubicacion">
+            <div class="OfertaAcademica-datos"> <span class="OfertaAcademica-datos-etiqueta"> Núcleo </span>
+                <h3 id="OfertaAcademica-nombre-sede" class="OfertaAcademica-nombre-sede"> </h3>
+                <div class="OfertaAcademica-direccion"> <span class="OfertaAcademica-icono"> <i
+                            class="fa-solid fa-location-dot"></i> </span>
+                    <div> <span class="OfertaAcademica-direccion-titulo"> Dirección </span>
+                        <p id="OfertaAcademica-direccion-texto"></p>
+                    </div>
+                </div> <a id="OfertaAcademica-maps-enlace" class="OfertaAcademica-maps-enlace" href="#" target="_blank"
+                    rel="noopener noreferrer"> <i class="fa-solid fa-map-location-dot"></i> <span> Ver en Google Maps
+                    </span> </a>
+            </div>
+            <div class="OfertaAcademica-mapa">
+                <div id="OfertaAcademica-mapa-interactivo"></div>
+            </div>
+        </div>
+        <div class="OfertaAcademica-carreras">
+            <div class="OfertaAcademica-carreras-encabezado">
+                <div> <span class="OfertaAcademica-carreras-etiqueta"> Programas de formación </span>
+                    <h3 class="OfertaAcademica-carreras-titulo"> Carreras disponibles </h3>
+                </div> <span id="OfertaAcademica-total-carreras" class="OfertaAcademica-total-carreras"> </span>
+            </div>
+            <div class="OfertaAcademica-tabla-contenedor">
+                <table class="OfertaAcademica-tabla">
+                    <thead>
+                        <tr>
+                            <th>Nombre de la Carrera</th>
+                            <th>Nivel Académico</th>
+                            <th>Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody id="OfertaAcademica-contenedor-carrera"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="OfertaAcademica-controles"> <button type="button" id="OfertaAcademica-retroceder"
+                class="OfertaAcademica-boton OfertaAcademica-boton-secundario"> <i class="fa-solid fa-chevron-left"></i>
+                <span> Retroceder </span> </button>
+            <div class="OfertaAcademica-indicador"> <span id="OfertaAcademica-indicador-numero"
+                    class="OfertaAcademica-indicador-numero"> </span> <span id="OfertaAcademica-indicador-nombre"
+                    class="OfertaAcademica-indicador-nombre"> </span> </div> <button type="button"
+                id="OfertaAcademica-avanzar" class="OfertaAcademica-boton OfertaAcademica-boton-principal"> <span>
+                    Avanzar </span> <i class="fa-solid fa-chevron-right"></i> </button>
         </div>
     </div>
 </section>
-
-<script src="{% static 'Funcionalidades/archivo_carreras.js' %}"></script>
-
-{% endblock %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
+<script src="{% static 'Funcionalidades/archivo_carreras.js' %}"></script> {% endblock %}

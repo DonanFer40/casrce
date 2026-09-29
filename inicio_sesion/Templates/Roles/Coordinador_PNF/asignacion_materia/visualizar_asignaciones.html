@@ -1,0 +1,852 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* ==========================================================
+   CONTENEDOR GENERAL DE MATERIAS
+   ========================================================== */
+
+    #contenedor_materias {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+
+    /* ==========================================================
+   CONTENEDOR DE CADA P.N.F.
+   ========================================================== */
+
+    .contenedor_pnf_materias {
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 22px;
+
+        background: #ffffff;
+
+        border: 2px solid #00445f;
+        border-radius: 12px;
+
+        box-shadow: 0 4px 12px rgba(0, 68, 95, 0.08);
+    }
+
+
+    /* ==========================================================
+   TÍTULO DEL P.N.F.
+   ========================================================== */
+
+    .contenedor_pnf_materias>h2 {
+        margin: 0 0 20px;
+
+        padding: 12px 15px;
+
+        color: #ffffff;
+
+        font-size: 19px;
+        font-weight: 700;
+
+        background: #00445f;
+
+        border-radius: 7px;
+    }
+
+
+    /* ==========================================================
+   CONTENEDOR DE CADA TRAYECTO
+   ========================================================== */
+
+    .contenedor_trayecto_materias {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .contenedor_trayecto_materias:last-child {
+        margin-bottom: 0;
+    }
+
+
+    /* ==========================================================
+   TÍTULO DEL TRAYECTO
+   ========================================================== */
+
+    .contenedor_trayecto_materias>h3 {
+        margin: 0 0 10px;
+
+        padding: 9px 13px;
+
+        color: #00445f;
+
+        font-size: 16px;
+        font-weight: 700;
+
+        background: #f0f7f9;
+
+        border-left: 5px solid #00b6ea;
+        border-radius: 5px;
+    }
+
+
+    /* ==========================================================
+   TABLA
+   ========================================================== */
+
+    .tabla-materias {
+        width: 100%;
+
+        border-collapse: separate;
+        border-spacing: 0;
+
+        overflow: hidden;
+
+        background: #ffffff;
+
+        border: 1px solid #c8d9df;
+        border-radius: 8px;
+    }
+
+
+    /* ==========================================================
+   ENCABEZADO
+   ========================================================== */
+
+    .tabla-materias thead th {
+        padding: 12px 14px;
+
+        color: #ffffff;
+
+        font-size: 13px;
+        font-weight: 700;
+
+        text-align: left;
+
+        background: #00627f;
+
+        border-bottom: 2px solid #00445f;
+    }
+
+
+    /* ==========================================================
+   CENTRAR ID
+   ========================================================== */
+
+    .tabla-materias thead th:first-child,
+    .tabla-materias tbody td:first-child {
+        width: 60px;
+
+        text-align: center;
+    }
+
+
+    /* ==========================================================
+   CELDAS
+   ========================================================== */
+
+    .tabla-materias tbody td {
+        padding: 11px 14px;
+
+        color: #333;
+
+        font-size: 14px;
+
+        border-bottom: 1px solid #e0eaed;
+    }
+
+
+    /* ==========================================================
+   ÚLTIMA FILA
+   ========================================================== */
+
+    .tabla-materias tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+    /* ==========================================================
+   EFECTO HOVER
+   ========================================================== */
+
+    .tabla-materias tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .tabla-materias tbody tr:hover {
+        background: #f1f8fa;
+    }
+
+
+    /* ==========================================================
+   COLUMNA MATERIA
+   ========================================================== */
+
+    .tabla-materias tbody td:nth-child(2) {
+        color: #00445f;
+
+        font-weight: 600;
+    }
+
+
+    /* ==========================================================
+   CÓDIGO
+   ========================================================== */
+
+    .tabla-materias tbody td:nth-child(3) {
+        font-family: monospace;
+
+        color: #555;
+
+        font-weight: 600;
+    }
+
+
+    /* ==========================================================
+   SECCIÓN
+   ========================================================== */
+
+    .tabla-materias tbody td:nth-child(4) {
+        text-align: center;
+
+        font-weight: 600;
+    }
+
+
+    /* ==========================================================
+   FILAS ALTERNADAS
+   ========================================================== */
+
+    .tabla-materias tbody tr:nth-child(even) {
+        background: #fafcfd;
+    }
+
+    .tabla-materias tbody tr:nth-child(even):hover {
+        background: #f1f8fa;
+    }
+
+
+    /* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+    @media (max-width: 700px) {
+
+        .contenedor_pnf_materias {
+            padding: 15px;
+        }
+
+        .contenedor_pnf_materias>h2 {
+            font-size: 17px;
+        }
+
+        .contenedor_trayecto_materias>h3 {
+            font-size: 15px;
+        }
+
+        .tabla-materias {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tabla-materias thead th,
+        .tabla-materias tbody td {
+            padding: 10px 12px;
+        }
+    }
+
+    /* ==========================================================
+   ASIGNAR MATERIA
+   ========================================================== */
+
+    #asignar_materia {
+        width: 100%;
+        min-height: 100%;
+        padding: 30px 20px;
+        box-sizing: border-box;
+        background: #f8fbfc;
+    }
+
+    #asignar_materia .contenedor_asignar_materia {
+        width: 100%;
+        max-width: 950px;
+        margin: 0 auto;
+    }
+
+    /* ==========================================================
+   TÍTULO PRINCIPAL
+   ========================================================== */
+
+    #asignar_materia .contenedor_asignar_materia>h3 {
+        margin: 0 0 25px;
+        padding-bottom: 12px;
+
+        color: #00445f;
+        font-size: 24px;
+        font-weight: 700;
+
+        border-bottom: 2px solid #00445f;
+    }
+
+    /* ==========================================================
+   CONTENEDOR DE BÚSQUEDA
+   ========================================================== */
+
+    #contenedor_busqueda_asignacion {
+        width: 100%;
+        margin-bottom: 25px;
+        padding: 22px 25px;
+
+        box-sizing: border-box;
+
+        background: #ffffff;
+
+        border: 2px solid #00445f;
+        border-radius: 12px;
+
+        box-shadow: 0 4px 12px rgba(0, 68, 95, 0.08);
+    }
+
+    #contenedor_busqueda_asignacion h4 {
+        margin: 0 0 20px;
+
+        color: #00445f;
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    /* ==========================================================
+   FORMULARIO DE BÚSQUEDA
+   ========================================================== */
+
+    #formulario_busqueda {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        align-items: center;
+        gap: 15px 18px;
+    }
+
+    #formulario_busqueda label {
+        color: #00445f;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    #formulario_busqueda select,
+    #formulario_busqueda input[type="text"] {
+        width: 100%;
+        height: 43px;
+
+        padding: 0 12px;
+
+        box-sizing: border-box;
+
+        color: #333;
+        font-size: 14px;
+
+        background: #ffffff;
+
+        border: 1.5px solid #b9cbd2;
+        border-radius: 7px;
+
+        outline: none;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    #formulario_busqueda select:hover,
+    #formulario_busqueda input[type="text"]:hover {
+        border-color: #007da8;
+    }
+
+    #formulario_busqueda select:focus,
+    #formulario_busqueda input[type="text"]:focus {
+        border-color: #00b6ea;
+
+        box-shadow: 0 0 0 3px rgba(0, 182, 234, 0.14);
+    }
+
+    /* ==========================================================
+   RESULTADOS
+   ========================================================== */
+
+    #contenedor_materias {
+        width: 100%;
+    }
+
+    #contenedor_materias:empty {
+        display: none;
+    }
+
+    /* ==========================================================
+   DIALOG
+   ========================================================== */
+
+    #dialogo_actualizar {
+        width: min(700px, calc(100% - 30px));
+        max-height: 90vh;
+
+        padding: 0;
+
+        border: none;
+        border-radius: 14px;
+
+        background: transparent;
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    #dialogo_actualizar::backdrop {
+        background: rgba(0, 38, 52, 0.60);
+        backdrop-filter: blur(2px);
+    }
+
+    /* ==========================================================
+   CONTENEDOR DEL DIÁLOGO
+   ========================================================== */
+
+    .contenedor_docente_asignado_materia {
+        position: relative;
+
+        max-height: 90vh;
+        overflow-y: auto;
+
+        padding: 30px;
+
+        box-sizing: border-box;
+
+        background: #ffffff;
+
+        border: 2px solid #00445f;
+        border-radius: 14px;
+    }
+
+    /* ==========================================================
+   BOTÓN CERRAR
+   ========================================================== */
+
+    #cerrar_dialogo {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+
+        color: #00445f;
+
+        font-size: 22px;
+
+        cursor: pointer;
+
+        transition:
+            color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    #cerrar_dialogo:hover {
+        color: #dc3545;
+        transform: scale(1.1);
+    }
+
+    /* ==========================================================
+   TÍTULO DEL DIALOG
+   ========================================================== */
+
+    .contenedor_docente_asignado_materia>h4 {
+        margin: 0 40px 25px 0;
+        padding-bottom: 12px;
+
+        color: #00445f;
+        font-size: 20px;
+        font-weight: 700;
+
+        border-bottom: 2px solid #00445f;
+    }
+
+    /* ==========================================================
+   INFORMACIÓN DE LA MATERIA
+   ========================================================== */
+
+    .datos_materia {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+
+        gap: 12px 15px;
+
+        margin-bottom: 20px;
+        padding: 18px;
+
+        background: #f8fbfc;
+
+        border: 1px solid #cbdde3;
+        border-radius: 9px;
+    }
+
+    .datos_materia label {
+        color: #00445f;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .datos_materia input {
+        width: 100%;
+        height: 40px;
+
+        padding: 0 12px;
+
+        box-sizing: border-box;
+
+        color: #555;
+        font-size: 14px;
+
+        background: #eef4f6;
+
+        border: 1px solid #c5d4d9;
+        border-radius: 6px;
+
+        outline: none;
+    }
+
+    /* ==========================================================
+   BLOQUES DE DOCENTES
+   ========================================================== */
+
+    #docente_principal,
+    #docente_secundario,
+    #suspension_materia {
+        margin-bottom: 18px;
+        padding: 20px;
+
+        background: #ffffff;
+
+        border: 1.5px solid #c7dce3;
+        border-radius: 10px;
+    }
+
+    /* ==========================================================
+   TÍTULOS DE BLOQUES
+   ========================================================== */
+
+    #docente_principal h5,
+    #docente_secundario h5,
+    #suspension_materia h5 {
+        margin: 0 0 18px;
+
+        color: #00445f;
+        font-size: 16px;
+        font-weight: 700;
+
+        padding-bottom: 9px;
+
+        border-bottom: 1px solid #d6e4e8;
+    }
+
+    /* ==========================================================
+   LABELS
+   ========================================================== */
+
+    #docente_principal>label,
+    #docente_secundario>label,
+    #suspension_materia>label:first-of-type {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #00445f;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* ==========================================================
+   INPUT DOCENTE
+   ========================================================== */
+
+    #docente_principal>input[type="text"],
+    #docente_secundario>input[type="text"] {
+        width: 100%;
+        height: 41px;
+
+        padding: 0 12px;
+
+        box-sizing: border-box;
+
+        color: #555;
+        font-size: 14px;
+
+        background: #eef4f6;
+
+        border: 1px solid #c5d4d9;
+        border-radius: 7px;
+
+        outline: none;
+    }
+
+    /* ==========================================================
+   ESTADO DOCENTE
+   ========================================================== */
+
+    .estado_docente {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+
+        margin-top: 15px;
+        padding-top: 14px;
+
+        border-top: 1px solid #e0eaed;
+    }
+
+    .estado_docente>label:first-child {
+        margin-right: 5px;
+
+        color: #00445f;
+        font-weight: 700;
+    }
+
+    .estado_docente label:not(:first-child) {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        color: #444;
+        font-size: 14px;
+
+        cursor: pointer;
+    }
+
+    .estado_docente input[type="radio"],
+    #suspension_materia input[type="radio"] {
+        width: 17px;
+        height: 17px;
+
+        margin: 0;
+
+        accent-color: #00445f;
+
+        cursor: pointer;
+    }
+
+    /* ==========================================================
+   ESTADO DE LA MATERIA
+   ========================================================== */
+
+    #suspension_materia {
+        background: #f8fbfc;
+    }
+
+    #suspension_materia>label:not(:first-of-type) {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-right: 20px;
+
+        color: #444;
+        font-size: 14px;
+
+        cursor: pointer;
+    }
+
+    /* ==========================================================
+   BOTÓN ACTUALIZAR
+   ========================================================== */
+
+    #formulario_actualizar>input[type="submit"] {
+        display: block;
+
+        width: 240px;
+        height: 45px;
+
+        margin: 25px auto 0;
+
+        padding: 0 20px;
+
+        color: #ffffff;
+
+        font-size: 14px;
+        font-weight: 700;
+
+        background: #00445f;
+
+        border: none;
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    #formulario_actualizar>input[type="submit"]:hover {
+        background: #00b6ea;
+
+        box-shadow: 0 4px 10px rgba(0, 68, 95, 0.20);
+
+        transform: translateY(-1px);
+    }
+
+    #formulario_actualizar>input[type="submit"]:active {
+        transform: translateY(0);
+    }
+
+    /* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+    @media (max-width: 650px) {
+
+        #asignar_materia {
+            padding: 20px 12px;
+        }
+
+        #contenedor_busqueda_asignacion {
+            padding: 20px;
+        }
+
+        #formulario_busqueda {
+            grid-template-columns: 1fr;
+            gap: 7px;
+        }
+
+        #formulario_busqueda label {
+            margin-top: 5px;
+        }
+
+        .contenedor_docente_asignado_materia {
+            padding: 22px 18px;
+        }
+
+        .datos_materia {
+            grid-template-columns: 1fr;
+            gap: 6px;
+        }
+
+        .estado_docente {
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        #formulario_actualizar>input[type="submit"] {
+            width: 100%;
+        }
+    }
+</style>
+
+<section id="asignar_materia">
+    <div class="contenedor_asignar_materia">
+        <h3>Asignar Materia a Docente</h3>
+
+        <div id="contenedor_busqueda_asignacion">
+            <h4>Busqueda Asignación</h4>
+
+            <form method="post" id="formulario_busqueda">
+                {% csrf_token %}
+                <label for="perfiles_asignados" id="label_perfil">Perfil Asignado:</label>
+                <select name="perfiles_asignados" id="perfiles_asignados" style="display: none;"></select>
+
+                <input type="text" name="perfiles_asignados" id="perfil_asignado" readonly style="display: none;">
+
+                <label for="pnfs_asignados" id="label_pnf">P.N.F Asignado:</label>
+                <select name="pnfs_asignados" id="pnfs_asignados"></select>
+
+                <label for="trayecto">Trayecto Académico:</label>
+                <select name="trayecto" id="trayecto"></select>
+
+                <label for="materia">Materia:</label>
+                <input type="text" name="materia" id="materia" placeholder="Ingresa el nombre de la materia"
+                    autocomplete="off">
+            </form>
+        </div>
+
+        <div id="contenedor_materias"></div>
+    </div>
+</section>
+
+<dialog id="dialogo_actualizar">
+    <div class="contenedor_docente_asignado_materia">
+        <i id="cerrar_dialogo" class="icon-cancel-circled"></i>
+
+        <h4>Actualizar Asignación de Materia</h4>
+
+        <form method="post" id="formulario_actualizar">
+            {% csrf_token %}
+            <input type="hidden" name="materia_asignada" id="materia_asignada">
+
+            <!-- Información de la materia -->
+            <div class="datos_materia">
+                <label for="nombre_materia">Materia:</label>
+                <input type="text" id="nombre_materia" readonly>
+            </div>
+
+            <!-- Docente principal -->
+            <div id="docente_principal">
+                <h5>Docente Principal</h5>
+
+                <label for="docente_principal_nombre">Docente:</label>
+                <input type="text" id="docente_principal_nombre" readonly>
+
+                <div class="estado_docente">
+                    <label>Estado:</label>
+                    <label for="principal_activo">
+                        <input type="radio" name="estado_principal" value="ACTIVO" id="principal_activo">
+                        Activo
+                    </label>
+
+                    <label for="principal_inactivo">
+                        <input type="radio" name="estado_principal" value="INACTIVO" id="principal_inactivo">
+                        Inactivo
+                    </label>
+                </div>
+            </div>
+
+
+            <!-- Docente secundario -->
+            <div id="docente_secundario">
+                <h5>Docente Secundario / Suplente</h5>
+
+                <label for="docente_secundario_nombre">Docente:</label>
+                <input type="text" id="docente_secundario_nombre" readonly>
+
+                <div class="estado_docente">
+                    <label>Estado:</label>
+                    <label for="secundario_activo">
+                        <input type="radio" name="estado_secundario" value="ACTIVO" id="secundario_activo">
+                        Activo
+                    </label>
+
+                    <label for="secundario_inactivo">
+                        <input type="radio" name="estado_secundario" value="INACTIVO" id="secundario_inactivo">
+                        Inactivo
+                    </label>
+                </div>
+            </div>
+
+            <!-- Estado de la materia -->
+            <div id="suspension_materia">
+                <h5>Asignación de la Materia</h5>
+
+                <label>Estado de la materia:</label>
+                <label for="materia_activa">
+                    <input type="radio" name="estado_materia" value="ACTIVA" id="materia_activa">
+                    Activa
+                </label>
+                <label for="materia_suspendida">
+                    <input type="radio" name="estado_materia" value="SUSPENDIDA" id="materia_suspendida">
+                    Suspendida
+                </label>
+            </div>
+
+            <input type="submit" value="Actualizar la Asignación">
+        </form>
+    </div>
+</dialog>
+
+<script
+    src="{% static 'Funciones_Asincronas/Coordinador_PNF/Asignacion_Materia/visualizar_asignaciones.js' %}"></script>
+
+{% endblock %}

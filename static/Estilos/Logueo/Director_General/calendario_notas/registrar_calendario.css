@@ -1,152 +1,683 @@
-/* ========================================================= CALENDARIO ACADÉMICO (SCOPED) ========================================================= */
-#modulo_calendario {
-    display: flex;
-    justify-content: center;
+/* =========================================================
+   REGISTRAR CALENDARIO NOTAS ACADÉMICAS - CARSCE
+   ========================================================= */
+
+#director-calendario-registrar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.director-calendario-registrar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.director-calendario-registrar-carsce-encabezado {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.director-calendario-registrar-carsce-identificacion {
+    display: inline-flex;
     align-items: center;
-    width: 100%;
-}
-
-#modulo_calendario .contenedor_modulo_calendario {
-    width: 100%;
-    max-width: 750px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#modulo_calendario .contenedor_modulo_calendario h3 {
-    color: var(--texto);
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-align: center;
-    margin: 0;
-}
-
-#modulo_calendario .contenedor_registrar_calendario {
-    background: var(--color-base);
-    border-radius: var(--radio);
-    padding: 40px 45px;
-    box-shadow: var(--sombra-suave);
-    border: 1px solid var(--borde);
-    position: relative;
-}
-
-#modulo_calendario .contenedor_registrar_calendario h4 {
-    color: var(--texto);
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--background);
-    position: relative;
-}
-
-#modulo_calendario .contenedor_registrar_calendario h4::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background: var(--color-azulE);
-}
-
-/* ========================================================= FORMULARIO Y FILAS ========================================================= */
-#modulo_calendario #registrar_calendario {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#modulo_calendario .fila-campos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-#modulo_calendario .campo {
-    display: flex;
-    flex-direction: column;
     gap: 8px;
-    width: 100%;
-}
 
-#modulo_calendario .campo label {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: var(--texto);
-}
+    margin-bottom: 12px;
+    padding: 7px 12px;
 
-/* Estilos para inputs generales e inputs tipo date */
-#modulo_calendario #registrar_calendario input[type="text"],
-#modulo_calendario #registrar_calendario input[type="date"],
-#modulo_calendario #registrar_calendario select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--borde);
-    border-radius: 10px;
-    background: var(--background);
-    color: var(--texto);
-    font-size: 0.95rem;
-    font-family: inherit;
-    outline: none;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-}
+    color: #1D4ED8;
+    background: #EFF6FF;
 
-#modulo_calendario #registrar_calendario input[type="date"]::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    filter: invert(0.4);
-    transition: filter 0.2s ease;
-}
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
 
-#modulo_calendario #registrar_calendario input[type="date"]::-webkit-calendar-picker-indicator:hover {
-    filter: invert(0.2);
-}
-
-#modulo_calendario #registrar_calendario input[type="text"]:focus,
-#modulo_calendario #registrar_calendario input[type="date"]:focus,
-#modulo_calendario #registrar_calendario select:focus {
-    border-color: var(--color-azulE);
-    background: var(--color-base);
-    box-shadow: 0 0 0 3px rgba(33, 28, 132, 0.12);
-}
-
-/* ========================================================= BOTÓN DE ACCIÓN ========================================================= */
-#modulo_calendario #btn_registro,
-#modulo_calendario input[type="submit"] {
-    margin-top: 10px;
-    padding: 14px 24px;
-    background: var(--color-botones);
-    color: var(--color-neutro);
+    font-size: 0.68rem;
     font-weight: 700;
-    font-size: 0.95rem;
-    border: none;
-    border-radius: 12px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.director-calendario-registrar-carsce-identificacion i {
+    font-size: 0.72rem;
+}
+
+
+.director-calendario-registrar-carsce-presentacion {
+    width: 100%;
+}
+
+.director-calendario-registrar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.director-calendario-registrar-carsce-titulo span {
+    color: #2563EB;
+    font-weight: 600;
+}
+
+.director-calendario-registrar-carsce-descripcion {
+    max-width: 720px;
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   TARJETA DEL FORMULARIO
+   ========================================================= */
+
+.director-calendario-registrar-carsce-tarjeta {
+    width: 100%;
+
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA DE LA TARJETA
+   ========================================================= */
+
+.director-calendario-registrar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding-bottom: 21px;
+    margin-bottom: 23px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.director-calendario-registrar-carsce-tarjeta-icono {
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    background: linear-gradient(
+        145deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border-radius: 11px;
+
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.20);
+}
+
+.director-calendario-registrar-carsce-tarjeta-icono i {
+    font-size: 1rem;
+}
+
+
+.director-calendario-registrar-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+.director-calendario-registrar-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.director-calendario-registrar-carsce-tarjeta-descripcion {
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.director-calendario-registrar-carsce-formulario {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.director-calendario-registrar-carsce-campo {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.director-calendario-registrar-carsce-campo > label,
+.director-calendario-registrar-carsce-periodo > label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+.director-calendario-registrar-carsce-control {
+    position: relative;
+
+    width: 100%;
+}
+
+.director-calendario-registrar-carsce-control > i:first-child {
+    position: absolute;
+
+    top: 50%;
+    left: 14px;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: 0.83rem;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   INPUTS Y SELECTS
+   ========================================================= */
+
+.director-calendario-registrar-carsce-control input,
+.director-calendario-registrar-carsce-control select {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 42px 0 40px;
+
+    color: #334155;
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 400;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.director-calendario-registrar-carsce-control-select select {
+    appearance: none;
+    -webkit-appearance: none;
+
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-#modulo_calendario #btn_registro:hover,
-#modulo_calendario input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    filter: brightness(0.95);
+.director-calendario-registrar-carsce-flecha {
+    position: absolute;
+
+    top: 50%;
+    right: 15px;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: 0.68rem;
+
+    pointer-events: none;
 }
 
-#modulo_calendario #btn_registro:active,
-#modulo_calendario input[type="submit"]:active {
+
+/* =========================================================
+   ESTADOS DE LOS CONTROLES
+   ========================================================= */
+
+.director-calendario-registrar-carsce-control input:hover,
+.director-calendario-registrar-carsce-control select:hover {
+    border-color: #94A3B8;
+}
+
+.director-calendario-registrar-carsce-control input:focus,
+.director-calendario-registrar-carsce-control select:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+
+    background: #FFFFFF;
+}
+
+
+/* =========================================================
+   CONTENEDOR DINÁMICO DEL PERÍODO
+   ========================================================= */
+
+.director-calendario-registrar-carsce-periodo {
+    width: 100%;
+
+    margin-top: 2px;
+    margin-bottom: 18px;
+
+    padding: 16px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+}
+
+.director-calendario-registrar-carsce-periodo > label {
+    margin-bottom: 8px;
+}
+
+.director-calendario-registrar-carsce-periodo
+.director-calendario-registrar-carsce-control {
+    width: 100%;
+}
+
+
+/* =========================================================
+   FILA DE FECHAS
+   ========================================================= */
+
+.director-calendario-registrar-carsce-fila-fechas {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   INPUT DE FECHA
+   ========================================================= */
+
+.director-calendario-registrar-carsce-control
+input[type="date"] {
+    cursor: pointer;
+}
+
+.director-calendario-registrar-carsce-control
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+.director-calendario-registrar-carsce-campo-descripcion {
+    margin-top: 1px;
+}
+
+.director-calendario-registrar-carsce-control-textarea {
+    position: relative;
+
+    width: 100%;
+}
+
+.director-calendario-registrar-carsce-control-textarea > i {
+    position: absolute;
+
+    top: 15px;
+    left: 14px;
+
+    color: #64748B;
+
+    font-size: 0.83rem;
+
+    pointer-events: none;
+}
+
+.director-calendario-registrar-carsce-control-textarea textarea {
+    width: 100%;
+    min-height: 115px;
+
+    padding: 13px 14px 13px 40px;
+
+    resize: vertical;
+
+    color: #334155;
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.director-calendario-registrar-carsce-control-textarea textarea::placeholder {
+    color: #94A3B8;
+}
+
+.director-calendario-registrar-carsce-control-textarea textarea:hover {
+    border-color: #94A3B8;
+}
+
+.director-calendario-registrar-carsce-control-textarea textarea:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.director-calendario-registrar-carsce-acciones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    width: 100%;
+
+    margin-top: 8px;
+    padding-top: 21px;
+
+    border-top: 1px solid #E2E8F0;
+}
+
+
+/* =========================================================
+   BOTÓN
+   ========================================================= */
+
+.director-calendario-registrar-carsce-boton {
+    min-width: 245px;
+    height: 44px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    padding: 0 20px;
+
+    color: #FFFFFF;
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+
+    cursor: pointer;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 600;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+.director-calendario-registrar-carsce-boton i {
+    font-size: 0.82rem;
+}
+
+.director-calendario-registrar-carsce-boton:hover {
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 8px 17px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+.director-calendario-registrar-carsce-boton:active {
     transform: translateY(0);
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18);
 }
 
-/* RESPONSIVE */
-@media (max-width: 680px) {
-    #modulo_calendario .fila-campos {
-        grid-template-columns: 1fr;
+.director-calendario-registrar-carsce-boton:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .director-calendario-registrar-carsce-contenedor {
+        max-width: 100%;
     }
 
-    #modulo_calendario .contenedor_registrar_calendario {
-        padding: 28px 20px;
+    .director-calendario-registrar-carsce-titulo {
+        font-size: 1.4rem;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta {
+        padding: 23px;
+    }
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    #director-calendario-registrar-carsce {
+        padding-bottom: 25px;
+    }
+
+    .director-calendario-registrar-carsce-titulo {
+        font-size: 1.28rem;
+    }
+
+    .director-calendario-registrar-carsce-descripcion {
+        font-size: 0.78rem;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta {
+        padding: 21px;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    .director-calendario-registrar-carsce-fila-fechas {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .director-calendario-registrar-carsce-acciones {
+        justify-content: stretch;
+    }
+
+    .director-calendario-registrar-carsce-boton {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .director-calendario-registrar-carsce-identificacion {
+        font-size: 0.62rem;
+    }
+
+    .director-calendario-registrar-carsce-titulo {
+        font-size: 1.15rem;
+    }
+
+    .director-calendario-registrar-carsce-descripcion {
+        font-size: 0.74rem;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta {
+        padding: 18px 16px 20px;
+        border-radius: 10px;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta-cabecera {
+        gap: 11px;
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta-icono {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta-titulo {
+        font-size: 0.88rem;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta-descripcion {
+        font-size: 0.68rem;
+    }
+
+    .director-calendario-registrar-carsce-periodo {
+        padding: 13px;
+    }
+
+    .director-calendario-registrar-carsce-control input,
+    .director-calendario-registrar-carsce-control select {
+        height: 43px;
+        font-size: 0.72rem;
+    }
+
+    .director-calendario-registrar-carsce-control-textarea textarea {
+        min-height: 105px;
+        font-size: 0.72rem;
+    }
+
+    .director-calendario-registrar-carsce-boton {
+        min-width: 0;
+        height: 43px;
+        font-size: 0.71rem;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .director-calendario-registrar-carsce-titulo {
+        font-size: 1.05rem;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta {
+        padding: 16px 13px 18px;
+    }
+
+    .director-calendario-registrar-carsce-identificacion {
+        padding: 6px 9px;
+    }
+
+    .director-calendario-registrar-carsce-tarjeta-icono {
+        width: 39px;
+        height: 39px;
+        flex-basis: 39px;
+    }
+
+    .director-calendario-registrar-carsce-boton span {
+        white-space: normal;
+        text-align: center;
     }
 }

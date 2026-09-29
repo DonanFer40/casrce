@@ -1,77 +1,304 @@
 {% extends 'Estructura/base.html' %}
 
-{% block content %}
-
 {% load static %}
 
-<section id="registrar_personal">
-    <div class="tarjeta_principal">
+{% block content %}
 
-        <!-- ================= LADO IZQUIERDO ================= -->
-        <div class="lado_izquierdo">
-            <div class="separador">
-                <a href="{% url 'panel_registro' %}" class="btn-regresar icon-left-open">Regresar</a>
+<section id="RegistroPersonalCASRCE" class="reveal">
+
+    <div class="RegistroPersonalCASRCE-marco">
+
+        <!-- =====================================================
+             PANEL DE INFORMACIÓN
+             ===================================================== -->
+
+        <div class="RegistroPersonalCASRCE-informacion">
+
+            <div class="RegistroPersonalCASRCE-regreso">
+
+                <a href="{% url 'panel_registro' %}"
+                   class="RegistroPersonalCASRCE-boton-regresar">
+
+                    <i class="icon-left-open"></i>
+
+                    <span>
+                        Regresar
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="contenedor">
-                <img src="{% static 'Imagenes/registro_personal.png' %}" alt="Personal">
 
-                <p>El presente formulario está destinado a los Docentes, Coordinadores de PNFs y los encargados del
-                    Control de Estudio.</p>
-                <p>Debe estar previamente registrado; si aún no lo está, debe dirigirse al Director General.</p>
+            <div class="RegistroPersonalCASRCE-imagen">
+
+                <img src="{% static 'Imagenes/registro_personal.png' %}"
+                     alt="Registro de personal">
+
             </div>
+
+
+            <div class="RegistroPersonalCASRCE-texto">
+
+                <span class="RegistroPersonalCASRCE-indicador">
+                    REGISTRO INSTITUCIONAL
+                </span>
+
+                <h1>
+                    Registro de personal
+                </h1>
+
+                <p>
+                    Este formulario está destinado al personal encargado
+                    de las funciones académicas y administrativas del sistema.
+                </p>
+
+                <p>
+                    Docentes, Coordinadores de PNF y responsables del
+                    Control de Estudio deben haber sido previamente
+                    registrados por el Director General.
+                </p>
+
+                <div class="RegistroPersonalCASRCE-linea"></div>
+
+                <span class="RegistroPersonalCASRCE-subtexto">
+                    Acceso autorizado por la institución
+                </span>
+
+            </div>
+
         </div>
 
-        <!-- ================= LADO DERECHO ================= -->
-        <div class="lado_derecho">
-            <form method="post" id="buscar_usuario" class="contenedor_busqueda">
+
+        <!-- =====================================================
+             PANEL DE ACCESO
+             ===================================================== -->
+
+        <div class="RegistroPersonalCASRCE-acceso">
+
+            <div class="RegistroPersonalCASRCE-cabecera">
+
+                <span class="RegistroPersonalCASRCE-etiqueta">
+                    VALIDACIÓN DE PERSONAL
+                </span>
+
+                <h2>
+                    Crear credenciales
+                </h2>
+
+                <p>
+                    Valida tus datos y establece las credenciales
+                    para acceder al sistema.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 PASO 01 — BUSCAR USUARIO
+                 ================================================= -->
+
+            <form method="post"
+                  id="buscar_usuario"
+                  class="RegistroPersonalCASRCE-formulario">
+
                 {% csrf_token %}
-                <h3 id="titulo_busqueda">Buscar Usuario</h3>
 
-                <label for="cedula_identidad" id="label_CI">Ingrese su cédula de identidad</label>
-                <div class="grupo-input">
-                    <select name="nacionalidad" id="nacionalidad" class="nacionalidad">
-                        <option value="">N</option>
-                        <option value="V">V</option>
-                        <option value="E">E</option>
-                    </select>
-                    <input type="text" name="usuario_ci" autocomplete="off" id="cedula_identidad"
-                        class="cedula_identidad">
-                </div>
+                <div id="RegistroPersonalCASRCE-paso-busqueda">
 
-                <input type="submit" id="validar_usuario" value="Validar">
-            </form>
+                    <div class="RegistroPersonalCASRCE-seccion-titulo">
 
+                        <span>
+                            01
+                        </span>
 
-            <form method="post" id="formulario_registrar_credenciales" class="contenedor_busqueda">
-                {% csrf_token %}
-                <h3 id="titulo_guardar">Guardar Credenciales</h3>
+                        <div>
 
-                <label for="nombre_usuario" id="label_nombre_usuario">Ingrese el nombre de usuario</label>
-                <input type="text" name="nombre_usuario" autocomplete="off" id="nombre_usuario">
-                <small id="mensaje_nombre_usuario"></small>
+                            <h3>
+                                Buscar usuario
+                            </h3>
 
-                <div class="input-group password-group">
+                            <p>
+                                Ingresa tu cédula de identidad para continuar.
+                            </p>
 
-                    <!-- Contenedor relativo para fijar los iconos a la derecha del input -->
-                    <div class="input-wrapper">
-                        <input type="password" name="password_usuario" autocomplete="off" id="password">
+                        </div>
 
-                        <input type="checkbox" id="OcultaAparecer">
-                        <label class="icon-eye-off eye_off" for="OcultaAparecer" id="aparecer_oculta"></label>
-                        <label class="icon-eye eye_on" for="OcultaAparecer" id="oculta_aparecer"></label>
                     </div>
-                </div>
-                <small id="mensaje_password"></small>
 
-                <input type="submit" id="btn_registro" value="Guardar" hidden>
+
+                    <div class="RegistroPersonalCASRCE-grupo">
+
+                        <label for="cedula_identidad">
+                            Cédula de identidad
+                        </label>
+
+                        <div class="RegistroPersonalCASRCE-cedula">
+
+                            <select name="nacionalidad"
+                                    id="nacionalidad"
+                                    class="RegistroPersonalCASRCE-nacionalidad">
+
+                                <option value="">
+                                    N
+                                </option>
+
+                                <option value="V">
+                                    V
+                                </option>
+
+                                <option value="E">
+                                    E
+                                </option>
+
+                            </select>
+
+                            <input type="text"
+                                   name="usuario_ci"
+                                   autocomplete="off"
+                                   id="cedula_identidad"
+                                   placeholder="Ingrese su número de cédula">
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit"
+                            id="validar_usuario"
+                            class="RegistroPersonalCASRCE-boton-validar">
+
+                        <span>
+                            Validar usuario
+                        </span>
+
+                        <i class="icon-right-open"></i>
+
+                    </button>
+
+                </div>
+
             </form>
+
+
+            <!-- =================================================
+                 PASO 02 — GUARDAR CREDENCIALES
+                 ================================================= -->
+
+            <form method="post"
+                  id="formulario_registrar_credenciales"
+                  class="RegistroPersonalCASRCE-formulario RegistroPersonalCASRCE-formulario-credenciales"
+                  hidden>
+
+                {% csrf_token %}
+
+
+                <div class="RegistroPersonalCASRCE-seccion-titulo">
+
+                    <span>
+                        02
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Guardar credenciales
+                        </h3>
+
+                        <p>
+                            Define el usuario y la contraseña de acceso.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="RegistroPersonalCASRCE-grupo">
+
+                    <label for="nombre_usuario">
+                        Nombre de usuario
+                    </label>
+
+                    <input type="text"
+                           name="nombre_usuario"
+                           autocomplete="off"
+                           id="nombre_usuario"
+                           placeholder="Ingrese su nombre de usuario">
+
+                    <small id="mensaje_nombre_usuario"></small>
+
+                </div>
+
+
+                <div class="RegistroPersonalCASRCE-grupo">
+
+                    <label for="password">
+                        Contraseña
+                    </label>
+
+                    <div class="RegistroPersonalCASRCE-password">
+
+                        <input type="password"
+                               name="password_usuario"
+                               autocomplete="off"
+                               id="password"
+                               placeholder="Ingrese su contraseña">
+
+
+                        <input type="checkbox"
+                               id="OcultaAparecer">
+
+
+                        <label class="icon-eye-off RegistroPersonalCASRCE-ojo-off"
+                               for="OcultaAparecer"
+                               id="aparecer_oculta"
+                               aria-label="Mostrar contraseña">
+                        </label>
+
+
+                        <label class="icon-eye RegistroPersonalCASRCE-ojo-on"
+                               for="OcultaAparecer"
+                               id="oculta_aparecer"
+                               aria-label="Ocultar contraseña">
+                        </label>
+
+                    </div>
+
+                    <small id="mensaje_password"></small>
+
+                </div>
+
+
+                <button type="submit"
+                    id="btn_registro"
+                    class="RegistroPersonalCASRCE-boton-registrar">
+
+    <span>
+        Registrar credenciales
+    </span>
+
+    <i class="icon-right-open"></i>
+
+</button>
+
+            </form>
+
         </div>
+
     </div>
+
 </section>
 
+
+<!-- =========================================================
+     FUNCIONALIDADES
+     ========================================================= -->
+
 <script src="{% static 'Funcionalidades/contrasenia.js' %}"></script>
+
 <script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
+
 <script src="{% static 'Funciones_Asincronas/Registro_Inicio_Sesion/comprobar_personal.js' %}"></script>
 
 {% endblock %}

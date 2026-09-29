@@ -1,0 +1,587 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* ==========================================================
+   MÓDULO NOTAS ACADÉMICAS
+   ========================================================== */
+
+    #modulo_notas_academicas {
+        width: 100%;
+        min-height: 100%;
+        padding: 24px;
+        box-sizing: border-box;
+    }
+
+    .contenedor_notas_academicas {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+
+    /* ==========================================================
+   TÍTULO PRINCIPAL
+   ========================================================== */
+
+    .contenedor_notas_academicas>h2 {
+        margin: 0 0 24px;
+        padding-bottom: 14px;
+
+        border-bottom: 2px solid #dfe6eb;
+
+        color: #102f4e;
+
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+
+    /* ==========================================================
+   CONTENEDOR DE BÚSQUEDA
+   ========================================================== */
+
+    .conetendor_busqueda {
+        width: 100%;
+        margin-bottom: 24px;
+        padding: 24px;
+
+        box-sizing: border-box;
+
+        background: #ffffff;
+
+        border: 1px solid #dfe6eb;
+        border-radius: 10px;
+
+        box-shadow: 0 3px 12px rgba(16, 47, 78, 0.06);
+    }
+
+
+    /* ==========================================================
+   FORMULARIO
+   ========================================================== */
+
+    .conetendor_busqueda form {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 6px;
+    }
+
+
+    /* ==========================================================
+   LABELS
+   ========================================================== */
+
+    .conetendor_busqueda label {
+        display: block;
+
+        margin-top: 8px;
+
+        color: #102f4e;
+
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .conetendor_busqueda label:first-child {
+        margin-top: 0;
+    }
+
+
+    /* ==========================================================
+   SELECTS
+   ========================================================== */
+
+    .conetendor_busqueda select {
+        width: 100%;
+        height: 42px;
+
+        padding: 0 38px 0 12px;
+
+        box-sizing: border-box;
+
+        border: 1px solid #cbd5dc;
+        border-radius: 7px;
+
+        background-color: #ffffff;
+
+        color: #263746;
+
+        font-family: inherit;
+        font-size: 14px;
+
+        outline: none;
+
+        cursor: pointer;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+    }
+
+    .conetendor_busqueda select:hover {
+        border-color: #00779e;
+    }
+
+    .conetendor_busqueda select:focus {
+        border-color: #00779e;
+
+        box-shadow:
+            0 0 0 3px rgba(0, 119, 158, 0.12);
+    }
+
+    .conetendor_busqueda select:disabled {
+        background-color: #f1f4f6;
+
+        border-color: #d9e0e4;
+
+        color: #8a969f;
+
+        cursor: not-allowed;
+    }
+
+    .conetendor_busqueda select option {
+        background: #ffffff;
+        color: #263746;
+    }
+
+
+    /* ==========================================================
+   CONTENEDOR DE DATOS ACADÉMICOS
+   ========================================================== */
+
+    .contenedor_actividades {
+        width: 100%;
+    }
+
+    #contenedor_datos_academicos {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+
+    /* ==========================================================
+   BLOQUES DE INFORMACIÓN
+   ========================================================== */
+
+    .bloque_datos_academicos {
+        width: 100%;
+
+        background: #ffffff;
+
+        border: 1px solid #dfe6eb;
+        border-radius: 10px;
+
+        overflow: hidden;
+
+        box-shadow: 0 3px 12px rgba(16, 47, 78, 0.06);
+    }
+
+
+    /* ==========================================================
+   TÍTULO DE CADA BLOQUE
+   ========================================================== */
+
+    .titulo_datos_academicos {
+        width: 100%;
+
+        padding: 15px 20px;
+
+        box-sizing: border-box;
+
+        background: #f4f8fa;
+
+        border-bottom: 1px solid #dfe6eb;
+    }
+
+    .titulo_datos_academicos h3 {
+        margin: 0;
+
+        color: #102f4e;
+
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+
+    /* ==========================================================
+   CONTENEDOR DE TABLAS
+   ========================================================== */
+
+    .tabla_plan_estudio,
+    .tabla_notas_academicas {
+        width: 100%;
+
+        border-collapse: collapse;
+
+        table-layout: fixed;
+    }
+
+
+    /* ==========================================================
+   CELDAS
+   ========================================================== */
+
+    .tabla_plan_estudio th,
+    .tabla_plan_estudio td,
+    .tabla_notas_academicas th,
+    .tabla_notas_academicas td {
+        padding: 13px 16px;
+
+        border-bottom: 1px solid #e6ebee;
+
+        text-align: left;
+        vertical-align: middle;
+
+        font-size: 14px;
+    }
+
+
+    /* ==========================================================
+   ENCABEZADOS
+   ========================================================== */
+
+    .tabla_plan_estudio thead th,
+    .tabla_notas_academicas thead th {
+        background: #102f4e;
+
+        color: #ffffff;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+    }
+
+
+    /* ==========================================================
+   TABLA PLANIFICACIÓN
+   ========================================================== */
+
+    .tabla_plan_estudio thead th:nth-child(1) {
+        width: 18%;
+    }
+
+    .tabla_plan_estudio thead th:nth-child(2) {
+        width: 12%;
+    }
+
+    .tabla_plan_estudio thead th:nth-child(3) {
+        width: 30%;
+    }
+
+    .tabla_plan_estudio thead th:nth-child(4) {
+        width: 25%;
+    }
+
+    .tabla_plan_estudio thead th:nth-child(5) {
+        width: 15%;
+    }
+
+
+    /* ==========================================================
+   CUERPO TABLA PLANIFICACIÓN
+   ========================================================== */
+
+    .tabla_plan_estudio tbody td {
+        background: #ffffff;
+
+        color: #344552;
+
+        line-height: 1.45;
+    }
+
+    .tabla_plan_estudio tbody tr:hover td {
+        background: #f7fafb;
+    }
+
+    .tabla_plan_estudio tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+    /* ==========================================================
+   TABLA CALIFICACIONES
+   ========================================================== */
+
+    .tabla_notas_academicas thead th:nth-child(1) {
+        width: 45%;
+    }
+
+    .tabla_notas_academicas thead th:nth-child(2) {
+        width: 25%;
+    }
+
+    .tabla_notas_academicas thead th:nth-child(3) {
+        width: 30%;
+    }
+
+
+    /* ==========================================================
+   CUERPO TABLA CALIFICACIONES
+   ========================================================== */
+
+    .tabla_notas_academicas tbody td {
+        background: #ffffff;
+
+        color: #344552;
+    }
+
+    .tabla_notas_academicas tbody tr:hover td {
+        background: #f7fafb;
+    }
+
+    .tabla_notas_academicas tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+    /* ==========================================================
+   MENSAJES DENTRO DE TABLAS
+   ========================================================== */
+
+    .mensaje_tabla {
+        padding: 26px 16px !important;
+
+        background: #fafcfd !important;
+
+        color: #6c7880 !important;
+
+        text-align: center !important;
+
+        font-size: 14px;
+
+        font-style: italic;
+    }
+
+
+    /* ==========================================================
+   RESUMEN DE CALIFICACIONES
+   ========================================================== */
+
+    .resumen_notas_academicas {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap: 14px;
+
+        padding: 20px;
+
+        box-sizing: border-box;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #dfe6eb;
+    }
+
+
+    /* ==========================================================
+   DATO INDIVIDUAL
+   ========================================================== */
+
+    .dato_nota {
+        min-height: 76px;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 7px;
+
+        padding: 14px 16px;
+
+        box-sizing: border-box;
+
+        background: #f7fafb;
+
+        border: 1px solid #dfe6eb;
+        border-radius: 8px;
+    }
+
+
+    /* ==========================================================
+   ETIQUETA DEL DATO
+   ========================================================== */
+
+    .dato_nota span {
+        color: #6c7880;
+
+        font-size: 12px;
+        font-weight: 600;
+
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+
+    /* ==========================================================
+   VALOR DEL DATO
+   ========================================================== */
+
+    .dato_nota strong {
+        color: #102f4e;
+
+        font-size: 17px;
+        font-weight: 700;
+
+        word-break: break-word;
+    }
+
+
+    /* ==========================================================
+   CONTENIDO VACÍO
+   ========================================================== */
+
+    #contenedor_datos_academicos:empty {
+        display: none;
+    }
+
+
+    /* ==========================================================
+   SCROLL HORIZONTAL DE TABLAS
+   ========================================================== */
+
+    .bloque_datos_academicos {
+        overflow-x: auto;
+    }
+
+    .tabla_plan_estudio,
+    .tabla_notas_academicas {
+        min-width: 700px;
+    }
+
+
+    /* ==========================================================
+   TABLET
+   ========================================================== */
+
+    @media (max-width: 1000px) {
+
+        #modulo_notas_academicas {
+            padding: 18px;
+        }
+
+        .resumen_notas_academicas {
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+        }
+    }
+
+
+    /* ==========================================================
+   MÓVIL
+   ========================================================== */
+
+    @media (max-width: 600px) {
+
+        #modulo_notas_academicas {
+            padding: 12px;
+        }
+
+        .contenedor_notas_academicas>h2 {
+            margin-bottom: 18px;
+
+            font-size: 20px;
+        }
+
+        .conetendor_busqueda {
+            padding: 16px;
+
+            border-radius: 8px;
+        }
+
+        .conetendor_busqueda label {
+            font-size: 13px;
+        }
+
+        .conetendor_busqueda select {
+            height: 40px;
+
+            font-size: 13px;
+        }
+
+        #contenedor_datos_academicos {
+            gap: 18px;
+        }
+
+        .titulo_datos_academicos {
+            padding: 13px 15px;
+        }
+
+        .titulo_datos_academicos h3 {
+            font-size: 15px;
+        }
+
+        .resumen_notas_academicas {
+            grid-template-columns: 1fr;
+
+            padding: 15px;
+        }
+
+        .dato_nota {
+            min-height: 68px;
+        }
+
+        .tabla_plan_estudio,
+        .tabla_notas_academicas {
+            min-width: 700px;
+        }
+
+        .tabla_plan_estudio th,
+        .tabla_plan_estudio td,
+        .tabla_notas_academicas th,
+        .tabla_notas_academicas td {
+            padding: 11px 12px;
+
+            font-size: 13px;
+        }
+    }
+</style>
+
+<section id="modulo_notas_academicas">
+    <div class="contenedor_notas_academicas">
+        <h2>Notas Académicas</h2>
+
+        <div class="conetendor_busqueda">
+            <form method="post">
+                {% csrf_token %}
+                <label for="nucleo_presentar">Núcleo:</label>
+                <select name="nucleo_presentar" id="nucleo_presentar"></select>
+
+                <label for="pnfs_cursar">P.N.F:</label>
+                <select name="pnfs_cursar" id="pnfs_cursar"></select>
+
+                <label for="trayecto_academico">Trayectos Académicos</label>
+                <select name="trayecto_academico" id="trayecto_academico"></select>
+
+                <label for="materias_presentadas">Materias Presentadas</label>
+                <select name="materias_presentadas" id="materias_presentadas"></select>
+
+                <label for="periodo_academico">Periodo(s) Académico(s)</label>
+                <select name="periodo_academico" id="periodo_academico"></select>
+            </form>
+        </div>
+
+        <div class="contenedor_actividades">
+            <id id="contenedor_datos_academicos"></id>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Estudiantes/informacion_academica.js' %}"></script>
+
+{% endblock %}

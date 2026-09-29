@@ -1,119 +1,883 @@
 {% load static %}
 
 {% if request.session.usuario_nombre and request.session.registro_completado %}
-<aside id="barra_lateral">
-    <h3 class="menu-title">MENÚ</h3>
 
-    {% if "Director General" in request.session.rol %}
-    <a href="{% url 'panel_usuario' %}">Inicio</a>
-    <details>
-        <summary>Gestión Personal</summary>
+<aside id="navegacion_lateral_carsce">
 
-        <a href="{% url 'pre_reg_personal' %}">Registro Personal</a>
-        <a href="{% url 'vis_per_asig' %}">Visualizar Personal Registrados</a>
-        <a href="{% url 'act_per_asig' %}">Gestionar Cargos Personal</a>
-    </details>
-    <details>
-        <summary>P.N.F</summary>
+    <!-- =====================================================
+         IDENTIDAD DEL SISTEMA
+    ====================================================== -->
 
-        <a href="{% url 'reg_pnf' %}">Registrar P.N.F</a>
-        <a href="{% url 'ver_pnf' %}">Consultar P.N.F</a>
-        <a href="{% url 'act_pnf' %}">Actualizar P.N.F</a>
-    </details>
-    <details>
-        <summary>Calendario Académico</summary>
+    <div class="navegacion-lateral-carsce-contexto">
 
-        <a href="{% url 'reg_calendario' %}">Registrar Calendario</a>
-        <a href="{% url 'vis_cal_reg' %}">Visualizar Calendario</a>
-    </details>
-    <details>
-        <summary>Materia</summary>
+        <div class="navegacion-lateral-carsce-contexto-icono">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
 
-        <a href="{% url 'reg_mat' %}">Registrar Materia</a>
-        <a href="{% url 'mat_lista' %}">Visualizar Materia</a>
-        <a href="{% url 'mat_guardar' %}">Actualizar Materia</a>
-    </details>
-    <details>
-        <summary>Autoridad</summary>
+        <div class="navegacion-lateral-carsce-contexto-datos">
+            <span class="navegacion-lateral-carsce-contexto-etiqueta">
+                SESIÓN ACTIVA
+            </span>
 
-        <a href="{% url 'reg_auts' %}">Registrar Autoridad</a>
-        <a href="{% url 'vist_auts' %}">Visualizar Autoridad</a>
-        <a href="{% url 'act_datos_aut' %}">Actualizar Autoridad</a>
-        <a href="{% url 'reasig_cargo' %}">Reasignar Cargos</a>
-    </details>
-    <details>
-        <summary>Aulas Académicas</summary>
+            <!-- <strong class="navegacion-lateral-carsce-contexto-rol">
+                Director General
+            </strong> -->
 
-        <a href="{% url 'reg_aula' %}">Registrar Aulas</a>
-        <a href="{% url 'act_aula_acad' %}">Visualizar Aulas</a>
-    </details>
-    <details>
-        <summary>Secciones Académicas</summary>
+            <span class="navegacion-lateral-carsce-contexto-descripcion">
+                Administración del sistema
+            </span>
+        </div>
 
-        <a href="{% url 'reg_sec' %}">Registrar Sección</a>
-        <a href="{% url 'guardar_act_sec' %}">Visualizar Sección</a>
-    </details>
-    {% endif %}
+    </div>
 
-    {% if "Control de Estudio" in request.session.rol %}
+    <div class="navegacion-lateral-carsce-separador"></div>
 
-    {% endif %}
 
-    {% if "Coordinador PNF" in request.session.rol %}
-    <details>
-        <summary>Asignar Materias</summary>
+    <!-- =====================================================
+         NAVEGACIÓN PRINCIPAL
+    ====================================================== -->
 
-        <a href="{% url 'asig_mat_doc' %}">Registrar Asignación</a>
-        <a href="{% url 'act_asig' %}">Visualizar Asignación</a>
-        <a href="{% url 'asig_desact' %}">Reasignar Materia</a>
-    </details>
-    <details>
-        <summary>Planificacion Académica</summary>
+    <nav class="navegacion-lateral-carsce-contenido">
 
-        <a href="{% url 'vis_pl_env' %}">Gestión Plan de Actividades</a>
-    </details>
-    <details>
-        <summary>Inscripción</summary>
 
-        <a href="{% url 'inscr_est' %}">Inscripción Estudiante</a>
-        <a href="{% url 'rech_inscr_est' %}">Inscribir Rechazados</a>
-    </details>
-    {% endif %}
+        <!-- =================================================
+             INICIO
+        ================================================== -->
 
-    {% if "Docente" in request.session.rol %}
-    <details>
-        <summary>Planificacion Académica</summary>
+        <div class="navegacion-lateral-carsce-bloque-inicio">
 
-        <a href="{% url 'reg_pl_act' %}">Registrar Plan de Actividades</a>
-        <a href="{% url 'vis_plan_est' %}">Visualizar Plan de Actividades</a>
-    </details>
-    <details>
-        <summary>Notas Académicas</summary>
+            <span class="navegacion-lateral-carsce-etiqueta">
+                Principal
+            </span>
 
-        <a href="{% url 'reg_nota_acad' %}">Registrar Notas Académicas</a>
-        <a href="{% url 'vis_not_acad' %}">Visualizar Notas Académicas</a>
-        <a href="{% url 'mod_not_acad' %}">Modificar Notas Académicas</a>
-    </details>
-    <details>
-        <summary>Evaluaciones Reparación</summary>
-        <a href="{% url 'reg_eval_rep' %}">Registrar Evaluación a Reparar</a>
-        <a href="{% url 'vis_eval_rep' %}">Visualizar Evaluaciones a Reparar</a>
-        <a href="{% url 'mod_eval_rep' %}">Modificar Evaluaciones a Reparar</a>
-    </details>
-    <details>
-        <summary>Reparación</summary>
-        <a href="{% url 'reg_rep_not' %}">Registrar Notas de Reparación</a>
-        <a href="{% url 'vis_rep_not' %}">Visualizar Notas de Reparación</a>
-        <a href="{% url 'mod_rep_reg' %}">Modificar Notas de Reparación</a>
-    </details>
-    {% endif %}
+            <a
+                href="{% url 'panel_usuario' %}"
+                class="navegacion-lateral-carsce-enlace-inicio"
+            >
 
-    {% if "Estudiante" in request.session.rol %}
-    <details>
-        <summary>Notas Académicas</summary>
+                <span class="navegacion-lateral-carsce-icono-inicio">
+                    <i class="fa-solid fa-house"></i>
+                </span>
 
-        <a href="{% url 'info_acad_est' %}">Información Académica</a>
-    </details>
-    {% endif %}
+                <span class="navegacion-lateral-carsce-texto-enlace">
+                    Panel principal
+                </span>
+
+                <i class="fa-solid fa-angle-right navegacion-lateral-carsce-indicador"></i>
+
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             DIRECTOR GENERAL
+        ================================================== -->
+
+        {% if "Director General" in request.session.rol %}
+
+        <div class="navegacion-lateral-carsce-seccion">
+
+            <span class="navegacion-lateral-carsce-etiqueta">
+                Administración
+            </span>
+
+
+            <!-- Gestión de Personal -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Gestión de Personal
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'pre_reg_personal' %}">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Registro de Personal</span>
+                    </a>
+
+                    <a href="{% url 'vis_per_asig' %}">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                        <span>Personal Registrado</span>
+                    </a>
+
+                    <a href="{% url 'act_per_asig' %}">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <span>Gestionar Cargos</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- PNF -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Programas P.N.F
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_pnf' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar P.N.F</span>
+                    </a>
+
+                    <a href="{% url 'ver_pnf' %}">
+                        <i class="fa-solid fa-list"></i>
+                        <span>Consultar P.N.F</span>
+                    </a>
+
+                    <a href="{% url 'act_pnf' %}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Actualizar P.N.F</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Calendario -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Calendario Académico
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_calendario' %}">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                        <span>Registrar Calendario</span>
+                    </a>
+
+                    <a href="{% url 'vis_cal_reg' %}">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Visualizar Calendario</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Autoridad -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Autoridades
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_auts' %}">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Registrar Autoridad</span>
+                    </a>
+
+                    <a href="{% url 'vist_auts' %}">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Visualizar Autoridad</span>
+                    </a>
+
+                    <a href="{% url 'act_datos_aut' %}">
+                        <i class="fa-solid fa-user-pen"></i>
+                        <span>Actualizar Autoridad</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Aulas -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-school"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Aulas Académicas
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_aula' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Aulas</span>
+                    </a>
+
+                    <a href="{% url 'act_aula_acad' %}">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                        <span>Visualizar Aulas</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Secciones -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Secciones Académicas
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_sec' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Sección</span>
+                    </a>
+
+                    <a href="{% url 'guardar_act_sec' %}">
+                        <i class="fa-solid fa-list"></i>
+                        <span>Visualizar Sección</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             GESTIÓN ACADÉMICA
+        ================================================== -->
+
+        <div class="navegacion-lateral-carsce-seccion">
+
+            <span class="navegacion-lateral-carsce-etiqueta">
+                Gestión académica
+            </span>
+
+
+            <!-- Materias -->
+
+            {% if "Control de Estudio" in request.session.rol or "Director General" in request.session.rol %}
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-book"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Materias
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_mat' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Materia</span>
+                    </a>
+
+                    <a href="{% url 'mat_lista' %}">
+                        <i class="fa-solid fa-list"></i>
+                        <span>Visualizar Materias</span>
+                    </a>
+
+                    <a href="{% url 'mat_guardar' %}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Actualizar Materia</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+            {% endif %}
+
+
+            <!-- Planificación -->
+
+            {% if "Control de Estudio" in request.session.rol or "Docente" in request.session.rol %}
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Planificación Académica
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_pl_act' %}">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                        <span>Registrar Plan</span>
+                    </a>
+
+                    <a href="{% url 'vis_plan_est' %}">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Visualizar Planes</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Revertir notas -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Historial de Notas
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'rem_not_acad' %}">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                        <span>Revertir Modificaciones</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+            {% endif %}
+
+
+            <!-- Asignaciones -->
+
+            {% if "Control de Estudio" in request.session.rol or "Coordinador PNF" in request.session.rol %}
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-link"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Asignación de Materias
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'asig_mat_doc' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Asignación</span>
+                    </a>
+
+                    <a href="{% url 'act_asig' %}">
+                        <i class="fa-solid fa-list-check"></i>
+                        <span>Visualizar Asignaciones</span>
+                    </a>
+
+                    <a href="{% url 'asig_desact' %}">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <span>Reasignar Materia</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Inscripción -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Inscripción
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'inscr_est' %}">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <span>Inscripción Estudiante</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Evaluación -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Evaluar Planificaciones
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'vis_pl_env' %}">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span>Evaluar Planificación</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+            {% endif %}
+
+        </div>
+
+        <div class="navegacion-lateral-carsce-bloque-inicio">
+
+            <span class="navegacion-lateral-carsce-etiqueta">
+                Documentos
+            </span>
+
+            <a
+                href="{% url 'reportes_control_estudio' %}"
+                class="navegacion-lateral-carsce-enlace-inicio"
+            >
+
+                <span class="navegacion-lateral-carsce-icono-inicio">
+                    <i class="fa-solid fa-chart-column"></i>
+                </span>
+
+                <span class="navegacion-lateral-carsce-texto-enlace">
+                    Reportes
+                </span>
+
+                <i class="fa-solid fa-angle-right navegacion-lateral-carsce-indicador"></i>
+
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             DOCENTE
+        ================================================== -->
+
+        {% if "Docente" in request.session.rol %}
+
+        <div class="navegacion-lateral-carsce-seccion">
+
+            <span class="navegacion-lateral-carsce-etiqueta">
+                Docencia
+            </span>
+
+
+            <!-- Notas -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Notas Académicas
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_nota_acad' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Notas</span>
+                    </a>
+
+                    <a href="{% url 'vis_not_acad' %}">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Visualizar Notas</span>
+                    </a>
+
+                    <a href="{% url 'mod_not_acad' %}">
+                        <i class="fa-solid fa-pen"></i>
+                        <span>Modificar Notas</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Evaluaciones -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-file-circle-check"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Evaluaciones de Reparación
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_eval_rep' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Evaluación</span>
+                    </a>
+
+                    <a href="{% url 'vis_eval_rep' %}">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Visualizar Evaluaciones</span>
+                    </a>
+
+                    <a href="{% url 'mod_eval_rep' %}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Modificar Evaluaciones</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <!-- Reparación -->
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Reparación
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'reg_rep_not' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Notas</span>
+                    </a>
+
+                    <a href="{% url 'vis_rep_not' %}">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Visualizar Notas</span>
+                    </a>
+
+                    <a href="{% url 'mod_rep_reg' %}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Modificar Notas</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             ESTUDIANTE
+        ================================================== -->
+
+        {% if "Estudiante" in request.session.rol %}
+
+        <div class="navegacion-lateral-carsce-seccion">
+
+            <span class="navegacion-lateral-carsce-etiqueta">
+                Mi espacio académico
+            </span>
+
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Información Académica
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'info_acad_est' %}">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span>Información Académica</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Planificación Académica
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'planif_est_reg' %}">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Mi Planificación</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+
+            <details class="navegacion-lateral-carsce-acordeon">
+
+                <summary class="navegacion-lateral-carsce-cabecera">
+
+                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+
+                        <span class="navegacion-lateral-carsce-icono-modulo">
+                            <i class="fa-solid fa-book-open"></i>
+                        </span>
+
+                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                            Mis Materias
+                        </span>
+
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+
+                </summary>
+
+                <div class="navegacion-lateral-carsce-submenu">
+
+                    <a href="{% url 'mat_vis_est' %}">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Consultar Materias</span>
+                    </a>
+
+                </div>
+
+            </details>
+
+        </div>
+
+        {% endif %}
+
+    </nav>
+
 </aside>
+
 {% endif %}

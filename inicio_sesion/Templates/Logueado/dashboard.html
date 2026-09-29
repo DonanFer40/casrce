@@ -1,0 +1,25 @@
+{% if es_director %}
+
+    {% include 'Roles/Director_General/panel_director_general.html' %}
+
+{% elif es_control_estudio %}
+
+    {% include 'Roles/Control_Estudio/panel_control_estudio.html' %}
+
+{% elif es_coordinador and es_docente %}
+
+    {% include 'Roles/Academico/panel_academico.html' %}
+
+{% elif es_coordinador %}
+
+    {% include 'Roles/Coordinador_PNF/panel_coordinador_pnf.html' %}
+
+{% elif es_docente %}
+
+    {% include 'Roles/Docente/panel_docente.html' %}
+
+{% elif es_estudiante %}
+
+    {% include 'Estudiante/panel_estudiante.html' %}
+
+{% endif %}

@@ -1,0 +1,244 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-secciones-visualizar-carsce">
+
+    <div class="director-secciones-visualizar-carsce-contenedor">
+
+        <!-- ENCABEZADO DE LA PÁGINA -->
+        <div class="director-secciones-visualizar-carsce-encabezado">
+
+            <div class="director-secciones-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-secciones-visualizar-carsce-presentacion">
+
+                <h3 class="director-secciones-visualizar-carsce-titulo">
+                    Secciones Académicas
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-secciones-visualizar-carsce-descripcion">
+                    Consulta y administra las secciones académicas registradas en el sistema institucional.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TARJETA PRINCIPAL -->
+        <div class="director-secciones-visualizar-carsce-tarjeta">
+
+            <div class="director-secciones-visualizar-carsce-tarjeta-cabecera">
+
+                <div class="director-secciones-visualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-table-list"></i>
+                </div>
+
+                <div class="director-secciones-visualizar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-secciones-visualizar-carsce-tarjeta-titulo">
+                        Visualizar Secciones
+                    </h4>
+
+                    <p class="director-secciones-visualizar-carsce-tarjeta-descripcion">
+                        Revisa las secciones registradas y accede a sus opciones de modificación.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ENVOLTORIO RESPONSIVE DE LA TABLA -->
+            <div class="director-secciones-visualizar-carsce-tabla-contenedor">
+
+                <table class="director-secciones-visualizar-carsce-tabla">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Sección</th>
+                            <th>Turno</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="contenedor_secciones">
+                        <!-- Filas renderizadas dinámicamente -->
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MODAL DE ACTUALIZACIÓN
+     ===================================================== -->
+
+<dialog id="dialogo_actualizar_secciones">
+
+    <div class="director-secciones-visualizar-carsce-modal">
+
+        <!-- CABECERA DEL MODAL -->
+        <div class="director-secciones-visualizar-carsce-modal-cabecera">
+
+            <div class="director-secciones-visualizar-carsce-modal-identificacion">
+
+                <div class="director-secciones-visualizar-carsce-modal-icono">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <div class="director-secciones-visualizar-carsce-modal-informacion">
+
+                    <h4 class="director-secciones-visualizar-carsce-modal-titulo">
+                        Modificar Sección
+                    </h4>
+
+                    <p class="director-secciones-visualizar-carsce-modal-descripcion">
+                        Actualiza los datos correspondientes a la sección seleccionada.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                id="cerrar_dialogo"
+                class="director-secciones-visualizar-carsce-modal-cerrar"
+                title="Cerrar"
+                aria-label="Cerrar ventana"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <!-- FORMULARIO DE ACTUALIZACIÓN -->
+        <form
+            method="post"
+            id="formulario_actualizar_seccion"
+            class="director-secciones-visualizar-carsce-formulario"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="seccion"
+                id="secciones_seleccionado"
+            >
+
+
+            <!-- SECCIÓN -->
+            <div class="director-secciones-visualizar-carsce-campo">
+
+                <label
+                    for="actualizar_seccion_registrado"
+                    class="director-secciones-visualizar-carsce-etiqueta"
+                >
+                    Sección:
+                </label>
+
+                <div class="director-secciones-visualizar-carsce-control">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <input
+                        type="text"
+                        name="actualizar_seccion"
+                        id="actualizar_seccion_registrado"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+                <small
+                    id="mensaje_actualizar_seccion"
+                    class="director-secciones-visualizar-carsce-mensaje"
+                ></small>
+
+            </div>
+
+
+            <!-- TURNO -->
+            <div class="director-secciones-visualizar-carsce-campo">
+
+                <label
+                    for="actualizar_turno_registrado"
+                    class="director-secciones-visualizar-carsce-etiqueta"
+                >
+                    Turno:
+                </label>
+
+                <div class="director-secciones-visualizar-carsce-control">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <select
+                        name="actualizar_turno"
+                        id="actualizar_turno_registrado"
+                    >
+                        <option value="">
+                            Seleccione un Turno
+                        </option>
+
+                        <option value="Diurno">
+                            Diurno
+                        </option>
+
+                        <option value="Nocturno">
+                            Nocturno
+                        </option>
+
+                        <option value="Fines de Semana">
+                            Fines de Semana
+                        </option>
+                    </select>
+
+                    <i class="fa-solid fa-chevron-down director-secciones-visualizar-carsce-flecha"></i>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACCIONES -->
+            <div class="director-secciones-visualizar-carsce-acciones">
+
+                <input
+                    type="submit"
+                    id="btn_actualizar"
+                    class="director-secciones-visualizar-carsce-boton"
+                    value="Actualizar Sección"
+                >
+
+            </div>
+
+        </form>
+
+    </div>
+
+</dialog>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Seccion/visualizar_seccion.js' %}"></script>
+
+{% endblock %}

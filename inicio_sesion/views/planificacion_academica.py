@@ -4,82 +4,209 @@ from datetime import timedelta
 from django.http import JsonResponse
 from django.utils import timezone
 
-from inicio_sesion.models import CoordinadorPNF
+from inicio_sesion.models import CoordinadorPNF, PNFNucleo, ControlEstudio, CalendarioPeriodo, DocenteAsignadoMateria, Docente
 from notas_academicas.models import PlanificacionAcademica
 
-def pnf_asig_coord(request):
-    coordinadores = CoordinadorPNF.objects.filter(usuario__cedula_identidad=request.session.get("cedula_usuario")
-    ).select_related("pnf")
-
-    pnfs = []
-    for coordinador in coordinadores:
-        pnfs.append({
-            "id_pnf": coordinador.pnf.id_pnf,
-            "pnf": coordinador.pnf.pnf,
+def pl_reg_coord_pnf(request):
+    if request.method != "POST":
+        return JsonResponse({
+            "datos": []
         })
 
-    return JsonResponse({ "pnfs": pnfs })
+    id_pnf = request.POST.get("pnf_asignado", "").strip()
+    perfil = request.POST.get("perfil", "").strip()
+    cedula = request.session.get("cedula_usuario")
+    print(perfil)
 
-def pl_reg_coord_pnf(request):
-    if request.method == "POST":
-        id_pnf = request.POST.get("pnf_asignado")
+    if not cedula or not perfil:
+        return JsonResponse({
+            "datos": []
+        })
 
-        if not id_pnf:
-            return JsonResponse({
-                "datos": []
-            })
+    # COORDINADOR PNF
+    if perfil == "COORDINADOR_PNF":
 
-        cedula = request.session.get("cedula_usuario")
-
-        coordinador = CoordinadorPNF.objects.filter(
-            usuario__cedula_identidad=cedula,
-            pnf_id=id_pnf
-        ).select_related(
-            "pnf",
-            "nucleo"
-        ).first()
+        coordinador = (
+            CoordinadorPNF.objects
+            .filter(
+                usuario__cedula_identidad=cedula,
+                activo=True
+            )
+            .select_related(
+                "pnf",
+                "nucleo"
+            )
+            .first()
+        )
 
         if not coordinador:
             return JsonResponse({
                 "datos": []
             })
 
-        fecha_actual = timezone.localdate()
+        # El coordinador solo puede consultar
+        # su PNF y su núcleo asignado.
+        pnf_id = coordinador.pnf_id
+        nucleo_id = coordinador.nucleo_id
 
-        planes = PlanificacionAcademica.objects.filter(
-            pnf=coordinador.pnf,
-            nucleo=coordinador.nucleo,
+    # CONTROL DE ESTUDIO
+    elif perfil == "CONTROL_ESTUDIO":
+
+        if not id_pnf:
+            return JsonResponse({
+                "datos": []
+            })
+
+        control = (
+            ControlEstudio.objects
+            .filter(
+                usuario__cedula_identidad=cedula,
+                activo=True
+            )
+            .select_related(
+                "nucleo"
+            )
+            .first()
+        )
+
+        if not control:
+            return JsonResponse({
+                "datos": []
+            })
+
+        relacion_pnf = (
+            PNFNucleo.objects
+            .filter(
+                id_pnf_id=id_pnf,
+                id_nucleo_id=control.nucleo_id
+            )
+            .first()
+        )
+
+        if not relacion_pnf:
+            return JsonResponse({
+                "datos": []
+            })
+
+        pnf_id = relacion_pnf.id_pnf_id
+        nucleo_id = control.nucleo_id
+
+    else:
+        return JsonResponse({
+            "datos": []
+        })
+
+    # FECHA ACTUAL
+    fecha_actual = timezone.localdate()
+    anio_actual = fecha_actual.year
+
+    # PLANIFICACIONES DEL PNF Y NÚCLEO
+    planes = (
+        PlanificacionAcademica.objects
+        .filter(
             estado_aceptacion="ENVIADO",
-            periodo_academico__calendarios__calendario__activo=True,
-            periodo_academico__calendarios__calendario__tipo="PERIODO",
-            periodo_academico__calendarios__calendario__fecha_inicio__lte=fecha_actual,
-            periodo_academico__calendarios__calendario__fecha_inicio__gte=fecha_actual - timedelta(days=3)
-        ).select_related(
+            activo=True,
+            pnf_id=pnf_id,
+            nucleo_id=nucleo_id
+        )
+        .select_related(
             "pnf",
             "nucleo",
             "materia_asignacion__materia",
             "periodo_academico"
-        ).prefetch_related(
+        )
+        .prefetch_related(
             "detalles"
-        ).distinct().order_by("-fecha_creacion")
+        )
+        .order_by(
+            "id_planificacion"
+        )
+    )
 
-        datos = []
+    datos = []
 
-        for plan in planes:
-            datos.append({
-                "id_plan": plan.id_planificacion,
-                "pnf": plan.pnf.pnf,
-                "nucleo": plan.nucleo.municipio,
-                "materia": plan.materia_asignacion.materia.nombre,
-                "periodo_academico": plan.periodo_academico.nombre,
-                "cantidad_unidades": plan.detalles.count(),
-                "fecha_creacion": plan.fecha_creacion.strftime("%d/%m/%Y %H:%M"),
-                "fecha_actualizacion": plan.fecha_actualizacion.strftime("%d/%m/%Y %H:%M"),
-            })
+    for plan in planes:
 
-        return JsonResponse({
-            "datos": datos
+        # CALENDARIO ACADÉMICO DEL PERÍODO
+        calendario = (
+            CalendarioPeriodo.objects
+            .filter(
+                periodo=plan.periodo_academico,
+                calendario__tipo="PERIODO",
+                calendario__activo=True,
+                calendario__fecha_inicio__year=anio_actual
+            )
+            .select_related(
+                "calendario"
+            )
+            .first()
+        )
+
+        if not calendario:
+            continue
+
+        fecha_inicio = calendario.calendario.fecha_inicio
+        fecha_final = calendario.calendario.fecha_final
+
+        # PLAZO DE LOS PRIMEROS 5 DÍAS
+        fecha_limite = fecha_inicio + timedelta(days=4)
+
+        # El período todavía no comienza
+        if fecha_actual < fecha_inicio:
+            continue
+
+        # Ya pasaron los primeros 5 días
+        if fecha_actual > fecha_limite:
+            continue
+
+        # El período académico ya finalizó
+        if fecha_actual > fecha_final:
+            continue
+
+        datos.append({
+            "id_plan": plan.id_planificacion,
+
+            "pnf": plan.pnf.pnf,
+
+            "nucleo": plan.nucleo.municipio,
+
+            "materia": (
+                plan.materia_asignacion.materia.nombre
+            ),
+
+            "periodo_academico": (
+                plan.periodo_academico.nombre
+            ),
+
+            "cantidad_unidades": (
+                plan.detalles.count()
+            ),
+
+            "fecha_creacion": (
+                plan.fecha_creacion.strftime(
+                    "%d/%m/%Y %H:%M"
+                )
+            ),
+
+            "fecha_actualizacion": (
+                plan.fecha_actualizacion.strftime(
+                    "%d/%m/%Y %H:%M"
+                )
+            ),
+
+            "estado_aceptacion": (
+                plan.estado_aceptacion
+            ),
+
+            "estado_aceptacion_display": (
+                plan.get_estado_aceptacion_display()
+            ),
         })
+
+    return JsonResponse({
+        "estado": "exito",
+        "datos": datos
+    })
 
 def datos_pl_reg_coord_pnf(request):
     if request.method == "POST":
@@ -180,20 +307,19 @@ def datos_pl_reg_coord_pnf(request):
         })
 
 def vis_pl_env(request):
-    return render(request, "Coordinador_PNF/planificacion_academica/visualizar_planes_actvidades.html")
+    return render(
+        request,
+        'Roles/Coordinador_PNF/planificacion_academica/visualizar_planes_actividades.html'
+    )
 
 def camb_est_pl(request):
     if request.method == "POST":
-
         id_plan = request.POST.get("id_plan")
         estado = request.POST.get("estado")
         observacion = request.POST.get("observacion")
 
         try:
-            plan = PlanificacionAcademica.objects.get(
-                id_planificacion=id_plan
-            )
-
+            plan = PlanificacionAcademica.objects.get(id_planificacion=id_plan)
         except PlanificacionAcademica.DoesNotExist:
             return JsonResponse({
                 "estado": "fallo",

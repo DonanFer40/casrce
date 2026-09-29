@@ -1,0 +1,311 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* =========================================
+       ASIGNAR MATERIA
+    ========================================= */
+
+    #asignar_materia {
+        width: 100%;
+        padding: 30px 20px;
+        box-sizing: border-box;
+    }
+
+    .contenedor_asignar_materia {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .contenedor_asignar_materia>h3 {
+        margin: 0 0 25px;
+        text-align: center;
+        color: #00445f;
+        font-size: 26px;
+    }
+
+
+    /* =========================================
+       CONTENEDOR DE BÚSQUEDA
+    ========================================= */
+
+    #contenedor_busqueda_asignacion {
+        width: 100%;
+        padding: 22px;
+        margin-bottom: 25px;
+        box-sizing: border-box;
+
+        background: #ffffff;
+        border: 1px solid #d9e5e9;
+        border-radius: 10px;
+
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    #contenedor_busqueda_asignacion h4 {
+        margin: 0 0 20px;
+        padding-bottom: 10px;
+
+        color: #00445f;
+        font-size: 18px;
+
+        border-bottom: 2px solid #00b6ea;
+    }
+
+
+    /* =========================================
+       FORMULARIO DE BÚSQUEDA
+    ========================================= */
+
+    #formulario_busqueda {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 20px;
+    }
+
+    #formulario_busqueda label {
+        color: #00445f;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 5px;
+    }
+
+    #formulario_busqueda select,
+    #formulario_busqueda input[type="text"] {
+        width: 100%;
+        height: 42px;
+
+        padding: 0 12px;
+        box-sizing: border-box;
+
+        border: 1px solid #c8d7dc;
+        border-radius: 6px;
+
+        background: #f8fbfc;
+        color: #263238;
+
+        font-size: 14px;
+        outline: none;
+
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s,
+            background-color 0.2s;
+    }
+
+    #formulario_busqueda select:focus,
+    #formulario_busqueda input[type="text"]:focus {
+        border-color: #00b6ea;
+        background: #ffffff;
+
+        box-shadow: 0 0 0 2px rgba(0, 182, 234, 0.12);
+    }
+
+
+    /* =========================================
+       CONTENEDOR DE MATERIAS
+    ========================================= */
+
+    #contenedor_materias {
+        width: 100%;
+    }
+
+
+    /* =========================================
+       PNF
+    ========================================= */
+
+    .contenedor_pnf_materias {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .contenedor_pnf_materias>h2 {
+        margin: 0 0 15px;
+        padding: 12px 15px;
+
+        background: #00445f;
+        color: #ffffff;
+
+        border-radius: 7px;
+
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+       TRAYECTO
+    ========================================= */
+
+    .contenedor_trayecto_materias {
+        margin-bottom: 22px;
+    }
+
+    .contenedor_trayecto_materias h3 {
+        margin: 0;
+        padding: 10px 13px;
+
+        background: #f0f6f8;
+        color: #00445f;
+
+        border-left: 4px solid #00b6ea;
+        border-radius: 5px 5px 0 0;
+
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+       TABLA
+    ========================================= */
+
+    .tabla-materias {
+        width: 100%;
+
+        border-collapse: collapse;
+
+        background: #ffffff;
+        border: 1px solid #d9e5e9;
+
+        overflow: hidden;
+    }
+
+    .tabla-materias thead {
+        background: #f0f6f8;
+    }
+
+    .tabla-materias th {
+        padding: 11px 12px;
+
+        border-bottom: 2px solid #00445f;
+
+        color: #00445f;
+        font-size: 13px;
+        font-weight: 600;
+
+        text-align: left;
+    }
+
+    .tabla-materias td {
+        padding: 10px 12px;
+
+        border-bottom: 1px solid #e2eaed;
+
+        color: #333333;
+        font-size: 14px;
+    }
+
+    .tabla-materias tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .tabla-materias tbody tr {
+        transition: background-color 0.2s;
+        cursor: pointer;
+    }
+
+    .tabla-materias tbody tr:hover {
+        background: #f8fbfc;
+    }
+
+
+    /* =========================================
+       MENSAJES
+    ========================================= */
+
+    #contenedor_materias>p {
+        width: 100%;
+        padding: 15px;
+
+        margin: 15px 0;
+
+        box-sizing: border-box;
+
+        text-align: center;
+
+        border: 1px solid #d9e5e9;
+        border-radius: 7px;
+
+        background: #f8fbfc;
+        color: #555555;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (max-width: 700px) {
+
+        #asignar_materia {
+            padding: 20px 10px;
+        }
+
+        #contenedor_busqueda_asignacion {
+            padding: 16px;
+        }
+
+        #formulario_busqueda {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .contenedor_asignar_materia>h3 {
+            font-size: 22px;
+        }
+
+        .tabla-materias {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tabla-materias th,
+        .tabla-materias td {
+            padding: 9px 8px;
+            font-size: 13px;
+        }
+    }
+</style>
+
+<section id="asignar_materia">
+    <div class="contenedor_asignar_materia">
+        <h3>Asignar Materia a Docente</h3>
+
+        <div id="contenedor_busqueda_asignacion">
+            <h4>Busqueda Asignación</h4>
+
+            <form method="post" id="formulario_busqueda">
+                {% csrf_token %}
+                <label for="perfiles_asignados" id="label_perfil">Perfil Asignado:</label>
+                <select name="perfiles_asignados" id="perfiles_asignados" style="display: none;"></select>
+
+                <input type="text" name="perfiles_asignados" id="perfil_asignado" readonly style="display: none;">
+
+                <label for="pnfs_asignados" id="label_pnf">P.N.F Asignado:</label>
+                <select name="pnfs_asignados" id="pnfs_asignados"></select>
+
+                <label for="trayecto">Trayecto Académico:</label>
+                <select name="trayecto" id="trayecto"></select>
+
+                <label for="materia">Materia:</label>
+                <input type="text" name="materia" id="materia" placeholder="Ingresa el nombre de la materia"
+                    autocomplete="off">
+            </form>
+        </div>
+
+        <div id="contenedor_materias"></div>
+    </div>
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Coordinador_PNF/Asignacion_Materia/reactivar_asignacion.js' %}"></script>
+
+{% endblock %}

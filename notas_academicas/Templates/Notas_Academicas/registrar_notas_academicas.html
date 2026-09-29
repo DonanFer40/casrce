@@ -1,0 +1,317 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* =========================================================
+   REGISTRAR NOTAS ACADÉMICAS
+   ========================================================= */
+
+    #modulo_registrar_notas_academicas {
+        width: 100%;
+        padding: 30px 20px;
+        box-sizing: border-box;
+    }
+
+    .contenedor_registrar_notas_academicas {
+        width: 100%;
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 30px;
+        background: #ffffff;
+        border: 1px solid #dfe6eb;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        box-sizing: border-box;
+    }
+
+    .contenedor_registrar_notas_academicas h2 {
+        margin: 0 0 28px;
+        padding: 15px 20px;
+        background: #00445f;
+        color: #ffffff;
+        border-radius: 7px;
+        font-size: 21px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+
+    /* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+    #formulario_registrar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 25px;
+        row-gap: 18px;
+    }
+
+    #formulario_registrar>label,
+    #contenedor_seleccion_docente {
+        width: 100%;
+    }
+
+    #formulario_registrar>label {
+        display: block;
+        margin-bottom: -10px;
+        color: #26343d;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================================
+   SELECTS
+   ========================================================= */
+
+    #formulario_registrar select,
+    #formulario_registrar input[type="text"] {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 13px;
+        border: 1px solid #cbd5db;
+        border-radius: 6px;
+        background-color: #ffffff;
+        color: #26343d;
+        font-family: inherit;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+    }
+
+    #formulario_registrar select {
+        cursor: pointer;
+    }
+
+    #formulario_registrar select:focus,
+    #formulario_registrar input[type="text"]:focus {
+        border-color: #00779e;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, 0.12);
+    }
+
+    #formulario_registrar select:hover {
+        border-color: #00779e;
+    }
+
+    #formulario_registrar select:disabled {
+        background-color: #f1f4f6;
+        color: #7b8790;
+        cursor: not-allowed;
+    }
+
+
+    /* =========================================================
+   PERFIL ASIGNADO
+   ========================================================= */
+
+    #perfiles_asignados,
+    #perfil_asignado {
+        grid-column: 1 / -1;
+    }
+
+
+    /* =========================================================
+   DOCENTE
+   ========================================================= */
+
+    #contenedor_seleccion_docente {
+        grid-column: 1 / -1;
+    }
+
+    #contenedor_seleccion_docente label {
+        display: block;
+        margin-bottom: 8px;
+        color: #26343d;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================================
+   CAMPOS ACADÉMICOS
+   ========================================================= */
+
+    #trayecto_academico,
+    #materia_asignada,
+    #periodo_academico {
+        width: 100%;
+    }
+
+
+    /* =========================================================
+   BOTÓN
+   ========================================================= */
+
+    .contenedor_boton_notas {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+        padding-top: 20px;
+        border-top: 1px solid #e5eaed;
+    }
+
+    #btn_registrar_notas {
+        min-width: 150px;
+        min-height: 44px;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 6px;
+        background-color: #00445f;
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    #btn_registrar_notas:hover {
+        background-color: #00779e;
+        box-shadow: 0 4px 10px rgba(0, 68, 95, 0.18);
+    }
+
+    #btn_registrar_notas:active {
+        transform: translateY(1px);
+    }
+
+    #btn_registrar_notas:disabled {
+        background-color: #9aa7ae;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+
+    /* =========================================================
+   CONTENEDOR DE NOTAS
+   ========================================================= */
+
+    #contenedor_notas_academicas {
+        grid-column: 1 / -1;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+
+    /* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+    @media (max-width: 800px) {
+
+        #modulo_registrar_notas_academicas {
+            padding: 20px 15px;
+        }
+
+        .contenedor_registrar_notas_academicas {
+            padding: 22px 18px;
+        }
+
+        #formulario_registrar {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        #perfiles_asignados,
+        #perfil_asignado,
+        #contenedor_seleccion_docente,
+        .contenedor_boton_notas,
+        #contenedor_notas_academicas {
+            grid-column: 1;
+        }
+
+        .contenedor_boton_notas {
+            justify-content: stretch;
+        }
+
+        #btn_registrar_notas {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        #modulo_registrar_notas_academicas {
+            padding: 15px 10px;
+        }
+
+        .contenedor_registrar_notas_academicas {
+            padding: 18px 14px;
+            border-radius: 7px;
+        }
+
+        .contenedor_registrar_notas_academicas h2 {
+            padding: 13px 12px;
+            font-size: 18px;
+        }
+
+        #formulario_registrar select,
+        #formulario_registrar input[type="text"] {
+            min-height: 42px;
+            font-size: 13px;
+        }
+    }
+</style>
+
+
+<section id="modulo_registrar_notas_academicas">
+    <div class="contenedor_registrar_notas_academicas">
+        <h2>Registrar Notas Académicas</h2>
+
+        <form method="post" id="formulario_registrar">
+            {% csrf_token %}
+            <label for="perfiles_asignados">Perfil Asignado:</label>
+            <select name="perfiles_asignados" id="perfiles_asignados" style="display: none;"></select>
+
+            <input type="text" name="perfiles_asignados" id="perfil_asignado" readonly style="display: none;">
+
+            <label for="nucleo_asignado">Núcleo Asignado:</label>
+            <select name="nucleo_asignado" id="nucleo_asignado"></select>
+
+            <label for="pnf_asignado">P.N.F Asignado:</label>
+            <select name="pnf_asignado" id="pnf_asignado"></select>
+
+            <div id="contenedor_seleccion_docente" style="display: none;">
+                <label for="seleccion_docente">Docente:</label>
+                <select name="seleccion_docente" id="seleccion_docente">
+                    <option value="" selected>Selecciona un Docente</option>
+                </select>
+            </div>
+
+            <label for="trayecto_academico">Trayecto Académico:</label>
+            <select name="trayecto_academico" id="trayecto_academico">
+                <option value='' selected>Debe seleccionar el Trayecto Académico</option>
+            </select>
+
+            <label for="materia_asignada">Materia(s) Asignada(s):</label>
+            <select name="materia_asignada" id="materia_asignada">
+                <option value='' selected>Debe seleccionar la materia</option>
+            </select>
+
+            <label for="periodo_academico">Periodo Académico:</label>
+            <input type="text" name="periodo" id="periodo_academico" readonly
+                placeholder="Periodo Académico de la Materia.">
+
+            <div class="contenedor_boton_notas">
+                <input type="submit" value="Registrar" id="btn_registrar_notas">
+            </div>
+
+            <div id="contenedor_notas_academicas"></div>
+        </form>
+    </div>
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Docente/Notas_Academicas/registrar_notas_academicas.js' %}"></script>
+
+{% endblock %}

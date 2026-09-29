@@ -1,37 +1,73 @@
 {% extends 'Estructura/base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<section id="ProyectoSocioTecnologico" class="reveal">
 
-<section id="PST" class="reveal">
-    <div class="contenedor layout-3">
-            <div class="contenedor-info col-3">
-                <h2>¿Qué es el Proyecto Socio-Tecnológico?</h2>
-                <p>El Proyecto Socio-Tecnológico (PST) es una unidad curricular anual desarrollada en todos los Programas Nacionales de Formación (PNF). Su finalidad es promover el aprendizaje experiencial dentro y fuera de la universidad mediante la participación activa en organizaciones, comunidades o instituciones públicas y privadas. 
-                Los estudiantes aplican sus conocimientos teóricos en situaciones reales, fortaleciendo el pensamiento crítico, la innovación y la responsabilidad social.</p>
-            </div>
-            <div class="contenedor-info layout-1">
-                <h2>Duración y Organización por Trayectos</h2>
-                <p>El PST tiene una duración de <strong>todo el año académico</strong>. Cada trayecto incluye un proyecto distinto, es decir:
-                si la carrera dura 4 años, se desarrollan <strong>4 proyectos diferentes</strong>, a menos que el equipo decida continuar y mejorar uno previo.
-                La defensa del proyecto se realiza al finalizar cada trayecto.</p>
-            </div>
+    <div class="ProyectoSocioTecnologico-contenedor">
 
-            <div class="contenedor-info ">
-                <h2>¿Cómo se trabaja el Proyecto?</h2>
-                <p>El PST se desarrolla en equipos de <strong>3 a 4 estudiantes</strong>, aunque puede ampliarse si el alcance lo requiere.
-                Cada proyecto aplica una metodología adecuada según el tipo de propuesta, pudiendo ser:
-                <strong>XP, Scrum, Kanban, Lean UX, Investigación-Acción</strong>, entre otras.
-                La propuesta tecnológica o práctica depende del PNF; puede ser un sistema informático, un dispositivo electrónico, un producto alimenticio o una intervención veterinaria, según la especialidad.</p>
-            </div>
-        
-            <!-- ========== ESTRATEGIAS DE EVALUACIÓN ========== -->
-            <div class="contenedor-info">
-                <details class="psc-details">
-                    <summary>Estrategias de Evaluación</summary>
-                    <div class="psc-details-content">
-                    <ul>
+        <div class="ProyectoSocioTecnologico-seccion ProyectoSocioTecnologico-seccion-principal">
+            <h2 class="ProyectoSocioTecnologico-titulo">
+                ¿Qué es el Proyecto Socio-Tecnológico?
+            </h2>
+
+            <p class="ProyectoSocioTecnologico-texto">
+                El Proyecto Socio-Tecnológico (PST) es una unidad curricular anual desarrollada en todos los
+                Programas Nacionales de Formación (PNF). Su finalidad es promover el aprendizaje experiencial
+                dentro y fuera de la universidad mediante la participación activa en organizaciones, comunidades
+                o instituciones públicas y privadas. Los estudiantes aplican sus conocimientos teóricos en
+                situaciones reales, fortaleciendo el pensamiento crítico, la innovación y la responsabilidad social.
+            </p>
+        </div>
+
+        <div class="ProyectoSocioTecnologico-seccion">
+            <h2 class="ProyectoSocioTecnologico-titulo">
+                Duración y Organización por Trayectos
+            </h2>
+
+            <p class="ProyectoSocioTecnologico-texto">
+                El PST tiene una duración de <strong>todo el año académico</strong>. Cada trayecto incluye un
+                proyecto distinto, es decir: si la carrera dura 4 años, se desarrollan <strong>4 proyectos diferentes</strong>,
+                a menos que el equipo decida continuar y mejorar uno previo. La defensa del proyecto se realiza
+                al finalizar cada trayecto.
+            </p>
+        </div>
+
+        <div class="ProyectoSocioTecnologico-seccion">
+            <h2 class="ProyectoSocioTecnologico-titulo">
+                ¿Cómo se trabaja el Proyecto?
+            </h2>
+
+            <p class="ProyectoSocioTecnologico-texto">
+                El PST se desarrolla en equipos de <strong>3 a 4 estudiantes</strong>, aunque puede ampliarse si
+                el alcance lo requiere. Cada proyecto aplica una metodología adecuada según el tipo de propuesta,
+                pudiendo ser: <strong>XP, Scrum, Kanban, Lean UX, Investigación-Acción</strong>, entre otras.
+                La propuesta tecnológica o práctica depende del PNF; puede ser un sistema informático, un
+                dispositivo electrónico, un producto alimenticio o una intervención veterinaria, según la especialidad.
+            </p>
+        </div>
+
+        <div class="ProyectoSocioTecnologico-seccion ProyectoSocioTecnologico-evaluacion">
+
+            <details class="ProyectoSocioTecnologico-detalles">
+
+                <summary class="ProyectoSocioTecnologico-resumen">
+                    <span class="ProyectoSocioTecnologico-resumen-icono">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </span>
+
+                    <span class="ProyectoSocioTecnologico-resumen-texto">
+                        Estrategias de Evaluación
+                    </span>
+
+                    <span class="ProyectoSocioTecnologico-resumen-flecha">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+
+                <div class="ProyectoSocioTecnologico-detalles-contenido">
+                    <ul class="ProyectoSocioTecnologico-lista">
                         <li>Evaluaciones escritas y exámenes</li>
                         <li>Defensas parciales y finales</li>
                         <li>Mesas técnicas de revisión</li>
@@ -40,10 +76,13 @@
                         <li>Observación del trabajo individual y grupal</li>
                     </ul>
                 </div>
+
             </details>
-            </div>
+
         </div>
+
     </div>
+
 </section>
 
 {% endblock %}

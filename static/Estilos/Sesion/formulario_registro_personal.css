@@ -1,279 +1,1406 @@
-#registrar_personal {
-    min-height: 100vh;
-    margin-top: 120px;
-    padding: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f5f7fa;
+/* =========================================================
+   REGISTRO DE PERSONAL - CASRCE
+   ========================================================= */
+
+#RegistroPersonalCASRCE{
+
+    width:100%;
+
+    min-height:calc(100vh - 140px);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+
+    padding:48px 24px 70px;
+
+    background:var(--color-fondo-pagina);
+
+    color:var(--texto-principal);
 }
 
-.tarjeta_principal {
-    width: 100%;
-    max-width: 1100px;
-    display: flex;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
-    overflow: hidden;
-}
-
-/* ============================
-   INFORMACIÓN PERSONAL
-============================ */
-
-#registrar_personal .lado_izquierdo {
-    width: 48%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-#registrar_personal .separador {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-#registrar_personal .btn-regresar {
-    background: var(--color-azulE);
-    color: var(--color-base);
-    display: inline-block;
-    padding: 8px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-bottom-right-radius: 2rem;
-    border-top-left-radius: 2rem;
-    transition: .3s;
-}
-
-#registrar_personal .btn-regresar:hover {
-    background: var(--color-neutro);
-    color: var(--color-base);
-}
-
-#registrar_personal .contenedor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 20px 0;
-}
-
-#registrar_personal .lado_izquierdo img {
-    width: 320px;
-    margin-top: 20px;
-}
-
-#registrar_personal .lado_izquierdo p {
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 15px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-/* ============================
-   FORMULARIO
-============================ */
-
-#registrar_personal .lado_derecho {
-    width: 52%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#registrar_personal .lado_derecho label {
-    margin-bottom: 6px;
-    font-weight: bold;
-    color: var(--color-intermitente);
-    width: 100%;
-    text-align: left;
-    font-size: 0.9rem;
-}
-
-#registrar_personal .contenedor_busqueda {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 40px;
-    box-sizing: border-box;
-}
-
-#registrar_personal .contenedor_busqueda h3 {
-    font-size: 1.5rem;
-    color: var(--color-azulE);
-    margin-bottom: 15px;
-}
-
-#registrar_personal .grupo-input {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-#registrar_personal .nacionalidad {
-    width: 50px;
-    height: 42px;
-    border: 2px solid var(--color-azulE);
-    border-radius: 10px;
-    background: #636CCB;
-    font-size: 0.95rem;
-    text-align: center;
-    outline: none;
-    transition: .3s;
-    color: var(--color-base);
-}
-
-#registrar_personal .nacionalidad:focus {
-    border-color: var(--color-hover-azulE);
-}
-
-#registrar_personal .cedula_identidad {
-    flex: 1;
-    height: 42px;
-    border: 2px solid lightgray;
-    border-radius: 10px;
-    padding: 0 14px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: .3s;
-}
-
-#registrar_personal .cedula_identidad:focus {
-    border-color: var(--color-azulE);
-    box-shadow: 0 0 8px rgba(0, 0, 0, .08);
-}
-
-/* ============================
-   CREDENCIALES Y CONTRASEÑA
-============================ */
-
-#registrar_personal input[type="text"]:not(.cedula_identidad) {
-    width: 100%;
-    height: 42px;
-    border: 2px solid lightgray;
-    border-radius: 10px;
-    padding: 0 14px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: .3s;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-}
-
-#registrar_personal input[type="text"]:not(.cedula_identidad):focus {
-    border-color: var(--color-azulE);
-    box-shadow: 0 0 8px rgba(0, 0, 0, .08);
-}
-
-/* Contenedor Flexbox para la Contraseña (alinea el icono a la derecha) */
-#registrar_personal .password-group {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 42px;
-    border: 2px solid lightgray;
-    border-radius: 10px;
-    padding: 0 14px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-    transition: .3s;
-    background: #fff;
-}
-
-#registrar_personal .password-group:focus-within {
-    border-color: var(--color-azulE);
-    box-shadow: 0 0 8px rgba(0, 0, 0, .08);
-}
-
-/* El input interno toma todo el espacio sobrante */
-#registrar_personal .password-group input[type="password"],
-#registrar_personal .password-group input[type="text"] {
-    width: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 0.95rem;
-    padding: 0;
-    margin: 0;
-    height: 100%;
-}
-
-/* Iconos */
-#registrar_personal .eye_off,
-#registrar_personal .eye_on {
-    cursor: pointer;
-    color: var(--color-intermitente);
-    font-size: 1.2rem;
-    margin-left: 10px;
-    align-items: center;
-    user-select: none;
-}
-
-#registrar_personal .eye_off:hover,
-#registrar_personal .eye_on:hover {
-    color: var(--color-azulE);
-}
-
-/* Checkbox oculto */
-#OcultaAparecer {
-    display: none !important;
-}
-
-/* Lógica de Toggle entre Ojo Abierto / Cerrado */
-#registrar_personal .eye_off,
-#registrar_personal .eye_on {
-    display: none;
-}
-
-#OcultaAparecer:not(:checked)~.eye_off:not([hidden]):not(.ocultar) {
-    display: flex !important;
-}
-
-#OcultaAparecer:checked~.eye_on:not([hidden]):not(.ocultar) {
-    display: flex !important;
-}
-
-#registrar_personal small {
-    width: 100%;
-    color: red;
-    margin-bottom: 10px;
-    font-size: 0.8rem;
-}
-
-/* BOTÓN */
-#registrar_personal input[type="submit"] {
-    width: 180px;
-    height: 42px;
-    border: none;
-    border-radius: 10px;
-    background: var(--color-azulE);
-    color: white;
-    font-size: 0.95rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .3s;
-    margin-top: 5px;
-}
-
-#registrar_personal input[type="submit"]:hover {
-    background: var(--color-hover-azulE);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, .15);
-}
 
 /* =========================================================
-   CONTROL ABSOLUTO DE OCULTAMIENTO ([hidden] y clase .ocultar)
-========================================================= */
-#registrar_personal [hidden],
-#registrar_personal .ocultar,
-#registrar_personal .password-group[hidden],
-#registrar_personal .password-group.ocultar {
-    display: none !important;
+   MARCO PRINCIPAL
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-marco{
+
+    width:min(1180px, 100%);
+
+    height:530px;
+
+    display:grid;
+
+    grid-template-columns:58% 42%;
+
+    overflow:hidden;
+
+    background:var(--color-blanco);
+
+    border:1px solid var(--color-borde-fino);
+
+    border-radius:15px;
+
+    box-shadow:var(--sombra-elevada);
+}
+
+
+/* =========================================================
+   PANEL DE INFORMACIÓN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-informacion{
+
+    position:relative;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    box-sizing:border-box;
+
+    padding:42px;
+
+    background:var(--color-blanco);
+}
+
+
+/* =========================================================
+   PANEL DE IMAGEN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-imagen{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:var(--color-blanco);
+}
+
+
+/* =========================================================
+   IMAGEN INSTITUCIONAL
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-imagen > img{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    object-position:center;
+
+    z-index:1;
+}
+
+
+/* =========================================================
+   OSCURECIMIENTO SOBRE LA IMAGEN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-imagen::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    pointer-events:none;
+
+    background:linear-gradient(
+        90deg,
+        rgba(15,23,42,.66) 0%,
+        rgba(15,23,42,.46) 32%,
+        rgba(15,23,42,.20) 58%,
+        rgba(15,23,42,0) 82%
+    );
+}
+
+
+/* =========================================================
+   BOTÓN REGRESAR
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-regreso{
+
+    position:absolute;
+
+    top:28px;
+    left:30px;
+
+    z-index:4;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-regresar{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    padding:8px 13px;
+
+    color:var(--color-blanco);
+
+    background:rgba(15,23,42,.52);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:7px;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    line-height:1;
+
+    backdrop-filter:blur(5px);
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-regresar:hover{
+
+    background:rgba(15,23,42,.78);
+
+    border-color:rgba(255,255,255,.32);
+
+    transform:translateX(-2px);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-regresar i{
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   TEXTO SOBRE LA IMAGEN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-texto{
+
+    position:relative;
+
+    z-index:3;
+
+    max-width:500px;
+
+    color:var(--color-blanco);
+}
+
+
+/* =========================================================
+   INDICADOR
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-indicador{
+
+    display:inline-block;
+
+    margin-bottom:13px;
+
+    padding-bottom:7px;
+
+    color:var(--color-blanco);
+
+    border-bottom:2px solid var(--color-rojo-acento);
+
+    font-size:12px;
+
+    font-weight:800;
+
+    letter-spacing:.16em;
+
+    line-height:1;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-texto h1{
+
+    max-width:520px;
+
+    margin:0;
+
+    color:var(--color-blanco);
+
+    font-size:37px;
+
+    font-weight:800;
+
+    line-height:1.04;
+
+    letter-spacing:-.035em;
+
+    text-shadow:0 2px 9px rgba(0,0,0,.22);
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-texto p{
+
+    max-width:500px;
+
+    margin:17px 0 0;
+
+    color:rgba(255,255,255,.9);
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    text-shadow:0 1px 6px rgba(0,0,0,.2);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-texto p + p{
+
+    margin-top:10px;
+}
+
+
+/* =========================================================
+   LÍNEA INSTITUCIONAL
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-linea{
+
+    width:34px;
+    height:2px;
+
+    margin-top:20px;
+
+    background:var(--color-rojo-acento);
+
+    border-radius:2px;
+}
+
+
+/* =========================================================
+   SUBTEXTO
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-subtexto{
+
+    display:block;
+
+    margin-top:11px;
+
+    color:rgba(255,255,255,.82);
+
+    font-size:10px;
+
+    line-height:1.4;
+}
+
+
+/* =========================================================
+   PANEL DERECHO
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-acceso{
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    box-sizing:border-box;
+
+    padding:38px 40px 36px 22px;
+
+    background:var(--color-blanco);
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cabecera{
+
+    width:100%;
+
+    margin-bottom:25px;
+}
+
+
+/* =========================================================
+   ETIQUETA
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-etiqueta{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:var(--color-rojo-acento);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:.14em;
+
+    line-height:1;
+
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   TÍTULO PRINCIPAL
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cabecera h2{
+
+    margin:0;
+
+    color:var(--texto-principal);
+
+    font-size:32px;
+
+    font-weight:800;
+
+    line-height:1.08;
+
+    letter-spacing:-.035em;
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cabecera p{
+
+    margin:8px 0 0;
+
+    color:var(--texto-secundario);
+
+    font-size:13px;
+
+    line-height:1.45;
+}
+
+
+/* =========================================================
+   FORMULARIOS
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-formulario{
+
+    width:100%;
+}
+
+
+/* =========================================================
+   PASO 02 - CREDENCIALES
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-formulario-credenciales{
+
+    width:100%;
+
+    padding-top:28px;
+
+    border-top:1px solid var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   CONTROL DE VISIBILIDAD
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+[hidden]{
+
+    display:none !important;
+}
+
+
+/* =========================================================
+   TÍTULO DE SECCIÓN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-seccion-titulo{
+
+    display:grid;
+
+    grid-template-columns:34px 1fr;
+
+    gap:12px;
+
+    align-items:start;
+
+    margin-bottom:22px;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-seccion-titulo > span{
+
+    width:30px;
+    height:30px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+
+    color:var(--color-rojo-acento);
+
+    background:var(--color-rojo-soft);
+
+    border:1px solid #FECACA;
+
+    border-radius:7px;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-seccion-titulo h3{
+
+    margin:1px 0 4px;
+
+    color:var(--texto-principal);
+
+    font-size:16px;
+
+    font-weight:700;
+
+    line-height:1.2;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-seccion-titulo p{
+
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:12px;
+
+    line-height:1.45;
+}
+
+
+/* =========================================================
+   GRUPOS DE CAMPOS
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-grupo{
+
+    width:100%;
+
+    margin-bottom:17px;
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-grupo > label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    color:var(--texto-principal);
+
+    font-size:12px;
+
+    font-weight:700;
+
+    line-height:1.2;
+}
+
+
+/* =========================================================
+   CAMPO DE CÉDULA
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cedula{
+
+    position:relative;
+
+    width:100%;
+    height:45px;
+
+    display:grid;
+
+    grid-template-columns:70px 1fr;
+
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   NACIONALIDAD
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-nacionalidad{
+
+    width:100%;
+    height:100%;
+
+    box-sizing:border-box;
+
+    padding:0 9px;
+
+    color:var(--texto-principal);
+
+    background:#F8FAFC;
+
+    border:1px solid var(--color-borde-fino);
+
+    border-right:0;
+
+    border-radius:7px 0 0 7px;
+
+    outline:0;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    cursor:pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease;
+}
+
+
+/* =========================================================
+   INPUT CÉDULA
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cedula > input{
+
+    width:100%;
+    height:100%;
+
+    box-sizing:border-box;
+
+    padding:0 12px;
+
+    color:var(--texto-principal);
+
+    background:#F8FAFC;
+
+    border:1px solid var(--color-borde-fino);
+
+    border-radius:0 7px 7px 0;
+
+    outline:0;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    transition:
+        border-color .2s ease,
+        background-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cedula:focus-within
+.RegistroPersonalCASRCE-nacionalidad,
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cedula:focus-within > input{
+
+    background:var(--color-blanco);
+
+    border-color:var(--color-azul-hover);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-cedula:focus-within{
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.08);
+
+    border-radius:7px;
+}
+
+
+/* =========================================================
+   INPUTS GENERALES
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-grupo > input{
+
+    width:100%;
+    height:45px;
+
+    box-sizing:border-box;
+
+    padding:0 12px;
+
+    color:var(--texto-principal);
+
+    background:#F8FAFC;
+
+    border:1px solid var(--color-borde-fino);
+
+    border-radius:7px;
+
+    outline:0;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    transition:
+        border-color .2s ease,
+        background-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-grupo > input:focus{
+
+    background:var(--color-blanco);
+
+    border-color:var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.08);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-grupo input::placeholder{
+
+    color:#94A3B8;
+}
+
+
+/* =========================================================
+   CONTRASEÑA
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-password{
+
+    position:relative;
+
+    width:100%;
+    height:45px;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-password
+> input[type="password"],
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-password
+> input[type="text"]{
+
+    width:100%;
+    height:100%;
+
+    box-sizing:border-box;
+
+    padding:0 43px 0 12px;
+
+    color:var(--texto-principal);
+
+    background:#F8FAFC;
+
+    border:1px solid var(--color-borde-fino);
+
+    border-radius:7px;
+
+    outline:0;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    transition:
+        border-color .2s ease,
+        background-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-password
+> input:focus{
+
+    background:var(--color-blanco);
+
+    border-color:var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.08);
+}
+
+
+/* =========================================================
+   CHECKBOX CONTRASEÑA
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+#OcultaAparecer{
+
+    position:absolute;
+
+    width:1px;
+    height:1px;
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   ICONOS DE CONTRASEÑA
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-ojo-off,
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-ojo-on{
+
+    position:absolute;
+
+    top:50%;
+    right:10px;
+
+    width:22px;
+    height:22px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    transform:translateY(-50%);
+
+    color:#94A3B8;
+
+    font-size:11px;
+
+    cursor:pointer;
+
+    transition:color .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-ojo-off:hover,
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-ojo-on:hover{
+
+    color:var(--color-azul-hover);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-ojo-on{
+
+    display:none;
+}
+
+
+/* =========================================================
+   CAMBIO DE ICONO
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+#OcultaAparecer:checked
+~ .RegistroPersonalCASRCE-ojo-off{
+
+    display:none;
+}
+
+
+#RegistroPersonalCASRCE
+#OcultaAparecer:checked
+~ .RegistroPersonalCASRCE-ojo-on{
+
+    display:flex;
+}
+
+
+/* =========================================================
+   MENSAJES DE VALIDACIÓN
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-grupo small{
+
+    display:block;
+
+    min-height:15px;
+
+    margin-top:5px;
+
+    color:var(--color-rojo-acento);
+
+    font-size:10px;
+
+    line-height:1.4;
+}
+
+
+/* =========================================================
+   BOTÓN VALIDAR USUARIO
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-validar{
+
+    width:100%;
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    margin-top:5px;
+
+    padding:0 16px;
+
+    color:var(--color-blanco);
+
+    background:var(--color-azul-profundo);
+
+    border:0;
+
+    border-radius:7px;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        background-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-validar:hover{
+
+    background:var(--color-azul-hover);
+
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(15,23,42,.14);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-validar:active{
+
+    transform:translateY(0);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-validar i{
+
+    font-size:10px;
+
+    transition:transform .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-validar:hover i{
+
+    transform:translateX(3px);
+}
+
+
+/* =========================================================
+   BOTÓN REGISTRAR CREDENCIALES
+   ========================================================= */
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-registrar{
+
+    width:100%;
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    margin-top:5px;
+
+    padding:0 16px;
+
+    color:var(--color-blanco);
+
+    background:var(--color-azul-profundo);
+
+    border:0;
+
+    border-radius:7px;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        background-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-registrar:hover{
+
+    background:var(--color-azul-hover);
+
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(15,23,42,.14);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-registrar:active{
+
+    transform:translateY(0);
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-registrar i{
+
+    font-size:10px;
+
+    transition:transform .2s ease;
+}
+
+
+#RegistroPersonalCASRCE
+.RegistroPersonalCASRCE-boton-registrar:hover i{
+
+    transform:translateX(3px);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width:1050px){
+
+    #RegistroPersonalCASRCE{
+
+        padding:40px 20px 60px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-marco{
+
+        width:min(980px,100%);
+
+        height:520px;
+
+        grid-template-columns:56% 44%;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-acceso{
+
+        padding:36px 30px 34px 18px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-informacion{
+
+        padding:38px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-texto h1{
+
+        font-size:32px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-texto p{
+
+        font-size:12px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-regreso{
+
+        top:25px;
+        left:25px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+   ========================================================= */
+
+@media (max-width:820px){
+
+    #RegistroPersonalCASRCE{
+
+        align-items:flex-start;
+
+        padding-top:30px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-marco{
+
+        width:min(650px,100%);
+
+        height:auto;
+
+        grid-template-columns:1fr;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-informacion{
+
+        min-height:380px;
+
+        height:380px;
+
+        padding:35px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-acceso{
+
+        width:100%;
+
+        height:auto;
+
+        padding:38px 42px 35px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-texto h1{
+
+        font-size:30px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-texto p{
+
+        font-size:12px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-regreso{
+
+        top:25px;
+        left:25px;
+    }
+
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width:560px){
+
+    #RegistroPersonalCASRCE{
+
+        min-height:calc(100vh - 110px);
+
+        padding:22px 13px 45px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-marco{
+
+        border-radius:12px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-informacion{
+
+        min-height:300px;
+
+        height:300px;
+
+        padding:24px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-regreso{
+
+        top:20px;
+        left:20px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-boton-regresar{
+
+        padding:8px 11px;
+
+        font-size:11px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-indicador{
+
+        margin-bottom:9px;
+
+        font-size:10px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-texto h1{
+
+        font-size:25px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-texto p{
+
+        display:none;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-linea{
+
+        margin-top:15px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-subtexto{
+
+        font-size:9px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-acceso{
+
+        padding:32px 24px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-cabecera{
+
+        margin-bottom:23px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-cabecera h2{
+
+        font-size:28px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-seccion-titulo{
+
+        grid-template-columns:32px 1fr;
+
+        gap:10px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-seccion-titulo h3{
+
+        font-size:15px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-seccion-titulo p{
+
+        font-size:11px;
+    }
+
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width:380px){
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-informacion{
+
+        min-height:280px;
+
+        height:280px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-texto h1{
+
+        font-size:23px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-acceso{
+
+        padding:28px 18px 30px;
+    }
+
+
+    #RegistroPersonalCASRCE
+    .RegistroPersonalCASRCE-cedula{
+
+        grid-template-columns:62px 1fr;
+    }
+
 }

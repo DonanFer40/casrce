@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const formulario_registrar = document.getElementById("formulario_registrar_autoridades");
-   
+
     const input_cedula_identidad = document.getElementById("cedula_identidad");
     const select_nacionalidad = document.getElementById("nacionalidad");
     const msj_cedula_identidad = document.getElementById("mensaje_cedula_identidad");
@@ -23,32 +23,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
         this.value = letras + numeros;
     });
-    
-    async function cargo_autoridades() {
+
+    async function cargar_cargos() {
         try {
             const respuesta = await fetch("/cargo_asig_aut/");
-            const resultado = await respuesta.json();
-            console.log(resultado);
+            const datos = await respuesta.json();
 
-            select_cargo_autoridades.innerHTML = "<option value='' selected>Selecciona una opción</option>";
+            select_cargo_autoridades.innerHTML = `
+                <option value="">Seleccione un cargo</option>
+            `;
 
-            if (resultado.cargo.length > 0) {
-                resultado.cargo.forEach(cargo => {
-                    const option = document.createElement("option");
-                    option.value = cargo;
-                    option.textContent = cargo;
-                    select_cargo_autoridades.append(option);
-                });
+            datos.cargo.forEach(cargo => {
+                const opcion = document.createElement("option");
 
-                btn_registrar.disabled = false;
-            } else {
+                opcion.value = cargo;
+                opcion.textContent = cargo;
+
+                select_cargo_autoridades.appendChild(opcion);
+            });
+
+            if (datos.cargo.length === 0) {
+                select_cargo_autoridades.innerHTML = `
+                <option value="">No hay cargos disponibles</option>
+            `;
                 btn_registrar.disabled = true;
+            } else {
+                btn_registrar.disabled = false;
             }
+
         } catch (error) {
-            console.error(error);
+            console.error("Error al cargar los cargos:", error);
         }
     }
-    cargo_autoridades();
+    cargar_cargos();
 
     async function validarCedula(selectNacionalidad, inputCedula, mensaje) {
         const nacionalidad = selectNacionalidad.value;
@@ -182,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: "POST",
                 body: formulario
             });
-             const resultado = await respuesta.json()
+            const resultado = await respuesta.json()
             console.log(resultado)
 
             await Swal.fire({
@@ -195,10 +202,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (resultado.estado == "exito") {
                 formulario_registrar.reset();
+                await cargar_cargos();
+                msg_resolucion.innerHTML = "";
+                msj_cedula_identidad.innerHTML = "";
             }
         } catch (error) {
             console.error(error)
         }
     });
-
 }); 

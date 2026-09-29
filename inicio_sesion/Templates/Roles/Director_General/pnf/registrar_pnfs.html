@@ -1,0 +1,180 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-pnf-registrar-carsce">
+
+    <div class="director-pnf-registrar-carsce-contenedor">
+
+        <!-- ENCABEZADO DE LA PÁGINA -->
+        <div class="director-pnf-registrar-carsce-encabezado">
+            <div class="director-pnf-registrar-carsce-identificacion">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-pnf-registrar-carsce-presentacion">
+                <h2 class="director-pnf-registrar-carsce-titulo">
+                    Programa Nacional de Formación
+                </h2>
+
+                <p class="director-pnf-registrar-carsce-descripcion">
+                    Registra un nuevo Programa Nacional de Formación dentro del sistema CARSCE.
+                </p>
+            </div>
+        </div>
+
+
+        <!-- CONTENEDOR DEL FORMULARIO -->
+        <div class="director-pnf-registrar-carsce-formulario-contenedor">
+
+            <div class="director-pnf-registrar-carsce-formulario-cabecera">
+
+                <div class="director-pnf-registrar-carsce-formulario-icono">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+
+                <div class="director-pnf-registrar-carsce-formulario-informacion">
+                    <h3 class="director-pnf-registrar-carsce-formulario-titulo">
+                        Registrar PNF
+                    </h3>
+
+                    <p class="director-pnf-registrar-carsce-formulario-descripcion">
+                        Completa los datos solicitados para registrar el programa.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form method="post"
+                  id="formulario_registrar"
+                  class="director-pnf-registrar-carsce-formulario">
+
+                {% csrf_token %}
+
+
+                <!-- FILA: NOMBRE Y CÓDIGO -->
+                <div class="director-pnf-registrar-carsce-fila">
+
+                    <div class="director-pnf-registrar-carsce-campo">
+
+                        <label for="registrar_nombre_pnf">
+                            Nombre del PNF:
+                        </label>
+
+                        <div class="director-pnf-registrar-carsce-control">
+                            <i class="fa-solid fa-book-open"></i>
+
+                            <input
+                                type="text"
+                                name="nombrepnf"
+                                id="registrar_nombre_pnf"
+                                autocomplete="off"
+                                placeholder="Ej. Informática"
+                                required>
+                        </div>
+
+                        <small id="mensaje_nombre_pnf"
+                               class="director-pnf-registrar-carsce-mensaje">
+                        </small>
+
+                    </div>
+
+
+                    <div class="director-pnf-registrar-carsce-campo">
+
+                        <label for="registrar_codigo_pnf">
+                            Código del PNF:
+                        </label>
+
+                        <div class="director-pnf-registrar-carsce-control">
+                            <i class="fa-solid fa-barcode"></i>
+
+                            <input
+                                type="text"
+                                name="codigopnf"
+                                id="registrar_codigo_pnf"
+                                maxlength="8"
+                                minlength="8"
+                                pattern="[A-Z]{5}[0-9]{3}"
+                                title="Debe contener 5 letras mayúsculas y 3 números. Ejemplo: CARRE010"
+                                placeholder="Ej. INF00101"
+                                autocomplete="off"
+                                required>
+                        </div>
+
+                        <small id="mensaje_codigo_pnf"
+                               class="director-pnf-registrar-carsce-mensaje">
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PERIODO ACADÉMICO -->
+                <div class="director-pnf-registrar-carsce-campo">
+
+                    <label for="registrar_periodo_academico">
+                        Periodo Académico:
+                    </label>
+
+                    <div class="director-pnf-registrar-carsce-control director-pnf-registrar-carsce-control-select">
+                        <i class="fa-solid fa-calendar-days"></i>
+
+                        <select
+                            name="periodoacademico"
+                            id="registrar_periodo_academico"
+                            required>
+
+                            <option value="">
+                                Elije el Periodo Académico
+                            </option>
+
+                            <option value="Trimestre">
+                                Trimestre
+                            </option>
+
+                            <option value="Semestre">
+                                Semestre
+                            </option>
+
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down director-pnf-registrar-carsce-flecha"></i>
+                    </div>
+
+                </div>
+
+
+                <!-- ACCIÓN -->
+                <div class="director-pnf-registrar-carsce-acciones">
+
+                    <button
+                        type="submit"
+                        id="btn_registro"
+                        class="director-pnf-registrar-carsce-boton">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        <span>Registrar PNF</span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/PNF/registrar_pnfs.js' %}"></script>
+
+{% endblock %}

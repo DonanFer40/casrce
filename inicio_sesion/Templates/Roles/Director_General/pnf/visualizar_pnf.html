@@ -1,0 +1,94 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-pnf-visualizar-carsce">
+
+    <div class="director-pnf-visualizar-carsce-contenedor">
+
+        <!-- ENCABEZADO -->
+        <div class="director-pnf-visualizar-carsce-encabezado">
+
+            <div class="director-pnf-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-pnf-visualizar-carsce-presentacion">
+
+                <h3 class="director-pnf-visualizar-carsce-titulo">
+                    Programa Nacional de Formación
+                </h3>
+
+                <p class="director-pnf-visualizar-carsce-descripcion">
+                    Consulta los Programas Nacionales de Formación registrados en el sistema.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTENEDOR DE LA TABLA -->
+        <div id="tabla_pnfs"
+             class="director-pnf-visualizar-carsce-tabla-contenedor">
+
+            <!-- CABECERA DE LA TABLA -->
+            <div class="director-pnf-visualizar-carsce-tabla-cabecera">
+
+                <div class="director-pnf-visualizar-carsce-tabla-icono">
+                    <i class="fa-solid fa-list"></i>
+                </div>
+
+                <div class="director-pnf-visualizar-carsce-tabla-informacion">
+
+                    <h4 class="director-pnf-visualizar-carsce-tabla-titulo">
+                        PNFs Registrados
+                    </h4>
+
+                    <p class="director-pnf-visualizar-carsce-tabla-descripcion">
+                        Listado de programas disponibles actualmente.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- TABLA -->
+            <div class="director-pnf-visualizar-carsce-tabla-scroll">
+
+                <table class="director-pnf-visualizar-carsce-tabla">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>PNF</th>
+                            <th>Código</th>
+                            <th>Periodo Académico</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="pnfs_registrados">
+                        <!--
+                            Los datos de los PNFs
+                            se cargarán mediante JavaScript.
+                        -->
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/PNF/visualizar_pnf.js' %}"></script>
+
+{% endblock %}

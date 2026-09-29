@@ -1,23 +1,70 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import transaction
-from django.db.models import Prefetch
-from decimal import Decimal, ROUND_DOWN, ROUND_HALF_UP, InvalidOperation
+from decimal import Decimal, ROUND_DOWN, InvalidOperation
 from django.utils import timezone
-from django.db.models import Exists, OuterRef
+from django.db.models.functions import TruncDate
 from datetime import timedelta
 from datetime import datetime
 
-from inicio_sesion.models import CalendarioPeriodo, MateriaAsignada, PeriodoAcademicoMateria, Usuario, Pnf, PNFNucleo, Estudiante, EstatusEstudiante, CalendarioAcademico, Nucleos, PeriodoAcademico, Materia, Docente, DocenteAsignadoMateria
+from inicio_sesion.models import Usuario, CalendarioPeriodo, MateriaAsignada, ControlEstudio, PeriodoAcademicoMateria, Usuario, Pnf, PNFNucleo, Estudiante, EstatusEstudiante, CalendarioAcademico, Nucleos, PeriodoAcademico, Materia, Docente, DocenteAsignadoMateria
 
 from notas_academicas.models import PlanificacionAcademica, DetallePlanificacion, HistorialTrayectoEstudiante, HistorialDetalleNota, HistorialModificacionNotas, DetalleEvaluacion, PromedioFinal, Calificaciones, DetalleCalificacionesUnidad
 
 # Registrar Plan de Actividades
 
-def nucl_asig_doc(request):
+def perf_asig(request):
     cedula = request.session.get("cedula_usuario")
 
-    nucleos = Nucleos.objects.filter(docente__usuario__cedula_identidad=cedula).distinct()
+    tiene_docente = Docente.objects.filter(
+        usuario__cedula_identidad=cedula,
+        activo=True
+    ).exists()
+
+    tiene_control_estudio = ControlEstudio.objects.filter(
+        usuario__cedula_identidad=cedula,
+        activo=True
+    ).exists()
+
+    return JsonResponse({
+        "estado": "exito",
+        "docente": tiene_docente,
+        "control_estudio": tiene_control_estudio
+    })
+
+def nucl_asig_doc(request):
+    cedula = request.session.get("cedula_usuario")
+    perfil = request.POST.get("perfil")
+
+    if not cedula:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Sesión no válida",
+            "descripcion": "No se encontró un usuario autenticado."
+        })
+
+    if perfil not in ("DOCENTE", "CONTROL_ESTUDIO"):
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Perfil no válido",
+            "descripcion": "El perfil seleccionado no es válido."
+        })
+
+    if perfil == "CONTROL_ESTUDIO":
+
+        nucleos = Nucleos.objects.filter(
+            materias_asignadas__usuario__cedula_identidad=cedula,
+            materias_asignadas__activo=True
+        ).distinct()
+
+    else:
+
+        nucleos = Nucleos.objects.filter(
+            docente__usuario__cedula_identidad=cedula,
+            docente__activo=True
+        ).distinct()
 
     datos = [
         {
@@ -28,6 +75,22 @@ def nucl_asig_doc(request):
         for nucleo in nucleos
     ]
 
+    if not datos:
+        if perfil == "CONTROL_ESTUDIO":
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "info",
+                "title": "Sin núcleos asignados",
+                "descripcion": "El usuario no tiene núcleos asignados como Encargado de Control de Estudio."
+            })
+
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "info",
+            "title": "Sin núcleos asignados",
+            "descripcion": "El usuario no tiene núcleos asignados como Docente."
+        })
+
     return JsonResponse({
         "estado": "exito",
         "datos": datos
@@ -35,11 +98,102 @@ def nucl_asig_doc(request):
 
 def pnfs_asig_doc(request):
     cedula = request.session.get("cedula_usuario")
-    nucleo_asignado = request.POST.get("nucleo_asignado")
+    nucleo_asignado = request.POST.get("nucleo_asignado", "").strip()
+    perfil = request.POST.get("perfil", "").strip()
 
-    docentes = Docente.objects.filter(usuario__cedula_identidad=cedula, nucleo_id=nucleo_asignado).values_list("pnf_id", flat=True).distinct()
+    if not cedula or not nucleo_asignado or not perfil:
+        return JsonResponse({
+            "estado": "vacio",
+            "datos": [],
+            "title": "Datos incompletos",
+            "descripcion": "No se recibieron todos los datos necesarios.",
+            "icon": "info"
+        })
 
-    pnfs = Pnf.objects.filter(id_pnf__in=docentes, pnfnucleo__id_nucleo=nucleo_asignado).distinct()
+    # CONTROL DE ESTUDIO
+    if perfil == "CONTROL_ESTUDIO":
+        control_estudio = (
+            ControlEstudio.objects
+            .filter(
+                usuario__cedula_identidad=cedula,
+                nucleo_id=nucleo_asignado,
+                activo=True
+            )
+            .first()
+        )
+
+        if not control_estudio:
+            return JsonResponse({
+                "estado": "vacio",
+                "datos": [],
+                "title": "Control de Estudio no disponible",
+                "descripcion": (
+                    "No existe un perfil activo de Control de Estudio "
+                    "asociado a este núcleo."
+                ),
+                "icon": "info"
+            })
+
+        pnfs = (
+            Pnf.objects
+            .filter(
+                pnfnucleo__id_nucleo=control_estudio.nucleo_id
+            )
+            .distinct()
+            .order_by("pnf")
+        )
+
+    # DOCENTE
+    elif perfil == "DOCENTE":
+        docentes = (
+            Docente.objects
+            .filter(
+                usuario__cedula_identidad=cedula,
+                nucleo_id=nucleo_asignado,
+                activo=True
+            )
+        )
+
+        pnf_ids = (
+            docentes
+            .values_list(
+                "pnf_id",
+                flat=True
+            )
+            .distinct()
+        )
+
+        pnfs = (
+            Pnf.objects
+            .filter(
+                id_pnf__in=pnf_ids,
+                pnfnucleo__id_nucleo=nucleo_asignado
+            )
+            .distinct()
+            .order_by("pnf")
+        )
+
+    else:
+        return JsonResponse({
+            "estado": "vacio",
+            "datos": [],
+            "title": "Perfil no válido",
+            "descripcion": "El perfil seleccionado no es válido.",
+            "icon": "info"
+        })
+
+    # SIN PNF
+    if not pnfs.exists():
+        return JsonResponse({
+            "estado": "vacio",
+            "datos": [],
+            "title": "No hay P.N.F disponibles",
+            "descripcion": (
+                "No existen P.N.F disponibles para el "
+                "perfil y núcleo seleccionado."
+            ),
+            "icon": "info"
+        })
 
     datos = [
         {
@@ -56,124 +210,187 @@ def pnfs_asig_doc(request):
         "datos": datos
     })
 
-def mat_asig_doc(request):
-    id_nucleo = request.POST.get("id_nucleo")
-    id_pnf = request.POST.get("id_pnf")
+def doc_selec(request):
+    nucleo_asignado = request.POST.get("nucleo_asignado")
+    pnf_seleccionado = request.POST.get("pnf_seleccionado")
     cedula = request.session.get("cedula_usuario")
 
-    docente = Docente.objects.get(
-        usuario__cedula_identidad=cedula,
-        nucleo_id=id_nucleo,
-        pnf_id=id_pnf
-    )
-
-    asignaciones = (
-        DocenteAsignadoMateria.objects
+    docentes = (
+        Docente.objects
         .filter(
-            docente=docente,
+            nucleo_id=nucleo_asignado,
+            pnf_id=pnf_seleccionado,
             activo=True,
-            materia_asignada__activo=True
+            materias_asignadas__activo=True,
+            materias_asignadas__materia_asignada__activo=True
         )
-        .select_related(
-            "materia_asignada__materia"
+        .exclude(
+            usuario__cedula_identidad=cedula
         )
-        .prefetch_related(
-            "materia_asignada__materia__periodos_academicos__periodo",
-            "materia_asignada__planificaciones_academicas__detalles"
-        )
+        .select_related("usuario")
+        .distinct()
     )
 
-    materias = []
-    fecha_actual = timezone.localdate()
+    if not docentes.exists():
+        return JsonResponse({
+            "estado": "vacio",
+            "datos": [],
+            "title": "No hay docentes disponibles",
+            "descripcion": (
+                "No existen docentes activos con materias "
+                "asignadas activamente para el núcleo y PNF seleccionado."
+            ),
+            "icon": "info"
+        })
 
-    for asignacion in asignaciones:
-
-        materia_asignada = asignacion.materia_asignada
-        materia = materia_asignada.materia
-
-        planificaciones = materia_asignada.planificaciones_academicas.filter(
-            activo=True,
-            estado_aceptacion__in=["ENVIADO", "ACEPTADA"]
-        )
-
-        # PERÍODOS QUE REALMENTE TIENE ASIGNADOS ESTA MATERIA
-        periodos_materia = materia.periodos_academicos.all()
-
-        for periodo_materia in periodos_materia:
-            periodo = periodo_materia.periodo
-
-            if planificaciones.filter(periodo_academico=periodo).exists():
-                continue
-
-            calendario_periodo = (
-                CalendarioPeriodo.objects
-                .filter(
-                    periodo=periodo,
-                    calendario__tipo="PERIODO",
-                    calendario__activo=True
-                )
-                .select_related("calendario")
-                .first()
-            )
-
-            if not calendario_periodo:
-                continue
-
-            calendario = calendario_periodo.calendario
-
-            # LOS PRIMEROS 5 DÍAS DEL PERÍODO
-            fecha_inicio = calendario.fecha_inicio
-            fecha_fin_5_dias = fecha_inicio + timedelta(days=4)
-
-            # La materia solamente aparece durante estos 5 días
-            if not (fecha_inicio <= fecha_actual <= fecha_fin_5_dias):
-                continue
-
-            # LA MATERIA SE PUEDE MOSTRAR NUEVAMENTE
-            # AUNQUE YA EXISTA UNA PLANIFICACIÓN.
-            materias.append({
-                "id_materia_asignada": materia_asignada.id_materia_asignada,
-                "id_materia": materia.id_materia,
-                "nombre": materia.nombre,
-                "codigo": materia.codigo,
-                "periodo": periodo.nombre,
-                "id_periodo": periodo.id_periodo_academico,
-                "rol": asignacion.rol,
-            })
+    datos = [
+        {
+            "id_docente": docente.id_docente,
+            "cedula": docente.usuario.cedula_identidad,
+            "nombres": docente.usuario.nombres,
+            "apellidos": docente.usuario.apellidos,
+        }
+        for docente in docentes
+    ]
 
     return JsonResponse({
         "estado": "exito",
-        "datos": materias
+        "datos": datos
     })
+   
+def mat_asig_doc(request):
+    id_nucleo = request.POST.get("id_nucleo")
+    id_pnf = request.POST.get("id_pnf")
+    perfil = request.POST.get("perfil")
+    ci_docente = request.POST.get("docente")
+    cedula = request.session.get("cedula_usuario")
 
-def perd_acad_reg(request):
-
-    id_asignacion = request.POST.get("id_asignacion")
-
-    try:
-        materia_asignada = (
-            MateriaAsignada.objects
-            .select_related("materia")
-            .get(
-                id_materia_asignada=id_asignacion,
-                activo=True
-            )
-        )
-
-    except MateriaAsignada.DoesNotExist:
+    if not cedula:
         return JsonResponse({
             "estado": "fallo",
-            "descripcion": "La materia asignada no existe."
+            "icon": "warning",
+            "title": "Sesión no válida",
+            "descripcion": "No se encontró un usuario autenticado."
         })
 
+    if not id_nucleo or not id_pnf:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Datos incompletos",
+            "descripcion": (
+                "No se recibió el núcleo o PNF seleccionado."
+            )
+        })
+
+    if perfil == "DOCENTE":
+
+        docente = (
+            Docente.objects
+            .filter(
+                usuario__cedula_identidad=cedula,
+                nucleo_id=id_nucleo,
+                pnf_id=id_pnf,
+                activo=True
+            )
+            .select_related(
+                "usuario",
+                "nucleo",
+                "pnf"
+            )
+            .first()
+        )
+
+        if not docente:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Docente no disponible",
+                "descripcion": (
+                    "El perfil de docente no está activo "
+                    "para el núcleo y PNF seleccionado."
+                )
+            })
+
+    elif perfil == "CONTROL_ESTUDIO":
+
+        control = (
+            ControlEstudio.objects
+            .filter(
+                usuario__cedula_identidad=cedula,
+                nucleo_id=id_nucleo,
+                activo=True
+            )
+            .first()
+        )
+
+        if not control:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Perfil no disponible",
+                "descripcion": (
+                    "El perfil de Control de Estudio no está "
+                    "activo para el núcleo seleccionado."
+                )
+            })
+
+        if not ci_docente or ci_docente in (
+            "null",
+            "undefined",
+            ""
+        ):
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Docente no seleccionado",
+                "descripcion": (
+                    "Debe seleccionar un docente para "
+                    "consultar sus materias asignadas."
+                )
+            })
+
+        docente = (
+            Docente.objects
+            .filter(
+                usuario__cedula_identidad=ci_docente,
+                nucleo_id=id_nucleo,
+                pnf_id=id_pnf,
+                activo=True
+            )
+            .select_related(
+                "usuario",
+                "nucleo",
+                "pnf"
+            )
+            .first()
+        )
+
+        if not docente:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Docente no disponible",
+                "descripcion": (
+                    "El docente seleccionado no está activo "
+                    "o no pertenece al núcleo y PNF seleccionado."
+                )
+            })
+
+    else:
+
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Perfil no válido",
+            "descripcion": "El perfil seleccionado no es válido."
+        })
 
     fecha_actual = timezone.localdate()
 
-
-    calendarios = (
+    calendarios_vigentes = list(
         CalendarioPeriodo.objects
         .filter(
-            periodo__materias__materia=materia_asignada.materia,
             calendario__tipo="PERIODO",
             calendario__activo=True,
             calendario__fecha_inicio__lte=fecha_actual,
@@ -183,25 +400,155 @@ def perd_acad_reg(request):
             "periodo",
             "calendario"
         )
-        .distinct()
+        .order_by(
+            "calendario__fecha_inicio",
+            "periodo_id"
+        )
     )
 
-
-    resultado = []
-
-    for item in calendarios:
-        resultado.append({
-            "id_periodo": item.periodo.id_periodo_academico,
-            "nombre": item.periodo.nombre
+    if not calendarios_vigentes:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "info",
+            "title": "Período académico no disponible",
+            "descripcion": (
+                "No existe un período académico vigente "
+                "para registrar la planificación."
+            )
         })
 
+    calendario_por_periodo = {
+        cp.periodo_id: {
+            "id_periodo": cp.periodo_id,
+            "nombre": cp.periodo.nombre,
+            "fecha_inicio": cp.calendario.fecha_inicio,
+            "fecha_final": cp.calendario.fecha_final,
+        }
+        for cp in calendarios_vigentes
+    }
+
+    asignaciones = list(
+        DocenteAsignadoMateria.objects
+        .filter(
+            docente=docente,
+            activo=True,
+            materia_asignada__activo=True,
+            materia_asignada__materia__activa=True
+        )
+        .select_related(
+            "materia_asignada__materia"
+        )
+        .prefetch_related(
+            "materia_asignada__materia__periodos_academicos__periodo"
+        )
+    )
+
+    if not asignaciones:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "info",
+            "title": "Sin materias asignadas",
+            "descripcion": (
+                "El docente no tiene materias asignadas "
+                "activas para el núcleo y PNF seleccionado."
+            )
+        })
+
+    materias = []
+    periodos_academicos = {}
+    claves = set()
+
+    for asignacion in asignaciones:
+
+        materia_asignada = asignacion.materia_asignada
+        materia = materia_asignada.materia
+
+        for periodo_materia in (
+            materia.periodos_academicos
+            .select_related("periodo")
+            .all()
+        ):
+
+            periodo_id = periodo_materia.periodo_id
+
+            if periodo_id not in calendario_por_periodo:
+                continue
+
+            periodo_info = calendario_por_periodo[periodo_id]
+
+            existe_planificacion = (
+                PlanificacionAcademica.objects
+                .filter(
+                    materia_asignacion=materia_asignada,
+                    periodo_academico_id=periodo_id,
+                    fecha_creacion__year=fecha_actual.year,
+                    activo=True,
+                    estado_aceptacion__in=[
+                        "ENVIADO",
+                        "ACEPTADA"
+                    ]
+                )
+                .exists()
+            )
+
+            if existe_planificacion:
+                continue
+
+            periodos_academicos[periodo_id] = periodo_info
+
+            clave = (
+                materia_asignada.id_materia_asignada,
+                periodo_id
+            )
+
+            if clave in claves:
+                continue
+
+            claves.add(clave)
+
+            materias.append({
+                "id_materia_asignada":
+                    materia_asignada.id_materia_asignada,
+
+                "id_materia":
+                    materia.id_materia,
+
+                "nombre":
+                    materia.nombre,
+
+                "codigo":
+                    materia.codigo,
+
+                "rol":
+                    asignacion.rol,
+
+                "id_periodo":
+                    periodo_id
+            })
+
+    if not materias:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "info",
+            "title": "No hay materias disponibles",
+            "descripcion": (
+                "Las materias asignadas al docente no tienen "
+                "un período académico vigente que requiera "
+                "registrar planificación."
+            ),
+            "datos": [],
+            "periodos_academicos": []
+        })
 
     return JsonResponse({
         "estado": "exito",
-        "periodos": resultado
+        "datos": materias,
+        "periodos_academicos": list(
+            periodos_academicos.values()
+        )
     })
 
-def cant_und_reg(request):
+def datos_unid_reg(request):
     id_asignacion = request.POST.get("id_asignacion")
     id_periodo_academico = request.POST.get("id_periodo_academico")
 
@@ -210,18 +557,15 @@ def cant_und_reg(request):
             "estado": "fallo",
             "existe_plan": False,
             "cantidad": 0,
+            "evaluaciones": [],
             "puede_enviar": False,
             "descripcion": "Debe indicar la materia y el período académico."
         })
 
-    # ============================================================
     # AÑO ACTUAL
-    # ============================================================
     anio_actual = timezone.localdate().year
 
-    # ============================================================
     # VERIFICAR QUE EL PERÍODO PERTENEZCA AL AÑO ACTUAL
-    # ============================================================
     periodo_actual = (
         CalendarioPeriodo.objects
         .filter(
@@ -234,9 +578,7 @@ def cant_und_reg(request):
         .first()
     )
 
-    # ============================================================
     # EL PERÍODO NO PERTENECE AL AÑO ACTUAL
-    # ============================================================
     if not periodo_actual:
         return JsonResponse({
             "estado": "exito",
@@ -246,16 +588,10 @@ def cant_und_reg(request):
             "periodo": None,
             "cantidad": 0,
             "estado_aceptacion": None,
+            "evaluaciones": [],
             "puede_enviar": False
         })
 
-    # ============================================================
-    # BUSCAR PLANIFICACIÓN
-    #
-    # IMPORTANTE:
-    # fecha_creacion__year=anio_actual evita recuperar
-    # una planificación creada el año pasado.
-    # ============================================================
     plan = (
         PlanificacionAcademica.objects
         .filter(
@@ -265,12 +601,12 @@ def cant_und_reg(request):
             activo=True
         )
         .select_related("periodo_academico")
+        .prefetch_related(
+            "detalles__evaluaciones"
+        )
         .first()
     )
 
-    # ============================================================
-    # NO EXISTE PLANIFICACIÓN PARA EL AÑO ACTUAL
-    # ============================================================
     if not plan:
         return JsonResponse({
             "estado": "exito",
@@ -280,17 +616,12 @@ def cant_und_reg(request):
             "periodo": periodo_actual.periodo.nombre,
             "cantidad": 0,
             "estado_aceptacion": None,
+            "evaluaciones": [],
             "puede_enviar": False
         })
 
-    # ============================================================
-    # CANTIDAD DE UNIDADES
-    # ============================================================
     cantidad = plan.detalles.count()
 
-    # ============================================================
-    # PUEDE ENVIAR
-    # ============================================================
     puede_enviar = (
         4 <= cantidad <= 6
         and plan.estado_aceptacion in [
@@ -299,9 +630,25 @@ def cant_und_reg(request):
         ]
     )
 
-    # ============================================================
-    # RESPUESTA
-    # ============================================================
+    evaluaciones = []
+
+    for detalle in plan.detalles.all():
+
+        for evaluacion in detalle.evaluaciones.all():
+
+            evaluaciones.append({
+                "id_detalle": detalle.id_detalle,
+                "titulo_unidad": detalle.titulo_unidad,
+                "id_evaluacion": evaluacion.id_evaluacion,
+                "metodo_evaluacion": evaluacion.metodo_evaluacion,
+                "porcentaje_evaluacion": float(
+                    evaluacion.porcentaje_evaluacion
+                ),
+                "fecha_evaluacion": evaluacion.fecha_evaluacion.strftime(
+                    "%Y-%m-%d"
+                )
+            })
+
     return JsonResponse({
         "estado": "exito",
         "existe_plan": True,
@@ -310,11 +657,11 @@ def cant_und_reg(request):
         "periodo": plan.periodo_academico.nombre,
         "cantidad": cantidad,
         "estado_aceptacion": plan.estado_aceptacion,
+        "evaluaciones": evaluaciones,
         "puede_enviar": puede_enviar
     })
 
 def fech_cal_mat(request):
-
     id_periodo = request.POST.get("id_periodo")
 
     if not id_periodo:
@@ -370,12 +717,8 @@ def fech_reg_mat(request):
         fechas = (
             DetalleEvaluacion.objects
             .filter(
-                detalle_plan__plan_academico__materia_asignacion_id=
-                    id_materia_asignada,
-
-                detalle_plan__plan_academico__periodo_academico_id=
-                    id_periodo,
-
+                detalle_plan__plan_academico__materia_asignacion_id=id_materia_asignada,
+                detalle_plan__plan_academico__periodo_academico_id=id_periodo,
                 detalle_plan__plan_academico__activo=True
             )
             .values_list(
@@ -406,14 +749,14 @@ def fech_reg_mat(request):
 
 @transaction.atomic
 def reg_pl_act(request):
-
     if request.method != "POST":
-        return render(request, "registrar_planificacion.html")
-
-    nulcleo_asignado = request.POST.get("nucleo_asignado")
-    pnfs_asignado = request.POST.get("pnfs_asignado")
+        return render(request, "Planificacion_Academica/registrar_planificacion.html")
+    
+    nucleo_asignado = request.POST.get("nucleo_asignado")
+    pnf_asignado = request.POST.get("pnfs_asignado")
+    docente_seleccionado = request.POST.get("seleccion_docente")
     materia_asignacion = request.POST.get("asignacion_materia")
-    periodo_academico = request.POST.get("periodo_academico")
+    id_periodo = request.POST.get("id_periodo")
 
     titulo_unidad = request.POST.get("titulo_unidad", "").strip()
     contenido_unidad = request.POST.get("contenido_unidad", "").strip()
@@ -426,140 +769,20 @@ def reg_pl_act(request):
             "descripcion": descripcion
         })
 
-    # ==========================================================
     # DATOS OBLIGATORIOS
-    # ==========================================================
-
-    for valor, titulo, mensaje in [
-        (
-            materia_asignacion,
-            "Materia Asignada",
-            "Por favor, selecciona una materia."
-        ),
-        (
-            periodo_academico,
-            "Periodo Académico",
-            "Por favor, selecciona un período académico."
-        ),
-        (
-            titulo_unidad,
-            "Título de la Unidad",
-            "Por favor, ingresa el título de la unidad."
-        ),
-        (
-            contenido_unidad,
-            "Contenido de la Unidad",
-            "Por favor, ingresa el contenido de la unidad."
-        )
-    ]:
+    datos_obligatorios = [
+        (nucleo_asignado, "Núcleo", "Por favor, selecciona un núcleo."),
+        (pnf_asignado, "P.N.F.", "Por favor, selecciona un P.N.F."),
+        (materia_asignacion, "Materia Asignada", "Por favor, selecciona una materia."),
+        (id_periodo, "Período Académico", "Por favor, selecciona un período académico."),
+        (titulo_unidad, "Título de la Unidad", "Por favor, ingresa el título de la unidad."),
+        (contenido_unidad, "Contenido de la Unidad", "Por favor, ingresa el contenido de la unidad.")
+    ]
+    for valor, titulo, mensaje in datos_obligatorios:
         if not valor:
             return error(titulo, mensaje)
 
-    # ==========================================================
-    # EVALUACIONES
-    # ==========================================================
-
-    try:
-        cantidad_evaluaciones = int(
-            request.POST.get("cantidad_evaluaciones", 0)
-        )
-    except (TypeError, ValueError):
-        cantidad_evaluaciones = 0
-
-    if cantidad_evaluaciones <= 0:
-        return error(
-            "Cantidad de Evaluaciones",
-            "Debe registrar al menos una evaluación."
-        )
-
-    evaluaciones = []
-    total_porcentaje = Decimal("0.00")
-
-    for i in range(1, cantidad_evaluaciones + 1):
-
-        metodo = request.POST.get(
-            f"metodo_evaluacion_{i}",
-            ""
-        ).strip()
-
-        fecha = request.POST.get(
-            f"fecha_evaluacion_{i}",
-            ""
-        ).strip()
-
-        porcentaje = request.POST.get(
-            f"porcentaje_evaluacion_{i}",
-            ""
-        ).strip()
-
-        if not metodo:
-            return error(
-                "Método de Evaluación",
-                f"El método de evaluación {i} no puede estar vacío."
-            )
-
-        if not fecha:
-            return error(
-                "Fecha de Evaluación",
-                f"La fecha de evaluación {i} no puede estar vacía."
-            )
-
-        try:
-            fecha_obj = datetime.strptime(
-                fecha,
-                "%Y-%m-%d"
-            ).date()
-        except ValueError:
-            return error(
-                "Fecha de Evaluación",
-                f"La fecha de evaluación {i} no tiene un formato válido."
-            )
-
-        if not porcentaje:
-            return error(
-                "Porcentaje de Evaluación",
-                f"Debe ingresar el porcentaje de la evaluación {i}."
-            )
-
-        try:
-            porcentaje_decimal = Decimal(porcentaje)
-        except (InvalidOperation, ValueError):
-            return error(
-                "Porcentaje de Evaluación",
-                f"El porcentaje de la evaluación {i} no es válido."
-            )
-
-        if porcentaje_decimal <= 0:
-            return error(
-                "Porcentaje de Evaluación",
-                f"La evaluación {i} debe tener un porcentaje mayor que 0%."
-            )
-
-        if porcentaje_decimal > 25:
-            return error(
-                "Porcentaje de Evaluación",
-                f"El porcentaje de la evaluación {i} no puede superar el 25%."
-            )
-
-        total_porcentaje += porcentaje_decimal
-
-        evaluaciones.append({
-            "metodo_evaluacion": metodo,
-            "fecha_evaluacion": fecha_obj,
-            "porcentaje_evaluacion": porcentaje_decimal
-        })
-
-    if total_porcentaje != Decimal("25.00"):
-        return error(
-            "Porcentaje de Evaluaciones",
-            f"La suma debe ser exactamente 25%. "
-            f"Actualmente suma {total_porcentaje}%."
-        )
-
-    # ==========================================================
     # SESIÓN
-    # ==========================================================
-
     cedula = request.session.get("cedula_usuario")
 
     if not cedula:
@@ -568,52 +791,65 @@ def reg_pl_act(request):
             "No se encontró el usuario autenticado en la sesión."
         )
 
-    # ==========================================================
-    # DOCENTE
-    # ==========================================================
-
+    # PERÍODO ACADÉMICO
     try:
-        docente = (
-            Docente.objects
-            .select_related(
-                "usuario",
-                "nucleo",
-                "pnf"
-            )
-            .get(
-                usuario__cedula_identidad=cedula,
-                nucleo_id=nulcleo_asignado,
-                pnf_id=pnfs_asignado
-            )
-        )
-    except Docente.DoesNotExist:
-        return error(
-            "Docente no encontrado",
-            "El docente no está asociado al núcleo y PNF seleccionados."
-        )
-
-    # ==========================================================
-    # PERÍODO
-    # ==========================================================
-
-    try:
-        periodo = PeriodoAcademico.objects.get(
-            pk=periodo_academico
-        )
+        periodo = PeriodoAcademico.objects.get(pk=id_periodo)
     except PeriodoAcademico.DoesNotExist:
         return error(
             "Período Académico",
-            "El período académico no se encuentra registrado.",
+            "El período académico seleccionado no se encuentra registrado.",
             "error"
         )
 
-    # ==========================================================
-    # AÑO ACTUAL Y CALENDARIO
-    # ==========================================================
+    # DOCENTE
+    try:
+        # SI SE SELECCIONÓ UN DOCENTE DESDE EL SELECT
+        if docente_seleccionado:
+            docente = (
+                Docente.objects
+                .select_related(
+                    "usuario",
+                    "nucleo",
+                    "pnf"
+                )
+                .get(
+                    usuario__cedula_identidad=docente_seleccionado,
+                    nucleo_id=nucleo_asignado,
+                    pnf_id=pnf_asignado,
+                    activo=True
+                )
+            )
+        # SI NO SE SELECCIONÓ DOCENTE
+        # SE UTILIZA EL DOCENTE DE LA SESIÓN
+        else:
+            docente = (
+                Docente.objects
+                .select_related(
+                    "usuario",
+                    "nucleo",
+                    "pnf"
+                )
+                .get(
+                    usuario__cedula_identidad=cedula,
+                    nucleo_id=nucleo_asignado,
+                    pnf_id=pnf_asignado,
+                    activo=True
+                )
+            )
 
+    except Docente.DoesNotExist:
+        return error(
+            "Docente no encontrado",
+            "El docente seleccionado no está asociado "
+            "al núcleo y PNF indicados o se encuentra inactivo.",
+            "error"
+        )
+
+    # AÑO ACTUAL
     fecha_actual = timezone.localdate()
     anio_actual = fecha_actual.year
 
+    # CALENDARIO DEL PERÍODO
     calendario = (
         CalendarioPeriodo.objects
         .filter(
@@ -627,52 +863,36 @@ def reg_pl_act(request):
     )
 
     if not calendario:
-        return error(
-            "Calendario Académico",
-            f"El período {periodo.nombre} no tiene calendario "
-            f"registrado para el año {anio_actual}."
+        return error("Calendario Académico",
+            (
+                f"El período '{periodo.nombre}' "
+                f"no tiene un calendario registrado "
+                f"para el año {anio_actual}."
+            )
         )
 
     fecha_inicio = calendario.calendario.fecha_inicio
     fecha_final = calendario.calendario.fecha_final
 
-    # ==========================================================
-    # FECHAS DE EVALUACIÓN
-    # ==========================================================
-
-    for i, evaluacion in enumerate(evaluaciones, 1):
-
-        fecha_eval = evaluacion["fecha_evaluacion"]
-
-        if fecha_eval < fecha_inicio or fecha_eval > fecha_final:
-            return error(
-                "Fecha de Evaluación",
-                f"La fecha de la evaluación {i} debe estar "
-                f"dentro del período académico."
-            )
-
-    # ==========================================================
-    # PRIMEROS 5 DÍAS
-    # ==========================================================
-
+    # VALIDAR QUE EL PERÍODO ESTÉ ACTIVO
     if fecha_actual < fecha_inicio:
-        return error(
-            "Período no iniciado",
-            f"El período {periodo.nombre} inicia el "
-            f"{fecha_inicio.strftime('%d/%m/%Y')}."
+        return error("Período no iniciado",
+            (
+                f"El período '{periodo.nombre}' inicia el "
+                f"{fecha_inicio.strftime('%d/%m/%Y')}."
+            )
         )
 
     if fecha_actual > fecha_inicio + timedelta(days=4):
-        return error(
-            "Registro cerrado",
-            f"El registro de {periodo.nombre} solo está disponible "
-            f"durante los primeros 5 días del período."
+        return error("Registro cerrado",
+            (
+                f"El registro de '{periodo.nombre}' "
+                f"solo está disponible durante los primeros "
+                f"5 días del período."
+            )
         )
 
-    # ==========================================================
-    # MATERIA
-    # ==========================================================
-
+    # MATERIA ASIGNADA
     try:
         asignacion = (
             MateriaAsignada.objects
@@ -686,143 +906,303 @@ def reg_pl_act(request):
                 activo=True
             )
         )
+
     except MateriaAsignada.DoesNotExist:
-        return error(
-            "Materia Asignada",
+        return error("Materia Asignada",
             "La materia no se encuentra registrada o está inactiva.",
             "error"
         )
 
+    # VALIDAR PNF DE LA MATERIA
     if asignacion.materia.id_pnf_id != docente.pnf_id:
         return error(
             "Materia no válida",
             "La materia seleccionada no pertenece al PNF del docente."
         )
-    # ==========================================================
-    # PLANIFICACIÓN
-    # ==========================================================
 
+    # VALIDAR NÚCLEO
+    if docente.nucleo_id != int(nucleo_asignado):
+        return error(
+            "Núcleo no válido",
+            "El docente no está asociado al núcleo seleccionado."
+        )
+
+    # VALIDAR PNF
+    if docente.pnf_id != int(pnf_asignado):
+        return error(
+            "P.N.F. no válido",
+            "El docente no está asociado al P.N.F. seleccionado."
+        )
+
+    # VALIDAR MATERIA - PERÍODO
+    materia_periodo = (
+        PeriodoAcademicoMateria.objects
+        .filter(
+            materia=asignacion.materia,
+            periodo=periodo
+        )
+        .exists()
+    )
+
+    if not materia_periodo:
+        return error(
+            "Período no válido",
+            (
+                f"La materia '{asignacion.materia.nombre}' "
+                f"no está asociada al período '{periodo.nombre}'."
+            )
+        )
+
+    # FECHA DE LAS EVALUACIONES
+    try:
+        cantidad_evaluaciones = int(
+            request.POST.get(
+                "cantidad_evaluaciones",
+                0
+            )
+        )
+
+    except (TypeError, ValueError):
+        cantidad_evaluaciones = 0
+
+    if cantidad_evaluaciones <= 0:
+        return error(
+            "Cantidad de Evaluaciones",
+            "Debe registrar al menos una evaluación."
+        )
+
+    evaluaciones = []
+    total_porcentaje = Decimal("0.00")
+
+    # VALIDAR EVALUACIONES
+    for i in range(1, cantidad_evaluaciones + 1):
+        metodo = request.POST.get(f"metodo_evaluacion_{i}", "").strip()
+        fecha = request.POST.get(f"fecha_evaluacion_{i}", "").strip()
+        porcentaje = request.POST.get(f"porcentaje_evaluacion_{i}", "").strip()
+
+        if not metodo:
+            return error("Método de Evaluación",
+                (
+                    f"El método de evaluación {i} "
+                    f"no puede estar vacío."
+                )
+            )
+
+        if not fecha:
+            return error("Fecha de Evaluación",
+                (
+                    f"La fecha de evaluación {i} "
+                    f"no puede estar vacía."
+                )
+            )
+
+        try:
+            fecha_obj = datetime.strptime(fecha, "%Y-%m-%d").date()
+        except ValueError:
+            return error("Fecha de Evaluación",
+                (
+                    f"La fecha de evaluación {i} "
+                    f"no tiene un formato válido."
+                )
+            )
+
+        if (fecha_obj < fecha_inicio or fecha_obj > fecha_final):
+            return error("Fecha de Evaluación",
+                (
+                    f"La fecha de la evaluación {i} "
+                    f"debe estar dentro del período académico."
+                )
+            )
+
+        if not porcentaje:
+            return error("Porcentaje de Evaluación",
+                (
+                    f"Debe ingresar el porcentaje "
+                    f"de la evaluación {i}."
+                )
+            )
+
+        try:
+            porcentaje_decimal = Decimal(porcentaje)
+        except (InvalidOperation, ValueError):
+            return error(
+                "Porcentaje de Evaluación",
+                (
+                    f"El porcentaje de la evaluación {i} "
+                    f"no es válido."
+                )
+            )
+
+        if porcentaje_decimal <= 0:
+            return error(
+                "Porcentaje de Evaluación",
+                (
+                    f"La evaluación {i} debe tener "
+                    f"un porcentaje mayor que 0%."
+                )
+            )
+
+        if porcentaje_decimal > 25:
+            return error(
+                "Porcentaje de Evaluación",
+                (
+                    f"El porcentaje de la evaluación {i} "
+                    f"no puede superar el 25%."
+                )
+            )
+
+        total_porcentaje += porcentaje_decimal
+
+        evaluaciones.append({
+            "metodo_evaluacion": metodo,
+            "fecha_evaluacion": fecha_obj,
+            "porcentaje_evaluacion": porcentaje_decimal
+        })
+
+    # TOTAL DE EVALUACIONES
+    if total_porcentaje != Decimal("25.00"):
+        return error("Porcentaje de Evaluaciones",
+            (
+                "La suma de los porcentajes debe ser "
+                f"exactamente 25%. Actualmente suma "
+                f"{total_porcentaje}%."
+            )
+        )
+
+    # PLANIFICACIÓN
     PERIODOS_INICIALES = {
         "Inicial Trimestre",
         "Inicial Semestre"
     }
 
+    # FILTRO BASE
+    filtros_planificacion = {
+        "pnf": docente.pnf,
+        "nucleo": docente.nucleo,
+        "materia_asignacion": asignacion,
+        "fecha_creacion__year": anio_actual,
+        "activo": True
+    }
+
+    # PERÍODOS INICIALES
     if periodo.nombre in PERIODOS_INICIALES:
 
-        planificacion = (
-            PlanificacionAcademica.objects
-            .select_for_update()
-            .filter(
-                pnf=docente.pnf,
-                nucleo=docente.nucleo,
-                materia_asignacion=asignacion,
-                periodo_academico__nombre__in=PERIODOS_INICIALES,
-                fecha_creacion__year=anio_actual,
-                activo=True
-            )
-            .first()
-        )
+        filtros_planificacion[
+            "periodo_academico__nombre__in"
+        ] = PERIODOS_INICIALES
 
+    # PERÍODOS NORMALES
     else:
+        filtros_planificacion[
+            "periodo_academico"
+        ] = periodo
 
+    planificacion = (
+        PlanificacionAcademica.objects
+        .select_for_update()
+        .filter(**filtros_planificacion)
+        .first()
+    )
+
+    # VALIDAR ESTADO
+    if planificacion:
+        if planificacion.estado_aceptacion == "ACEPTADA":
+            return error(
+                "Planificación aceptada",
+                (
+                    "La planificación ya fue aceptada "
+                    "y no puede modificarse."
+                )
+            )
+
+        if planificacion.estado_aceptacion == "ENVIADO":
+            return error(
+                "Planificación enviada",
+                (
+                    "La planificación ya fue enviada "
+                    "al Coordinador."
+                )
+            )
+
+        if planificacion.estado_aceptacion not in {"BORRADOR", "DENEGADA"}:
+            return error(
+                "Planificación no disponible",
+                "La planificación no puede modificarse."
+            )
+
+    # CREAR PLANIFICACIÓN
+    if not planificacion:
         planificacion = (
-            PlanificacionAcademica.objects
-            .select_for_update()
-            .filter(
+            PlanificacionAcademica.objects.create(
                 pnf=docente.pnf,
                 nucleo=docente.nucleo,
                 materia_asignacion=asignacion,
                 periodo_academico=periodo,
-                fecha_creacion__year=anio_actual,
-                activo=True
+                activo=True,
+                estado_aceptacion="BORRADOR"
             )
-            .first()
-        )
-
-        if planificacion:
-
-            if planificacion.estado_aceptacion == "ACEPTADA":
-                return error(
-                    "Planificación aceptada",
-                    "La planificación ya fue aceptada y no puede modificarse."
-                )
-
-            if planificacion.estado_aceptacion == "ENVIADO":
-                return error(
-                    "Planificación enviada",
-                    "La planificación ya fue enviada al Coordinador."
-                )
-
-            if planificacion.estado_aceptacion not in {
-                "BORRADOR",
-                "DENEGADA"
-            }:
-                return error(
-                    "Planificación no disponible",
-                    "La planificación no puede modificarse."
-                )
-    # ==========================================================
-    # CREAR PLANIFICACIÓN
-    # ==========================================================
-
-    if not planificacion:
-
-        planificacion = PlanificacionAcademica.objects.create(
-            pnf=docente.pnf,
-            nucleo=docente.nucleo,
-            materia_asignacion=asignacion,
-            periodo_academico=periodo,
-            activo=True,
-            estado_aceptacion="BORRADOR"
         )
 
     elif planificacion.estado_aceptacion == "DENEGADA":
-
         planificacion.estado_aceptacion = "BORRADOR"
-
         planificacion.save(
-            update_fields=["estado_aceptacion"]
+            update_fields=[
+                "estado_aceptacion"
+            ]
         )
 
-    # ==========================================================
-    # MÁXIMO 6 UNIDADES
-    # ==========================================================
+    # CONTAR UNIDADES
+    filtros_unidades = {
+        "plan_academico__pnf": docente.pnf,
+        "plan_academico__nucleo": docente.nucleo,
+        "plan_academico__materia_asignacion": asignacion,
+        "plan_academico__fecha_creacion__year": anio_actual,
+        "plan_academico__activo": True
+    }
+
+    if periodo.nombre in PERIODOS_INICIALES:
+        filtros_unidades[
+            "plan_academico__periodo_academico__nombre__in"
+        ] = PERIODOS_INICIALES
+
+    else:
+        filtros_unidades[
+            "plan_academico__periodo_academico"
+        ] = periodo
+
 
     cantidad = (
         DetallePlanificacion.objects
-        .filter(
-            plan_academico__pnf=docente.pnf,
-            plan_academico__nucleo=docente.nucleo,
-            plan_academico__materia_asignacion=asignacion,
-            plan_academico__periodo_academico=periodo,
-            plan_academico__fecha_creacion__year=anio_actual,
-            plan_academico__activo=True
-        )
+        .filter(**filtros_unidades)
         .count()
     )
 
+    # MÁXIMO 6 UNIDADES
     if cantidad >= 6:
         return error(
             "Límite de unidades",
-            f"La materia '{asignacion.materia.nombre}' "
-            f"ya tiene registradas 6 unidades para el año {anio_actual}."
+            (
+                f"La materia '{asignacion.materia.nombre}' "
+                f"ya tiene registradas 6 unidades "
+                f"para el año {anio_actual}."
+            )
         )
 
-    # ==========================================================
-    # CREAR UNIDAD
-    # ==========================================================
+    usuario = Usuario.objects.get(cedula_identidad=cedula)
 
-    detalle = DetallePlanificacion.objects.create(
-        plan_academico=planificacion,
-        titulo_unidad=titulo_unidad,
-        contenido_unidad=contenido_unidad,
-        ponderacion=Decimal("0.00")
+    # CREAR UNIDAD
+    detalle = (
+        DetallePlanificacion.objects.create(
+            plan_academico=planificacion,
+            titulo_unidad=titulo_unidad,
+            contenido_unidad=contenido_unidad,
+            ponderacion=Decimal("0.00"),
+            registrado_por=usuario,
+            fecha_registro=timezone.now()
+        )
     )
 
-    # ==========================================================
     # ACTUALIZAR PONDERACIONES
-    # ==========================================================
-
     unidades = list(
         planificacion.detalles.order_by("pk")
     )
@@ -830,7 +1210,8 @@ def reg_pl_act(request):
     cantidad = len(unidades)
 
     base = (
-        Decimal("100.00") / Decimal(cantidad)
+        Decimal("100.00") /
+        Decimal(cantidad)
     ).quantize(
         Decimal("0.01"),
         rounding=ROUND_DOWN
@@ -842,7 +1223,6 @@ def reg_pl_act(request):
     )
 
     for i, unidad in enumerate(unidades):
-
         unidad.ponderacion = (
             base + diferencia
             if i == cantidad - 1
@@ -850,84 +1230,350 @@ def reg_pl_act(request):
         )
 
         unidad.save(
-            update_fields=["ponderacion"]
+            update_fields=[
+                "ponderacion"
+            ]
         )
 
-    # ==========================================================
-    # EVALUACIONES
-    # ==========================================================
-
+    # CREAR EVALUACIONES
     for evaluacion in evaluaciones:
-
         DetalleEvaluacion.objects.create(
             detalle_plan=detalle,
-            metodo_evaluacion=evaluacion["metodo_evaluacion"],
-            porcentaje_evaluacion=evaluacion["porcentaje_evaluacion"],
-            fecha_evaluacion=evaluacion["fecha_evaluacion"]
+            metodo_evaluacion=evaluacion[
+                "metodo_evaluacion"
+            ],
+            porcentaje_evaluacion=evaluacion[
+                "porcentaje_evaluacion"
+            ],
+            fecha_evaluacion=evaluacion[
+                "fecha_evaluacion"
+            ]
         )
-
-    # ==========================================================
-    # RESPUESTA
-    # ==========================================================
 
     return JsonResponse({
         "estado": "exito",
         "icon": "success",
         "title": "Planificación registrada",
         "descripcion": (
-            f"Se registró correctamente la unidad de "
-            f"'{asignacion.materia.nombre}'."
+            f"Se registró correctamente la unidad "
+            f"de '{asignacion.materia.nombre}'."
         )
     })
 
 # Visualizar Plan de Actividades
 
 def vis_plan_est(request):
-    return render(request, "visualizar_plan_academico.html")
+    return render(request, "Planificacion_Academica/visualizar_plan_academico.html")
 
-def pl_reg(request):
-    if request.method == "POST":
-        nucleo = request.POST.get("nucleo")
-        pnf = request.POST.get("pnf")
+def todos_pnfs_asig_doc(request):
+    cedula = request.session.get("cedula_usuario")
+    nucleo = request.POST.get("nucleo_asignado", "").strip()
+    perfil = request.POST.get("perfil", "").strip()
 
-        docente = Docente.objects.get(
-            usuario__cedula_identidad=request.session.get("cedula_usuario"),
+    if not cedula:
+        return JsonResponse({
+            "estado": "error",
+            "datos": [],
+            "descripcion": "No se encontró el usuario en la sesión."
+        })
+
+    if perfil == "DOCENTE":
+
+        pnfs = Pnf.objects.filter(
+            id_pnf__in=Docente.objects.filter(
+                usuario__cedula_identidad=cedula,
+                activo=True,
+                materias_asignadas__activo=True,
+                materias_asignadas__materia_asignada__activo=True
+            ).values_list(
+                "pnf_id",
+                flat=True
+            )
+        ).values(
+            "id_pnf",
+            "pnf"
+        ).distinct().order_by(
+            "pnf"
+        )
+
+    elif perfil == "CONTROL_ESTUDIO":
+
+        if not nucleo:
+            return JsonResponse({
+                "estado": "exito",
+                "datos": []
+            })
+
+        control_estudio = ControlEstudio.objects.filter(
+            usuario__cedula_identidad=cedula,
             nucleo_id=nucleo,
+            activo=True
+        ).first()
+
+        if not control_estudio:
+            return JsonResponse({
+                "estado": "error",
+                "datos": [],
+                "descripcion": "No se encontró un encargado de Control de Estudio activo para este núcleo."
+            })
+
+        pnfs = Pnf.objects.filter(
+            id_pnf__in=Docente.objects.filter(
+                nucleo_id=control_estudio.nucleo_id,
+                activo=True
+            ).values_list(
+                "pnf_id",
+                flat=True
+            )
+        ).values(
+            "id_pnf",
+            "pnf"
+        ).distinct().order_by(
+            "pnf"
+        )
+
+    else:
+
+        return JsonResponse({
+            "estado": "error",
+            "datos": [],
+            "descripcion": "Perfil no válido."
+        })
+
+    return JsonResponse({
+        "estado": "exito",
+        "datos": list(pnfs)
+    })
+
+def doc_reg(request):
+    pnf = request.POST.get("id_pnf", "").strip()
+    cedula = request.session.get("cedula_usuario")
+
+    if not cedula:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Sesión no válida",
+            "descripcion": "No se encontró el usuario en la sesión.",
+            "icon": "warning"
+        })
+
+    control_estudio = ControlEstudio.objects.filter(
+        usuario__cedula_identidad=cedula,
+        activo=True
+    ).first()
+
+    if not control_estudio:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Acceso no autorizado",
+            "descripcion": "No se encontró un encargado de Control de Estudio activo.",
+            "icon": "warning"
+        })
+
+    docentes = Docente.objects.filter(
+        nucleo=control_estudio.nucleo,
+        activo=True,
+        materias_asignadas__activo=True,
+        materias_asignadas__materia_asignada__activo=True
+    ).select_related(
+        "usuario",
+        "pnf"
+    ).distinct()
+
+    if pnf:
+        docentes = docentes.filter(
             pnf_id=pnf
         )
 
-        # Materias que pertenecen a este docente
-        materias_docente = DocenteAsignadoMateria.objects.filter(
-            docente=docente,
+    docentes = docentes.order_by(
+        "usuario__apellidos",
+        "usuario__nombres"
+    )
+
+    datos = [
+        {
+            "id_docente": docente.id_docente,
+            "cedula": docente.usuario.cedula_identidad,
+            "nombres": docente.usuario.nombres,
+            "apellidos": docente.usuario.apellidos,
+            "id_pnf": docente.pnf.id_pnf,
+            "pnf": docente.pnf.pnf,
+        }
+        for docente in docentes
+    ]
+
+    return JsonResponse({
+        "estado": "exito",
+        "docentes": datos
+    })
+
+def pl_reg(request):
+    nucleo = request.POST.get("nucleo", "").strip()
+    pnf = request.POST.get("pnf", "").strip()
+    docente = request.POST.get("docente", "").strip()
+
+    perfil = request.POST.get("perfil", "").strip()
+    cedula = request.session.get("cedula_usuario")
+
+    if not cedula:
+        return JsonResponse({
+            "estado": "fallo",
+            "datos": [],
+            "descripcion": "No se encontró el usuario en la sesión."
+        })
+
+    if not perfil:
+        return JsonResponse({
+            "estado": "fallo",
+            "datos": [],
+            "descripcion": "No se recibió el perfil."
+        })
+
+    # CONTROL DE ESTUDIO
+    if perfil == "CONTROL_ESTUDIO":
+        control_estudio = (
+            ControlEstudio.objects
+            .filter(
+                usuario__cedula_identidad=cedula,
+                activo=True
+            )
+            .select_related("nucleo")
+            .first()
+        )
+
+        if not control_estudio:
+            return JsonResponse({
+                "estado": "fallo",
+                "datos": [],
+                "descripcion": (
+                    "No se encontró un encargado de "
+                    "Control de Estudio activo."
+                )
+            })
+
+        docentes = Docente.objects.filter(
+            nucleo_id=control_estudio.nucleo_id,
             activo=True
-        ).values_list(
+        )
+
+        if docente:
+            docentes = docentes.filter(
+                usuario__cedula_identidad=docente
+            )
+
+        if pnf:
+            docentes = docentes.filter(
+                pnf_id=pnf
+            )
+
+        nucleo_id = control_estudio.nucleo_id
+
+    # DOCENTE
+    elif perfil == "DOCENTE":
+        docentes = Docente.objects.filter(
+            usuario__cedula_identidad=cedula,
+            activo=True
+        )
+
+        if not docentes.exists():
+            return JsonResponse({
+                "estado": "fallo",
+                "datos": [],
+                "descripcion": (
+                    "No se encontró un Docente activo "
+                    "asociado al usuario."
+                )
+            })
+
+        if pnf:
+            docentes = docentes.filter(
+                pnf_id=pnf
+            )
+
+        nucleo_id = None
+
+    else:
+        return JsonResponse({
+            "estado": "fallo",
+            "datos": [],
+            "descripcion": (
+                "El perfil recibido no tiene permiso "
+                "para consultar las planificaciones."
+            )
+        })
+
+    # ASIGNACIONES ACTIVAS
+    materias_docente = (
+        DocenteAsignadoMateria.objects
+        .filter(
+            docente__in=docentes,
+            activo=True,
+            materia_asignada__activo=True
+        )
+        .values_list(
             "materia_asignada_id",
             flat=True
         )
+        .distinct()
+    )
 
-        # Planes únicamente de las materias asignadas a este docente
-        planes = PlanificacionAcademica.objects.filter(
-            materia_asignacion_id__in=materias_docente,
-            nucleo=docente.nucleo,
-            pnf=docente.pnf,
-            activo=True
-        ).select_related(
-            "materia_asignacion__materia"
+    # PLANIFICACIONES
+    planes = (
+        PlanificacionAcademica.objects
+        .filter(
+            activo=True,
+            materia_asignacion_id__in=materias_docente
+        )
+        .select_related(
+            "materia_asignacion__materia",
+            "nucleo",
+            "pnf"
+        )
+        .prefetch_related(
+            "detalles"
+        )
+        .order_by(
+            "-fecha_creacion",
+            "-id_planificacion"
+        )
+    )
+
+    if nucleo_id:
+        planes = planes.filter(
+            nucleo_id=nucleo_id
         )
 
-        datos = []
-        for plan in planes:
-            datos.append({
-                "id_plan": plan.id_planificacion,
-                "materia": plan.materia_asignacion.materia.nombre,
-                "observacion": plan.observacion,
-                "estado_aceptacion": plan.estado_aceptacion,
-                "estado_aceptacion_display": plan.get_estado_aceptacion_display(),
-                "cantidad_unidades": plan.detalles.count(),
-            })
+    if pnf:
+        planes = planes.filter(
+            pnf_id=pnf
+        )
 
-        return JsonResponse({"datos": datos})
-  
+    datos = [
+        {
+            "id_plan": plan.id_planificacion,
+            "materia": plan.materia_asignacion.materia.nombre,
+            "nucleo": plan.nucleo.municipio,
+            "pnf": plan.pnf.pnf,
+            "observacion": plan.observacion,
+            "estado_aceptacion": plan.estado_aceptacion,
+            "estado_aceptacion_display": (
+                plan.get_estado_aceptacion_display()
+            ),
+            "fecha_registro": (
+                plan.fecha_creacion.strftime("%d/%m/%Y %H:%M:%S")
+                if plan.fecha_creacion
+                else None
+            ),
+            "cantidad_unidades": len(plan.detalles.all()),
+        }
+        for plan in planes
+    ]
+
+    return JsonResponse({
+        "estado": "exito",
+        "datos": datos
+    })
+
 def datos_pl_reg(request):
     if request.method == "POST":
         id_plan = request.POST.get("id_plan")
@@ -1030,8 +1676,6 @@ def act_pl_reg(request):
     if request.method == "POST":
         id_plan = request.POST.get("id_plan")
 
-        print(id_plan)
-
         try:
             plan = PlanificacionAcademica.objects.get(id_planificacion=id_plan)
         except PlanificacionAcademica.DoesNotExist:
@@ -1042,6 +1686,29 @@ def act_pl_reg(request):
                 "descripcion": "No se encuentra registrado el Plan de Actividades Académicas."
             })
 
+        cedula = request.session.get("cedula_usuario")
+
+        if not cedula:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "error",
+                "title": "Sesión no válida",
+                "descripcion": "No se encontró el usuario autenticado."
+            })
+
+        try:
+            usuario = Usuario.objects.get(cedula_identidad=cedula)
+        except Usuario.DoesNotExist:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "error",
+                "title": "Usuario no encontrado",
+                "descripcion": (
+                    "El usuario de la sesión no se encuentra "
+                    "registrado."
+                )
+            })
+        
         try:
             with transaction.atomic():
 
@@ -1110,12 +1777,17 @@ def act_pl_reg(request):
 
                     detalle.titulo_unidad = titulo_unidad.strip()
                     detalle.contenido_unidad = contenido_unidad.strip()
+                    detalle.modificado_por = usuario
+                    detalle.fecha_modificado = timezone.now()
                     detalle.save(
                         update_fields=[
                             "titulo_unidad",
-                            "contenido_unidad"
+                            "contenido_unidad",
+                            "modificado_por",
+                            "fecha_modificado"
                         ]
                     )
+                    
                     prefijo = f"metodo_evaluacion_{i}_"
 
                     # Obtener los índices de las evaluaciones de esta unidad

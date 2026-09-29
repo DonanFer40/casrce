@@ -1,0 +1,558 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="PanelAcademicoCASRCE">
+
+    <div class="PanelAcademicoCASRCE-contenedor">
+
+        <!-- =========================================
+             ENCABEZADO DEL PANEL
+        ========================================== -->
+        <header class="PanelAcademicoCASRCE-cabecera">
+
+            <div class="PanelAcademicoCASRCE-identificacion">
+
+                <div class="PanelAcademicoCASRCE-indicador">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+
+                <div class="PanelAcademicoCASRCE-titulos">
+                    <span class="PanelAcademicoCASRCE-etiqueta">
+                        PANEL ACADÉMICO
+                    </span>
+
+                    <h1>
+                        Gestión Académica
+                    </h1>
+
+                    <p>
+                        Espacio integrado para las funciones de Docente y
+                        Coordinador de PNF.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="PanelAcademicoCASRCE-roles">
+
+                {% if es_coordinador %}
+                    <span class="PanelAcademicoCASRCE-rol">
+                        <i class="fa-solid fa-user-tie"></i>
+                        Coordinador de PNF
+                    </span>
+                {% endif %}
+
+                {% if es_docente %}
+                    <span class="PanelAcademicoCASRCE-rol">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        Docente
+                    </span>
+                {% endif %}
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================================
+             CONTEXTO ACADÉMICO
+        ========================================== -->
+        <section class="PanelAcademicoCASRCE-contexto">
+
+            <div class="PanelAcademicoCASRCE-contexto-icono">
+                <i class="fa-solid fa-building-columns"></i>
+            </div>
+
+            <div class="PanelAcademicoCASRCE-contexto-contenido">
+
+                <span class="PanelAcademicoCASRCE-contexto-etiqueta">
+                    NÚCLEO ACTIVO
+                </span>
+
+                <strong>
+                    {{ nucleo_usuario }}
+                </strong>
+
+                <p>
+                    Desde este panel puedes acceder a las funcionalidades
+                    académicas correspondientes a los roles asociados a tu
+                    cuenta.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             RESUMEN ACADÉMICO
+        ========================================== -->
+        <section class="PanelAcademicoCASRCE-resumen">
+
+            {% if es_coordinador %}
+
+            <article class="PanelAcademicoCASRCE-tarjeta">
+
+                <div class="PanelAcademicoCASRCE-tarjeta-icono">
+                    <i class="fa-solid fa-sitemap"></i>
+                </div>
+
+                <div class="PanelAcademicoCASRCE-tarjeta-informacion">
+
+                    <span>
+                        PERFIL
+                    </span>
+
+                    <strong>
+                        Coordinador de PNF
+                    </strong>
+
+                    <small>
+                        Gestión y seguimiento del programa
+                    </small>
+
+                </div>
+
+            </article>
+
+            {% endif %}
+
+
+            {% if es_docente %}
+
+            <article class="PanelAcademicoCASRCE-tarjeta">
+
+                <div class="PanelAcademicoCASRCE-tarjeta-icono">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+
+                <div class="PanelAcademicoCASRCE-tarjeta-informacion">
+
+                    <span>
+                        PERFIL
+                    </span>
+
+                    <strong>
+                        Docente
+                    </strong>
+
+                    <small>
+                        Gestión de actividades académicas
+                    </small>
+
+                </div>
+
+            </article>
+
+            {% endif %}
+
+
+            <article class="PanelAcademicoCASRCE-tarjeta">
+
+                <div class="PanelAcademicoCASRCE-tarjeta-icono">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+
+                <div class="PanelAcademicoCASRCE-tarjeta-informacion">
+
+                    <span>
+                        NÚCLEO
+                    </span>
+
+                    <strong>
+                        {{ nucleo_usuario }}
+                    </strong>
+
+                    <small>
+                        Núcleo académico asignado
+                    </small>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================================
+             CONTENIDO PRINCIPAL
+        ========================================== -->
+        <div class="PanelAcademicoCASRCE-contenido">
+
+
+            <!-- =====================================
+                 FUNCIONES DEL COORDINADOR
+            ====================================== -->
+            {% if es_coordinador %}
+
+            <section class="PanelAcademicoCASRCE-modulo">
+
+                <div class="PanelAcademicoCASRCE-modulo-cabecera">
+
+                    <div class="PanelAcademicoCASRCE-modulo-icono">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="PanelAcademicoCASRCE-modulo-etiqueta">
+                            COORDINACIÓN
+                        </span>
+
+                        <h2>
+                            Funciones del Coordinador de PNF
+                        </h2>
+
+                        <p>
+                            Accesos relacionados con la gestión y seguimiento
+                            del Programa Nacional de Formación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="PanelAcademicoCASRCE-accesos">
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Gestión de estudiantes
+                            </strong>
+
+                            <small>
+                                Consulta y seguimiento de estudiantes
+                                pertenecientes al PNF.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-user-group"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Gestión docente
+                            </strong>
+
+                            <small>
+                                Consulta y seguimiento del personal docente
+                                asociado al PNF.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-book-open"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Gestión académica del PNF
+                            </strong>
+
+                            <small>
+                                Acceso a los procesos académicos
+                                correspondientes al programa.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Seguimiento académico
+                            </strong>
+
+                            <small>
+                                Consulta del desarrollo académico del PNF.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+
+            <!-- =====================================
+                 FUNCIONES DEL DOCENTE
+            ====================================== -->
+            {% if es_docente %}
+
+            <section class="PanelAcademicoCASRCE-modulo">
+
+                <div class="PanelAcademicoCASRCE-modulo-cabecera">
+
+                    <div class="PanelAcademicoCASRCE-modulo-icono">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="PanelAcademicoCASRCE-modulo-etiqueta">
+                            DOCENCIA
+                        </span>
+
+                        <h2>
+                            Funciones del Docente
+                        </h2>
+
+                        <p>
+                            Accesos relacionados con la gestión de actividades
+                            y procesos académicos del docente.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="PanelAcademicoCASRCE-accesos">
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Gestión de calificaciones
+                            </strong>
+
+                            <small>
+                                Registro y consulta de las calificaciones
+                                correspondientes a las unidades curriculares.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-users-rectangle"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Mis estudiantes
+                            </strong>
+
+                            <small>
+                                Consulta de estudiantes asociados a las
+                                unidades curriculares asignadas.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-book"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Unidades curriculares
+                            </strong>
+
+                            <small>
+                                Consulta de las unidades curriculares
+                                asignadas al docente.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="PanelAcademicoCASRCE-acceso">
+
+                        <span class="PanelAcademicoCASRCE-acceso-icono">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </span>
+
+                        <span class="PanelAcademicoCASRCE-acceso-contenido">
+
+                            <strong>
+                                Actividades académicas
+                            </strong>
+
+                            <small>
+                                Consulta de actividades y procesos académicos
+                                relacionados con la docencia.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelAcademicoCASRCE-acceso-flecha"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- =========================================
+             INFORMACIÓN LATERAL
+        ========================================== -->
+        <aside class="PanelAcademicoCASRCE-lateral">
+
+
+            {% if es_coordinador %}
+
+            <section class="PanelAcademicoCASRCE-lateral-modulo">
+
+                <div class="PanelAcademicoCASRCE-lateral-cabecera">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <h3>
+                        Perfil de coordinación
+                    </h3>
+
+                </div>
+
+                <p>
+                    Como Coordinador de PNF tienes acceso a las funciones
+                    relacionadas con la gestión y seguimiento académico del
+                    programa asignado.
+                </p>
+
+            </section>
+
+            {% endif %}
+
+
+            {% if es_docente %}
+
+            <section class="PanelAcademicoCASRCE-lateral-modulo">
+
+                <div class="PanelAcademicoCASRCE-lateral-cabecera">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <h3>
+                        Perfil docente
+                    </h3>
+
+                </div>
+
+                <p>
+                    Como Docente tienes acceso a las funciones académicas
+                    correspondientes a las unidades curriculares y estudiantes
+                    asignados.
+                </p>
+
+            </section>
+
+            {% endif %}
+
+
+            {% if es_coordinador and es_docente %}
+
+            <section class="PanelAcademicoCASRCE-aviso">
+
+                <div class="PanelAcademicoCASRCE-aviso-icono">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+
+                <div class="PanelAcademicoCASRCE-aviso-contenido">
+
+                    <strong>
+                        Perfil académico integrado
+                    </strong>
+
+                    <p>
+                        Tu cuenta posee los roles de Coordinador de PNF y
+                        Docente. Por esta razón, las funcionalidades de ambos
+                        perfiles se encuentran disponibles desde este panel.
+                    </p>
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+        </aside>
+
+
+    </div>
+
+</section>
+{% endblock %}

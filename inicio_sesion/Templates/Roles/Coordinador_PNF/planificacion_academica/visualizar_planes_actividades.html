@@ -1,0 +1,604 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* ==========================================================
+   MÓDULO COORDINADOR DE ACTIVIDADES
+   ========================================================== */
+
+    #modulo_coordinador_actividades {
+        width: 100%;
+    }
+
+    .conteendo__coordinador_actividades {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 25px;
+    }
+
+    .encabezado_modulo {
+        margin-bottom: 25px;
+    }
+
+    .encabezado_modulo h2 {
+        margin: 0 0 8px;
+        font-size: 25px;
+        color: #102f4e;
+    }
+
+    .descripcion_modulo {
+        margin: 0;
+        max-width: 950px;
+        color: #5f6b76;
+        line-height: 1.6;
+    }
+
+    /* ==========================================================
+   FORMULARIO
+   ========================================================== */
+
+    #formulario_busqueda {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+
+    #formulario_busqueda label {
+        font-weight: 600;
+        color: #102f4e;
+    }
+
+    #formulario_busqueda select,
+    #formulario_busqueda input {
+        min-width: 260px;
+        height: 42px;
+        padding: 0 12px;
+        border: 1px solid #cbd5dc;
+        border-radius: 6px;
+        background: #fff;
+        color: #263746;
+        font-size: 14px;
+        outline: none;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    #formulario_busqueda select:focus,
+    #formulario_busqueda input:focus {
+        border-color: #00779e;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, .12);
+    }
+
+    /* ==========================================================
+   RESULTADOS
+   ========================================================== */
+
+    .contenedor_resultados {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #dce3e8;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .encabezado_resultados {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 22px;
+        border-bottom: 1px solid #e1e7eb;
+        background: #f8fbfc;
+    }
+
+    .encabezado_resultados h3 {
+        margin: 0 0 5px;
+        color: #102f4e;
+        font-size: 18px;
+    }
+
+    .encabezado_resultados p {
+        margin: 0;
+        color: #66737d;
+        font-size: 14px;
+    }
+
+    .tabla_planes {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .tabla_planes table {
+        width: 100%;
+        min-width: 850px;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    .tabla_planes th {
+        padding: 13px 12px;
+        background: #102f4e;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+
+        white-space: nowrap;
+    }
+
+    .tabla_planes td {
+        padding: 13px 12px;
+        border-bottom: 1px solid #e6ebee;
+        color: #34434f;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .tabla_planes tbody tr:hover {
+        background: #f8fbfc;
+    }
+
+    /* ==========================================================
+   BOTONES DE DECISIÓN
+   ========================================================== */
+
+    .btn-aceptar-plan,
+    .btn-denegar-plan {
+        min-width: 95px;
+        padding: 8px 12px;
+        border: 0;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 600;
+        transition: .2s ease;
+    }
+
+    .btn-aceptar-plan {
+        background: #00779e;
+        color: #fff;
+    }
+
+    .btn-aceptar-plan:hover {
+        background: #005f7e;
+    }
+
+    .btn-denegar-plan {
+        margin-left: 5px;
+        background: #e9eef1;
+        color: #8b2e2e;
+    }
+
+    .btn-denegar-plan:hover {
+        background: #dce3e7;
+    }
+
+    /* ==========================================================
+   DIALOG
+   ========================================================== */
+
+    #dialogo_coordinador_planes_estudios {
+        width: min(1100px, calc(100vw - 40px));
+        max-width: 1100px;
+        max-height: calc(100vh - 40px);
+        padding: 0;
+        margin: auto;
+        border: 0;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+        overflow: hidden;
+    }
+
+    #dialogo_coordinador_planes_estudios::backdrop {
+        background: rgba(16, 47, 78, .55);
+        backdrop-filter: blur(2px);
+    }
+
+    /* ==========================================================
+   CONTENEDOR DEL DIALOG
+   ========================================================== */
+
+    .contenedor_coordinador_planes_estudios {
+        position: relative;
+        width: 100%;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+        padding: 0 28px 30px;
+    }
+
+    /* ==========================================================
+   BOTÓN CERRAR
+   ========================================================== */
+
+    .cerrar_dialogo {
+        position: absolute;
+        top: 17px;
+        right: 20px;
+        z-index: 10;
+
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: #fff;
+
+        cursor: pointer;
+        font-size: 18px;
+        transition: .2s ease;
+    }
+
+    .cerrar_dialogo:hover {
+        background: rgba(255, 255, 255, .15);
+    }
+
+    /* ==========================================================
+   ENCABEZADO DEL DIALOG
+   ========================================================== */
+
+    .encabezado_dialogo {
+        margin: 0 -28px 25px;
+        padding: 25px 70px 22px 28px;
+        background: #102f4e;
+        color: #fff;
+    }
+
+    .encabezado_dialogo h3 {
+        margin: 0 0 7px;
+        font-size: 20px;
+    }
+
+    .encabezado_dialogo p {
+        margin: 0;
+        color: rgba(255, 255, 255, .85);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* ==========================================================
+   INFORMACIÓN GENERAL DEL PLAN
+   ========================================================== */
+
+    .informacion_plan {
+        margin-bottom: 28px;
+    }
+
+    .datos_plan {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .dato_plan {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        min-height: 58px;
+        padding: 11px 14px;
+
+        border: 1px solid #dce4e9;
+        border-radius: 7px;
+        background: #f8fbfc;
+    }
+
+    .dato_plan .etiqueta {
+        color: #66737d;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .dato_plan .valor {
+        color: #102f4e;
+        font-size: 14px;
+        font-weight: 500;
+        overflow-wrap: anywhere;
+    }
+
+    /* ==========================================================
+   UNIDADES
+   ========================================================== */
+
+    .seccion_unidades {
+        width: 100%;
+    }
+
+    .seccion_unidades>h4 {
+        margin: 0 0 12px;
+        color: #102f4e;
+        font-size: 17px;
+    }
+
+    /* ==========================================================
+   PESTAÑAS
+   ========================================================== */
+
+    .pestanas_unidades {
+        display: flex;
+        gap: 5px;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0;
+        border-bottom: 1px solid #dce4e9;
+    }
+
+    .pestana_unidad {
+        flex: 0 0 auto;
+        padding: 10px 15px;
+
+        border: 1px solid transparent;
+        border-bottom: 3px solid transparent;
+        border-radius: 6px 6px 0 0;
+
+        background: transparent;
+        color: #5f6b76;
+
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+
+        transition: .2s ease;
+    }
+
+    .pestana_unidad:hover {
+        background: #f1f6f8;
+        color: #102f4e;
+    }
+
+    .pestana_unidad.activa {
+        border-bottom-color: #00779e;
+        background: #f1f6f8;
+        color: #00779e;
+    }
+
+    /* ==========================================================
+   CONTENIDO DE UNIDAD
+   ========================================================== */
+
+    .contenido_unidades {
+        margin-top: 18px;
+    }
+
+    .contenido_unidad {
+        padding: 20px;
+
+        border: 1px solid #dce4e9;
+        border-radius: 8px;
+        background: #fff;
+    }
+
+    .contenido_unidad h4 {
+        margin: 0 0 10px;
+        color: #102f4e;
+        font-size: 18px;
+    }
+
+    .contenido_unidad h5 {
+        margin: 22px 0 9px;
+        color: #102f4e;
+        font-size: 14px;
+    }
+
+    .contenido_unidad>p {
+        margin: 8px 0;
+        color: #56636e;
+        font-size: 14px;
+    }
+
+    /* ==========================================================
+   CONTENIDO DE LA UNIDAD
+   ========================================================== */
+
+    .texto_contenido {
+        padding: 15px;
+
+        border-left: 4px solid #00779e;
+        border-radius: 5px;
+
+        background: #f8fbfc;
+        color: #3e4c56;
+
+        font-size: 14px;
+        line-height: 1.7;
+
+        white-space: pre-line;
+        overflow-wrap: anywhere;
+    }
+
+    /* ==========================================================
+   EVALUACIONES
+   ========================================================== */
+
+    .lista_evaluaciones {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .evaluacion {
+        padding: 14px;
+
+        border: 1px solid #dce4e9;
+        border-radius: 7px;
+
+        background: #f8fbfc;
+    }
+
+    .evaluacion p {
+        margin: 6px 0;
+        color: #4c5b65;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .evaluacion strong {
+        color: #102f4e;
+    }
+
+    /* ==========================================================
+   SIN UNIDADES
+   ========================================================== */
+
+    .sin_unidades {
+        padding: 30px;
+        text-align: center;
+
+        border: 1px dashed #cbd5dc;
+        border-radius: 7px;
+
+        color: #697781;
+        background: #f8fbfc;
+    }
+
+    /* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+    @media (max-width: 800px) {
+
+        #dialogo_coordinador_planes_estudios {
+            width: calc(100vw - 20px);
+            max-height: calc(100vh - 20px);
+        }
+
+        .contenedor_coordinador_planes_estudios {
+            max-height: calc(100vh - 20px);
+            padding: 0 18px 20px;
+        }
+
+        .encabezado_dialogo {
+            margin: 0 -18px 20px;
+            padding: 22px 60px 20px 18px;
+        }
+
+        .datos_plan {
+            grid-template-columns: 1fr;
+        }
+
+        .lista_evaluaciones {
+            grid-template-columns: 1fr;
+        }
+
+        .cerrar_dialogo {
+            right: 12px;
+            top: 12px;
+        }
+    }
+
+    @media (max-width: 550px) {
+
+        .conteendo__coordinador_actividades {
+            padding: 15px;
+        }
+
+        .encabezado_resultados {
+            padding: 16px;
+        }
+
+        .contenido_unidad {
+            padding: 15px;
+        }
+
+        .pestana_unidad {
+            padding: 9px 11px;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<section id="modulo_coordinador_actividades">
+    <div class="conteendo__coordinador_actividades">
+        <div class="encabezado_modulo">
+            <h2>Evaluacion de Planificaciones Académicas</h2>
+
+            <p class="descripcion_modulo">
+                En este módulo puede consultar y revisar los planes de actividades
+                académicas enviados por los docentes correspondientes a los PNF
+                que tiene asignados. Seleccione un PNF para visualizar los planes
+                pendientes de revisión y determinar su aceptación o denegación.
+            </p>
+        </div>
+
+        <form method="post" id="formulario_busqueda">
+            {% csrf_token %}
+            <label for="perfiles_asignados" id="label_perfil">Perfil Asignado:</label>
+            <select name="perfiles_asignados" id="perfiles_asignados" style="display: none;"></select>
+
+            <input type="text" name="perfiles_asignados" id="perfil_asignado" readonly style="display: none;">
+
+            <label for="pnfs_asignados" id="label_pnf" style="display: none;">P.N.F Asignado:</label>
+            <select name="pnfs_asignados" id="pnfs_asignados" style="display: none;"></select>
+        </form>
+
+        <div class="contenedor_resultados">
+            <div class="encabezado_resultados">
+                <div>
+                    <h3>Planes enviados para revisión</h3>
+                    <p>
+                        Los siguientes planes han sido enviados por los docentes
+                        y requieren revisión por parte del Coordinador de PNF.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tabla_planes">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>MATERIA</th>
+                            <th>PERIODO ACADÉMICO</th>
+                            <th>MATERIA</th>
+                            <th>DECISIÓN</th>
+                            <th>UNIDADES</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="contenedor_planes_actividades"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<dialog id="dialogo_coordinador_planes_estudios">
+    <div class="contenedor_coordinador_planes_estudios">
+        <button type="button" id="cerrar_dialogo" class="cerrar_dialogo">
+            <i class="icon-cancel-circled"></i>
+        </button>
+
+        <div class="encabezado_dialogo">
+            <h3>Revisión del Plan de Actividades Académicas</h3>
+            <p>
+                Consulte la información del plan, sus unidades académicas,
+                contenidos y evaluaciones antes de tomar una decisión.
+            </p>
+        </div>
+
+        <div id="informacion_plan" class="informacion_plan"></div>
+
+        <div class="seccion_unidades">
+            <h4>Unidades académicas</h4>
+            <div id="pestanas_unidades" class="pestanas_unidades"></div>
+
+            <div id="contenido_unidades" class="contenido_unidades"></div>
+        </div>
+    </div>
+</dialog>
+
+<script
+    src="{% static 'Funciones_Asincronas/Coordinador_PNF/planificacion_academica/evaluar_planificacion.js' %}"></script>
+
+{% endblock %}

@@ -1,148 +1,750 @@
-/* ========================================================= REGISTRAR AULAS ACADÉMICAS (SCOPED) ========================================================= */
-#modulo_aulas_registrar {
-    display: flex;
-    justify-content: center;
+/* =========================================================
+   REGISTRAR AULAS ACADÉMICAS - CARSCE
+   ========================================================= */
+
+#director-aulas-registrar-carsce {
+
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.director-aulas-registrar-carsce-contenedor {
+
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.director-aulas-registrar-carsce-encabezado {
+
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+
+.director-aulas-registrar-carsce-identificacion {
+
+    display: inline-flex;
     align-items: center;
-    width: 100%;
-}
+    gap: 8px;
 
-#modulo_aulas_registrar .contenedor_aulas_academicas {
-    width: 100%;
-    max-width: 750px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+    margin-bottom: 12px;
+    padding: 7px 12px;
 
-#modulo_aulas_registrar h3 {
-    color: var(--texto);
-    font-size: 1.8rem;
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: 0.68rem;
     font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+
+.director-aulas-registrar-carsce-identificacion i {
+
+    font-size: 0.72rem;
+}
+
+
+.director-aulas-registrar-carsce-presentacion {
+
+    width: 100%;
+}
+
+
+.director-aulas-registrar-carsce-titulo {
+
     margin: 0;
-}
 
-#modulo_aulas_registrar .card_registrar_aulas {
-    background: var(--color-base);
-    border-radius: var(--radio);
-    padding: 40px 45px;
-    box-shadow: var(--sombra-suave);
-    border: 1px solid var(--borde);
-    position: relative;
-}
+    color: var(--texto-principal);
 
-#modulo_aulas_registrar .card_registrar_aulas h4 {
-    color: var(--texto);
-    font-size: 1.4rem;
+    font-size: 1.55rem;
     font-weight: 700;
-    margin-bottom: 25px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--background);
-    position: relative;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
-#modulo_aulas_registrar .card_registrar_aulas h4::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background: var(--color-azulE);
+
+.director-aulas-registrar-carsce-titulo span {
+
+    color: var(--color-azul-hover);
+    font-weight: 600;
 }
 
-/* ========================================================= FORMULARIO Y FILAS ========================================================= */
-#modulo_aulas_registrar #formulario_registrar {
+
+.director-aulas-registrar-carsce-descripcion {
+
+    max-width: 750px;
+
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   TARJETA
+   ========================================================= */
+
+.director-aulas-registrar-carsce-tarjeta {
+
+    width: 100%;
+
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA DE TARJETA
+   ========================================================= */
+
+.director-aulas-registrar-carsce-tarjeta-cabecera {
+
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 23px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
 }
 
-#modulo_aulas_registrar .fila-campos {
+
+.director-aulas-registrar-carsce-tarjeta-icono {
+
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        145deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.20);
+}
+
+
+.director-aulas-registrar-carsce-tarjeta-icono i {
+
+    font-size: 1rem;
+}
+
+
+.director-aulas-registrar-carsce-tarjeta-informacion {
+
+    min-width: 0;
+}
+
+
+.director-aulas-registrar-carsce-tarjeta-titulo {
+
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+
+.director-aulas-registrar-carsce-tarjeta-descripcion {
+
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.director-aulas-registrar-carsce-formulario {
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   FILAS
+   ========================================================= */
+
+.director-aulas-registrar-carsce-fila {
+
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
     gap: 20px;
+
+    width: 100%;
+
+    margin-bottom: 18px;
 }
 
-#modulo_aulas_registrar .campo-completo {
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.director-aulas-registrar-carsce-campo {
+
+    width: 100%;
+}
+
+
+.director-aulas-registrar-carsce-campo
+> label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   CAMPO COMPLETO
+   ========================================================= */
+
+.director-aulas-registrar-carsce-campo-completo {
+
     grid-column: 1 / -1;
 }
 
-#modulo_aulas_registrar .campo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+.director-aulas-registrar-carsce-control {
+
+    position: relative;
+
     width: 100%;
 }
 
-#modulo_aulas_registrar label {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: var(--texto);
-}
 
-#modulo_aulas_registrar input[type="text"] {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--borde);
-    border-radius: 10px;
-    background: var(--background);
-    color: var(--texto);
-    font-size: 0.95rem;
-    outline: none;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-}
+.director-aulas-registrar-carsce-control
+> i:first-child {
 
-#modulo_aulas_registrar input[type="text"]:focus {
-    border-color: var(--color-azulE);
-    background: var(--color-base);
-    box-shadow: 0 0 0 3px rgba(33, 28, 132, 0.12);
-}
+    position: absolute;
 
-/* Mensajes de validación */
-#modulo_aulas_registrar small {
+    top: 50%;
+    left: 14px;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
     font-size: 0.82rem;
-    color: var(--rojo);
-    margin-top: 2px;
-    display: block;
-    min-height: 16px;
+
+    pointer-events: none;
+
+    z-index: 2;
 }
 
-/* ========================================================= BOTÓN DE ACCIÓN ========================================================= */
-#modulo_aulas_registrar #btn_registrar,
-#modulo_aulas_registrar input[type="submit"] {
-    margin-top: 10px;
-    padding: 14px 24px;
-    background: var(--color-botones);
-    color: var(--color-neutro);
-    font-weight: 700;
-    font-size: 0.95rem;
-    border: none;
-    border-radius: 12px;
+
+/* =========================================================
+   INPUTS Y SELECTS
+   ========================================================= */
+
+.director-aulas-registrar-carsce-control input,
+.director-aulas-registrar-carsce-control select {
+
+    width: 100%;
+    height: 45px;
+
+    padding: 0 40px;
+
+    box-sizing: border-box;
+
+    color: #334155;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 400;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   SELECTS
+   ========================================================= */
+
+.director-aulas-registrar-carsce-control select {
+
+    appearance: none;
+    -webkit-appearance: none;
+
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-#modulo_aulas_registrar #btn_registrar:hover,
-#modulo_aulas_registrar input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    filter: brightness(0.95);
+
+/* =========================================================
+   FLECHA DE SELECT
+   ========================================================= */
+
+.director-aulas-registrar-carsce-flecha {
+
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: 0.66rem;
+
+    pointer-events: none;
 }
 
-#modulo_aulas_registrar #btn_registrar:active,
-#modulo_aulas_registrar input[type="submit"]:active {
+
+/* =========================================================
+   HOVER / FOCUS
+   ========================================================= */
+
+.director-aulas-registrar-carsce-control input:hover,
+.director-aulas-registrar-carsce-control select:hover {
+
+    border-color: #94A3B8;
+}
+
+
+.director-aulas-registrar-carsce-control input:focus,
+.director-aulas-registrar-carsce-control select:focus {
+
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.director-aulas-registrar-carsce-control-textarea
+> i:first-child {
+
+    top: 18px;
+
+    transform: none;
+}
+
+
+.director-aulas-registrar-carsce-control textarea {
+
+    width: 100%;
+    min-height: 100px;
+
+    padding: 13px 14px 13px 40px;
+
+    box-sizing: border-box;
+
+    color: #334155;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    resize: vertical;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.director-aulas-registrar-carsce-control textarea:hover {
+
+    border-color: #94A3B8;
+}
+
+
+.director-aulas-registrar-carsce-control textarea:focus {
+
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.director-aulas-registrar-carsce-control input::placeholder,
+.director-aulas-registrar-carsce-control textarea::placeholder {
+
+    color: #8A969E;
+}
+
+
+/* =========================================================
+   MENSAJES DE VALIDACIÓN
+   ========================================================= */
+
+.director-aulas-registrar-carsce-mensaje {
+
+    display: block;
+
+    min-height: 16px;
+
+    margin-top: 5px;
+    padding-left: 2px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 0.66rem;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.director-aulas-registrar-carsce-acciones {
+
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+
+    margin-top: 5px;
+    padding-top: 21px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   BOTÓN
+   ========================================================= */
+
+.director-aulas-registrar-carsce-boton {
+
+    min-width: 225px;
+    height: 44px;
+
+    padding: 0 22px;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+
+    cursor: pointer;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 600;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.director-aulas-registrar-carsce-boton:hover {
+
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 8px 17px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+.director-aulas-registrar-carsce-boton:active {
+
     transform: translateY(0);
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18);
 }
 
-/* RESPONSIVE */
-@media (max-width: 680px) {
-    #modulo_aulas_registrar .fila-campos {
-        grid-template-columns: 1fr;
+
+.director-aulas-registrar-carsce-boton:focus-visible {
+
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   CONTROLES DESHABILITADOS
+   ========================================================= */
+
+.director-aulas-registrar-carsce-control input:disabled,
+.director-aulas-registrar-carsce-control select:disabled,
+.director-aulas-registrar-carsce-control textarea:disabled {
+
+    background: #EEF2F4;
+
+    color: #7C878D;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .director-aulas-registrar-carsce-contenedor {
+
+        max-width: 100%;
     }
 
-    #modulo_aulas_registrar .card_registrar_aulas {
-        padding: 28px 20px;
+    .director-aulas-registrar-carsce-titulo {
+
+        font-size: 1.4rem;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta {
+
+        padding: 23px;
+    }
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .director-aulas-registrar-carsce-titulo {
+
+        font-size: 1.28rem;
+    }
+
+    .director-aulas-registrar-carsce-descripcion {
+
+        font-size: 0.78rem;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta {
+
+        padding: 21px;
+    }
+
+    .director-aulas-registrar-carsce-fila {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .director-aulas-registrar-carsce-campo-completo {
+
+        grid-column: 1;
+    }
+
+    .director-aulas-registrar-carsce-acciones {
+
+        justify-content: stretch;
+    }
+
+    .director-aulas-registrar-carsce-boton {
+
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .director-aulas-registrar-carsce-identificacion {
+
+        font-size: 0.62rem;
+    }
+
+    .director-aulas-registrar-carsce-titulo {
+
+        font-size: 1.15rem;
+    }
+
+    .director-aulas-registrar-carsce-descripcion {
+
+        font-size: 0.74rem;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta {
+
+        padding: 18px 16px 20px;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta-cabecera {
+
+        align-items: flex-start;
+
+        gap: 11px;
+
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta-icono {
+
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta-titulo {
+
+        font-size: 0.88rem;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta-descripcion {
+
+        font-size: 0.68rem;
+    }
+
+    .director-aulas-registrar-carsce-control input,
+    .director-aulas-registrar-carsce-control select {
+
+        height: 43px;
+    }
+
+    .director-aulas-registrar-carsce-control textarea {
+
+        min-height: 95px;
+    }
+
+    .director-aulas-registrar-carsce-boton {
+
+        min-width: 0;
+
+        height: 43px;
+
+        font-size: 0.71rem;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .director-aulas-registrar-carsce-titulo {
+
+        font-size: 1.05rem;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta {
+
+        padding: 16px 13px 18px;
+    }
+
+    .director-aulas-registrar-carsce-identificacion {
+
+        padding: 6px 9px;
+    }
+
+    .director-aulas-registrar-carsce-tarjeta-icono {
+
+        width: 39px;
+        height: 39px;
+
+        flex-basis: 39px;
     }
 }

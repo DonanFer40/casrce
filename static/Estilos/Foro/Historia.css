@@ -1,90 +1,427 @@
-#Contenido {
-    padding: 80px 20px;
-    margin-top: 120px;
+/* =========================================================
+   INFORMACIÓN INSTITUCIONAL - CARSCE
+========================================================= */
+
+#InformacionInstitucional{
+    width:100%;
+    min-height:100vh;
+
+    padding:150px 0 75px;
+
+    background:var(--color-fondo-pagina);
+    color:var(--texto-principal);
+
+    box-sizing:border-box;
 }
 
-#Contenido .contenedor {
-    max-width: 1200px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: 30px;
+#InformacionInstitucional *{
+    box-sizing:border-box;
 }
 
-#Contenido .contenedor-info {
-    background: var(--color-base);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-    border-left: 5px solid var(--color-principal);
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-contenedor{
+    width:min(1080px,90%);
+    margin:0 auto;
+
+    display:flex;
+    flex-direction:column;
+    gap:42px;
 }
 
-#Contenido .contenedor-info:nth-child(3),
-#Contenido .contenedor-info:nth-child(4){
-    grid-column: 4 / 1;
+
+/* =========================================================
+   SECCIONES
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-seccion{
+    position:relative;
+
+    padding:0 0 38px;
+
+    border-bottom:1px solid var(--color-borde-fino);
 }
 
-#Contenido .contenedor-info:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+#InformacionInstitucional .InformacionInstitucional-seccion:last-child{
+    padding-bottom:0;
+    border-bottom:none;
 }
 
-#Contenido .contenedor-info h2 {
-    color: var(--color-principal);
-    margin-bottom: 15px;
-    font-size: 1.8rem;
-    position: relative;
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-titulo{
+    position:relative;
+
+    margin:0 0 23px;
+    padding-left:18px;
+
+    color:var(--color-azul-profundo);
+
+    font-size:32px;
+    font-weight:600;
+    line-height:1.2;
 }
 
-#Contenido .contenedor-info h2::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 3px;
-    background: var(--color-principal);
-    margin-top: 8px;
-    border-radius: 10px;
+#InformacionInstitucional .InformacionInstitucional-titulo::before{
+    content:"";
+
+    position:absolute;
+    top:2px;
+    bottom:2px;
+    left:0;
+
+    width:4px;
+
+    background:var(--color-rojo-acento);
 }
 
-#Contenido .contenedor-info strong,
-#Contenido .contenedor-info p {
-    text-align: justify;
-    line-height: 1.8;
-    color: var(--color-neutro);
-    font-size: 1rem;
+
+/* =========================================================
+   TEXTO GENERAL
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-texto{
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:15.5px;
+    line-height:1.9;
+
+    text-align:justify;
 }
 
-#Contenido .contenedor-info li{
-    color: var(--color-neutro);
-    list-style: none;
-    border-left: 2px solid var(--color-principal);
-    padding-left: 10px;
+#InformacionInstitucional .InformacionInstitucional-parrafo-secundario{
+    margin-top:25px;
 }
 
-#Contenido .ALM{
-    display: flex;
-    align-items: center;
-    gap: 20px;
+
+/* =========================================================
+   MISIÓN ALMA MATER
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-alma-mater{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 400px;
+
+    gap:42px;
+    align-items:center;
 }
 
-#Contenidov .ALM p{
-    flex: 1;
+/* =========================================================
+   IMAGEN MISIÓN ALMA MATER
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-imagen-alma-mater{
+    width:100%;
+    height:290px;
+
+    display:block;
+
+    object-fit:contain;
+
+    padding:8px;
+
+    border:1px solid var(--color-borde-fino);
+    border-radius:10px;
+
+    background:var(--color-blanco);
+
+    box-shadow:var(--sombra-card);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
-#Contenido .ALM img{
-    width: 120px;
-    height: auto;
-    border-radius: 10px;
-    margin: 20px;
+#InformacionInstitucional .InformacionInstitucional-imagen-alma-mater:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--sombra-elevada);
 }
 
-@media (max-width: 768px) {
-    .contenedor-info {
-        padding: 20px;
+
+/* =========================================================
+   CIFRAS
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-cifras{
+    display:grid;
+    grid-template-columns:1.1fr .9fr 1.1fr;
+
+    border:1px solid var(--color-borde-fino);
+
+    background:var(--color-blanco);
+
+    box-shadow:var(--sombra-card);
+}
+
+#InformacionInstitucional .InformacionInstitucional-cifra{
+    display:flex;
+
+    gap:18px;
+
+    min-height:205px;
+
+    padding:28px 30px;
+}
+
+#InformacionInstitucional .InformacionInstitucional-cifra + .InformacionInstitucional-cifra{
+    border-left:1px solid var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   ICONOS DE CIFRAS
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-cifra-icono{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:8px;
+
+    background:var(--color-rojo-soft);
+    color:var(--color-rojo-acento);
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   CONTENIDO DE CIFRAS
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-cifra-contenido{
+    min-width:0;
+}
+
+#InformacionInstitucional .InformacionInstitucional-cifra-titulo{
+    display:block;
+
+    margin:3px 0 17px;
+
+    color:var(--color-azul-profundo);
+
+    font-size:15px;
+    font-weight:700;
+}
+
+#InformacionInstitucional .InformacionInstitucional-lista{
+    margin:0;
+
+    padding-left:19px;
+}
+
+#InformacionInstitucional .InformacionInstitucional-lista li{
+    margin:7px 0;
+
+    color:var(--texto-secundario);
+
+    font-size:14px;
+    line-height:1.55;
+}
+
+#InformacionInstitucional .InformacionInstitucional-lista li::marker{
+    color:var(--color-azul-hover);
+}
+
+#InformacionInstitucional .InformacionInstitucional-lista li span{
+    color:var(--texto-mutado);
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   VALORES DESTACADOS
+========================================================= */
+
+#InformacionInstitucional .InformacionInstitucional-valor{
+    margin:25px 0 0;
+
+    color:var(--color-azul-profundo);
+
+    font-size:25px;
+    font-weight:600;
+
+    line-height:1.3;
+
+    text-align:left;
+}
+
+#InformacionInstitucional .InformacionInstitucional-valor span{
+    color:var(--texto-secundario);
+
+    font-size:13px;
+    font-weight:500;
+}
+
+
+/* =========================================================
+   ANIMACIÓN
+========================================================= */
+
+#InformacionInstitucional.reveal{
+    animation:InformacionInstitucionalEntrada .55s ease both;
+}
+
+@keyframes InformacionInstitucionalEntrada{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
     }
 
-    .contenedor-info h2 {
-        font-size: 1.5rem;
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width:900px){
+
+    #InformacionInstitucional{
+        padding:125px 0 65px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-contenedor{
+        width:90%;
+        gap:38px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-alma-mater{
+        grid-template-columns:1fr;
+        gap:28px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-imagen-alma-mater{
+        height:300px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-titulo{
+        font-size:29px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-cifras{
+        grid-template-columns:1fr;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-cifra{
+        min-height:auto;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-cifra + .InformacionInstitucional-cifra{
+        border-left:none;
+        border-top:1px solid var(--color-borde-fino);
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width:600px){
+
+    #InformacionInstitucional{
+        padding:105px 0 55px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-contenedor{
+        width:90%;
+        gap:34px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-seccion{
+        padding-bottom:30px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-titulo{
+        margin-bottom:19px;
+        padding-left:14px;
+
+        font-size:25px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-titulo::before{
+        width:3px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-texto{
+        font-size:14px;
+        line-height:1.85;
+
+        text-align:left;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-parrafo-secundario{
+        margin-top:20px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-alma-mater{
+        gap:22px;   
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-imagen-alma-mater{
+        height:230px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-cifra{
+        padding:23px 20px;
+        gap:14px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-cifra-icono{
+        width:36px;
+        height:36px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-lista li{
+        font-size:14px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-valor{
+        font-size:22px;
+    }
+}
+
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width:400px){
+
+    #InformacionInstitucional{
+        padding-bottom:45px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-titulo{
+        font-size:23px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-imagen-alma-mater{
+        height:205px;
+    }
+
+    #InformacionInstitucional .InformacionInstitucional-texto{
+        font-size:13.5px;
     }
 }

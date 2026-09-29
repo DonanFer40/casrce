@@ -1,128 +1,551 @@
-#Carreras{
-    padding: 80px 20px;
-    margin-top: 120px;
+/* =========================================================
+   OFERTA ACADÉMICA
+   ========================================================= */
+
+#OfertaAcademica{
+    width:100%;
+    min-height:100vh;
+    padding:150px 0 80px;
+    background:var(--color-fondo-pagina);
+    color:var(--texto-principal);
+    box-sizing:border-box;
 }
 
-#Carreras .contenedor{
-    max-width: 1200px;
-    margin: 0 auto;
+#OfertaAcademica *{
+    box-sizing:border-box;
 }
 
-/* TITULO */
-#info_sedes{
-    color: #8C1007;
-    font-size: 2rem;
-    margin-bottom: 25px;
-    position: relative;
+#OfertaAcademica .OfertaAcademica-contenedor{
+    width:min(1080px,90%);
+    margin:0 auto;
 }
 
-#info_sedes::after{
-    content: "";
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: #8C1007;
-    border-radius: 10px;
-    margin-top: 10px;
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+#OfertaAcademica .OfertaAcademica-encabezado{
+    margin-bottom:42px;
 }
 
-/* TABLA */
-#Carreras table{
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+#OfertaAcademica .OfertaAcademica-etiqueta{
+    display:inline-block;
+    margin-bottom:12px;
+    color:var(--color-rojo-acento);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
 }
 
-#Carreras thead{
-    background: #8C1007;
-    color: #fff;
+#OfertaAcademica .OfertaAcademica-titulo{
+    position:relative;
+    margin:0 0 18px;
+    padding-left:18px;
+    color:var(--color-azul-profundo);
+    font-size:32px;
+    font-weight:600;
+    line-height:1.25;
 }
 
-#Carreras th{
-    padding: 18px;
-    text-align: center;
-    font-size: 1rem;
+#OfertaAcademica .OfertaAcademica-titulo::before{
+    content:"";
+    position:absolute;
+    top:3px;
+    bottom:3px;
+    left:0;
+    width:4px;
+    background:var(--color-rojo-acento);
 }
 
-#Carreras td{
-    padding: 16px;
-    text-align: center;
-    color: #444;
-    border-bottom: 1px solid #eee;
+#OfertaAcademica .OfertaAcademica-descripcion{
+    max-width:820px;
+    margin:0;
+    color:var(--texto-secundario);
+    font-size:15.5px;
+    line-height:1.8;
 }
 
-#Carreras tbody tr{
-    transition: .3s ease;
+/* =========================================================
+   UBICACIÓN
+   ========================================================= */
+
+#OfertaAcademica .OfertaAcademica-ubicacion{
+    display:grid;
+    grid-template-columns:360px minmax(0,1fr);
+    min-height:360px;
+    margin-bottom:48px;
+    overflow:hidden;
+    background:var(--color-blanco);
+    border:1px solid var(--color-borde-fino);
+    border-radius:12px;
+    box-shadow:var(--sombra-card);
 }
 
-#Carreras tbody tr:hover{
-    background: rgba(140,16,7,.05);
+#OfertaAcademica .OfertaAcademica-datos{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:38px;
 }
 
-#Carreras tbody tr:last-child td{
-    border-bottom: none;
+#OfertaAcademica .OfertaAcademica-datos-etiqueta{
+    margin-bottom:8px;
+    color:var(--texto-mutado);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
 }
 
-/* BOTONES */
-#Carreras .botones{
-    margin-top: 25px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+#OfertaAcademica .OfertaAcademica-nombre-sede{
+    margin:0 0 28px;
+    color:var(--color-azul-profundo);
+    font-size:29px;
+    font-weight:600;
 }
 
-#Carreras .botones button{
-    padding: 12px 25px;
-    border: none;
-    border-radius: 10px;
-    background: #8C1007;
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s ease;
+#OfertaAcademica .OfertaAcademica-direccion{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    margin-bottom:25px;
 }
 
-#Carreras .botones button:hover{
-    transform: translateY(-3px);
-    background: #a81309;
-    box-shadow: 0 5px 15px rgba(140,16,7,.25);
+#OfertaAcademica .OfertaAcademica-icono{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 36px;
+    width:36px;
+    height:36px;
+    color:var(--color-rojo-acento);
+    background:var(--color-rojo-soft);
+    border-radius:8px;
 }
 
-#Carreras .botones button:active{
-    transform: translateY(0);
+#OfertaAcademica .OfertaAcademica-direccion-titulo{
+    display:block;
+    margin-bottom:5px;
+    color:var(--color-azul-profundo);
+    font-size:13px;
+    font-weight:700;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px){
+#OfertaAcademica .OfertaAcademica-direccion p{
+    margin:0;
+    color:var(--texto-secundario);
+    font-size:14px;
+    line-height:1.7;
+}
 
-    #Carreras{
-        padding: 60px 15px;
+#OfertaAcademica .OfertaAcademica-maps-enlace{
+    display:inline-flex;
+    align-items:center;
+    align-self:flex-start;
+    gap:9px;
+    padding:10px 15px;
+    color:var(--color-azul-profundo);
+    background:transparent;
+    border:1px solid var(--color-borde-fino);
+    border-radius:7px;
+    font-size:13px;
+    font-weight:600;
+    text-decoration:none;
+    transition:
+        color .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        transform .2s ease;
+}
+
+#OfertaAcademica .OfertaAcademica-maps-enlace i{
+    color:var(--color-rojo-acento);
+}
+
+#OfertaAcademica .OfertaAcademica-maps-enlace:hover{
+    color:var(--color-blanco);
+    background:var(--color-azul-profundo);
+    border-color:var(--color-azul-profundo);
+    transform:translateY(-2px);
+}
+
+#OfertaAcademica .OfertaAcademica-maps-enlace:hover i{
+    color:var(--color-amarillo-accion);
+}
+
+/* =========================================================
+   MAPA LEAFLET
+   ========================================================= */
+
+#OfertaAcademica .OfertaAcademica-mapa{
+    position:relative;
+    min-height:360px;
+    overflow:hidden;
+    background:var(--color-borde-fino);
+}
+
+#OfertaAcademica #OfertaAcademica-mapa-interactivo{
+    width:100%;
+    height:360px;
+    min-height:360px;
+    z-index:1;
+}
+
+/* =========================================================
+   CARRERAS
+   ========================================================= */
+
+#OfertaAcademica .OfertaAcademica-carreras{
+    margin-bottom:38px;
+}
+
+#OfertaAcademica .OfertaAcademica-carreras-encabezado{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:25px;
+    margin-bottom:18px;
+}
+
+#OfertaAcademica .OfertaAcademica-carreras-etiqueta{
+    display:block;
+    margin-bottom:7px;
+    color:var(--texto-mutado);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+}
+
+#OfertaAcademica .OfertaAcademica-carreras-titulo{
+    margin:0;
+    color:var(--color-azul-profundo);
+    font-size:25px;
+    font-weight:600;
+}
+
+#OfertaAcademica .OfertaAcademica-total-carreras{
+    flex-shrink:0;
+    padding:7px 11px;
+    color:var(--color-azul-profundo);
+    background:var(--color-blanco);
+    border:1px solid var(--color-borde-fino);
+    border-radius:6px;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+#OfertaAcademica .OfertaAcademica-tabla-contenedor{
+    overflow-x:auto;
+    background:var(--color-blanco);
+    border:1px solid var(--color-borde-fino);
+    border-radius:10px;
+    box-shadow:var(--sombra-card);
+}
+
+#OfertaAcademica .OfertaAcademica-tabla{
+    width:100%;
+    min-width:680px;
+    border-collapse:collapse;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla thead{
+    background:var(--color-azul-profundo);
+}
+
+#OfertaAcademica .OfertaAcademica-tabla th{
+    padding:15px 20px;
+    color:var(--texto-claro);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-align:left;
+    text-transform:uppercase;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla td{
+    padding:17px 20px;
+    color:var(--texto-secundario);
+    border-bottom:1px solid var(--color-borde-fino);
+    font-size:14px;
+    line-height:1.5;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla tbody tr{
+    transition:background .2s ease;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla tbody tr:hover{
+    background:#F8FAFC;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla tbody tr:last-child td{
+    border-bottom:none;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla td:first-child{
+    color:var(--color-azul-profundo);
+    font-weight:600;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla td:nth-child(2){
+    width:190px;
+}
+
+#OfertaAcademica .OfertaAcademica-tabla td:nth-child(3){
+    width:140px;
+    white-space:nowrap;
+}
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+#OfertaAcademica .OfertaAcademica-controles{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:20px;
+    padding-top:28px;
+    border-top:1px solid var(--color-borde-fino);
+}
+
+#OfertaAcademica .OfertaAcademica-boton{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    min-width:125px;
+    padding:11px 17px;
+    border-radius:7px;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition:
+        background .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .2s ease,
+        opacity .2s ease;
+}
+
+#OfertaAcademica .OfertaAcademica-boton-secundario{
+    justify-self:start;
+    color:var(--color-azul-profundo);
+    background:var(--color-blanco);
+    border:1px solid var(--color-borde-fino);
+}
+
+#OfertaAcademica .OfertaAcademica-boton-principal{
+    justify-self:end;
+    color:var(--color-blanco);
+    background:var(--color-azul-profundo);
+    border:1px solid var(--color-azul-profundo);
+}
+
+#OfertaAcademica .OfertaAcademica-boton:hover:not(:disabled){
+    transform:translateY(-2px);
+}
+
+#OfertaAcademica .OfertaAcademica-boton-secundario:hover:not(:disabled){
+    color:var(--color-blanco);
+    background:var(--color-azul-profundo);
+    border-color:var(--color-azul-profundo);
+}
+
+#OfertaAcademica .OfertaAcademica-boton-principal:hover:not(:disabled){
+    background:var(--color-azul-hover);
+    border-color:var(--color-azul-hover);
+}
+
+#OfertaAcademica .OfertaAcademica-boton:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+}
+
+#OfertaAcademica .OfertaAcademica-indicador{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    color:var(--texto-secundario);
+    font-size:13px;
+}
+
+#OfertaAcademica .OfertaAcademica-indicador-numero{
+    color:var(--color-rojo-acento);
+    font-weight:700;
+    letter-spacing:.08em;
+}
+
+#OfertaAcademica .OfertaAcademica-indicador-nombre{
+    color:var(--color-azul-profundo);
+    font-weight:600;
+}
+
+/* =========================================================
+   ANIMACIÓN
+   ========================================================= */
+
+#OfertaAcademica.reveal{
+    animation:OfertaAcademicaEntrada .55s ease both;
+}
+
+@keyframes OfertaAcademicaEntrada{
+    from{
+        opacity:0;
+        transform:translateY(14px);
     }
 
-    #info_sedes{
-        font-size: 1.5rem;
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width:900px){
+
+    #OfertaAcademica{
+        padding:135px 0 65px;
     }
 
-    #Carreras table{
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
+    #OfertaAcademica .OfertaAcademica-ubicacion{
+        grid-template-columns:1fr;
     }
 
-    #Carreras th,
-    #Carreras td{
-        padding: 12px;
+    #OfertaAcademica .OfertaAcademica-datos{
+        padding:30px;
     }
 
-    #Carreras .botones{
-        flex-direction: column;
+    #OfertaAcademica .OfertaAcademica-mapa{
+        min-height:300px;
     }
 
-    #Carreras .botones button{
-        width: 100%;
+    #OfertaAcademica #OfertaAcademica-mapa-interactivo{
+        height:300px;
+        min-height:300px;
+    }
+}
+
+@media (max-width:600px){
+
+    #OfertaAcademica{
+        padding:120px 0 55px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-contenedor{
+        width:92%;
+    }
+
+    #OfertaAcademica .OfertaAcademica-encabezado{
+        margin-bottom:32px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-titulo{
+        font-size:26px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-descripcion{
+        font-size:14px;
+        line-height:1.75;
+    }
+
+    #OfertaAcademica .OfertaAcademica-ubicacion{
+        margin-bottom:38px;
+        border-radius:9px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-datos{
+        padding:25px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-nombre-sede{
+        margin-bottom:22px;
+        font-size:25px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-mapa{
+        min-height:250px;
+    }
+
+    #OfertaAcademica #OfertaAcademica-mapa-interactivo{
+        height:250px;
+        min-height:250px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-carreras-encabezado{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-carreras-titulo{
+        font-size:22px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-tabla th,
+    #OfertaAcademica .OfertaAcademica-tabla td{
+        padding:13px 15px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-controles{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-indicador{
+        grid-column:1 / -1;
+        grid-row:1;
+        padding-bottom:4px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-boton{
+        min-width:0;
+        width:100%;
+    }
+
+    #OfertaAcademica .OfertaAcademica-boton-secundario{
+        grid-column:1;
+        grid-row:2;
+    }
+
+    #OfertaAcademica .OfertaAcademica-boton-principal{
+        grid-column:2;
+        grid-row:2;
+    }
+}
+
+@media (max-width:400px){
+
+    #OfertaAcademica .OfertaAcademica-titulo{
+        font-size:23px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-datos{
+        padding:21px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-mapa{
+        min-height:220px;
+    }
+
+    #OfertaAcademica #OfertaAcademica-mapa-interactivo{
+        height:220px;
+        min-height:220px;
+    }
+
+    #OfertaAcademica .OfertaAcademica-boton{
+        padding:10px 12px;
+        font-size:12px;
     }
 }

@@ -1,118 +1,511 @@
-/* ========================================================= TABLA PNFs VISUALIZADO (SCOPED) ========================================================= */
-#pnfs_visualizado {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+/* =========================================================
+   VISUALIZAR PNF - CARSCE
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   CONTENEDOR PRINCIPAL
+   --------------------------------------------------------- */
+
+#director-pnf-visualizar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+}
+
+.director-pnf-visualizar-carsce-contenedor {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+
+/* ---------------------------------------------------------
+   ENCABEZADO DE LA PÁGINA
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-encabezado {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.director-pnf-visualizar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 10px;
+    padding: 6px 11px;
+
+    color: #1D4ED8;
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+}
+
+.director-pnf-visualizar-carsce-identificacion i {
+    font-size: .72rem;
+}
+
+.director-pnf-visualizar-carsce-presentacion {
     width: 100%;
 }
 
-#pnfs_visualizado .contenedor_pnfs_visualizado {
+.director-pnf-visualizar-carsce-titulo {
+    margin: 0;
+
+    color: #0F172A;
+
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02em;
+}
+
+.director-pnf-visualizar-carsce-descripcion {
+    max-width: 720px;
+
+    margin: 7px 0 0;
+
+    color: #64748B;
+
+    font-size: .86rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+
+/* ---------------------------------------------------------
+   TARJETA DE PNFs
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla-contenedor {
     width: 100%;
-    max-width: 900px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, .05),
+        0 1px 2px rgba(0, 0, 0, .08);
+
+    overflow: hidden;
+}
+
+
+/* ---------------------------------------------------------
+   CABECERA DE LA TABLA
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 17px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #F8FAFC 0%,
+        #FFFFFF 100%
+    );
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.director-pnf-visualizar-carsce-tabla-icono {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    background: linear-gradient(
+        145deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border-radius: 10px;
+
+    font-size: .88rem;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, .20);
+}
+
+.director-pnf-visualizar-carsce-tabla-informacion {
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 2px;
 }
 
-#pnfs_visualizado .contenedor_pnfs_visualizado h3 {
-    color: var(--texto);
-    font-size: 1.8rem;
-    font-weight: 700;
+.director-pnf-visualizar-carsce-tabla-titulo {
     margin: 0;
+
+    color: #0F172A;
+
+    font-size: .95rem;
+    font-weight: 650;
+    line-height: 1.3;
 }
 
-/* Contenedor Principal de la Tabla */
-#pnfs_visualizado #tabla_pnfs {
-    background: var(--color-base);
-    border-radius: var(--radio);
-    padding: 30px 35px;
-    box-shadow: var(--sombra-suave);
-    border: 1px solid var(--borde);
+.director-pnf-visualizar-carsce-tabla-descripcion {
+    margin: 0;
+
+    color: #64748B;
+
+    font-size: .74rem;
+    font-weight: 400;
+    line-height: 1.4;
 }
 
-#pnfs_visualizado #tabla_pnfs h4 {
-    color: var(--texto);
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--background);
-    position: relative;
-}
 
-#pnfs_visualizado #tabla_pnfs h4::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 45px;
-    height: 2px;
-    background: var(--color-azulE);
-}
+/* ---------------------------------------------------------
+   ENVOLTORIO RESPONSIVE
+   --------------------------------------------------------- */
 
-/* Envoltorio Responsive */
-#pnfs_visualizado .contenedor_tabla {
+.director-pnf-visualizar-carsce-tabla-scroll {
     width: 100%;
+
     overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+}
+
+.director-pnf-visualizar-carsce-tabla-scroll::-webkit-scrollbar {
+    height: 7px;
+}
+
+.director-pnf-visualizar-carsce-tabla-scroll::-webkit-scrollbar-track {
+    background: #F8FAFC;
+}
+
+.director-pnf-visualizar-carsce-tabla-scroll::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
     border-radius: 10px;
-    border: 1px solid var(--borde);
 }
 
-/* Estilos de la Tabla */
-#pnfs_visualizado table {
+.director-pnf-visualizar-carsce-tabla-scroll::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+
+/* ---------------------------------------------------------
+   TABLA
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla {
     width: 100%;
+    min-width: 720px;
+
     border-collapse: collapse;
-    text-align: center;
-    font-size: 0.93rem;
-    background: var(--color-base);
+    border-spacing: 0;
+
+    table-layout: fixed;
 }
 
-/* Encabezado */
-#pnfs_visualizado table thead tr {
-    background-color: var(--background);
-    color: var(--texto);
-    border-bottom: 2px solid var(--borde);
+
+/* ---------------------------------------------------------
+   ENCABEZADOS
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla thead {
+    background: #0F172A;
 }
 
-#pnfs_visualizado table th {
-    padding: 14px 18px;
-    font-weight: 700;
-    font-size: 0.88rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--color-azulE);
+.director-pnf-visualizar-carsce-tabla th {
+    height: 46px;
+
+    padding: 0 17px;
+
+    color: #F8FAFC;
+
+    border: none;
+
+    font-size: .72rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+
+    white-space: nowrap;
 }
 
-/* Cuerpo de la Tabla */
-#pnfs_visualizado table td {
-    padding: 14px 18px;
-    color: var(--texto);
-    border-bottom: 1px solid var(--borde);
-    transition: background 0.2s ease;
+
+/* ---------------------------------------------------------
+   ANCHOS DE COLUMNAS
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla th:nth-child(1),
+.director-pnf-visualizar-carsce-tabla td:nth-child(1) {
+    width: 90px;
 }
 
-/* Fila interactiva y cebra */
-#pnfs_visualizado table tbody tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.015);
+.director-pnf-visualizar-carsce-tabla th:nth-child(2),
+.director-pnf-visualizar-carsce-tabla td:nth-child(2) {
+    width: 40%;
 }
 
-#pnfs_visualizado table tbody tr:hover {
-    background-color: rgba(33, 28, 132, 0.04);
+.director-pnf-visualizar-carsce-tabla th:nth-child(3),
+.director-pnf-visualizar-carsce-tabla td:nth-child(3) {
+    width: 25%;
 }
 
-#pnfs_visualizado table tbody tr:last-child td {
+.director-pnf-visualizar-carsce-tabla th:nth-child(4),
+.director-pnf-visualizar-carsce-tabla td:nth-child(4) {
+    width: 25%;
+}
+
+
+/* ---------------------------------------------------------
+   CUERPO DE LA TABLA
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla tbody tr {
+    background: #FFFFFF;
+
+    border-bottom: 1px solid #E2E8F0;
+
+    transition:
+        background .18s ease;
+}
+
+.director-pnf-visualizar-carsce-tabla tbody tr:last-child {
     border-bottom: none;
 }
 
-/* RESPONSIVE */
-@media (max-width: 680px) {
-    #pnfs_visualizado #tabla_pnfs {
-        padding: 20px 15px;
+.director-pnf-visualizar-carsce-tabla tbody tr:hover {
+    background: #F8FAFC;
+}
+
+.director-pnf-visualizar-carsce-tabla td {
+    height: 50px;
+
+    padding: 8px 17px;
+
+    color: #475569;
+
+    border: none;
+
+    font-size: .76rem;
+    font-weight: 400;
+    line-height: 1.4;
+
+    vertical-align: middle;
+}
+
+
+/* ---------------------------------------------------------
+   COLUMNA ID
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla td:first-child {
+    color: #64748B;
+
+    font-size: .72rem;
+    font-weight: 600;
+}
+
+
+/* ---------------------------------------------------------
+   COLUMNA PNF
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla td:nth-child(2) {
+    color: #0F172A;
+
+    font-weight: 600;
+}
+
+
+/* ---------------------------------------------------------
+   COLUMNA CÓDIGO
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla td:nth-child(3) {
+    color: #1D4ED8;
+
+    font-size: .73rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+}
+
+
+/* ---------------------------------------------------------
+   COLUMNA PERIODO
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla td:nth-child(4) {
+    color: #64748B;
+}
+
+
+/* ---------------------------------------------------------
+   ESTADO VACÍO
+   --------------------------------------------------------- */
+
+.director-pnf-visualizar-carsce-tabla tbody:empty::after {
+    content: "No hay PNFs registrados actualmente.";
+
+    display: table-cell;
+
+    height: 90px;
+
+    padding: 30px;
+
+    color: #94A3B8;
+
+    font-size: .76rem;
+    font-weight: 400;
+
+    text-align: center;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 900 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    #director-pnf-visualizar-carsce {
+        padding-top: 0;
     }
 
-    #pnfs_visualizado table th,
-    #pnfs_visualizado table td {
-        padding: 10px 12px;
-        font-size: 0.85rem;
+    .director-pnf-visualizar-carsce-contenedor {
+        max-width: 100%;
     }
+
+    .director-pnf-visualizar-carsce-titulo {
+        font-size: 1.5rem;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 700 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .director-pnf-visualizar-carsce-tabla-cabecera {
+        padding: 16px 17px;
+    }
+
+    .director-pnf-visualizar-carsce-tabla {
+        min-width: 680px;
+    }
+
+    .director-pnf-visualizar-carsce-tabla th,
+    .director-pnf-visualizar-carsce-tabla td {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 520 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 520px) {
+
+    #director-pnf-visualizar-carsce {
+        padding-bottom: 20px;
+    }
+
+    .director-pnf-visualizar-carsce-encabezado {
+        margin-bottom: 18px;
+    }
+
+    .director-pnf-visualizar-carsce-identificacion {
+        padding: 5px 9px;
+
+        font-size: .62rem;
+    }
+
+    .director-pnf-visualizar-carsce-titulo {
+        font-size: 1.3rem;
+    }
+
+    .director-pnf-visualizar-carsce-descripcion {
+        font-size: .78rem;
+    }
+
+    .director-pnf-visualizar-carsce-tabla-cabecera {
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .director-pnf-visualizar-carsce-tabla-icono {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 9px;
+
+        font-size: .8rem;
+    }
+
+    .director-pnf-visualizar-carsce-tabla-titulo {
+        font-size: .87rem;
+    }
+
+    .director-pnf-visualizar-carsce-tabla-descripcion {
+        font-size: .68rem;
+    }
+
+    .director-pnf-visualizar-carsce-tabla {
+        min-width: 650px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 390 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 390px) {
+
+    .director-pnf-visualizar-carsce-titulo {
+        font-size: 1.18rem;
+    }
+
+    .director-pnf-visualizar-carsce-descripcion {
+        font-size: .74rem;
+    }
+
+    .director-pnf-visualizar-carsce-tabla-cabecera {
+        align-items: flex-start;
+    }
+
+    .director-pnf-visualizar-carsce-tabla-icono {
+        width: 35px;
+        height: 35px;
+
+        font-size: .72rem;
+    }
+
+    .director-pnf-visualizar-carsce-tabla {
+        min-width: 620px;
+    }
+
 }

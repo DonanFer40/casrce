@@ -1,0 +1,521 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+<section id="PanelControlEstudioCASRCE">
+
+    <div class="PanelControlEstudioCASRCE-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO DEL PANEL
+             ===================================================== -->
+
+        <header class="PanelControlEstudioCASRCE-encabezado">
+
+            <div class="PanelControlEstudioCASRCE-encabezado-info">
+
+                <span class="PanelControlEstudioCASRCE-etiqueta">
+                    CONTROL DE ESTUDIO
+                </span>
+
+                <h2 class="PanelControlEstudioCASRCE-titulo">
+                    Gestión Académica Institucional
+                </h2>
+
+                <p class="PanelControlEstudioCASRCE-descripcion">
+                    Administración, consulta y seguimiento de la información
+                    académica de la institución.
+                </p>
+
+            </div>
+
+            <div class="PanelControlEstudioCASRCE-contexto">
+
+                <div class="PanelControlEstudioCASRCE-contexto-icono">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+
+                <div class="PanelControlEstudioCASRCE-contexto-info">
+                    <span>Núcleo</span>
+
+                    <strong>
+                        {{ nucleo_usuario|default:"Sede Central / Sin Núcleo" }}
+                    </strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             INDICADORES
+             ===================================================== -->
+
+        <section class="PanelControlEstudioCASRCE-indicadores">
+
+            <article class="PanelControlEstudioCASRCE-indicador">
+
+                <div class="PanelControlEstudioCASRCE-indicador-icono">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+
+                <div class="PanelControlEstudioCASRCE-indicador-datos">
+
+                    <span>
+                        Estudiantes registrados
+                    </span>
+
+                    <strong>
+                        {{ total_estudiantes|default:"0" }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="PanelControlEstudioCASRCE-indicador">
+
+                <div class="PanelControlEstudioCASRCE-indicador-icono">
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+
+                <div class="PanelControlEstudioCASRCE-indicador-datos">
+
+                    <span>
+                        Estudiantes inscritos
+                    </span>
+
+                    <strong>
+                        {{ total_inscritos|default:"0" }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="PanelControlEstudioCASRCE-indicador">
+
+                <div class="PanelControlEstudioCASRCE-indicador-icono">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+
+                <div class="PanelControlEstudioCASRCE-indicador-datos">
+
+                    <span>
+                        Gestión académica
+                    </span>
+
+                    <strong>
+                        Activa
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="PanelControlEstudioCASRCE-indicador">
+
+                <div class="PanelControlEstudioCASRCE-indicador-icono">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div class="PanelControlEstudioCASRCE-indicador-datos">
+
+                    <span>
+                        Período académico
+                    </span>
+
+                    <strong>
+                        En curso
+                    </strong>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTENIDO PRINCIPAL
+             ===================================================== -->
+
+        <div class="PanelControlEstudioCASRCE-contenido">
+
+
+            <!-- =================================================
+                 GESTIÓN ACADÉMICA
+                 ================================================= -->
+
+            <section class="PanelControlEstudioCASRCE-modulo">
+
+                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+
+                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <div>
+                        <h3>
+                            Gestión Académica
+                        </h3>
+
+                        <p>
+                            Administra y consulta la información académica
+                            de los estudiantes.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="PanelControlEstudioCASRCE-opciones">
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Estudiantes
+                            </strong>
+
+                            <small>
+                                Consultar y gestionar información académica.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Inscripciones
+                            </strong>
+
+                            <small>
+                                Gestionar procesos de inscripción académica.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Unidades Curriculares
+                            </strong>
+
+                            <small>
+                                Consultar materias y organización académica.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Secciones Académicas
+                            </strong>
+
+                            <small>
+                                Consultar y organizar secciones.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 CALIFICACIONES
+                 ================================================= -->
+
+            <section class="PanelControlEstudioCASRCE-modulo">
+
+                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+
+                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </div>
+
+                    <div>
+                        <h3>
+                            Calificaciones
+                        </h3>
+
+                        <p>
+                            Consulta y supervisa los procesos relacionados
+                            con las evaluaciones académicas.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="PanelControlEstudioCASRCE-opciones">
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Registro de Calificaciones
+                            </strong>
+
+                            <small>
+                                Gestionar las calificaciones académicas.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Consulta de Calificaciones
+                            </strong>
+
+                            <small>
+                                Consultar resultados académicos.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Cierre de Calificaciones
+                            </strong>
+
+                            <small>
+                                Supervisar el cierre de los períodos académicos.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PLANIFICACIÓN ACADÉMICA
+                 ================================================= -->
+
+            <section class="PanelControlEstudioCASRCE-modulo">
+
+                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+
+                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+
+                    <div>
+                        <h3>
+                            Planificación Académica
+                        </h3>
+
+                        <p>
+                            Consulta los períodos y procesos académicos
+                            establecidos por la institución.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="PanelControlEstudioCASRCE-opciones">
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-calendar"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Calendario Académico
+                            </strong>
+
+                            <small>
+                                Consultar fechas y períodos académicos.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+
+                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                            <strong>
+                                Períodos Académicos
+                            </strong>
+
+                            <small>
+                                Consultar períodos disponibles y activos.
+                            </small>
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+     REPORTES
+     ================================================= -->
+
+            <section class="PanelControlEstudioCASRCE-modulo">
+
+                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+
+                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+
+                    <div>
+                        <h3>
+                            Reportes Académicos
+                        </h3>
+
+                        <p>
+                            Consulta información consolidada para el
+                            seguimiento académico institucional.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="PanelControlEstudioCASRCE-opciones">
+
+                    <a href="{% url 'reportes_control_estudio' %}" class="PanelControlEstudioCASRCE-opcion">
+
+                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </span>
+
+                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+
+                            <strong>
+                                Centro de Reportes
+                            </strong>
+
+                            <small>
+                                Consultar y generar los reportes académicos
+                                disponibles.
+                            </small>
+
+                        </span>
+
+                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+             PIE INFORMATIVO
+             ===================================================== -->
+
+            <footer class="PanelControlEstudioCASRCE-pie">
+
+                <div class="PanelControlEstudioCASRCE-pie-icono">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div class="PanelControlEstudioCASRCE-pie-texto">
+
+                    <strong>
+                        Control de Estudio
+                    </strong>
+
+                    <span>
+                        Gestión y seguimiento de los procesos académicos
+                        de la Universidad Politécnica Territorial del Estado
+                        Barinas José Félix Ribas.
+                    </span>
+
+                </div>
+
+            </footer>
+
+        </div>
+
+</section>
+{% endblock %}

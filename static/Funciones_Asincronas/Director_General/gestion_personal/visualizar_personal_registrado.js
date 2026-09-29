@@ -2,13 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contenedor_personal_registrado = document.getElementById("contenedor_personal_registrado");
 
-    const select_nacionalidad = document.getElementById("nacionalidad");
-    const input_cedula = document.getElementById("cedula");
-
     const select_pnf_registrados = document.getElementById("pnf_registrados");
     const perfiles_registrados = document.getElementById("perfiles_registrados");
 
-    let pnf, perfil;
+    let pnf = "", perfil = "";
 
     async function pnfs_registrados() {
         try {
@@ -34,19 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     select_pnf_registrados.addEventListener("change", async () => {
         pnf = select_pnf_registrados.value;
+
         await personal_registrados();
     });
 
     perfiles_registrados.addEventListener("change", async () => {
         perfil = perfiles_registrados.value;
+
         await personal_registrados();
     });
 
     async function personal_registrados() {
         try {
             const formulario = new FormData();
-            formulario.append("pnf", pnf || "");
-            formulario.append("perfil", perfil || "");
+            formulario.append("pnf", pnf);
+            formulario.append("perfil", perfil);
 
             const respuesta = await fetch("/per_reg_asig/", {
                 method: "POST",
@@ -58,30 +57,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            console.log("PNF:", pnf);
-            console.log("Perfil:", perfil);
-            console.log("Resultado:", resultado);
-
             // Limpiar tabla
             contenedor_personal_registrado.innerHTML = "";
 
             // Crear nuevamente las filas
             resultado.personal.forEach((persona, index) => {
-
                 const fila = document.createElement("tr");
 
                 fila.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${persona.nombres}</td>
-                <td>${persona.apellidos}</td>
-                <td>${persona.cedula}</td>
-                <td>${persona.rol}</td>
-                <td>${persona.pnf}</td>
-            `;
-
+                    <td>${index + 1}</td>
+                    <td>${persona.nombres}</td>
+                    <td>${persona.apellidos}</td>
+                    <td>${persona.cedula}</td>
+                    <td>${persona.rol}</td>
+                    <td>${persona.pnf}</td>
+                `;
                 contenedor_personal_registrado.appendChild(fila);
             });
-
         } catch (error) {
             console.error(error);
         }

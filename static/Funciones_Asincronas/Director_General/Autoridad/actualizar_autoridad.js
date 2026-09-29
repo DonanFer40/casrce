@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     configurarCedula(select_nacionalidad, input_cedula_identidad);
 
     let cargo_anterior = "";
+
     const cargos = [
         "Rector",
         "Vicerrector",
@@ -33,6 +34,22 @@ document.addEventListener("DOMContentLoaded", () => {
         input_resolucion_actualizar,
         btn_actualizar
     ]
+
+    function obtenerTokenCSRF() {
+        const cookies = document.cookie.split(";");
+
+        for (const cookie of cookies) {
+            const [nombre, valor] = cookie.trim().split("=");
+
+            if (nombre === "csrftoken") {
+                return decodeURIComponent(valor);
+            }
+        }
+
+        return null;
+    }
+
+    const token_csrf = obtenerTokenCSRF();
 
     function bloquear_controles(controles, estado) {
         controles.forEach(control => control.disabled = estado);
@@ -64,10 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             bloquear_controles(controles, false);
 
+            await Swal.fire({
+                text: "Se encontraron los datos",
+                icon: "success",
+                title: "Exito",
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            });
+
             input_autoridad_oculto.value = resultado.id
             input_nombres_actualizar.value = resultado.nombres
             input_apellidos_actualizar.value = resultado.apellidos
-        
+
             const option_genero = document.createElement("option")
             option_genero.value = resultado.genero
             option_genero.textContent = resultado.genero
@@ -76,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_genero_actualizar.append(option_genero)
 
             select_cargo_actualizar.innerHTML = "";
-            
+
             cargo_anterior = resultado.cargo;
 
             const optionActual = document.createElement("option");
@@ -103,80 +128,82 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    select_cargo_actualizar.addEventListener("change", async () => {
+    formulario_actualizar.addEventListener("submit", async (e) => {
+        e.preventDefault();
         try {
-            const formulario = new FormData();
-            formulario.append("cargo", select_cargo_actualizar.value);
+            const cargo_nuevo = select_cargo_actualizar.value;
+            const id_autoridad = input_autoridad_oculto.value;
 
-            const respuesta = await fetch("/cargo_user/", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
-                },
-                body: formulario
-            });
-            const resultado = await respuesta.json();
-            console.log(resultado);
+            let cambiar_cargo = false;
 
-            if (!resultado.existe) {
-                await Swal.fire({
-                    icon: "info",
-                    title: "Cargo disponible",
-                    text: `El cargo ${select_cargo_actualizar.value} no está asignado. Puede continuar con la actualización.`,
-                    confirmButtonText: "Aceptar"
-                });
-                return;
-            }
+            // El cargo no cambió
+            if (cargo_nuevo === cargo_anterior) {
 
-            const alerta = await Swal.fire({
-                icon: "warning",
-                title: "Cargo asignado",
-                html: `
-                    El cargo <b>${resultado.autoridad.cargo}</b> ya pertenece a:<br><br>
-                    <b>${resultado.autoridad.nombres} ${resultado.autoridad.apellidos}</b><br><br>
-                    Seleccione qué desea hacer:
-                `,
-                showDenyButton: true,
-                showCancelButton: true,
-                denyButtonText: "Cambiar su cargo",
-                cancelButtonText: "Cancelar"
-            });
+                cambiar_cargo = false;
 
-            if (alerta.isConfirmed) {
-                const formulario = new FormData();
-                formulario.append("accion", "intercambio");
-                formulario.append("id_actual", input_autoridad_oculto.value);
-                formulario.append("cargo_nuevo", select_cargo_actualizar.value);
-                formulario.append("id_otro", resultado.autoridad.id);
-                formulario.append("cargo_otro", resultado.autoridad.cargo);
+            } else {
+                // Buscar quién posee actualmente el nuevo cargo
+                const formulario_cargo = new FormData();
+                formulario_cargo.append("cargo", cargo_nuevo);
+                formulario_cargo.append("id_autoridad", id_autoridad);
 
-                const respuesta_actualizar = await fetch("/act_cargo_aut/", {
+                const respuesta_cargo = await fetch("/cargo_user/", {
                     method: "POST",
                     headers: {
-                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                        "X-CSRFToken": token_csrf
                     },
-                    body: formulario
+                    body: formulario_cargo
                 });
-                const resultado_actualizar = await respuesta_actualizar.json();
+                const resultado_cargo = await respuesta_cargo.json();
 
-                await Swal.fire({
-                    icon: resultado_actualizar.icon,
-                    title: resultado_actualizar.title,
-                    text: resultado_actualizar.descripcion
-                });
-            } 
-        } catch (error) {
-            console.error(error);
-        }
-    });
+                if (resultado_cargo.existe) {
+                    const autoridad = resultado_cargo.autoridad;
+                    const confirmacion = await Swal.fire({
+                        title: "¿Cambiar cargo?",
+                        html: `
+                            <p>El cargo actual es: <strong>${cargo_anterior}</strong></p>
+                            <p>Has seleccionado: <strong>${cargo_nuevo}</strong></p>
+                            <p>Actualmente este cargo pertenece a: </p>
+                            <strong>${autoridad.nombres} ${autoridad.apellidos}</strong>
+                            <p style="margin-top: 10px;"> Si continúas, los cargos serán intercambiados.</p>
+                        `,
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonText: "Sí, cambiar",
+                        cancelButtonText: "No, conservar",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    });
 
-    formulario_actualizar.addEventListener("submit", async (e) => {
-        e.preventDefault()
-        try {
+                    cambiar_cargo = confirmacion.isConfirmed;
+                } else {
+                    const confirmacion = await Swal.fire({
+                        title: "¿Cambiar cargo?",
+                        html: `
+                            <p>El cargo actual es: <strong>${cargo_anterior}</strong></p>
+                            <p>Has seleccionado: <strong>${cargo_nuevo}</strong></p>
+                            <p>Este cargo actualmente está disponible.</p>
+                        `,
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonText: "Sí, cambiar",
+                        cancelButtonText: "No, conservar",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    });
+
+                    cambiar_cargo = confirmacion.isConfirmed;
+                }
+            }
+
             const formulario = new FormData(formulario_actualizar);
+            formulario.append("cambiar_cargo", cambiar_cargo ? "true" : "false");
 
             const respuesta = await fetch("/act_datos_aut/", {
                 method: "POST",
+                headers: {
+                    "X-CSRFToken": token_csrf
+                },
                 body: formulario
             });
             const resultado = await respuesta.json();
@@ -193,9 +220,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (resultado.estado == "exito") {
                 formulario_actualizar.reset();
                 bloquear_controles(controles, true);
+                cargo_anterior = "";
+                select_cargo_actualizar.innerHTML = "<option value=''>Debe realizar la búsqueda</option>";
             }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     });
 

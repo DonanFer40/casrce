@@ -1,0 +1,106 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-autoridades-visualizar-carsce">
+
+    <div class="director-autoridades-visualizar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-autoridades-visualizar-carsce-encabezado">
+
+            <div class="director-autoridades-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-user-shield"></i>
+                <span>GESTIÓN INSTITUCIONAL</span>
+            </div>
+
+            <div class="director-autoridades-visualizar-carsce-presentacion">
+
+                <h3 class="director-autoridades-visualizar-carsce-titulo">
+                    Gestión de Autoridades
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-autoridades-visualizar-carsce-descripcion">
+                    Consulta y visualiza la información de las autoridades registradas en la institución.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA DE AUTORIDADES
+             ===================================================== -->
+
+        <div class="director-autoridades-visualizar-carsce-tarjeta">
+
+            <div class="director-autoridades-visualizar-carsce-tarjeta-cabecera">
+
+                <div class="director-autoridades-visualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-users-gear"></i>
+                </div>
+
+                <div class="director-autoridades-visualizar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-autoridades-visualizar-carsce-tarjeta-titulo">
+                        Buscar Autoridades
+                    </h4>
+
+                    <p class="director-autoridades-visualizar-carsce-tarjeta-descripcion">
+                        Consulta los datos de las autoridades registradas actualmente.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TABLA
+                 ================================================= -->
+
+            <div class="director-autoridades-visualizar-carsce-tabla-contenedor">
+
+                <div class="director-autoridades-visualizar-carsce-tabla-scroll">
+
+                    <table class="director-autoridades-visualizar-carsce-tabla">
+
+                        <thead>
+
+                            <tr>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Cédula de Identidad</th>
+                                <th>Cargo</th>
+                                <th>Resolución</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="contenedor_autoridades">
+                            <!-- Filas renderizadas dinámicamente por JS -->
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Autoridad/visualizar_autoridad.js' %}"></script>
+
+{% endblock %}

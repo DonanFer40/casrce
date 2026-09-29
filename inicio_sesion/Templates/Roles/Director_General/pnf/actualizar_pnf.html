@@ -1,0 +1,214 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-pnf-modificar-carsce">
+
+    <div class="director-pnf-modificar-carsce-contenedor">
+
+        <!-- ENCABEZADO -->
+        <div class="director-pnf-modificar-carsce-encabezado">
+
+            <div class="director-pnf-modificar-carsce-identificacion">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-pnf-modificar-carsce-presentacion">
+
+                <h3 class="director-pnf-modificar-carsce-titulo">
+                    Programa Nacional de Formación
+                </h3>
+
+                <p class="director-pnf-modificar-carsce-descripcion">
+                    Consulta y actualiza la información de un Programa Nacional de Formación registrado.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TARJETA PRINCIPAL -->
+        <div class="director-pnf-modificar-carsce-tarjeta">
+
+            <!-- CABECERA -->
+            <div class="director-pnf-modificar-carsce-tarjeta-cabecera">
+
+                <div class="director-pnf-modificar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <div class="director-pnf-modificar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-pnf-modificar-carsce-tarjeta-titulo">
+                        Modificar PNF
+                    </h4>
+
+                    <p class="director-pnf-modificar-carsce-tarjeta-descripcion">
+                        Busca el programa mediante su código y modifica sus datos.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORMULARIO DE BÚSQUEDA -->
+            <form method="post"
+                  id="formulario_buscar"
+                  class="director-pnf-modificar-carsce-formulario-busqueda">
+
+                {% csrf_token %}
+
+                <div class="director-pnf-modificar-carsce-campo-busqueda">
+
+                    <label for="codigo_pnf">
+                        Seleccione el PNF a Modificar:
+                    </label>
+
+                    <div class="director-pnf-modificar-carsce-grupo-busqueda">
+
+                        <div class="director-pnf-modificar-carsce-control-busqueda">
+
+                            <i class="fa-solid fa-barcode"></i>
+
+                            <input
+                                type="text"
+                                name="codigo"
+                                id="codigo_pnf"
+                                maxlength="8"
+                                minlength="8"
+                                pattern="[A-Z]{5}[0-9]{3}"
+                                title="Debe contener 5 letras mayúsculas y 3 números. Ejemplo: CARRE010"
+                                placeholder="Ingrese el código del PNF"
+                                autocomplete="off"
+                                required>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            id="btn_buscar"
+                            class="director-pnf-modificar-carsce-boton-buscar">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span>Buscar PNF</span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- SEPARADOR -->
+            <div class="director-pnf-modificar-carsce-separador">
+                <span></span>
+            </div>
+
+
+            <!-- FORMULARIO DE ACTUALIZACIÓN -->
+            <form method="post"
+                  id="formulario_actualizar"
+                  class="director-pnf-modificar-carsce-formulario-actualizar">
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="id_pnf"
+                    id="id_pnf">
+
+
+                <!-- FILA DE EDICIÓN -->
+                <div class="director-pnf-modificar-carsce-fila-edicion">
+
+                    <!-- NOMBRE -->
+                    <div class="director-pnf-modificar-carsce-campo-edicion">
+
+                        <label for="actualizar_nombre_pnf">
+                            Nombre del PNF:
+                        </label>
+
+                        <div class="director-pnf-modificar-carsce-control-edicion">
+
+                            <i class="fa-solid fa-book-open"></i>
+
+                            <input
+                                type="text"
+                                name="nombre"
+                                id="actualizar_nombre_pnf"
+                                autocomplete="off"
+                                placeholder="Nombre a actualizar">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PERIODO -->
+                    <div class="director-pnf-modificar-carsce-campo-edicion">
+
+                        <label for="actualizar_periodo_academico">
+                            Periodo Académico:
+                        </label>
+
+                        <div class="director-pnf-modificar-carsce-control-edicion director-pnf-modificar-carsce-control-select">
+
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                            <select
+                                name="periodo_academico"
+                                id="actualizar_periodo_academico">
+
+                                <option value="Trimestre">
+                                    Trimestre
+                                </option>
+
+                                <option value="Semestre">
+                                    Semestre
+                                </option>
+
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down director-pnf-modificar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACCIÓN -->
+                <div class="director-pnf-modificar-carsce-acciones">
+
+                    <button
+                        type="submit"
+                        id="btn_actualizar"
+                        class="director-pnf-modificar-carsce-boton-actualizar">
+
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>Actualizar PNF</span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/PNF/actualizar_pnf.js' %}"></script>
+
+{% endblock %}

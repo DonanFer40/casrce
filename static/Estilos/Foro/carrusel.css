@@ -1,0 +1,114 @@
+/* ==========================================================================
+   1. CARRUSEL DINÁMICO DE NOTICIAS (4 Fotos / Destacados)
+   ========================================================================== */
+.carrusel-seccion {
+    max-width: 1200px;
+    margin: 20px auto 0 auto;
+    padding: 0 20px;
+}
+
+.carrusel-container {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    border-radius: var(--radio-card);
+    overflow: hidden;
+    box-shadow: var(--sombra-elevada);
+    background-color: var(--color-azul-profundo);
+}
+
+.slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Superposición oscura progresiva para asegurar máxima legibilidad */
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.92) 85%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px 40px;
+    color: var(--color-blanco);
+}
+
+.badge-noticia {
+    background-color: var(--color-rojo-acento);
+    color: var(--color-blanco);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.slide-overlay h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.25;
+    color: var(--color-blanco);
+}
+
+.slide-overlay p {
+    color: #E2E8F0;
+    font-size: 0.95rem;
+    margin: 0;
+    max-width: 750px;
+    line-height: 1.5;
+}
+
+/* Controles Flotantes del Carrusel */
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-amarillo-accion);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.carrusel-btn:hover {
+    background-color: var(--color-amarillo-accion);
+    color: var(--color-azul-profundo);
+    border-color: var(--color-amarillo-accion);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.carrusel-btn.prev { left: 20px; }
+.carrusel-btn.next { right: 20px; }

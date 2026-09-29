@@ -9,6 +9,7 @@ urlpatterns = [
     path('panel_usuario/', views.panel_usuario, name="panel_usuario"),
     path('panel_registro/', views.panel_registro, name="panel_registro"),
     path('cerrar_sesion/', views.cerrar_sesion, name="cerrar_sesion"),
+
     path('comp_registro/', views.comp_registro, name="comp_registro"),
     path('datos_usr_admin/', views.datos_usr_admin, name="datos_usr_admin"),
     path('validar_ci_auxiliar/', views.validar_ci_auxiliar, name="validar_ci_auxiliar"),
@@ -30,6 +31,12 @@ urlpatterns = [
     path('vis_per_asig/', views.vis_per_asig, name="vis_per_asig"),
     path('bus_per_asig/', views.bus_per_asig, name="bus_per_asig"),
     path('act_per_asig/', views.act_per_asig, name="act_per_asig"),
+    path('info_per_asig/', views.info_per_asig, name="info_per_asig"),
+    path('agr_per_asig/', views.agr_per_asig, name="agr_per_asig"),
+    path('act_per_reg/', views.act_per_reg, name="act_per_reg"),
+    path('per_dis_asi/', views.per_dis_asi, name="per_dis_asi"),
+    path('per_reg/', views.per_reg, name="per_reg"),
+    path('eli_var_sec/', views.eli_var_sec, name="eli_var_sec"),
 
     path('pnfs_disp/', views.pnfs_disp, name="pnfs_disp"),
     path('pnfs_reg/', views.pnfs_reg, name="pnfs_reg"),
@@ -65,10 +72,8 @@ urlpatterns = [
     path('cargo_asig_aut/', views.cargo_asig_aut, name="cargo_asig_aut"),
     path('val_ci_aut/', views.val_ci_aut, name="val_ci_aut"),
     path('cargo_user/', views.cargo_user, name="cargo_user"),
-    path('act_cargo_aut/', views.act_cargo_aut, name="act_cargo_aut"),
     path('val_resolucion/', views.val_resolucion, name="val_resolucion"),
     path('vist_auts/', views.vist_auts, name="vist_auts"),
-    path('reasig_cargo/', views.reasig_cargo, name="reasig_cargo"),
     path('reg_auts/', views.reg_auts, name="reg_auts"),
 
     path('aulas_reg/', views.aulas_reg, name="aulas_reg"),
@@ -112,17 +117,19 @@ urlpatterns = [
     path('mat_asig/', views.mat_asig, name="mat_asig"),
     path('mats_desact/', views.mats_desact, name="mats_desact"),
     path('asig_desact/', views.asig_desact, name="asig_desact"),
+    path('tray_mat_asg/', views.tray_mat_asg, name="tray_mat_asg"),
+    path('obt_pnfs_coord/', views.obt_pnfs_coord, name="obt_pnfs_coord"),
+
     path('tray_reg/', views.tray_reg, name="tray_reg"),
 
-    path('obt_nucleos_asignados/', views.obt_nucleos_asignados, name="obt_nucleos_asignados"),
     path('obt_pnfs_asignado/', views.obt_pnfs_asignado, name="obt_pnfs_asignado"),
     path('obt_pre_inscrt/', views.obt_pre_inscrt, name="obt_pre_inscrt"),
     path('obt_data_est/', views.obt_data_est, name="obt_data_est"),
     path('inscr_est/', views.inscr_est, name="inscr_est"),
+    path('perf_asig_coord/', views.perf_asig_coord, name="perf_asig_coord"),
     path('rech_inscr_est/', views.rech_inscr_est, name="rech_inscr_est"),
 
     path('pl_reg_coord_pnf/', views.pl_reg_coord_pnf, name="pl_reg_coord_pnf"),
-    path('pnf_asig_coord/', views.pnf_asig_coord, name="pnf_asig_coord"),
     path('vis_pl_env/', views.vis_pl_env, name="vis_pl_env"),
     path('datos_pl_reg_coord_pnf/', views.datos_pl_reg_coord_pnf, name="datos_pl_reg_coord_pnf"),
     path('camb_est_pl/', views.camb_est_pl, name="camb_est_pl"),
@@ -137,6 +144,12 @@ urlpatterns = [
     path('Planificacion_Docente/', views.Planificacion_Docente, name="Planificacion_Docente"),
 
     path('barra_lateral/', views.barra_lateral, name="barra_lateral"),
+
+    path('reporte_estudiantes_pdf/', views.reporte_estudiantes_pdf, name='reporte_estudiantes_pdf'),
+    path('reportes_control_estudio/', views.reportes_control_estudio, name='reportes_control_estudio'),
+    path('reporte_academico_pdf/', views.reporte_academico_pdf, name='reporte_academico_pdf'),
+    path('reporte_inscripciones_pdf/', views.reporte_inscripciones_pdf, name='reporte_inscripciones_pdf'
+),
 ]
 
 if settings.DEBUG:

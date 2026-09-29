@@ -1,214 +1,778 @@
-/* ========================================================= BARRA LATERAL - CARSCE ========================================================= */
-#barra_lateral {
+/* =========================================================
+   BARRA LATERAL PRINCIPAL - CARSCE
+   ========================================================= */
+
+#navegacion_lateral_carsce {
     position: fixed;
-    top: 125px;
+    top: 150px;
     left: 0;
-    width: 245px; /* Ampliado ligeramente para acomodar la letra más grande */
-    height: calc(100vh - 125px);
-    padding: 22px 14px;
-    box-sizing: border-box;
-    /* Color principal base */
-    background: #211C84;
-    border-right: 1px solid rgba(255, 255, 255, .15);
-    overflow-y: auto;
-    overflow-x: hidden;
+
+    width: 270px;
+    height: calc(100vh - 150px);
+
+    display: flex;
+    flex-direction: column;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0F172A 0%,
+            #111C31 52%,
+            #0F172A 100%
+        );
+
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        8px 0 25px rgba(15, 23, 42, 0.12);
+
+    overflow: hidden;
+
     z-index: 900;
-    box-shadow: 6px 0 24px rgba(0, 0, 0, .20);
 }
 
-/* ========================================================= SCROLLBAR ========================================================= */
-#barra_lateral::-webkit-scrollbar {
+
+/* =========================================================
+   CONTEXTO DE SESIÓN
+   ========================================================= */
+
+.navegacion-lateral-carsce-contexto {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 16px 14px 0;
+    padding: 13px 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.14),
+            rgba(37, 99, 235, 0.04)
+        );
+
+    border: 1px solid rgba(96, 165, 250, 0.14);
+
+    border-radius: 12px;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.navegacion-lateral-carsce-contexto:hover {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.19),
+            rgba(37, 99, 235, 0.06)
+        );
+
+    border-color: rgba(96, 165, 250, 0.22);
+}
+
+
+/* =========================================================
+   ICONO DEL CONTEXTO
+   ========================================================= */
+
+.navegacion-lateral-carsce-contexto-icono {
+    width: 39px;
+    height: 39px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #2563EB,
+            #1D4ED8
+        );
+
+    color: #FFFFFF;
+
+    font-size: 0.9rem;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================================================
+   INFORMACIÓN DEL CONTEXTO
+   ========================================================= */
+
+.navegacion-lateral-carsce-contexto-datos {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.navegacion-lateral-carsce-contexto-etiqueta {
+    color: #64748B;
+
+    font-size: 0.58rem;
+    font-weight: 600;
+
+    letter-spacing: 0.09em;
+
+    line-height: 1.2;
+}
+
+
+.navegacion-lateral-carsce-contexto-rol {
+    color: #F8FAFC;
+
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    line-height: 1.25;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.navegacion-lateral-carsce-contexto-descripcion {
+    color: #94A3B8;
+
+    font-size: 0.64rem;
+    font-weight: 400;
+
+    line-height: 1.25;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   SEPARADOR
+   ========================================================= */
+
+.navegacion-lateral-carsce-separador {
+    width: calc(100% - 28px);
+    height: 1px;
+
+    flex-shrink: 0;
+
+    margin: 14px auto 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(148, 163, 184, 0.20),
+            rgba(148, 163, 184, 0.03)
+        );
+}
+
+
+/* =========================================================
+   CONTENIDO NAVEGABLE
+   ========================================================= */
+
+.navegacion-lateral-carsce-contenido {
+    flex: 1;
+    min-height: 0;
+
+    padding: 15px 12px 22px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        rgba(148, 163, 184, 0.22)
+        transparent;
+}
+
+
+/* Scrollbar Chromium */
+
+.navegacion-lateral-carsce-contenido::-webkit-scrollbar {
     width: 5px;
 }
 
-#barra_lateral::-webkit-scrollbar-track {
+
+.navegacion-lateral-carsce-contenido::-webkit-scrollbar-track {
     background: transparent;
 }
 
-#barra_lateral::-webkit-scrollbar-thumb {
-    background: #7A73D1;
-    border-radius: 10px;
+
+.navegacion-lateral-carsce-contenido::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.22);
+
+    border-radius: 20px;
 }
 
-/* ========================================================= TÍTULO DEL MENÚ ========================================================= */
-#barra_lateral .menu-title,
-#barra_lateral h3,
-#barra_lateral h2 {
-    margin: 4px 8px 18px;
-    color: #FFE100;
-    font-size: 13px; /* Aumentado */
-    font-weight: 800;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    user-select: none;
+
+.navegacion-lateral-carsce-contenido::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.38);
 }
 
-/* ========================================================= AJUSTE GENERAL DE ICONOS ========================================================= */
-#barra_lateral a i,
-#barra_lateral summary i {
-    width: 22px;
-    margin-right: 10px;
-    font-size: 17px; /* Iconos más grandes */
-    text-align: center;
+
+/* =========================================================
+   ETIQUETAS DE SECCIÓN
+   ========================================================= */
+
+.navegacion-lateral-carsce-etiqueta {
+    display: block;
+
+    margin: 8px 8px 8px;
+
+    color: #64748B;
+
+    font-size: 0.61rem;
+    font-weight: 600;
+
+    letter-spacing: 0.10em;
+
+    line-height: 1.2;
 }
 
-/* ========================================================= ENLACES PRINCIPALES ========================================================= */
-#barra_lateral > a {
+
+/* =========================================================
+   ENLACE PRINCIPAL
+   ========================================================= */
+
+.navegacion-lateral-carsce-enlace-inicio {
     position: relative;
+
     display: flex;
     align-items: center;
+
     width: 100%;
-    height: 44px;
-    padding: 0 14px;
-    margin-bottom: 6px;
-    box-sizing: border-box;
-    color: #FFFFFF;
+
+    min-height: 41px;
+
+    padding: 7px 10px;
+
+    margin-bottom: 15px;
+
+    color: #E2E8F0;
+
     text-decoration: none;
-    font-size: 15px; /* Aumentado de 13.5px a 15px */
-    font-weight: 600;
-    border-radius: 10px;
-    transition: all .2s ease;
+
+    background:
+        rgba(37, 99, 235, 0.14);
+
+    border: 1px solid rgba(59, 130, 246, 0.25);
+
+    border-radius: 9px;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
-/* Hover Enlaces Principales */
-#barra_lateral > a:hover {
-    background: #4D55CC;
-    color: #FFFFFF;
-    transform: translateX(4px);
+
+.navegacion-lateral-carsce-enlace-inicio:hover {
+    background:
+        rgba(37, 99, 235, 0.22);
+
+    border-color:
+        rgba(96, 165, 250, 0.34);
+
+    transform: translateX(2px);
 }
 
-/* ========================================================= SUMMARY / DESPLEGABLES ========================================================= */
-#barra_lateral details {
-    margin-bottom: 6px;
-    border-radius: 10px;
-}
 
-#barra_lateral summary {
-    position: relative;
+.navegacion-lateral-carsce-icono-inicio {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 44px;
-    padding: 0 14px;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    font-size: 15px; /* Aumentado de 13.5px a 15px */
-    font-weight: 600;
-    border-radius: 10px;
-    cursor: pointer;
-    list-style: none;
-    user-select: none;
-    transition: all .2s ease;
+    justify-content: center;
+
+    margin-right: 9px;
+
+    color: #BFDBFE;
+
+    background:
+        rgba(37, 99, 235, 0.24);
+
+    border-radius: 7px;
+
+    font-size: 0.76rem;
 }
 
-#barra_lateral summary::-webkit-details-marker,
-#barra_lateral summary::marker {
+
+.navegacion-lateral-carsce-texto-enlace {
+    flex: 1;
+
+    color: #E2E8F0;
+
+    font-size: 0.72rem;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.navegacion-lateral-carsce-indicador {
+    color: #64748B;
+
+    font-size: 0.65rem;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.navegacion-lateral-carsce-enlace-inicio:hover
+.navegacion-lateral-carsce-indicador {
+    color: #93C5FD;
+
+    transform: translateX(2px);
+}
+
+
+/* =========================================================
+   SECCIONES / ACORDEONES
+   ========================================================= */
+
+.navegacion-lateral-carsce-seccion {
+    margin-bottom: 5px;
+}
+
+
+.navegacion-lateral-carsce-bloque-inicio {
+    margin-bottom: 5px;
+}
+
+
+.navegacion-lateral-carsce-acordeon {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CABECERA DEL ACORDEÓN
+   ========================================================= */
+
+.navegacion-lateral-carsce-cabecera {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 43px;
+
+    padding: 6px 9px;
+
+    color: #CBD5E1;
+
+    border: 1px solid transparent;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    list-style: none;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.navegacion-lateral-carsce-cabecera::-webkit-details-marker {
     display: none;
 }
 
-/* Flecha desplegable */
-#barra_lateral summary::after {
-    content: "›";
-    color: #B5A8D5;
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1;
-    transition: transform .25s ease, color .25s ease;
+
+.navegacion-lateral-carsce-cabecera:hover {
+    color: #F8FAFC;
+
+    background:
+        rgba(255, 255, 255, 0.055);
+
+    border-color:
+        rgba(255, 255, 255, 0.06);
 }
 
-#barra_lateral details[open] summary::after {
-    transform: rotate(90deg);
-    color: #FFE100;
-}
 
-#barra_lateral details[open] > summary {
-    background: rgba(0, 0, 0, .25);
-    color: #FFFFFF;
-}
+/* =========================================================
+   PARTE IZQUIERDA DEL ACORDEÓN
+   ========================================================= */
 
-#barra_lateral summary:hover {
-    background: #4D55CC;
-    color: #FFFFFF;
-}
+.navegacion-lateral-carsce-cabecera-izquierda {
+    min-width: 0;
 
-/* ========================================================= SUBMENÚ ========================================================= */
-#barra_lateral details > a {
-    position: relative;
+    flex: 1;
+
     display: flex;
     align-items: center;
-    min-height: 38px;
-    margin: 4px 6px 4px 16px;
-    padding: 0 12px;
-    box-sizing: border-box;
-    color: #B5A8D5;
-    text-decoration: none;
-    font-size: 14px; /* Aumentado de 12.5px a 14px */
-    font-weight: 500;
-    border-radius: 8px;
-    transition: all .2s ease;
 }
 
-#barra_lateral details > a::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    margin-right: 12px;
+
+.navegacion-lateral-carsce-icono-modulo {
+    width: 30px;
+    height: 30px;
+
     flex-shrink: 0;
-    background: #7A73D1;
-    border-radius: 50%;
-    transition: all .2s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 9px;
+
+    color: #94A3B8;
+
+    background:
+        rgba(148, 163, 184, 0.09);
+
+    border-radius: 7px;
+
+    font-size: 0.73rem;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
 }
 
-#barra_lateral details > a:hover {
-    background: #4D55CC;
-    color: #FFFFFF;
-    padding-left: 16px;
+
+.navegacion-lateral-carsce-nombre-modulo {
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: #CBD5E1;
+
+    font-size: 0.71rem;
+    font-weight: 500;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    transition:
+        color 0.2s ease;
 }
 
-#barra_lateral details > a:hover::before {
-    background: #FFE100;
-    transform: scale(1.3);
+
+/* =========================================================
+   CHEVRON
+   ========================================================= */
+
+.navegacion-lateral-carsce-chevron {
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    color: #64748B;
+
+    font-size: 0.61rem;
+
+    transition:
+        transform 0.25s ease,
+        color 0.2s ease;
 }
 
-/* ========================================================= ESTADO ACTIVO ========================================================= */
-#barra_lateral a.activo,
-#barra_lateral details > a.activo {
-    background: #FFE100 !important;
-    color: #211C84 !important;
-    font-weight: 700 !important;
-    box-shadow: 0 4px 12px rgba(255, 225, 0, .30) !important;
+
+/* =========================================================
+   ACORDEÓN ABIERTO
+   ========================================================= */
+
+.navegacion-lateral-carsce-acordeon[open]
+.navegacion-lateral-carsce-cabecera {
+    color: #F8FAFC;
+
+    background:
+        rgba(37, 99, 235, 0.095);
+
+    border-color:
+        rgba(59, 130, 246, 0.14);
 }
 
-#barra_lateral details > a.activo::before {
-    background: #211C84 !important;
+
+.navegacion-lateral-carsce-acordeon[open]
+.navegacion-lateral-carsce-icono-modulo {
+    color: #BFDBFE;
+
+    background:
+        rgba(37, 99, 235, 0.20);
 }
 
-/*Iconos */
 
-/* Ajuste de iconos dentro de los botones */
-#barra_lateral a i,
-#barra_lateral summary i {
-    width: 18px;
-    margin-right: 8px;
-    font-size: 14px;
-    text-align: center;
-    opacity: 0.85;
+.navegacion-lateral-carsce-acordeon[open]
+.navegacion-lateral-carsce-nombre-modulo {
+    color: #F8FAFC;
 }
 
-/* Selector del título .menu-title */
-#barra_lateral .menu-title {
-    margin: 4px 8px 16px;
-    color: #FFE100;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .18em;
-    text-transform: uppercase;
+
+.navegacion-lateral-carsce-acordeon[open]
+.navegacion-lateral-carsce-chevron {
+    color: #93C5FD;
+
+    transform: rotate(180deg);
 }
 
-/* ========================================================= RESPONSIVE ========================================================= */
-@media (max-width: 768px) {
-    #barra_lateral {
-        width: 210px;
+
+/* =========================================================
+   SUBMENÚ
+   ========================================================= */
+
+.navegacion-lateral-carsce-submenu {
+    display: flex;
+    flex-direction: column;
+
+    margin:
+        3px 0 7px 39px;
+
+    padding:
+        2px 0 2px 11px;
+
+    border-left:
+        1px solid rgba(96, 165, 250, 0.17);
+
+    animation:
+        navegacionCarsceEntrada 0.18s ease;
+}
+
+
+@keyframes navegacionCarsceEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
     }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   ENLACES DEL SUBMENÚ
+   ========================================================= */
+
+.navegacion-lateral-carsce-submenu a {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 32px;
+
+    padding: 5px 8px;
+
+    color: #94A3B8;
+
+    font-size: 0.66rem;
+    font-weight: 400;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    transition:
+        color 0.18s ease,
+        background 0.18s ease,
+        padding-left 0.18s ease;
+}
+
+
+.navegacion-lateral-carsce-submenu a::before {
+    content: "";
+
+    position: absolute;
+
+    left: -12px;
+
+    width: 3px;
+    height: 0;
+
+    background: #3B82F6;
+
+    border-radius: 0 4px 4px 0;
+
+    transition:
+        height 0.18s ease;
+}
+
+
+.navegacion-lateral-carsce-submenu a:hover {
+    color: #E2E8F0;
+
+    background:
+        rgba(255, 255, 255, 0.045);
+
+    padding-left: 11px;
+}
+
+
+.navegacion-lateral-carsce-submenu a:hover::before {
+    height: 16px;
+}
+
+
+/* =========================================================
+   ICONOS DE SUBMENÚ
+   ========================================================= */
+
+.navegacion-lateral-carsce-submenu a i {
+    width: 18px;
+
+    margin-right: 5px;
+
+    color: #64748B;
+
+    font-size: 0.62rem;
+
+    text-align: center;
+
+    transition:
+        color 0.18s ease;
+}
+
+
+.navegacion-lateral-carsce-submenu a:hover i {
+    color: #93C5FD;
+}
+
+
+/* =========================================================
+   ESTADO ACTIVO
+   ========================================================= */
+
+.navegacion-lateral-carsce-submenu a.activo-carsce {
+    color: #BFDBFE;
+
+    background:
+        rgba(37, 99, 235, 0.12);
+
+    font-weight: 500;
+}
+
+
+.navegacion-lateral-carsce-submenu a.activo-carsce::before {
+    height: 18px;
+}
+
+
+.navegacion-lateral-carsce-submenu a.activo-carsce i {
+    color: #60A5FA;
+}
+
+
+/* =========================================================
+   ESTADO ACTIVO DEL PANEL PRINCIPAL
+   ========================================================= */
+
+.navegacion-lateral-carsce-enlace-inicio.activo-carsce {
+    color: #FFFFFF;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(37, 99, 235, 0.25),
+            rgba(37, 99, 235, 0.12)
+        );
+
+    border-color:
+        rgba(96, 165, 250, 0.30);
+}
+
+
+.navegacion-lateral-carsce-enlace-inicio.activo-carsce
+.navegacion-lateral-carsce-icono-inicio {
+    color: #FFFFFF;
+
+    background:
+        rgba(37, 99, 235, 0.45);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    #navegacion_lateral_carsce {
+        width: 250px;
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    #navegacion_lateral_carsce {
+        width: 235px;
+    }
+
+    .navegacion-lateral-carsce-contexto {
+        margin-left: 11px;
+        margin-right: 11px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    #navegacion_lateral_carsce {
+        width: 220px;
+        top: 110px;
+        height: calc(100vh - 110px);
+    }
+
+    .navegacion-lateral-carsce-contexto {
+        padding: 11px 9px;
+    }
+
+    .navegacion-lateral-carsce-contexto-icono {
+        width: 36px;
+        height: 36px;
+    }
+
+    .navegacion-lateral-carsce-nombre-modulo {
+        font-size: 0.68rem;
+    }
+
+}
+
+
+@media (max-width: 560px) {
+
+    #navegacion_lateral_carsce {
+        width: 205px;
+    }
+
+    .navegacion-lateral-carsce-contenido {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .navegacion-lateral-carsce-contexto {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
 }

@@ -1,0 +1,281 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* ==========================================
+   MÓDULO MODIFICAR REPARACIÓN - ESTILOS BASE
+   ========================================== */
+
+    #modulo_modificar_reparacion {
+        width: 100%;
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .contenedor_modificar_reparacion {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        padding: 2rem;
+        border: 1px solid #e9ecef;
+    }
+
+    .contenedor_modificar_reparacion h2 {
+        color: #1e293b;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    /* --- Estructura del Formulario de Filtros --- */
+    #formulario_actualizar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
+        align-items: flex-end;
+    }
+
+    .grupo_campo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .grupo_campo label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .grupo_campo select,
+    .grupo_campo input[type="text"] {
+        width: 100%;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.9rem;
+        color: #334155;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        outline: none;
+    }
+
+    .grupo_campo select:focus,
+    .grupo_campo input[type="text"]:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        background-color: #ffffff;
+    }
+
+    .grupo_campo input[readonly] {
+        background-color: #f1f5f9;
+        color: #64748b;
+        cursor: not-allowed;
+    }
+
+    /* --- Botón de Consultar --- */
+    .contenedor_boton_notas {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 0.5rem;
+    }
+
+    .contenedor_boton_notas input[type="submit"],
+    .contenedor_boton_notas button {
+        background-color: #2563eb;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.6rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .contenedor_boton_notas input[type="submit"]:hover,
+    .contenedor_boton_notas button:hover {
+        background-color: #1d4ed8;
+    }
+
+    .contenedor_boton_notas input[type="submit"]:active,
+    .contenedor_boton_notas button:active {
+        transform: scale(0.98);
+    }
+
+    /* --- Contenedor Dinámico de Resultados --- */
+    #contenedor_evaluaciones {
+        grid-column: 1 / -1;
+        margin-top: 1.5rem;
+    }
+
+    /* ==========================================
+   TABLA DINÁMICA DE MODIFICACIÓN Y CONTROLES
+   ========================================== */
+
+    #contenedor_evaluaciones .table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+    }
+
+    #contenedor_evaluaciones .table thead.table-dark {
+        background-color: #1e293b !important;
+    }
+
+    #contenedor_evaluaciones .table th {
+        padding: 0.85rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: #ffffff;
+        border-bottom: none;
+    }
+
+    #contenedor_evaluaciones .table td {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+    }
+
+    #contenedor_evaluaciones .table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* --- Inputs de Nota dentro de la Tabla --- */
+    .input-nota-reparacion {
+        font-weight: 700 !important;
+        font-size: 0.95rem !important;
+        color: #1e293b !important;
+        border: 1.5px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        padding: 0.4rem 0.5rem !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .input-nota-reparacion:focus {
+        border-color: #2563eb !important;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+        background-color: #ffffff !important;
+        outline: none;
+    }
+
+    .input-nota-reparacion.is-invalid {
+        border-color: #dc3545 !important;
+        background-color: #fff8f8 !important;
+    }
+
+    /* --- Badges de Estado --- */
+    #contenedor_evaluaciones .badge {
+        font-size: 0.78rem;
+        padding: 0.4em 0.75em;
+        font-weight: 600;
+        border-radius: 6px;
+    }
+
+    #contenedor_evaluaciones .badge.bg-success {
+        background-color: #dcfce7 !important;
+        color: #15803d !important;
+    }
+
+    #contenedor_evaluaciones .badge.bg-danger {
+        background-color: #fee2e2 !important;
+        color: #b91c1c !important;
+    }
+
+    /* --- Botón Guardar Cambios (Inyectado al final de la tabla) --- */
+    .contenedor_guardar_modificacion {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.25rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .btn-guardar-reparacion {
+        background-color: #16a34a;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.65rem 1.75rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-guardar-reparacion:hover {
+        background-color: #15803d;
+    }
+
+    .btn-guardar-reparacion:active {
+        transform: scale(0.98);
+    }
+
+    /* --- Ajuste Responsivo --- */
+    @media (max-width: 640px) {
+        .contenedor_modificar_reparacion {
+            padding: 1.25rem;
+        }
+
+        #formulario_actualizar {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section id="modulo_modificar_reparacion">
+    <div class="contenedor_modificar_reparacion">
+        <h2>Registrar Reparación</h2>
+
+        <form method="post" id="formulario_actualizar">
+            {% csrf_token %}
+
+            <div class="grupo_campo">
+                <label for="nucleo_asignado">Núcleo Asignado:</label>
+                <select name="nucleo_asignado" id="nucleo_asignado"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="pnf_asignado">P.N.F Asignado:</label>
+                <select name="pnf_asignado" id="pnf_asignado"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="materia_asignada">Materia(s) a Reparar:</label>
+                <select name="materia_asignada" id="materia_asignada"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="trayecto_academico">Trayecto:</label>
+                <input type="text" name="trayecto_academico" id="trayecto_academico" readonly
+                    placeholder="Cargando trayecto...">
+            </div>
+
+            <div class="contenedor_boton_notas">
+                <input type="submit" value="Actualizar">
+            </div>
+
+            <div id="contenedor_evaluaciones"></div>
+        </form>
+    </div>
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Docente/modificar_notas_reparar.js' %}"></script>
+
+{% endblock %}

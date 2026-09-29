@@ -1,0 +1,602 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-materias-registrar-carsce">
+
+    <div class="director-materias-registrar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-materias-registrar-carsce-encabezado">
+
+            <div class="director-materias-registrar-carsce-identificacion">
+                <i class="fa-solid fa-book-open"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-materias-registrar-carsce-presentacion">
+
+                <h3 class="director-materias-registrar-carsce-titulo">
+                    Materias Académicas
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-materias-registrar-carsce-descripcion">
+                    Registra y configura las materias académicas que formarán parte de la estructura curricular institucional.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+             ===================================================== -->
+
+        <div class="director-materias-registrar-carsce-tarjeta">
+
+            <!-- CABECERA DE TARJETA -->
+
+            <div class="director-materias-registrar-carsce-tarjeta-cabecera">
+
+                <div class="director-materias-registrar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-book"></i>
+                </div>
+
+                <div class="director-materias-registrar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-materias-registrar-carsce-tarjeta-titulo">
+                        Registrar Materia
+                    </h4>
+
+                    <p class="director-materias-registrar-carsce-tarjeta-descripcion">
+                        Completa la información académica, horaria y curricular correspondiente a la nueva materia.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+                 ================================================= -->
+
+            <form
+                method="post"
+                id="formulario_registrar"
+                class="director-materias-registrar-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =================================================
+                     BLOQUE 1 - IDENTIFICACIÓN
+                     ================================================= -->
+
+                <div class="director-materias-registrar-carsce-bloque">
+
+                    <div class="director-materias-registrar-carsce-bloque-cabecera">
+
+                        <div class="director-materias-registrar-carsce-bloque-icono">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+
+                        <div>
+
+                            <h5 class="director-materias-registrar-carsce-bloque-titulo">
+                                Identificación de la Materia
+                            </h5>
+
+                            <p class="director-materias-registrar-carsce-bloque-descripcion">
+                                Define el nombre y código oficial de la asignatura.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-materias-registrar-carsce-grid-2">
+
+
+                        <!-- NOMBRE -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="nombres_registrar_materias"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Nombre de la Materia:
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <input
+                                    type="text"
+                                    name="nombresmaterias"
+                                    id="nombres_registrar_materias"
+                                    placeholder="Escribir el nombre de la materia"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CÓDIGO -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="codigos_registrar_materias"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Código de la Materia:
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-hashtag"></i>
+
+                                <input
+                                    type="text"
+                                    name="codigosmaterias"
+                                    id="codigos_registrar_materias"
+                                    minlength="7"
+                                    maxlength="7"
+                                    pattern="[A-Z]{4}[0-9]{3}"
+                                    title="Debe contener 4 letras mayúsculas y 3 números. Ejemplo: MATE001"
+                                    placeholder="Ej. MATE001"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                            </div>
+
+                            <small
+                                id="mensaje_codigo_materia"
+                                class="director-materias-registrar-carsce-mensaje"
+                            ></small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     BLOQUE 2 - CARGA HORARIA
+                     ================================================= -->
+
+                <div class="director-materias-registrar-carsce-bloque">
+
+                    <div class="director-materias-registrar-carsce-bloque-cabecera">
+
+                        <div class="director-materias-registrar-carsce-bloque-icono">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+
+                        <div>
+
+                            <h5 class="director-materias-registrar-carsce-bloque-titulo">
+                                Carga Horaria
+                            </h5>
+
+                            <p class="director-materias-registrar-carsce-bloque-descripcion">
+                                Establece las horas de estudio acompañado e independiente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-materias-registrar-carsce-grid-2">
+
+
+                        <!-- THEA -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="THEA"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Hora Estudio Acompañado (THEA):
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-user-clock"></i>
+
+                                <input
+                                    type="text"
+                                    name="THEA"
+                                    id="THEA"
+                                    pattern="[0-9]{1,2}(,[0-9])?"
+                                    maxlength="4"
+                                    inputmode="decimal"
+                                    placeholder="Horas THEA"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- THEI -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="THEI"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Hora Estudio Independiente (THEI):
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-user-graduate"></i>
+
+                                <input
+                                    type="text"
+                                    name="THEI"
+                                    id="THEI"
+                                    pattern="[0-9]{1,2}(,[0-9])?"
+                                    maxlength="4"
+                                    inputmode="decimal"
+                                    placeholder="Horas THEI"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     BLOQUE 3 - ESTRUCTURA ACADÉMICA
+                     ================================================= -->
+
+                <div class="director-materias-registrar-carsce-bloque">
+
+                    <div class="director-materias-registrar-carsce-bloque-cabecera">
+
+                        <div class="director-materias-registrar-carsce-bloque-icono">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <div>
+
+                            <h5 class="director-materias-registrar-carsce-bloque-titulo">
+                                Estructura Académica
+                            </h5>
+
+                            <p class="director-materias-registrar-carsce-bloque-descripcion">
+                                Selecciona el periodo, trayecto y tipo correspondiente a la materia.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-materias-registrar-carsce-grid-3">
+
+
+                        <!-- PERIODO -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="periodo_registrar_materia"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Periodo de la Materia:
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                                <select
+                                    name="periodomateria"
+                                    id="periodo_registrar_materia"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Seleccionar Periodo
+                                    </option>
+
+                                    <optgroup label="Inicial">
+
+                                        <option value="INICIAL_TRIMESTRE">
+                                            Inicial Trimestre (P.I.U)
+                                        </option>
+
+                                        <option value="INICIAL_SEMESTRE">
+                                            Inicial Semestre (P.I.U)
+                                        </option>
+
+                                    </optgroup>
+
+                                    <optgroup label="Tramo">
+
+                                        <option value="TRIMESTRE">
+                                            Trimestre
+                                        </option>
+
+                                        <option value="TRAMO_I">
+                                            I Tramo
+                                        </option>
+
+                                        <option value="TRAMO_II">
+                                            II Tramo
+                                        </option>
+
+                                        <option value="TRAMO_III">
+                                            III Tramo
+                                        </option>
+
+                                        <option value="TRAMO_I_II">
+                                            I y II Tramos
+                                        </option>
+
+                                        <option value="TRAMO_II_III">
+                                            II y III Tramos
+                                        </option>
+
+                                        <option value="TRAMO_I_III">
+                                            I y III Tramos
+                                        </option>
+
+                                    </optgroup>
+
+                                    <optgroup label="Semestre">
+
+                                        <option value="SEMESTRE">
+                                            Semestre
+                                        </option>
+
+                                        <option value="SEMESTRE_I">
+                                            I Semestre
+                                        </option>
+
+                                        <option value="SEMESTRE_II">
+                                            II Semestre
+                                        </option>
+
+                                    </optgroup>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down director-materias-registrar-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TRAYECTO -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="trayecto_registrar_materia"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Trayecto de la Materia:
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-road"></i>
+
+                                <select
+                                    name="trayectomateria"
+                                    id="trayecto_registrar_materia"
+                                >
+
+                                    <option value="">
+                                        Seleccionar Primero Periodo
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down director-materias-registrar-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TIPO -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="tipo_materia"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Tipo de Materia:
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-list-check"></i>
+
+                                <select
+                                    name="tipo_materia"
+                                    id="tipo_materia"
+                                >
+
+                                    <option value="">
+                                        Seleccionar Primero Periodo
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down director-materias-registrar-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     BLOQUE 4 - CONFIGURACIÓN
+                     ================================================= -->
+
+                <div class="director-materias-registrar-carsce-bloque">
+
+                    <div class="director-materias-registrar-carsce-bloque-cabecera">
+
+                        <div class="director-materias-registrar-carsce-bloque-icono">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+
+                        <div>
+
+                            <h5 class="director-materias-registrar-carsce-bloque-titulo">
+                                Configuración Académica
+                            </h5>
+
+                            <p class="director-materias-registrar-carsce-bloque-descripcion">
+                                Define la condición de reparación y el P.N.F al que pertenece la materia.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-materias-registrar-carsce-grid-2">
+
+
+                        <!-- REPARACIÓN -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="reparacion_registrar_materia"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                Reparación Materia:
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-rotate"></i>
+
+                                <select
+                                    name="reparacionmateria"
+                                    id="reparacion_registrar_materia"
+                                >
+
+                                    <option value="">
+                                        Seleccionar Reparación
+                                    </option>
+
+                                    <option value="Si">
+                                        Si
+                                    </option>
+
+                                    <option value="No">
+                                        No
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down director-materias-registrar-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PNF -->
+
+                        <div class="director-materias-registrar-carsce-campo">
+
+                            <label
+                                for="pnfs_registrar_materia"
+                                class="director-materias-registrar-carsce-etiqueta"
+                            >
+                                P.N.F que Pertenece:
+                            </label>
+
+                            <div class="director-materias-registrar-carsce-control">
+
+                                <i class="fa-solid fa-building-columns"></i>
+
+                                <select
+                                    name="pnfmateria"
+                                    id="pnfs_registrar_materia"
+                                >
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down director-materias-registrar-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCIONES
+                     ================================================= -->
+
+                <div class="director-materias-registrar-carsce-acciones">
+
+                    <input
+                        type="submit"
+                        id="btn_registrar"
+                        class="director-materias-registrar-carsce-boton"
+                        value="Registrar Materia"
+                    >
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Materia/registrar_materia.js' %}"></script>
+
+{% endblock %}

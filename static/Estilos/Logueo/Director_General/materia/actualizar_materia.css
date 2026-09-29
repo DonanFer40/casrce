@@ -1,156 +1,701 @@
-/* ========================================================= VISUALIZAR MATERIAS (SCOPED) ========================================================= */
-#modulo_materias_visualizar {
+/* ============================================================
+   ACTUALIZACIÓN DE MATERIAS - CARSCE
+   ============================================================ */
+
+#director-materias-editar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+    font-family: "Poppins", sans-serif;
+}
+
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+.director-materias-editar-carsce-contenedor {
+    width: min(1050px, calc(100% - 30px));
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO PRINCIPAL
+   ============================================================ */
+
+.director-materias-editar-carsce-encabezado {
+    margin-bottom: 20px;
+}
+
+.director-materias-editar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 5px 10px;
+
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+.director-materias-editar-carsce-identificacion i {
+    font-size: 0.72rem;
+}
+
+.director-materias-editar-carsce-presentacion {
+    margin-top: 10px;
+}
+
+.director-materias-editar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.director-materias-editar-carsce-titulo span {
+    color: var(--color-azul-hover);
+}
+
+.director-materias-editar-carsce-descripcion {
+    max-width: 760px;
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   TARJETA PRINCIPAL
+   ============================================================ */
+
+.director-materias-editar-carsce-tarjeta {
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* ============================================================
+   CABECERA DE TARJETA
+   ============================================================ */
+
+.director-materias-editar-carsce-tarjeta-cabecera {
     display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+.director-materias-editar-carsce-tarjeta-icono {
+    flex: 0 0 46px;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: flex-start;
-    width: 100%;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border-radius: 11px;
+
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.20);
 }
 
-#modulo_materias_visualizar .contenedor_modulo_materias {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.director-materias-editar-carsce-tarjeta-icono i {
+    font-size: 1.1rem;
 }
 
-#modulo_materias_visualizar h3 {
-    color: var(--texto);
-    font-size: 1.8rem;
-    font-weight: 700;
+.director-materias-editar-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+.director-materias-editar-carsce-tarjeta-titulo {
     margin: 0;
-}
 
-#modulo_materias_visualizar .card_visualizar_materias {
-    background: var(--color-base);
-    border-radius: var(--radio);
-    padding: 35px 40px;
-    box-shadow: var(--sombra-suave);
-    border: 1px solid var(--borde);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+    color: var(--texto-principal);
 
-#modulo_materias_visualizar .card_visualizar_materias h4 {
-    color: var(--texto);
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 700;
+}
+
+.director-materias-editar-carsce-tarjeta-descripcion {
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.76rem;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   SECCIONES INTERNAS
+   ============================================================ */
+
+.director-materias-editar-carsce-seccion {
+    margin-top: 22px;
+    padding: 20px;
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+.director-materias-editar-carsce-seccion-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 18px;
+}
+
+.director-materias-editar-carsce-seccion-icono {
+    flex: 0 0 36px;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 9px;
+}
+
+.director-materias-editar-carsce-seccion-icono i {
+    font-size: 0.85rem;
+}
+
+.director-materias-editar-carsce-seccion-titulo {
     margin: 0;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--background);
+
+    color: var(--texto-principal);
+
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.director-materias-editar-carsce-seccion-descripcion {
+    margin: 2px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.7rem;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   FORMULARIO DE BÚSQUEDA
+   ============================================================ */
+
+.director-materias-editar-carsce-formulario-busqueda {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 16px;
+}
+
+.director-materias-editar-carsce-campo-busqueda {
+    min-width: 0;
+}
+
+.director-materias-editar-carsce-etiqueta {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   CONTROLES DE TEXTO
+   ============================================================ */
+
+.director-materias-editar-carsce-control,
+.director-materias-editar-carsce-control-busqueda {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+.director-materias-editar-carsce-control > i:first-child,
+.director-materias-editar-carsce-control-busqueda > i:first-child {
+    position: absolute;
+    left: 13px;
+    z-index: 2;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.78rem;
+
+    pointer-events: none;
+}
+
+.director-materias-editar-carsce-control input,
+.director-materias-editar-carsce-control-busqueda input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 13px 0 38px;
+
+    box-sizing: border-box;
+
+    color: var(--texto-principal);
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.76rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.director-materias-editar-carsce-control input:hover,
+.director-materias-editar-carsce-control-busqueda input:hover {
+    border-color: #94A3B8;
+}
+
+.director-materias-editar-carsce-control input:focus,
+.director-materias-editar-carsce-control-busqueda input:focus {
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* ============================================================
+   SELECTS
+   ============================================================ */
+
+.director-materias-editar-carsce-control-select {
     position: relative;
 }
 
-#modulo_materias_visualizar .card_visualizar_materias h4::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 45px;
-    height: 2px;
-    background: var(--color-azulE);
-}
-
-/* ========================================================= FILTRO BÚSQUEDA ========================================================= */
-#modulo_materias_visualizar .campo_busqueda {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 400px;
-}
-
-#modulo_materias_visualizar .campo_busqueda label {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: var(--texto);
-}
-
-#modulo_materias_visualizar select {
+.director-materias-editar-carsce-control-select select {
     width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--borde);
-    border-radius: 10px;
-    background: var(--background);
-    color: var(--texto);
-    font-size: 0.95rem;
-    outline: none;
-    transition: all 0.2s ease;
+    height: 45px;
+
+    padding: 0 40px 0 38px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
     box-sizing: border-box;
+
+    color: var(--texto-principal);
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.75rem;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-#modulo_materias_visualizar select:focus {
-    border-color: var(--color-azulE);
-    background: var(--color-base);
-    box-shadow: 0 0 0 3px rgba(33, 28, 132, 0.12);
+.director-materias-editar-carsce-control-select select:hover {
+    border-color: #94A3B8;
 }
 
-/* ========================================================= TABLAS DINÁMICAS (JS) ========================================================= */
-#modulo_materias_visualizar .contenedor_tabla {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 10px;
-    margin-top: 5px;
+.director-materias-editar-carsce-control-select select:focus {
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
 }
 
-#modulo_materias_visualizar #contenedor_tablas_materia {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+.director-materias-editar-carsce-control-select .director-materias-editar-carsce-flecha {
+    position: absolute;
+    right: 14px;
+
+    color: #64748B;
+
+    font-size: 0.65rem;
+
+    pointer-events: none;
 }
 
-#modulo_materias_visualizar #contenedor_tablas_materia table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.93rem;
-    background: var(--color-base);
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--borde);
-}
-
-#modulo_materias_visualizar #contenedor_tablas_materia thead tr {
-    background-color: var(--background);
-    color: var(--texto);
-    border-bottom: 2px solid var(--borde);
-}
-
-#modulo_materias_visualizar #contenedor_tablas_materia th {
-    padding: 14px 18px;
+.director-materias-editar-carsce-control-select optgroup {
+    color: var(--texto-principal);
     font-weight: 700;
-    font-size: 0.88rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--color-azulE);
 }
 
-#modulo_materias_visualizar #contenedor_tablas_materia td {
-    padding: 14px 18px;
-    color: var(--texto);
-    border-bottom: 1px solid var(--borde);
-    transition: background 0.2s ease;
+.director-materias-editar-carsce-control-select option {
+    color: #334155;
+    font-weight: 400;
 }
 
-#modulo_materias_visualizar #contenedor_tablas_materia tbody tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.015);
+
+/* ============================================================
+   BOTÓN BUSCAR
+   ============================================================ */
+
+.director-materias-editar-carsce-boton-buscar {
+    height: 45px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 20px;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.73rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.18);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
-#modulo_materias_visualizar #contenedor_tablas_materia tbody tr:hover {
-    background-color: rgba(33, 28, 132, 0.04);
+.director-materias-editar-carsce-boton-buscar:hover {
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.24);
+
+    transform: translateY(-1px);
 }
 
-#modulo_materias_visualizar #contenedor_tablas_materia tbody tr:last-child td {
-    border-bottom: none;
+.director-materias-editar-carsce-boton-buscar:active {
+    transform: translateY(0);
 }
 
-/* RESPONSIVE */
-@media (max-width: 680px) {
-    #modulo_materias_visualizar .card_visualizar_materias {
-        padding: 25px 20px;
+
+/* ============================================================
+   FORMULARIO DE ACTUALIZACIÓN
+   ============================================================ */
+
+.director-materias-editar-carsce-formulario-actualizacion {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px 20px;
+}
+
+.director-materias-editar-carsce-campo {
+    min-width: 0;
+}
+
+.director-materias-editar-carsce-campo-completo {
+    grid-column: 1 / -1;
+}
+
+
+/* ============================================================
+   ÁREA DE ACCIONES
+   ============================================================ */
+
+.director-materias-editar-carsce-acciones {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 4px;
+    padding-top: 18px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+.director-materias-editar-carsce-boton-actualizar {
+    min-width: 190px;
+    height: 45px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 20px;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.18);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+.director-materias-editar-carsce-boton-actualizar:hover {
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.24);
+
+    transform: translateY(-1px);
+}
+
+.director-materias-editar-carsce-boton-actualizar:active {
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   RESPONSIVE - 900 PX
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .director-materias-editar-carsce-contenedor {
+        width: min(100%, calc(100% - 24px));
     }
 
-    #modulo_materias_visualizar .campo_busqueda {
-        max-width: 100%;
+    .director-materias-editar-carsce-tarjeta {
+        padding: 23px 22px 25px;
+    }
+
+    .director-materias-editar-carsce-formulario-actualizacion {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 16px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE - 700 PX
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    #director-materias-editar-carsce {
+        padding-top: 2px;
+    }
+
+    .director-materias-editar-carsce-contenedor {
+        width: calc(100% - 20px);
+    }
+
+    .director-materias-editar-carsce-titulo {
+        font-size: 1.35rem;
+    }
+
+    .director-materias-editar-carsce-descripcion {
+        font-size: 0.76rem;
+    }
+
+    .director-materias-editar-carsce-tarjeta {
+        padding: 20px 17px 22px;
+    }
+
+    .director-materias-editar-carsce-seccion {
+        padding: 17px;
+    }
+
+    .director-materias-editar-carsce-formulario-busqueda {
+        grid-template-columns: 1fr;
+    }
+
+    .director-materias-editar-carsce-boton-buscar {
+        width: 100%;
+    }
+
+    .director-materias-editar-carsce-formulario-actualizacion {
+        grid-template-columns: 1fr;
+    }
+
+    .director-materias-editar-carsce-campo-completo {
+        grid-column: auto;
+    }
+
+    .director-materias-editar-carsce-acciones {
+        grid-column: auto;
+    }
+
+    .director-materias-editar-carsce-boton-actualizar {
+        width: 100%;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE - 520 PX
+   ============================================================ */
+
+@media (max-width: 520px) {
+
+    .director-materias-editar-carsce-identificacion {
+        font-size: 0.6rem;
+    }
+
+    .director-materias-editar-carsce-titulo {
+        font-size: 1.2rem;
+    }
+
+    .director-materias-editar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    .director-materias-editar-carsce-tarjeta-icono {
+        flex-basis: 42px;
+
+        width: 42px;
+        height: 42px;
+    }
+
+    .director-materias-editar-carsce-tarjeta-titulo {
+        font-size: 0.92rem;
+    }
+
+    .director-materias-editar-carsce-tarjeta-descripcion {
+        font-size: 0.7rem;
+    }
+
+    .director-materias-editar-carsce-seccion {
+        margin-top: 17px;
+        padding: 15px;
+    }
+
+    .director-materias-editar-carsce-seccion-titulo {
+        font-size: 0.82rem;
+    }
+
+    .director-materias-editar-carsce-control input,
+    .director-materias-editar-carsce-control-busqueda input,
+    .director-materias-editar-carsce-control-select select {
+        height: 43px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE - 390 PX
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    .director-materias-editar-carsce-contenedor {
+        width: calc(100% - 14px);
+    }
+
+    .director-materias-editar-carsce-tarjeta {
+        padding: 17px 13px 19px;
+    }
+
+    .director-materias-editar-carsce-tarjeta-cabecera {
+        gap: 10px;
+    }
+
+    .director-materias-editar-carsce-tarjeta-icono {
+        flex-basis: 38px;
+
+        width: 38px;
+        height: 38px;
+    }
+
+    .director-materias-editar-carsce-tarjeta-icono i {
+        font-size: 0.95rem;
+    }
+
+    .director-materias-editar-carsce-seccion {
+        padding: 12px;
+    }
+
+    .director-materias-editar-carsce-boton-actualizar {
+        min-width: 0;
     }
 }

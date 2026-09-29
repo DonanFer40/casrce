@@ -8,34 +8,52 @@ from inicio_sesion.models import Nacimiento, Cuenta, Usuario, Estudiante, Docent
 def obtener_roles(usuario):
     roles = []
 
-    for estudiante in Estudiante.objects.filter(usuario=usuario).select_related("nucleo", "pnf"):
+    for estudiante in Estudiante.objects.filter(
+        usuario=usuario
+    ).select_related("nucleo", "pnf"):
         roles.append({
             "rol": "Estudiante",
             "nucleo": estudiante.nucleo.municipio if estudiante.nucleo else None,
             "pnf": estudiante.pnf.pnf if estudiante.pnf else None,
-            "registro_completo": estudiante.nucleo is not None and estudiante.pnf is not None,
+            "registro_completo": (
+                estudiante.nucleo is not None
+                and estudiante.pnf is not None
+            ),
         })
 
-    for docente in Docente.objects.filter(usuario=usuario).select_related("nucleo", "pnf"):
+    # Solo docentes activos
+    for docente in Docente.objects.filter(
+        usuario=usuario,
+        activo=True
+    ).select_related("nucleo", "pnf"):
         roles.append({
             "rol": "Docente",
             "nucleo": docente.nucleo.municipio,
             "pnf": docente.pnf.pnf,
         })
 
-    for coordinador in CoordinadorPNF.objects.filter(usuario=usuario).select_related("nucleo", "pnf"):
+    # Solo coordinadores activos
+    for coordinador in CoordinadorPNF.objects.filter(
+        usuario=usuario,
+        activo=True
+    ).select_related("nucleo", "pnf"):
         roles.append({
             "rol": "Coordinador PNF",
             "nucleo": coordinador.nucleo.municipio,
             "pnf": coordinador.pnf.pnf,
         })
 
-    for control in ControlEstudio.objects.filter(usuario=usuario).select_related("nucleo"):
+    # Solo controles de estudio activos
+    for control in ControlEstudio.objects.filter(
+        usuario=usuario,
+        activo=True
+    ).select_related("nucleo"):
         roles.append({
             "rol": "Control de Estudio",
             "nucleo": control.nucleo.municipio,
         })
 
+    # Director General no tiene campo activo actualmente
     if DirectorGeneral.objects.filter(usuario=usuario).exists():
         roles.append({
             "rol": "Director General",

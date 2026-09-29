@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.db import transaction
 from decimal import Decimal, ROUND_HALF_UP
 from django.utils import timezone
+from django.db.models import Count, Value, TextField
+from django.db.models.functions import Concat
 
 from inicio_sesion.models import Estudiante, EstatusEstudiante, Materia, TrayectoAcademico
 
@@ -9,6 +11,7 @@ from notas_academicas.models import Reparacion, PromedioFinal, Calificaciones
 
 @transaction.atomic
 def calc_prom_est(request):
+
     PERIODOS_INICIALES = {
         "Inicial Trimestre",
         "Inicial Semestre"
@@ -28,6 +31,7 @@ def calc_prom_est(request):
     NOTA_MINIMA = Decimal("12")
     NOTA_MINIMA_PROYECTO = Decimal("16")
     ASISTENCIA_MINIMA = 75
+    MAXIMO_REPROBADAS = 3
 
     ORDEN_TRAYECTOS = {
         "Trayecto Inicial": 0,
@@ -61,8 +65,12 @@ def calc_prom_est(request):
     cantidad_guardada = 0
     grupos = {}
 
+    # =========================================================
     # AGRUPAR CALIFICACIONES
+    # =========================================================
+
     for c in calificaciones:
+
         materia = c.materia_asignada.materia
         trayecto = c.trayecto
         pnf = materia.id_pnf
@@ -79,18 +87,27 @@ def calc_prom_est(request):
             else ""
         )
 
-        # Ignorar Reparación
+        # -----------------------------------------------------
+        # REPARACIÓN SE PROCESARÁ APARTE
+        # -----------------------------------------------------
+
+        if periodo_nombre == "Reparación":
+            continue
+
         if nombre_trayecto == "Reparación":
             continue
 
-        # Validar tipo de periodo del PNF
+        # -----------------------------------------------------
+        # VALIDAR TIPO DE PERÍODO
+        # -----------------------------------------------------
+
         if tipo_periodo not in {"Trimestre", "Semestre"}:
             continue
-   
+
+        # -----------------------------------------------------
         # TRAYECTO INICIAL
-        # Solo puede utilizar:
-        # Trimestre -> Inicial Trimestre
-        # Semestre  -> Inicial Semestre
+        # -----------------------------------------------------
+
         if nombre_trayecto == "Trayecto Inicial":
 
             periodo_inicial_esperado = (
@@ -102,9 +119,17 @@ def calc_prom_est(request):
             if periodo_nombre != periodo_inicial_esperado:
                 continue
 
+        # -----------------------------------------------------
         # TRAYECTOS REGULARES
+        # -----------------------------------------------------
+
         else:
-            limite = 4 if tipo_periodo == "Trimestre" else 5
+
+            limite = (
+                4
+                if tipo_periodo == "Trimestre"
+                else 5
+            )
 
             trayectos_validos = {
                 nombre
@@ -115,18 +140,22 @@ def calc_prom_est(request):
             if nombre_trayecto not in trayectos_validos:
                 continue
 
-            # Los trayectos regulares NO deben tomar periodos
-            # Iniciales.
             if periodo_nombre in PERIODOS_INICIALES:
                 continue
 
-        # Año académico
+        # -----------------------------------------------------
+        # AÑO ACADÉMICO
+        # -----------------------------------------------------
+
         fecha_eval = c.fecha_promedio
         anio = fecha_eval.year
 
-        # CLAVE DEL GRUPO
+        # -----------------------------------------------------
+        # AGRUPACIÓN
+        # -----------------------------------------------------
+
         if nombre_trayecto == "Trayecto Inicial":
-            # Cada registro de inicial se procesa individualmente.
+
             clave = (
                 c.estudiante_id,
                 c.materia_asignada_id,
@@ -136,6 +165,7 @@ def calc_prom_est(request):
             )
 
         else:
+
             clave = (
                 c.estudiante_id,
                 c.materia_asignada_id,
@@ -157,8 +187,12 @@ def calc_prom_est(request):
             }
         )["calificaciones"].append(c)
 
-    # PROCESAR CADA GRUPO
+    # =========================================================
+    # PROCESAR PROMEDIOS NORMALES
+    # =========================================================
+
     for grupo in grupos.values():
+
         estudiante = grupo["estudiante"]
         materia = grupo["materia"]
         materia_asignada = grupo["materia_asignada"]
@@ -172,7 +206,10 @@ def calc_prom_est(request):
         tipo_periodo = (pnf.periodo_academico or "").strip()
         nombre_materia = (materia.nombre or "").strip().lower()
 
-        # DETERMINAR SI ES PROYECTO
+        # -----------------------------------------------------
+        # PROYECTO SOCIO-TECNOLÓGICO
+        # -----------------------------------------------------
+
         es_proyecto = any(
             texto in nombre_materia
             for texto in (
@@ -188,38 +225,51 @@ def calc_prom_est(request):
         calificaciones_validas = []
         promedio_final = Decimal("0")
 
-        # CASO 1: TRAYECTO INICIAL
+        # =====================================================
+        # TRAYECTO INICIAL
+        # =====================================================
+
         if nombre_trayecto == "Trayecto Inicial":
+
             periodo_inicial_esperado = (
                 "Inicial Trimestre"
                 if tipo_periodo == "Trimestre"
                 else "Inicial Semestre"
             )
 
-            # Seguridad adicional: verificar nuevamente que el registro realmente sea del periodo inicial.
             calificaciones_iniciales = [
                 c
                 for c in calificaciones_materia
                 if (
                     c.periodo_materia
                     and c.periodo_materia.periodo
-                    and (c.periodo_materia.periodo.nombre or "").strip()
-                    == periodo_inicial_esperado
+                    and (
+                        c.periodo_materia.periodo.nombre or ""
+                    ).strip() == periodo_inicial_esperado
                 )
             ]
 
             if not calificaciones_iniciales:
                 continue
 
-            # Como el agrupamiento utiliza id_calificaciones, normalmente habrá un solo registro.
             calificacion_inicial = calificaciones_iniciales[0]
 
-            calificaciones_validas = [calificacion_inicial]
+            calificaciones_validas = [
+                calificacion_inicial
+            ]
 
-            promedio_final = calificacion_inicial.promedio_tramo
+            # NO SE CALCULA.
+            # SE TRANSFIERE DIRECTAMENTE.
+            promedio_final = (
+                calificacion_inicial.promedio_tramo
+            )
 
-        # CASO 2: TRAYECTOS REGULARES / ELECTIVAS
+        # =====================================================
+        # TRAYECTOS REGULARES
+        # =====================================================
+
         else:
+
             periodos_objetivo = (
                 PERIODOS_TRAMOS
                 if tipo_periodo == "Trimestre"
@@ -231,8 +281,9 @@ def calc_prom_est(request):
                 for pm in materia.periodos_academicos.all()
                 if (
                     pm.periodo
-                    and (pm.periodo.nombre or "").strip()
-                    in periodos_objetivo
+                    and (
+                        pm.periodo.nombre or ""
+                    ).strip() in periodos_objetivo
                 )
             }
 
@@ -245,42 +296,64 @@ def calc_prom_est(request):
                 if (
                     c.periodo_materia
                     and c.periodo_materia.periodo
-                    and (c.periodo_materia.periodo.nombre or "").strip()
-                    in periodos_configurados
+                    and (
+                        c.periodo_materia.periodo.nombre or ""
+                    ).strip() in periodos_configurados
                 )
             ]
 
             periodos_registrados = {
-                (c.periodo_materia.periodo.nombre or "").strip()
+                (
+                    c.periodo_materia.periodo.nombre or ""
+                ).strip()
                 for c in calificaciones_filtradas
-                if c.periodo_materia and c.periodo_materia.periodo
+                if (
+                    c.periodo_materia
+                    and c.periodo_materia.periodo
+                )
             }
 
-            # Deben estar todos los periodos configurados.
-            if not periodos_configurados.issubset(periodos_registrados):
+            # Todos los períodos deben estar registrados.
+            if not periodos_configurados.issubset(
+                periodos_registrados
+            ):
                 continue
 
-            calificaciones_validas = calificaciones_filtradas
+            calificaciones_validas = (
+                calificaciones_filtradas
+            )
 
             if len(periodos_configurados) == 1:
-                promedio_final = calificaciones_validas[0].promedio_tramo
+
+                promedio_final = (
+                    calificaciones_validas[0].promedio_tramo
+                )
 
             else:
+
                 promedio_final = (
                     sum(
                         c.promedio_tramo
                         for c in calificaciones_validas
                     )
-                    / Decimal(len(calificaciones_validas))
+                    / Decimal(
+                        len(calificaciones_validas)
+                    )
                 )
 
-        # NOTA FINAL
+        # =====================================================
+        # REDONDEAR
+        # =====================================================
+
         promedio_final = promedio_final.quantize(
             Decimal("1"),
             rounding=ROUND_HALF_UP
         )
 
+        # =====================================================
         # ASISTENCIA
+        # =====================================================
+
         asistencias = [
             c.asistencia
             for c in calificaciones_validas
@@ -288,6 +361,7 @@ def calc_prom_est(request):
         ]
 
         if asistencias:
+
             asistencia = int(
                 (
                     Decimal(sum(asistencias))
@@ -299,7 +373,12 @@ def calc_prom_est(request):
             )
 
         else:
+
             asistencia = 0
+
+        # =====================================================
+        # NOTA MÍNIMA
+        # =====================================================
 
         nota_minima = (
             NOTA_MINIMA_PROYECTO
@@ -307,33 +386,48 @@ def calc_prom_est(request):
             else NOTA_MINIMA
         )
 
-        aprobado_nota = promedio_final >= nota_minima
-        aprobado_asistencia = asistencia >= ASISTENCIA_MINIMA
+        aprobado_nota = (
+            promedio_final >= nota_minima
+        )
+
+        aprobado_asistencia = (
+            asistencia >= ASISTENCIA_MINIMA
+        )
+
+        # =====================================================
+        # ESTADO NORMAL
+        # =====================================================
 
         if aprobado_nota and aprobado_asistencia:
+
             estado = "APROBADO"
 
             motivo = (
-                f"Materia aprobada. Año académico: {anio}. "
+                f"Materia aprobada. "
+                f"Año académico: {anio}. "
                 f"Promedio final: {promedio_final}. "
                 f"Nota mínima: {nota_minima}. "
                 f"Asistencia: {asistencia}%."
             )
 
         else:
+
             estado = "REPROBADO"
+
             motivos = []
 
             if not aprobado_nota:
+
                 motivos.append(
-                    f"promedio {promedio_final} menor a "
-                    f"{nota_minima} pts"
+                    f"promedio {promedio_final} "
+                    f"menor a {nota_minima} pts"
                 )
 
             if not aprobado_asistencia:
+
                 motivos.append(
-                    f"asistencia {asistencia}% menor al "
-                    f"{ASISTENCIA_MINIMA}% requerido"
+                    f"asistencia {asistencia}% "
+                    f"menor al {ASISTENCIA_MINIMA}% requerido"
                 )
 
             motivo = (
@@ -343,35 +437,304 @@ def calc_prom_est(request):
                 + "."
             )
 
-        existe_promedio = PromedioFinal.objects.filter(
-            estudiante=estudiante,
-            materia_asignacion=materia_asignada,
-            trayecto=trayecto,
-            fecha_promedio__year=anio
-        ).exists()
+        # =====================================================
+        # CREAR O ACTUALIZAR PROMEDIO FINAL
+        # =====================================================
 
-        if existe_promedio:
-            continue
-
-        PromedioFinal.objects.create(
-            estudiante=estudiante,
-            materia_asignacion=materia_asignada,
-            trayecto=trayecto,
-            promedio_final=promedio_final,
-            asistencia=asistencia,
-            estado=estado,
-            fecha_promedio=fecha_eval,
-            motivo=motivo,
+        promedio_existente = (
+            PromedioFinal.objects.filter(
+                estudiante=estudiante,
+                materia_asignacion=materia_asignada,
+                trayecto=trayecto,
+                fecha_promedio__year=anio
+            )
+            .first()
         )
 
+        if promedio_existente:
+
+            promedio_existente.promedio_final = promedio_final
+            promedio_existente.asistencia = asistencia
+            promedio_existente.estado = estado
+            promedio_existente.fecha_promedio = fecha_eval
+            promedio_existente.motivo = motivo
+            promedio_existente.save(
+                update_fields=[
+                    "promedio_final",
+                    "asistencia",
+                    "estado",
+                    "fecha_promedio",
+                    "motivo",
+                ]
+            )
+
+        else:
+
+            PromedioFinal.objects.create(
+                estudiante=estudiante,
+                materia_asignacion=materia_asignada,
+                trayecto=trayecto,
+                promedio_final=promedio_final,
+                asistencia=asistencia,
+                estado=estado,
+                fecha_promedio=fecha_eval,
+                motivo=motivo,
+            )
+
         cantidad_guardada += 1
+
+    # =========================================================
+    # PROCESAR REPARACIÓN
+    # =========================================================
+
+    reparaciones = (
+        Calificaciones.objects
+        .select_related(
+            "estudiante",
+            "materia_asignada",
+            "materia_asignada__materia",
+            "materia_asignada__materia__id_pnf",
+            "trayecto",
+            "periodo_materia__periodo",
+        )
+        .filter(
+            estudiante__isnull=False,
+            materia_asignada__isnull=False,
+            promedio_tramo__isnull=False,
+            periodo_materia__isnull=False,
+            fecha_promedio__isnull=False,
+            periodo_materia__periodo__nombre="Reparación",
+        )
+    )
+
+    for reparacion in reparaciones:
+
+        estudiante = reparacion.estudiante
+        materia_asignada = reparacion.materia_asignada
+        materia = materia_asignada.materia
+        trayecto = reparacion.trayecto
+        pnf = materia.id_pnf
+
+        if not trayecto or not pnf:
+            continue
+
+        nombre_trayecto = (
+            trayecto.nombre or ""
+        ).strip()
+
+        # Trayecto Reparación no es un trayecto académico.
+        if nombre_trayecto == "Reparación":
+            continue
+
+        anio = reparacion.fecha_promedio.year
+
+        nombre_materia = (
+            materia.nombre or ""
+        ).strip().lower()
+
+        es_proyecto = any(
+            texto in nombre_materia
+            for texto in (
+                "proyecto socio tecnologico",
+                "proyecto socio-tecnologico",
+                "proyecto sociotecnologico",
+                "proyecto socio integrador",
+                "proyecto socio-integrador",
+                "proyecto sociointegrador",
+            )
+        )
+
+        nota_minima = (
+            NOTA_MINIMA_PROYECTO
+            if es_proyecto
+            else NOTA_MINIMA
+        )
+
+        promedio_reparacion = (
+            reparacion.promedio_tramo
+        )
+
+        promedio_reparacion = (
+            promedio_reparacion.quantize(
+                Decimal("1"),
+                rounding=ROUND_HALF_UP
+            )
+        )
+
+        asistencia_reparacion = (
+            reparacion.asistencia
+            if reparacion.asistencia is not None
+            else 0
+        )
+
+        asistencia_reparacion = int(
+            Decimal(asistencia_reparacion).quantize(
+                Decimal("1"),
+                rounding=ROUND_HALF_UP
+            )
+        )
+
+        aprobado_reparacion = (
+            promedio_reparacion >= nota_minima
+            and asistencia_reparacion >= ASISTENCIA_MINIMA
+        )
+
+        promedio_existente = (
+            PromedioFinal.objects.filter(
+                estudiante=estudiante,
+                materia_asignacion=materia_asignada,
+                trayecto=trayecto,
+                fecha_promedio__year=anio,
+            )
+            .first()
+        )
+
+        # -----------------------------------------------------
+        # SI NO EXISTE EL PROMEDIO NORMAL, NO PROCESAR
+        # -----------------------------------------------------
+
+        if not promedio_existente:
+            continue
+
+        # -----------------------------------------------------
+        # SOLO LAS MATERIAS REPROBADAS PUEDEN IR A REPARACIÓN
+        # -----------------------------------------------------
+
+        if promedio_existente.estado != "REPROBADO":
+            continue
+
+        if aprobado_reparacion:
+
+            estado = "APROBADO_REPARACION"
+
+            motivo = (
+                f"Materia aprobada en Reparación. "
+                f"Año académico: {anio}. "
+                f"Promedio de Reparación: "
+                f"{promedio_reparacion}. "
+                f"Nota mínima: {nota_minima}. "
+                f"Asistencia: "
+                f"{asistencia_reparacion}%."
+            )
+
+        else:
+
+            estado = "REPROBADO_REPARACION"
+
+            motivos = []
+
+            if promedio_reparacion < nota_minima:
+
+                motivos.append(
+                    f"promedio {promedio_reparacion} "
+                    f"menor a {nota_minima} pts"
+                )
+
+            if asistencia_reparacion < ASISTENCIA_MINIMA:
+
+                motivos.append(
+                    f"asistencia {asistencia_reparacion}% "
+                    f"menor al {ASISTENCIA_MINIMA}% requerido"
+                )
+
+            motivo = (
+                f"Materia reprobada en Reparación "
+                f"en el año {anio} debido a: "
+                + " y ".join(motivos)
+                + "."
+            )
+
+        # -----------------------------------------------------
+        # ACTUALIZAR EL MISMO PROMEDIO FINAL
+        # -----------------------------------------------------
+
+        promedio_existente.promedio_final = (
+            promedio_reparacion
+        )
+
+        promedio_existente.asistencia = (
+            asistencia_reparacion
+        )
+
+        promedio_existente.estado = estado
+
+        promedio_existente.fecha_promedio = (
+            reparacion.fecha_promedio
+        )
+
+        promedio_existente.motivo = motivo
+
+        promedio_existente.save(
+            update_fields=[
+                "promedio_final",
+                "asistencia",
+                "estado",
+                "fecha_promedio",
+                "motivo",
+            ]
+        )
+
+    # =========================================================
+    # DETERMINAR MATERIAS REPROBADAS POR TRAYECTO
+    # =========================================================
+
+    estados_reprobados = {
+        "REPROBADO",
+        "REPROBADO_REPARACION",
+    }
+
+    estudiantes_trayectos = (
+        PromedioFinal.objects
+        .filter(
+            estado__in=estados_reprobados
+        )
+        .values(
+            "estudiante_id",
+            "trayecto_id"
+        )
+        .annotate(
+            cantidad_reprobadas=Count("id_promedio_final")
+        )
+    )
+
+    # =========================================================
+    # ACTUALIZAR MOTIVO CUANDO SUPERA LAS 3 REPROBADAS
+    # =========================================================
+
+    for registro in estudiantes_trayectos:
+
+        if (
+            registro["cantidad_reprobadas"]
+            <= MAXIMO_REPROBADAS
+        ):
+            continue
+
+        estudiante_id = registro["estudiante_id"]
+        trayecto_id = registro["trayecto_id"]
+
+        PromedioFinal.objects.filter(
+            estudiante_id=estudiante_id,
+            trayecto_id=trayecto_id,
+            estado__in=estados_reprobados,
+        ).update(
+            motivo=Concat(
+                "motivo",
+                Value(
+                    " El estudiante supera el máximo de "
+                    f"{MAXIMO_REPROBADAS} materias reprobadas "
+                    "para este trayecto y no puede pasar "
+                    "al siguiente trayecto académico."
+                ),
+                output_field=TextField(),
+            )
+        )
 
     return JsonResponse({
         "estado": "exito",
         "title": "Éxito",
         "icon": "success",
         "descripcion": (
-            f"Se registraron {cantidad_guardada} "
+            f"Se procesaron {cantidad_guardada} "
             f"promedios finales correctamente."
         ),
         "cantidad": cantidad_guardada,
@@ -474,19 +837,45 @@ def act_prom_rep(request):
 
 @transaction.atomic
 def act_tray_est(request):
+
     NOTA_MINIMA_GENERAL = Decimal("12")
     NOTA_MINIMA_PROYECTO = Decimal("16")
     ASISTENCIA_MINIMA = Decimal("75")
+
     MAX_REPROBADAS = 3
+
     ANO_ACTUAL = timezone.localdate().year
 
+    # =========================================================
+    # TRAYECTOS ACADÉMICOS
+    # =========================================================
+
     trayectos = list(
-        TrayectoAcademico.objects.order_by("id_periodo_academico")
+        TrayectoAcademico.objects.order_by(
+            "id_periodo_academico"
+        )
     )
+
+    if not trayectos:
+        return JsonResponse({
+            "success": False,
+            "title": "Error",
+            "icon": "error",
+            "descripcion": (
+                "No existen trayectos académicos registrados."
+            )
+        })
+
+    # =========================================================
+    # ESTUDIANTES
+    # =========================================================
 
     estudiantes = (
         Estudiante.objects
-        .select_related("pnf", "nucleo")
+        .select_related(
+            "pnf",
+            "nucleo"
+        )
         .prefetch_related(
             "estatus",
             "promedios_finales__materia_asignacion__materia"
@@ -495,23 +884,51 @@ def act_tray_est(request):
 
     actualizados = 0
     no_actualizados = 0
-    avances_por_trayecto = {}
     egresados = 0
 
+    avances_por_trayecto = {}
+
+    # =========================================================
+    # BUSCAR TRAYECTO INICIAL
+    # =========================================================
+
     trayecto_inicial = None
+
     for trayecto in trayectos:
-        nombre = (trayecto.nombre or "").strip().lower()
+
+        nombre = (
+            trayecto.nombre or ""
+        ).strip().lower()
+
         if "inicial" in nombre:
+
             trayecto_inicial = trayecto
             break
 
-    def es_materia_proyecto(materia, es_inicial=False):
+    # =========================================================
+    # DETERMINAR SI UNA MATERIA ES PROYECTO
+    # =========================================================
+
+    def es_materia_proyecto(
+        materia,
+        es_inicial=False
+    ):
+
         if es_inicial:
             return False
 
-        nombre = (materia.nombre or "").strip().lower()
-        nombre = nombre.replace("-", " ").replace("–", " ").replace("—", " ")
+        nombre = (
+            materia.nombre or ""
+        ).strip().lower()
 
+        nombre = (
+            nombre
+            .replace("-", " ")
+            .replace("–", " ")
+            .replace("—", " ")
+        )
+
+        # Proyecto Nacional no es PST
         if "proyecto nacional" in nombre:
             return False
 
@@ -519,64 +936,164 @@ def act_tray_est(request):
             "proyecto socio tecnologico",
             "proyecto socio tecnológico",
             "proyecto socio integrador",
-            "proyecto sociointegrador"
+            "proyecto sociointegrador",
         ]
 
-        return any(patron in nombre for patron in patrones_validos)
+        return any(
+            patron in nombre
+            for patron in patrones_validos
+        )
+
+    # =========================================================
+    # PROCESAR ESTUDIANTES
+    # =========================================================
 
     for estudiante in estudiantes:
+
+        # =====================================================
+        # ESTATUS ACTUAL DEL ESTUDIANTE
+        # =====================================================
+
         estatus_actual = (
             estudiante.estatus
             .select_related("trayecto")
-            .order_by("-fecha_ingreso", "-id_estatus_estudiante")
+            .order_by(
+                "-fecha_ingreso",
+                "-id_estatus_estudiante"
+            )
             .first()
         )
 
-        if not estatus_actual or not estatus_actual.trayecto:
+        if (
+            not estatus_actual
+            or not estatus_actual.trayecto
+        ):
+
             no_actualizados += 1
             continue
 
         trayecto_actual = estatus_actual.trayecto
-        periodo_pnf = (estudiante.pnf.periodo_academico or "").strip()
 
-        if periodo_pnf not in {"Trimestre", "Semestre"}:
+        # =====================================================
+        # VALIDAR PNF
+        # =====================================================
+
+        periodo_pnf = (
+            estudiante.pnf.periodo_academico or ""
+        ).strip()
+
+        if periodo_pnf not in {
+            "Trimestre",
+            "Semestre"
+        }:
+
             no_actualizados += 1
             continue
 
+        # =====================================================
+        # POSICIÓN DEL TRAYECTO ACTUAL
+        # =====================================================
+
         posicion_actual = next(
-            (pos for pos, t in enumerate(trayectos) if t.id_periodo_academico == trayecto_actual.id_periodo_academico),
+            (
+                posicion
+                for posicion, trayecto in enumerate(trayectos)
+                if (
+                    trayecto.id_periodo_academico
+                    == trayecto_actual.id_periodo_academico
+                )
+            ),
             None
         )
 
         if posicion_actual is None:
+
             no_actualizados += 1
             continue
+
+        # =====================================================
+        # PROMEDIOS FINALES DEL ESTUDIANTE
+        # =====================================================
 
         todos_los_promedios = list(
             estudiante.promedios_finales
-            .select_related("materia_asignacion__materia", "trayecto")
-            .order_by("fecha_promedio", "id_promedio_final")
+            .select_related(
+                "materia_asignacion__materia",
+                "trayecto"
+            )
+            .order_by(
+                "fecha_promedio",
+                "id_promedio_final"
+            )
         )
 
-        if not todos_los_promedios:
-            no_actualizados += 1
-            continue
+        # =====================================================
+        # OBTENER ÚLTIMO PROMEDIO DE CADA MATERIA
+        # =====================================================
 
-        def obtener_ultimos_promedios(trayecto_id):
+        def obtener_ultimos_promedios(
+            trayecto_id
+        ):
+
             registros = {}
-            for promedio in todos_los_promedios:
-                if promedio.trayecto_id != trayecto_id:
-                    continue
-                
-                materia_id = promedio.materia_asignacion.materia.id_materia
-                anterior = registros.get(materia_id)
 
-                if anterior is None or promedio.fecha_promedio >= anterior.fecha_promedio:
+            for promedio in todos_los_promedios:
+
+                if (
+                    promedio.trayecto_id
+                    != trayecto_id
+                ):
+                    continue
+
+                if not promedio.materia_asignacion:
+                    continue
+
+                materia = (
+                    promedio
+                    .materia_asignacion
+                    .materia
+                )
+
+                if not materia:
+                    continue
+
+                materia_id = materia.id_materia
+
+                anterior = registros.get(
+                    materia_id
+                )
+
+                if anterior is None:
+
                     registros[materia_id] = promedio
+
+                elif (
+                    promedio.fecha_promedio
+                    > anterior.fecha_promedio
+                ):
+
+                    registros[materia_id] = promedio
+
+                elif (
+                    promedio.fecha_promedio
+                    == anterior.fecha_promedio
+                    and promedio.id_promedio_final
+                    > anterior.id_promedio_final
+                ):
+
+                    registros[materia_id] = promedio
+
             return registros
 
+        # =====================================================
+        # EVALUAR TRAYECTO
+        # =====================================================
 
-        def evaluar_trayecto(trayecto, es_inicial=False):
+        def evaluar_trayecto(
+            trayecto,
+            es_inicial=False
+        ):
+
             materias = list(
                 Materia.objects.filter(
                     id_pnf=estudiante.pnf,
@@ -586,64 +1103,172 @@ def act_tray_est(request):
             )
 
             if not materias:
-                return {"existe": False, "aprobado": False}
 
-            promedios = obtener_ultimos_promedios(trayecto.id_periodo_academico)
+                return {
+                    "existe": False,
+                    "aprobado": False,
+                    "total_materias": 0,
+                    "materias_aprobadas": 0,
+                    "materias_reprobadas": 0,
+                    "proyecto_aprobado": False,
+                    "proyecto_reprobado": False,
+                }
+
+            promedios = (
+                obtener_ultimos_promedios(
+                    trayecto.id_periodo_academico
+                )
+            )
 
             materias_aprobadas = 0
             materias_reprobadas = 0
+
             proyecto_aprobado = False
             proyecto_reprobado = False
 
-            for materia in materias:
-                promedio = promedios.get(materia.id_materia)
-                es_proyecto = es_materia_proyecto(materia, es_inicial=es_inicial)
+            # =================================================
+            # RECORRER MATERIAS
+            # =================================================
 
-                # 1. SI LA MATERIA NO SE HA CURSADO / NO TIENE NOTA:
+            for materia in materias:
+
+                promedio = promedios.get(
+                    materia.id_materia
+                )
+
+                es_proyecto = (
+                    es_materia_proyecto(
+                        materia,
+                        es_inicial=es_inicial
+                    )
+                )
+
+                # =============================================
+                # SIN PROMEDIO FINAL
+                #
+                # No se considera reprobada.
+                # =============================================
+
                 if promedio is None:
-                    if es_proyecto:
-                        proyecto_reprobado = True
-                    # CORRECCIÓN: En Trayecto Inicial NO se cuenta como reprobada si no la ha cursado
-                    elif not es_inicial:
-                        materias_reprobadas += 1
                     continue
 
-                nota_requerida = NOTA_MINIMA_PROYECTO if es_proyecto else NOTA_MINIMA_GENERAL
+                # =============================================
+                # ESTADO DEL PROMEDIO FINAL
+                # =============================================
 
-                # 2. SI LA MATERIA FUE CURSADA:
-                # Se exige nota >= nota_requerida Y asistencia >= 75%
-                nota_aprobada = (
-                    promedio.promedio_final is not None 
-                    and promedio.promedio_final >= nota_requerida
-                )
-                asistencia_aprobada = (
-                    promedio.asistencia is not None 
-                    and promedio.asistencia >= ASISTENCIA_MINIMA
-                )
+                estado = (
+                    promedio.estado or ""
+                ).strip().upper()
 
-                materia_aprobada = nota_aprobada and asistencia_aprobada
+                # =============================================
+                # APROBADA
+                # =============================================
 
-                if materia_aprobada:
+                if estado in {
+                    "APROBADO",
+                    "APROBADO_REPARACION",
+                }:
+
                     materias_aprobadas += 1
+
                     if es_proyecto:
                         proyecto_aprobado = True
-                else:
-                    # Cursó la materia pero reprobó por nota o asistencia
+
+                    continue
+
+                # =============================================
+                # REPROBADA
+                # =============================================
+
+                if estado in {
+                    "REPROBADO",
+                    "REPROBADO_REPARACION",
+                }:
+
                     if es_proyecto:
+
                         proyecto_reprobado = True
+
                     else:
+
                         materias_reprobadas += 1
 
-            # 3. CRITERIOS DE APROBACIÓN DEL TRAYECTO
+                    continue
+
+                # =============================================
+                # ESTADO DESCONOCIDO
+                #
+                # Seguridad adicional.
+                # =============================================
+
+                nota_requerida = (
+                    NOTA_MINIMA_PROYECTO
+                    if es_proyecto
+                    else NOTA_MINIMA_GENERAL
+                )
+
+                nota_aprobada = (
+                    promedio.promedio_final
+                    is not None
+                    and promedio.promedio_final
+                    >= nota_requerida
+                )
+
+                asistencia_aprobada = (
+                    promedio.asistencia
+                    is not None
+                    and promedio.asistencia
+                    >= ASISTENCIA_MINIMA
+                )
+
+                if (
+                    nota_aprobada
+                    and asistencia_aprobada
+                ):
+
+                    materias_aprobadas += 1
+
+                    if es_proyecto:
+                        proyecto_aprobado = True
+
+                else:
+
+                    if es_proyecto:
+
+                        proyecto_reprobado = True
+
+                    else:
+
+                        materias_reprobadas += 1
+
+            # =================================================
+            # TRAYECTO INICIAL
+            # =================================================
+
             if es_inicial:
-                # TRAYECTO INICIAL:
-                # - No requiere proyecto.
-                # - Aprueba si aprueba al menos 1 materia Y no tiene más de 1 reprobada.
-                aprobado = (materias_aprobadas >= 1) and (materias_reprobadas <= 1)
+
+                aprobado = (
+                    materias_aprobadas >= 1
+                    and materias_reprobadas
+                    <= MAX_REPROBADAS
+                )
+
+            # =================================================
+            # TRAYECTOS REGULARES
+            # =================================================
+
             else:
-                # TRAYECTOS REGULARES (I al IV):
-                # - Requiere Proyecto Aprobado y máximo 3 materias reprobadas.
-                aprobado = (not proyecto_reprobado) and (materias_reprobadas <= MAX_REPROBADAS)
+
+                aprobado = (
+                    proyecto_aprobado
+                    and not proyecto_reprobado
+                    and materias_reprobadas
+                    <= MAX_REPROBADAS
+                )
+
+            # =================================================
+            # RESULTADO
+            # =================================================
 
             return {
                 "existe": True,
@@ -652,63 +1277,207 @@ def act_tray_est(request):
                 "materias_aprobadas": materias_aprobadas,
                 "materias_reprobadas": materias_reprobadas,
                 "proyecto_aprobado": proyecto_aprobado,
-                "proyecto_reprobado": proyecto_reprobado
+                "proyecto_reprobado": proyecto_reprobado,
             }
-        # Evaluamos trayecto actual
+
+        # =====================================================
+        # ¿TRAYECTO INICIAL?
+        # =====================================================
+
         es_tr_inicial = (
-            trayecto_inicial 
-            and trayecto_actual.id_periodo_academico == trayecto_inicial.id_periodo_academico
+            trayecto_inicial is not None
+            and (
+                trayecto_actual.id_periodo_academico
+                == trayecto_inicial.id_periodo_academico
+            )
         )
-        resultado_actual = evaluar_trayecto(trayecto_actual, es_inicial=es_tr_inicial)
+
+        # =====================================================
+        # EVALUAR TRAYECTO ACTUAL
+        # =====================================================
+
+        resultado_actual = evaluar_trayecto(
+            trayecto_actual,
+            es_inicial=es_tr_inicial
+        )
 
         if not resultado_actual["existe"]:
+
             no_actualizados += 1
             continue
 
-        puede_avanzar = False
+        # =====================================================
+        # INFORMACIÓN DEL RESULTADO
+        # =====================================================
 
-        if es_tr_inicial:
-            puede_avanzar = resultado_actual["aprobado"]
+        materias_reprobadas = (
+            resultado_actual[
+                "materias_reprobadas"
+            ]
+        )
 
-        elif posicion_actual >= 1:
-            inicial_aprobado = True
-            if trayecto_inicial:
-                res_inicial = evaluar_trayecto(trayecto_inicial, es_inicial=True)
-                inicial_aprobado = res_inicial["aprobado"]
+        proyecto_aprobado = (
+            resultado_actual[
+                "proyecto_aprobado"
+            ]
+        )
 
-            puede_avanzar = inicial_aprobado and resultado_actual["aprobado"]
+        proyecto_reprobado = (
+            resultado_actual[
+                "proyecto_reprobado"
+            ]
+        )
+
+        # =====================================================
+        # DETERMINAR SI PUEDE AVANZAR
+        # =====================================================
+
+        puede_avanzar = (
+            resultado_actual["aprobado"]
+        )
+
+        # =====================================================
+        # SEGURIDAD:
+        #
+        # MÁS DE 3 MATERIAS REPROBADAS BLOQUEA.
+        #
+        # EXACTAMENTE 3 SÍ PERMITE AVANZAR.
+        # =====================================================
+
+        if (
+            materias_reprobadas
+            > MAX_REPROBADAS
+        ):
+
+            puede_avanzar = False
+
+        # =====================================================
+        # SEGURIDAD PARA PROYECTO
+        # =====================================================
+
+        if not es_tr_inicial:
+
+            if proyecto_reprobado:
+                puede_avanzar = False
+
+            if not proyecto_aprobado:
+                puede_avanzar = False
+
+        # =====================================================
+        # SI NO PUEDE AVANZAR
+        # =====================================================
 
         if not puede_avanzar:
+
             no_actualizados += 1
             continue
 
-        # Promoción de Trayecto o Egreso
-        es_ultimo_trayecto = (posicion_actual == len(trayectos) - 1)
+        # =====================================================
+        # DETERMINAR SI ES EL ÚLTIMO TRAYECTO
+        # =====================================================
+
+        es_ultimo_trayecto = (
+            posicion_actual
+            == len(trayectos) - 1
+        )
+
+        # =====================================================
+        # EGRESO
+        # =====================================================
 
         if es_ultimo_trayecto:
+
             if estatus_actual.estado != "Egreso":
+
                 estatus_actual.estado = "Egreso"
-                estatus_actual.save(update_fields=["estado"])
+
+                estatus_actual.save(
+                    update_fields=[
+                        "estado"
+                    ]
+                )
+
                 egresados += 1
                 actualizados += 1
+
             else:
+
                 no_actualizados += 1
+
             continue
 
-        siguiente_trayecto = trayectos[posicion_actual + 1]
+        # =====================================================
+        # SIGUIENTE TRAYECTO
+        # =====================================================
 
-        if estatus_actual.trayecto_id != siguiente_trayecto.id_periodo_academico:
-            estatus_actual.trayecto = siguiente_trayecto
-            estatus_actual.save(update_fields=["trayecto"])
+        siguiente_trayecto = (
+            trayectos[
+                posicion_actual + 1
+            ]
+        )
 
-            nombre_siguiente = siguiente_trayecto.nombre
-            avances_por_trayecto[nombre_siguiente] = avances_por_trayecto.get(nombre_siguiente, 0) + 1
+        # =====================================================
+        # ACTUALIZAR TRAYECTO
+        # =====================================================
+
+        if (
+            estatus_actual.trayecto_id
+            != siguiente_trayecto.id_periodo_academico
+        ):
+
+            estatus_actual.trayecto = (
+                siguiente_trayecto
+            )
+
+            estatus_actual.save(
+                update_fields=[
+                    "trayecto"
+                ]
+            )
+
+            nombre_siguiente = (
+                siguiente_trayecto.nombre
+            )
+
+            avances_por_trayecto[
+                nombre_siguiente
+            ] = (
+                avances_por_trayecto.get(
+                    nombre_siguiente,
+                    0
+                ) + 1
+            )
+
             actualizados += 1
+
         else:
+
             no_actualizados += 1
 
-    detalles_avances = [f"{nombre}: {cantidad}" for nombre, cantidad in avances_por_trayecto.items()]
-    descripcion_avances = " | ".join(detalles_avances) if detalles_avances else "No hubo estudiantes que avanzaran de trayecto."
+    # =========================================================
+    # DESCRIPCIÓN DE AVANCES
+    # =========================================================
+
+    detalles_avances = [
+        f"{nombre}: {cantidad}"
+        for nombre, cantidad
+        in avances_por_trayecto.items()
+    ]
+
+    if detalles_avances:
+
+        descripcion_avances = (
+            " | ".join(
+                detalles_avances
+            )
+        )
+
+    else:
+
+        descripcion_avances = (
+            "No hubo estudiantes que "
+            "avanzaran de trayecto."
+        )
 
     return JsonResponse({
         "success": True,

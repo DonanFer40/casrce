@@ -1,46 +1,239 @@
-{% extends 'Estructura/base.html' %}
+{% extends 'Estructura/Base.html' %}
+{% load static %}
+
+{% block title %}Foro Institucional - CARSCE{% endblock %}
 
 {% block content %}
 
-{% load static %}
+<section class="foro">
 
-<section class="carrusel">
-    <div class="slides" id="slides" ></div>
-</section>
+    <!-- =====================================================
+         CARRUSEL INSTITUCIONAL
+    ====================================================== -->
+    <section class="foro-carrusel">
 
-<section id="Contenido" class="reveal mantenimiento-section">
-    <div class="contenedor-mantenimiento">
-        <div class="icono-animado">⚙️</div> <h1 class="titulo-mantenimiento">MÓDULO EN CONSTRUCCIÓN</h1>
-        <h6 class="subtitulo">En Mantenimiento!</h6>
-        <div class="barra-progreso">
-            <div class="linea-progreso"></div>
+        <div class="carrusel">
+
+            <div class="carrusel-slide activo">
+                <img
+                    src="{% static 'Imagenes/Foro/carrusel_1.png' %}"
+                    alt="Instalaciones de la Universidad"
+                >
+            </div>
+
+            <div class="carrusel-slide">
+                <img
+                    src="{% static 'Imagenes/Foro/carrusel_2.png' %}"
+                    alt="Instalaciones universitarias"
+                >
+            </div>
+
+            <div class="carrusel-slide">
+                <img
+                    src="{% static 'Imagenes/Foro/carrusel_3.png' %}"
+                    alt="Espacios de la Universidad"
+                >
+            </div>
+
+            <div class="carrusel-slide">
+                <img
+                    src="{% static 'Imagenes/Foro/carrusel_4.png' %}"
+                    alt="Sede de la Universidad"
+                >
+            </div>
+
+            <button
+                type="button"
+                class="carrusel-btn carrusel-anterior"
+                aria-label="Imagen anterior"
+            >
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <button
+                type="button"
+                class="carrusel-btn carrusel-siguiente"
+                aria-label="Imagen siguiente"
+            >
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <div class="carrusel-indicadores">
+
+                <button
+                    type="button"
+                    class="indicador activo"
+                    aria-label="Imagen 1"
+                ></button>
+
+                <button
+                    type="button"
+                    class="indicador"
+                    aria-label="Imagen 2"
+                ></button>
+
+                <button
+                    type="button"
+                    class="indicador"
+                    aria-label="Imagen 3"
+                ></button>
+
+                <button
+                    type="button"
+                    class="indicador"
+                    aria-label="Imagen 4"
+                ></button>
+
+            </div>
+
         </div>
-    </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTENIDO
+    ====================================================== -->
+    <section class="foro-contenido">
+
+        <!-- ENCABEZADO -->
+        <div class="foro-introduccion">
+
+            <div class="foro-introduccion-linea"></div>
+
+            <span class="foro-etiqueta">
+                ACTUALIDAD INSTITUCIONAL
+            </span>
+
+            <h1>Noticias</h1>
+
+            <p>
+                Información y acontecimientos de nuestras sedes
+                universitarias.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             SELECTOR DE SEDE
+        ================================================== -->
+        <section class="selector-sede">
+
+            <div class="selector-sede-titulo">
+
+                <span class="selector-sede-icono">
+                    <i class="fa-solid fa-building-columns"></i>
+                </span>
+
+                <div>
+
+                    <span class="selector-sede-etiqueta">
+                        SEDE UNIVERSITARIA
+                    </span>
+
+                    <label for="selectorNucleo">
+                        Consulte las noticias de su sede
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="selector-sede-control">
+
+                <select id="selectorNucleo">
+
+                    <option value="">
+                        Seleccione una sede
+                    </option>
+
+                    <option value="Barinas">
+                        Barinas
+                    </option>
+
+                    <option value="Barinitas">
+                        Barinitas
+                    </option>
+
+                    <option value="Socopo">
+                        Socopó
+                    </option>
+
+                    <option value="Pedraza">
+                        Pedraza
+                    </option>
+
+                </select>
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             NOTICIAS
+        ================================================== -->
+        <section class="foro-noticias">
+
+            <div class="noticias-encabezado">
+
+                <div>
+
+                    <span class="noticias-etiqueta">
+                        <i class="fa-solid fa-newspaper"></i>
+                        INFORMACIÓN
+                    </span>
+
+                    <h2 id="tituloNoticias">
+                        Noticias institucionales
+                    </h2>
+
+                </div>
+
+                <span class="noticias-linea"></span>
+
+            </div>
+
+
+            <!-- ESTADO INICIAL -->
+            <div
+                id="estadoNoticias"
+                class="estado-noticias"
+            >
+
+                <div class="estado-icono">
+                    <i class="fa-regular fa-newspaper"></i>
+                </div>
+
+                <h2>
+                    Seleccione una sede
+                </h2>
+
+                <p>
+                    Seleccione una de las sedes disponibles para
+                    visualizar sus noticias.
+                </p>
+
+            </div>
+
+
+            <!-- CONTENEDOR DINÁMICO -->
+            <div
+                id="noticiasGrid"
+                class="noticias-grid"
+            ></div>
+
+        </section>
+
+    </section>
+
 </section>
 
-<dialog id="dialogo_nucleos">
-    <div class="contenedor_nucleos">
-        
-        <img src="{% static 'Imagenes/mapa.png' %}" alt="Imagen de ubicación">
 
-        <h3>Seleccione el Núcleo</h3>
-
-        <form method="post" id="formulario_nucleos">
-            {% csrf_token %}
-            <label for="nucleos">Nucleos</label>
-            <select name="nucleos_seleccionado" id="nucleos">
-                <option value="">Selecciona</option>
-                <option value="Barinas">Barinas</option>
-                <option value="Barinitas">Barinitas</option>
-                <option value="Pedraza">Pedraza</option>
-                <option value="Socopo">Socopo</option>
-            </select>
-
-            <input type="submit" value="Registrar núcleo">
-        </form>
-    </div>
-</dialog>
-
-<script src="{% static 'Funcionalidades/info_sedes.js' %}"></script>
+<script src="{% static 'Funcionalidades/foro.js' %}"></script>
 
 {% endblock %}

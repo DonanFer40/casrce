@@ -1,212 +1,268 @@
-#Trayectos{
-    padding: 80px 20px;
-    margin-top: 120px;
+/* =========================================================
+   ORGANIZACIÓN ACADÉMICA - CARSCE
+========================================================= */
+
+#OrganizacionAcademica{
+    width:100%;
+    min-height:100vh;
+
+    padding:150px 0 80px;
+
+    background:var(--color-fondo-pagina);
+    color:var(--texto-principal);
+
+    box-sizing:border-box;
 }
 
-/* CONTENEDOR PRINCIPAL */
-#Trayectos .contenedor{
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
-    display: grid;
-    gap: 30px;  
+#OrganizacionAcademica *{
+    box-sizing:border-box;
 }
 
-/* LAYOUTS */
-#Trayectos .layout-1{
-    grid-template-columns: 1fr;
+/* =========================================================
+   CONTENEDOR
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-contenedor{
+    width:min(1080px,90%);
+    margin:0 auto;
+
+    display:flex;
+    flex-direction:column;
 }
 
-#Trayectos .layout-2{
-    grid-template-columns: repeat(2, 1fr);
+/* =========================================================
+   BLOQUES
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-bloque{
+    display:grid;
+    grid-template-columns:95px minmax(0,1fr);
+
+    gap:28px;
+
+    padding:34px 0;
+
+    border-bottom:1px solid var(--color-borde-fino);
 }
 
-#Trayectos .layout-3{
-    grid-template-columns: repeat(3, 1fr);
+#OrganizacionAcademica .OrganizacionAcademica-bloque:first-child{
+    padding-top:0;
 }
 
-/* TAMAÑOS DE TARJETAS */
-#Trayectos .col-1{
-    grid-column: span 1;
+#OrganizacionAcademica .OrganizacionAcademica-bloque:last-child{
+    padding-bottom:0;
+    border-bottom:none;
 }
 
-#Trayectos .col-2{
-    grid-column: span 2;
+/* =========================================================
+   IDENTIFICADOR
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-identificador{
+    position:relative;
+
+    display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
 }
 
-#Trayectos .col-3{
-    grid-column: span 3;
+#OrganizacionAcademica .OrganizacionAcademica-numero{
+    color:var(--color-rojo-acento);
+
+    font-size:14px;
+    font-weight:700;
+
+    letter-spacing:.08em;
 }
 
-#Trayectos .col-full{
-    grid-column: 1 / -1;
+/* Línea decorativa */
+
+#OrganizacionAcademica .OrganizacionAcademica-linea{
+    position:absolute;
+
+    top:25px;
+    left:0;
+
+    width:32px;
+    height:1px;
+
+    background:var(--color-rojo-acento);
 }
 
-/* TARJETAS */
-#Trayectos .contenedor-info{
-    background: var(--color-base);
-    padding: 30px;
-    border-radius: 15px;
-    box-sizing: border-box;
-    box-shadow: 0 5px 20px rgba(0,0,0,.08);
-    border-left: 5px solid var(--color-principal);
-    transition: all .3s ease;
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-contenido{
+    max-width:850px;
 }
 
-#Trayectos .contenedor-info:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+#OrganizacionAcademica .OrganizacionAcademica-titulo{
+    position:relative;
+
+    margin:0 0 18px;
+    padding-left:16px;
+
+    color:var(--color-azul-profundo);
+
+    font-size:29px;
+    font-weight:600;
+
+    line-height:1.25;
 }
 
-/* TITULOS */
-#Trayectos .contenedor-info h2{
-    color: var(--color-principal);
-    margin-bottom: 15px;
-    font-size: 1.5rem;
-    position: relative;
+#OrganizacionAcademica .OrganizacionAcademica-titulo::before{
+    content:"";
+
+    position:absolute;
+
+    top:2px;
+    bottom:2px;
+    left:0;
+
+    width:4px;
+
+    background:var(--color-rojo-acento);
 }
 
-#Trayectos .contenedor-info h2::after{
-    content: "";
-    display: block;
-    width: 70px;
-    height: 3px;
-    background: var(--color-principal);
-    margin-top: 8px;
-    border-radius: 10px;
+/* =========================================================
+   TEXTO
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-texto{
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:15.5px;
+    line-height:1.9;
+
+    text-align:justify;
 }
 
-/* TEXTO */
-#Trayectos .contenedor-info p{
-    text-align: justify;
-    line-height: 1.8;
-    color: var(--color-neutro);
-    font-size: 1rem;
+/* =========================================================
+   ANIMACIÓN
+========================================================= */
+
+#OrganizacionAcademica.reveal{
+    animation:OrganizacionAcademicaEntrada .55s ease both;
 }
 
-/* DETAILS */
-#PSC .psc-details,
-#PST .psc-details{
-    margin-top: 15px;
-    border-radius: 12px;
-    background: var(--color-base);
-    border: 1px solid rgba(140,16,7,.15);
-    overflow: hidden;
-}
+@keyframes OrganizacionAcademicaEntrada{
 
-#PSC .psc-details summary,
-#PST .psc-details summary{
-    padding: 20px 25px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-principal);
-    cursor: pointer;
-    list-style: none;
-    position: relative;
-    user-select: none;
-    transition: .3s ease;
-}
-
-#PSC .psc-details summary:hover,
-#PST .psc-details summary:hover{
-    background: rgba(140,16,7,.05);
-}
-
-#PSC .psc-details summary::-webkit-details-marker,
-#PST .psc-details summary::-webkit-details-marker{
-    display: none;
-}
-
-#PSC .psc-details summary::after,
-#PST .psc-details summary::after{
-    content: "+";
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-principal);
-    transition: .3s ease;
-}
-
-#PSC .psc-details[open] summary::after,
-#PST .psc-details[open] summary::after{
-    content: "−";
-}
-
-#PSC .psc-details-content,
-#PST .psc-details-content{
-    padding: 0 25px 25px;
-    color: var(--color-neutro);
-}
-
-#PSC .psc-details-content ul,
-#PST .psc-details-content ul{
-    margin: 0;
-    padding-left: 20px;
-}
-
-#PSC .psc-details-content li,
-#PST .psc-details-content li{
-    margin-bottom: 12px;
-    line-height: 1.7;
-}
-
-#PSC .psc-details-content li::marker,
-#PST .psc-details-content li::marker{
-    color: var(--color-principal);
-}
-
-#PSC .contenedor img{
-    width: 600px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 992px){
-
-    #PSC .layout-3,
-    #PST .layout-3{
-        grid-template-columns: repeat(2, 1fr);
+    from{
+        opacity:0;
+        transform:translateY(12px);
     }
 
-    #PSC .col-3,
-    #PST .col-3{
-        grid-column: span 2;
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
+
 }
 
-@media (max-width: 768px){
+/* =========================================================
+   TABLET
+========================================================= */
 
-    #PSC .layout-1,
-    #PSC .layout-2,
-    #PSC .layout-3,
+@media (max-width:900px){
 
-    #PST .layout-1,
-    #PST .layout-2,
-    #PST .layout-3{
-        grid-template-columns: 1fr;
+    #OrganizacionAcademica{
+        padding:125px 0 65px;
     }
 
-    #PSC .col-1,
-    #PSC .col-2,
-    #PSC .col-3,
-    #PSC .col-full
-
-    #PST .col-1,
-    #PST .col-2,
-    #PST .col-3,
-    #PST .col-full{
-        grid-column: span 1;
+    #OrganizacionAcademica .OrganizacionAcademica-contenedor{
+        width:90%;
     }
 
-    #PSC .contenedor-info,
-    #PST .contenedor-info{
-        padding: 20px;
+    #OrganizacionAcademica .OrganizacionAcademica-bloque{
+        grid-template-columns:75px minmax(0,1fr);
+
+        gap:22px;
+
+        padding:30px 0;
     }
 
-    #PSC .contenedor-info h2,
-    #PST .contenedor-info h2{
-        font-size: 1.3rem;
+    #OrganizacionAcademica .OrganizacionAcademica-titulo{
+        font-size:27px;
     }
+
+}
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width:600px){
+
+    #OrganizacionAcademica{
+        padding:105px 0 55px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-contenedor{
+        width:90%;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-bloque{
+        grid-template-columns:48px minmax(0,1fr);
+
+        gap:16px;
+
+        padding:27px 0;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-numero{
+        font-size:12px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-linea{
+        top:22px;
+        width:25px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-titulo{
+        margin-bottom:16px;
+        padding-left:13px;
+
+        font-size:23px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-titulo::before{
+        width:3px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-texto{
+        font-size:14px;
+        line-height:1.85;
+
+        text-align:left;
+    }
+
+}
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width:400px){
+
+    #OrganizacionAcademica{
+        padding-bottom:45px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-bloque{
+        grid-template-columns:42px minmax(0,1fr);
+
+        gap:14px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-titulo{
+        font-size:21px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-texto{
+        font-size:13.5px;
+    }
+
 }

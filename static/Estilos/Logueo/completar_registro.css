@@ -1,523 +1,1012 @@
-/*====================================================*
-* CONTENEDOR PRINCIPAL
-*====================================================*/
+/* =========================================================
+   COMPLETAR REGISTRO - CARSCE
+   Diseño institucional moderno
+========================================================= */
+
+
+/* =========================================================
+   CONTENEDOR GENERAL
+========================================================= */
 
 #completar_registro{
-    padding:80px 20px;
-    margin-top:120px;
-}
-
-
-#completar_registro #formulario_registro{
-
-    width:85%;
-    max-width:1000px;
-    margin:auto;
-
-    padding:35px 45px;
-
-    background:white;
-
-    border-radius:16px;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-
-}
-
-
-#completar_registro .error{
-
-    border:2px solid red !important;
-
-}
-
-
-/*====================================================*
-* WIZARD - BARRA DE PROGRESO
-*====================================================*/
-
-
-#completar_registro #barra_progreso{
-
     width:100%;
+    min-height:100vh;
+    padding:145px 0 70px;
+    background:var(--color-fondo-pagina);
+    color:var(--texto-principal);
+}
 
+#completar_registro *{
+    box-sizing:border-box;
+}
+
+#completar_registro .registro-completo-contenedor{
+    width:min(1120px,92%);
+    margin:0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+#completar_registro .registro-completo-encabezado{
     display:flex;
-
+    align-items:flex-end;
     justify-content:space-between;
+    margin-bottom:38px;
+    padding-bottom:28px;
+    border-bottom:1px solid var(--color-borde-fino);
+}
 
-    align-items:flex-start;
+#completar_registro .registro-completo-encabezado-texto{
+    max-width:760px;
+}
 
+#completar_registro .registro-completo-etiqueta{
+    display:block;
+    margin-bottom:9px;
+    color:var(--color-rojo-acento);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.8px;
+    text-transform:uppercase;
+}
+
+#completar_registro .registro-completo-encabezado h1{
+    margin:0 0 10px;
+    color:var(--color-azul-profundo);
+    font-size:38px;
+    font-weight:600;
+    line-height:1.15;
+}
+
+#completar_registro .registro-completo-encabezado p{
+    max-width:680px;
+    margin:0;
+    color:var(--texto-secundario);
+    font-size:14px;
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   BARRA DE PROGRESO
+========================================================= */
+
+#completar_registro .registro-completo-progreso{
     position:relative;
-
-    padding:35px 50px;
-
-    margin-bottom:35px;
-
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    width:100%;
+    margin-bottom:30px;
+    padding:0 20px;
 }
 
-
-#completar_registro #barra_progreso::before{
-
+#completar_registro .registro-completo-progreso::before{
     content:"";
-
     position:absolute;
-
-    top:58px;
-
-    left:90px;
-
-    right:90px;
-
-    height:4px;
-
-    background:var(--borde);
-
+    top:18px;
+    left:62px;
+    right:62px;
+    height:2px;
+    background:var(--color-borde-fino);
     z-index:0;
-
 }
-
-
 
 #completar_registro .paso_barra{
-
     position:relative;
-
     z-index:1;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
-    gap:10px;
-
-    width:120px;
-
+    width:150px;
+    min-width:0;
+    text-align:center;
 }
-
-
 
 #completar_registro .paso_barra span{
-
-    width:45px;
-
-    height:45px;
-
-    border-radius:50%;
-
-    background:white;
-
-    border:3px solid var(--borde);
-
+    width:36px;
+    height:36px;
     display:flex;
-
-    justify-content:center;
-
     align-items:center;
-
+    justify-content:center;
+    border:2px solid var(--color-borde-fino);
+    border-radius:50%;
+    background:var(--color-fondo-pagina);
+    color:var(--texto-mutado);
+    font-size:12px;
     font-weight:700;
-
-    color:var(--texto-secundario);
-
-    transition:.3s;
-
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease,
+        box-shadow .25s ease;
 }
-
-
 
 #completar_registro .paso_barra p{
-
-    margin:0;
-
-    text-align:center;
-
-    font-size:14px;
-
+    margin:10px 0 0;
+    color:var(--texto-mutado);
+    font-size:11px;
     font-weight:600;
-
-    color:var(--texto-secundario);
-
+    line-height:1.35;
+    transition:color .25s ease;
 }
-
-
 
 #completar_registro .paso_barra.activo span{
-
-    background:var(--primario);
-
-    border-color:var(--primario);
-
-    color:white;
-
-    transform:scale(1.15);
-
+    border-color:var(--color-azul-hover);
+    background:var(--color-azul-hover);
+    color:var(--color-blanco);
+    box-shadow:0 0 0 5px rgba(37,99,235,.10);
 }
-
-
 
 #completar_registro .paso_barra.activo p{
-
-    color:var(--primario);
-
+    color:var(--color-azul-hover);
 }
 
 
+/* =========================================================
+   FORMULARIO
+========================================================= */
 
-#completar_registro .paso_barra.completado span{
-
-    background:var(--verde);
-
-    border-color:var(--verde);
-
-    color:white;
-
+#completar_registro #formulario_registro{
+    width:100%;
 }
-
-
-
-/*====================================================*
-* PASOS DEL FORMULARIO
-*====================================================*/
-
 
 #completar_registro .paso_formulario{
-
-    display:none;
-
-    animation:aparecer .4s ease;
-
+    width:100%;
+    margin-bottom:24px;
+    padding:34px 38px;
+    border:1px solid var(--color-borde-fino);
+    border-radius:var(--radio-card);
+    background:var(--color-blanco);
+    box-shadow:var(--sombra-card);
 }
 
 
+/* =========================================================
+   ENCABEZADO DE CADA PASO
+========================================================= */
 
-#completar_registro .paso_formulario.activo{
+#completar_registro .registro-completo-paso-encabezado{
+    display:flex;
+    align-items:flex-start;
+    gap:15px;
+    margin-bottom:30px;
+}
 
+#completar_registro .registro-completo-icono-paso{
+    width:45px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border-radius:9px;
+    background:var(--color-rojo-soft);
+    color:var(--color-rojo-acento);
+    font-size:17px;
+}
+
+#completar_registro .registro-completo-seccion-etiqueta{
+    display:block;
+    margin-bottom:4px;
+    color:var(--color-azul-hover);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.3px;
+    text-transform:uppercase;
+}
+
+#completar_registro .registro-completo-paso-encabezado h2{
+    margin:0 0 5px;
+    color:var(--color-azul-profundo);
+    font-size:23px;
+    font-weight:600;
+    line-height:1.3;
+}
+
+#completar_registro .registro-completo-paso-encabezado p{
+    margin:0;
+    color:var(--texto-secundario);
+    font-size:13px;
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+#completar_registro .registro-completo-campos{
     display:grid;
-
-    grid-template-columns:
-
-    repeat(2,minmax(250px,1fr));
-
-    gap:25px 35px;
-
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:23px 28px;
 }
-
-
-
-#completar_registro .paso_formulario h4{
-
-    grid-column:1 / -1;
-
-    margin-bottom:10px;
-
-}
-
-
-
-@keyframes aparecer{
-
-    from{
-
-        opacity:0;
-
-        transform:translateX(30px);
-
-    }
-
-
-    to{
-
-        opacity:1;
-
-        transform:translateX(0);
-
-    }
-
-}
-
-
-
-/*====================================================*
-* CAMPOS
-*====================================================*/
-
 
 #completar_registro .campo{
-
     display:flex;
-
     flex-direction:column;
-
-    gap:7px;
-
     width:100%;
-
-    max-width:420px;
-
+    gap:8px;
 }
 
-
+#completar_registro .campo-amplio{
+    grid-column:1 / -1;
+}
 
 #completar_registro .campo label{
-
-    font-size:14px;
-
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:var(--texto-principal);
+    font-size:13px;
     font-weight:600;
+    line-height:1.4;
+}
 
-    color:#333;
-
+#completar_registro .registro-completo-opcional{
+    color:var(--texto-mutado);
+    font-size:10px;
+    font-weight:500;
 }
 
 
+/* =========================================================
+   INPUTS Y SELECTS
+========================================================= */
 
-/* CAMPOS GRANDES */
-
-
-#completar_registro .campo:has(textarea),
-#completar_registro .campo:has(input[type="file"]){
-
-    grid-column:1 / -1;
-
-    max-width:700px;
-
-}
-
-
-
-/*====================================================*
-* INPUTS SELECT TEXTAREA
-*====================================================*/
-
-
-#completar_registro .campo input,
+#completar_registro .campo input:not([type="file"]),
 #completar_registro .campo select,
 #completar_registro .campo textarea{
-
-
     width:100%;
-
-    height:42px;
-
-    padding:8px 12px;
-
-    border:1px solid #d0d7de;
-
-    border-radius:8px;
-
-    background:white;
-
-    font-size:14px;
-
+    border:1px solid var(--color-borde-fino);
+    border-radius:7px;
     outline:none;
-
-    box-sizing:border-box;
-
-    transition:.3s;
-
+    background:var(--color-blanco);
+    color:var(--texto-principal);
+    font-size:14px;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
-
+#completar_registro .campo input:not([type="file"]),
+#completar_registro .campo select{
+    height:46px;
+    padding:0 13px;
+}
 
 #completar_registro .campo textarea{
-
-    height:auto;
-
-    min-height:120px;
-
+    min-height:115px;
+    padding:12px 13px;
     resize:vertical;
-
+    line-height:1.6;
 }
 
+#completar_registro .campo input:not([type="file"]):hover,
+#completar_registro .campo select:hover,
+#completar_registro .campo textarea:hover{
+    border-color:#CBD5E1;
+}
 
-
-#completar_registro .campo input:focus,
+#completar_registro .campo input:not([type="file"]):focus,
 #completar_registro .campo select:focus,
 #completar_registro .campo textarea:focus{
-
-
-    border-color:#2563eb;
-
-    box-shadow:
-
-    0 0 0 3px rgba(37,99,235,.15);
-
-
+    border-color:var(--color-azul-hover);
+    box-shadow:0 0 0 3px rgba(37,99,235,.10);
 }
 
-
-
-#completar_registro input[readonly]{
-
-
-    background:#f1f5f9;
-
+#completar_registro .campo input[readonly]{
+    background:#F8FAFC;
+    color:var(--texto-secundario);
     cursor:not-allowed;
+}
 
-    color:#64748b;
-
+#completar_registro .campo input::placeholder,
+#completar_registro .campo textarea::placeholder{
+    color:var(--texto-mutado);
+    font-size:12px;
 }
 
 
-
-#completar_registro select:disabled{
-
-
-    background:#e5e7eb;
-
-    cursor:not-allowed;
-
-}
-
-
-
-/*====================================================*
-* CAMPOS HORIZONTALES
-*====================================================*/
-
+/* =========================================================
+   CAMPOS HORIZONTALES
+========================================================= */
 
 #completar_registro .campo_horizontal{
-
     display:flex;
-
+    align-items:stretch;
     gap:8px;
-
+    width:100%;
 }
-
-
 
 #completar_registro .campo_horizontal select{
-
-    width:100px;
-
+    width:105px;
+    flex-shrink:0;
 }
-
-
 
 #completar_registro .campo_horizontal input{
-
     flex:1;
-
+    min-width:0;
 }
 
 
+/* =========================================================
+   MENSAJES DE VALIDACIÓN
+========================================================= */
 
-/*====================================================*
-* CHECKBOX NUCLEOS
-*====================================================*/
+#completar_registro .campo small,
+#completar_registro #msg_correo_princ,
+#completar_registro #msg_correo_sec,
+#completar_registro #msg_ced_aux,
+#completar_registro #msg_codigo_opsu{
+    min-height:15px;
+    display:block;
+    color:var(--texto-secundario);
+    font-size:11px;
+    line-height:1.4;
+}
+
+#completar_registro .error,
+#completar_registro .campo.error input,
+#completar_registro .campo.error select,
+#completar_registro .campo.error textarea{
+    border-color:var(--color-rojo-acento) !important;
+    box-shadow:0 0 0 3px rgba(220,38,38,.08) !important;
+}
 
 
-#completar_registro #contenedor_pnfs_cursar label{
+/* =========================================================
+   BLOQUE OPCIONAL - DISCAPACIDAD
+========================================================= */
 
+#completar_registro .registro-completo-opcional-barra{
     display:flex;
-
     align-items:center;
-
-    gap:10px;
-
-    padding:12px;
-
-    border:1px solid #ddd;
-
-    border-radius:8px;
-
-    background:#fafafa;
-
-    cursor:pointer;
-
-}
-
-
-#completar_registro #contenedor_pnfs_cursar input[type="checkbox"]{
-
-    width:18px;
-
-    height:18px;
-
-}
-
-
-
-/*====================================================*
-* DOCUMENTOS
-*====================================================*/
-
-
-#completar_registro input[type="file"]{
-
-    height:auto;
-
-    padding:10px;
-
-    background:#f8f8f8;
-
-}
-
-
-
-/*====================================================*
-* NAVEGACION
-*====================================================*/
-#navegacion_formulario{
-    display:flex;
     justify-content:space-between;
-    align-items:center;
-    margin-top:35px;
-    padding:10px;
+    gap:20px;
+    padding:14px 16px;
+    border:1px solid var(--color-borde-fino);
+    border-radius:7px;
+    background:#F8FAFC;
 }
 
-#navegacion_formulario button,
-#completar_registro #btn_registro{
-    border:none;
-    padding:12px 25px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:700;
-    font-size:14px;
-    transition:.3s;
+#completar_registro .registro-completo-opcional-barra > span{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--texto-secundario);
+    font-size:12px;
+    font-weight:500;
 }
+
+#completar_registro .registro-completo-opcional-barra > span i{
+    color:var(--color-azul-hover);
+}
+
+#completar_registro #btn_discapacidad{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 13px;
+    border:1px solid #CBD5E1;
+    border-radius:6px;
+    background:var(--color-blanco);
+    color:var(--color-azul-hover);
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+#completar_registro #btn_discapacidad:hover{
+    border-color:var(--color-azul-hover);
+    background:#EFF6FF;
+    transform:translateY(-1px);
+}
+
+#completar_registro #campos_discapacidad{
+    margin-top:24px;
+}
+
+
+/* =========================================================
+   NÚCLEOS Y PNF
+========================================================= */
+
+#completar_registro .registro-completo-nucleos{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:15px;
+}
+
+#completar_registro .registro-completo-nucleo{
+    min-width:0;
+    overflow:hidden;
+    border:1px solid var(--color-borde-fino);
+    border-radius:8px;
+    background:var(--color-blanco);
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+#completar_registro .registro-completo-nucleo:focus-within{
+    border-color:var(--color-azul-hover);
+    box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+
+#completar_registro .registro-completo-nucleo > label{
+    min-height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:14px 16px;
+    cursor:pointer;
+    background:var(--color-blanco);
+}
+
+#completar_registro .registro-completo-nucleo > label > span{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:var(--color-azul-profundo);
+    font-size:13px;
+    font-weight:600;
+}
+
+#completar_registro .registro-completo-nucleo > label > span i{
+    color:var(--color-rojo-acento);
+    font-size:13px;
+}
+
+#completar_registro .registro-completo-nucleo input[type="checkbox"]{
+    width:19px;
+    height:19px;
+    margin:0;
+    accent-color:var(--color-azul-hover);
+    cursor:pointer;
+}
+
+#completar_registro .registro-completo-pnf-contenedor{
+    border-top:1px solid var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   DOCUMENTOS
+========================================================= */
+
+#completar_registro .registro-completo-documentos{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+}
+
+#completar_registro .registro-completo-documento{
+    display:flex;
+    align-items:flex-start;
+    gap:15px;
+    padding:18px;
+    border:1px solid var(--color-borde-fino);
+    border-radius:8px;
+    background:var(--color-blanco);
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+#completar_registro .registro-completo-documento:focus-within{
+    border-color:var(--color-azul-hover);
+    box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+
+#completar_registro .registro-completo-documento-icono{
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border-radius:7px;
+    background:#EFF6FF;
+    color:var(--color-azul-hover);
+    font-size:15px;
+}
+
+#completar_registro .registro-completo-documento-info{
+    min-width:0;
+    flex:1;
+}
+
+#completar_registro .registro-completo-documento-info label{
+    display:block;
+    margin-bottom:10px;
+    color:var(--texto-principal);
+    font-size:13px;
+    font-weight:600;
+}
+
+#completar_registro .registro-completo-documento-info input[type="file"]{
+    width:100%;
+    color:var(--texto-secundario);
+    font-size:11px;
+}
+
+#completar_registro .registro-completo-documento-info input[type="file"]::file-selector-button{
+    margin-right:9px;
+    padding:7px 10px;
+    border:1px solid #CBD5E1;
+    border-radius:5px;
+    background:#F8FAFC;
+    color:var(--texto-principal);
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+    transition:
+        background .2s ease,
+        border-color .2s ease;
+}
+
+#completar_registro .registro-completo-documento-info input[type="file"]::file-selector-button:hover{
+    border-color:var(--color-azul-hover);
+    background:#EFF6FF;
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+#completar_registro .registro-completo-navegacion{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:30px;
+    padding:22px 25px;
+    border:1px solid var(--color-borde-fino);
+    border-radius:var(--radio-card);
+    background:var(--color-azul-profundo);
+    box-shadow:var(--sombra-elevada);
+}
+
+#completar_registro .registro-completo-navegacion-centro{
+    flex:1;
+    text-align:center;
+}
+
+#completar_registro .registro-completo-navegacion-centro span{
+    color:#CBD5E1;
+    font-size:11px;
+    line-height:1.5;
+}
+
+#completar_registro #btn_anterior,
+#completar_registro #btn_siguiente,
+#completar_registro #btn_registro{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    padding:0 19px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+/* ANTERIOR */
 
 #completar_registro #btn_anterior{
-    background:#E5E7EB;
-    color:#333;
+    border:1px solid rgba(255,255,255,.18);
+    background:transparent;
+    color:#E2E8F0;
 }
 
+#completar_registro #btn_anterior:hover{
+    border-color:rgba(255,255,255,.35);
+    background:rgba(255,255,255,.06);
+    transform:translateX(-2px);
+}
+
+
+/* SIGUIENTE */
+
 #completar_registro #btn_siguiente{
-    background:var(--primario);
-    color:white;
+    border:1px solid var(--color-azul-hover);
+    background:var(--color-azul-hover);
+    color:var(--color-blanco);
 }
 
 #completar_registro #btn_siguiente:hover{
-    transform:translateY(-2px);
+    background:#1D4ED8;
+    transform:translateX(2px);
+    box-shadow:0 7px 18px rgba(37,99,235,.22);
 }
+
+
+/* REGISTRO FINAL */
 
 #completar_registro #btn_registro{
-    display:none;
-    background:var(--verde);
-    color:white;
+    border:0;
+    background:var(--color-amarillo-accion);
+    color:#111827;
 }
 
-/*====================================================*
-* RESPONSIVE
-*====================================================*/
-@media(max-width:900px){
-    #completar_registro #formulario_registro{
-        width:95%;
-        padding:25px;
+#completar_registro #btn_registro:hover{
+    background:var(--color-amarillo-hover);
+    transform:translateY(-2px);
+    box-shadow:0 7px 18px rgba(245,158,11,.22);
+}
+
+
+/* =========================================================
+   ELEMENTOS DESHABILITADOS
+========================================================= */
+
+#completar_registro input:disabled,
+#completar_registro select:disabled,
+#completar_registro button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+/* =========================================================
+   CONTENEDOR DE LOS PASOS
+========================================================= */
+
+#completar_registro #formulario_registro {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TARJETAS DEL FORMULARIO
+========================================================= */
+
+#completar_registro .paso_formulario {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    margin: 0;
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transform: translateX(100%);
+
+    transition:
+        transform 450ms cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 300ms ease,
+        visibility 0s linear 450ms;
+}
+
+
+/* =========================================================
+   PASO ACTIVO
+========================================================= */
+
+#completar_registro .paso_formulario.activo {
+    position: relative;
+
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transform: translateX(0);
+
+    transition:
+        transform 450ms cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 300ms ease,
+        visibility 0s linear 0s;
+}
+
+
+/* =========================================================
+   ENTRADA DESDE LA DERECHA
+   Siguiente
+========================================================= */
+
+#completar_registro .paso_formulario.entrando-derecha {
+    position: absolute;
+
+    opacity: 0;
+
+    visibility: visible;
+
+    transform: translateX(100%);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ENTRADA DESDE LA IZQUIERDA
+   Anterior
+========================================================= */
+
+#completar_registro .paso_formulario.entrando-izquierda {
+    position: absolute;
+
+    opacity: 0;
+
+    visibility: visible;
+
+    transform: translateX(-100%);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SALIDA HACIA LA IZQUIERDA
+   Siguiente
+========================================================= */
+
+#completar_registro .paso_formulario.saliendo-izquierda {
+    position: absolute;
+
+    opacity: 0;
+
+    visibility: visible;
+
+    transform: translateX(-100%);
+
+    pointer-events: none;
+
+    transition:
+        transform 450ms cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 300ms ease;
+}
+
+
+/* =========================================================
+   SALIDA HACIA LA DERECHA
+   Anterior
+========================================================= */
+
+#completar_registro .paso_formulario.saliendo-derecha {
+    position: absolute;
+
+    opacity: 0;
+
+    visibility: visible;
+
+    transform: translateX(100%);
+
+    pointer-events: none;
+
+    transition:
+        transform 450ms cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 300ms ease;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width:900px){
+
+    #completar_registro{
+        padding-top:125px;
     }
 
-    #completar_registro .paso_formulario.activo{
+    #completar_registro .registro-completo-contenedor{
+        width:92%;
+    }
+
+    #completar_registro .paso_formulario{
+        padding:30px;
+    }
+
+    #completar_registro .registro-completo-documentos{
         grid-template-columns:1fr;
     }
 
-    #completar_registro #barra_progreso{
-        overflow-x:auto;
-        justify-content:flex-start;
-        gap:35px;
-        padding:25px;
+    #completar_registro .registro-completo-progreso{
+        padding:0 5px;
     }
 
-    #completar_registro #barra_progreso::before{
+    #completar_registro .registro-completo-progreso::before{
+        left:45px;
+        right:45px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+========================================================= */
+
+@media (max-width:650px){
+
+    #completar_registro{
+        padding-top:105px;
+        padding-bottom:50px;
+    }
+
+    #completar_registro .registro-completo-contenedor{
+        width:92%;
+    }
+
+
+    /* ENCABEZADO */
+
+    #completar_registro .registro-completo-encabezado{
+        margin-bottom:28px;
+        padding-bottom:23px;
+    }
+
+    #completar_registro .registro-completo-encabezado h1{
+        font-size:31px;
+    }
+
+    #completar_registro .registro-completo-encabezado p{
+        font-size:13px;
+    }
+
+
+    /* PROGRESO */
+
+    #completar_registro .registro-completo-progreso{
+        overflow-x:auto;
+        justify-content:flex-start;
+        gap:24px;
+        margin-bottom:25px;
+        padding:0 3px 10px;
+        scrollbar-width:none;
+    }
+
+    #completar_registro .registro-completo-progreso::-webkit-scrollbar{
         display:none;
     }
+
+    #completar_registro .registro-completo-progreso::before{
+        left:21px;
+        right:auto;
+        width:calc(100% - 42px);
+        min-width:650px;
+    }
+
+    #completar_registro .paso_barra{
+        width:115px;
+        min-width:115px;
+    }
+
+    #completar_registro .paso_barra span{
+        width:34px;
+        height:34px;
+    }
+
+    #completar_registro .paso_barra p{
+        font-size:10px;
+    }
+
+
+    /* TARJETAS */
+
+    #completar_registro .paso_formulario{
+        margin-bottom:20px;
+        padding:24px 20px;
+        border-radius:9px;
+    }
+
+    #completar_registro .registro-completo-paso-encabezado{
+        gap:12px;
+        margin-bottom:25px;
+    }
+
+    #completar_registro .registro-completo-icono-paso{
+        width:39px;
+        height:39px;
+        font-size:15px;
+    }
+
+    #completar_registro .registro-completo-paso-encabezado h2{
+        font-size:20px;
+    }
+
+    #completar_registro .registro-completo-paso-encabezado p{
+        font-size:12px;
+    }
+
+
+    /* CAMPOS */
+
+    #completar_registro .registro-completo-campos{
+        grid-template-columns:1fr;
+        gap:19px;
+    }
+
+    #completar_registro .campo-amplio{
+        grid-column:auto;
+    }
+
+
+    /* NÚCLEOS */
+
+    #completar_registro .registro-completo-nucleos{
+        grid-template-columns:1fr;
+    }
+
+
+    /* NAVEGACIÓN */
+
+    #completar_registro .registro-completo-navegacion{
+        align-items:stretch;
+        flex-direction:column;
+        padding:20px;
+    }
+
+    #completar_registro .registro-completo-navegacion-centro{
+        order:-1;
+    }
+
+    #completar_registro #btn_anterior,
+    #completar_registro #btn_siguiente,
+    #completar_registro #btn_registro{
+        width:100%;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL PEQUEÑO
+========================================================= */
+
+@media (max-width:420px){
+
+    #completar_registro .registro-completo-encabezado h1{
+        font-size:28px;
+    }
+
+    #completar_registro .paso_formulario{
+        padding:21px 16px;
+    }
+
+    #completar_registro .campo_horizontal{
+        gap:6px;
+    }
+
+    #completar_registro .campo_horizontal select{
+        width:82px;
+    }
+
+    #completar_registro .registro-completo-opcional-barra{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    #completar_registro .registro-completo-documento{
+        padding:15px;
+    }
+
 }

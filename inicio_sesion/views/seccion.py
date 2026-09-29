@@ -115,7 +115,7 @@ def guardar_act_sec(request):
                 "descripcion": "Ocurrio un error al momento de actualizar la sección."
             })
 
-    return render(request, "Director_General/session_academica/visualizar_seccion.html")
+    return render(request, "Roles/Director_General/seccion_academica/visualizar_seccion.html")
 
 # modulo_seccion
 def reg_sec(request):
@@ -164,5 +164,5 @@ def reg_sec(request):
                 "descripcion": "Ocurrio un error en registrar la sección académica."
             })
     
-    return render(request, "Director_General/session_academica/registrar_seccion.html")
+    return render(request, "Roles/Director_General/seccion_academica/registrar_seccion.html")
 

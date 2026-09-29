@@ -1,0 +1,219 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-personal-registrado-carsce">
+
+    <div class="director-personal-registrado-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-personal-registrado-carsce-encabezado">
+
+            <div class="director-personal-registrado-carsce-identificacion">
+
+                <span class="director-personal-registrado-carsce-etiqueta">
+                    Gestión de Personal
+                </span>
+
+                <span class="director-personal-registrado-carsce-seccion">
+                    <i class="fa-solid fa-users"></i>
+                    Personal registrado
+                </span>
+
+            </div>
+
+
+            <div class="director-personal-registrado-carsce-presentacion">
+
+                <h1 class="director-personal-registrado-carsce-titulo">
+                    Visualizar Personal Registrado
+                </h1>
+
+                <p class="director-personal-registrado-carsce-descripcion">
+                    Consulte el personal registrado y filtre la información
+                    según el P.N.F. o el rol asignado.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             FILTROS
+             ===================================================== -->
+
+        <div class="director-personal-registrado-carsce-filtros">
+
+            <div class="director-personal-registrado-carsce-filtros-cabecera">
+
+                <div class="director-personal-registrado-carsce-filtros-icono">
+                    <i class="fa-solid fa-filter"></i>
+                </div>
+
+                <div class="director-personal-registrado-carsce-filtros-titulo">
+
+                    <h2>
+                        Filtros de búsqueda
+                    </h2>
+
+                    <span>
+                        Seleccione los criterios para consultar el personal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <form
+                method="post"
+                class="director-personal-registrado-carsce-formulario-filtros"
+            >
+
+                {% csrf_token %}
+
+
+                <div class="director-personal-registrado-carsce-filtro">
+
+                    <label for="pnf_registrados">
+                        P.N.F
+                    </label>
+
+                    <select
+                        name="pnf_registrados"
+                        id="pnf_registrados"
+                    ></select>
+
+                </div>
+
+
+                <div class="director-personal-registrado-carsce-filtro">
+
+                    <label for="perfiles_registrados">
+                        Rol
+                    </label>
+
+                    <select
+                        name="perfiles_registrados"
+                        id="perfiles_registrados"
+                    >
+
+                        <option value="">
+                            Selecciona un perfil
+                        </option>
+
+                        <option value="Docente">
+                            Docente
+                        </option>
+
+                        <option value="Coordinador de PNF">
+                            Coordinador de PNF
+                        </option>
+
+                        <option value="Encargado de Control de Estudio">
+                            Encargado de Control de Estudio
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- =====================================================
+             TABLA DE PERSONAL
+             ===================================================== -->
+
+        <div class="director-personal-registrado-carsce-tabla-contenedor">
+
+            <div class="director-personal-registrado-carsce-tabla-cabecera">
+
+                <div class="director-personal-registrado-carsce-tabla-titulo">
+
+                    <div class="director-personal-registrado-carsce-tabla-icono">
+                        <i class="fa-solid fa-address-book"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Personal registrado
+                        </h2>
+
+                        <span>
+                            Información disponible en el sistema
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="director-personal-registrado-carsce-tabla-scroll">
+
+                <table class="director-personal-registrado-carsce-tabla">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>
+                                NOMBRES
+                            </th>
+
+                            <th>
+                                APELLIDOS
+                            </th>
+
+                            <th>
+                                C.I
+                            </th>
+
+                            <th>
+                                ROL
+                            </th>
+
+                            <th>
+                                P.N.F Asignados
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="contenedor_personal_registrado"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     JAVASCRIPT DEL MÓDULO
+     ========================================================= -->
+
+<script
+    src="{% static 'Funciones_Asincronas/Director_General/gestion_personal/visualizar_personal_registrado.js' %}">
+</script>
+
+{% endblock %}

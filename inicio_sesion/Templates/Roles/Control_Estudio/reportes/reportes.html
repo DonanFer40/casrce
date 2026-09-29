@@ -1,0 +1,53 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="ReportesControlEstudioCASRCE">
+
+    <div class="ReportesControlEstudioCASRCE-contenedor">
+
+        <!-- ENCABEZADO DEL MÓDULO -->
+        <header class="ReportesControlEstudioCASRCE-encabezado">
+
+            <div class="ReportesControlEstudioCASRCE-icono">
+                <i class="fa-solid fa-chart-column"></i>
+            </div>
+
+            <div class="ReportesControlEstudioCASRCE-titulos">
+
+                <span class="ReportesControlEstudioCASRCE-etiqueta">
+                    CONTROL DE ESTUDIO
+                </span>
+
+                <h1>
+                    Reportes
+                </h1>
+
+                <p>
+                    Consulta, visualización y generación de información
+                    académica gestionada mediante CARSCE.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENIDO GENERAL DE REPORTES -->
+        <div class="ReportesControlEstudioCASRCE-listado">
+
+            {% include 'Roles/Control_Estudio/reportes/reporte_estudiantes.html' %}
+
+            {% include 'Roles/Control_Estudio/reportes/reporte_academico.html' %}
+
+            {% include 'Roles/Control_Estudio/reportes/reporte_inscripciones.html' %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

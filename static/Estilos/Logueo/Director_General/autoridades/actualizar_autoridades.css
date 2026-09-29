@@ -1,199 +1,831 @@
-/* ========================================================= ACTUALIZAR AUTORIDADES (SCOPED) ========================================================= */
-#modulo_autoridades_actualizar {
-    display: flex;
-    justify-content: center;
+/* =========================================================
+   ACTUALIZAR AUTORIDADES - CARSCE
+   ========================================================= */
+
+#director-autoridades-actualizar-carsce {
+
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-contenedor {
+
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-encabezado {
+
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+
+.director-autoridades-actualizar-carsce-identificacion {
+
+    display: inline-flex;
     align-items: center;
-    width: 100%;
-}
+    gap: 8px;
 
-#modulo_autoridades_actualizar .contenedor_modulo_autoridades {
-    width: 100%;
-    max-width: 750px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
+    margin-bottom: 12px;
+    padding: 7px 12px;
 
-#modulo_autoridades_actualizar h3 {
-    color: var(--texto);
-    font-size: 1.8rem;
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: 0.68rem;
     font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+
+.director-autoridades-actualizar-carsce-identificacion i {
+
+    font-size: 0.72rem;
+}
+
+
+.director-autoridades-actualizar-carsce-presentacion {
+
+    width: 100%;
+}
+
+
+.director-autoridades-actualizar-carsce-titulo {
+
     margin: 0;
-}
 
-/* CARDS GENERALES */
-#modulo_autoridades_actualizar .card_autoridades {
-    background: var(--color-base);
-    border-radius: var(--radio);
-    padding: 35px 40px;
-    box-shadow: var(--sombra-suave);
-    border: 1px solid var(--borde);
-    position: relative;
-}
+    color: var(--texto-principal);
 
-#modulo_autoridades_actualizar .card_autoridades h4 {
-    color: var(--texto);
-    font-size: 1.3rem;
+    font-size: 1.55rem;
     font-weight: 700;
-    margin-bottom: 22px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--background);
-    position: relative;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
-#modulo_autoridades_actualizar .card_autoridades h4::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 45px;
-    height: 2px;
-    background: var(--color-azulE);
+
+.director-autoridades-actualizar-carsce-titulo span {
+
+    color: var(--color-azul-hover);
+    font-weight: 600;
 }
 
-/* ========================================================= CARD 1: FORMULARIO BÚSQUEDA ========================================================= */
-#modulo_autoridades_actualizar #formulario_buscar {
+
+.director-autoridades-actualizar-carsce-descripcion {
+
+    max-width: 750px;
+
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   TARJETA
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-tarjeta {
+
+    width: 100%;
+
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA DE TARJETA
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-tarjeta-cabecera {
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 23px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+
+.director-autoridades-actualizar-carsce-tarjeta-icono {
+
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        145deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.20);
+}
+
+
+.director-autoridades-actualizar-carsce-tarjeta-icono i {
+
+    font-size: 1rem;
+}
+
+
+.director-autoridades-actualizar-carsce-tarjeta-informacion {
+
+    min-width: 0;
+}
+
+
+.director-autoridades-actualizar-carsce-tarjeta-titulo {
+
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+
+.director-autoridades-actualizar-carsce-tarjeta-descripcion {
+
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   FORMULARIO DE BÚSQUEDA
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-formulario-busqueda {
+
     display: flex;
     align-items: flex-end;
-    gap: 18px;
-}
-
-#modulo_autoridades_actualizar #formulario_buscar .campo {
-    flex: 1;
-}
-
-#modulo_autoridades_actualizar #btn_buscar {
-    padding: 12px 20px;
-    background: var(--color-botones);
-    color: var(--color-neutro);
-    font-weight: 700;
-    font-size: 0.92rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-#modulo_autoridades_actualizar #btn_buscar:hover {
-    transform: translateY(-2px);
-    filter: brightness(0.95);
-}
-
-/* ========================================================= CARD 2: FORMULARIO EDICIÓN ========================================================= */
-#modulo_autoridades_actualizar #formulario_actualizar {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-#modulo_autoridades_actualizar .fila-campos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 20px;
+
+    width: 100%;
 }
 
-#modulo_autoridades_actualizar .campo-completo {
+
+/* =========================================================
+   CAMPO DE BÚSQUEDA
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-campo-busqueda {
+
+    flex: 1;
+    min-width: 0;
+}
+
+
+.director-autoridades-actualizar-carsce-campo-busqueda
+> label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   GRUPO CÉDULA
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-grupo-cedula {
+
+    display: grid;
+
+    grid-template-columns:
+        78px
+        minmax(0, 1fr);
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   NACIONALIDAD
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-nacionalidad {
+
+    width: 100%;
+    height: 45px;
+
+    padding: 0 8px;
+
+    color: #334155;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    font-family: "Poppins";
+    font-size: 0.74rem;
+    font-weight: 500;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.director-autoridades-actualizar-carsce-nacionalidad:hover {
+
+    border-color: #94A3B8;
+}
+
+
+.director-autoridades-actualizar-carsce-nacionalidad:focus {
+
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   CÉDULA
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-cedula {
+
+    width: 100%;
+    height: 45px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    color: #334155;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 400;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.director-autoridades-actualizar-carsce-cedula:hover {
+
+    border-color: #94A3B8;
+}
+
+
+.director-autoridades-actualizar-carsce-cedula:focus {
+
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   FORMULARIO DE EDICIÓN
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-formulario-edicion {
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   FILAS
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-fila {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 20px;
+
+    width: 100%;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-campo {
+
+    width: 100%;
+}
+
+
+.director-autoridades-actualizar-carsce-campo
+> label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   CAMPO COMPLETO
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-campo-completo {
+
     grid-column: 1 / -1;
 }
 
-#modulo_autoridades_actualizar .campo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
 
-#modulo_autoridades_actualizar label {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: var(--texto);
-}
+/* =========================================================
+   INPUTS Y SELECTS
+   ========================================================= */
 
-#modulo_autoridades_actualizar input[type="text"],
-#modulo_autoridades_actualizar select {
+.director-autoridades-actualizar-carsce-input,
+.director-autoridades-actualizar-carsce-select {
+
     width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--borde);
-    border-radius: 10px;
-    background: var(--background);
-    color: var(--texto);
-    font-size: 0.95rem;
-    outline: none;
-    transition: all 0.2s ease;
+    height: 45px;
+
     box-sizing: border-box;
+
+    padding: 0 14px;
+
+    color: #334155;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 400;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-#modulo_autoridades_actualizar input[type="text"]:focus,
-#modulo_autoridades_actualizar select:focus {
-    border-color: var(--color-azulE);
-    background: var(--color-base);
-    box-shadow: 0 0 0 3px rgba(33, 28, 132, 0.12);
-}
 
-/* Grupo Cédula */
-#modulo_autoridades_actualizar .grupo-cedula {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
+/* =========================================================
+   SELECTS
+   ========================================================= */
 
-#modulo_autoridades_actualizar .grupo-cedula select {
-    width: 80px;
-    flex-shrink: 0;
-    text-align: center;
-}
+.director-autoridades-actualizar-carsce-select {
 
-#modulo_autoridades_actualizar .grupo-cedula input {
-    flex: 1;
-}
+    appearance: none;
+    -webkit-appearance: none;
 
-/* Mensajes de validación */
-#modulo_autoridades_actualizar small {
-    font-size: 0.82rem;
-    color: var(--rojo);
-    margin-top: 2px;
-    display: block;
-    min-height: 16px;
-}
-
-/* BOTÓN ACTUALIZAR */
-#modulo_autoridades_actualizar #btn_actualizar {
-    margin-top: 10px;
-    padding: 14px 24px;
-    background: var(--color-botones);
-    color: var(--color-neutro);
-    font-weight: 700;
-    font-size: 0.95rem;
-    border: none;
-    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-#modulo_autoridades_actualizar #btn_actualizar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    filter: brightness(0.95);
+
+.director-autoridades-actualizar-carsce-select:hover,
+.director-autoridades-actualizar-carsce-input:hover {
+
+    border-color: #94A3B8;
 }
 
-#modulo_autoridades_actualizar #btn_actualizar:active {
+
+.director-autoridades-actualizar-carsce-select:focus,
+.director-autoridades-actualizar-carsce-input:focus {
+
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   RESOLUCIÓN
+   ========================================================= */
+
+#resolucion_actualizar {
+
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MENSAJE DE VALIDACIÓN
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-mensaje {
+
+    display: block;
+
+    min-height: 16px;
+
+    margin-top: 5px;
+    padding-left: 2px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 0.66rem;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   BOTÓN BUSCAR
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-boton-buscar {
+
+    min-width: 190px;
+    height: 45px;
+
+    padding: 0 22px;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+
+    cursor: pointer;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 600;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.director-autoridades-actualizar-carsce-boton-buscar:hover {
+
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 8px 17px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+.director-autoridades-actualizar-carsce-boton-buscar:active {
+
     transform: translateY(0);
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18);
 }
 
-/* RESPONSIVE */
-@media (max-width: 680px) {
-    #modulo_autoridades_actualizar #formulario_buscar {
+
+.director-autoridades-actualizar-carsce-boton-buscar:focus-visible {
+
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   BOTÓN ACTUALIZAR
+   ========================================================= */
+
+.director-autoridades-actualizar-carsce-boton-actualizar {
+
+    display: block;
+
+    width: 100%;
+    height: 44px;
+
+    margin-top: 5px;
+    padding: 0 22px;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+
+    cursor: pointer;
+
+    font-family: "Poppins";
+    font-size: 0.76rem;
+    font-weight: 600;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.director-autoridades-actualizar-carsce-boton-actualizar:hover {
+
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 8px 17px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+.director-autoridades-actualizar-carsce-boton-actualizar:active {
+
+    transform: translateY(0);
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18);
+}
+
+
+.director-autoridades-actualizar-carsce-boton-actualizar:focus-visible {
+
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .director-autoridades-actualizar-carsce-contenedor {
+
+        max-width: 100%;
+    }
+
+    .director-autoridades-actualizar-carsce-titulo {
+
+        font-size: 1.4rem;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta {
+
+        padding: 23px;
+    }
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .director-autoridades-actualizar-carsce-titulo {
+
+        font-size: 1.28rem;
+    }
+
+    .director-autoridades-actualizar-carsce-descripcion {
+
+        font-size: 0.78rem;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta {
+
+        padding: 21px;
+    }
+
+    .director-autoridades-actualizar-carsce-formulario-busqueda {
+
         flex-direction: column;
         align-items: stretch;
+        gap: 18px;
     }
 
-    #modulo_autoridades_actualizar .fila-campos {
+    .director-autoridades-actualizar-carsce-boton-buscar {
+
+        width: 100%;
+    }
+
+    .director-autoridades-actualizar-carsce-fila {
+
         grid-template-columns: 1fr;
+        gap: 18px;
     }
 
-    #modulo_autoridades_actualizar .card_autoridades {
-        padding: 25px 20px;
+    .director-autoridades-actualizar-carsce-campo-completo {
+
+        grid-column: auto;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .director-autoridades-actualizar-carsce-identificacion {
+
+        font-size: 0.62rem;
+    }
+
+    .director-autoridades-actualizar-carsce-titulo {
+
+        font-size: 1.15rem;
+    }
+
+    .director-autoridades-actualizar-carsce-descripcion {
+
+        font-size: 0.74rem;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta {
+
+        padding: 18px 16px 20px;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta-cabecera {
+
+        align-items: flex-start;
+        gap: 11px;
+
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta-icono {
+
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta-titulo {
+
+        font-size: 0.88rem;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta-descripcion {
+
+        font-size: 0.68rem;
+    }
+
+    .director-autoridades-actualizar-carsce-input,
+    .director-autoridades-actualizar-carsce-select,
+    .director-autoridades-actualizar-carsce-cedula,
+    .director-autoridades-actualizar-carsce-nacionalidad {
+
+        height: 43px;
+    }
+
+    .director-autoridades-actualizar-carsce-grupo-cedula {
+
+        grid-template-columns:
+            70px
+            minmax(0, 1fr);
+    }
+
+    .director-autoridades-actualizar-carsce-boton-buscar,
+    .director-autoridades-actualizar-carsce-boton-actualizar {
+
+        height: 43px;
+        font-size: 0.71rem;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .director-autoridades-actualizar-carsce-titulo {
+
+        font-size: 1.05rem;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta {
+
+        padding: 16px 13px 18px;
+    }
+
+    .director-autoridades-actualizar-carsce-identificacion {
+
+        padding: 6px 9px;
+    }
+
+    .director-autoridades-actualizar-carsce-tarjeta-icono {
+
+        width: 39px;
+        height: 39px;
+        flex-basis: 39px;
+    }
+
+    .director-autoridades-actualizar-carsce-grupo-cedula {
+
+        grid-template-columns:
+            65px
+            minmax(0, 1fr);
     }
 }

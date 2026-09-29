@@ -2,13 +2,11 @@ from .autenticacion import *
 from .actualizar_datos_usuario import *
 from .recuperar_credenciales import *
 from .funciones_inicio_sesion import *
-from .registro_personal import *
 from .completar_registro import *
 from .inscripcion_estudiante import *
 from .pnf import *
 from .seccion import *
 from .materia import *
-from .calendario import *
 from .actualizar_datos_usuario import *
 from .asignacion_materia import *
 from .aula import *
@@ -16,3 +14,6 @@ from .foro import *
 from .panel_usuario import *
 from .autoridades import *
 from .planificacion_academica import *
+from .gestion_personal import *
+from .calendario_academico import *
+from .reportes import *

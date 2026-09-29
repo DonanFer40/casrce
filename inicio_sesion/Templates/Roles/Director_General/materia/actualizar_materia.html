@@ -1,0 +1,525 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-materias-editar-carsce">
+
+    <div class="director-materias-editar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO PRINCIPAL
+             ===================================================== -->
+
+        <div class="director-materias-editar-carsce-encabezado">
+
+            <div class="director-materias-editar-carsce-identificacion">
+                <i class="fa-solid fa-book"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-materias-editar-carsce-presentacion">
+
+                <h3 class="director-materias-editar-carsce-titulo">
+                    Materias Académicas
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-materias-editar-carsce-descripcion">
+                    Busca una materia mediante su código y actualiza la información académica registrada.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+             ===================================================== -->
+
+        <div class="director-materias-editar-carsce-tarjeta">
+
+            <!-- =================================================
+                 CABECERA DE LA TARJETA
+                 ================================================= -->
+
+            <div class="director-materias-editar-carsce-tarjeta-cabecera">
+
+                <div class="director-materias-editar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <div class="director-materias-editar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-materias-editar-carsce-tarjeta-titulo">
+                        Actualización de Materias
+                    </h4>
+
+                    <p class="director-materias-editar-carsce-tarjeta-descripcion">
+                        Localiza la materia que deseas modificar y actualiza sus datos académicos.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SECCIÓN: BUSCAR MATERIA
+                 ================================================= -->
+
+            <div class="director-materias-editar-carsce-seccion">
+
+                <div class="director-materias-editar-carsce-seccion-cabecera">
+
+                    <div class="director-materias-editar-carsce-seccion-icono">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="director-materias-editar-carsce-seccion-titulo">
+                            Buscar Materia
+                        </h5>
+
+                        <p class="director-materias-editar-carsce-seccion-descripcion">
+                            Introduce el código correspondiente a la materia.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="post"
+                    id="buscar_materia"
+                    class="director-materias-editar-carsce-formulario-busqueda"
+                >
+
+                    {% csrf_token %}
+
+                    <div class="director-materias-editar-carsce-campo-busqueda">
+
+                        <label
+                            for="codigos_buscar_materias"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Código de la Materia:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control-busqueda">
+
+                            <i class="fa-solid fa-hashtag"></i>
+
+                            <input
+                                type="text"
+                                name="codigo"
+                                id="codigos_buscar_materias"
+                                minlength="7"
+                                maxlength="7"
+                                pattern="[A-Z]{4}[0-9]{3}"
+                                title="Debe contener 4 letras mayúsculas y 3 números. Ejemplo: MATE001"
+                                placeholder="Ej. MATE001"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="director-materias-editar-carsce-boton-buscar"
+                    >
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span>Buscar Materia</span>
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 SECCIÓN: ACTUALIZAR MATERIA
+                 ================================================= -->
+
+            <div class="director-materias-editar-carsce-seccion">
+
+                <div class="director-materias-editar-carsce-seccion-cabecera">
+
+                    <div class="director-materias-editar-carsce-seccion-icono">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="director-materias-editar-carsce-seccion-titulo">
+                            Actualizar Materia
+                        </h5>
+
+                        <p class="director-materias-editar-carsce-seccion-descripcion">
+                            Modifica los datos de la materia seleccionada.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="post"
+                    id="actualizar_materia"
+                    class="director-materias-editar-carsce-formulario-actualizacion"
+                >
+
+                    {% csrf_token %}
+
+                    <input
+                        type="hidden"
+                        name="materiaseleccionado"
+                        id="materia_seleccionado"
+                    >
+
+
+                    <!-- =================================================
+                         NOMBRE
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo director-materias-editar-carsce-campo-completo">
+
+                        <label
+                            for="nombres_actualizar_materias"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Nombre de la Materia:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control">
+
+                            <i class="fa-solid fa-book-open"></i>
+
+                            <input
+                                type="text"
+                                name="nombresmaterias"
+                                id="nombres_actualizar_materias"
+                                placeholder="Nombre de la Materia"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         THEA
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo">
+
+                        <label
+                            for="THEA"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Hora Trabajo Estudio Acompañado:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control">
+
+                            <i class="fa-solid fa-users"></i>
+
+                            <input
+                                type="text"
+                                name="THEA"
+                                id="THEA"
+                                maxlength="2"
+                                placeholder="Horas THEA"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         THEI
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo">
+
+                        <label
+                            for="THEI"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Hora Trabajo Estudio Independiente:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control">
+
+                            <i class="fa-solid fa-user-clock"></i>
+
+                            <input
+                                type="text"
+                                name="THEI"
+                                id="THEI"
+                                maxlength="2"
+                                placeholder="Horas THEI"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         REPARACIÓN
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo">
+
+                        <label
+                            for="reparacion_actualizar_materia"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Reparación de Materia:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control director-materias-editar-carsce-control-select">
+
+                            <i class="fa-solid fa-rotate"></i>
+
+                            <select
+                                name="reparacionmateria"
+                                id="reparacion_actualizar_materia"
+                            >
+                                <option value="">Seleccione la Recuperación</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down director-materias-editar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PERIODO ACADÉMICO
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo">
+
+                        <label
+                            for="periodo_actualizar_materia"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Periodo Académico de la Materia:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control director-materias-editar-carsce-control-select">
+
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                            <select
+                                name="periodomateria"
+                                id="periodo_actualizar_materia"
+                                required
+                            >
+
+                                <optgroup label="Inicial">
+                                    <option value="INICIAL_TRIMESTRE">
+                                        Inicial Trimestre (P.I.U)
+                                    </option>
+
+                                    <option value="INICIAL_SEMESTRE">
+                                        Inicial Semestre (P.I.U)
+                                    </option>
+                                </optgroup>
+
+                                <optgroup label="Reparación">
+                                    <option value="REPARACION">
+                                        Reparación
+                                    </option>
+                                </optgroup>
+
+                                <optgroup label="Tramo">
+                                    <option value="TRIMESTRE">
+                                        Trimestre
+                                    </option>
+
+                                    <option value="TRAMO_I">
+                                        I Tramo
+                                    </option>
+
+                                    <option value="TRAMO_II">
+                                        II Tramo
+                                    </option>
+
+                                    <option value="TRAMO_III">
+                                        III Tramo
+                                    </option>
+
+                                    <option value="TRAMO_I_II">
+                                        I y II Tramos
+                                    </option>
+
+                                    <option value="TRAMO_II_III">
+                                        II y III Tramos
+                                    </option>
+
+                                    <option value="TRAMO_I_III">
+                                        I y III Tramos
+                                    </option>
+                                </optgroup>
+
+                                <optgroup label="Semestre">
+                                    <option value="SEMESTRE">
+                                        Semestre
+                                    </option>
+
+                                    <option value="SEMESTRE_I">
+                                        I Semestre
+                                    </option>
+
+                                    <option value="SEMESTRE_II">
+                                        II Semestre
+                                    </option>
+                                </optgroup>
+
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down director-materias-editar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PNF
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo">
+
+                        <label
+                            for="pnfs_actualizar_materia"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            P.N.F que Pertenece la Materia:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control director-materias-editar-carsce-control-select">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                            <select
+                                name="pnfmateria"
+                                id="pnfs_actualizar_materia"
+                            >
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down director-materias-editar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TIPO DE MATERIA
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo">
+
+                        <label
+                            for="tipo_actualizar_materia"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Tipo de Materia:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control director-materias-editar-carsce-control-select">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            <select
+                                name="tipo_materia"
+                                id="tipo_actualizar_materia"
+                            >
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down director-materias-editar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TRAYECTO
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-campo">
+
+                        <label
+                            for="trayecto_actualizar_materia"
+                            class="director-materias-editar-carsce-etiqueta"
+                        >
+                            Trayecto que Pertenece la Materia:
+                        </label>
+
+                        <div class="director-materias-editar-carsce-control director-materias-editar-carsce-control-select">
+
+                            <i class="fa-solid fa-road"></i>
+
+                            <select
+                                name="trayecto"
+                                id="trayecto_actualizar_materia"
+                            >
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down director-materias-editar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         BOTÓN DE ACTUALIZACIÓN
+                         ================================================= -->
+
+                    <div class="director-materias-editar-carsce-acciones">
+
+                        <button
+                            type="submit"
+                            id="btn_registrar"
+                            class="director-materias-editar-carsce-boton-actualizar"
+                        >
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Actualizar Materia</span>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Materia/actualizar_materia.js' %}"></script>
+
+{% endblock %}

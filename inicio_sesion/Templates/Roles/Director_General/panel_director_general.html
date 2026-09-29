@@ -1,0 +1,394 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<section id="directorgeneral-panel-carsce">
+
+    <!-- =====================================================
+         ENCABEZADO DEL PANEL
+         ===================================================== -->
+
+    <div class="directorgeneral-panel-carsce-encabezado">
+
+        <div class="directorgeneral-panel-carsce-identificacion">
+
+            <span class="directorgeneral-panel-carsce-sistema">
+                Sistema CARSCE
+            </span>
+
+            <span class="directorgeneral-panel-carsce-nucleo">
+                <i class="fa-solid fa-location-dot"></i>
+                Núcleo: {{ nucleo_usuario }}
+            </span>
+
+        </div>
+
+
+        <div class="directorgeneral-panel-carsce-presentacion">
+
+            <div class="directorgeneral-panel-carsce-informacion">
+
+                <h1 class="directorgeneral-panel-carsce-titulo">
+                    Panel de Control
+
+                    <span class="directorgeneral-panel-carsce-rol">
+                        {{ rol_principal }}
+                    </span>
+                </h1>
+
+                <p class="directorgeneral-panel-carsce-descripcion">
+                    Gestiona estudiantes, inscripciones, expedientes y
+                    constancias desde un solo lugar.
+                </p>
+
+            </div>
+
+
+            <div class="directorgeneral-panel-carsce-fecha-contenedor">
+
+                <div class="directorgeneral-panel-carsce-fecha">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <span>
+                        13 Julio 2026
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ESTADÍSTICAS PRINCIPALES
+         ===================================================== -->
+
+    <section class="directorgeneral-panel-carsce-estadisticas">
+
+
+        <!-- =================================================
+             TOTAL ESTUDIANTES
+             ================================================= -->
+
+        <article class="directorgeneral-panel-carsce-estadistica">
+
+            <div class="directorgeneral-panel-carsce-estadistica-icono directorgeneral-panel-carsce-icono-azul">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+            </div>
+
+
+            <div class="directorgeneral-panel-carsce-estadistica-datos">
+
+                <span class="directorgeneral-panel-carsce-estadistica-etiqueta">
+                    Total estudiantes
+                </span>
+
+                <strong class="directorgeneral-panel-carsce-estadistica-numero">
+                    {{ total_estudiantes|default:"0" }}
+                </strong>
+
+                <span class="directorgeneral-panel-carsce-estadistica-indicador directorgeneral-panel-carsce-indicador-positivo">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    Total Registrados
+
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- =================================================
+             INSCRIPCIONES
+             ================================================= -->
+
+        <article class="directorgeneral-panel-carsce-estadistica">
+
+            <div class="directorgeneral-panel-carsce-estadistica-icono directorgeneral-panel-carsce-icono-verde">
+
+                <i class="fa-solid fa-file-signature"></i>
+
+            </div>
+
+
+            <div class="directorgeneral-panel-carsce-estadistica-datos">
+
+                <span class="directorgeneral-panel-carsce-estadistica-etiqueta">
+                    Inscripciones
+                </span>
+
+                <strong class="directorgeneral-panel-carsce-estadistica-numero">
+                    {{ total_inscritos|default:"0" }}
+                </strong>
+
+                <span class="directorgeneral-panel-carsce-estadistica-indicador directorgeneral-panel-carsce-indicador-positivo">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Con Núcleo y PNF
+
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- =================================================
+             TOTAL PERSONAL
+             ================================================= -->
+
+        <article class="directorgeneral-panel-carsce-estadistica">
+
+            <div class="directorgeneral-panel-carsce-estadistica-icono directorgeneral-panel-carsce-icono-naranja">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+            </div>
+
+
+            <div class="directorgeneral-panel-carsce-estadistica-datos">
+
+                <span class="directorgeneral-panel-carsce-estadistica-etiqueta">
+                    Total Personal
+                </span>
+
+                <strong class="directorgeneral-panel-carsce-estadistica-numero">
+                    {{ total_personal|default:"0" }}
+                </strong>
+
+                <span class="directorgeneral-panel-carsce-estadistica-indicador directorgeneral-panel-carsce-indicador-neutral">
+                    Docentes y Personal
+                </span>
+
+            </div>
+
+        </article>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTENIDO INFERIOR
+         ===================================================== -->
+
+    <section class="directorgeneral-panel-carsce-contenido">
+
+
+        <!-- =================================================
+             ACTIVIDAD RECIENTE
+             ================================================= -->
+
+        <article class="directorgeneral-panel-carsce-actividad">
+
+            <div class="directorgeneral-panel-carsce-panel-titulo">
+
+                <h2>
+                    Actividad reciente
+                </h2>
+
+                <a href="#">
+                    Ver todo
+                </a>
+
+            </div>
+
+
+            <div class="directorgeneral-panel-carsce-linea-tiempo">
+
+
+                <!-- Evento 1 -->
+
+                <div class="directorgeneral-panel-carsce-evento">
+
+                    <span class="directorgeneral-panel-carsce-evento-punto directorgeneral-panel-carsce-punto-azul"></span>
+
+                    <div class="directorgeneral-panel-carsce-evento-contenido">
+
+                        <strong>
+                            Administrador
+                        </strong>
+
+                        <p>
+                            Registró un nuevo estudiante.
+                        </p>
+
+                        <small>
+                            Hace 5 minutos
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Evento 2 -->
+
+                <div class="directorgeneral-panel-carsce-evento">
+
+                    <span class="directorgeneral-panel-carsce-evento-punto directorgeneral-panel-carsce-punto-verde"></span>
+
+                    <div class="directorgeneral-panel-carsce-evento-contenido">
+
+                        <strong>
+                            Secretaría
+                        </strong>
+
+                        <p>
+                            Emitió una constancia.
+                        </p>
+
+                        <small>
+                            Hace 25 minutos
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Evento 3 -->
+
+                <div class="directorgeneral-panel-carsce-evento">
+
+                    <span class="directorgeneral-panel-carsce-evento-punto directorgeneral-panel-carsce-punto-naranja"></span>
+
+                    <div class="directorgeneral-panel-carsce-evento-contenido">
+
+                        <strong>
+                            Control de Estudios
+                        </strong>
+
+                        <p>
+                            Actualizó un expediente.
+                        </p>
+
+                        <small>
+                            Ayer
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+
+        <!-- =================================================
+             GRÁFICO DE ESTUDIANTES POR NÚCLEO
+             ================================================= -->
+
+        <article class="directorgeneral-panel-carsce-grafico">
+
+            <div class="directorgeneral-panel-carsce-panel-titulo">
+
+                <h2>
+                    Estudiantes por Núcleo
+                </h2>
+
+            </div>
+
+
+            <div class="directorgeneral-panel-carsce-resumen">
+
+
+                {% for n in estudiantes_por_nucleo %}
+
+                <div class="directorgeneral-panel-carsce-resumen-nucleo">
+
+                    <strong>
+                        {{ n.total }}
+                    </strong>
+
+                    <span>
+                        Núcleo {{ n.municipio }}
+                    </span>
+
+                </div>
+
+                {% empty %}
+
+                <div class="directorgeneral-panel-carsce-resumen-nucleo">
+
+                    <strong>
+                        0
+                    </strong>
+
+                    <span>
+                        Sin núcleos registrados
+                    </span>
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+            <div class="directorgeneral-panel-carsce-grafico-contenedor">
+
+                <!--
+                    IMPORTANTE:
+                    Este ID se conserva porque lo utiliza
+                    dashboard_director_general.js
+                -->
+
+                <canvas id="grafico_dashboard"></canvas>
+
+            </div>
+
+        </article>
+
+
+    </section>
+
+</section>
+
+
+<!-- =========================================================
+     DATOS PARA CHART.JS
+     ========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script id="datos-nucleos-json" type="application/json">
+[
+    {% for item in estudiantes_por_nucleo %}
+    {
+        "nucleo": "{{ item.municipio|escapejs }}",
+        "total": {{ item.total|default:0 }}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+]
+</script>
+
+
+<!-- =========================================================
+     ÁREA DE DEPURACIÓN
+     ========================================================= -->
+
+<pre id="debug-nucleos"></pre>
+
+
+<!-- =========================================================
+     JAVASCRIPT DEL DASHBOARD
+     ========================================================= -->
+
+<script src="{% static 'Funcionalidades/dashboard_director_general.js' %}"></script>
+
+{% endblock %}

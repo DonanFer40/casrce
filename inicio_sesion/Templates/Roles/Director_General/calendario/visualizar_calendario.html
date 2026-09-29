@@ -1,0 +1,214 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-calendario-visualizar-carsce">
+
+    <div class="director-calendario-visualizar-carsce-contenedor">
+
+        <div class="director-calendario-visualizar-carsce-encabezado">
+
+            <div class="director-calendario-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-calendario-visualizar-carsce-presentacion">
+
+                <h3 class="director-calendario-visualizar-carsce-titulo">
+                    Calendario Académico
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-calendario-visualizar-carsce-descripcion">
+                    Consulta los períodos académicos registrados y administra sus rangos de fechas.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             BÚSQUEDA DE PERÍODOS
+             ===================================================== -->
+
+        <div class="director-calendario-visualizar-carsce-filtro">
+
+            <div class="director-calendario-visualizar-carsce-filtro-cabecera">
+
+                <div class="director-calendario-visualizar-carsce-filtro-icono">
+                    <i class="fa-solid fa-filter"></i>
+                </div>
+
+                <div class="director-calendario-visualizar-carsce-filtro-informacion">
+
+                    <h4 class="director-calendario-visualizar-carsce-filtro-titulo">
+                        Períodos académicos registrados
+                    </h4>
+
+                    <p class="director-calendario-visualizar-carsce-filtro-descripcion">
+                        Selecciona un período para consultar el calendario correspondiente.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <form method="post"
+                  class="director-calendario-visualizar-carsce-filtro-formulario">
+
+                {% csrf_token %}
+
+                <label for="periodos_academicos">
+                    Período académico:
+                </label>
+
+                <div class="director-calendario-visualizar-carsce-filtro-control">
+
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                    <select
+                        name="periodos_academicos"
+                        id="periodos_academicos">
+                    </select>
+
+                    <i class="fa-solid fa-chevron-down director-calendario-visualizar-carsce-filtro-flecha"></i>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- =====================================================
+             CALENDARIO GENERADO DINÁMICAMENTE
+             ===================================================== -->
+
+        <div id="contenedor_visualizar_calendario"
+             class="director-calendario-visualizar-carsce-resultados">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DIÁLOGO DE ACTUALIZACIÓN
+     ========================================================= -->
+
+<dialog id="dialogo_fecha_academica">
+
+    <div class="director-calendario-visualizar-carsce-dialogo">
+
+        <button
+            type="button"
+            id="cerrar_dialogo"
+            class="director-calendario-visualizar-carsce-dialogo-cerrar"
+            title="Cerrar">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+        <div class="director-calendario-visualizar-carsce-dialogo-encabezado">
+
+            <div class="director-calendario-visualizar-carsce-dialogo-icono">
+                <i class="fa-solid fa-calendar-pen"></i>
+            </div>
+
+            <div>
+                <h3 class="director-calendario-visualizar-carsce-dialogo-titulo">
+                    Rango de Fecha Académica
+                </h3>
+
+                <p class="director-calendario-visualizar-carsce-dialogo-descripcion">
+                    Actualiza las fechas correspondientes al calendario seleccionado.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="director-calendario-visualizar-carsce-dialogo-formulario">
+
+            <form
+                method="post"
+                id="formulario_actualizar">
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="id_calendario"
+                    id="id_calendario">
+
+
+                <div class="director-calendario-visualizar-carsce-dialogo-campo">
+
+                    <label for="fecha_inicio">
+                        Fecha de Inicio:
+                    </label>
+
+                    <div class="director-calendario-visualizar-carsce-dialogo-control">
+
+                        <i class="fa-solid fa-calendar-day"></i>
+
+                        <input
+                            type="date"
+                            name="fecha_inicio"
+                            id="fecha_inicio"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="director-calendario-visualizar-carsce-dialogo-campo">
+
+                    <label for="fecha_finalizado">
+                        Fecha de Finalizado:
+                    </label>
+
+                    <div class="director-calendario-visualizar-carsce-dialogo-control">
+
+                        <i class="fa-solid fa-calendar-check"></i>
+
+                        <input
+                            type="date"
+                            name="fecha_finalizado"
+                            id="fecha_finalizado"
+                            readonly
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="director-calendario-visualizar-carsce-dialogo-acciones">
+
+                    <input
+                        type="submit"
+                        value="Actualizar"
+                        class="director-calendario-visualizar-carsce-dialogo-boton">
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</dialog>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/calendario/visualizar_calendario.js' %}"></script>
+
+{% endblock %}

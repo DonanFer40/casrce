@@ -2,81 +2,199 @@
 
 <header class="{% if request.session.usuario_nombre %}header-logueado{% endif %}">
     <nav id="navegacion">
-        <div class="contenedor">
-            <div class="GBV">
-                <img src="{% static 'Imagenes/MPPE.png' %}" alt="GBV">
+
+        <!-- SECCIÓN SUPERIOR: INSTITUCIONAL -->
+        <div class="contenedor-institucional">
+
+            <div class="bloque-inst GBV">
+                <img src="{% static 'Imagenes/MPPE.png' %}" alt="Gobierno Bolivariano de Venezuela">
                 <h1>Gobierno Bolivariano <br>de Venezuela</h1>
-                <p>|</p>
+                <span class="separador">|</span>
             </div>
 
-            <div class="MPPE">
+            <div class="bloque-inst MPPE">
                 <h1>Ministerio del Poder Popular<br>para la Educación Universitaria</h1>
-                <p>|</p>
+                <span class="separador">|</span>
             </div>
-            <div class="UPT">
-                <img src="{% static 'Imagenes/UPT_LOGO.png' %}" alt="UPT">
-                <h1>Universidad Politénica Territorial del<br>Estado Barinas José Félix Ribas</h1>
+
+            <div class="bloque-inst UPT">
+                <img src="{% static 'Imagenes/UPT_LOGO.png' %}" alt="UPT Barinas">
+                <h1>Universidad Politécnica Territorial del<br>Estado Barinas José Félix Ribas</h1>
             </div>
+
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
         </div>
+
+        <!-- =====================================================
+             NAVEGACIÓN PÚBLICA
+             ===================================================== -->
 
         {% if not request.session.usuario_nombre %}
-        <div class="contenedor_barra">
+
+        <div class="contenedor_barra" id="menu-contenedor">
+
+            <div class="marca-casrce">
+                <span>CASRCE</span>
+            </div>
+
             <ul class="navbar">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'foro'%}">Inicio</a>
+                    <a class="nav-link" href="{% url 'foro'%}">
+                        <i class="fa-solid fa-house"></i>
+                        Inicio
+                    </a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">Institución</a>
+                    <a class="nav-link dropdown-toggle" href="#">
+                        <i class="fa-solid fa-building-columns"></i>
+                        Institución
+                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                    </a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'Historia' %}">Nuestra Historia</a></li>
-                        <li><a class="dropdown-item" href="{% url 'mision_vision' %}">Mision y Vision</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'Historia' %}">
+                                <i class="fa-solid fa-book-open"></i>
+                                Nuestra Historia
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'mision_vision' %}">
+                                <i class="fa-solid fa-bullseye"></i>
+                                Misión y Visión
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">Formación Estudiantil</a>
+                    <a class="nav-link dropdown-toggle" href="#">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Formación Estudiantil
+                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                    </a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'pst' %}">Proyecto Socio-Tecnologico (PST)</a></li>
-                        <li><a class="dropdown-item" href="{% url 'psc' %}">Proyecto Socio-Comunitario (PSC)</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'pst' %}">
+                                <i class="fa-solid fa-microchip"></i>
+                                Proyecto Socio-Tecnológico (PST)
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'psc' %}">
+                                <i class="fa-solid fa-users"></i>
+                                Proyecto Socio-Comunitario (PSC)
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">Guia Estudiantil/Docente</a>
+                    <a class="nav-link dropdown-toggle" href="#">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        Guía Estudiantil / Docente
+                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                    </a>
+
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'trayectoria' %}">Trayectoria Academica</a></li>
-                        <li><a class="dropdown-item" href="{% url 'Planificacion_Docente'%}">Planificación Docente</a>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'trayectoria' %}">
+                                <i class="fa-solid fa-route"></i>
+                                Trayectoria Académica
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'Planificacion_Docente'%}">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                Planificación Docente
+                            </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'carreras_impartidas' %}">Carreras Impartidas</a>
+                    <a class="nav-link" href="{% url 'carreras_impartidas' %}">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                        Carreras Impartidas
+                    </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{% url 'inicio_sesion' %}" class="btn_acceder">Acceder</a>
+                <li class="nav-item nav-item-cta">
+                    <a href="{% url 'inicio_sesion' %}" class="btn_acceder">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Acceder
+                    </a>
                 </li>
 
             </ul>
+
         </div>
+
         {% endif %}
+
+
+        <!-- =====================================================
+             NAVEGACIÓN DE USUARIO LOGUEADO
+             ===================================================== -->
+
         {% if request.session.usuario_nombre %}
-        <div class="contenedor_logueado">
+
+        <div class="contenedor_logueado" id="menu-contenedor-logueado">
+
+            <div class="marca-casrce">
+                <span>CASRCE</span>
+            </div>
+
             <ul class="navbar">
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link icon-user" href="#">Perfil</a>
+
+                    <a class="nav-link dropdown-toggle" href="#">
+
+                        <i class="fa-solid fa-circle-user avatar-icon"></i>
+
+                        <span>
+                            {{ request.session.usuario_nombre }}
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+
+                    </a>
+
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Configuración</a></li>
-                        <li><a class="dropdown-item icon-logout" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa-solid fa-sliders"></i>
+                                Configuración
+                            </a>
                         </li>
+
+                        <li>
+                            <a class="dropdown-item icon-logout"
+                               href="{% url 'cerrar_sesion' %}">
+                                <i class="fa-solid fa-power-off"></i>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+
                     </ul>
+
                 </li>
+
             </ul>
+
         </div>
+
         {% endif %}
 
     </nav>

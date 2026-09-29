@@ -1,0 +1,128 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-materias-consulta-carsce">
+
+    <div class="director-materias-consulta-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <header class="director-materias-consulta-carsce-encabezado">
+
+            <div class="director-materias-consulta-carsce-identificacion">
+                <i class="fa-solid fa-book-open"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-materias-consulta-carsce-presentacion">
+
+                <h3 class="director-materias-consulta-carsce-titulo">
+                    Materias Académicas
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-materias-consulta-carsce-descripcion">
+                    Consulta las materias registradas en cada Programa Nacional
+                    de Formación y revisa su información académica.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             PANEL DE CONSULTA
+             ===================================================== -->
+
+        <section class="director-materias-consulta-carsce-panel">
+
+            <div class="director-materias-consulta-carsce-panel-cabecera">
+
+                <div class="director-materias-consulta-carsce-panel-icono">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div class="director-materias-consulta-carsce-panel-texto">
+
+                    <h4>
+                        Consultar Materias
+                    </h4>
+
+                    <p>
+                        Selecciona un Programa Nacional de Formación para
+                        visualizar las materias registradas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                method="post"
+                id="buscar_materia"
+                class="director-materias-consulta-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+                <div class="director-materias-consulta-carsce-campo">
+
+                    <label
+                        for="buscar_pnf"
+                        class="director-materias-consulta-carsce-label"
+                    >
+                        Programa Nacional de Formación
+                    </label>
+
+                    <div class="director-materias-consulta-carsce-select-contenedor">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                        <select
+                            name="buscarpnf"
+                            id="buscar_pnf"
+                        >
+                            <option value="">
+                                Seleccionar el P.N.F
+                            </option>
+                        </select>
+
+                        <i class="fa-solid fa-chevron-down director-materias-consulta-carsce-select-flecha"></i>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- =====================================================
+             RESULTADOS
+             ===================================================== -->
+
+        <section
+            id="contenedor_tablas_materia"
+            class="director-materias-consulta-carsce-resultados"
+        >
+
+            <!-- JavaScript genera aquí las tablas -->
+
+        </section>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Materia/visualizar_materia.js' %}"></script>
+
+{% endblock %}

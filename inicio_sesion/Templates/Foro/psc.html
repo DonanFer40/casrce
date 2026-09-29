@@ -1,38 +1,88 @@
 {% extends 'Estructura/base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<section id="ProyectoSocioComunitario" class="reveal">
 
-<section id="PSC" class="reveal">
-    <div class="contenedor layout-2">
-        <div class="col-1">
-            <img src="{% static 'Imagenes/Proyecto_Comunitario.jpg' %}" alt="">
+    <div class="ProyectoSocioComunitario-contenedor">
+
+        <div class="ProyectoSocioComunitario-presentacion">
+
+            <div class="ProyectoSocioComunitario-imagen-contenedor">
+                <img
+                    class="ProyectoSocioComunitario-imagen"
+                    src="{% static 'Imagenes/Proyecto_Comunitario.jpg' %}"
+                    alt="Proyecto Socio-Comunitario">
+            </div>
+
+            <div class="ProyectoSocioComunitario-informacion">
+
+                <h2 class="ProyectoSocioComunitario-titulo">
+                    Proyecto Socio-Comunitario
+                </h2>
+
+                <p class="ProyectoSocioComunitario-texto">
+                    El Servicio Comunitario es una actividad obligatoria para los estudiantes de educación superior
+                    en Venezuela, establecida por la Ley de Servicio Comunitario del Estudiante de Educación Superior
+                    (2005). Su objetivo es fomentar valores de solidaridad, responsabilidad social y participación
+                    ciudadana mediante proyectos que beneficien a las comunidades. Para cumplir con este requisito,
+                    el estudiante debe haber aprobado al menos el 50% de su carga académica y realizar un mínimo de
+                    120 horas de servicio.
+                </p>
+
+                <p class="ProyectoSocioComunitario-texto ProyectoSocioComunitario-texto-secundario">
+                    En la Universidad Politécnica Territorial del Estado Barinas “José Félix Ribas”, el servicio
+                    comunitario permite a los estudiantes aplicar sus conocimientos en proyectos orientados al
+                    desarrollo de las comunidades. Puede realizarse a partir del Trayecto 2, Tramo 1 (T2T1), siempre
+                    que se hayan aprobado las unidades curriculares del Trayecto 1 y el Programa de Iniciación
+                    Universitaria (PIU), fortaleciendo así la formación integral y el compromiso social de los
+                    futuros profesionales.
+                </p>
+
+            </div>
+
         </div>
-        <div class="contenedor-info ">
-            <h2>Proyecto Socio-Comunitario</h2>
-            <p>El Servicio Comunitario es una actividad obligatoria para los estudiantes de educación superior en Venezuela, establecida por la Ley de Servicio Comunitario del Estudiante de Educación Superior (2005). Su objetivo es fomentar valores de solidaridad, responsabilidad social y participación ciudadana mediante proyectos que beneficien a las comunidades. Para cumplir con este requisito, el estudiante debe haber aprobado al menos el 50% de su carga académica y realizar un mínimo de 120 horas de servicio.</p>
 
-            <p>En la Universidad Politécnica Territorial del Estado Barinas “José Félix Ribas”, el servicio comunitario permite a los estudiantes aplicar sus conocimientos en proyectos orientados al desarrollo de las comunidades. Puede realizarse a partir del Trayecto 2, Tramo 1 (T2T1), siempre que se hayan aprobado las unidades curriculares del Trayecto 1 y el Programa de Iniciación Universitaria (PIU), fortaleciendo así la formación integral y el compromiso social de los futuros profesionales.</p>
-        </div>
+        <div class="ProyectoSocioComunitario-evaluacion">
 
-        <div class="contenedor-info">
-            <details class="psc-details">
-                <summary>Requisitos para realizar el Proyecto Socio Comunitario</summary>
+            <details class="ProyectoSocioComunitario-detalles">
 
-                <div class="psc-details-content">
-                    <ul>
-                        <li>La Planilla de Inscripción en Digital.</li>
-                        <li>Carta de aceptación = de Institución, Consejo Comunal.</li>
-                        <li>Situacion Académica (Constancia de Notas).</li>
+                <summary class="ProyectoSocioComunitario-resumen">
+
+                    <span class="ProyectoSocioComunitario-resumen-icono">
+                        <i class="fa-solid fa-file-circle-check"></i>
+                    </span>
+
+                    <span class="ProyectoSocioComunitario-resumen-texto">
+                        Requisitos para realizar el Proyecto Socio-Comunitario
+                    </span>
+
+                    <span class="ProyectoSocioComunitario-resumen-flecha">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+
+                </summary>
+
+                <div class="ProyectoSocioComunitario-detalles-contenido">
+
+                    <ul class="ProyectoSocioComunitario-lista">
+                        <li>Planilla de Inscripción en digital</li>
+                        <li>Carta de aceptación de la institución o consejo comunal</li>
+                        <li>Situación Académica (Constancia de Notas)</li>
                         <li>Constancia de Tutor</li>
-                        <li>Copia de la Cedula</li>
-                        <li>Foto Tipo Carnet</li>
+                        <li>Copia de la Cédula</li>
+                        <li>Foto tipo carnet</li>
                     </ul>
+
                 </div>
+
             </details>
+
         </div>
+
     </div>
+
 </section>
 
 {% endblock %}

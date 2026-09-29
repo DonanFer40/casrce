@@ -1,0 +1,317 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-aulas-registrar-carsce">
+
+    <div class="director-aulas-registrar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-aulas-registrar-carsce-encabezado">
+
+            <div class="director-aulas-registrar-carsce-identificacion">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="director-aulas-registrar-carsce-presentacion">
+
+                <h3 class="director-aulas-registrar-carsce-titulo">
+                    Aulas Académicas
+                    <span>UPT "José Félix Ribas"</span>
+                </h3>
+
+                <p class="director-aulas-registrar-carsce-descripcion">
+                    Registra y configura las aulas académicas disponibles para el desarrollo de las actividades institucionales.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+             ===================================================== -->
+
+        <div class="director-aulas-registrar-carsce-tarjeta">
+
+            <div class="director-aulas-registrar-carsce-tarjeta-cabecera">
+
+                <div class="director-aulas-registrar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-door-open"></i>
+                </div>
+
+                <div class="director-aulas-registrar-carsce-tarjeta-informacion">
+
+                    <h4 class="director-aulas-registrar-carsce-tarjeta-titulo">
+                        Registrar Aulas Académicas
+                    </h4>
+
+                    <p class="director-aulas-registrar-carsce-tarjeta-descripcion">
+                        Introduce la información correspondiente al aula que deseas incorporar al sistema.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+                 ================================================= -->
+
+            <form
+                method="post"
+                id="formulario_registrar"
+                class="director-aulas-registrar-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =================================================
+                     NOMBRE DEL AULA
+                     ================================================= -->
+
+                <div class="director-aulas-registrar-carsce-fila">
+
+                    <div class="director-aulas-registrar-carsce-campo director-aulas-registrar-carsce-campo-completo">
+
+                        <label
+                            for="nombre_aula"
+                            class="director-aulas-registrar-carsce-etiqueta"
+                        >
+                            Nombre / Número del Aula:
+                        </label>
+
+                        <div class="director-aulas-registrar-carsce-control">
+
+                            <i class="fa-solid fa-door-closed"></i>
+
+                            <input
+                                type="text"
+                                name="nombre_aula"
+                                id="nombre_aula"
+                                placeholder="Máximo 20 caracteres"
+                                maxlength="20"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                        <small
+                            id="mensaje_nombre_aula"
+                            class="director-aulas-registrar-carsce-mensaje"
+                        ></small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     NOTA / OBSERVACIÓN
+                     ================================================= -->
+
+                <div class="director-aulas-registrar-carsce-fila">
+
+                    <div class="director-aulas-registrar-carsce-campo director-aulas-registrar-carsce-campo-completo">
+
+                        <label
+                            for="observacion_aula"
+                            class="director-aulas-registrar-carsce-etiqueta"
+                        >
+                            Nota / Observación:
+                        </label>
+
+                        <div class="director-aulas-registrar-carsce-control director-aulas-registrar-carsce-control-textarea">
+
+                            <i class="fa-solid fa-note-sticky"></i>
+
+                            <textarea
+                                name="observacion_aula"
+                                id="observacion_aula"
+                                placeholder="Máximo 100 caracteres"
+                                maxlength="100"
+                                autocomplete="off"
+                                required
+                            ></textarea>
+
+                        </div>
+
+                        <small
+                            id="mensaje_observacion_aula"
+                            class="director-aulas-registrar-carsce-mensaje"
+                        ></small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PISO Y TIPO DE AULA
+                     ================================================= -->
+
+                <div class="director-aulas-registrar-carsce-fila">
+
+                    <div class="director-aulas-registrar-carsce-campo">
+
+                        <label
+                            for="piso_edificio"
+                            class="director-aulas-registrar-carsce-etiqueta"
+                        >
+                            Piso del Edificio:
+                        </label>
+
+                        <div class="director-aulas-registrar-carsce-control">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            <input
+                                type="text"
+                                name="piso_edificio"
+                                id="piso_edificio"
+                                placeholder="Máximo 20 caracteres"
+                                maxlength="20"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-aulas-registrar-carsce-campo">
+
+                        <label
+                            for="tipos_aulas"
+                            class="director-aulas-registrar-carsce-etiqueta"
+                        >
+                            Tipo de Aula:
+                        </label>
+
+                        <div class="director-aulas-registrar-carsce-control">
+
+                            <i class="fa-solid fa-flask"></i>
+
+                            <select
+                                name="tipos_aulas"
+                                id="tipos_aulas"
+                            >
+                                <option value="">
+                                    Selecciona una de las opciones
+                                </option>
+
+                                <option value="ACADEMICA">
+                                    Aula Académica
+                                </option>
+
+                                <option value="PRACTICA">
+                                    Aula Práctica o Laboratorios
+                                </option>
+
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down director-aulas-registrar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PNF Y SECCIONES
+                     ================================================= -->
+
+                <div class="director-aulas-registrar-carsce-fila">
+
+                    <div class="director-aulas-registrar-carsce-campo">
+
+                        <label
+                            for="pnfs_imparte"
+                            class="director-aulas-registrar-carsce-etiqueta"
+                        >
+                            P.N.F:
+                        </label>
+
+                        <div class="director-aulas-registrar-carsce-control">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                            <select
+                                name="pnfs_imparte"
+                                id="pnfs_imparte"
+                            ></select>
+
+                            <i class="fa-solid fa-chevron-down director-aulas-registrar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-aulas-registrar-carsce-campo">
+
+                        <label
+                            for="secciones_registradas"
+                            class="director-aulas-registrar-carsce-etiqueta"
+                        >
+                            Secciones Académicas:
+                        </label>
+
+                        <div class="director-aulas-registrar-carsce-control">
+
+                            <i class="fa-solid fa-users"></i>
+
+                            <select
+                                name="secciones_registradas"
+                                id="secciones_registradas"
+                            ></select>
+
+                            <i class="fa-solid fa-chevron-down director-aulas-registrar-carsce-flecha"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCIÓN
+                     ================================================= -->
+
+                <div class="director-aulas-registrar-carsce-acciones">
+
+                    <input
+                        type="submit"
+                        id="btn_registrar"
+                        class="director-aulas-registrar-carsce-boton"
+                        value="Registrar Aula"
+                    >
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Director_General/Aula/registrar_aula.js' %}"></script>
+
+{% endblock %}

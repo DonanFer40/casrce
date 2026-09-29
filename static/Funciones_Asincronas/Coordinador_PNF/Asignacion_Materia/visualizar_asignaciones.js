@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const input_actualizar_id = document.getElementById("materia_asignada");
     const input_actualizar_nombre_materia = document.getElementById("nombre_materia");
-    const input_actualizar_nombre_seccion = document.getElementById("nombre_seccion");
 
     const input_actualizar_docente_principal_nombre = document.getElementById("docente_principal_nombre");
     const input_radius_principal_activo = document.getElementById("principal_activo");
@@ -24,11 +23,224 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const contenedor_materias = document.getElementById("contenedor_materias");
 
-    let trayecto = "", nombre = "";
+    const label_perfil = document.getElementById("label_perfil");
+    const select_perfiles_asignados = document.getElementById("perfiles_asignados");
+    const input_perfil_asignado = document.getElementById("perfil_asignado");
 
-    async function trayectos_registrados() {
+    const label_pnf = document.getElementById("label_pnf");
+    const select_pnfs_asignados = document.getElementById("pnfs_asignados");
+
+    let trayecto = "", nombre = "", pnf = "";
+
+    let perfil_seleccionado = "";
+
+    async function perfiles_asignados() {
         try {
-            const respuesta = await fetch("/tray_reg/");
+            const respuesta = await fetch("/perf_asig_coord/");
+            const resultado = await respuesta.json();
+
+            const tiene_coordinador_pnf = resultado.coordinador_pnf;
+            const tiene_control_estudio = resultado.control_estudio;
+
+            input_perfil_asignado.value = "";
+
+            select_perfiles_asignados.innerHTML = `
+            <option value="" selected>
+                Seleccione un perfil
+            </option>
+        `;
+
+            // COORDINADOR + CONTROL DE ESTUDIO
+            if (tiene_coordinador_pnf && tiene_control_estudio) {
+
+                select_perfiles_asignados.innerHTML = `
+                <option value="" selected>
+                    Seleccione un perfil
+                </option>
+
+                <option value="COORDINADOR_PNF">
+                    Coordinador de PNF
+                </option>
+
+                <option value="CONTROL_ESTUDIO">
+                    Encargado de Control de Estudio
+                </option>
+            `;
+
+                label_perfil.style.display = "";
+                select_perfiles_asignados.style.display = "";
+
+                input_perfil_asignado.style.display = "none";
+
+                label_pnf.style.display = "none";
+                select_pnfs_asignados.style.display = "none";
+                select_pnfs_asignados.innerHTML = `
+                <option value="" selected>
+                    Seleccione el P.N.F
+                </option>
+            `;
+
+                perfil_seleccionado = "";
+
+                return;
+            }
+
+            // SOLO COORDINADOR DE PNF
+            if (tiene_coordinador_pnf) {
+
+                perfil_seleccionado = "COORDINADOR_PNF";
+
+                input_perfil_asignado.value = "Coordinador de PNF";
+
+                label_perfil.style.display = "";
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                // Ocultar PNF porque el coordinador ya tiene uno asignado
+                label_pnf.style.display = "none";
+                select_pnfs_asignados.style.display = "none";
+                select_pnfs_asignados.innerHTML = "";
+
+                await obtener_pnfs_asignados(perfil_seleccionado);
+                await MateriasRegistrada(perfil_seleccionado);
+                await trayectos_registrados(perfil_seleccionado);
+
+                return;
+            }
+
+            // SOLO CONTROL DE ESTUDIO
+            if (tiene_control_estudio) {
+
+                perfil_seleccionado = "CONTROL_ESTUDIO";
+
+                input_perfil_asignado.value = "Encargado de Control de Estudio";
+
+                label_perfil.style.display = "";
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                // Control de Estudio puede seleccionar el PNF
+                label_pnf.style.display = "";
+                select_pnfs_asignados.style.display = "";
+
+                await obtener_pnfs_asignados(perfil_seleccionado);
+                await MateriasRegistrada(perfil_seleccionado);
+                await trayectos_registrados(perfil_seleccionado);
+
+                return;
+            }
+
+            // SIN PERFIL
+            perfil_seleccionado = "";
+
+            input_perfil_asignado.value = "";
+
+            label_perfil.style.display = "none";
+            select_perfiles_asignados.style.display = "none";
+            input_perfil_asignado.style.display = "none";
+
+            label_pnf.style.display = "none";
+            select_pnfs_asignados.style.display = "none";
+
+            select_pnfs_asignados.innerHTML = `
+            <option value="" selected>
+                Seleccione el P.N.F
+            </option>
+        `;
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    perfiles_asignados();
+
+    select_perfiles_asignados.addEventListener("change", async () => {
+
+        perfil_seleccionado = select_perfiles_asignados.value;
+
+        if (!perfil_seleccionado) {
+
+            label_pnf.style.display = "none";
+            select_pnfs_asignados.style.display = "none";
+
+            select_pnfs_asignados.innerHTML = `
+            <option value="" selected>
+                Seleccione el P.N.F
+            </option>
+        `;
+
+            return;
+        }
+
+        if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+
+            // Mostrar etiqueta y select del PNF
+            label_pnf.style.display = "";
+            select_pnfs_asignados.style.display = "";
+
+        } else if (perfil_seleccionado === "COORDINADOR_PNF") {
+
+            // Ocultar etiqueta y select del PNF
+            label_pnf.style.display = "none";
+            select_pnfs_asignados.style.display = "none";
+
+            select_pnfs_asignados.innerHTML = "";
+        }
+
+        await obtener_pnfs_asignados(perfil_seleccionado);
+        await MateriasRegistrada(perfil_seleccionado);
+        await trayectos_registrados(perfil_seleccionado);
+    });
+
+    async function obtener_pnfs_asignados(perfil_seleccionado) {
+        try {
+            const formulario = new FormData();
+            formulario.append("perfil", perfil_seleccionado);
+
+            const respuesta = await fetch("/obt_pnfs_coord/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado)
+
+            select_pnfs_asignados.innerHTML = '<option value="">Selecciona un P.N.F.</option>';
+
+            resultado.pnfs.forEach(pnf => {
+                const opcion = document.createElement("option");
+                opcion.value = pnf.id_pnf;
+                opcion.textContent = pnf.pnf;
+                select_pnfs_asignados.appendChild(opcion);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    select_pnfs_asignados.addEventListener("change", async () => {
+        pnf = select_pnfs_asignados.value;
+
+        await MateriasRegistrada();
+
+        await trayectos_registrados(perfil_seleccionado);
+    });
+
+    async function trayectos_registrados(perfil_seleccionado) {
+        try {
+            const formulario = new FormData();
+            formulario.append("pnf_asignado", pnf);
+            formulario.append("perfil", perfil_seleccionado);
+
+            const respuesta = await fetch("/tray_mat_asg/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                },
+                body: formulario
+            });
             const resultado = await respuesta.json();
             console.log(resultado);
 
@@ -44,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error(error);
         }
     }
-    trayectos_registrados();
+    trayectos_registrados(perfil_seleccionado);
 
     input_materia.addEventListener("input", async () => {
         nombre = input_materia.value;
@@ -61,8 +273,10 @@ document.addEventListener("DOMContentLoaded", function () {
     async function MateriasRegistrada() {
         try {
             const formulario = new FormData();
+            formulario.append("pnf_asignado", pnf);
             formulario.append("trayecto", trayecto);
             formulario.append("materia", nombre);
+            formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/mat_asig/", {
                 method: "POST",
@@ -78,11 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (resultado.estado !== "exito") {
                 contenedor_materias.innerHTML = `<p>${resultado.descripcion || "No se pudieron cargar las materias."}</p>`;
-                return;
-            }
-
-            if (!Array.isArray(resultado.materias) || resultado.materias.length === 0) {
-                contenedor_materias.innerHTML = "<p>No hay materias registradas.</p>";
                 return;
             }
 
@@ -159,7 +368,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     MateriasRegistrada();
 
-
     document.addEventListener("click", async (e) => {
         const fila = e.target.closest(".tabla-materias tbody tr");
         if (!fila) return;
@@ -204,14 +412,11 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (docente_principal) {
-                input_actualizar_docente_principal_nombre.value =
-                    docente_principal.nombre_completo;
+                input_actualizar_docente_principal_nombre.value = docente_principal.nombre_completo;
 
-                input_radius_principal_activo.checked =
-                    docente_principal.activo;
+                input_radius_principal_activo.checked = docente_principal.activo;
 
-                input_radius_principal_inactivo.checked =
-                    !docente_principal.activo;
+                input_radius_principal_inactivo.checked = !docente_principal.activo;
             } else {
                 input_actualizar_docente_principal_nombre.value = "No asignado";
                 input_radius_principal_activo.checked = false;
@@ -219,14 +424,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (docente_secundario) {
-                input_actualizar_docente_secundario_nombre.value =
-                    docente_secundario.nombre_completo;
+                input_actualizar_docente_secundario_nombre.value = docente_secundario.nombre_completo;
 
-                input_radius_secundario_activo.checked =
-                    docente_secundario.activo;
+                input_radius_secundario_activo.checked = docente_secundario.activo;
 
-                input_radius_secundario_inactivo.checked =
-                    !docente_secundario.activo;
+                input_radius_secundario_inactivo.checked = !docente_secundario.activo;
 
                 input_radius_secundario_activo.disabled = false;
                 input_radius_secundario_inactivo.disabled = false;
@@ -319,13 +521,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // PRINCIPAL ACTIVO
     input_radius_principal_activo.addEventListener("change", () => {
+
         if (!input_radius_principal_activo.checked) {
+            // No permitir que ambos queden falsos
+            input_radius_principal_inactivo.checked = true;
             return;
         }
 
-        const existe_secundario = input_actualizar_docente_secundario_nombre.value.trim() !== "" &&
+        const existe_secundario =
+            input_actualizar_docente_secundario_nombre.value.trim() !== "" &&
             input_actualizar_docente_secundario_nombre.value.trim() !== "No asignado";
 
+        // No existe secundario
         if (!existe_secundario) {
             input_radius_principal_activo.checked = true;
             input_radius_principal_inactivo.checked = false;
@@ -334,33 +541,89 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        input_radius_secundario_activo.checked = false; // Principal activo
-        input_radius_secundario_inactivo.checked = true; // Secundario inactivo
+        // Principal activo → secundario inactivo
+        input_radius_principal_inactivo.checked = false;
+
+        input_radius_secundario_activo.checked = false;
+        input_radius_secundario_inactivo.checked = true;
     });
 
     // PRINCIPAL INACTIVO
     input_radius_principal_inactivo.addEventListener("change", () => {
+
         if (!input_radius_principal_inactivo.checked) {
+            // No permitir ambos falsos
+            input_radius_principal_activo.checked = true;
             return;
         }
 
-        const existe_secundario = input_actualizar_docente_secundario_nombre.value.trim() !== "" &&
+        const existe_secundario =
+            input_actualizar_docente_secundario_nombre.value.trim() !== "" &&
             input_actualizar_docente_secundario_nombre.value.trim() !== "No asignado";
 
         if (!existe_secundario) {
-            input_radius_principal_activo.checked = true; // No existe suplente.
-            input_radius_principal_inactivo.checked = false; // El principal debe permanecer activo.
+            // Sin secundario, el principal obligatoriamente debe estar activo
+            input_radius_principal_activo.checked = true;
+            input_radius_principal_inactivo.checked = false;
             return;
         }
 
-        input_radius_secundario_activo.checked = true; // Principal inactivo
-        input_radius_secundario_inactivo.checked = false; // Secundario activo
+        // Principal inactivo → secundario activo
+        input_radius_principal_activo.checked = false;
+
+        input_radius_secundario_activo.checked = true;
+        input_radius_secundario_inactivo.checked = false;
     });
+
+    // SECUNDARIO ACTIVO
+    input_radius_secundario_activo.addEventListener("change", () => {
+        if (!input_radius_secundario_activo.checked) {
+            return;
+        }
+
+        const existe_principal =
+            input_actualizar_docente_principal_nombre.value.trim() !== "" &&
+            input_actualizar_docente_principal_nombre.value.trim() !== "No asignado";
+
+        if (!existe_principal) {
+            input_radius_secundario_activo.checked = false;
+            input_radius_secundario_inactivo.checked = true;
+            return;
+        }
+
+        // Si el secundario queda activo,
+        // el principal debe quedar inactivo.
+        input_radius_principal_activo.checked = false;
+        input_radius_principal_inactivo.checked = true;
+    });
+
+    // SECUNDARIO INACTIVO
+    input_radius_secundario_inactivo.addEventListener("change", () => {
+        if (!input_radius_secundario_inactivo.checked) {
+            return;
+        }
+
+        const existe_principal =
+            input_actualizar_docente_principal_nombre.value.trim() !== "" &&
+            input_actualizar_docente_principal_nombre.value.trim() !== "No asignado";
+
+        if (!existe_principal) {
+            return;
+        }
+
+        // Si el secundario queda inactivo,
+        // el principal debe quedar activo.
+        input_radius_secundario_activo.checked = false;
+        input_radius_principal_activo.checked = true;
+        input_radius_principal_inactivo.checked = false;
+    });
+
 
     formulario_actualizar.addEventListener("submit", async function (e) {
         e.preventDefault();
         try {
             const formulario = new FormData(formulario_actualizar);
+            formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/act_asig/", {
                 method: "POST",

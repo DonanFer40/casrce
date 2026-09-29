@@ -1,0 +1,548 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="director-personal-actualizar-carsce">
+
+    <div class="director-personal-actualizar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-personal-actualizar-carsce-encabezado">
+
+            <div class="director-personal-actualizar-carsce-identificacion">
+
+                <span class="director-personal-actualizar-carsce-etiqueta">
+                    Gestión de Personal
+                </span>
+
+                <span class="director-personal-actualizar-carsce-seccion">
+                    <i class="fa-solid fa-user-pen"></i>
+                    Actualización de perfiles
+                </span>
+
+            </div>
+
+
+            <div class="director-personal-actualizar-carsce-presentacion">
+
+                <h1 class="director-personal-actualizar-carsce-titulo">
+                    Actualizar Perfil(es) del Personal
+                </h1>
+
+                <p class="director-personal-actualizar-carsce-descripcion">
+                    Busque un usuario para consultar, habilitar, deshabilitar
+                    o agregar perfiles dentro del sistema CARSCE.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             BÚSQUEDA DEL PERSONAL
+             ===================================================== -->
+
+        <div class="director-personal-actualizar-carsce-busqueda">
+
+            <div class="director-personal-actualizar-carsce-busqueda-cabecera">
+
+                <div class="director-personal-actualizar-carsce-busqueda-icono">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div class="director-personal-actualizar-carsce-busqueda-titulo">
+
+                    <h2>
+                        Buscar personal
+                    </h2>
+
+                    <span>
+                        Ingrese la cédula de identidad del usuario
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <form
+                method="post"
+                id="formulario_busqueda"
+                class="director-personal-actualizar-carsce-formulario-busqueda"
+            >
+
+                {% csrf_token %}
+
+
+                <div class="director-personal-actualizar-carsce-campo-cedula">
+
+                    <label for="cedula_identidad">
+                        Cédula de Identidad:
+                    </label>
+
+                    <div class="director-personal-actualizar-carsce-grupo-cedula">
+
+                        <select
+                            name="nacionalidad_registrar"
+                            id="nacionalidad"
+                            required
+                        >
+
+                            <option value="">
+                                N
+                            </option>
+
+                            <option value="V">
+                                V
+                            </option>
+
+                            <option value="E">
+                                E
+                            </option>
+
+                        </select>
+
+
+                        <input
+                            type="text"
+                            name="cedula_registrar"
+                            id="cedula_identidad"
+                            autocomplete="off"
+                            required
+                            placeholder="Ingrese la cédula"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="director-personal-actualizar-carsce-boton-buscar"
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <span>
+                        Buscar Usuario
+                    </span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- =====================================================
+             INFORMACIÓN Y PERFILES
+             ===================================================== -->
+
+        <div class="director-personal-actualizar-carsce-perfiles">
+
+            <input
+                type="hidden"
+                name="ci_usuario_visualizar"
+                id="ci_usuario_visualizar"
+            >
+
+
+            <!-- =================================================
+                 CABECERA DEL USUARIO
+                 ================================================= -->
+
+            <div class="director-personal-actualizar-carsce-perfiles-cabecera">
+
+                <div class="director-personal-actualizar-carsce-identidad-usuario">
+
+                    <div class="director-personal-actualizar-carsce-identidad-icono">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div class="director-personal-actualizar-carsce-identidad-datos">
+
+                        <span>
+                            Usuario seleccionado
+                        </span>
+
+                        <strong>
+                            Información del personal
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="director-personal-actualizar-carsce-acciones">
+
+                    <button
+                        type="button"
+                        id="btn_limpiar_controles"
+                        class="director-personal-actualizar-carsce-boton-secundario"
+                    >
+
+                        <i class="fa-solid fa-rotate-left"></i>
+
+                        <span>
+                            Limpiar
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btn_agregar_perfil"
+                        class="director-personal-actualizar-carsce-boton-principal"
+                        disabled
+                    >
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        <span>
+                            Agregar Perfil
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 DATOS DEL USUARIO
+                 ================================================= -->
+
+            <div class="director-personal-actualizar-carsce-datos-usuario">
+
+                <div class="director-personal-actualizar-carsce-dato">
+
+                    <label for="nombres_usuario">
+                        Nombres
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nombres_usuario"
+                        id="nombres_usuario"
+                        readonly
+                    >
+
+                </div>
+
+
+                <div class="director-personal-actualizar-carsce-dato">
+
+                    <label for="apellidos_usuario">
+                        Apellidos
+                    </label>
+
+                    <input
+                        type="text"
+                        name="apellidos_usuario"
+                        id="apellidos_usuario"
+                        readonly
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TABLA DE PERFILES
+                 ================================================= -->
+
+            <div class="director-personal-actualizar-carsce-tabla-contenedor">
+
+                <div class="director-personal-actualizar-carsce-tabla-cabecera">
+
+                    <div class="director-personal-actualizar-carsce-tabla-titulo">
+
+                        <div class="director-personal-actualizar-carsce-tabla-icono">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Perfiles asignados
+                            </h2>
+
+                            <span>
+                                Roles registrados para el usuario seleccionado
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="director-personal-actualizar-carsce-tabla-scroll">
+
+                    <table class="director-personal-actualizar-carsce-tabla">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>PERFIL</th>
+                                <th>P.N.F</th>
+                                <th>Núcleo</th>
+                                <th>ESTADO</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="contenedor_perfiles"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DIÁLOGO - ACTUALIZAR PERFIL
+     ========================================================= -->
+
+<dialog id="dialogo_actualizar">
+
+    <div class="director-personal-actualizar-carsce-dialogo">
+
+        <button
+            type="button"
+            id="cerrar_dialogo_actualizar"
+            class="director-personal-actualizar-carsce-dialogo-cerrar"
+            title="Cerrar"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+
+        <div class="director-personal-actualizar-carsce-dialogo-cabecera">
+
+            <div class="director-personal-actualizar-carsce-dialogo-icono">
+                <i class="fa-solid fa-user-gear"></i>
+            </div>
+
+            <div>
+
+                <h2>
+                    Perfil Asignado
+                </h2>
+
+                <span>
+                    Actualice la configuración del perfil seleccionado.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="post"
+            id="formulario_actualizar"
+            class="director-personal-actualizar-carsce-dialogo-formulario"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="rol"
+                id="rol_seleccionado"
+            >
+
+            <input
+                type="hidden"
+                name="id_perfil"
+                id="perfil_seleccionado"
+            >
+
+            <input
+                type="hidden"
+                name="estado_perfil"
+                id="estado_perfil_seleccionado"
+            >
+
+
+            <div class="director-personal-actualizar-carsce-dialogo-pnf">
+
+                <label for="contenedor_pnfs">
+                    P.N.F
+                </label>
+
+                <div id="contenedor_pnfs"></div>
+
+            </div>
+
+
+            <div class="director-personal-actualizar-carsce-estado">
+
+                <span class="director-personal-actualizar-carsce-estado-titulo">
+                    Estado del perfil
+                </span>
+
+
+                <label
+                    for="habilitar_perfil"
+                    class="director-personal-actualizar-carsce-radio-opcion"
+                >
+
+                    <input
+                        type="radio"
+                        name="estado_perfil"
+                        value="true"
+                        id="habilitar_perfil"
+                    >
+
+                    <span>
+                        Habilitar Perfil
+                    </span>
+
+                </label>
+
+
+                <label
+                    for="deshabilitar_perfil"
+                    class="director-personal-actualizar-carsce-radio-opcion"
+                >
+
+                    <input
+                        type="radio"
+                        name="estado_perfil"
+                        value="false"
+                        id="deshabilitar_perfil"
+                    >
+
+                    <span>
+                        Deshabilitar Perfil
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <div class="director-personal-actualizar-carsce-dialogo-acciones">
+
+                <input
+                    type="submit"
+                    value="Actualizar"
+                    class="director-personal-actualizar-carsce-boton-dialogo"
+                >
+
+            </div>
+
+        </form>
+
+    </div>
+
+</dialog>
+
+
+<!-- =========================================================
+     DIÁLOGO - REGISTRAR PERFIL
+     ========================================================= -->
+
+<dialog id="dialogo_registrar">
+
+    <div class="director-personal-actualizar-carsce-dialogo">
+
+        <button
+            type="button"
+            id="cerrar_dialogo_registrar"
+            class="director-personal-actualizar-carsce-dialogo-cerrar"
+            title="Cerrar"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+
+        <div class="director-personal-actualizar-carsce-dialogo-cabecera">
+
+            <div class="director-personal-actualizar-carsce-dialogo-icono">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+
+            <div>
+
+                <h2>
+                    Registrar Perfiles
+                </h2>
+
+                <span>
+                    Asigne nuevos perfiles al personal seleccionado.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="post"
+            id="formulario_registrar"
+            class="director-personal-actualizar-carsce-dialogo-formulario"
+        >
+
+            {% csrf_token %}
+
+
+            <div class="director-personal-actualizar-carsce-nuevos-perfiles">
+
+                <div id="contenedor_nuevo_perfiles"></div>
+
+            </div>
+
+
+            <div class="director-personal-actualizar-carsce-dialogo-acciones">
+
+                <input
+                    type="submit"
+                    value="Registrar"
+                    class="director-personal-actualizar-carsce-boton-dialogo director-personal-actualizar-carsce-boton-dialogo-verde"
+                >
+
+            </div>
+
+        </form>
+
+    </div>
+
+</dialog>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script
+    src="{% static 'Funciones_Asincronas/Director_General/gestion_personal/actualizar_personal_registrado.js' %}">
+</script>
+
+<script
+    src="{% static 'Funcionalidades/cedula_identidad.js' %}">
+</script>
+
+{% endblock %}

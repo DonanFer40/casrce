@@ -1,0 +1,88 @@
+<section id="ReporteInscripcionesCASRCE">
+
+<div class="ReporteInscripcionesCASRCE-cabecera">
+
+    <div class="ReporteInscripcionesCASRCE-icono">
+        <i class="fa-solid fa-clipboard-list"></i>
+    </div>
+
+    <div class="ReporteInscripcionesCASRCE-informacion">
+
+        <span class="ReporteInscripcionesCASRCE-categoria">
+            REPORTE DE INSCRIPCIONES
+        </span>
+
+        <h2>
+            Reporte de Inscripciones
+        </h2>
+
+        <p>
+            Consulta información consolidada sobre las
+            inscripciones académicas registradas en CARSCE,
+            incluyendo núcleo, PNF, sección, aula y estado.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="ReporteInscripcionesCASRCE-detalles">
+
+    <div class="ReporteInscripcionesCASRCE-detalle">
+
+        <i class="fa-solid fa-user-graduate"></i>
+
+        <div>
+            <span>Información</span>
+            <strong>Estudiantes inscritos</strong>
+        </div>
+
+    </div>
+
+
+    <div class="ReporteInscripcionesCASRCE-detalle">
+
+        <i class="fa-solid fa-building-columns"></i>
+
+        <div>
+            <span>Organización</span>
+            <strong>Núcleo, PNF y sección</strong>
+        </div>
+
+    </div>
+
+
+    <div class="ReporteInscripcionesCASRCE-detalle">
+
+        <i class="fa-solid fa-file-pdf"></i>
+
+        <div>
+            <span>Formato</span>
+            <strong>Documento PDF</strong>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="ReporteInscripcionesCASRCE-acciones">
+
+    <a
+        href="{% url 'reporte_inscripciones_pdf' %}"
+        class="ReporteInscripcionesCASRCE-boton-pdf"
+        target="_blank"
+    >
+
+        <i class="fa-solid fa-file-pdf"></i>
+
+        <span>
+            Generar reporte PDF
+        </span>
+
+    </a>
+
+</div>
+
+</section>

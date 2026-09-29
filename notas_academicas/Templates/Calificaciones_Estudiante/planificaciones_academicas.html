@@ -1,0 +1,618 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* =========================================================
+   MÓDULO PLANIFICACIÓN ACADÉMICA DEL ESTUDIANTE
+   ========================================================= */
+
+    #modulo_planificacion_estudiante {
+        width: 100%;
+        padding: 25px;
+        box-sizing: border-box;
+        font-family: Calibri, Arial, sans-serif;
+    }
+
+    .contenedor_planificacion_estudiante {
+        width: 100%;
+        max-width: 1450px;
+        margin: 0 auto;
+        padding: 25px;
+        box-sizing: border-box;
+
+        background: #ffffff;
+        border: 1px solid #d9e2e8;
+        border-radius: 12px;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    }
+
+
+    /* =========================================================
+   TÍTULO PRINCIPAL
+   ========================================================= */
+
+    .contenedor_planificacion_estudiante>h2 {
+        margin: 0 0 25px;
+        padding-bottom: 15px;
+
+        color: #102f4e;
+        font-size: 28px;
+        font-weight: 700;
+
+        border-bottom: 2px solid #00779e;
+    }
+
+
+    /* =========================================================
+   CONTENEDOR DE BÚSQUEDA
+   ========================================================= */
+
+    .conetendor_busqueda {
+        width: 100%;
+        margin-bottom: 25px;
+        padding: 22px;
+
+        box-sizing: border-box;
+
+        background: #f8fbfc;
+        border: 1px solid #d9e4e9;
+        border-radius: 10px;
+    }
+
+
+    /* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+    .conetendor_busqueda form {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 6px;
+    }
+
+
+    /* =========================================================
+   LABELS
+   ========================================================= */
+
+    .conetendor_busqueda label {
+        display: block;
+
+        margin-top: 10px;
+
+        color: #102f4e;
+
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .conetendor_busqueda label:first-of-type {
+        margin-top: 0;
+    }
+
+
+    /* =========================================================
+   SELECTS
+   ========================================================= */
+
+    .conetendor_busqueda select {
+        width: 100%;
+        height: 44px;
+
+        padding: 0 40px 0 13px;
+
+        box-sizing: border-box;
+
+        color: #263943;
+        background-color: #ffffff;
+
+        border: 1px solid #b9cbd5;
+        border-radius: 7px;
+
+        font-family: Calibri, Arial, sans-serif;
+        font-size: 15px;
+
+        outline: none;
+        cursor: pointer;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+    }
+
+    .conetendor_busqueda select:hover {
+        border-color: #00779e;
+    }
+
+    .conetendor_busqueda select:focus {
+        border-color: #00779e;
+
+        box-shadow:
+            0 0 0 3px rgba(0, 119, 158, 0.12);
+    }
+
+    .conetendor_busqueda select:disabled {
+        color: #7b8a92;
+        background-color: #edf2f5;
+        border-color: #d4dde2;
+
+        cursor: not-allowed;
+    }
+
+    .conetendor_busqueda select option {
+        color: #263943;
+        background-color: #ffffff;
+    }
+
+
+    /* =========================================================
+   CONTENEDOR PRINCIPAL DE LOS DATOS
+   ========================================================= */
+
+    .contenedor_actividades {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #contenedor_datos_academicos {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 24px;
+    }
+
+
+    /* =========================================================
+   BLOQUE DE CADA PLANIFICACIÓN
+   ========================================================= */
+
+    .bloque_planificacion_academica {
+        width: 100%;
+
+        background: #ffffff;
+
+        border: 1px solid #d5e0e6;
+        border-radius: 10px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.05);
+    }
+
+
+    /* =========================================================
+   ENCABEZADO DE LA PLANIFICACIÓN
+   ========================================================= */
+
+    .encabezado_planificacion {
+        width: 100%;
+    }
+
+
+    /* =========================================================
+   TÍTULO DE LA PLANIFICACIÓN
+   ========================================================= */
+
+    .titulo_planificacion {
+        width: 100%;
+
+        min-height: 65px;
+
+        padding: 14px 20px;
+
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        background: #102f4e;
+
+        border-bottom: 3px solid #00779e;
+    }
+
+
+    /* Título */
+
+    .titulo_planificacion h3 {
+        margin: 0;
+
+        color: #ffffff;
+
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+
+    /* ID */
+
+    .titulo_planificacion>span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 6px 11px;
+
+        color: #ffffff;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 5px;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+   DATOS DE LA PLANIFICACIÓN
+   ========================================================= */
+
+    .datos_planificacion {
+        width: 100%;
+
+        padding: 18px 20px;
+
+        box-sizing: border-box;
+
+        display: grid;
+
+        grid-template-columns:
+            minmax(180px, 1.5fr) minmax(130px, 0.8fr) minmax(150px, 1fr) minmax(180px, 1fr);
+
+        gap: 14px;
+
+        background: #f8fbfc;
+
+        border-bottom: 1px solid #dce5ea;
+    }
+
+
+    /* =========================================================
+   DATO INDIVIDUAL
+   ========================================================= */
+
+    .dato_planificacion {
+        min-width: 0;
+
+        padding: 12px 14px;
+
+        box-sizing: border-box;
+
+        background: #ffffff;
+
+        border: 1px solid #dce5ea;
+        border-radius: 7px;
+    }
+
+
+    /* Etiqueta */
+
+    .dato_planificacion span {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #6b7b83;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+
+    /* Valor */
+
+    .dato_planificacion strong {
+        display: block;
+
+        color: #102f4e;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        line-height: 1.35;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    /* =========================================================
+   CONTENEDOR DE TABLA
+   ========================================================= */
+
+    .contenedor_tabla_planificacion {
+        width: 100%;
+
+        overflow-x: auto;
+
+        scrollbar-width: thin;
+    }
+
+
+    /* =========================================================
+   TABLA
+   ========================================================= */
+
+    .tabla_planificacion_academica {
+        width: 100%;
+
+        min-width: 850px;
+
+        border-collapse: collapse;
+
+        background: #ffffff;
+    }
+
+
+    /* =========================================================
+   ENCABEZADO TABLA
+   ========================================================= */
+
+    .tabla_planificacion_academica thead {
+        background: #00445f;
+    }
+
+    .tabla_planificacion_academica th {
+        padding: 13px 14px;
+
+        color: #ffffff;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        text-align: left;
+
+        white-space: nowrap;
+
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .tabla_planificacion_academica th:last-child {
+        border-right: none;
+    }
+
+
+    /* =========================================================
+   CELDAS
+   ========================================================= */
+
+    .tabla_planificacion_academica td {
+        padding: 13px 14px;
+
+        color: #344750;
+
+        font-size: 14px;
+
+        line-height: 1.45;
+
+        vertical-align: top;
+
+        border-bottom: 1px solid #e1e8ec;
+        border-right: 1px solid #e8eef1;
+    }
+
+    .tabla_planificacion_academica td:last-child {
+        border-right: none;
+    }
+
+
+    /* =========================================================
+   FILAS
+   ========================================================= */
+
+    .tabla_planificacion_academica tbody tr {
+        transition: background-color 0.15s ease;
+    }
+
+    .tabla_planificacion_academica tbody tr:hover {
+        background-color: #f5f9fb;
+    }
+
+    .tabla_planificacion_academica tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+    /* =========================================================
+   ANCHO DE COLUMNAS
+   ========================================================= */
+
+    .tabla_planificacion_academica th:nth-child(1),
+    .tabla_planificacion_academica td:nth-child(1) {
+        width: 18%;
+    }
+
+    .tabla_planificacion_academica th:nth-child(2),
+    .tabla_planificacion_academica td:nth-child(2) {
+        width: 11%;
+
+        text-align: center;
+    }
+
+    .tabla_planificacion_academica th:nth-child(3),
+    .tabla_planificacion_academica td:nth-child(3) {
+        width: 31%;
+    }
+
+    .tabla_planificacion_academica th:nth-child(4),
+    .tabla_planificacion_academica td:nth-child(4) {
+        width: 25%;
+    }
+
+    .tabla_planificacion_academica th:nth-child(5),
+    .tabla_planificacion_academica td:nth-child(5) {
+        width: 15%;
+    }
+
+
+    /* =========================================================
+   MENSAJE DENTRO DE TABLA
+   ========================================================= */
+
+    .tabla_planificacion_academica .mensaje_tabla {
+        padding: 28px 20px;
+
+        color: #6d7d85;
+
+        background: #fafcfd;
+
+        text-align: center;
+
+        font-style: italic;
+    }
+
+
+    /* =========================================================
+   MENSAJE SIN PLANIFICACIONES
+   ========================================================= */
+
+    .mensaje_sin_planificaciones {
+        width: 100%;
+
+        min-height: 120px;
+
+        padding: 30px 20px;
+
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: #687980;
+
+        background: #f8fbfc;
+
+        border: 1px solid #d7e1e7;
+        border-radius: 10px;
+
+        font-size: 16px;
+
+        text-align: center;
+    }
+
+
+    /* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+    @media (max-width: 1100px) {
+
+        .datos_planificacion {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+
+    @media (max-width: 800px) {
+
+        #modulo_planificacion_estudiante {
+            padding: 15px;
+        }
+
+        .contenedor_planificacion_estudiante {
+            padding: 18px;
+        }
+
+        .titulo_planificacion {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .datos_planificacion {
+            grid-template-columns: 1fr;
+        }
+
+        .tabla_planificacion_academica {
+            min-width: 850px;
+        }
+    }
+
+
+    @media (max-width: 600px) {
+
+        #modulo_planificacion_estudiante {
+            padding: 10px;
+        }
+
+        .contenedor_planificacion_estudiante {
+            padding: 14px;
+
+            border-radius: 8px;
+        }
+
+        .contenedor_planificacion_estudiante>h2 {
+            font-size: 23px;
+        }
+
+        .conetendor_busqueda {
+            padding: 16px;
+        }
+
+        .conetendor_busqueda select {
+            height: 42px;
+        }
+
+        .titulo_planificacion {
+            padding: 14px 15px;
+        }
+
+        .titulo_planificacion h3 {
+            font-size: 18px;
+        }
+
+        .datos_planificacion {
+            padding: 14px;
+        }
+    }
+</style>
+
+<section id="modulo_planificacion_estudiante">
+    <div class="contenedor_planificacion_estudiante">
+        <h2>Planificaciones Académicas</h2>
+
+        <div class="conetendor_busqueda">
+            <form method="post">
+                {% csrf_token %}
+                <label for="nucleo_presentar">Núcleo:</label>
+                <select name="nucleo_presentar" id="nucleo_presentar"></select>
+
+                <label for="pnfs_cursar">P.N.F:</label>
+                <select name="pnfs_cursar" id="pnfs_cursar"></select>
+
+                <label for="trayecto_academico">Trayectos Académicos</label>
+                <select name="trayecto_academico" id="trayecto_academico"></select>
+
+                <label for="materias_presentadas">Materias Presentadas</label>
+                <select name="materias_presentadas" id="materias_presentadas"></select>
+
+                <label for="periodo_academico">Periodo Académico</label>
+                <select name="periodo_academico" id="periodo_academico"></select>
+            </form>
+        </div>
+
+        <div class="contenedor_actividades">
+            <id id="contenedor_datos_academicos"></id>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Estudiantes/planificacion_academica.js' %}"></script>
+
+{% endblock %}

@@ -2,110 +2,137 @@
 
 {% if request.session.usuario_nombre and request.session.registro_completado %}
 
-<aside id="navegacion_lateral_carsce">
+<aside id="barra-lateral-carsce">
 
     <!-- =====================================================
-         IDENTIDAD DEL SISTEMA
+         CONTEXTO DE LA SESIÓN
     ====================================================== -->
 
-    <div class="navegacion-lateral-carsce-contexto">
+    <div
+        id="barra-lateral-contexto-carsce"
+        class="barra-lateral-carsce-contexto"
+    >
 
-        <div class="navegacion-lateral-carsce-contexto-icono">
+        <div class="barra-lateral-carsce-contexto-icono">
             <i class="fa-solid fa-user-shield"></i>
         </div>
 
-        <div class="navegacion-lateral-carsce-contexto-datos">
-            <span class="navegacion-lateral-carsce-contexto-etiqueta">
+        <div class="barra-lateral-carsce-contexto-datos">
+
+            <span class="barra-lateral-carsce-contexto-etiqueta">
                 SESIÓN ACTIVA
             </span>
 
-            <!-- <strong class="navegacion-lateral-carsce-contexto-rol">
-                Director General
-            </strong> -->
-
-            <span class="navegacion-lateral-carsce-contexto-descripcion">
+            <span class="barra-lateral-carsce-contexto-descripcion">
                 Administración del sistema
             </span>
+
         </div>
 
     </div>
 
-    <div class="navegacion-lateral-carsce-separador"></div>
+
+    <!-- =====================================================
+         SEPARADOR
+    ====================================================== -->
+
+    <div
+        class="barra-lateral-carsce-separador"
+        aria-hidden="true"
+    ></div>
 
 
     <!-- =====================================================
          NAVEGACIÓN PRINCIPAL
     ====================================================== -->
 
-    <nav class="navegacion-lateral-carsce-contenido">
+    <nav
+        id="barra-lateral-navegacion-carsce"
+        class="barra-lateral-carsce-navegacion"
+        aria-label="Navegación principal"
+    >
 
 
         <!-- =================================================
-             INICIO
+             PRINCIPAL
         ================================================== -->
 
-        <div class="navegacion-lateral-carsce-bloque-inicio">
+        <section
+            id="barra-lateral-principal-carsce"
+            class="barra-lateral-carsce-bloque-principal"
+        >
 
-            <span class="navegacion-lateral-carsce-etiqueta">
+            <span class="barra-lateral-carsce-etiqueta-seccion">
                 Principal
             </span>
 
             <a
                 href="{% url 'panel_usuario' %}"
-                class="navegacion-lateral-carsce-enlace-inicio"
+                class="barra-lateral-carsce-enlace-principal"
             >
 
-                <span class="navegacion-lateral-carsce-icono-inicio">
+                <span class="barra-lateral-carsce-enlace-icono">
                     <i class="fa-solid fa-house"></i>
                 </span>
 
-                <span class="navegacion-lateral-carsce-texto-enlace">
+                <span class="barra-lateral-carsce-enlace-texto">
                     Panel principal
                 </span>
 
-                <i class="fa-solid fa-angle-right navegacion-lateral-carsce-indicador"></i>
+                <i
+                    class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
+                    aria-hidden="true"
+                ></i>
 
             </a>
 
-        </div>
+        </section>
 
 
         <!-- =================================================
-             DIRECTOR GENERAL
+             ADMINISTRACIÓN — DIRECTOR GENERAL
         ================================================== -->
 
         {% if "Director General" in request.session.rol %}
 
-        <div class="navegacion-lateral-carsce-seccion">
+        <section
+            id="barra-lateral-administracion-carsce"
+            class="barra-lateral-carsce-seccion"
+        >
 
-            <span class="navegacion-lateral-carsce-etiqueta">
+            <span class="barra-lateral-carsce-etiqueta-seccion">
                 Administración
             </span>
 
 
-            <!-- Gestión de Personal -->
+            <!-- =============================================
+                 GESTIÓN DE PERSONAL
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-users"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Gestión de Personal
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'pre_reg_personal' %}">
                         <i class="fa-solid fa-user-plus"></i>
@@ -127,29 +154,34 @@
             </details>
 
 
-            <!-- PNF -->
+            <!-- =============================================
+                 PROGRAMAS P.N.F.
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Programas P.N.F
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_pnf' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -171,29 +203,34 @@
             </details>
 
 
-            <!-- Calendario -->
+            <!-- =============================================
+                 CALENDARIO ACADÉMICO
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-calendar-days"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Calendario Académico
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_calendario' %}">
                         <i class="fa-solid fa-calendar-plus"></i>
@@ -210,29 +247,34 @@
             </details>
 
 
-            <!-- Autoridad -->
+            <!-- =============================================
+                 AUTORIDADES
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-user-tie"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Autoridades
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_auts' %}">
                         <i class="fa-solid fa-user-plus"></i>
@@ -254,29 +296,34 @@
             </details>
 
 
-            <!-- Aulas -->
+            <!-- =============================================
+                 AULAS ACADÉMICAS
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-school"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Aulas Académicas
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_aula' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -293,29 +340,34 @@
             </details>
 
 
-            <!-- Secciones -->
+            <!-- =============================================
+                 SECCIONES ACADÉMICAS
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-layer-group"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Secciones Académicas
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_sec' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -331,7 +383,67 @@
 
             </details>
 
-        </div>
+        </section>
+
+
+        <!-- =================================================
+             GESTIÓN DE NOTICIAS
+        ================================================== -->
+
+        <section
+            id="barra-lateral-noticias-carsce"
+            class="barra-lateral-carsce-bloque-principal"
+        >
+
+            <span class="barra-lateral-carsce-etiqueta-seccion">
+                Gestión Noticias
+            </span>
+
+            <a
+                href="{% url 'visualizar_noticias' %}"
+                class="barra-lateral-carsce-enlace-principal"
+            >
+
+                <span class="barra-lateral-carsce-enlace-icono">
+                    <i class="fa-solid fa-newspaper"></i>
+                </span>
+
+                <span class="barra-lateral-carsce-enlace-texto">
+                    Noticias
+                </span>
+
+                <i
+                    class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
+                    aria-hidden="true"
+                ></i>
+
+            </a>
+
+            <span class="barra-lateral-carsce-etiqueta-seccion">
+                Bitacora de Acciones
+            </span>
+
+            <a
+                href="#"
+                class="barra-lateral-carsce-enlace-principal"
+            >
+
+                <span class="barra-lateral-carsce-enlace-icono">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </span>
+
+                <span class="barra-lateral-carsce-enlace-texto">
+                    Bitacora
+                </span>
+
+                <i
+                    class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
+                    aria-hidden="true"
+                ></i>
+
+            </a>
+
+        </section>
 
         {% endif %}
 
@@ -340,38 +452,45 @@
              GESTIÓN ACADÉMICA
         ================================================== -->
 
-        <div class="navegacion-lateral-carsce-seccion">
+        {% if "Control de Estudio" in request.session.rol or "Director General" in request.session.rol %}
 
-            <span class="navegacion-lateral-carsce-etiqueta">
+        <section
+            id="barra-lateral-gestion-academica-carsce"
+            class="barra-lateral-carsce-seccion"
+        >
+
+            <span class="barra-lateral-carsce-etiqueta-seccion">
                 Gestión académica
             </span>
 
+            <!-- =============================================
+                 MATERIAS
+            ============================================== -->
 
-            <!-- Materias -->
+            <details class="barra-lateral-carsce-acordeon">
 
-            {% if "Control de Estudio" in request.session.rol or "Director General" in request.session.rol %}
+                <summary class="barra-lateral-carsce-cabecera">
 
-            <details class="navegacion-lateral-carsce-acordeon">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
-
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
-
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-book"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Materias
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_mat' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -395,31 +514,36 @@
             {% endif %}
 
 
-            <!-- Planificación -->
+            <!-- =============================================
+                 PLANIFICACIÓN ACADÉMICA
+            ============================================== -->
 
             {% if "Control de Estudio" in request.session.rol or "Docente" in request.session.rol %}
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-calendar-check"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Planificación Académica
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_pl_act' %}">
                         <i class="fa-solid fa-calendar-plus"></i>
@@ -436,29 +560,34 @@
             </details>
 
 
-            <!-- Revertir notas -->
+            <!-- =============================================
+                 HISTORIAL DE NOTAS
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-clock-rotate-left"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Historial de Notas
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'rem_not_acad' %}">
                         <i class="fa-solid fa-arrow-rotate-left"></i>
@@ -472,31 +601,36 @@
             {% endif %}
 
 
-            <!-- Asignaciones -->
+            <!-- =============================================
+                 ASIGNACIÓN DE MATERIAS
+            ============================================== -->
 
             {% if "Control de Estudio" in request.session.rol or "Coordinador PNF" in request.session.rol %}
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-link"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Asignación de Materias
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'asig_mat_doc' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -518,29 +652,34 @@
             </details>
 
 
-            <!-- Inscripción -->
+            <!-- =============================================
+                 INSCRIPCIÓN
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-user-plus"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Inscripción
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'inscr_est' %}">
                         <i class="fa-solid fa-user-graduate"></i>
@@ -552,29 +691,34 @@
             </details>
 
 
-            <!-- Evaluación -->
+            <!-- =============================================
+                 EVALUACIÓN DE PLANIFICACIONES
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-clipboard-check"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Evaluar Planificaciones
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'vis_pl_env' %}">
                         <i class="fa-solid fa-check-double"></i>
@@ -587,70 +731,89 @@
 
             {% endif %}
 
-        </div>
+        </section>
 
-        <div class="navegacion-lateral-carsce-bloque-inicio">
 
-            <span class="navegacion-lateral-carsce-etiqueta">
+        <!-- =================================================
+             DOCUMENTOS
+        ================================================== -->
+
+        <section
+            id="barra-lateral-documentos-carsce"
+            class="barra-lateral-carsce-bloque-principal"
+        >
+
+            <span class="barra-lateral-carsce-etiqueta-seccion">
                 Documentos
             </span>
 
             <a
                 href="{% url 'reportes_control_estudio' %}"
-                class="navegacion-lateral-carsce-enlace-inicio"
+                class="barra-lateral-carsce-enlace-principal"
             >
 
-                <span class="navegacion-lateral-carsce-icono-inicio">
+                <span class="barra-lateral-carsce-enlace-icono">
                     <i class="fa-solid fa-chart-column"></i>
                 </span>
 
-                <span class="navegacion-lateral-carsce-texto-enlace">
+                <span class="barra-lateral-carsce-enlace-texto">
                     Reportes
                 </span>
 
-                <i class="fa-solid fa-angle-right navegacion-lateral-carsce-indicador"></i>
+                <i
+                    class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
+                    aria-hidden="true"
+                ></i>
 
             </a>
 
-        </div>
+        </section>
 
 
         <!-- =================================================
-             DOCENTE
+             DOCENCIA
         ================================================== -->
 
         {% if "Docente" in request.session.rol %}
 
-        <div class="navegacion-lateral-carsce-seccion">
+        <section
+            id="barra-lateral-docencia-carsce"
+            class="barra-lateral-carsce-seccion"
+        >
 
-            <span class="navegacion-lateral-carsce-etiqueta">
+            <span class="barra-lateral-carsce-etiqueta-seccion">
                 Docencia
             </span>
 
 
-            <!-- Notas -->
+            <!-- =============================================
+                 NOTAS ACADÉMICAS
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Notas Académicas
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_nota_acad' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -672,29 +835,34 @@
             </details>
 
 
-            <!-- Evaluaciones -->
+            <!-- =============================================
+                 EVALUACIONES DE REPARACIÓN
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-file-circle-check"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Evaluaciones de Reparación
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_eval_rep' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -716,29 +884,34 @@
             </details>
 
 
-            <!-- Reparación -->
+            <!-- =============================================
+                 REPARACIÓN
+            ============================================== -->
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <details class="barra-lateral-carsce-acordeon">
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-arrows-rotate"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Reparación
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'reg_rep_not' %}">
                         <i class="fa-solid fa-plus"></i>
@@ -759,45 +932,55 @@
 
             </details>
 
-        </div>
+        </section>
 
         {% endif %}
 
 
         <!-- =================================================
-             ESTUDIANTE
+             ESPACIO ACADÉMICO DEL ESTUDIANTE
         ================================================== -->
 
         {% if "Estudiante" in request.session.rol %}
 
-        <div class="navegacion-lateral-carsce-seccion">
+        <section
+            id="barra-lateral-estudiante-carsce"
+            class="barra-lateral-carsce-seccion"
+        >
 
-            <span class="navegacion-lateral-carsce-etiqueta">
+            <span class="barra-lateral-carsce-etiqueta-seccion">
                 Mi espacio académico
             </span>
 
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <!-- =============================================
+                 INFORMACIÓN ACADÉMICA
+            ============================================== -->
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+            <details class="barra-lateral-carsce-acordeon">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
+
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Información Académica
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'info_acad_est' %}">
                         <i class="fa-solid fa-id-card"></i>
@@ -809,27 +992,34 @@
             </details>
 
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <!-- =============================================
+                 PLANIFICACIÓN ACADÉMICA
+            ============================================== -->
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+            <details class="barra-lateral-carsce-acordeon">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
+
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-calendar-days"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Planificación Académica
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'planif_est_reg' %}">
                         <i class="fa-solid fa-calendar-check"></i>
@@ -841,27 +1031,34 @@
             </details>
 
 
-            <details class="navegacion-lateral-carsce-acordeon">
+            <!-- =============================================
+                 MIS MATERIAS
+            ============================================== -->
 
-                <summary class="navegacion-lateral-carsce-cabecera">
+            <details class="barra-lateral-carsce-acordeon">
 
-                    <span class="navegacion-lateral-carsce-cabecera-izquierda">
+                <summary class="barra-lateral-carsce-cabecera">
 
-                        <span class="navegacion-lateral-carsce-icono-modulo">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
+
+                        <span class="barra-lateral-carsce-modulo-icono">
                             <i class="fa-solid fa-book-open"></i>
                         </span>
 
-                        <span class="navegacion-lateral-carsce-nombre-modulo">
+                        <span class="barra-lateral-carsce-modulo-nombre">
                             Mis Materias
                         </span>
 
                     </span>
 
-                    <i class="fa-solid fa-chevron-down navegacion-lateral-carsce-chevron"></i>
+                    <i
+                        class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                        aria-hidden="true"
+                    ></i>
 
                 </summary>
 
-                <div class="navegacion-lateral-carsce-submenu">
+                <div class="barra-lateral-carsce-submenu">
 
                     <a href="{% url 'mat_vis_est' %}">
                         <i class="fa-solid fa-book"></i>
@@ -872,7 +1069,7 @@
 
             </details>
 
-        </div>
+        </section>
 
         {% endif %}
 

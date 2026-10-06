@@ -535,7 +535,7 @@ def calif_est_reg(request):
         })
 
 def info_acad_est(request):
-    return render(request, "Calificaciones_Estudiante/info_academica_estudiante.html")
+    return render(request, "Roles/Estudiante/Calificaciones_Estudiante/info_academica_estudiante.html")
 
 # Materias a presentar o presentado
 
@@ -722,7 +722,7 @@ def mat_present_est(request):
     })
     
 def mat_vis_est(request):
-    return render(request, "Calificaciones_Estudiante/materias_presentar.html")
+    return render(request, "Roles/Estudiante/Calificaciones_Estudiante/materias_presentar.html")
 
 # Planificación Académicas presentadas o a presentar
 
@@ -1157,4 +1157,4 @@ def planif_est_vis(request):
         })
 
 def planif_est_reg(request):
-    return render(request, "Calificaciones_Estudiante/planificaciones_academicas.html")
+    return render(request, "Roles/Estudiante/Calificaciones_Estudiante/planificaciones_academicas.html")

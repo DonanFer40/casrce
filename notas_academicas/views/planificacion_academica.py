@@ -750,7 +750,7 @@ def fech_reg_mat(request):
 @transaction.atomic
 def reg_pl_act(request):
     if request.method != "POST":
-        return render(request, "Planificacion_Academica/registrar_planificacion.html")
+        return render(request, "Roles/Control_Estudio/Planificacion_Academica/registrar_planificacion.html")
     
     nucleo_asignado = request.POST.get("nucleo_asignado")
     pnf_asignado = request.POST.get("pnfs_asignado")
@@ -1263,7 +1263,7 @@ def reg_pl_act(request):
 # Visualizar Plan de Actividades
 
 def vis_plan_est(request):
-    return render(request, "Planificacion_Academica/visualizar_plan_academico.html")
+    return render(request, "Roles/Control_Estudio/Planificacion_Academica/visualizar_plan_academico.html")
 
 def todos_pnfs_asig_doc(request):
     cedula = request.session.get("cedula_usuario")

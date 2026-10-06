@@ -1,0 +1,114 @@
+<section id="reporte-estudiantes-carsce">
+
+    <div class="reporte-estudiantes-carsce-cabecera">
+
+        <div class="reporte-estudiantes-carsce-icono">
+            <i class="fa-solid fa-users"></i>
+        </div>
+
+        <div class="reporte-estudiantes-carsce-informacion">
+
+            <span class="reporte-estudiantes-carsce-categoria">
+                REPORTE ESTUDIANTIL
+            </span>
+
+            <h2 class="reporte-estudiantes-carsce-titulo">
+                Reporte General de Estudiantes
+            </h2>
+
+            <p class="reporte-estudiantes-carsce-descripcion">
+                Consulte la información general de los estudiantes
+                registrados en el sistema CARSCE.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="reporte-estudiantes-carsce-detalles">
+
+        <div class="reporte-estudiantes-carsce-detalle">
+
+            <div class="reporte-estudiantes-carsce-detalle-icono">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+
+            <div class="reporte-estudiantes-carsce-detalle-informacion">
+
+                <span>
+                    Información
+                </span>
+
+                <strong>
+                    Estudiantes registrados
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="reporte-estudiantes-carsce-detalle">
+
+            <div class="reporte-estudiantes-carsce-detalle-icono">
+                <i class="fa-solid fa-building-columns"></i>
+            </div>
+
+            <div class="reporte-estudiantes-carsce-detalle-informacion">
+
+                <span>
+                    Organización
+                </span>
+
+                <strong>
+                    Núcleo y PNF
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="reporte-estudiantes-carsce-detalle">
+
+            <div class="reporte-estudiantes-carsce-detalle-icono">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
+
+            <div class="reporte-estudiantes-carsce-detalle-informacion">
+
+                <span>
+                    Formato
+                </span>
+
+                <strong>
+                    Documento PDF
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="reporte-estudiantes-carsce-acciones">
+
+        <a
+            href="{% url 'reporte_estudiantes_pdf' %}"
+            class="reporte-estudiantes-carsce-boton-pdf"
+            target="_blank"
+        >
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            <span>
+                Generar reporte PDF
+            </span>
+
+        </a>
+
+    </div>
+
+</section>

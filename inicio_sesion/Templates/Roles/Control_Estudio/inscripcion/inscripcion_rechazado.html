@@ -1,0 +1,847 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="inscripciones-rechazadas-carsce">
+
+    <div class="inscripciones-rechazadas-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+        <header class="inscripciones-rechazadas-carsce-encabezado">
+
+            <div class="inscripciones-rechazadas-carsce-identificacion">
+                <i class="fa-solid fa-user-clock"></i>
+                GESTIÓN ACADÉMICA
+            </div>
+
+            <div class="inscripciones-rechazadas-carsce-presentacion">
+                <h1 class="inscripciones-rechazadas-carsce-titulo">
+                    Inscripciones Rechazadas
+                    <span>CARSCE</span>
+                </h1>
+
+                <p class="inscripciones-rechazadas-carsce-descripcion">
+                    Consulta y revisión de las inscripciones que no fueron aprobadas,
+                    organizadas por núcleo y programa nacional de formación.
+                </p>
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+        <div class="inscripciones-rechazadas-carsce-tarjeta">
+
+            <div class="inscripciones-rechazadas-carsce-tarjeta-cabecera">
+
+                <div class="inscripciones-rechazadas-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-user-xmark"></i>
+                </div>
+
+                <div class="inscripciones-rechazadas-carsce-tarjeta-informacion">
+                    <h2 class="inscripciones-rechazadas-carsce-tarjeta-titulo">
+                        Registro de Inscripciones Rechazadas
+                    </h2>
+
+                    <p class="inscripciones-rechazadas-carsce-tarjeta-descripcion">
+                        Seleccione los criterios académicos para consultar los
+                        registros correspondientes.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FILTROS DE BÚSQUEDA
+            ================================================== -->
+            <div class="inscripciones-rechazadas-carsce-bloque">
+
+                <div class="inscripciones-rechazadas-carsce-bloque-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-bloque-icono">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-bloque-informacion">
+
+                        <h3 class="inscripciones-rechazadas-carsce-bloque-titulo">
+                            Filtros de Consulta
+                        </h3>
+
+                        <p class="inscripciones-rechazadas-carsce-bloque-descripcion">
+                            Seleccione el núcleo y el P.N.F para visualizar las
+                            inscripciones rechazadas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form method="post"
+                      id="inscripciones-rechazadas-carsce-formulario">
+
+                    {% csrf_token %}
+
+                    <div class="inscripciones-rechazadas-carsce-grid-2">
+
+                        <!-- Núcleo -->
+                        <div class="inscripciones-rechazadas-carsce-campo">
+
+                            <label
+                                for="nucleos_asignados"
+                                class="inscripciones-rechazadas-carsce-etiqueta">
+                                Núcleo Asignado
+                            </label>
+
+                            <div class="inscripciones-rechazadas-carsce-control">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <select
+                                    name="nucleos_asignados"
+                                    id="nucleos_asignados">
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down inscripciones-rechazadas-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PNF -->
+                        <div class="inscripciones-rechazadas-carsce-campo">
+
+                            <label
+                                for="pnfs_asignados"
+                                class="inscripciones-rechazadas-carsce-etiqueta">
+                                P.N.F Asignado
+                            </label>
+
+                            <div class="inscripciones-rechazadas-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select
+                                    name="pnfs_asignados"
+                                    id="pnfs_asignados">
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down inscripciones-rechazadas-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULTADOS
+            ================================================== -->
+            <div class="inscripciones-rechazadas-carsce-resultados">
+
+                <div class="inscripciones-rechazadas-carsce-resultados-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-resultados-icono">
+                        <i class="fa-solid fa-list"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="inscripciones-rechazadas-carsce-resultados-titulo">
+                            Inscripciones Encontradas
+                        </h3>
+
+                        <p class="inscripciones-rechazadas-carsce-resultados-descripcion">
+                            Seleccione un registro para consultar los datos completos
+                            del estudiante.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-tabla-contenedor">
+
+                    <table class="inscripciones-rechazadas-carsce-tabla">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>C.I.</th>
+                                <th>Acción</th>
+                                <th>Estado</th>
+                                <th>Detalle</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="contenedor_inscripciones_rechazadas">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DIÁLOGO - DATOS DEL ESTUDIANTE
+========================================================== -->
+<dialog id="datos_estudiantes">
+
+    <div class="inscripciones-rechazadas-carsce-dialogo">
+
+        <!-- Cabecera -->
+        <header class="inscripciones-rechazadas-carsce-dialogo-cabecera">
+
+            <div class="inscripciones-rechazadas-carsce-dialogo-identificacion">
+
+                <div class="inscripciones-rechazadas-carsce-dialogo-icono">
+                    <i class="fa-solid fa-address-card"></i>
+                </div>
+
+                <div>
+                    <h2 class="inscripciones-rechazadas-carsce-dialogo-titulo">
+                        Datos del Estudiante
+                    </h2>
+
+                    <p class="inscripciones-rechazadas-carsce-dialogo-descripcion">
+                        Información correspondiente al expediente de inscripción.
+                    </p>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                id="cerrar_dialogo"
+                class="inscripciones-rechazadas-carsce-dialogo-cerrar"
+                aria-label="Cerrar">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </header>
+
+
+        <!-- Contenido -->
+        <form method="post"
+              class="inscripciones-rechazadas-carsce-dialogo-formulario">
+
+
+            <!-- =================================================
+                 DATOS BÁSICOS
+            ================================================== -->
+            <section
+                id="contenedor_datos_basicos"
+                class="inscripciones-rechazadas-carsce-seccion-dialogo">
+
+                <div class="inscripciones-rechazadas-carsce-seccion-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-seccion-icono">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div>
+                        <h3>Datos Básicos</h3>
+                        <p>Información personal del estudiante.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-dialogo-grid">
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="nombres_estudiante">Nombres</label>
+                        <input
+                            type="text"
+                            name="nombreEstudiante"
+                            id="nombres_estudiante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="apellidos_estudiante">Apellidos</label>
+                        <input
+                            type="text"
+                            name="apellidosEstudiante"
+                            id="apellidos_estudiante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="ci_estudiante">Cédula de Identidad</label>
+                        <input
+                            type="text"
+                            name="ciEstudiante"
+                            id="ci_estudiante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="genero_estudiante">Género</label>
+                        <input
+                            type="text"
+                            name="generoEstudiante"
+                            id="genero_estudiante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="estado_civil_estudiante">Estado Civil</label>
+                        <input
+                            type="text"
+                            name="estado_civilEstudiante"
+                            id="estado_civil_estudiante"
+                            readonly>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DATOS DE CONTACTO
+            ================================================== -->
+            <section
+                id="contacto_estudiante"
+                class="inscripciones-rechazadas-carsce-seccion-dialogo">
+
+                <div class="inscripciones-rechazadas-carsce-seccion-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-seccion-icono">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <div>
+                        <h3>Datos de Contacto</h3>
+                        <p>Medios de comunicación registrados.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-dialogo-grid">
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="telefono_principal">
+                            Teléfono Principal
+                        </label>
+                        <input
+                            type="text"
+                            name="telefonoprincipal"
+                            id="telefono_principal"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="telefono_secundario">
+                            Teléfono Secundario
+                        </label>
+                        <input
+                            type="text"
+                            name="telefonosecundario"
+                            id="telefono_secundario"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="correo_principal">
+                            Correo Electrónico Principal
+                        </label>
+                        <input
+                            type="text"
+                            name="correoprincipal"
+                            id="correo_principal"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="correo_secundario">
+                            Correo Electrónico Secundario
+                        </label>
+                        <input
+                            type="text"
+                            name="correosecundario"
+                            id="correo_secundario"
+                            readonly>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DATOS DEL REPRESENTANTE
+            ================================================== -->
+            <section
+                id="contenedor_representante"
+                class="inscripciones-rechazadas-carsce-seccion-dialogo">
+
+                <div class="inscripciones-rechazadas-carsce-seccion-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-seccion-icono">
+                        <i class="fa-solid fa-people-roof"></i>
+                    </div>
+
+                    <div>
+                        <h3>Datos del Representante</h3>
+                        <p>Información del representante registrado.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-dialogo-grid">
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="nombres_representante">
+                            Nombres del Representante
+                        </label>
+                        <input
+                            type="text"
+                            name="nombresrepresentante"
+                            id="nombres_representante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="apellidos_representante">
+                            Apellidos del Representante
+                        </label>
+                        <input
+                            type="text"
+                            name="apellidosrepresentante"
+                            id="apellidos_representante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="ci_representante">
+                            Cédula de Identidad
+                        </label>
+                        <input
+                            type="text"
+                            name="cirepresentante"
+                            id="ci_representante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="telefono_representante">
+                            Teléfono
+                        </label>
+                        <input
+                            type="text"
+                            name="telefonorepresentante"
+                            id="telefono_representante"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="parentesco_representante">
+                            Parentesco
+                        </label>
+                        <input
+                            type="text"
+                            name="parentescorepresentante"
+                            id="parentesco_representante"
+                            readonly>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DATOS DE NACIMIENTO
+            ================================================== -->
+            <section
+                id="contenedor_nacimiento"
+                class="inscripciones-rechazadas-carsce-seccion-dialogo">
+
+                <div class="inscripciones-rechazadas-carsce-seccion-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-seccion-icono">
+                        <i class="fa-solid fa-cake-candles"></i>
+                    </div>
+
+                    <div>
+                        <h3>Datos de Nacimiento</h3>
+                        <p>Información relacionada con el lugar y fecha de nacimiento.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-dialogo-grid">
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="pais_nacimiento">
+                            País de nacimiento
+                        </label>
+                        <input
+                            type="text"
+                            name="paisnacimiento"
+                            id="pais_nacimiento"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="estado_nacimiento">
+                            Estado de nacimiento
+                        </label>
+                        <input
+                            type="text"
+                            name="estadonacimiento"
+                            id="estado_nacimiento"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="municipio_nacimiento">
+                            Municipio de nacimiento
+                        </label>
+                        <input
+                            type="text"
+                            name="municipionacimiento"
+                            id="municipio_nacimiento"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="parroquia_nacimiento">
+                            Parroquia de nacimiento
+                        </label>
+                        <input
+                            type="text"
+                            name="parroquianacimiento"
+                            id="parroquia_nacimiento"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo campo-completo">
+                        <label for="direccion_nacimiento">
+                            Dirección de nacimiento
+                        </label>
+                        <input
+                            type="text"
+                            name="direccionnacimiento"
+                            id="direccion_nacimiento"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="fecha_nacimiento">
+                            Fecha de nacimiento
+                        </label>
+                        <input
+                            type="text"
+                            name="fechanacimiento"
+                            id="fecha_nacimiento"
+                            readonly>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DATOS DE RESIDENCIA
+            ================================================== -->
+            <section
+                id="contenedor_residencia"
+                class="inscripciones-rechazadas-carsce-seccion-dialogo">
+
+                <div class="inscripciones-rechazadas-carsce-seccion-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-seccion-icono">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+
+                    <div>
+                        <h3>Datos de Residencia</h3>
+                        <p>Información correspondiente al domicilio registrado.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-dialogo-grid">
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="condicion_residencia">
+                            Condición de Residencia
+                        </label>
+                        <input
+                            type="text"
+                            name="condicionresidencia"
+                            id="condicion_residencia"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="municipio_residencia">
+                            Municipio de Residencia
+                        </label>
+                        <input
+                            type="text"
+                            name="municipioresidencia"
+                            id="municipio_residencia"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="parroquia_residencia">
+                            Parroquia de Residencia
+                        </label>
+                        <input
+                            type="text"
+                            name="parroquiaresidencia"
+                            id="parroquia_residencia"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo campo-completo">
+                        <label for="direccion_residencia">
+                            Dirección de Residencia
+                        </label>
+                        <input
+                            type="text"
+                            name="direccionresidencia"
+                            id="direccion_residencia"
+                            readonly>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DATOS DE DISCAPACIDAD
+            ================================================== -->
+            <section
+                id="contenedor_discapacidad"
+                class="inscripciones-rechazadas-carsce-seccion-dialogo">
+
+                <div class="inscripciones-rechazadas-carsce-seccion-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-seccion-icono">
+                        <i class="fa-solid fa-wheelchair"></i>
+                    </div>
+
+                    <div>
+                        <h3>Datos de Discapacidad</h3>
+                        <p>Información registrada relacionada con la discapacidad.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-dialogo-grid">
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="codigo_carnet">
+                            Código de Carnet de Discapacidad
+                        </label>
+                        <input
+                            type="text"
+                            name="codigocarnet"
+                            id="codigo_carnet"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="nro_registro">
+                            Nro. de Registro Médico
+                        </label>
+                        <input
+                            type="text"
+                            name="nroregistro"
+                            id="nro_registro"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="tipos_discapacidad">
+                            Tipos de Discapacidad
+                        </label>
+                        <input
+                            type="text"
+                            name="tiposdiscapacidad"
+                            id="tipos_discapacidad"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo">
+                        <label for="grados_discapacidad">
+                            Grados de Discapacidad
+                        </label>
+                        <input
+                            type="text"
+                            name="gradosdiscapacidad"
+                            id="grados_discapacidad"
+                            readonly>
+                    </div>
+
+                    <div class="inscripciones-rechazadas-carsce-dialogo-campo campo-completo">
+                        <label for="causa_discapacidad">
+                            Causa de Discapacidad
+                        </label>
+                        <input
+                            type="text"
+                            name="causasdiscapacidad"
+                            id="causa_discapacidad"
+                            readonly>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DOCUMENTOS DEL ESTUDIANTE
+            ================================================== -->
+            <section
+                class="inscripciones-rechazadas-carsce-seccion-dialogo inscripciones-rechazadas-carsce-documentos">
+
+                <div class="inscripciones-rechazadas-carsce-seccion-cabecera">
+
+                    <div class="inscripciones-rechazadas-carsce-seccion-icono">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+
+                    <div>
+                        <h3>Documentos del Estudiante</h3>
+                        <p>Documentación presentada durante el proceso de inscripción.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="inscripciones-rechazadas-carsce-documentos-grid">
+
+                    <div id="contenedor_ci_estudiante"
+                         class="inscripciones-rechazadas-carsce-documento">
+                        <div class="inscripciones-rechazadas-carsce-documento-icono">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+
+                        <div>
+                            <h4>Cédula de Identidad</h4>
+                            <p>Documento de identificación.</p>
+                        </div>
+                    </div>
+
+
+                    <div id="contenedor_titulo_bachiller_estudiante"
+                         class="inscripciones-rechazadas-carsce-documento">
+                        <div class="inscripciones-rechazadas-carsce-documento-icono">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <div>
+                            <h4>Título de Bachiller</h4>
+                            <p>Documento académico.</p>
+                        </div>
+                    </div>
+
+
+                    <div id="contenedor_sabana_nota_estudiante"
+                         class="inscripciones-rechazadas-carsce-documento">
+                        <div class="inscripciones-rechazadas-carsce-documento-icono">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+
+                        <div>
+                            <h4>Sábana de Notas</h4>
+                            <p>Registro académico presentado.</p>
+                        </div>
+                    </div>
+
+
+                    <div id="contenedor_opsu_estudiante"
+                         class="inscripciones-rechazadas-carsce-documento">
+                        <div class="inscripciones-rechazadas-carsce-documento-icono">
+                            <i class="fa-solid fa-file-circle-check"></i>
+                        </div>
+
+                        <div>
+                            <h4>Certificado SNI OPSU</h4>
+                            <p>Certificación correspondiente.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </form>
+
+
+        <!-- =================================================
+             NAVEGACIÓN
+        ================================================== -->
+        <footer class="inscripciones-rechazadas-carsce-dialogo-navegacion">
+
+            <button
+                type="button"
+                id="retroceder"
+                class="inscripciones-rechazadas-carsce-boton inscripciones-rechazadas-carsce-boton-secundario">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Retroceder
+
+            </button>
+
+            <button
+                type="button"
+                id="avanzar"
+                class="inscripciones-rechazadas-carsce-boton inscripciones-rechazadas-carsce-boton-principal">
+
+                Avanzar
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </footer>
+
+    </div>
+
+</dialog>
+
+
+<script src="{% static 'Funciones_Asincronas/Coordinador_PNF/Inscripcion/inscripciones_rechazada.js' %}"></script>
+
+{% endblock %}

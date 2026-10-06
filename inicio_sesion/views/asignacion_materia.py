@@ -922,7 +922,7 @@ def asig_mat_doc(request):
             )
         })
 
-    return render(request, "Roles/Coordinador_PNF/asignacion_materia/registrar_asignaciones.html")
+    return render(request, "Roles/Control_Estudio/asignacion_materia/registrar_asignaciones.html")
 
 
 def obt_pnfs_coord(request):
@@ -1503,7 +1503,7 @@ def busc_mat(request):
 
 def act_asig(request):
     if request.method != "POST":
-        return render(request, "Roles/Coordinador_PNF/asignacion_materia/visualizar_asignaciones.html")
+        return render(request, "Roles/Control_Estudio/asignacion_materia/visualizar_asignaciones.html")
 
     materia_asignada_id = request.POST.get("materia_asignada")
     estado_principal = request.POST.get("estado_principal")
@@ -2200,4 +2200,4 @@ def asig_desact(request):
             )
         })
 
-    return render(request, "Roles/Coordinador_PNF/asignacion_materia/reactivar_asignaciones.html")
+    return render(request, "Roles/Control_Estudio/asignacion_materia/reactivar_asignaciones.html")

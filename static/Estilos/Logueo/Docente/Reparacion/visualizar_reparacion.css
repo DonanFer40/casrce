@@ -1,0 +1,846 @@
+/* ============================================================
+   VISUALIZAR REPARACIÓN — CARSCE
+   ============================================================ */
+
+#reparacion-visualizar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    color: #2563EB;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-identificacion i {
+    font-size: 0.75rem;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-presentacion {
+    margin-top: 9px;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-titulo span {
+    color: #2563EB;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   TARJETA PRINCIPAL
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-tarjeta {
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* ============================================================
+   CABECERA DE TARJETA
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    border-radius: 11px;
+
+    color: var(--color-blanco);
+
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.22);
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-tarjeta-icono i {
+    font-size: 1rem;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-tarjeta-descripcion {
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-formulario {
+    width: 100%;
+}
+
+
+/* ============================================================
+   BLOQUES
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-bloque {
+    width: 100%;
+
+    margin-bottom: 18px;
+    padding: 21px 20px 22px;
+
+    background: var(--color-fondo-pagina);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-bloque-resultados {
+    margin-bottom: 0;
+}
+
+
+/* ============================================================
+   CABECERA DE BLOQUE
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 18px;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-bloque-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+
+    color: #2563EB;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-bloque-icono i {
+    font-size: 0.78rem;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-bloque-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-bloque-descripcion {
+    margin: 2px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.68rem;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   GRID DE CRITERIOS
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-campo {
+    width: 100%;
+    min-width: 0;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-campo-trayecto {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 9px);
+}
+
+
+/* ============================================================
+   ETIQUETAS
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-etiqueta {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--texto-principal);
+
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   CONTROLES
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control {
+    position: relative;
+
+    width: 100%;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control > i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: 0.76rem;
+
+    pointer-events: none;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control select,
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 40px;
+
+    background: var(--color-blanco);
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    color: var(--texto-principal);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.74rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control select:hover,
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control input:hover {
+    border-color: #94A3B8;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control select:focus,
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control input:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* ============================================================
+   CONTROL DE SOLO LECTURA
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control-lectura input {
+    background: #F8FAFC;
+    color: #475569;
+
+    cursor: default;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-control-lectura input::placeholder {
+    color: #94A3B8;
+}
+
+
+/* ============================================================
+   FLECHA DE SELECT
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-flecha {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    pointer-events: none;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-flecha i {
+    font-size: 0.65rem;
+}
+
+
+/* ============================================================
+   MENSAJES
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-mensaje {
+    min-height: 16px;
+
+    margin-top: 4px;
+
+    color: #DC2626;
+
+    font-size: 0.65rem;
+}
+
+
+/* ============================================================
+   RESULTADOS
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados {
+    width: 100%;
+}
+
+
+/* ============================================================
+   ALERTAS DINÁMICAS
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .alert {
+    width: 100%;
+
+    margin: 3px 0 0;
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .alert-warning {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+
+    color: #92400E;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .alert-info {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+
+    color: #1D4ED8;
+}
+
+
+/* ============================================================
+   TABLA — CONTENEDOR
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table-responsive {
+    width: 100%;
+
+    margin-top: 3px;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+
+    scrollbar-width: thin;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table-responsive::-webkit-scrollbar {
+    height: 7px;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table-responsive::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table-responsive::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 20px;
+}
+
+
+/* ============================================================
+   TABLA
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table {
+    width: 100%;
+    min-width: 760px;
+
+    margin: 0;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: var(--color-blanco);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.72rem;
+}
+
+
+/* ============================================================
+   CABECERA DE TABLA
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table-dark {
+    background: var(--color-azul-profundo);
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table thead th {
+    height: 48px;
+
+    padding: 11px 14px;
+
+    background: var(--color-azul-profundo);
+    border-bottom: 1px solid #334155;
+
+    color: var(--color-blanco);
+
+    font-size: 0.68rem;
+    font-weight: 650;
+
+    letter-spacing: 0.02em;
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+
+/* ============================================================
+   CUERPO DE TABLA
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table tbody td {
+    min-height: 54px;
+
+    padding: 12px 14px;
+
+    background: var(--color-blanco);
+    border-bottom: 1px solid #E2E8F0;
+
+    color: #334155;
+
+    font-size: 0.71rem;
+    font-weight: 500;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ============================================================
+   HOVER DE FILAS
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table-hover tbody tr {
+    transition: background 0.18s ease;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .table-hover tbody tr:hover td {
+    background: #F8FAFC;
+}
+
+
+/* ============================================================
+   TEXTO CENTRADO Y DESTACADO
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .text-center {
+    text-align: center;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .fw-bold {
+    color: var(--color-azul-card);
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   BADGES DE ESTADO
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 78px;
+    min-height: 26px;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 0.63rem;
+    font-weight: 650;
+
+    line-height: 1;
+    white-space: nowrap;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .bg-success {
+    background: #DCFCE7;
+    border: 1px solid #BBF7D0;
+
+    color: #15803D;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-resultados .bg-danger {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+
+    color: #DC2626;
+}
+
+
+/* ============================================================
+   INFORMACIÓN FINAL
+   ============================================================ */
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-informacion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 21px;
+    padding-top: 21px;
+
+    border-top: 1px solid var(--color-borde-fino);
+
+    color: var(--texto-secundario);
+
+    font-size: 0.67rem;
+    line-height: 1.45;
+}
+
+#reparacion-visualizar-carsce
+.reparacion-visualizar-carsce-informacion i {
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    font-size: 0.78rem;
+}
+
+
+/* ============================================================
+   RESPONSIVE — 900px
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-contenedor {
+        max-width: 100%;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-tarjeta {
+        padding: 23px 22px 25px;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-resultados .table {
+        min-width: 740px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 700px
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-campo-trayecto {
+        grid-column: auto;
+        max-width: 100%;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-titulo {
+        font-size: 1.35rem;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-tarjeta {
+        padding: 21px 18px 22px;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-bloque {
+        padding: 18px 16px 19px;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-informacion {
+        align-items: flex-start;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 520px
+   ============================================================ */
+
+@media (max-width: 520px) {
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-titulo {
+        font-size: 1.2rem;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-descripcion {
+        font-size: 0.74rem;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-tarjeta-icono {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-resultados .table {
+        min-width: 700px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 390px
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-tarjeta {
+        padding: 18px 14px 19px;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-bloque {
+        padding: 16px 13px 17px;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-bloque-icono {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-bloque-titulo {
+        font-size: 0.76rem;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-bloque-descripcion {
+        font-size: 0.63rem;
+    }
+
+    #reparacion-visualizar-carsce
+    .reparacion-visualizar-carsce-resultados .table {
+        min-width: 680px;
+    }
+}

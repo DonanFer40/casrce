@@ -57,10 +57,17 @@
 @import url('../Logueo/Director_General/secciones_academicas/registrar_seccion.css');
 @import url('../Logueo/Director_General/secciones_academicas/visualizar_seccion.css');
 
+@import url('../Logueo/Director_General/noticias/visualizar_noticias.css');
+@import url('../Logueo/Director_General/noticias/registrar_noticias.css');
+@import url('../Logueo/Director_General/noticias/modificar_noticias.css');
+
+@import url('../reportes/Director_General/reportes_DirectorGeneral.css');
+
 /*========================*/
 /*    COORDINADOR PNF     */
 /*========================*/
 @import url('../Logueo/Coordinador_PNF/panel_coordinador_pnf.css');
+
 /*========================*/
 /*       ACADEMICO        */
 /*========================*/
@@ -70,7 +77,47 @@
 /*  CONTROL DE ESTUDIO    */
 /*========================*/
 @import url('../Logueo/Control_Estudio/panel_control_estudio.css');
-@import url('../Logueo/Control_Estudio/reportes.css');
+
+@import url('../Logueo/Control_Estudio/planificacion_academica/registrar_planificacion.css');
+@import url('../Logueo/Control_Estudio/planificacion_academica/visualizar_planificacion.css');
+@import url('../Logueo/Control_Estudio/planificacion_academica/visualizar_planes_actividades.css');
+
+@import url('../Logueo/Control_Estudio/remover_cambios_notas/remover_notas_academicas.css');
+
+@import url('../Logueo/Control_Estudio/asignacion_materia/reactivar_asignaciones.css');
+@import url('../Logueo/Control_Estudio/asignacion_materia/registrar_asignaciones.css');
+@import url('../Logueo/Control_Estudio/asignacion_materia/visualizar_asignaciones.css');
+
+@import url('../Logueo/Control_Estudio/inscripcion/inscripcion_rechazado.css');
+
+@import url('../reportes/Control_Estudio/reportes_ControlEstudio.css');
+
+/*========================*/
+/*        DOCENTE         */
+/*========================*/
+@import url('../Logueo/Docente/panel_docente.css');
+
+@import url('../Logueo/Docente/notas_academicas/registrar_notas_academicas.css');
+@import url('../Logueo/Docente/notas_academicas/visualizar_notas_academicas.css');
+@import url('../Logueo/Docente/notas_academicas/modificar_notas_academicas.css');
+
+@import url('../Logueo/Docente/Evaluacion_Reparacion/modificar_evaluaciones_reparar.css');
+@import url('../Logueo/Docente/Evaluacion_Reparacion/registrar_examen_reparacion.css');
+@import url('../Logueo/Docente/Evaluacion_Reparacion/visualizar_evaluaciones_reparar.css');
+
+@import url('../Logueo/Docente/Reparacion/modificar_reparacion.css');
+@import url('../Logueo/Docente/Reparacion/registrar_reparacion.css');
+@import url('../Logueo/Docente/Reparacion/visualizar_reparacion.css');
+
+/*========================*/
+/*       ESTUDIANTE       */
+/*========================*/
+
+@import url('../Logueo/Estudiante/panel_estudiante.css');
+
+@import url('../Logueo/Estudiante/Calificaciones_estudiante/info_academica_estudiante.css');
+@import url('../Logueo/Estudiante/Calificaciones_estudiante/materia_presentar.css');
+@import url('../Logueo/Estudiante/Calificaciones_estudiante/planificaciones_academicas.css');
 
 
 /* VARIABLES */

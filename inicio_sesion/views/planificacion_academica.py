@@ -309,7 +309,7 @@ def datos_pl_reg_coord_pnf(request):
 def vis_pl_env(request):
     return render(
         request,
-        'Roles/Coordinador_PNF/planificacion_academica/visualizar_planes_actividades.html'
+        'Roles/Control_Estudio/planificacion_academica/visualizar_planes_actividades.html'
     )
 
 def camb_est_pl(request):

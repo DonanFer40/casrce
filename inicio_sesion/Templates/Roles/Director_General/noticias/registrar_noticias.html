@@ -1,0 +1,488 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+
+<section id="director-noticias-registrar-carsce">
+
+    <div class="director-noticias-registrar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-noticias-registrar-carsce-encabezado">
+
+            <div class="director-noticias-registrar-carsce-identificacion">
+
+                <span class="director-noticias-registrar-carsce-etiqueta">
+                    Gestión de Noticias
+                </span>
+
+                <span class="director-noticias-registrar-carsce-seccion">
+
+                    <i class="fa-solid fa-newspaper"></i>
+
+                    Registrar noticia
+
+                </span>
+
+            </div>
+
+
+            <div class="director-noticias-registrar-carsce-presentacion">
+
+                <h1 class="director-noticias-registrar-carsce-titulo">
+                    Registrar noticia
+                </h1>
+
+                <p class="director-noticias-registrar-carsce-descripcion">
+                    Registra una nueva publicación institucional
+                    correspondiente al núcleo {{ nucleo_usuario }}.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             CONTENEDOR DEL FORMULARIO
+             ===================================================== -->
+
+        <div class="director-noticias-registrar-carsce-formulario-contenedor">
+
+
+            <!-- =================================================
+                 CABECERA DEL FORMULARIO
+                 ================================================= -->
+
+            <div class="director-noticias-registrar-carsce-formulario-cabecera">
+
+                <div class="director-noticias-registrar-carsce-formulario-icono">
+
+                    <i class="fa-solid fa-newspaper"></i>
+
+                </div>
+
+
+                <div class="director-noticias-registrar-carsce-formulario-titulo">
+
+                    <h2>
+                        Información de la publicación
+                    </h2>
+
+                    <span>
+                        Completa los datos principales de la noticia institucional.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+                 ================================================= -->
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                id="director-noticias-registrar-carsce-formulario"
+                class="director-noticias-registrar-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     TÍTULO Y DESCRIPCIÓN
+                     ============================================== -->
+
+                <div class="director-noticias-registrar-carsce-fila">
+
+                    <!-- TÍTULO -->
+
+                    <div class="director-noticias-registrar-carsce-campo">
+
+                        <label
+                            for="director-noticias-registrar-carsce-titulo"
+                        >
+                            Título de la noticia:
+
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="director-noticias-registrar-carsce-titulo"
+                            name="titulo"
+                            maxlength="200"
+                            placeholder="Ej. Inicio del nuevo período académico"
+                            autocomplete="off"
+                            required
+                        >
+
+                        <small>
+                            Ingresa un título claro y representativo de la publicación.
+                        </small>
+
+                    </div>
+
+
+                    <!-- DESCRIPCIÓN -->
+
+                    <div class="director-noticias-registrar-carsce-campo">
+
+                        <label
+                            for="director-noticias-registrar-carsce-descripcion"
+                        >
+                            Descripción breve:
+
+                            <span>*</span>
+                        </label>
+
+                        <textarea
+                            id="director-noticias-registrar-carsce-descripcion"
+                            name="descripcion"
+                            maxlength="300"
+                            rows="3"
+                            placeholder="Escribe una breve descripción de la noticia..."
+                            required
+                        ></textarea>
+
+                        <small>
+                            Máximo 300 caracteres.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     CONTENIDO
+                     ============================================== -->
+
+                <div class="director-noticias-registrar-carsce-campo director-noticias-registrar-carsce-campo-contenido">
+
+                    <label
+                        for="director-noticias-registrar-carsce-contenido"
+                    >
+                        Contenido de la noticia:
+
+                        <span>*</span>
+                    </label>
+
+                    <textarea
+                        id="director-noticias-registrar-carsce-contenido"
+                        name="contenido"
+                        rows="9"
+                        placeholder="Escribe aquí el contenido completo de la noticia..."
+                        required
+                    ></textarea>
+
+                    <small>
+                        Desarrolla el contenido completo de la publicación institucional.
+                    </small>
+
+                </div>
+
+
+                <!-- =================================================
+                     IMAGEN DE LA PUBLICACIÓN
+                     ================================================= -->
+
+                <div class="director-noticias-registrar-carsce-bloque">
+
+                    <div class="director-noticias-registrar-carsce-bloque-cabecera">
+
+                        <div class="director-noticias-registrar-carsce-bloque-icono">
+
+                            <i class="fa-regular fa-image"></i>
+
+                        </div>
+
+
+                        <div class="director-noticias-registrar-carsce-bloque-informacion">
+
+                            <h3>
+                                Imagen de la publicación
+                            </h3>
+
+                            <span>
+                                Puedes agregar una imagen representativa
+                                para acompañar la noticia.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-noticias-registrar-carsce-imagen">
+
+                        <label
+                            for="director-noticias-registrar-carsce-imagen-input"
+                            class="director-noticias-registrar-carsce-imagen-selector"
+                        >
+
+                            <div class="director-noticias-registrar-carsce-imagen-icono">
+
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                            </div>
+
+
+                            <div class="director-noticias-registrar-carsce-imagen-texto">
+
+                                <strong>
+                                    Seleccionar imagen
+                                </strong>
+
+                                <span>
+                                    PNG, JPG o JPEG
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <input
+                            type="file"
+                            id="director-noticias-registrar-carsce-imagen-input"
+                            name="imagen"
+                            accept="image/png, image/jpeg, image/jpg"
+                        >
+
+
+                        <div
+                            id="director-noticias-registrar-carsce-imagen-preview"
+                            class="director-noticias-registrar-carsce-imagen-preview"
+                        >
+
+                            <img
+                                src=""
+                                alt="Vista previa de la imagen"
+                                id="director-noticias-registrar-carsce-imagen-preview-img"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     NÚCLEO DE PUBLICACIÓN
+                     ================================================= -->
+
+                <div class="director-noticias-registrar-carsce-bloque">
+
+                    <div class="director-noticias-registrar-carsce-bloque-cabecera">
+
+                        <div class="director-noticias-registrar-carsce-bloque-icono">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <div class="director-noticias-registrar-carsce-bloque-informacion">
+
+                            <h3>
+                                Núcleo de publicación
+                            </h3>
+
+                            <span>
+                                La noticia será asociada automáticamente
+                                al núcleo correspondiente al Director General.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-noticias-registrar-carsce-nucleo">
+
+                        <div class="director-noticias-registrar-carsce-nucleo-icono">
+
+                            <i class="fa-solid fa-building-columns"></i>
+
+                        </div>
+
+
+                        <div class="director-noticias-registrar-carsce-nucleo-informacion">
+
+                            <span>
+                                Núcleo asignado
+                            </span>
+
+                            <strong>
+                                {{ nucleo_usuario }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="director-noticias-registrar-carsce-nucleo-estado">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            Asignación automática
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     AVISO DEL REGISTRO
+                     ================================================= -->
+
+                <div class="director-noticias-registrar-carsce-aviso">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <p>
+                        La noticia será registrada a nombre del usuario
+                        autenticado y asociada automáticamente al núcleo
+                        <strong>{{ nucleo_usuario }}</strong>.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCIONES
+                     ================================================= -->
+
+                <div class="director-noticias-registrar-carsce-acciones">
+
+                    <a
+                        href="{% url 'visualizar_noticias' %}"
+                        class="director-noticias-registrar-carsce-boton-cancelar"
+                    >
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancelar
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="director-noticias-registrar-carsce-boton-registrar"
+                    >
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Registrar noticia
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     VISTA PREVIA DE IMAGEN
+     ========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const inputImagen =
+        document.getElementById(
+            "director-noticias-registrar-carsce-imagen-input"
+        );
+
+
+    const preview =
+        document.getElementById(
+            "director-noticias-registrar-carsce-imagen-preview"
+        );
+
+
+    const previewImagen =
+        document.getElementById(
+            "director-noticias-registrar-carsce-imagen-preview-img"
+        );
+
+
+    if (!inputImagen) {
+        return;
+    }
+
+
+    inputImagen.addEventListener("change", () => {
+
+        const archivo = inputImagen.files[0];
+
+
+        if (!archivo) {
+
+            preview.classList.remove(
+                "director-noticias-registrar-carsce-imagen-preview-visible"
+            );
+
+            previewImagen.removeAttribute("src");
+
+            return;
+        }
+
+
+        if (!archivo.type.startsWith("image/")) {
+
+            inputImagen.value = "";
+
+            preview.classList.remove(
+                "director-noticias-registrar-carsce-imagen-preview-visible"
+            );
+
+            previewImagen.removeAttribute("src");
+
+            return;
+        }
+
+
+        const lector = new FileReader();
+
+
+        lector.onload = (evento) => {
+
+            previewImagen.src = evento.target.result;
+
+            preview.classList.add(
+                "director-noticias-registrar-carsce-imagen-preview-visible"
+            );
+
+        };
+
+
+        lector.readAsDataURL(archivo);
+
+    });
+
+});
+
+</script>
+
+
+{% endblock %}

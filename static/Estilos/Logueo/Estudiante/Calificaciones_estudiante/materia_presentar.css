@@ -1,0 +1,677 @@
+#materias-presentar-estudiante-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+    color: #2563EB;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-identificacion i {
+    font-size: 0.72rem;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-presentacion {
+    margin-top: 9px;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-titulo {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-titulo span {
+    color: #2563EB;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+    color: var(--texto-secundario);
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+/* =========================================================
+   TARJETA PRINCIPAL
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-tarjeta {
+    width: 100%;
+    padding: 26px 28px 28px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+}
+
+/* =========================================================
+   CABECERA DE TARJETA
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    border-radius: 11px;
+    color: #FFFFFF;
+    font-size: 1rem;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.22);
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-tarjeta-titulo {
+    margin: 0;
+    color: var(--color-azul-card);
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-tarjeta-descripcion {
+    margin: 4px 0 0;
+    color: var(--texto-secundario);
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   BLOQUES
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-bloque {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 21px 20px 22px;
+    background: var(--color-fondo-pagina);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-bloque-resultados {
+    margin-bottom: 0;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 18px;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-bloque-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 35px;
+    width: 35px;
+    height: 35px;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+    color: #2563EB;
+    font-size: 0.78rem;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-bloque-informacion {
+    min-width: 0;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-bloque-titulo {
+    margin: 0;
+    color: var(--color-azul-card);
+    font-size: 0.82rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-bloque-descripcion {
+    margin: 3px 0 0;
+    color: var(--texto-secundario);
+    font-size: 0.68rem;
+    line-height: 1.45;
+}
+
+/* =========================================================
+   FORMULARIO / FILTROS
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-formulario {
+    width: 100%;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-campo {
+    width: 100%;
+    min-width: 0;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-campo:last-child {
+    grid-column: 1 / -1;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-etiqueta {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--texto-principal);
+    font-size: 0.73rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-control {
+    position: relative;
+    width: 100%;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-control > i:first-child {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    z-index: 2;
+    color: #64748B;
+    font-size: 0.75rem;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-control select {
+    width: 100%;
+    height: 45px;
+    padding: 0 40px;
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+    color: var(--texto-principal);
+    font-family: "Poppins", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 500;
+    cursor: pointer;
+    appearance: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-control select:hover {
+    border-color: #94A3B8;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-control select:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-control select:disabled {
+    background: #F1F5F9;
+    color: #94A3B8;
+    cursor: not-allowed;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-flecha {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748B;
+    font-size: 0.63rem;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-mensaje {
+    min-height: 16px;
+    margin-top: 4px;
+    color: #DC2626;
+    font-size: 0.65rem;
+}
+
+/* =========================================================
+   RESULTADOS
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-resultados {
+    width: 100%;
+}
+
+/* =========================================================
+   MENSAJE SIN MATERIAS
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.mensaje_sin_materias {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 110px;
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px dashed #CBD5E1;
+    border-radius: 9px;
+    color: var(--texto-secundario);
+    text-align: center;
+    font-size: 0.72rem;
+}
+
+/* =========================================================
+   BLOQUES POR TRAYECTO
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.bloque_materias_trayecto {
+    width: 100%;
+    margin-top: 16px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+#materias-presentar-estudiante-carsce
+.bloque_materias_trayecto:first-child {
+    margin-top: 0;
+}
+
+/* =========================================================
+   TÍTULO DEL TRAYECTO
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.titulo_trayecto {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 14px 18px;
+    background: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+#materias-presentar-estudiante-carsce
+.titulo_trayecto h3 {
+    margin: 0;
+    color: var(--color-azul-card);
+    font-size: 0.82rem;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+/* =========================================================
+   TABLA
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.contenedor_tabla_materias {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    background: #FFFFFF;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas thead {
+    background: var(--color-azul-profundo);
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas th {
+    padding: 12px 14px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 0.66rem;
+    font-weight: 650;
+    line-height: 1.3;
+    text-align: left;
+    white-space: nowrap;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas th:not(:nth-child(2)) {
+    text-align: center;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas tbody tr {
+    border-bottom: 1px solid #E2E8F0;
+    transition: background-color 0.18s ease;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas tbody tr:last-child {
+    border-bottom: none;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas tbody tr:hover {
+    background: #F8FAFC;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas td {
+    padding: 12px 14px;
+    color: var(--texto-principal);
+    font-size: 0.68rem;
+    line-height: 1.4;
+    vertical-align: middle;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas td:not(:nth-child(2)) {
+    text-align: center;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas td:first-child {
+    color: #475569;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas td:nth-child(2) {
+    min-width: 250px;
+    color: var(--color-azul-card);
+    font-weight: 600;
+}
+
+/* =========================================================
+   MENSAJE INTERNO DE TABLA
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.tabla_materias_presentadas
+.mensaje_tabla {
+    padding: 22px 16px;
+    color: var(--texto-secundario);
+    font-size: 0.68rem;
+    text-align: center;
+}
+
+/* =========================================================
+   INFORMACIÓN FINAL
+========================================================= */
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-informacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 21px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-borde-fino);
+    color: var(--texto-secundario);
+    font-size: 0.67rem;
+    line-height: 1.5;
+}
+
+#materias-presentar-estudiante-carsce
+.materias-presentar-estudiante-carsce-informacion i {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    color: #2563EB;
+    font-size: 0.72rem;
+}
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
+
+@media (max-width: 900px) {
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-contenedor {
+        max-width: 100%;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-tarjeta {
+        padding: 23px 22px 25px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 700px
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-campo:last-child {
+        grid-column: auto;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-titulo {
+        font-size: 1.35rem;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-tarjeta {
+        padding: 21px 18px 22px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque {
+        padding: 18px 16px 19px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque-cabecera {
+        align-items: flex-start;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .titulo_trayecto {
+        padding: 13px 15px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .tabla_materias_presentadas th,
+    #materias-presentar-estudiante-carsce
+    .tabla_materias_presentadas td {
+        padding: 11px 12px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 520px
+========================================================= */
+
+@media (max-width: 520px) {
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-titulo {
+        font-size: 1.2rem;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-descripcion {
+        font-size: 0.74rem;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-tarjeta-icono {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-tarjeta-cabecera {
+        gap: 11px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque {
+        padding: 17px 14px 18px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque-icono {
+        flex-basis: 33px;
+        width: 33px;
+        height: 33px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .tabla_materias_presentadas {
+        min-width: 650px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 390px
+========================================================= */
+
+@media (max-width: 390px) {
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-tarjeta {
+        padding: 18px 14px 19px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque {
+        padding: 16px 13px 17px;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque-icono {
+        flex-basis: 32px;
+        width: 32px;
+        height: 32px;
+        font-size: 0.7rem;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque-titulo {
+        font-size: 0.76rem;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-bloque-descripcion {
+        font-size: 0.63rem;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .materias-presentar-estudiante-carsce-identificacion {
+        font-size: 0.62rem;
+    }
+
+    #materias-presentar-estudiante-carsce
+    .titulo_trayecto h3 {
+        font-size: 0.76rem;
+    }
+}

@@ -1,0 +1,115 @@
+<section id="reporte-inscripciones-carsce">
+
+    <div class="reporte-inscripciones-carsce-cabecera">
+
+        <div class="reporte-inscripciones-carsce-icono">
+            <i class="fa-solid fa-clipboard-list"></i>
+        </div>
+
+        <div class="reporte-inscripciones-carsce-informacion">
+
+            <span class="reporte-inscripciones-carsce-categoria">
+                REPORTE DE INSCRIPCIONES
+            </span>
+
+            <h2 class="reporte-inscripciones-carsce-titulo">
+                Reporte de Inscripciones
+            </h2>
+
+            <p class="reporte-inscripciones-carsce-descripcion">
+                Consulte información consolidada sobre las inscripciones
+                académicas registradas en CARSCE, incluyendo núcleo,
+                PNF, sección, aula y estado.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="reporte-inscripciones-carsce-detalles">
+
+        <div class="reporte-inscripciones-carsce-detalle">
+
+            <div class="reporte-inscripciones-carsce-detalle-icono">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+
+            <div class="reporte-inscripciones-carsce-detalle-informacion">
+
+                <span>
+                    Información
+                </span>
+
+                <strong>
+                    Estudiantes inscritos
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="reporte-inscripciones-carsce-detalle">
+
+            <div class="reporte-inscripciones-carsce-detalle-icono">
+                <i class="fa-solid fa-building-columns"></i>
+            </div>
+
+            <div class="reporte-inscripciones-carsce-detalle-informacion">
+
+                <span>
+                    Organización
+                </span>
+
+                <strong>
+                    Núcleo, PNF y sección
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="reporte-inscripciones-carsce-detalle">
+
+            <div class="reporte-inscripciones-carsce-detalle-icono">
+                <i class="fa-solid fa-file-pdf"></i>
+            </div>
+
+            <div class="reporte-inscripciones-carsce-detalle-informacion">
+
+                <span>
+                    Formato
+                </span>
+
+                <strong>
+                    Documento PDF
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="reporte-inscripciones-carsce-acciones">
+
+        <a
+            href="{% url 'reporte_inscripciones_pdf' %}"
+            class="reporte-inscripciones-carsce-boton-pdf"
+            target="_blank"
+        >
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            <span>
+                Generar reporte PDF
+            </span>
+
+        </a>
+
+    </div>
+
+</section>

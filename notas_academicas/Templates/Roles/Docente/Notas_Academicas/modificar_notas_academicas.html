@@ -1,0 +1,369 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="notas-academicas-modificar-carsce">
+
+    <div class="notas-academicas-modificar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+        <header class="notas-academicas-modificar-carsce-encabezado">
+
+            <div class="notas-academicas-modificar-carsce-identificacion">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="notas-academicas-modificar-carsce-presentacion">
+
+                <h2 class="notas-academicas-modificar-carsce-titulo">
+                    Modificar Notas Académicas
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="notas-academicas-modificar-carsce-descripcion">
+                    Actualiza la información académica registrada de acuerdo con
+                    el núcleo, P.N.F., trayecto, materia y período correspondiente.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+        <div class="notas-academicas-modificar-carsce-tarjeta">
+
+            <div class="notas-academicas-modificar-carsce-tarjeta-cabecera">
+
+                <div class="notas-academicas-modificar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-file-pen"></i>
+                </div>
+
+                <div class="notas-academicas-modificar-carsce-tarjeta-informacion">
+
+                    <h3 class="notas-academicas-modificar-carsce-tarjeta-titulo">
+                        Actualización de calificaciones
+                    </h3>
+
+                    <p class="notas-academicas-modificar-carsce-tarjeta-descripcion">
+                        Selecciona los criterios académicos para localizar
+                        las notas que deseas modificar.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+            ================================================== -->
+            <form method="post"
+                  id="formulario_actualizar"
+                  class="notas-academicas-modificar-carsce-formulario">
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     FILTROS ACADÉMICOS
+                ============================================== -->
+                <div class="notas-academicas-modificar-carsce-bloque">
+
+                    <div class="notas-academicas-modificar-carsce-bloque-cabecera">
+
+                        <div class="notas-academicas-modificar-carsce-bloque-icono">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+
+                        <div class="notas-academicas-modificar-carsce-bloque-informacion">
+
+                            <h4 class="notas-academicas-modificar-carsce-bloque-titulo">
+                                Criterios de búsqueda
+                            </h4>
+
+                            <p class="notas-academicas-modificar-carsce-bloque-descripcion">
+                                Define los parámetros académicos para localizar
+                                el registro correspondiente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="notas-academicas-modificar-carsce-grid">
+
+
+                        <!-- PERFIL -->
+                        <div class="notas-academicas-modificar-carsce-campo notas-academicas-modificar-carsce-campo-oculto">
+
+                            <label for="perfiles_asignados"
+                                   class="notas-academicas-modificar-carsce-etiqueta">
+                                Perfil Asignado
+                            </label>
+
+                            <div class="notas-academicas-modificar-carsce-control notas-academicas-modificar-carsce-control-oculto">
+
+                                <i class="fa-solid fa-user-tag"></i>
+
+                                <select name="perfiles_asignados"
+                                        id="perfiles_asignados"
+                                        style="display: none;">
+                                </select>
+
+                                <input type="text"
+                                       name="perfiles_asignados"
+                                       id="perfil_asignado"
+                                       readonly
+                                       style="display: none;">
+
+                            </div>
+
+                            <span class="notas-academicas-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- NÚCLEO -->
+                        <div class="notas-academicas-modificar-carsce-campo">
+
+                            <label for="nucleo_asignado"
+                                   class="notas-academicas-modificar-carsce-etiqueta">
+                                Núcleo Asignado
+                            </label>
+
+                            <div class="notas-academicas-modificar-carsce-control">
+
+                                <i class="fa-solid fa-building-columns"></i>
+
+                                <select name="nucleo_asignado"
+                                        id="nucleo_asignado">
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down notas-academicas-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="notas-academicas-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- PNF -->
+                        <div class="notas-academicas-modificar-carsce-campo">
+
+                            <label for="pnf_asignado"
+                                   class="notas-academicas-modificar-carsce-etiqueta">
+                                P.N.F. Asignado
+                            </label>
+
+                            <div class="notas-academicas-modificar-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select name="pnf_asignado"
+                                        id="pnf_asignado">
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down notas-academicas-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="notas-academicas-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- DOCENTE -->
+                        <div id="contenedor_seleccion_docente"
+                             class="notas-academicas-modificar-carsce-campo notas-academicas-modificar-carsce-campo-docente"
+                             style="display: none;">
+
+                            <label for="seleccion_docente"
+                                   class="notas-academicas-modificar-carsce-etiqueta">
+                                Docente
+                            </label>
+
+                            <div class="notas-academicas-modificar-carsce-control">
+
+                                <i class="fa-solid fa-chalkboard-user"></i>
+
+                                <select name="seleccion_docente"
+                                        id="seleccion_docente">
+
+                                    <option value="" selected>
+                                        Selecciona un Docente
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down notas-academicas-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="notas-academicas-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- TRAYECTO -->
+                        <div class="notas-academicas-modificar-carsce-campo">
+
+                            <label for="trayecto_academico"
+                                   class="notas-academicas-modificar-carsce-etiqueta">
+                                Trayecto Académico
+                            </label>
+
+                            <div class="notas-academicas-modificar-carsce-control">
+
+                                <i class="fa-solid fa-route"></i>
+
+                                <select name="trayecto_academico"
+                                        id="trayecto_academico">
+
+                                    <option value="" selected>
+                                        Debe seleccionar el Trayecto Académico
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down notas-academicas-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="notas-academicas-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- MATERIA -->
+                        <div class="notas-academicas-modificar-carsce-campo">
+
+                            <label for="materia_asignada"
+                                   class="notas-academicas-modificar-carsce-etiqueta">
+                                Materia(s) Asignada(s)
+                            </label>
+
+                            <div class="notas-academicas-modificar-carsce-control">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <select name="materia_asignada"
+                                        id="materia_asignada">
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down notas-academicas-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="notas-academicas-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- PERÍODO -->
+                        <div class="notas-academicas-modificar-carsce-campo">
+
+                            <label for="periodo_academico"
+                                   class="notas-academicas-modificar-carsce-etiqueta">
+                                Período Académico
+                            </label>
+
+                            <div class="notas-academicas-modificar-carsce-control">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                                <input type="text"
+                                       name="periodo_academico"
+                                       id="periodo_academico"
+                                       readonly>
+
+                            </div>
+
+                            <span class="notas-academicas-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     RESULTADOS / NOTAS
+                ================================================== -->
+                <div class="notas-academicas-modificar-carsce-bloque notas-academicas-modificar-carsce-bloque-resultados">
+
+                    <div class="notas-academicas-modificar-carsce-bloque-cabecera">
+
+                        <div class="notas-academicas-modificar-carsce-bloque-icono">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+
+                        <div class="notas-academicas-modificar-carsce-bloque-informacion">
+
+                            <h4 class="notas-academicas-modificar-carsce-bloque-titulo">
+                                Registro de notas
+                            </h4>
+
+                            <p class="notas-academicas-modificar-carsce-bloque-descripcion">
+                                Aquí se mostrarán las calificaciones disponibles
+                                para su modificación.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div id="contenedor_notas_academicas"
+                         class="notas-academicas-modificar-carsce-resultados">
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCIONES
+                ================================================== -->
+                <div class="notas-academicas-modificar-carsce-acciones">
+
+                    <div class="notas-academicas-modificar-carsce-acciones-informacion">
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <span>
+                            Verifica las calificaciones antes de guardar los cambios.
+                        </span>
+                    </div>
+
+                    <button type="submit"
+                            id="btn_registrar_notas"
+                            class="notas-academicas-modificar-carsce-boton">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        <span>Guardar cambios</span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Docente/Notas_Academicas/modificar_notas_academicas.js' %}"></script>
+
+{% endblock %}

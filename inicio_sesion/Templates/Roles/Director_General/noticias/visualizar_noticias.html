@@ -1,0 +1,448 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+
+<section id="director-noticias-visualizar-carsce">
+
+    <div class="director-noticias-visualizar-carsce-contenedor">
+
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-noticias-visualizar-carsce-encabezado">
+
+
+            <!-- IDENTIFICACIÓN -->
+
+            <div class="director-noticias-visualizar-carsce-identificacion">
+
+                <span class="director-noticias-visualizar-carsce-etiqueta">
+                    Gestión de Noticias
+                </span>
+
+                <span class="director-noticias-visualizar-carsce-seccion">
+
+                    <i class="fa-solid fa-newspaper"></i>
+
+                    Noticias registradas
+
+                </span>
+
+            </div>
+
+
+            <!-- PRESENTACIÓN -->
+
+            <div class="director-noticias-visualizar-carsce-presentacion">
+
+
+                <div class="director-noticias-visualizar-carsce-informacion">
+
+                    <h1 class="director-noticias-visualizar-carsce-titulo">
+                        Gestión de Noticias
+                    </h1>
+
+                    <p class="director-noticias-visualizar-carsce-descripcion">
+
+                        Administra y consulta las publicaciones
+                        institucionales correspondientes al núcleo
+                        {{ nucleo_usuario }}.
+
+                    </p>
+
+                </div>
+
+
+                <!-- ACCIÓN PRINCIPAL -->
+
+                <div class="director-noticias-visualizar-carsce-acciones">
+
+                    <a
+                        href="{% url 'registrar_noticia' %}"
+                        class="director-noticias-visualizar-carsce-boton-registrar"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Registrar noticia
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             RESUMEN
+             ===================================================== -->
+
+        <div class="director-noticias-visualizar-carsce-resumen">
+
+
+            <div class="director-noticias-visualizar-carsce-resumen-informacion">
+
+
+                <div class="director-noticias-visualizar-carsce-resumen-icono">
+
+                    <i class="fa-solid fa-newspaper"></i>
+
+                </div>
+
+
+                <div class="director-noticias-visualizar-carsce-resumen-texto">
+
+                    <span>
+                        Publicaciones del núcleo
+                    </span>
+
+                    <strong>
+                        {{ nucleo_usuario }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="director-noticias-visualizar-carsce-resumen-total">
+
+                <strong>
+                    {{ total_noticias|default:"0" }}
+                </strong>
+
+                <span>
+
+                    {% if total_noticias == 1 %}
+                        noticia registrada
+                    {% else %}
+                        noticias registradas
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             LISTADO DE NOTICIAS
+             ===================================================== -->
+
+        <div class="director-noticias-visualizar-carsce-listado">
+
+
+            <!-- CABECERA DEL LISTADO -->
+
+            <div class="director-noticias-visualizar-carsce-listado-encabezado">
+
+                <div>
+
+                    <h2>
+                        Noticias registradas
+                    </h2>
+
+                    <p>
+                        Publicaciones pertenecientes al núcleo
+                        {{ nucleo_usuario }}.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 NOTICIAS
+                 ================================================= -->
+
+            {% if noticias %}
+
+                <div class="director-noticias-visualizar-carsce-grid">
+
+
+                    {% for noticia in noticias %}
+
+
+                        <article class="director-noticias-visualizar-carsce-noticia">
+
+
+                            <!-- =================================
+                                 IMAGEN
+                                 ================================== -->
+
+                            <div class="director-noticias-visualizar-carsce-imagen">
+
+
+                                {% if noticia.imagen %}
+
+                                    <img
+                                        src="{{ noticia.imagen.url }}"
+                                        alt="{{ noticia.titulo }}"
+                                        class="director-noticias-visualizar-carsce-imagen-elemento"
+                                    >
+
+                                {% else %}
+
+                                    <div class="director-noticias-visualizar-carsce-imagen-vacia">
+
+                                        <i class="fa-regular fa-image"></i>
+
+                                        <span>
+                                            Sin imagen
+                                        </span>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- ESTADO -->
+
+                                <div class="director-noticias-visualizar-carsce-estado">
+
+                                    {% if noticia.activa %}
+
+                                        <span class="director-noticias-visualizar-carsce-estado-activa">
+
+                                            <i class="fa-solid fa-circle-check"></i>
+
+                                            Publicada
+
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="director-noticias-visualizar-carsce-estado-inactiva">
+
+                                            <i class="fa-solid fa-circle-xmark"></i>
+
+                                            Inactiva
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================
+                                 INFORMACIÓN
+                                 ================================== -->
+
+                            <div class="director-noticias-visualizar-carsce-contenido">
+
+
+                                <!-- METADATOS -->
+
+                                <div class="director-noticias-visualizar-carsce-metadatos">
+
+                                    <span>
+
+                                        <i class="fa-regular fa-calendar"></i>
+
+                                        {{ noticia.fecha_publicacion|date:"d/m/Y" }}
+
+                                    </span>
+
+
+                                    <span>
+
+                                        <i class="fa-solid fa-location-dot"></i>
+
+                                        {{ noticia.nucleo.municipio }}
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- TÍTULO -->
+
+                                <h3 class="director-noticias-visualizar-carsce-titulo-noticia">
+
+                                    {{ noticia.titulo }}
+
+                                </h3>
+
+
+                                <!-- DESCRIPCIÓN -->
+
+                                <p class="director-noticias-visualizar-carsce-descripcion-noticia">
+
+                                    {{ noticia.descripcion }}
+
+                                </p>
+
+
+                                <!-- AUTOR -->
+
+                                <div class="director-noticias-visualizar-carsce-autor">
+
+                                    <i class="fa-solid fa-user-pen"></i>
+
+                                    <span>
+
+                                        Registrada por
+
+                                        <strong>
+                                            {{ noticia.registrado_por.nombres }}
+                                            {{ noticia.registrado_por.apellidos }}
+                                        </strong>
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- =================================
+                                     ACCIONES
+                                     ================================== -->
+
+                                <div class="director-noticias-visualizar-carsce-acciones-noticia">
+
+
+                                    <!-- MODIFICAR -->
+
+                                    <a
+                                        href="{% url 'modificar_noticia' noticia.id_noticia %}"
+                                        class="director-noticias-visualizar-carsce-boton-modificar"
+                                    >
+
+                                        <i class="fa-solid fa-pen-to-square"></i>
+
+                                        Modificar
+
+                                    </a>
+
+
+                                    <!-- ESTADO -->
+
+                                    {% if noticia.activa %}
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'desactivar_noticia' noticia.id_noticia %}"
+                                            class="director-noticias-visualizar-carsce-formulario-estado"
+                                            onsubmit="return confirm('¿Está seguro de desactivar esta noticia?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="director-noticias-visualizar-carsce-boton-desactivar"
+                                            >
+
+                                                <i class="fa-solid fa-eye-slash"></i>
+
+                                                Desactivar
+
+                                            </button>
+
+                                        </form>
+
+                                    {% else %}
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'activar_noticia' noticia.id_noticia %}"
+                                            class="director-noticias-visualizar-carsce-formulario-estado"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="director-noticias-visualizar-carsce-boton-activar"
+                                            >
+
+                                                <i class="fa-solid fa-eye"></i>
+
+                                                Reactivar
+
+                                            </button>
+
+                                        </form>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- =================================================
+                     ESTADO SIN NOTICIAS
+                     ================================================= -->
+
+                <div class="director-noticias-visualizar-carsce-vacio">
+
+
+                    <div class="director-noticias-visualizar-carsce-vacio-icono">
+
+                        <i class="fa-regular fa-newspaper"></i>
+
+                    </div>
+
+
+                    <h3>
+                        No hay noticias registradas
+                    </h3>
+
+
+                    <p>
+
+                        Actualmente no existen publicaciones
+                        institucionales registradas para el núcleo
+                        {{ nucleo_usuario }}.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'registrar_noticia' %}"
+                        class="director-noticias-visualizar-carsce-vacio-boton"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Registrar primera noticia
+
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

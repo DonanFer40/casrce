@@ -1,0 +1,41 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="CentroReportesCARSCE">
+
+    <div class="CentroReportesCARSCE-contenedor">
+
+        {% if es_director %}
+
+            {% include 'Roles/Reportes/Director_General/reportes_DirectorGeneral.html' %}
+
+
+        {% elif es_control_estudio %}
+
+            {% include 'Roles/Reportes/Control_Estudio/reportes_ControlEstudio.html' %}
+
+
+        {% elif es_coordinador %}
+
+            {% include 'Roles/Reportes/Coordinador_PNF/reportes_CoordinadorPNF.html' %}
+
+
+        {% elif es_docente %}
+
+            {% include 'Roles/Reportes/Docente/reportes_Docente.html' %}
+
+
+        {% elif es_estudiante %}
+
+            {% include 'Roles/Reportes/Estudiante/reportes_Estudiante.html' %}
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

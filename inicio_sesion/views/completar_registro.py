@@ -577,4 +577,4 @@ def comp_registro(request):
                 "icon": "error"
             })
 
-    return render(request, "Actualizaciones/completar_registro.html", {"sin_estilos": True})
+    return render(request, "Others/Login/completar_registro.html", {"sin_estilos": True})

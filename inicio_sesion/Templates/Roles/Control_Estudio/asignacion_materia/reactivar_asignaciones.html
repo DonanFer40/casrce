@@ -1,0 +1,262 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="asignacion-materia-reactivar-carsce">
+
+    <div class="asignacion-materia-reactivar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+
+        <header class="asignacion-materia-reactivar-carsce-encabezado">
+
+            <div class="asignacion-materia-reactivar-carsce-identificacion">
+                <i class="fa-solid fa-rotate"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="asignacion-materia-reactivar-carsce-presentacion">
+
+                <h1 class="asignacion-materia-reactivar-carsce-titulo">
+                    Reactivar Asignaciones
+                    <span>CARSCE</span>
+                </h1>
+
+                <p class="asignacion-materia-reactivar-carsce-descripcion">
+                    Consulta las asignaciones de materias disponibles y gestiona
+                    aquellas que puedan ser reactivadas dentro de la planificación académica.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <div class="asignacion-materia-reactivar-carsce-tarjeta">
+
+            <div class="asignacion-materia-reactivar-carsce-tarjeta-cabecera">
+
+                <div class="asignacion-materia-reactivar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-arrow-rotate-right"></i>
+                </div>
+
+                <div class="asignacion-materia-reactivar-carsce-tarjeta-informacion">
+
+                    <h2 class="asignacion-materia-reactivar-carsce-tarjeta-titulo">
+                        Búsqueda de asignaciones
+                    </h2>
+
+                    <p class="asignacion-materia-reactivar-carsce-tarjeta-descripcion">
+                        Utiliza los criterios académicos disponibles para localizar
+                        las materias que requieren una reactivación.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FILTROS
+            ================================================== -->
+
+            <div
+                id="contenedor_busqueda_asignacion"
+                class="asignacion-materia-reactivar-carsce-bloque"
+            >
+
+                <div class="asignacion-materia-reactivar-carsce-bloque-cabecera">
+
+                    <div class="asignacion-materia-reactivar-carsce-bloque-icono">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+
+                    <div class="asignacion-materia-reactivar-carsce-bloque-informacion">
+
+                        <h3 class="asignacion-materia-reactivar-carsce-bloque-titulo">
+                            Filtros de búsqueda
+                        </h3>
+
+                        <p class="asignacion-materia-reactivar-carsce-bloque-descripcion">
+                            Selecciona los datos académicos para consultar las asignaciones.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="post"
+                    id="formulario_busqueda"
+                    class="asignacion-materia-reactivar-carsce-formulario"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- =============================================
+                         FILA 1
+                    ============================================== -->
+
+                    <div class="asignacion-materia-reactivar-carsce-grid-2">
+
+                        <div class="asignacion-materia-reactivar-carsce-campo">
+
+                            <label
+                                for="perfiles_asignados"
+                                id="label_perfil"
+                                class="asignacion-materia-reactivar-carsce-etiqueta"
+                            >
+                                Perfil Asignado:
+                            </label>
+
+                            <div class="asignacion-materia-reactivar-carsce-control">
+
+                                <i class="fa-solid fa-user-tag"></i>
+
+                                <select
+                                    name="perfiles_asignados"
+                                    id="perfiles_asignados"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down asignacion-materia-reactivar-carsce-flecha"
+                                ></i>
+
+                            </div>
+
+
+                            <input
+                                type="text"
+                                name="perfiles_asignados"
+                                id="perfil_asignado"
+                                class="asignacion-materia-reactivar-carsce-control-oculto"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <div class="asignacion-materia-reactivar-carsce-campo">
+
+                            <label
+                                for="pnfs_asignados"
+                                id="label_pnf"
+                                class="asignacion-materia-reactivar-carsce-etiqueta"
+                            >
+                                P.N.F. Asignado:
+                            </label>
+
+                            <div class="asignacion-materia-reactivar-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select
+                                    name="pnfs_asignados"
+                                    id="pnfs_asignados"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down asignacion-materia-reactivar-carsce-flecha"
+                                ></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =============================================
+                         FILA 2
+                    ============================================== -->
+
+                    <div class="asignacion-materia-reactivar-carsce-grid-2">
+
+                        <div class="asignacion-materia-reactivar-carsce-campo">
+
+                            <label
+                                for="trayecto"
+                                class="asignacion-materia-reactivar-carsce-etiqueta"
+                            >
+                                Trayecto Académico:
+                            </label>
+
+                            <div class="asignacion-materia-reactivar-carsce-control">
+
+                                <i class="fa-solid fa-layer-group"></i>
+
+                                <select
+                                    name="trayecto"
+                                    id="trayecto"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down asignacion-materia-reactivar-carsce-flecha"
+                                ></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="asignacion-materia-reactivar-carsce-campo">
+
+                            <label
+                                for="materia"
+                                class="asignacion-materia-reactivar-carsce-etiqueta"
+                            >
+                                Materia:
+                            </label>
+
+                            <div class="asignacion-materia-reactivar-carsce-control">
+
+                                <i class="fa-solid fa-book"></i>
+
+                                <input
+                                    type="text"
+                                    name="materia"
+                                    id="materia"
+                                    placeholder="Ingresa el nombre de la materia"
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULTADOS DINÁMICOS
+            ================================================== -->
+
+            <div
+                id="contenedor_materias"
+                class="asignacion-materia-reactivar-carsce-resultados"
+            ></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Coordinador_PNF/Asignacion_Materia/reactivar_asignacion.js' %}"></script>
+
+{% endblock %}

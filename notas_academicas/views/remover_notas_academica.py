@@ -2289,4 +2289,4 @@ def rem_camb_not(request):
     })
 
 def rem_not_acad(request):
-    return render(request, "Remover_Cambios_Notas/remover_notas_academica.html") 
+    return render(request, "Roles/Control_Estudio/Remover_Cambios_Notas/remover_notas_academica.html") 

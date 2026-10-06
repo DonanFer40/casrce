@@ -1,0 +1,266 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="planificacion-academica-estudiante-carsce">
+
+    <div class="planificacion-academica-estudiante-carsce-contenedor">
+
+        <header class="planificacion-academica-estudiante-carsce-encabezado">
+
+            <div class="planificacion-academica-estudiante-carsce-identificacion">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="planificacion-academica-estudiante-carsce-presentacion">
+
+                <h2 class="planificacion-academica-estudiante-carsce-titulo">
+                    Planificaciones Académicas
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="planificacion-academica-estudiante-carsce-descripcion">
+                    Consulta la planificación académica correspondiente al núcleo,
+                    P.N.F., trayecto, materia y período académico seleccionado.
+                </p>
+
+            </div>
+
+        </header>
+
+        <div class="planificacion-academica-estudiante-carsce-tarjeta">
+
+            <div class="planificacion-academica-estudiante-carsce-tarjeta-cabecera">
+
+                <div class="planificacion-academica-estudiante-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+
+                <div class="planificacion-academica-estudiante-carsce-tarjeta-informacion">
+
+                    <h3 class="planificacion-academica-estudiante-carsce-tarjeta-titulo">
+                        Consulta de planificación académica
+                    </h3>
+
+                    <p class="planificacion-academica-estudiante-carsce-tarjeta-descripcion">
+                        Selecciona los criterios académicos para consultar
+                        las unidades, contenidos y evaluaciones programadas.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="planificacion-academica-estudiante-carsce-bloque">
+
+                <div class="planificacion-academica-estudiante-carsce-bloque-cabecera">
+
+                    <div class="planificacion-academica-estudiante-carsce-bloque-icono">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+
+                    <div class="planificacion-academica-estudiante-carsce-bloque-informacion">
+
+                        <h4 class="planificacion-academica-estudiante-carsce-bloque-titulo">
+                            Criterios de consulta
+                        </h4>
+
+                        <p class="planificacion-academica-estudiante-carsce-bloque-descripcion">
+                            Define los parámetros académicos para localizar
+                            la planificación correspondiente.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <form method="post"
+                      class="planificacion-academica-estudiante-carsce-formulario">
+
+                    {% csrf_token %}
+
+                    <div class="planificacion-academica-estudiante-carsce-grid">
+
+                        <div class="planificacion-academica-estudiante-carsce-campo">
+
+                            <label for="nucleo_presentar"
+                                   class="planificacion-academica-estudiante-carsce-etiqueta">
+                                Núcleo:
+                            </label>
+
+                            <div class="planificacion-academica-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-building-columns"></i>
+
+                                <select name="nucleo_presentar"
+                                        id="nucleo_presentar">
+                                </select>
+
+                                <span class="planificacion-academica-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="planificacion-academica-estudiante-carsce-campo">
+
+                            <label for="pnfs_cursar"
+                                   class="planificacion-academica-estudiante-carsce-etiqueta">
+                                P.N.F.:
+                            </label>
+
+                            <div class="planificacion-academica-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select name="pnfs_cursar"
+                                        id="pnfs_cursar">
+                                </select>
+
+                                <span class="planificacion-academica-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="planificacion-academica-estudiante-carsce-campo">
+
+                            <label for="trayecto_academico"
+                                   class="planificacion-academica-estudiante-carsce-etiqueta">
+                                Trayecto Académico:
+                            </label>
+
+                            <div class="planificacion-academica-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-route"></i>
+
+                                <select name="trayecto_academico"
+                                        id="trayecto_academico">
+                                </select>
+
+                                <span class="planificacion-academica-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="planificacion-academica-estudiante-carsce-campo">
+
+                            <label for="materias_presentadas"
+                                   class="planificacion-academica-estudiante-carsce-etiqueta">
+                                Materias Presentadas:
+                            </label>
+
+                            <div class="planificacion-academica-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <select name="materias_presentadas"
+                                        id="materias_presentadas">
+                                </select>
+
+                                <span class="planificacion-academica-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="planificacion-academica-estudiante-carsce-campo">
+
+                            <label for="periodo_academico"
+                                   class="planificacion-academica-estudiante-carsce-etiqueta">
+                                Período Académico:
+                            </label>
+
+                            <div class="planificacion-academica-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                                <select name="periodo_academico"
+                                        id="periodo_academico">
+                                </select>
+
+                                <span class="planificacion-academica-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="planificacion-academica-estudiante-carsce-bloque planificacion-academica-estudiante-carsce-bloque-resultados">
+
+                <div class="planificacion-academica-estudiante-carsce-bloque-cabecera">
+
+                    <div class="planificacion-academica-estudiante-carsce-bloque-icono">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+
+                    <div class="planificacion-academica-estudiante-carsce-bloque-informacion">
+
+                        <h4 class="planificacion-academica-estudiante-carsce-bloque-titulo">
+                            Planificación académica
+                        </h4>
+
+                        <p class="planificacion-academica-estudiante-carsce-bloque-descripcion">
+                            La planificación correspondiente a los criterios
+                            seleccionados se mostrará en esta sección.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="contenedor_datos_academicos"
+                     class="planificacion-academica-estudiante-carsce-resultados">
+                </div>
+
+            </div>
+
+            <div class="planificacion-academica-estudiante-carsce-informacion">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <span>
+                    Selecciona los criterios académicos para consultar
+                    la planificación registrada.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Estudiantes/planificacion_academica.js' %}"></script>
+
+{% endblock %}

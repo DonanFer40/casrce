@@ -1,32 +1,96 @@
 {% load static %}
 
-<header class="{% if request.session.usuario_nombre %}header-logueado{% endif %}">
-    <nav id="navegacion">
+<header
+    id="encabezado-principal-carsce"
+    class="{% if request.session.usuario_nombre %}header-logueado{% endif %}"
+>
 
-        <!-- SECCIÓN SUPERIOR: INSTITUCIONAL -->
-        <div class="contenedor-institucional">
+    <nav id="navegacion-principal-carsce">
 
-            <div class="bloque-inst GBV">
-                <img src="{% static 'Imagenes/MPPE.png' %}" alt="Gobierno Bolivariano de Venezuela">
-                <h1>Gobierno Bolivariano <br>de Venezuela</h1>
-                <span class="separador">|</span>
+        <!-- =====================================================
+             IDENTIDAD INSTITUCIONAL
+             ===================================================== -->
+
+        <div class="encabezado-institucional-carsce">
+
+            <!-- Gobierno Bolivariano -->
+
+            <div
+                class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-gobierno"
+            >
+
+                <img
+                    src="{% static 'Imagenes/MPPE.png' %}"
+                    alt="Gobierno Bolivariano de Venezuela"
+                    class="encabezado-institucional-carsce-logo-gobierno"
+                >
+
+                <h1 class="encabezado-institucional-carsce-titulo">
+                    Gobierno Bolivariano
+                    <br>
+                    de Venezuela
+                </h1>
+
+                <span class="encabezado-institucional-carsce-separador">
+                    |
+                </span>
+
             </div>
 
-            <div class="bloque-inst MPPE">
-                <h1>Ministerio del Poder Popular<br>para la Educación Universitaria</h1>
-                <span class="separador">|</span>
+
+            <!-- Ministerio -->
+
+            <div
+                class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-ministerio"
+            >
+
+                <h1 class="encabezado-institucional-carsce-titulo">
+                    Ministerio del Poder Popular
+                    <br>
+                    para la Educación Universitaria
+                </h1>
+
+                <span class="encabezado-institucional-carsce-separador">
+                    |
+                </span>
+
             </div>
 
-            <div class="bloque-inst UPT">
-                <img src="{% static 'Imagenes/UPT_LOGO.png' %}" alt="UPT Barinas">
-                <h1>Universidad Politécnica Territorial del<br>Estado Barinas José Félix Ribas</h1>
+
+            <!-- Universidad -->
+
+            <div
+                class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-universidad"
+            >
+
+                <img
+                    src="{% static 'Imagenes/UPT_LOGO.png' %}"
+                    alt="UPT Barinas"
+                    class="encabezado-institucional-carsce-logo-universidad"
+                >
+
+                <h1 class="encabezado-institucional-carsce-titulo">
+                    Universidad Politécnica Territorial del
+                    <br>
+                    Estado Barinas José Félix Ribas
+                </h1>
+
             </div>
 
-            <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú">
+
+            <!-- Botón hamburguesa -->
+
+            <button
+                type="button"
+                id="hamburger-btn"
+                class="encabezado-institucional-carsce-hamburguesa"
+                aria-label="Abrir menú"
+            >
                 <i class="fa-solid fa-bars"></i>
             </button>
 
         </div>
+
 
         <!-- =====================================================
              NAVEGACIÓN PÚBLICA
@@ -34,105 +98,263 @@
 
         {% if not request.session.usuario_nombre %}
 
-        <div class="contenedor_barra" id="menu-contenedor">
+        <div
+            id="menu-contenedor"
+            class="navegacion-publica-carsce"
+        >
 
-            <div class="marca-casrce">
-                <span>CASRCE</span>
+            <!-- Marca -->
+
+            <div class="marca-carsce-publica">
+                <span>CARSCE</span>
             </div>
 
-            <ul class="navbar">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'foro'%}">
+            <!-- Menú -->
+
+            <ul class="navegacion-publica-carsce-lista">
+
+                <!-- Inicio -->
+
+                <li class="navegacion-publica-carsce-item">
+
+                    <a
+                        href="{% url 'foro' %}"
+                        class="navegacion-publica-carsce-enlace"
+                    >
+
                         <i class="fa-solid fa-house"></i>
-                        Inicio
+
+                        <span>Inicio</span>
+
                     </a>
+
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#">
+
+                <!-- Institución -->
+
+                <li
+                    class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown"
+                >
+
+                    <a
+                        href="#"
+                        class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle"
+                    >
+
                         <i class="fa-solid fa-building-columns"></i>
-                        Institución
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+
+                        <span>Institución</span>
+
+                        <i class="fa-solid fa-chevron-down navegacion-publica-carsce-flecha"></i>
+
                     </a>
 
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="{% url 'Historia' %}">
+
+                    <ul class="navegacion-publica-carsce-submenu">
+
+                        <li class="navegacion-publica-carsce-subitem">
+
+                            <a
+                                href="{% url 'Historia' %}"
+                                class="navegacion-publica-carsce-subenlace"
+                            >
+
                                 <i class="fa-solid fa-book-open"></i>
-                                Nuestra Historia
+
+                                <span>Nuestra Historia</span>
+
                             </a>
+
                         </li>
 
-                        <li>
-                            <a class="dropdown-item" href="{% url 'mision_vision' %}">
+
+                        <li class="navegacion-publica-carsce-subitem">
+
+                            <a
+                                href="{% url 'mision_vision' %}"
+                                class="navegacion-publica-carsce-subenlace"
+                            >
+
                                 <i class="fa-solid fa-bullseye"></i>
-                                Misión y Visión
+
+                                <span>Misión y Visión</span>
+
                             </a>
+
                         </li>
+
                     </ul>
+
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#">
+
+                <!-- Formación Estudiantil -->
+
+                <li
+                    class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown"
+                >
+
+                    <a
+                        href="#"
+                        class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle"
+                    >
+
                         <i class="fa-solid fa-graduation-cap"></i>
-                        Formación Estudiantil
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+
+                        <span>Formación Estudiantil</span>
+
+                        <i class="fa-solid fa-chevron-down navegacion-publica-carsce-flecha"></i>
+
                     </a>
 
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="{% url 'pst' %}">
+
+                    <ul class="navegacion-publica-carsce-submenu">
+
+                        <li class="navegacion-publica-carsce-subitem">
+
+                            <a
+                                href="{% url 'pst' %}"
+                                class="navegacion-publica-carsce-subenlace"
+                            >
+
                                 <i class="fa-solid fa-microchip"></i>
-                                Proyecto Socio-Tecnológico (PST)
+
+                                <span>
+                                    Proyecto Socio-Tecnológico (PST)
+                                </span>
+
                             </a>
+
                         </li>
 
-                        <li>
-                            <a class="dropdown-item" href="{% url 'psc' %}">
+
+                        <li class="navegacion-publica-carsce-subitem">
+
+                            <a
+                                href="{% url 'psc' %}"
+                                class="navegacion-publica-carsce-subenlace"
+                            >
+
                                 <i class="fa-solid fa-users"></i>
-                                Proyecto Socio-Comunitario (PSC)
+
+                                <span>
+                                    Proyecto Socio-Comunitario (PSC)
+                                </span>
+
                             </a>
+
                         </li>
+
                     </ul>
+
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#">
+
+                <!-- Guía Estudiantil / Docente -->
+
+                <li
+                    class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown"
+                >
+
+                    <a
+                        href="#"
+                        class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle"
+                    >
+
                         <i class="fa-solid fa-chalkboard-user"></i>
-                        Guía Estudiantil / Docente
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+
+                        <span>
+                            Guía Estudiantil / Docente
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down navegacion-publica-carsce-flecha"></i>
+
                     </a>
 
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="{% url 'trayectoria' %}">
+
+                    <ul class="navegacion-publica-carsce-submenu">
+
+                        <li class="navegacion-publica-carsce-subitem">
+
+                            <a
+                                href="{% url 'trayectoria' %}"
+                                class="navegacion-publica-carsce-subenlace"
+                            >
+
                                 <i class="fa-solid fa-route"></i>
-                                Trayectoria Académica
+
+                                <span>
+                                    Trayectoria Académica
+                                </span>
+
                             </a>
+
                         </li>
 
-                        <li>
-                            <a class="dropdown-item" href="{% url 'Planificacion_Docente'%}">
+
+                        <li class="navegacion-publica-carsce-subitem">
+
+                            <a
+                                href="{% url 'Planificacion_Docente' %}"
+                                class="navegacion-publica-carsce-subenlace"
+                            >
+
                                 <i class="fa-solid fa-calendar-check"></i>
-                                Planificación Docente
+
+                                <span>
+                                    Planificación Docente
+                                </span>
+
                             </a>
+
                         </li>
+
                     </ul>
+
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'carreras_impartidas' %}">
+
+                <!-- Carreras -->
+
+                <li class="navegacion-publica-carsce-item">
+
+                    <a
+                        href="{% url 'carreras_impartidas' %}"
+                        class="navegacion-publica-carsce-enlace"
+                    >
+
                         <i class="fa-solid fa-book-bookmark"></i>
-                        Carreras Impartidas
+
+                        <span>
+                            Carreras Impartidas
+                        </span>
+
                     </a>
+
                 </li>
 
-                <li class="nav-item nav-item-cta">
-                    <a href="{% url 'inicio_sesion' %}" class="btn_acceder">
+
+                <!-- Acceder -->
+
+                <li
+                    class="navegacion-publica-carsce-item navegacion-publica-carsce-acceso"
+                >
+
+                    <a
+                        href="{% url 'inicio_sesion' %}"
+                        class="navegacion-publica-carsce-boton-acceso"
+                    >
+
                         <i class="fa-solid fa-right-to-bracket"></i>
-                        Acceder
+
+                        <span>
+                            Acceder
+                        </span>
+
                     </a>
+
                 </li>
 
             </ul>
@@ -143,48 +365,111 @@
 
 
         <!-- =====================================================
-             NAVEGACIÓN DE USUARIO LOGUEADO
+             NAVEGACIÓN DE USUARIO AUTENTICADO
              ===================================================== -->
 
         {% if request.session.usuario_nombre %}
 
-        <div class="contenedor_logueado" id="menu-contenedor-logueado">
+        <div
+            id="menu-contenedor-logueado"
+            class="navegacion-autenticada-carsce"
+        >
 
-            <div class="marca-casrce">
-                <span>CASRCE</span>
+            <!-- Marca -->
+
+            <div class="marca-carsce-autenticada">
+                <span>CARSCE</span>
             </div>
 
-            <ul class="navbar">
 
-                <li class="nav-item dropdown">
+            <!-- =================================================
+                 NÚCLEO DEL USUARIO
+                 ================================================= -->
 
-                    <a class="nav-link dropdown-toggle" href="#">
+            <div class="navegacion-autenticada-carsce-nucleo">
 
-                        <i class="fa-solid fa-circle-user avatar-icon"></i>
+                <span class="directorgeneral-panel-carsce-nucleo">
 
-                        <span>
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span>Núcleo:</span>
+
+                    <strong>
+                        {{ nucleo_usuario }}
+                    </strong>
+
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 MENÚ DEL USUARIO
+                 ================================================= -->
+
+            <ul class="navegacion-autenticada-carsce-lista">
+
+                <li
+                    class="navegacion-autenticada-carsce-item navegacion-autenticada-carsce-dropdown"
+                >
+
+                    <a
+                        href="#"
+                        class="navegacion-autenticada-carsce-enlace"
+                    >
+
+                        <i
+                            class="fa-solid fa-circle-user navegacion-autenticada-carsce-avatar"
+                        ></i>
+
+                        <span class="navegacion-autenticada-carsce-nombre">
                             {{ request.session.usuario_nombre }}
                         </span>
 
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        <i
+                            class="fa-solid fa-chevron-down navegacion-autenticada-carsce-flecha"
+                        ></i>
 
                     </a>
 
-                    <ul class="dropdown-menu">
 
-                        <li>
-                            <a class="dropdown-item" href="#">
+                    <!-- Menú del usuario -->
+
+                    <ul class="navegacion-autenticada-carsce-submenu">
+
+                        <li class="navegacion-autenticada-carsce-subitem">
+
+                            <a
+                                href="#"
+                                class="navegacion-autenticada-carsce-subenlace"
+                            >
+
                                 <i class="fa-solid fa-sliders"></i>
-                                Configuración
+
+                                <span>
+                                    Configuración
+                                </span>
+
                             </a>
+
                         </li>
 
-                        <li>
-                            <a class="dropdown-item icon-logout"
-                               href="{% url 'cerrar_sesion' %}">
+
+                        <li class="navegacion-autenticada-carsce-subitem">
+
+                            <a
+                                href="{% url 'cerrar_sesion' %}"
+                                class="navegacion-autenticada-carsce-subenlace navegacion-autenticada-carsce-cerrar"
+                            >
+
                                 <i class="fa-solid fa-power-off"></i>
-                                Cerrar Sesión
+
+                                <span>
+                                    Cerrar Sesión
+                                </span>
+
                             </a>
+
                         </li>
 
                     </ul>
@@ -198,4 +483,5 @@
         {% endif %}
 
     </nav>
+
 </header>

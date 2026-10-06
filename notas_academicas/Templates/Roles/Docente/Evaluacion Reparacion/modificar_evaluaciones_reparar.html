@@ -1,0 +1,299 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="evaluacion-reparacion-modificar-carsce">
+
+    <div class="evaluacion-reparacion-modificar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+        <header class="evaluacion-reparacion-modificar-carsce-encabezado">
+
+            <div class="evaluacion-reparacion-modificar-carsce-identificacion">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="evaluacion-reparacion-modificar-carsce-presentacion">
+
+                <h2 class="evaluacion-reparacion-modificar-carsce-titulo">
+                    Modificar Evaluaciones de Reparación
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="evaluacion-reparacion-modificar-carsce-descripcion">
+                    Actualiza las evaluaciones de reparación registradas
+                    de acuerdo con el núcleo, P.N.F., materia y trayecto académico.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+        <div class="evaluacion-reparacion-modificar-carsce-tarjeta">
+
+            <div class="evaluacion-reparacion-modificar-carsce-tarjeta-cabecera">
+
+                <div class="evaluacion-reparacion-modificar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-file-pen"></i>
+                </div>
+
+                <div class="evaluacion-reparacion-modificar-carsce-tarjeta-informacion">
+
+                    <h3 class="evaluacion-reparacion-modificar-carsce-tarjeta-titulo">
+                        Actualización de evaluaciones
+                    </h3>
+
+                    <p class="evaluacion-reparacion-modificar-carsce-tarjeta-descripcion">
+                        Selecciona los criterios académicos para localizar
+                        y modificar las evaluaciones de reparación registradas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+            ================================================== -->
+            <form method="post"
+                  id="formulario_actualizar"
+                  class="evaluacion-reparacion-modificar-carsce-formulario">
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     CRITERIOS ACADÉMICOS
+                ============================================== -->
+                <div class="evaluacion-reparacion-modificar-carsce-bloque">
+
+                    <div class="evaluacion-reparacion-modificar-carsce-bloque-cabecera">
+
+                        <div class="evaluacion-reparacion-modificar-carsce-bloque-icono">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+
+                        <div class="evaluacion-reparacion-modificar-carsce-bloque-informacion">
+
+                            <h4 class="evaluacion-reparacion-modificar-carsce-bloque-titulo">
+                                Criterios de búsqueda
+                            </h4>
+
+                            <p class="evaluacion-reparacion-modificar-carsce-bloque-descripcion">
+                                Define los parámetros académicos para localizar
+                                las evaluaciones que deseas modificar.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="evaluacion-reparacion-modificar-carsce-grid">
+
+
+                        <!-- NÚCLEO -->
+                        <div class="evaluacion-reparacion-modificar-carsce-campo">
+
+                            <label for="nucleo_asignado"
+                                   class="evaluacion-reparacion-modificar-carsce-etiqueta">
+                                Núcleo Asignado
+                            </label>
+
+                            <div class="evaluacion-reparacion-modificar-carsce-control">
+
+                                <i class="fa-solid fa-building-columns"></i>
+
+                                <select name="nucleo_asignado"
+                                        id="nucleo_asignado">
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down evaluacion-reparacion-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="evaluacion-reparacion-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- PNF -->
+                        <div class="evaluacion-reparacion-modificar-carsce-campo">
+
+                            <label for="pnf_asignado"
+                                   class="evaluacion-reparacion-modificar-carsce-etiqueta">
+                                P.N.F. Asignado
+                            </label>
+
+                            <div class="evaluacion-reparacion-modificar-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select name="pnf_asignado"
+                                        id="pnf_asignado">
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down evaluacion-reparacion-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="evaluacion-reparacion-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- MATERIA -->
+                        <div class="evaluacion-reparacion-modificar-carsce-campo">
+
+                            <label for="materia_asignada"
+                                   class="evaluacion-reparacion-modificar-carsce-etiqueta">
+                                Materia(s) Registrada(s)
+                            </label>
+
+                            <div class="evaluacion-reparacion-modificar-carsce-control">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <select name="materia_asignada"
+                                        id="materia_asignada">
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down evaluacion-reparacion-modificar-carsce-flecha"></i>
+
+                            </div>
+
+                            <span class="evaluacion-reparacion-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+
+                        <!-- TRAYECTO -->
+                        <div class="evaluacion-reparacion-modificar-carsce-campo">
+
+                            <label for="trayecto_academico"
+                                   class="evaluacion-reparacion-modificar-carsce-etiqueta">
+                                Trayecto Académico
+                            </label>
+
+                            <div class="evaluacion-reparacion-modificar-carsce-control">
+
+                                <i class="fa-solid fa-route"></i>
+
+                                <input type="text"
+                                       name="trayecto_academico"
+                                       id="trayecto_academico"
+                                       readonly>
+
+                            </div>
+
+                            <span class="evaluacion-reparacion-modificar-carsce-mensaje"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     EVALUACIONES REGISTRADAS
+                ================================================== -->
+                <div class="evaluacion-reparacion-modificar-carsce-bloque evaluacion-reparacion-modificar-carsce-bloque-evaluaciones">
+
+                    <div class="evaluacion-reparacion-modificar-carsce-bloque-cabecera">
+
+                        <div class="evaluacion-reparacion-modificar-carsce-bloque-icono">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+
+                        <div class="evaluacion-reparacion-modificar-carsce-bloque-informacion">
+
+                            <h4 class="evaluacion-reparacion-modificar-carsce-bloque-titulo">
+                                Evaluaciones de reparación
+                            </h4>
+
+                            <p class="evaluacion-reparacion-modificar-carsce-bloque-descripcion">
+                                Consulta las evaluaciones registradas y modifica
+                                sus datos según corresponda.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!--
+                        Este contenedor es utilizado por JavaScript.
+                        Las clases de sus elementos internos se definirán
+                        después de revisar modificar_evaluaciones_reparar.js.
+                    -->
+                    <div id="contenedor_evaluaciones"
+                         class="evaluacion-reparacion-modificar-carsce-resultados">
+                    </div>
+
+
+                    <!-- AGREGAR DETALLE -->
+                    <div class="evaluacion-reparacion-modificar-carsce-agregar">
+
+                        <button type="button"
+                                id="btn_agregar_detalle"
+                                class="evaluacion-reparacion-modificar-carsce-agregar-boton">
+
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Agregar detalle</span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCIONES
+                ================================================== -->
+                <div class="evaluacion-reparacion-modificar-carsce-acciones">
+
+                    <div class="evaluacion-reparacion-modificar-carsce-acciones-informacion">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <span>
+                            Verifica las evaluaciones antes de guardar los cambios.
+                        </span>
+
+                    </div>
+
+                    <button type="submit"
+                            class="evaluacion-reparacion-modificar-carsce-boton">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        <span>Actualizar evaluaciones</span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Docente/Evaluacion_Reparacion/modificar_evaluaciones_reparar.js' %}"></script>
+
+{% endblock %}

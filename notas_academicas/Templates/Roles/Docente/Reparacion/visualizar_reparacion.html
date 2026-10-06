@@ -1,0 +1,264 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="reparacion-visualizar-carsce">
+
+    <div class="reparacion-visualizar-carsce-contenedor">
+
+        <header class="reparacion-visualizar-carsce-encabezado">
+
+            <div class="reparacion-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-eye"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="reparacion-visualizar-carsce-presentacion">
+
+                <h2 class="reparacion-visualizar-carsce-titulo">
+                    Visualizar Reparación
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="reparacion-visualizar-carsce-descripcion">
+                    Consulta los registros de reparación académica
+                    de acuerdo con el núcleo, P.N.F., materia y fecha registrada.
+                </p>
+
+            </div>
+
+        </header>
+
+        <div class="reparacion-visualizar-carsce-tarjeta">
+
+            <div class="reparacion-visualizar-carsce-tarjeta-cabecera">
+
+                <div class="reparacion-visualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+
+                <div class="reparacion-visualizar-carsce-tarjeta-informacion">
+
+                    <h3 class="reparacion-visualizar-carsce-tarjeta-titulo">
+                        Consulta de reparaciones
+                    </h3>
+
+                    <p class="reparacion-visualizar-carsce-tarjeta-descripcion">
+                        Selecciona los criterios académicos para consultar
+                        los estudiantes y resultados correspondientes a la reparación.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <form method="post"
+                  class="reparacion-visualizar-carsce-formulario">
+
+                {% csrf_token %}
+
+                <div class="reparacion-visualizar-carsce-bloque">
+
+                    <div class="reparacion-visualizar-carsce-bloque-cabecera">
+
+                        <div class="reparacion-visualizar-carsce-bloque-icono">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+
+                        <div class="reparacion-visualizar-carsce-bloque-informacion">
+
+                            <h4 class="reparacion-visualizar-carsce-bloque-titulo">
+                                Criterios de consulta
+                            </h4>
+
+                            <p class="reparacion-visualizar-carsce-bloque-descripcion">
+                                Define los parámetros académicos para localizar
+                                el registro de reparación que deseas consultar.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="reparacion-visualizar-carsce-grid">
+
+                        <div class="reparacion-visualizar-carsce-campo">
+
+                            <label for="nucleo_asignado"
+                                   class="reparacion-visualizar-carsce-etiqueta">
+                                Núcleo Asignado:
+                            </label>
+
+                            <div class="reparacion-visualizar-carsce-control">
+
+                                <i class="fa-solid fa-building-columns"></i>
+
+                                <select name="nucleo_asignado"
+                                        id="nucleo_asignado">
+                                </select>
+
+                                <span class="reparacion-visualizar-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="reparacion-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="reparacion-visualizar-carsce-campo">
+
+                            <label for="pnf_asignado"
+                                   class="reparacion-visualizar-carsce-etiqueta">
+                                P.N.F. Asignado:
+                            </label>
+
+                            <div class="reparacion-visualizar-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select name="pnf_asignado"
+                                        id="pnf_asignado">
+                                </select>
+
+                                <span class="reparacion-visualizar-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="reparacion-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="reparacion-visualizar-carsce-campo">
+
+                            <label for="materia_asignada"
+                                   class="reparacion-visualizar-carsce-etiqueta">
+                                Materia(s) Reparadas:
+                            </label>
+
+                            <div class="reparacion-visualizar-carsce-control">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <select name="materia_asignada"
+                                        id="materia_asignada">
+                                </select>
+
+                                <span class="reparacion-visualizar-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="reparacion-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="reparacion-visualizar-carsce-campo">
+
+                            <label for="fecha_registradas"
+                                   class="reparacion-visualizar-carsce-etiqueta">
+                                Fecha Registrada:
+                            </label>
+
+                            <div class="reparacion-visualizar-carsce-control">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                                <select name="fecha"
+                                        id="fecha_registradas">
+                                </select>
+
+                                <span class="reparacion-visualizar-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="reparacion-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="reparacion-visualizar-carsce-campo reparacion-visualizar-carsce-campo-trayecto">
+
+                            <label for="trayecto_academico"
+                                   class="reparacion-visualizar-carsce-etiqueta">
+                                Trayecto:
+                            </label>
+
+                            <div class="reparacion-visualizar-carsce-control reparacion-visualizar-carsce-control-lectura">
+
+                                <i class="fa-solid fa-route"></i>
+
+                                <input type="text"
+                                       name="trayecto_academico"
+                                       id="trayecto_academico"
+                                       readonly
+                                       placeholder="Cargando trayecto...">
+
+                            </div>
+
+                            <div class="reparacion-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="reparacion-visualizar-carsce-bloque reparacion-visualizar-carsce-bloque-resultados">
+
+                    <div class="reparacion-visualizar-carsce-bloque-cabecera">
+
+                        <div class="reparacion-visualizar-carsce-bloque-icono">
+                            <i class="fa-solid fa-table-list"></i>
+                        </div>
+
+                        <div class="reparacion-visualizar-carsce-bloque-informacion">
+
+                            <h4 class="reparacion-visualizar-carsce-bloque-titulo">
+                                Resultados de reparación
+                            </h4>
+
+                            <p class="reparacion-visualizar-carsce-bloque-descripcion">
+                                Consulta la información correspondiente
+                                al registro de reparación seleccionado.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div id="contenedor_evaluaciones"
+                         class="reparacion-visualizar-carsce-resultados">
+                    </div>
+
+                </div>
+
+            </form>
+
+            <div class="reparacion-visualizar-carsce-informacion">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <span>
+                    Selecciona los criterios académicos para consultar
+                    la información registrada en el sistema.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Docente/visualizar_reparaciones.js' %}"></script>
+
+{% endblock %}

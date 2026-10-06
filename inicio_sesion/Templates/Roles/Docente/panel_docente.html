@@ -1,1 +1,1385 @@
- 
+ {% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+    /* =========================================================
+   PANEL DOCENTE - CARSCE
+   ========================================================= */
+
+#panel-docente-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 35px;
+    color: var(--texto-principal);
+}
+
+.panel-docente-carsce-contenedor {
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.panel-docente-carsce-encabezado {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.panel-docente-carsce-cinta-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-bottom: 14px;
+}
+
+.panel-docente-carsce-identificador {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    color: #1D4ED8;
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.panel-docente-carsce-identificador i {
+    font-size: 0.75rem;
+}
+
+.panel-docente-carsce-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #64748B;
+
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.panel-docente-carsce-estado-punto {
+    width: 8px;
+    height: 8px;
+
+    display: inline-block;
+
+    background: #22C55E;
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 3px #DCFCE7;
+}
+
+
+/* =========================================================
+   PRESENTACIÓN
+   ========================================================= */
+
+.panel-docente-carsce-presentacion {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+
+    width: 100%;
+}
+
+.panel-docente-carsce-presentacion-principal {
+    min-width: 0;
+}
+
+.panel-docente-carsce-etiqueta {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #64748B;
+
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.panel-docente-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+}
+
+.panel-docente-carsce-titulo span {
+    color: #2563EB;
+}
+
+.panel-docente-carsce-descripcion {
+    max-width: 760px;
+
+    margin: 8px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   FECHA
+   ========================================================= */
+
+.panel-docente-carsce-fecha {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex-shrink: 0;
+
+    padding: 10px 14px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+
+    box-shadow: var(--sombra-card);
+}
+
+.panel-docente-carsce-fecha > i {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #2563EB;
+    background: #EFF6FF;
+
+    border-radius: 8px;
+
+    font-size: 0.85rem;
+}
+
+.panel-docente-carsce-fecha div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.panel-docente-carsce-fecha span {
+    color: #94A3B8;
+
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+}
+
+.panel-docente-carsce-fecha strong {
+    color: #334155;
+
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RESUMEN / ESTADÍSTICAS
+   ========================================================= */
+
+.panel-docente-carsce-resumen {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+.panel-docente-carsce-resumen-tarjeta {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    min-width: 0;
+
+    padding: 17px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 11px;
+
+    box-shadow: var(--sombra-card);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.panel-docente-carsce-resumen-tarjeta:hover {
+    transform: translateY(-2px);
+
+    border-color: #CBD5E1;
+
+    box-shadow: var(--sombra-hover);
+}
+
+
+/* =========================================================
+   ICONOS DE RESUMEN
+   ========================================================= */
+
+.panel-docente-carsce-resumen-icono {
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 0.95rem;
+}
+
+.panel-docente-carsce-icono-azul {
+    color: #2563EB;
+    background: #EFF6FF;
+}
+
+.panel-docente-carsce-icono-verde {
+    color: #16A34A;
+    background: #F0FDF4;
+}
+
+.panel-docente-carsce-icono-naranja {
+    color: #D97706;
+    background: #FFFBEB;
+}
+
+.panel-docente-carsce-icono-morado {
+    color: #7C3AED;
+    background: #F5F3FF;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DE RESUMEN
+   ========================================================= */
+
+.panel-docente-carsce-resumen-informacion {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.panel-docente-carsce-resumen-informacion > span {
+    color: #64748B;
+
+    font-size: 0.66rem;
+    font-weight: 500;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-docente-carsce-resumen-informacion > strong {
+    color: #0F172A;
+
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.panel-docente-carsce-resumen-informacion > small {
+    color: #94A3B8;
+
+    font-size: 0.58rem;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================= */
+
+.panel-docente-carsce-contenido {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.85fr);
+    gap: 18px;
+
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   PANELES
+   ========================================================= */
+
+.panel-docente-carsce-panel {
+    min-width: 0;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+
+    box-shadow: var(--sombra-card);
+}
+
+.panel-docente-carsce-panel-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 19px 21px;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.panel-docente-carsce-panel-titulo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-width: 0;
+}
+
+.panel-docente-carsce-panel-icono {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #2563EB;
+    background: #EFF6FF;
+
+    border-radius: 9px;
+
+    font-size: 0.82rem;
+}
+
+.panel-docente-carsce-panel-icono-naranja {
+    color: #D97706;
+    background: #FFFBEB;
+}
+
+.panel-docente-carsce-panel-titulo h2 {
+    margin: 0;
+
+    color: #1E293B;
+
+    font-size: 0.9rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.panel-docente-carsce-panel-titulo p {
+    margin: 3px 0 0;
+
+    color: #94A3B8;
+
+    font-size: 0.65rem;
+    line-height: 1.35;
+}
+
+.panel-docente-carsce-panel-enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    font-size: 0.65rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color 0.18s ease,
+        gap 0.18s ease;
+}
+
+.panel-docente-carsce-panel-enlace:hover {
+    color: #1D4ED8;
+    gap: 9px;
+}
+
+
+/* =========================================================
+   LISTA DE MATERIAS
+   ========================================================= */
+
+.panel-docente-carsce-materias-lista {
+    width: 100%;
+    padding: 5px 21px 12px;
+}
+
+.panel-docente-carsce-materia {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.panel-docente-carsce-materia:last-child {
+    border-bottom: none;
+}
+
+.panel-docente-carsce-materia-icono {
+    width: 36px;
+    height: 36px;
+
+    flex: 0 0 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #2563EB;
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+
+    font-size: 0.72rem;
+}
+
+.panel-docente-carsce-materia-informacion {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.panel-docente-carsce-materia-informacion h3 {
+    margin: 0;
+
+    color: #334155;
+
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1.35;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-docente-carsce-materia-informacion span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #94A3B8;
+
+    font-size: 0.62rem;
+}
+
+.panel-docente-carsce-materia-datos {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    flex-shrink: 0;
+}
+
+.panel-docente-carsce-materia-datos span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #64748B;
+
+    font-size: 0.62rem;
+    white-space: nowrap;
+}
+
+.panel-docente-carsce-materia-datos i {
+    color: #94A3B8;
+    font-size: 0.62rem;
+}
+
+
+/* =========================================================
+   ESTADO VACÍO
+   ========================================================= */
+
+.panel-docente-carsce-vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 190px;
+
+    padding: 25px;
+
+    text-align: center;
+}
+
+.panel-docente-carsce-vacio i {
+    margin-bottom: 10px;
+
+    color: #CBD5E1;
+
+    font-size: 1.8rem;
+}
+
+.panel-docente-carsce-vacio p {
+    margin: 0;
+
+    color: #94A3B8;
+
+    font-size: 0.7rem;
+}
+
+
+/* =========================================================
+   ACTIVIDAD ACADÉMICA
+   ========================================================= */
+
+.panel-docente-carsce-actividad-lista {
+    padding: 9px 21px 17px;
+}
+
+.panel-docente-carsce-actividad-item {
+    position: relative;
+
+    display: flex;
+    gap: 12px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.panel-docente-carsce-actividad-item:last-child {
+    border-bottom: none;
+}
+
+.panel-docente-carsce-actividad-punto {
+    width: 9px;
+    height: 9px;
+
+    flex: 0 0 9px;
+
+    margin-top: 5px;
+
+    border-radius: 50%;
+}
+
+.panel-docente-carsce-punto-azul {
+    background: #2563EB;
+    box-shadow: 0 0 0 4px #EFF6FF;
+}
+
+.panel-docente-carsce-punto-verde {
+    background: #16A34A;
+    box-shadow: 0 0 0 4px #F0FDF4;
+}
+
+.panel-docente-carsce-punto-naranja {
+    background: #F59E0B;
+    box-shadow: 0 0 0 4px #FFFBEB;
+}
+
+.panel-docente-carsce-actividad-item strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.panel-docente-carsce-actividad-item p {
+    margin: 4px 0 0;
+
+    color: #94A3B8;
+
+    font-size: 0.63rem;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   ACCESOS RÁPIDOS
+   ========================================================= */
+
+.panel-docente-carsce-accesos {
+    width: 100%;
+
+    padding: 21px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+
+    box-shadow: var(--sombra-card);
+}
+
+.panel-docente-carsce-accesos-cabecera {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 16px;
+}
+
+.panel-docente-carsce-accesos-cabecera span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #94A3B8;
+
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.panel-docente-carsce-accesos-cabecera h2 {
+    margin: 0;
+
+    color: #1E293B;
+
+    font-size: 0.95rem;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   GRID DE ACCESOS
+   ========================================================= */
+
+.panel-docente-carsce-accesos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.panel-docente-carsce-acceso {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-width: 0;
+
+    padding: 13px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+
+    color: inherit;
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.panel-docente-carsce-acceso:hover {
+    transform: translateY(-2px);
+
+    background: #F8FAFC;
+
+    border-color: #CBD5E1;
+
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================================================
+   ICONOS DE ACCESOS
+   ========================================================= */
+
+.panel-docente-carsce-acceso-icono {
+    width: 37px;
+    height: 37px;
+
+    flex: 0 0 37px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 0.76rem;
+}
+
+.panel-docente-carsce-acceso-azul {
+    color: #2563EB;
+    background: #EFF6FF;
+}
+
+.panel-docente-carsce-acceso-verde {
+    color: #16A34A;
+    background: #F0FDF4;
+}
+
+.panel-docente-carsce-acceso-naranja {
+    color: #D97706;
+    background: #FFFBEB;
+}
+
+.panel-docente-carsce-acceso-morado {
+    color: #7C3AED;
+    background: #F5F3FF;
+}
+
+.panel-docente-carsce-acceso > div:nth-child(2) {
+    min-width: 0;
+    flex: 1;
+}
+
+.panel-docente-carsce-acceso strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 0.68rem;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-docente-carsce-acceso span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #94A3B8;
+
+    font-size: 0.57rem;
+    line-height: 1.35;
+}
+
+.panel-docente-carsce-acceso-flecha {
+    flex-shrink: 0;
+
+    color: #CBD5E1;
+
+    font-size: 0.62rem;
+
+    transition:
+        color 0.18s ease,
+        transform 0.18s ease;
+}
+
+.panel-docente-carsce-acceso:hover .panel-docente-carsce-acceso-flecha {
+    color: #2563EB;
+    transform: translateX(2px);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .panel-docente-carsce-resumen {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel-docente-carsce-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-docente-carsce-accesos-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .panel-docente-carsce-presentacion {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .panel-docente-carsce-fecha {
+        align-self: flex-start;
+    }
+
+    .panel-docente-carsce-titulo {
+        font-size: 1.45rem;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #panel-docente-carsce {
+        padding-bottom: 25px;
+    }
+
+    .panel-docente-carsce-cinta-superior {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .panel-docente-carsce-titulo {
+        font-size: 1.3rem;
+    }
+
+    .panel-docente-carsce-descripcion {
+        font-size: 0.75rem;
+    }
+
+    .panel-docente-carsce-resumen {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .panel-docente-carsce-resumen-tarjeta {
+        padding: 15px;
+    }
+
+    .panel-docente-carsce-panel-cabecera {
+        padding: 17px;
+    }
+
+    .panel-docente-carsce-materias-lista,
+    .panel-docente-carsce-actividad-lista {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .panel-docente-carsce-materia {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .panel-docente-carsce-materia-datos {
+        width: 100%;
+        padding-left: 48px;
+    }
+
+    .panel-docente-carsce-accesos {
+        padding: 17px;
+    }
+
+    .panel-docente-carsce-accesos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .panel-docente-carsce-titulo {
+        font-size: 1.18rem;
+    }
+
+    .panel-docente-carsce-identificador {
+        font-size: 0.6rem;
+    }
+
+    .panel-docente-carsce-fecha {
+        width: 100%;
+    }
+
+    .panel-docente-carsce-panel-cabecera {
+        align-items: flex-start;
+    }
+
+    .panel-docente-carsce-panel-enlace {
+        font-size: 0.6rem;
+    }
+
+    .panel-docente-carsce-materia-datos {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .panel-docente-carsce-acceso {
+        padding: 12px;
+    }
+}    
+</style>
+
+<section id="panel-docente-carsce">
+
+    <div class="panel-docente-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO DEL PANEL
+             ===================================================== -->
+
+        <header class="panel-docente-carsce-encabezado">
+
+            <div class="panel-docente-carsce-cinta-superior">
+
+                <div class="panel-docente-carsce-identificador">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>PORTAL DOCENTE</span>
+                </div>
+
+                <div class="panel-docente-carsce-estado">
+                    <span class="panel-docente-carsce-estado-punto"></span>
+                    Sesión activa
+                </div>
+
+            </div>
+
+
+            <div class="panel-docente-carsce-presentacion">
+
+                <div class="panel-docente-carsce-presentacion-principal">
+
+                    <span class="panel-docente-carsce-etiqueta">
+                        PANEL DE CONTROL
+                    </span>
+
+                    <h1 class="panel-docente-carsce-titulo">
+                        Bienvenido,
+                        <span>{{ request.session.usuario_nombre }}</span>
+                    </h1>
+
+                    <p class="panel-docente-carsce-descripcion">
+                        Gestiona tus actividades académicas, materias asignadas,
+                        estudiantes y procesos de evaluación desde un solo lugar.
+                    </p>
+
+                </div>
+
+
+                <div class="panel-docente-carsce-fecha">
+
+                    <i class="fa-regular fa-calendar-days"></i>
+
+                    <div>
+                        <span>FECHA ACTUAL</span>
+                        <strong id="fecha_panel_docente">
+                            {{ fecha_actual|default:"--/--/----" }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETAS DE RESUMEN
+             ===================================================== -->
+
+        <section class="panel-docente-carsce-resumen">
+
+            <!-- Materias -->
+
+            <article class="panel-docente-carsce-resumen-tarjeta">
+
+                <div class="panel-docente-carsce-resumen-icono panel-docente-carsce-icono-azul">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+
+                <div class="panel-docente-carsce-resumen-informacion">
+
+                    <span>Materias asignadas</span>
+
+                    <strong>
+                        {{ total_materias|default:"0" }}
+                    </strong>
+
+                    <small>
+                        Carga académica actual
+                    </small>
+
+                </div>
+
+            </article>
+
+
+            <!-- Estudiantes -->
+
+            <article class="panel-docente-carsce-resumen-tarjeta">
+
+                <div class="panel-docente-carsce-resumen-icono panel-docente-carsce-icono-verde">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+
+                <div class="panel-docente-carsce-resumen-informacion">
+
+                    <span>Estudiantes</span>
+
+                    <strong>
+                        {{ total_estudiantes|default:"0" }}
+                    </strong>
+
+                    <small>
+                        Estudiantes asociados
+                    </small>
+
+                </div>
+
+            </article>
+
+
+            <!-- Evaluaciones -->
+
+            <article class="panel-docente-carsce-resumen-tarjeta">
+
+                <div class="panel-docente-carsce-resumen-icono panel-docente-carsce-icono-naranja">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+
+                <div class="panel-docente-carsce-resumen-informacion">
+
+                    <span>Evaluaciones</span>
+
+                    <strong>
+                        {{ total_evaluaciones|default:"0" }}
+                    </strong>
+
+                    <small>
+                        Procesos registrados
+                    </small>
+
+                </div>
+
+            </article>
+
+
+            <!-- Notas -->
+
+            <article class="panel-docente-carsce-resumen-tarjeta">
+
+                <div class="panel-docente-carsce-resumen-icono panel-docente-carsce-icono-morado">
+                    <i class="fa-solid fa-file-pen"></i>
+                </div>
+
+                <div class="panel-docente-carsce-resumen-informacion">
+
+                    <span>Notas pendientes</span>
+
+                    <strong>
+                        {{ notas_pendientes|default:"0" }}
+                    </strong>
+
+                    <small>
+                        Registros por completar
+                    </small>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTENIDO PRINCIPAL
+             ===================================================== -->
+
+        <section class="panel-docente-carsce-contenido">
+
+            <!-- =================================================
+                 MATERIAS ASIGNADAS
+                 ================================================= -->
+
+            <div class="panel-docente-carsce-panel panel-docente-carsce-panel-materias">
+
+                <div class="panel-docente-carsce-panel-cabecera">
+
+                    <div class="panel-docente-carsce-panel-titulo">
+
+                        <div class="panel-docente-carsce-panel-icono">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+
+                        <div>
+                            <h2>Mis materias</h2>
+                            <p>Asignaciones académicas actuales</p>
+                        </div>
+
+                    </div>
+
+                    <a href="#" class="panel-docente-carsce-panel-enlace">
+                        Ver todas
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+
+                <div class="panel-docente-carsce-materias-lista">
+
+                    {% for materia in materias_docente %}
+
+                    <article class="panel-docente-carsce-materia">
+
+                        <div class="panel-docente-carsce-materia-icono">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+
+                        <div class="panel-docente-carsce-materia-informacion">
+
+                            <h3>
+                                {{ materia.nombre }}
+                            </h3>
+
+                            <span>
+                                {{ materia.codigo|default:"Sin código" }}
+                            </span>
+
+                        </div>
+
+                        <div class="panel-docente-carsce-materia-datos">
+
+                            <span>
+                                <i class="fa-solid fa-users"></i>
+                                {{ materia.total_estudiantes|default:"0" }}
+                            </span>
+
+                            <span>
+                                <i class="fa-solid fa-clock"></i>
+                                {{ materia.horario|default:"Horario no definido" }}
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    {% empty %}
+
+                    <div class="panel-docente-carsce-vacio">
+                        <i class="fa-solid fa-book-open"></i>
+                        <p>No tienes materias asignadas actualmente.</p>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACTIVIDAD ACADÉMICA
+                 ================================================= -->
+
+            <div class="panel-docente-carsce-panel panel-docente-carsce-panel-actividad">
+
+                <div class="panel-docente-carsce-panel-cabecera">
+
+                    <div class="panel-docente-carsce-panel-titulo">
+
+                        <div class="panel-docente-carsce-panel-icono panel-docente-carsce-panel-icono-naranja">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+
+                        <div>
+                            <h2>Actividad académica</h2>
+                            <p>Resumen de tus actividades recientes</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel-docente-carsce-actividad-lista">
+
+                    <div class="panel-docente-carsce-actividad-item">
+
+                        <span class="panel-docente-carsce-actividad-punto panel-docente-carsce-punto-azul"></span>
+
+                        <div>
+                            <strong>Materias asignadas</strong>
+                            <p>Revisa tu carga académica actual.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-docente-carsce-actividad-item">
+
+                        <span class="panel-docente-carsce-actividad-punto panel-docente-carsce-punto-verde"></span>
+
+                        <div>
+                            <strong>Registro de notas</strong>
+                            <p>Consulta y actualiza las evaluaciones correspondientes.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-docente-carsce-actividad-item">
+
+                        <span class="panel-docente-carsce-actividad-punto panel-docente-carsce-punto-naranja"></span>
+
+                        <div>
+                            <strong>Seguimiento académico</strong>
+                            <p>Consulta la información relacionada con tus estudiantes.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ACCIONES RÁPIDAS
+             ===================================================== -->
+
+        <section class="panel-docente-carsce-accesos">
+
+            <div class="panel-docente-carsce-accesos-cabecera">
+
+                <div>
+                    <span>GESTIÓN ACADÉMICA</span>
+                    <h2>Accesos rápidos</h2>
+                </div>
+
+            </div>
+
+
+            <div class="panel-docente-carsce-accesos-grid">
+
+                <a href="#" class="panel-docente-carsce-acceso">
+
+                    <div class="panel-docente-carsce-acceso-icono panel-docente-carsce-acceso-azul">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+
+                    <div>
+                        <strong>Mis materias</strong>
+                        <span>Consultar materias asignadas</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right panel-docente-carsce-acceso-flecha"></i>
+
+                </a>
+
+
+                <a href="#" class="panel-docente-carsce-acceso">
+
+                    <div class="panel-docente-carsce-acceso-icono panel-docente-carsce-acceso-verde">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+
+                    <div>
+                        <strong>Registro de notas</strong>
+                        <span>Gestionar evaluaciones académicas</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right panel-docente-carsce-acceso-flecha"></i>
+
+                </a>
+
+
+                <a href="#" class="panel-docente-carsce-acceso">
+
+                    <div class="panel-docente-carsce-acceso-icono panel-docente-carsce-acceso-naranja">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+
+                    <div>
+                        <strong>Mis estudiantes</strong>
+                        <span>Consultar estudiantes asignados</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right panel-docente-carsce-acceso-flecha"></i>
+
+                </a>
+
+
+                <a href="#" class="panel-docente-carsce-acceso">
+
+                    <div class="panel-docente-carsce-acceso-icono panel-docente-carsce-acceso-morado">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+
+                    <div>
+                        <strong>Calendario académico</strong>
+                        <span>Consultar fechas académicas</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right panel-docente-carsce-acceso-flecha"></i>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Docente/dashboard_docente.js' %}"></script>
+
+{% endblock %}

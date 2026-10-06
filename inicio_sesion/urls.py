@@ -101,18 +101,18 @@ urlpatterns = [
     # path('aut_act_corr/', views.aut_act_corr, name="aut_act_corr"),
     # path('act_dat_usr/', views.act_dat_usr, name="act_dat_usr"),
 
-    # path('bus_usr/', views.bus_usr, name="bus_usr"),
-    # path('comp_usr/', views.comp_usr, name="comp_usr"),
-    # path('env_cod_usr/', views.env_cod_usr, name="env_cod_usr"),
-    # path('comp_cod_usr/', views.comp_cod_usr, name="comp_cod_usr"),
-    # path('val_cod/', views.val_cod, name="val_cod"),
-    # path('reenv_cod_btn/', views.reenv_cod_btn, name="reenv_cod_btn"),
-    # path('env_cod_ver/', views.env_cod_ver, name="env_cod_ver"),
-    # path('panel_rec_cred/', views.panel_rec_cred, name="panel_rec_cred"),
-    # path('rec_cont/', views.rec_cont, name="rec_cont"),
-    # path('rec_usr/', views.rec_usr, name="rec_usr"),
-    # path('exist_cod/', views.exist_cod, name="exist_cod"),
-    # path('corr_reg/', views.corr_reg, name="corr_reg"),
+    path('bus_usr/', views.bus_usr, name="bus_usr"),
+    path('comp_usr/', views.comp_usr, name="comp_usr"),
+    path('env_cod_usr/', views.env_cod_usr, name="env_cod_usr"),
+    path('comp_cod_usr/', views.comp_cod_usr, name="comp_cod_usr"),
+    path('val_cod/', views.val_cod, name="val_cod"),
+    path('reenv_cod_btn/', views.reenv_cod_btn, name="reenv_cod_btn"),
+    path('env_cod_ver/', views.env_cod_ver, name="env_cod_ver"),
+    path('panel_rec_cred/', views.panel_rec_cred, name="panel_rec_cred"),
+    path('rec_cont/', views.rec_cont, name="rec_cont"),
+    path('rec_usr/', views.rec_usr, name="rec_usr"),
+    path('exist_cod/', views.exist_cod, name="exist_cod"),
+    path('corr_reg/', views.corr_reg, name="corr_reg"),
 
     path('mat_asig/', views.mat_asig, name="mat_asig"),
     path('mats_desact/', views.mats_desact, name="mats_desact"),
@@ -142,14 +142,21 @@ urlpatterns = [
     path('trayectoria/', views.trayectoria, name="trayectoria"),
     path('carreras_impartidas/', views.carreras_impartidas, name="carreras_impartidas"),
     path('Planificacion_Docente/', views.Planificacion_Docente, name="Planificacion_Docente"),
+    path('noticias-por-nucleo/', views.noticias_por_nucleo, name="noticias_por_nucleo"),
 
     path('barra_lateral/', views.barra_lateral, name="barra_lateral"),
 
     path('reporte_estudiantes_pdf/', views.reporte_estudiantes_pdf, name='reporte_estudiantes_pdf'),
     path('reportes_control_estudio/', views.reportes_control_estudio, name='reportes_control_estudio'),
     path('reporte_academico_pdf/', views.reporte_academico_pdf, name='reporte_academico_pdf'),
-    path('reporte_inscripciones_pdf/', views.reporte_inscripciones_pdf, name='reporte_inscripciones_pdf'
-),
+    path('reporte_inscripciones_pdf/', views.reporte_inscripciones_pdf, name='reporte_inscripciones_pdf'),
+
+    # NOTICIAS - DIRECTOR GENERAL
+    path('noticias/', views.visualizar_noticias, name='visualizar_noticias'),
+    path('noticias/registrar/', views.registrar_noticia, name="registrar_noticia"),
+    path('noticias/modificar/<int:id_noticia>/', views.modificar_noticia, name="modificar_noticia"),
+    path('noticias/desactivar/<int:id_noticia>/', views.desactivar_noticia, name="desactivar_noticia"),
+    path('noticias/activar/<int:id_noticia>/', views.activar_noticia, name="activar_noticia"),
 ]
 
 if settings.DEBUG:

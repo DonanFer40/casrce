@@ -257,7 +257,7 @@ def reg_eval_rep(request):
                 "descripcion": str(e)
             })  
          
-    return render(request, "registrar_examen_reparacion.html")
+    return render(request, "Roles/Docente/Evaluacion Reparacion/registrar_examen_reparacion.html")
 
 # Visualizar
 
@@ -368,7 +368,7 @@ def dato_eval_rep(request):
     })
 
 def vis_eval_rep(request):
-    return render(request, "visualizar_evaluaciones_reparar.html")
+    return render(request, "Roles/Docente/Evaluacion Reparacion/visualizar_evaluaciones_reparar.html")
 
 # Modificar
 
@@ -666,7 +666,7 @@ def mod_eval_rep(request):
             "descripcion": "Evaluación de reparación modificada correctamente."
         })
 
-    return render(request, "modificar_evaluaciones_reparar.html")
+    return render(request, "Roles/Docente/Evaluacion Reparacion/modificar_evaluaciones_reparar.html")
 
 # Calificaciones Reparación
 
@@ -1000,7 +1000,7 @@ def reg_rep_not(request):
                 "descripcion": str(e)
             })
         
-    return render(request, "registrar_reparacion.html")
+    return render(request, "Roles/Docente/Reparacion/registrar_reparacion.html")
 
 # Visualizar
 
@@ -1290,7 +1290,7 @@ def reg_est_rep(request):
         })
     
 def vis_rep_not(request):
-    return render(request, "visualizar_reparacion.html")
+    return render(request, "Roles/Docente/Reparacion/visualizar_reparacion.html")
 
 # Modificar Reparaciones Registradas
 
@@ -1614,7 +1614,7 @@ def mod_not_rep_reg(request):
 def mod_rep_reg(request):
 
     if request.method == "GET":
-        return render(request, "modificar_reparacion.html")
+        return render(request, "Roles/Docente/Reparacion/modificar_reparacion.html")
 
     if request.method != "POST":
         return JsonResponse({

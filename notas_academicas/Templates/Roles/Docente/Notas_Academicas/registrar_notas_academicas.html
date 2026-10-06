@@ -1,0 +1,494 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section
+    id="notas-academicas-registrar-carsce"
+    class="notas-academicas-registrar-carsce"
+>
+
+    <div class="notas-academicas-registrar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+
+        <header class="notas-academicas-registrar-carsce-encabezado">
+
+            <div class="notas-academicas-registrar-carsce-identificacion">
+                <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                GESTIÓN ACADÉMICA
+            </div>
+
+            <div class="notas-academicas-registrar-carsce-presentacion">
+
+                <h1 class="notas-academicas-registrar-carsce-titulo">
+                    Registrar Notas Académicas
+                    <span>CARSCE</span>
+                </h1>
+
+                <p class="notas-academicas-registrar-carsce-descripcion">
+                    Registra las calificaciones correspondientes a las
+                    unidades curriculares asignadas al docente.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <section class="notas-academicas-registrar-carsce-tarjeta">
+
+            <div class="notas-academicas-registrar-carsce-tarjeta-cabecera">
+
+                <div class="notas-academicas-registrar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-file-pen" aria-hidden="true"></i>
+                </div>
+
+                <div class="notas-academicas-registrar-carsce-tarjeta-informacion">
+
+                    <h2 class="notas-academicas-registrar-carsce-tarjeta-titulo">
+                        Registro de calificaciones
+                    </h2>
+
+                    <p class="notas-academicas-registrar-carsce-tarjeta-descripcion">
+                        Selecciona los datos académicos para cargar
+                        las notas correspondientes.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+            ================================================== -->
+
+            <form
+                method="post"
+                id="formulario_registrar"
+                class="notas-academicas-registrar-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     CONTEXTO ACADÉMICO
+                ============================================== -->
+
+                <div class="notas-academicas-registrar-carsce-bloque">
+
+                    <div class="notas-academicas-registrar-carsce-bloque-cabecera">
+
+                        <div class="notas-academicas-registrar-carsce-bloque-icono">
+                            <i
+                                class="fa-solid fa-building-columns"
+                                aria-hidden="true"
+                            ></i>
+                        </div>
+
+                        <div class="notas-academicas-registrar-carsce-bloque-informacion">
+
+                            <h3 class="notas-academicas-registrar-carsce-bloque-titulo">
+                                Contexto académico
+                            </h3>
+
+                            <p class="notas-academicas-registrar-carsce-bloque-descripcion">
+                                Información institucional asociada al registro.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="notas-academicas-registrar-carsce-grid-2">
+
+                        <!-- PERFIL ASIGNADO -->
+
+                        <div
+                            class="notas-academicas-registrar-carsce-campo
+                                   notas-academicas-registrar-carsce-campo-oculto"
+                        >
+
+                            <label
+                                for="perfiles_asignados"
+                                class="notas-academicas-registrar-carsce-etiqueta"
+                            >
+                                Perfil Asignado:
+                            </label>
+
+                            <select
+                                name="perfiles_asignados"
+                                id="perfiles_asignados"
+                                class="notas-academicas-registrar-carsce-control-oculto"
+                            ></select>
+
+                            <input
+                                type="text"
+                                name="perfiles_asignados"
+                                id="perfil_asignado"
+                                class="notas-academicas-registrar-carsce-control-oculto"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- NÚCLEO -->
+
+                        <div class="notas-academicas-registrar-carsce-campo">
+
+                            <label
+                                for="nucleo_asignado"
+                                class="notas-academicas-registrar-carsce-etiqueta"
+                            >
+                                Núcleo Asignado:
+                            </label>
+
+                            <div class="notas-academicas-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-location-dot"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="nucleo_asignado"
+                                    id="nucleo_asignado"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down
+                                           notas-academicas-registrar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div
+                                class="notas-academicas-registrar-carsce-mensaje"
+                            ></div>
+
+                        </div>
+
+
+                        <!-- PNF -->
+
+                        <div class="notas-academicas-registrar-carsce-campo">
+
+                            <label
+                                for="pnf_asignado"
+                                class="notas-academicas-registrar-carsce-etiqueta"
+                            >
+                                P.N.F. Asignado:
+                            </label>
+
+                            <div class="notas-academicas-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-graduation-cap"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="pnf_asignado"
+                                    id="pnf_asignado"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down
+                                           notas-academicas-registrar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div
+                                class="notas-academicas-registrar-carsce-mensaje"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     DOCENTE RESPONSABLE
+                ============================================== -->
+
+                <div
+                    id="contenedor_seleccion_docente"
+                    class="notas-academicas-registrar-carsce-bloque
+                           notas-academicas-registrar-carsce-bloque-docente"
+                    style="display: none;"
+                >
+
+                    <div class="notas-academicas-registrar-carsce-bloque-cabecera">
+
+                        <div class="notas-academicas-registrar-carsce-bloque-icono">
+                            <i
+                                class="fa-solid fa-chalkboard-user"
+                                aria-hidden="true"
+                            ></i>
+                        </div>
+
+                        <div class="notas-academicas-registrar-carsce-bloque-informacion">
+
+                            <h3 class="notas-academicas-registrar-carsce-bloque-titulo">
+                                Docente responsable
+                            </h3>
+
+                            <p class="notas-academicas-registrar-carsce-bloque-descripcion">
+                                Selecciona el docente asociado al registro.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="notas-academicas-registrar-carsce-campo">
+
+                        <label
+                            for="seleccion_docente"
+                            class="notas-academicas-registrar-carsce-etiqueta"
+                        >
+                            Docente:
+                        </label>
+
+                        <div class="notas-academicas-registrar-carsce-control">
+
+                            <i
+                                class="fa-solid fa-user-tie"
+                                aria-hidden="true"
+                            ></i>
+
+                            <select
+                                name="seleccion_docente"
+                                id="seleccion_docente"
+                            >
+                                <option value="" selected>
+                                    Selecciona un Docente
+                                </option>
+                            </select>
+
+                            <i
+                                class="fa-solid fa-chevron-down
+                                       notas-academicas-registrar-carsce-flecha"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <div
+                            class="notas-academicas-registrar-carsce-mensaje"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     UNIDAD CURRICULAR
+                ============================================== -->
+
+                <div class="notas-academicas-registrar-carsce-bloque">
+
+                    <div class="notas-academicas-registrar-carsce-bloque-cabecera">
+
+                        <div class="notas-academicas-registrar-carsce-bloque-icono">
+                            <i
+                                class="fa-solid fa-book-open"
+                                aria-hidden="true"
+                            ></i>
+                        </div>
+
+                        <div class="notas-academicas-registrar-carsce-bloque-informacion">
+
+                            <h3 class="notas-academicas-registrar-carsce-bloque-titulo">
+                                Unidad curricular
+                            </h3>
+
+                            <p class="notas-academicas-registrar-carsce-bloque-descripcion">
+                                Selecciona el trayecto y la materia correspondiente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="notas-academicas-registrar-carsce-grid-2">
+
+                        <!-- TRAYECTO -->
+
+                        <div class="notas-academicas-registrar-carsce-campo">
+
+                            <label
+                                for="trayecto_academico"
+                                class="notas-academicas-registrar-carsce-etiqueta"
+                            >
+                                Trayecto Académico:
+                            </label>
+
+                            <div class="notas-academicas-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-layer-group"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="trayecto_academico"
+                                    id="trayecto_academico"
+                                >
+                                    <option value="" selected>
+                                        Debe seleccionar el Trayecto Académico
+                                    </option>
+                                </select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down
+                                           notas-academicas-registrar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div
+                                class="notas-academicas-registrar-carsce-mensaje"
+                            ></div>
+
+                        </div>
+
+
+                        <!-- MATERIA -->
+
+                        <div class="notas-academicas-registrar-carsce-campo">
+
+                            <label
+                                for="materia_asignada"
+                                class="notas-academicas-registrar-carsce-etiqueta"
+                            >
+                                Materia Asignada:
+                            </label>
+
+                            <div class="notas-academicas-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-book"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="materia_asignada"
+                                    id="materia_asignada"
+                                >
+                                    <option value="" selected>
+                                        Debe seleccionar la materia
+                                    </option>
+                                </select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down
+                                           notas-academicas-registrar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div
+                                class="notas-academicas-registrar-carsce-mensaje"
+                            ></div>
+
+                        </div>
+
+
+                        <!-- PERIODO ACADÉMICO -->
+
+                        <div class="notas-academicas-registrar-carsce-campo">
+
+                            <label
+                                for="periodo_academico"
+                                class="notas-academicas-registrar-carsce-etiqueta"
+                            >
+                                Periodo Académico:
+                            </label>
+
+                            <div class="notas-academicas-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-calendar-days"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    type="text"
+                                    name="periodo"
+                                    id="periodo_academico"
+                                    readonly
+                                    placeholder="Periodo Académico de la Materia."
+                                >
+
+                            </div>
+
+                            <div
+                                class="notas-academicas-registrar-carsce-mensaje"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     NOTAS ACADÉMICAS
+                ============================================== -->
+
+                <div
+                    id="contenedor_notas_academicas"
+                    class="notas-academicas-registrar-carsce-notas"
+                ></div>
+
+
+                <!-- =============================================
+                     ACCIONES
+                ============================================== -->
+
+                <div class="notas-academicas-registrar-carsce-acciones">
+
+                    <input
+                        type="submit"
+                        value="Registrar"
+                        id="btn_registrar_notas"
+                        class="notas-academicas-registrar-carsce-boton"
+                    >
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Docente/Notas_Academicas/registrar_notas_academicas.js' %}"></script>
+
+{% endblock %}

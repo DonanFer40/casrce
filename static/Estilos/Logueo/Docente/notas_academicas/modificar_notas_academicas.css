@@ -1,0 +1,523 @@
+/* =========================================================
+   MODIFICAR NOTAS ACADÉMICAS — CARSCE
+   ========================================================= */
+
+#notas-academicas-modificar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-contenedor {
+    width: min(1050px, calc(100% - 36px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+    color: #2563EB;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-presentacion {
+    margin-top: 9px;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-titulo {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-titulo span {
+    color: #2563EB;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+    color: var(--texto-secundario);
+    font-size: .82rem;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   TARJETA PRINCIPAL
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-tarjeta {
+    padding: 26px 28px 28px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-tarjeta-icono {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    color: #FFFFFF;
+    box-shadow: 0 6px 14px rgba(37, 99, 235, .20);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-tarjeta-icono i {
+    font-size: 1rem;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-tarjeta-titulo {
+    margin: 0;
+    color: var(--color-azul-card);
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-tarjeta-descripcion {
+    margin: 4px 0 0;
+    color: var(--texto-secundario);
+    font-size: .68rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-formulario {
+    width: 100%;
+}
+
+
+/* =========================================================
+   BLOQUES
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-bloque {
+    padding: 21px 20px 22px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-bloque + 
+.notas-academicas-modificar-carsce-bloque {
+    margin-top: 18px;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 18px;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-bloque-icono {
+    width: 35px;
+    height: 35px;
+    flex: 0 0 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+    color: #2563EB;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-bloque-icono i {
+    font-size: .78rem;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-bloque-titulo {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: .82rem;
+    font-weight: 650;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-bloque-descripcion {
+    margin: 2px 0 0;
+    color: var(--texto-secundario);
+    font-size: .68rem;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-campo {
+    width: 100%;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-campo-oculto {
+    display: none;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-etiqueta {
+    display: block;
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: .73rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control {
+    position: relative;
+    width: 100%;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control > i:first-child {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #64748B;
+    font-size: .76rem;
+    pointer-events: none;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control select,
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control input {
+    width: 100%;
+    height: 45px;
+    padding: 0 40px;
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+    color: #0F172A;
+    font-family: "Poppins", sans-serif;
+    font-size: .74rem;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control select {
+    appearance: none;
+    cursor: pointer;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control input[readonly] {
+    background: #F8FAFC;
+    color: #475569;
+    cursor: default;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control select:hover,
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control input:hover {
+    border-color: #94A3B8;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control select:focus,
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-flecha {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    color: #64748B;
+    font-size: .65rem;
+    pointer-events: none;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-control select:disabled {
+    background: #F1F5F9;
+    color: #94A3B8;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MENSAJES DE VALIDACIÓN
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-mensaje {
+    display: block;
+    min-height: 16px;
+    margin-top: 4px;
+    color: #DC2626;
+    font-size: .65rem;
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   RESULTADOS
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-resultados {
+    width: 100%;
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 21px;
+    padding-top: 21px;
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-acciones-informacion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--texto-secundario);
+    font-size: .68rem;
+    line-height: 1.4;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-acciones-informacion i {
+    color: #2563EB;
+    font-size: .75rem;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-boton {
+    min-width: 225px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    color: #FFFFFF;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, .20);
+    font-family: "Poppins", sans-serif;
+    font-size: .76rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-boton:hover {
+    background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+    box-shadow: 0 8px 16px rgba(37, 99, 235, .24);
+    transform: translateY(-1px);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-boton:active {
+    transform: translateY(0);
+}
+
+#notas-academicas-modificar-carsce
+.notas-academicas-modificar-carsce-boton:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-contenedor {
+        width: min(100% - 28px, 1050px);
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-tarjeta {
+        padding: 23px;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-grid {
+        gap: 15px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-acciones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-boton {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-contenedor {
+        width: calc(100% - 20px);
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-tarjeta {
+        padding: 18px;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-bloque {
+        padding: 18px 15px;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-titulo {
+        font-size: 1.3rem;
+    }
+}
+
+
+@media (max-width: 390px) {
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-identificacion {
+        font-size: .61rem;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-titulo {
+        font-size: 1.15rem;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-descripcion {
+        font-size: .74rem;
+    }
+
+    #notas-academicas-modificar-carsce
+    .notas-academicas-modificar-carsce-boton {
+        min-width: 100%;
+    }
+}

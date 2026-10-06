@@ -1,0 +1,264 @@
+{% extends 'Estructura/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="director-recuperacion-credenciales-carsce">
+
+    <div class="director-recuperacion-credenciales-carsce-contenedor">
+
+
+        <!-- =====================================================
+             PANEL DE INFORMACIÓN
+             ===================================================== -->
+
+        <div class="director-recuperacion-credenciales-carsce-informacion">
+
+
+            <!-- =================================================
+                 BOTÓN REGRESAR
+                 ================================================= -->
+
+            <div class="director-recuperacion-credenciales-carsce-navegacion">
+
+                <a href="{% url 'inicio_sesion' %}"
+                   class="director-recuperacion-credenciales-carsce-boton-regresar">
+
+                    <i class="icon-left-open"></i>
+
+                    <span>
+                        Regresar
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 IMAGEN
+                 ================================================= -->
+
+            <div class="director-recuperacion-credenciales-carsce-presentacion">
+
+                <div class="director-recuperacion-credenciales-carsce-imagen">
+
+                    <img src="{% static 'Imagenes/recuperar_credenciales.png' %}"
+                         alt="Recuperación de credenciales">
+
+                </div>
+
+
+                <!-- =================================================
+                     TEXTO INSTITUCIONAL
+                     ================================================= -->
+
+                <div class="director-recuperacion-credenciales-carsce-texto">
+
+                    <span class="director-recuperacion-credenciales-carsce-etiqueta">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        SEGURIDAD DE ACCESO
+
+                    </span>
+
+
+                    <h1>
+                        Recuperación de acceso
+                    </h1>
+
+
+                    <p>
+                        Este proceso permite verificar tu identidad
+                        antes de continuar con la recuperación de
+                        tus credenciales de acceso al sistema.
+                    </p>
+
+
+                    <div class="director-recuperacion-credenciales-carsce-linea"></div>
+
+
+                    <span class="director-recuperacion-credenciales-carsce-subtexto">
+                        Acceso protegido por la institución
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PANEL DE ACCESO
+             ===================================================== -->
+
+        <div class="director-recuperacion-credenciales-carsce-acceso">
+
+
+            <!-- =================================================
+                 CABECERA
+                 ================================================= -->
+
+            <div class="director-recuperacion-credenciales-carsce-cabecera">
+
+                <span class="director-recuperacion-credenciales-carsce-indicador">
+                    RECUPERACIÓN DE CREDENCIALES
+                </span>
+
+
+                <h2>
+                    Verificar usuario
+                </h2>
+
+
+                <p>
+                    Ingresa tu número de cédula para continuar
+                    con la recuperación de tus credenciales.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+                 ================================================= -->
+
+            <form method="post"
+                  id="formulario_buscar_usuario"
+                  class="director-recuperacion-credenciales-carsce-formulario">
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     CÉDULA DE IDENTIDAD
+                     ============================================= -->
+
+                <div class="director-recuperacion-credenciales-carsce-grupo">
+
+                    <label for="cedula_identidad">
+                        Cédula de identidad
+                    </label>
+
+
+                    <div class="director-recuperacion-credenciales-carsce-cedula">
+
+
+                        <!-- =====================================
+                             NACIONALIDAD
+                             ===================================== -->
+
+                        <select name="nacionalidad"
+                                id="nacionalidad"
+                                class="director-recuperacion-credenciales-carsce-nacionalidad">
+
+                            <option value="">
+                                N
+                            </option>
+
+                            <option value="V">
+                                V
+                            </option>
+
+                            <option value="E">
+                                E
+                            </option>
+
+                        </select>
+
+
+                        <!-- =====================================
+                             NÚMERO DE CÉDULA
+                             ===================================== -->
+
+                        <input type="text"
+                               name="cedula"
+                               id="cedula_identidad"
+                               autocomplete="off"
+                               placeholder="Ingrese su número de cédula">
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     AVISO
+                     ================================================= -->
+
+                <div class="director-recuperacion-credenciales-carsce-aviso">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <p>
+                        Verifica que la nacionalidad y el número de
+                        cédula ingresados sean correctos antes de continuar.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     BOTÓN
+                     ================================================= -->
+
+                <button type="submit"
+                        class="director-recuperacion-credenciales-carsce-boton">
+
+                    <span>
+                        Enviar código de verificación
+                    </span>
+
+                    <i class="icon-right-open"></i>
+
+                </button>
+
+            </form>
+
+
+            <!-- =================================================
+                 REGRESAR AL LOGIN
+                 ================================================= -->
+
+            <div class="director-recuperacion-credenciales-carsce-registro">
+
+                <span>
+                    ¿Tienes credenciales?
+                </span>
+
+                <a href="{% url 'inicio_sesion' %}">
+                    Inicia sesión
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 PIE
+                 ================================================= -->
+
+            <div class="director-recuperacion-credenciales-carsce-pie">
+
+                Sistema de gestión académica · CARSCE
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FUNCIONALIDADES
+     ========================================================= -->
+
+<script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
+
+<script src="{% static 'Funciones_Asincronas/Credenciales/buscar_usuario.js' %}"></script>
+
+{% endblock %}

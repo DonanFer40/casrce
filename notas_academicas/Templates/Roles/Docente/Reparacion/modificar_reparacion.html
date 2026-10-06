@@ -1,0 +1,244 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="reparacion-modificar-carsce">
+
+    <div class="reparacion-modificar-carsce-contenedor">
+
+        <header class="reparacion-modificar-carsce-encabezado">
+
+            <div class="reparacion-modificar-carsce-identificacion">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="reparacion-modificar-carsce-presentacion">
+
+                <h2 class="reparacion-modificar-carsce-titulo">
+                    Modificar Reparación
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="reparacion-modificar-carsce-descripcion">
+                    Actualiza los registros de reparación académica
+                    de acuerdo con el núcleo, P.N.F., materia y trayecto correspondiente.
+                </p>
+
+            </div>
+
+        </header>
+
+        <div class="reparacion-modificar-carsce-tarjeta">
+
+            <div class="reparacion-modificar-carsce-tarjeta-cabecera">
+
+                <div class="reparacion-modificar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-file-pen"></i>
+                </div>
+
+                <div class="reparacion-modificar-carsce-tarjeta-informacion">
+
+                    <h3 class="reparacion-modificar-carsce-tarjeta-titulo">
+                        Actualización de reparación académica
+                    </h3>
+
+                    <p class="reparacion-modificar-carsce-tarjeta-descripcion">
+                        Selecciona los datos académicos correspondientes
+                        para localizar y actualizar el registro de reparación.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <form method="post"
+                  id="formulario_actualizar"
+                  class="reparacion-modificar-carsce-formulario">
+
+                {% csrf_token %}
+
+                <div class="reparacion-modificar-carsce-bloque">
+
+                    <div class="reparacion-modificar-carsce-bloque-cabecera">
+
+                        <div class="reparacion-modificar-carsce-bloque-icono">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+
+                        <div class="reparacion-modificar-carsce-bloque-informacion">
+
+                            <h4 class="reparacion-modificar-carsce-bloque-titulo">
+                                Datos académicos
+                            </h4>
+
+                            <p class="reparacion-modificar-carsce-bloque-descripcion">
+                                Define los criterios académicos necesarios
+                                para localizar el registro que deseas modificar.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="reparacion-modificar-carsce-grid">
+
+                        <div class="reparacion-modificar-carsce-campo">
+
+                            <label for="nucleo_asignado"
+                                   class="reparacion-modificar-carsce-etiqueta">
+                                Núcleo Asignado:
+                            </label>
+
+                            <div class="reparacion-modificar-carsce-control">
+                                <i class="fa-solid fa-building-columns"></i>
+
+                                <select name="nucleo_asignado"
+                                        id="nucleo_asignado">
+                                </select>
+
+                                <span class="reparacion-modificar-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+                            </div>
+
+                            <div class="reparacion-modificar-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="reparacion-modificar-carsce-campo">
+
+                            <label for="pnf_asignado"
+                                   class="reparacion-modificar-carsce-etiqueta">
+                                P.N.F. Asignado:
+                            </label>
+
+                            <div class="reparacion-modificar-carsce-control">
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select name="pnf_asignado"
+                                        id="pnf_asignado">
+                                </select>
+
+                                <span class="reparacion-modificar-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+                            </div>
+
+                            <div class="reparacion-modificar-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="reparacion-modificar-carsce-campo">
+
+                            <label for="materia_asignada"
+                                   class="reparacion-modificar-carsce-etiqueta">
+                                Materia(s) a Reparar:
+                            </label>
+
+                            <div class="reparacion-modificar-carsce-control">
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <select name="materia_asignada"
+                                        id="materia_asignada">
+                                </select>
+
+                                <span class="reparacion-modificar-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+                            </div>
+
+                            <div class="reparacion-modificar-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="reparacion-modificar-carsce-campo">
+
+                            <label for="trayecto_academico"
+                                   class="reparacion-modificar-carsce-etiqueta">
+                                Trayecto:
+                            </label>
+
+                            <div class="reparacion-modificar-carsce-control reparacion-modificar-carsce-control-lectura">
+                                <i class="fa-solid fa-route"></i>
+
+                                <input type="text"
+                                       name="trayecto_academico"
+                                       id="trayecto_academico"
+                                       readonly
+                                       placeholder="Cargando trayecto...">
+                            </div>
+
+                            <div class="reparacion-modificar-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="reparacion-modificar-carsce-bloque reparacion-modificar-carsce-bloque-evaluaciones">
+
+                    <div class="reparacion-modificar-carsce-bloque-cabecera">
+
+                        <div class="reparacion-modificar-carsce-bloque-icono">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+
+                        <div class="reparacion-modificar-carsce-bloque-informacion">
+
+                            <h4 class="reparacion-modificar-carsce-bloque-titulo">
+                                Información de reparación
+                            </h4>
+
+                            <p class="reparacion-modificar-carsce-bloque-descripcion">
+                                Consulta y modifica la información asociada
+                                al registro de reparación seleccionado.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div id="contenedor_evaluaciones"
+                         class="reparacion-modificar-carsce-evaluaciones">
+                    </div>
+
+                </div>
+
+                <div class="reparacion-modificar-carsce-acciones">
+
+                    <div class="reparacion-modificar-carsce-acciones-informacion">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <span>
+                            Verifica los datos de la reparación antes de guardar los cambios.
+                        </span>
+
+                    </div>
+
+                    <button type="submit"
+                            class="reparacion-modificar-carsce-boton">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        <span>Actualizar reparación</span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Docente/modificar_notas_reparar.js' %}"></script>
+
+{% endblock %}

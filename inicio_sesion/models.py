@@ -466,3 +466,41 @@ class VerificacionCodigo(models.Model):
     activo = models.IntegerField()
     descripcion = models.CharField(max_length=100)
     fecha_expiracion = models.DateTimeField(null=True, blank=True)
+
+# NOTICIAS
+
+class Noticia(models.Model):
+    id_noticia = models.AutoField(primary_key=True)
+
+    titulo = models.CharField(max_length=200)
+    descripcion = models.CharField(max_length=300)
+    contenido = models.TextField()
+
+    imagen = models.ImageField(
+        upload_to="noticias/",
+        null=True,
+        blank=True
+    )
+
+    nucleo = models.ForeignKey(
+        Nucleos,
+        on_delete=models.PROTECT,
+        related_name="noticias"
+    )
+
+    registrado_por = models.ForeignKey(
+        Usuario,
+        on_delete=models.PROTECT,
+        related_name="noticias_registradas"
+    )
+
+    fecha_publicacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+
+    activa = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["-fecha_publicacion"]
+
+    def __str__(self):
+        return self.titulo

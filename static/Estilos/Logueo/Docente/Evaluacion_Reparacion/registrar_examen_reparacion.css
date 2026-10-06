@@ -1,0 +1,965 @@
+/* ============================================================
+   REGISTRAR EVALUACIÓN DE REPARACIÓN — CARSCE
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    color: #2563EB;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-identificacion i {
+    font-size: 0.72rem;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-presentacion {
+    margin-top: 9px;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-titulo span {
+    color: var(--color-azul-hover);
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   TARJETA PRINCIPAL
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tarjeta {
+    width: 100%;
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* ============================================================
+   CABECERA DE TARJETA
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tarjeta-icono {
+    flex: 0 0 46px;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border-radius: 11px;
+
+    color: #FFFFFF;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.22);
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tarjeta-icono i {
+    font-size: 1rem;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tarjeta-descripcion {
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-formulario {
+    width: 100%;
+}
+
+
+/* ============================================================
+   BLOQUES
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-bloque {
+    width: 100%;
+
+    margin-bottom: 18px;
+    padding: 21px 20px 22px;
+
+    background: var(--color-fondo-pagina);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+
+/* ============================================================
+   CABECERA DE BLOQUES
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 18px;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-bloque-icono {
+    flex: 0 0 35px;
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+
+    color: #2563EB;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-bloque-icono i {
+    font-size: 0.78rem;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-bloque-informacion {
+    min-width: 0;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-bloque-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 0.82rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-bloque-descripcion {
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.68rem;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   GRID ACADÉMICO
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+
+/* ============================================================
+   CAMPOS
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-campo {
+    width: 100%;
+    min-width: 0;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-etiqueta {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.73rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* ============================================================
+   CONTROLES
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control {
+    position: relative;
+    width: 100%;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control > i:first-child {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+
+    z-index: 2;
+
+    color: #64748B;
+
+    font-size: 0.76rem;
+
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control select,
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 40px;
+
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+
+    color: #0F172A;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.74rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control input[readonly] {
+    cursor: default;
+    background: #F8FAFC;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control select:hover,
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control input:hover {
+    border-color: #94A3B8;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control select:focus,
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control input:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control select:disabled {
+    background: #F1F5F9;
+    color: #94A3B8;
+    cursor: not-allowed;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-control input::placeholder {
+    color: #94A3B8;
+}
+
+
+/* ============================================================
+   FLECHAS
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-flecha {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+
+    color: #64748B;
+
+    font-size: 0.65rem;
+
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   MENSAJES
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-mensaje {
+    min-height: 16px;
+
+    margin-top: 4px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 0.65rem;
+    line-height: 1.35;
+}
+
+
+/* ============================================================
+   DETALLES DE EVALUACIÓN
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    width: 100%;
+}
+
+
+/* ============================================================
+   DETALLE INDIVIDUAL
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-detalle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px auto;
+    align-items: end;
+    gap: 14px;
+
+    width: 100%;
+
+    padding: 16px;
+
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-detalle:hover {
+    border-color: #CBD5E1;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.05);
+}
+
+
+/* ============================================================
+   CAMPOS DEL DETALLE
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-detalle-campo {
+    min-width: 0;
+}
+
+
+/* ============================================================
+   INPUTS DEL DETALLE
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tipo-evaluacion,
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-porcentaje {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 40px;
+
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+
+    color: #0F172A;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.74rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tipo-evaluacion {
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tipo-evaluacion:hover,
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-porcentaje:hover {
+    border-color: #94A3B8;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-tipo-evaluacion:focus,
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-porcentaje:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+
+/* ============================================================
+   ACCIÓN ELIMINAR
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-detalle-accion {
+    display: flex;
+    align-items: flex-end;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-eliminar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-width: 105px;
+    height: 42px;
+
+    padding: 0 13px;
+
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 8px;
+
+    color: #DC2626;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-eliminar i {
+    font-size: 0.7rem;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-eliminar:hover {
+    background: #FEE2E2;
+    border-color: #FCA5A5;
+    color: #B91C1C;
+
+    transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   AGREGAR DETALLE
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-agregar {
+    display: flex;
+    justify-content: flex-start;
+
+    margin-top: 15px;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-agregar-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 170px;
+    height: 40px;
+
+    padding: 0 16px;
+
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 8px;
+
+    color: #2563EB;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-agregar-boton i {
+    font-size: 0.7rem;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-agregar-boton:hover {
+    background: #DBEAFE;
+    border-color: #93C5FD;
+
+    transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   ACCIONES FINALES
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-top: 21px;
+    padding-top: 21px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-acciones-informacion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.67rem;
+    line-height: 1.4;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-acciones-informacion i {
+    flex: 0 0 auto;
+
+    color: #2563EB;
+
+    font-size: 0.75rem;
+}
+
+
+/* ============================================================
+   BOTÓN REGISTRAR
+   ============================================================ */
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-boton {
+    min-width: 225px;
+    height: 44px;
+
+    padding: 0 24px;
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    color: #FFFFFF;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-boton:hover {
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 8px 16px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-boton:active {
+    transform: translateY(0);
+}
+
+#evaluacion-reparacion-registrar-carsce
+.evaluacion-reparacion-registrar-carsce-boton:focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.18),
+        0 5px 12px rgba(37, 99, 235, 0.20);
+}
+
+
+/* ============================================================
+   RESPONSIVE — 900px
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-contenedor {
+        max-width: 100%;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-tarjeta {
+        padding: 23px 22px 25px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-detalle {
+        grid-template-columns: minmax(0, 1fr) 160px auto;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 700px
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-detalle {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-detalle-campo:first-child {
+        grid-column: 1 / -1;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-detalle-accion {
+        grid-column: 1 / -1;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-eliminar {
+        width: 100%;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-titulo {
+        font-size: 1.35rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-tarjeta {
+        padding: 21px 18px 22px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-bloque {
+        padding: 18px 16px 19px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-acciones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-acciones-informacion {
+        justify-content: center;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-boton {
+        width: 100%;
+        min-width: 0;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 520px
+   ============================================================ */
+
+@media (max-width: 520px) {
+
+    #evaluacion-reparacion-registrar-carsce {
+        padding-bottom: 20px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-identificacion {
+        font-size: 0.62rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-titulo {
+        font-size: 1.2rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-descripcion {
+        font-size: 0.74rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-tarjeta-icono {
+        flex-basis: 42px;
+
+        width: 42px;
+        height: 42px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-tarjeta-titulo {
+        font-size: 0.9rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-tarjeta-descripcion {
+        font-size: 0.66rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-detalle {
+        grid-template-columns: 1fr;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-detalle-campo:first-child {
+        grid-column: auto;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-detalle-accion {
+        grid-column: auto;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 390px
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-tarjeta {
+        padding: 18px 14px 19px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-bloque {
+        padding: 16px 13px 17px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-bloque-icono {
+        flex-basis: 32px;
+
+        width: 32px;
+        height: 32px;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-bloque-titulo {
+        font-size: 0.76rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-bloque-descripcion {
+        font-size: 0.63rem;
+    }
+
+    #evaluacion-reparacion-registrar-carsce
+    .evaluacion-reparacion-registrar-carsce-acciones-informacion {
+        align-items: flex-start;
+    }
+
+}

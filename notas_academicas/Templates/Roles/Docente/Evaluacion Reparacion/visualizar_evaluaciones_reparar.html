@@ -1,0 +1,102 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="evaluacion-reparacion-visualizar-carsce">
+
+    <div class="evaluacion-reparacion-visualizar-carsce-contenedor">
+
+        <header class="evaluacion-reparacion-visualizar-carsce-encabezado">
+
+            <div class="evaluacion-reparacion-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="evaluacion-reparacion-visualizar-carsce-presentacion">
+
+                <h2 class="evaluacion-reparacion-visualizar-carsce-titulo">
+                    Visualizar Evaluaciones de Reparación
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="evaluacion-reparacion-visualizar-carsce-descripcion">
+                    Consulta las evaluaciones de reparación registradas
+                    para las diferentes unidades curriculares y P.N.F.
+                </p>
+
+            </div>
+
+        </header>
+
+        <div class="evaluacion-reparacion-visualizar-carsce-tarjeta">
+
+            <div class="evaluacion-reparacion-visualizar-carsce-tarjeta-cabecera">
+
+                <div class="evaluacion-reparacion-visualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+
+                <div class="evaluacion-reparacion-visualizar-carsce-tarjeta-informacion">
+
+                    <h3 class="evaluacion-reparacion-visualizar-carsce-tarjeta-titulo">
+                        Evaluaciones registradas
+                    </h3>
+
+                    <p class="evaluacion-reparacion-visualizar-carsce-tarjeta-descripcion">
+                        Revisa la información académica y los porcentajes
+                        correspondientes a cada evaluación de reparación.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="evaluacion-reparacion-visualizar-carsce-tabla-contenedor">
+
+                <table class="evaluacion-reparacion-visualizar-carsce-tabla">
+
+                    <thead class="evaluacion-reparacion-visualizar-carsce-tabla-cabecera">
+
+                        <tr>
+                            <th>ID</th>
+                            <th>P.N.F.</th>
+                            <th>MATERIA</th>
+                            <th>FECHA</th>
+                            <th>EVALUACIÓN 1</th>
+                            <th>EVALUACIÓN 2</th>
+                            <th>EVALUACIÓN 3</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="contenedor_evaluaciones"
+                           class="evaluacion-reparacion-visualizar-carsce-tabla-cuerpo">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="evaluacion-reparacion-visualizar-carsce-informacion">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <span>
+                    La información mostrada corresponde a las evaluaciones
+                    de reparación registradas en el sistema.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Docente/visualizar_evaluaciones_reparacion.js' %}"></script>
+
+{% endblock %}

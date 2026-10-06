@@ -1,0 +1,606 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="asignacion-materia-visualizar-carsce">
+
+    <div class="asignacion-materia-visualizar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+
+        <header class="asignacion-materia-visualizar-carsce-encabezado">
+
+            <div class="asignacion-materia-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-clipboard-list"></i>
+                GESTIÓN ACADÉMICA
+            </div>
+
+            <div class="asignacion-materia-visualizar-carsce-presentacion">
+
+                <h2 class="asignacion-materia-visualizar-carsce-titulo">
+                    Asignaciones de Materias
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="asignacion-materia-visualizar-carsce-descripcion">
+                    Consulta las materias asignadas a los docentes y actualiza
+                    el estado de sus asignaciones académicas.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <div class="asignacion-materia-visualizar-carsce-tarjeta">
+
+            <!-- CABECERA -->
+
+            <div class="asignacion-materia-visualizar-carsce-tarjeta-cabecera">
+
+                <div class="asignacion-materia-visualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+
+                <div class="asignacion-materia-visualizar-carsce-tarjeta-informacion">
+
+                    <h3 class="asignacion-materia-visualizar-carsce-tarjeta-titulo">
+                        Consulta de asignaciones
+                    </h3>
+
+                    <p class="asignacion-materia-visualizar-carsce-tarjeta-descripcion">
+                        Utiliza los filtros académicos para localizar una materia
+                        y consultar los docentes asociados.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 BLOQUE DE BÚSQUEDA
+            ================================================== -->
+
+            <div id="contenedor_busqueda_asignacion"
+                 class="asignacion-materia-visualizar-carsce-bloque">
+
+                <div class="asignacion-materia-visualizar-carsce-bloque-cabecera">
+
+                    <div class="asignacion-materia-visualizar-carsce-bloque-icono">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+
+                    <div class="asignacion-materia-visualizar-carsce-bloque-informacion">
+
+                        <h4 class="asignacion-materia-visualizar-carsce-bloque-titulo">
+                            Búsqueda de asignación
+                        </h4>
+
+                        <p class="asignacion-materia-visualizar-carsce-bloque-descripcion">
+                            Selecciona los criterios académicos disponibles
+                            o escribe el nombre de una materia.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FORMULARIO DE BÚSQUEDA
+                ================================================== -->
+
+                <form method="post"
+                      id="formulario_busqueda"
+                      class="asignacion-materia-visualizar-carsce-formulario">
+
+                    {% csrf_token %}
+
+
+                    <!-- PERFIL -->
+
+                    <div class="asignacion-materia-visualizar-carsce-grid-2">
+
+                        <div class="asignacion-materia-visualizar-carsce-campo">
+
+                            <label for="perfiles_asignados"
+                                   id="label_perfil"
+                                   class="asignacion-materia-visualizar-carsce-etiqueta">
+
+                                Perfil Asignado:
+
+                            </label>
+
+                            <select name="perfiles_asignados"
+                                    id="perfiles_asignados"
+                                    style="display: none;">
+
+                            </select>
+
+                            <input type="text"
+                                   name="perfiles_asignados"
+                                   id="perfil_asignado"
+                                   readonly
+                                   style="display: none;">
+
+                        </div>
+
+
+                        <!-- PNF -->
+
+                        <div class="asignacion-materia-visualizar-carsce-campo">
+
+                            <label for="pnfs_asignados"
+                                   id="label_pnf"
+                                   class="asignacion-materia-visualizar-carsce-etiqueta">
+
+                                P.N.F Asignado:
+
+                            </label>
+
+                            <div class="asignacion-materia-visualizar-carsce-control">
+
+                                <i class="fa-solid fa-sitemap"></i>
+
+                                <select name="pnfs_asignados"
+                                        id="pnfs_asignados">
+
+                                    <option value="">
+                                        Seleccione el P.N.F.
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down asignacion-materia-visualizar-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TRAYECTO -->
+
+                        <div class="asignacion-materia-visualizar-carsce-campo">
+
+                            <label for="trayecto"
+                                   class="asignacion-materia-visualizar-carsce-etiqueta">
+
+                                Trayecto Académico:
+
+                            </label>
+
+                            <div class="asignacion-materia-visualizar-carsce-control">
+
+                                <i class="fa-solid fa-route"></i>
+
+                                <select name="trayecto"
+                                        id="trayecto">
+
+                                    <option value="">
+                                        Seleccione el trayecto.
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down asignacion-materia-visualizar-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MATERIA -->
+
+                        <div class="asignacion-materia-visualizar-carsce-campo">
+
+                            <label for="materia"
+                                   class="asignacion-materia-visualizar-carsce-etiqueta">
+
+                                Materia:
+
+                            </label>
+
+                            <div class="asignacion-materia-visualizar-carsce-control">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <input type="text"
+                                       name="materia"
+                                       id="materia"
+                                       placeholder="Ingresa el nombre de la materia"
+                                       autocomplete="off">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULTADOS
+            ================================================== -->
+
+            <div id="contenedor_materias"
+                 class="asignacion-materia-visualizar-carsce-resultados">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ============================================================
+     DIÁLOGO DE ACTUALIZACIÓN
+============================================================ -->
+
+<dialog id="dialogo_actualizar"
+        class="asignacion-materia-visualizar-carsce-dialogo">
+
+    <div class="asignacion-materia-visualizar-carsce-dialogo-contenedor">
+
+
+        <!-- CERRAR -->
+
+        <button type="button"
+                id="cerrar_dialogo"
+                class="asignacion-materia-visualizar-carsce-dialogo-cerrar"
+                aria-label="Cerrar ventana">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <!-- =================================================
+             CABECERA
+        ================================================== -->
+
+        <div class="asignacion-materia-visualizar-carsce-dialogo-cabecera">
+
+            <div class="asignacion-materia-visualizar-carsce-dialogo-icono">
+
+                <i class="fa-solid fa-pen-to-square"></i>
+
+            </div>
+
+            <div>
+
+                <h3 class="asignacion-materia-visualizar-carsce-dialogo-titulo">
+                    Actualizar Asignación de Materia
+                </h3>
+
+                <p class="asignacion-materia-visualizar-carsce-dialogo-descripcion">
+                    Modifica el estado de los docentes y de la asignación
+                    académica seleccionada.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FORMULARIO
+        ================================================== -->
+
+        <form method="post"
+              id="formulario_actualizar"
+              class="asignacion-materia-visualizar-carsce-formulario-actualizar">
+
+            {% csrf_token %}
+
+
+            <input type="hidden"
+                   name="materia_asignada"
+                   id="materia_asignada">
+
+
+            <!-- =================================================
+                 INFORMACIÓN DE LA MATERIA
+            ================================================== -->
+
+            <div class="asignacion-materia-visualizar-carsce-bloque-dialogo">
+
+                <div class="asignacion-materia-visualizar-carsce-campo">
+
+                    <label for="nombre_materia"
+                           class="asignacion-materia-visualizar-carsce-etiqueta">
+
+                        Materia:
+
+                    </label>
+
+                    <div class="asignacion-materia-visualizar-carsce-control">
+
+                        <i class="fa-solid fa-book-open"></i>
+
+                        <input type="text"
+                               id="nombre_materia"
+                               readonly>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 DOCENTE PRINCIPAL
+            ================================================== -->
+
+            <div id="docente_principal"
+                 class="asignacion-materia-visualizar-carsce-bloque-dialogo">
+
+                <div class="asignacion-materia-visualizar-carsce-subcabecera">
+
+                    <div class="asignacion-materia-visualizar-carsce-subcabecera-icono">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Docente Principal
+                        </h4>
+
+                        <p>
+                            Información y estado del docente principal.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="asignacion-materia-visualizar-carsce-campo">
+
+                    <label for="docente_principal_nombre"
+                           class="asignacion-materia-visualizar-carsce-etiqueta">
+
+                        Docente:
+
+                    </label>
+
+                    <div class="asignacion-materia-visualizar-carsce-control">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input type="text"
+                               id="docente_principal_nombre"
+                               readonly>
+
+                    </div>
+
+                </div>
+
+
+                <div class="asignacion-materia-visualizar-carsce-estado">
+
+                    <span class="asignacion-materia-visualizar-carsce-estado-titulo">
+                        Estado:
+                    </span>
+
+                    <label for="principal_activo"
+                           class="asignacion-materia-visualizar-carsce-radio">
+
+                        <input type="radio"
+                               name="estado_principal"
+                               value="ACTIVO"
+                               id="principal_activo">
+
+                        <span>Activo</span>
+
+                    </label>
+
+                    <label for="principal_inactivo"
+                           class="asignacion-materia-visualizar-carsce-radio">
+
+                        <input type="radio"
+                               name="estado_principal"
+                               value="INACTIVO"
+                               id="principal_inactivo">
+
+                        <span>Inactivo</span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 DOCENTE SECUNDARIO
+            ================================================== -->
+
+            <div id="docente_secundario"
+                 class="asignacion-materia-visualizar-carsce-bloque-dialogo">
+
+                <div class="asignacion-materia-visualizar-carsce-subcabecera">
+
+                    <div class="asignacion-materia-visualizar-carsce-subcabecera-icono">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Docente Secundario / Suplente
+                        </h4>
+
+                        <p>
+                            Información y estado del docente secundario.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="asignacion-materia-visualizar-carsce-campo">
+
+                    <label for="docente_secundario_nombre"
+                           class="asignacion-materia-visualizar-carsce-etiqueta">
+
+                        Docente:
+
+                    </label>
+
+                    <div class="asignacion-materia-visualizar-carsce-control">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input type="text"
+                               id="docente_secundario_nombre"
+                               readonly>
+
+                    </div>
+
+                </div>
+
+
+                <div class="asignacion-materia-visualizar-carsce-estado">
+
+                    <span class="asignacion-materia-visualizar-carsce-estado-titulo">
+                        Estado:
+                    </span>
+
+                    <label for="secundario_activo"
+                           class="asignacion-materia-visualizar-carsce-radio">
+
+                        <input type="radio"
+                               name="estado_secundario"
+                               value="ACTIVO"
+                               id="secundario_activo">
+
+                        <span>Activo</span>
+
+                    </label>
+
+                    <label for="secundario_inactivo"
+                           class="asignacion-materia-visualizar-carsce-radio">
+
+                        <input type="radio"
+                               name="estado_secundario"
+                               value="INACTIVO"
+                               id="secundario_inactivo">
+
+                        <span>Inactivo</span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ESTADO DE LA ASIGNACIÓN
+            ================================================== -->
+
+            <div id="suspension_materia"
+                 class="asignacion-materia-visualizar-carsce-bloque-dialogo">
+
+                <div class="asignacion-materia-visualizar-carsce-subcabecera">
+
+                    <div class="asignacion-materia-visualizar-carsce-subcabecera-icono">
+                        <i class="fa-solid fa-toggle-on"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Asignación de la Materia
+                        </h4>
+
+                        <p>
+                            Define el estado actual de la asignación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="asignacion-materia-visualizar-carsce-estado">
+
+                    <span class="asignacion-materia-visualizar-carsce-estado-titulo">
+                        Estado de la materia:
+                    </span>
+
+                    <label for="materia_activa"
+                           class="asignacion-materia-visualizar-carsce-radio">
+
+                        <input type="radio"
+                               name="estado_materia"
+                               value="ACTIVA"
+                               id="materia_activa">
+
+                        <span>Activa</span>
+
+                    </label>
+
+                    <label for="materia_suspendida"
+                           class="asignacion-materia-visualizar-carsce-radio">
+
+                        <input type="radio"
+                               name="estado_materia"
+                               value="SUSPENDIDA"
+                               id="materia_suspendida">
+
+                        <span>Suspendida</span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCIONES
+            ================================================== -->
+
+            <div class="asignacion-materia-visualizar-carsce-dialogo-acciones">
+
+                <button type="submit"
+                        class="asignacion-materia-visualizar-carsce-boton">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Actualizar la Asignación
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</dialog>
+
+
+<script
+    src="{% static 'Funciones_Asincronas/Coordinador_PNF/Asignacion_Materia/visualizar_asignaciones.js' %}">
+</script>
+
+{% endblock %}

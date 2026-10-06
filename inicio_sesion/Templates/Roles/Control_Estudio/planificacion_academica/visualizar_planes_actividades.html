@@ -1,0 +1,330 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="evaluacion-planificaciones-carsce">
+
+    <div class="evaluacion-planificaciones-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+        <header class="evaluacion-planificaciones-carsce-encabezado">
+
+            <div class="evaluacion-planificaciones-carsce-identificacion">
+                <i class="fa-solid fa-clipboard-check"></i>
+                GESTIÓN ACADÉMICA
+            </div>
+
+            <div class="evaluacion-planificaciones-carsce-presentacion">
+
+                <h1 class="evaluacion-planificaciones-carsce-titulo">
+                    Evaluación de Planificaciones Académicas
+                    <span>CARSCE</span>
+                </h1>
+
+                <p class="evaluacion-planificaciones-carsce-descripcion">
+                    Consulte y revise los planes de actividades académicas
+                    enviados por los docentes correspondientes a los P.N.F.
+                    asignados al Coordinador.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+        <div class="evaluacion-planificaciones-carsce-tarjeta">
+
+            <div class="evaluacion-planificaciones-carsce-tarjeta-cabecera">
+
+                <div class="evaluacion-planificaciones-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                </div>
+
+                <div class="evaluacion-planificaciones-carsce-tarjeta-informacion">
+
+                    <h2 class="evaluacion-planificaciones-carsce-tarjeta-titulo">
+                        Planes Pendientes de Revisión
+                    </h2>
+
+                    <p class="evaluacion-planificaciones-carsce-tarjeta-descripcion">
+                        Revise la planificación académica antes de determinar
+                        su aceptación o denegación.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FILTRO / PERFIL ACADÉMICO
+            ================================================== -->
+            <div class="evaluacion-planificaciones-carsce-filtros">
+
+                <div class="evaluacion-planificaciones-carsce-filtros-cabecera">
+
+                    <div class="evaluacion-planificaciones-carsce-filtros-icono">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+
+                    <div class="evaluacion-planificaciones-carsce-filtros-informacion">
+
+                        <h3>
+                            Criterios de Consulta
+                        </h3>
+
+                        <p>
+                            El sistema utiliza el perfil y los P.N.F.
+                            asignados al Coordinador.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="post"
+                    id="formulario_busqueda"
+                    class="evaluacion-planificaciones-carsce-formulario">
+
+                    {% csrf_token %}
+
+                    <!-- Elementos utilizados por JavaScript -->
+                    <select
+                        name="perfiles_asignados"
+                        id="perfiles_asignados"
+                        class="evaluacion-planificaciones-carsce-control-oculto">
+                    </select>
+
+                    <input
+                        type="text"
+                        name="perfiles_asignados"
+                        id="perfil_asignado"
+                        class="evaluacion-planificaciones-carsce-control-oculto"
+                        readonly>
+
+                    <label
+                        for="pnfs_asignados"
+                        id="label_pnf"
+                        class="evaluacion-planificaciones-carsce-etiqueta-oculta">
+                        P.N.F Asignado
+                    </label>
+
+                    <select
+                        name="pnfs_asignados"
+                        id="pnfs_asignados"
+                        class="evaluacion-planificaciones-carsce-control-oculto">
+                    </select>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESULTADOS
+            ================================================== -->
+            <div class="evaluacion-planificaciones-carsce-resultados">
+
+                <div class="evaluacion-planificaciones-carsce-resultados-cabecera">
+
+                    <div class="evaluacion-planificaciones-carsce-resultados-icono">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+
+                    <div>
+
+                        <h3 class="evaluacion-planificaciones-carsce-resultados-titulo">
+                            Planes enviados para revisión
+                        </h3>
+
+                        <p class="evaluacion-planificaciones-carsce-resultados-descripcion">
+                            Los siguientes planes han sido enviados por los
+                            docentes y requieren revisión por parte del
+                            Coordinador de P.N.F.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="evaluacion-planificaciones-carsce-tabla-contenedor">
+
+                    <table class="evaluacion-planificaciones-carsce-tabla">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>MATERIA</th>
+                                <th>PERIODO ACADÉMICO</th>
+                                <th>MATERIA</th>
+                                <th>DECISIÓN</th>
+                                <th>UNIDADES</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="contenedor_planes_actividades">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DIÁLOGO - REVISIÓN DEL PLAN
+========================================================== -->
+<dialog id="dialogo_coordinador_planes_estudios">
+
+    <div class="evaluacion-planificaciones-carsce-dialogo">
+
+        <!-- =================================================
+             CABECERA DEL DIÁLOGO
+        ================================================== -->
+        <header class="evaluacion-planificaciones-carsce-dialogo-cabecera">
+
+            <div class="evaluacion-planificaciones-carsce-dialogo-identificacion">
+
+                <div class="evaluacion-planificaciones-carsce-dialogo-icono">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+
+                <div>
+
+                    <h2 class="evaluacion-planificaciones-carsce-dialogo-titulo">
+                        Revisión del Plan de Actividades Académicas
+                    </h2>
+
+                    <p class="evaluacion-planificaciones-carsce-dialogo-descripcion">
+                        Consulte la información del plan, sus unidades,
+                        contenidos y evaluaciones antes de tomar una decisión.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="cerrar_dialogo"
+                class="evaluacion-planificaciones-carsce-dialogo-cerrar"
+                aria-label="Cerrar">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </header>
+
+
+        <!-- =================================================
+             CONTENIDO DEL DIÁLOGO
+        ================================================== -->
+        <div class="evaluacion-planificaciones-carsce-dialogo-contenido">
+
+            <!-- Información general -->
+            <section class="evaluacion-planificaciones-carsce-informacion">
+
+                <div class="evaluacion-planificaciones-carsce-seccion-cabecera">
+
+                    <div class="evaluacion-planificaciones-carsce-seccion-icono">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Información del Plan
+                        </h3>
+
+                        <p>
+                            Datos generales de la planificación académica.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="informacion_plan"
+                    class="evaluacion-planificaciones-carsce-informacion-contenido">
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 UNIDADES ACADÉMICAS
+            ================================================== -->
+            <section class="evaluacion-planificaciones-carsce-unidades">
+
+                <div class="evaluacion-planificaciones-carsce-seccion-cabecera">
+
+                    <div class="evaluacion-planificaciones-carsce-seccion-icono">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Unidades Académicas
+                        </h3>
+
+                        <p>
+                            Consulte las unidades, contenidos y evaluaciones
+                            que conforman el plan.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Pestañas generadas por JavaScript -->
+                <div
+                    id="pestanas_unidades"
+                    class="evaluacion-planificaciones-carsce-pestanas">
+                </div>
+
+
+                <!-- Contenido generado por JavaScript -->
+                <div
+                    id="contenido_unidades"
+                    class="evaluacion-planificaciones-carsce-contenido-unidades">
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+</dialog>
+
+
+<script
+    src="{% static 'Funciones_Asincronas/Coordinador_PNF/planificacion_academica/evaluar_planificacion.js' %}">
+</script>
+
+{% endblock %}

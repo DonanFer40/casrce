@@ -1,702 +1,649 @@
-/* =========================================================
+/* ============================================================
    PANEL ACADÉMICO - CARSCE
-   Coordinador de PNF + Docente
-========================================================= */
+   ============================================================ */
 
-#PanelAcademicoCASRCE {
+#panel-academico-carsce {
     width: 100%;
-    padding: 28px 30px 40px;
-    box-sizing: border-box;
+    min-height: 100%;
+    padding: 4px 0 30px;
     color: var(--texto-principal);
 }
 
-
-/* =========================================================
-   CONTENEDOR PRINCIPAL
-========================================================= */
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contenedor {
+.panel-academico-carsce-contenedor {
     width: 100%;
-    max-width: 1500px;
+    max-width: 1050px;
     margin: 0 auto;
 }
 
 
-/* =========================================================
-   CABECERA
-========================================================= */
+/* ============================================================
+   ENCABEZADO
+   ============================================================ */
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-cabecera {
+.panel-academico-carsce-encabezado {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    gap: 24px;
-    padding: 26px 28px;
-    margin-bottom: 20px;
-    background: var(--color-blanco);
-    border: 1px solid var(--color-borde-fino);
-    border-radius: var(--radio-card);
-    box-shadow: var(--sombra-card);
+    gap: 25px;
+    margin-bottom: 24px;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-identificacion {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.panel-academico-carsce-presentacion {
     min-width: 0;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-indicador {
-    width: 54px;
-    height: 54px;
-    flex: 0 0 54px;
-    display: flex;
+.panel-academico-carsce-identificacion {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    color: var(--color-blanco);
-    background: var(--color-azul-profundo);
-    border-radius: 12px;
-    font-size: 21px;
-}
+    gap: 8px;
 
+    padding: 7px 12px;
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-titulos {
-    min-width: 0;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-etiqueta {
-    display: block;
-    margin-bottom: 5px;
     color: var(--color-azul-hover);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .08em;
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
 }
 
+.panel-academico-carsce-titulo {
+    margin-top: 9px;
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-titulos h1 {
-    margin: 0;
-    color: var(--texto-principal);
-    font-size: 25px;
-    font-weight: 750;
-    line-height: 1.2;
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.02em;
 }
 
+.panel-academico-carsce-titulo span {
+    color: var(--color-azul-hover);
+    font-weight: 600;
+}
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-titulos p {
-    margin: 7px 0 0;
+.panel-academico-carsce-descripcion {
+    max-width: 800px;
+    margin-top: 7px;
+
     color: var(--texto-secundario);
-    font-size: 13px;
-    line-height: 1.5;
+
+    font-size: .82rem;
+    line-height: 1.55;
 }
 
 
-/* =========================================================
-   ROLES ACTIVOS
-========================================================= */
+/* ============================================================
+   ROLES
+   ============================================================ */
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-roles {
+.panel-academico-carsce-roles {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 7px;
+
+    max-width: 330px;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-rol {
+.panel-academico-carsce-rol {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    padding: 8px 12px;
-    color: var(--color-azul-profundo);
-    background: var(--color-fondo-pagina);
+
+    padding: 7px 11px;
+
+    color: #334155;
+    background: #FFFFFF;
+
     border: 1px solid var(--color-borde-fino);
     border-radius: 7px;
-    font-size: 11px;
-    font-weight: 700;
-    white-space: nowrap;
-}
 
+    font-size: .67rem;
+    font-weight: 600;
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-rol i {
-    color: var(--color-azul-hover);
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   CONTEXTO ACADÉMICO
-========================================================= */
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 22px;
-    margin-bottom: 20px;
-    background: var(--color-azul-profundo);
-    border-radius: var(--radio-card);
     box-shadow: var(--sombra-card);
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto-icono {
-    width: 45px;
-    height: 45px;
-    flex: 0 0 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-blanco);
-    background: rgba(255, 255, 255, .10);
-    border: 1px solid rgba(255, 255, 255, .12);
-    border-radius: 10px;
-    font-size: 18px;
+.panel-academico-carsce-rol i {
+    color: var(--color-azul-hover);
+    font-size: .75rem;
 }
 
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto-contenido {
-    min-width: 0;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto-etiqueta {
-    display: block;
-    margin-bottom: 3px;
-    color: var(--texto-mutado);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: .08em;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto-contenido strong {
-    display: block;
-    color: var(--texto-claro);
-    font-size: 17px;
-    font-weight: 700;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto-contenido p {
-    margin: 4px 0 0;
-    color: rgba(248, 250, 252, .70);
-    font-size: 12px;
-    line-height: 1.45;
-}
-
-
-/* =========================================================
+/* ============================================================
    RESUMEN
-========================================================= */
+   ============================================================ */
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-resumen {
+.panel-academico-carsce-resumen {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 15px;
+
     margin-bottom: 20px;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-tarjeta {
+.panel-academico-carsce-resumen-card {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 13px;
+
     min-width: 0;
-    padding: 18px;
+    padding: 16px 17px;
+
     background: var(--color-blanco);
     border: 1px solid var(--color-borde-fino);
     border-radius: var(--radio-card);
+
     box-shadow: var(--sombra-card);
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-tarjeta:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--sombra-hover);
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-tarjeta-icono {
-    width: 43px;
-    height: 43px;
-    flex: 0 0 43px;
+.panel-academico-carsce-resumen-icono {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+
     color: var(--color-azul-hover);
-    background: rgba(37, 99, 235, .08);
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
     border-radius: 9px;
-    font-size: 17px;
 }
 
+.panel-academico-carsce-resumen-icono i {
+    font-size: .9rem;
+}
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-tarjeta-informacion {
+.panel-academico-carsce-resumen-contenido {
+    display: flex;
+    flex-direction: column;
+
     min-width: 0;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-tarjeta-informacion span {
-    display: block;
+.panel-academico-carsce-resumen-contenido span {
     margin-bottom: 3px;
+
     color: var(--texto-mutado);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: .08em;
+
+    font-size: .59rem;
+    font-weight: 700;
+    letter-spacing: .07em;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-tarjeta-informacion strong {
-    display: block;
+.panel-academico-carsce-resumen-contenido strong {
     overflow: hidden;
-    color: var(--texto-principal);
-    font-size: 14px;
-    font-weight: 750;
+
+    color: var(--color-azul-card);
+
+    font-size: .77rem;
+    font-weight: 650;
+    line-height: 1.3;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-tarjeta-informacion small {
-    display: block;
+.panel-academico-carsce-resumen-contenido small {
     margin-top: 3px;
-    overflow: hidden;
+
     color: var(--texto-secundario);
-    font-size: 11px;
+
+    font-size: .64rem;
     line-height: 1.35;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 
-/* =========================================================
-   CONTENIDO PRINCIPAL
-========================================================= */
+/* ============================================================
+   CONTENIDO
+   ============================================================ */
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-contenido {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
+.panel-academico-carsce-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 
-/* =========================================================
+/* ============================================================
    MÓDULOS
-========================================================= */
+   ============================================================ */
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo {
-    padding: 23px;
+.panel-academico-carsce-modulo {
+    width: 100%;
+
+    padding: 24px 26px 25px;
+
     background: var(--color-blanco);
+
     border: 1px solid var(--color-borde-fino);
     border-radius: var(--radio-card);
+
     box-shadow: var(--sombra-card);
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo + .PanelAcademicoCASRCE-modulo {
-    margin-top: 20px;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-cabecera {
+.panel-academico-carsce-modulo-cabecera {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    padding-bottom: 18px;
-    margin-bottom: 18px;
+    gap: 13px;
+
+    margin-bottom: 20px;
+    padding-bottom: 19px;
+
     border-bottom: 1px solid var(--color-borde-fino);
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-icono {
-    width: 43px;
-    height: 43px;
-    flex: 0 0 43px;
+.panel-academico-carsce-modulo-icono {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex: 0 0 43px;
+    width: 43px;
+    height: 43px;
+
     color: var(--color-blanco);
-    background: var(--color-azul-profundo);
-    border-radius: 9px;
-    font-size: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB 0%,
+            #1D4ED8 100%
+        );
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, .18);
 }
 
+.panel-academico-carsce-modulo-icono i {
+    font-size: .9rem;
+}
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-cabecera > div:last-child {
+.panel-academico-carsce-modulo-presentacion {
     min-width: 0;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-etiqueta {
+.panel-academico-carsce-modulo-etiqueta {
     display: block;
+
     margin-bottom: 3px;
+
     color: var(--color-azul-hover);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: .09em;
+
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .08em;
 }
 
+.panel-academico-carsce-modulo-presentacion h2 {
+    color: var(--color-azul-card);
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-cabecera h2 {
-    margin: 0;
-    color: var(--texto-principal);
-    font-size: 17px;
-    font-weight: 750;
+    font-size: .98rem;
+    font-weight: 650;
+    line-height: 1.35;
 }
 
+.panel-academico-carsce-modulo-presentacion p {
+    max-width: 720px;
+    margin-top: 4px;
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-cabecera p {
-    margin: 5px 0 0;
     color: var(--texto-secundario);
-    font-size: 12px;
-    line-height: 1.45;
+
+    font-size: .7rem;
+    line-height: 1.5;
 }
 
 
-/* =========================================================
+/* ============================================================
    ACCESOS
-========================================================= */
+   ============================================================ */
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-accesos {
+.panel-academico-carsce-accesos {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso {
+.panel-academico-carsce-acceso {
     display: flex;
     align-items: center;
     gap: 12px;
+
     min-width: 0;
-    padding: 14px;
+
+    padding: 13px 14px;
+
     color: inherit;
-    background: var(--color-fondo-pagina);
+    text-decoration: none;
+
+    background: #FFFFFF;
+
     border: 1px solid var(--color-borde-fino);
     border-radius: 9px;
-    text-decoration: none;
+
     transition:
-        background-color .2s ease,
         border-color .2s ease,
+        box-shadow .2s ease,
         transform .2s ease,
-        box-shadow .2s ease;
+        background .2s ease;
 }
 
+.panel-academico-carsce-acceso:hover {
+    background: #F8FAFC;
+    border-color: #BFDBFE;
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso:hover {
-    background: var(--color-blanco);
-    border-color: rgba(37, 99, 235, .30);
     box-shadow: var(--sombra-card);
+
     transform: translateY(-1px);
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso-icono {
-    width: 38px;
-    height: 38px;
-    flex: 0 0 38px;
+.panel-academico-carsce-acceso-icono {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex: 0 0 35px;
+    width: 35px;
+    height: 35px;
+
     color: var(--color-azul-hover);
-    background: rgba(37, 99, 235, .08);
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
     border-radius: 8px;
-    font-size: 15px;
 }
 
+.panel-academico-carsce-acceso-icono i {
+    font-size: .76rem;
+}
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso-contenido {
+.panel-academico-carsce-acceso-contenido {
+    display: flex;
+    flex-direction: column;
+
     min-width: 0;
     flex: 1;
 }
 
+.panel-academico-carsce-acceso-contenido strong {
+    color: #1E293B;
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso-contenido strong {
-    display: block;
-    color: var(--texto-principal);
-    font-size: 12px;
-    font-weight: 700;
+    font-size: .73rem;
+    font-weight: 650;
     line-height: 1.35;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso-contenido small {
-    display: block;
+.panel-academico-carsce-acceso-contenido small {
     margin-top: 3px;
+
     color: var(--texto-secundario);
-    font-size: 10px;
+
+    font-size: .63rem;
     line-height: 1.4;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso-flecha {
+.panel-academico-carsce-acceso-flecha {
     flex: 0 0 auto;
-    color: var(--texto-mutado);
-    font-size: 11px;
+
+    color: #94A3B8;
+
+    font-size: .65rem;
+
     transition:
         color .2s ease,
         transform .2s ease;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-acceso:hover .PanelAcademicoCASRCE-acceso-flecha {
+.panel-academico-carsce-acceso:hover
+.panel-academico-carsce-acceso-flecha {
     color: var(--color-azul-hover);
     transform: translateX(3px);
 }
 
 
-/* =========================================================
-   LATERAL
-========================================================= */
+/* ============================================================
+   AVISO PERFIL INTEGRADO
+   ============================================================ */
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-lateral {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 20px;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-lateral-modulo {
-    padding: 18px;
-    background: var(--color-blanco);
-    border: 1px solid var(--color-borde-fino);
-    border-radius: var(--radio-card);
-    box-shadow: var(--sombra-card);
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-lateral-cabecera {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 10px;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-lateral-cabecera i {
-    color: var(--color-azul-hover);
-    font-size: 14px;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-lateral-cabecera h3 {
-    margin: 0;
-    color: var(--texto-principal);
-    font-size: 13px;
-    font-weight: 750;
-}
-
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-lateral-modulo p {
-    margin: 0;
-    color: var(--texto-secundario);
-    font-size: 11px;
-    line-height: 1.55;
-}
-
-
-/* =========================================================
-   AVISO DE PERFIL COMBINADO
-========================================================= */
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-aviso {
+.panel-academico-carsce-aviso {
     display: flex;
     align-items: flex-start;
     gap: 13px;
-    padding: 18px;
-    background: #FFFBEB;
-    border: 1px solid #FDE68A;
-    border-radius: var(--radio-card);
+
+    margin-top: 18px;
+    padding: 16px 18px;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 10px;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-aviso-icono {
-    width: 36px;
-    height: 36px;
-    flex: 0 0 36px;
+.panel-academico-carsce-aviso-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-amarillo-hover);
-    background: rgba(245, 158, 11, .12);
+
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+
+    color: var(--color-azul-hover);
+    background: #FFFFFF;
+
+    border: 1px solid #DBEAFE;
     border-radius: 8px;
-    font-size: 14px;
 }
 
+.panel-academico-carsce-aviso-icono i {
+    font-size: .8rem;
+}
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-aviso-contenido {
+.panel-academico-carsce-aviso-contenido {
     min-width: 0;
 }
 
-
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-aviso-contenido strong {
+.panel-academico-carsce-aviso-contenido strong {
     display: block;
-    color: var(--texto-principal);
-    font-size: 12px;
-    font-weight: 750;
+
+    color: #1E3A8A;
+
+    font-size: .75rem;
+    font-weight: 650;
 }
 
+.panel-academico-carsce-aviso-contenido p {
+    margin-top: 4px;
 
-#PanelAcademicoCASRCE .PanelAcademicoCASRCE-aviso-contenido p {
-    margin: 5px 0 0;
-    color: var(--texto-secundario);
-    font-size: 11px;
+    color: #475569;
+
+    font-size: .66rem;
     line-height: 1.5;
 }
 
 
-/* =========================================================
-   RESPONSIVE - TABLET
-========================================================= */
+/* ============================================================
+   RESPONSIVE — 900 PX
+   ============================================================ */
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
 
-    #PanelAcademicoCASRCE {
-        padding: 22px 20px 32px;
+    .panel-academico-carsce-contenedor {
+        padding: 0 18px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-cabecera {
+    .panel-academico-carsce-titulo {
+        font-size: 1.4rem;
+    }
+
+    .panel-academico-carsce-encabezado {
         align-items: flex-start;
         flex-direction: column;
+        gap: 14px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-roles {
+    .panel-academico-carsce-roles {
         justify-content: flex-start;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-resumen {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-resumen
-    .PanelAcademicoCASRCE-tarjeta:last-child {
-        grid-column: 1 / -1;
+        max-width: none;
     }
 
 }
 
 
-/* =========================================================
-   RESPONSIVE - TABLET PEQUEÑA
-========================================================= */
+/* ============================================================
+   RESPONSIVE — 700 PX
+   ============================================================ */
 
-@media (max-width: 760px) {
+@media (max-width: 700px) {
 
-    #PanelAcademicoCASRCE {
-        padding: 18px 15px 28px;
+    #panel-academico-carsce {
+        padding-top: 0;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-cabecera {
+    .panel-academico-carsce-contenedor {
+        padding: 0 14px;
+    }
+
+    .panel-academico-carsce-titulo {
+        font-size: 1.28rem;
+    }
+
+    .panel-academico-carsce-descripcion {
+        font-size: .78rem;
+    }
+
+    .panel-academico-carsce-resumen {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .panel-academico-carsce-modulo {
         padding: 21px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-identificacion {
-        align-items: flex-start;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-titulos h1 {
-        font-size: 21px;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-resumen {
-        grid-template-columns: 1fr;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-resumen
-    .PanelAcademicoCASRCE-tarjeta:last-child {
-        grid-column: auto;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-accesos {
-        grid-template-columns: 1fr;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-lateral {
+    .panel-academico-carsce-accesos {
         grid-template-columns: 1fr;
     }
 
 }
 
 
-/* =========================================================
-   RESPONSIVE - MÓVIL
-========================================================= */
+/* ============================================================
+   RESPONSIVE — 520 PX
+   ============================================================ */
 
 @media (max-width: 520px) {
 
-    #PanelAcademicoCASRCE {
-        padding: 14px 10px 24px;
+    .panel-academico-carsce-contenedor {
+        padding: 0 10px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-cabecera {
-        padding: 18px;
+    .panel-academico-carsce-identificacion {
+        padding: 6px 9px;
+        font-size: .62rem;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-identificacion {
-        gap: 12px;
+    .panel-academico-carsce-titulo {
+        font-size: 1.15rem;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-indicador {
-        width: 46px;
-        height: 46px;
-        flex-basis: 46px;
-        font-size: 18px;
+    .panel-academico-carsce-descripcion {
+        font-size: .74rem;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-titulos h1 {
-        font-size: 19px;
+    .panel-academico-carsce-roles {
+        gap: 5px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-titulos p {
-        font-size: 11px;
+    .panel-academico-carsce-rol {
+        padding: 6px 9px;
+        font-size: .61rem;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-roles {
-        width: 100%;
-        flex-direction: column;
-        align-items: stretch;
+    .panel-academico-carsce-resumen-card {
+        padding: 14px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-rol {
-        justify-content: center;
+    .panel-academico-carsce-modulo {
+        padding: 18px 16px 20px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto {
-        align-items: flex-start;
-        padding: 17px;
+    .panel-academico-carsce-modulo-cabecera {
+        gap: 10px;
+        margin-bottom: 17px;
+        padding-bottom: 16px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-contexto-icono {
-        width: 39px;
-        height: 39px;
-        flex-basis: 39px;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo {
-        padding: 18px;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-cabecera {
-        gap: 11px;
-    }
-
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-icono {
+    .panel-academico-carsce-modulo-icono {
+        flex-basis: 38px;
         width: 38px;
         height: 38px;
-        flex-basis: 38px;
-        font-size: 15px;
     }
 
-    #PanelAcademicoCASRCE .PanelAcademicoCASRCE-modulo-cabecera h2 {
-        font-size: 15px;
+    .panel-academico-carsce-modulo-presentacion h2 {
+        font-size: .9rem;
+    }
+
+    .panel-academico-carsce-modulo-presentacion p {
+        font-size: .65rem;
+    }
+
+    .panel-academico-carsce-acceso {
+        padding: 12px;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 390 PX
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    .panel-academico-carsce-contenedor {
+        padding: 0 8px;
+    }
+
+    .panel-academico-carsce-titulo {
+        font-size: 1.05rem;
+    }
+
+    .panel-academico-carsce-modulo {
+        padding: 16px 13px 18px;
+    }
+
+    .panel-academico-carsce-modulo-icono {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .panel-academico-carsce-modulo-presentacion h2 {
+        font-size: .84rem;
+    }
+
+    .panel-academico-carsce-acceso-icono {
+        flex-basis: 32px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .panel-academico-carsce-acceso-contenido strong {
+        font-size: .69rem;
+    }
+
+    .panel-academico-carsce-acceso-contenido small {
+        font-size: .59rem;
     }
 
 }

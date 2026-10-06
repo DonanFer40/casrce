@@ -45,7 +45,7 @@ PNF_NUCLEO = [
     {"municipio": "Barinas", "codigo": "CARRE003"},
     {"municipio": "Barinas", "codigo": "CARRE004"},
 
-    {"municipio": "Barinitas", "codigo": "CARRE004"},
+    {"municipio": "Barinitas", "codigo": "CARRE009"},
     {"municipio": "Barinitas", "codigo": "CARRE005"},
     {"municipio": "Barinitas", "codigo": "CARRE006"},
     {"municipio": "Barinitas", "codigo": "CARRE007"},
@@ -53,13 +53,13 @@ PNF_NUCLEO = [
     {"municipio": "Barinitas", "codigo": "CARRE001"},
     {"municipio": "Barinitas", "codigo": "CARRE003"},
 
-    {"municipio": "Socopo", "codigo": "CARRE004"},
-    {"municipio": "Socopo", "codigo": "CARRE006"},
+    {"municipio": "Socopo", "codigo": "CARRE008"},
+    {"municipio": "Socopo", "codigo": "CARRE005"},
     {"municipio": "Socopo", "codigo": "CARRE007"},
     {"municipio": "Socopo", "codigo": "CARRE001"},
     {"municipio": "Socopo", "codigo": "CARRE003"},
 
-    {"municipio": "Pedraza", "codigo": "CARRE006"},
+    {"municipio": "Pedraza", "codigo": "CARRE007"},
     {"municipio": "Pedraza", "codigo": "CARRE003"},
 ]
 

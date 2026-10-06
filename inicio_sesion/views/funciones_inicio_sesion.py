@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from inicio_sesion.models import Usuario, Contacto, Cuenta, Estudiante
 
 def panel_registro(request):
-    return render(request, 'Sesion/panel_registro.html')
+    return render(request, 'Sesion/Login/panel_registro.html')
 
 def val_usuario(request):
     if request.method == "POST":
@@ -82,7 +82,7 @@ def registro_est(request):
             "descripcion": "Los datos del estudiante se registraron exitosamente."
         })
 
-    return render(request, "Sesion/registro_estudiantil.html")
+    return render(request, "Sesion/Login/registro_estudiantil.html")
 
 def confirmar_reg(request):
     if request.method == "POST":
@@ -136,7 +136,7 @@ def confirmar_reg(request):
 
         return JsonResponse({ "estado": "exito" })
 
-    return render(request, "Sesion/confirmar_registro_personal.html")
+    return render(request, "Sesion/Login/confirmar_registro_personal.html")
 
 def guardar_cred(request):
     if request.method == "POST":

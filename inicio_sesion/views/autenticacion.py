@@ -129,7 +129,7 @@ def autenticacion(request):
                 "url": reverse("comp_registro")
             })
     
-    return render(request, 'Sesion/inicio_sesion.html')
+    return render(request, 'Sesion/Login/inicio_sesion.html')
 
 def cerrar_sesion(request):
     request.session.flush() 

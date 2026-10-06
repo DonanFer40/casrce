@@ -3,27 +3,37 @@
 
 {% block content %}
 
-<section id="PanelCoordinadorPNFCASRCE" class="reveal">
+<section
+    id="panel-coordinador-pnf-carsce"
+    class="panel-coordinador-pnf-carsce"
+>
 
-    <div class="PanelCoordinadorPNFCASRCE-contenedor">
+    <div class="panel-coordinador-pnf-carsce-contenedor">
+
 
         <!-- =====================================================
              CABECERA DEL PANEL
-             ===================================================== -->
+        ====================================================== -->
 
-        <header class="PanelCoordinadorPNFCASRCE-cabecera">
+        <header class="panel-coordinador-pnf-carsce-encabezado">
 
-            <div class="PanelCoordinadorPNFCASRCE-identificacion">
+            <div class="panel-coordinador-pnf-carsce-presentacion">
 
-                <span class="PanelCoordinadorPNFCASRCE-indicador">
-                    PANEL DEL COORDINADOR
-                </span>
+                <div class="panel-coordinador-pnf-carsce-identificacion">
+                    <i
+                        class="fa-solid fa-user-shield"
+                        aria-hidden="true"
+                    ></i>
 
-                <h1>
+                    COORDINACIÓN P.N.F.
+                </div>
+
+                <h1 class="panel-coordinador-pnf-carsce-titulo">
                     Gestión del PNF
+                    <span>CARSCE</span>
                 </h1>
 
-                <p>
+                <p class="panel-coordinador-pnf-carsce-descripcion">
                     Administra y consulta la información académica
                     correspondiente a tu Programa Nacional de Formación.
                 </p>
@@ -31,16 +41,22 @@
             </div>
 
 
-            <div class="PanelCoordinadorPNFCASRCE-contexto">
+            <!-- =============================================
+                 CONTEXTO DEL PNF
+            ============================================== -->
 
-                <div class="PanelCoordinadorPNFCASRCE-contexto-icono">
+            <div class="panel-coordinador-pnf-carsce-contexto">
 
-                    <i class="fa-solid fa-building-columns"
-                       aria-hidden="true"></i>
+                <div class="panel-coordinador-pnf-carsce-contexto-icono">
+
+                    <i
+                        class="fa-solid fa-building-columns"
+                        aria-hidden="true"
+                    ></i>
 
                 </div>
 
-                <div class="PanelCoordinadorPNFCASRCE-contexto-datos">
+                <div class="panel-coordinador-pnf-carsce-contexto-datos">
 
                     <span>
                         PNF asignado
@@ -63,20 +79,25 @@
 
         <!-- =====================================================
              RESUMEN ACADÉMICO
-             ===================================================== -->
+        ====================================================== -->
 
-        <section class="PanelCoordinadorPNFCASRCE-resumen">
+        <section class="panel-coordinador-pnf-carsce-resumen">
 
-            <article class="PanelCoordinadorPNFCASRCE-tarjeta-resumen">
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-icono">
+            <!-- ESTUDIANTES -->
 
-                    <i class="fa-solid fa-user-graduate"
-                       aria-hidden="true"></i>
+            <article class="panel-coordinador-pnf-carsce-resumen-card">
+
+                <div class="panel-coordinador-pnf-carsce-resumen-icono">
+
+                    <i
+                        class="fa-solid fa-user-graduate"
+                        aria-hidden="true"
+                    ></i>
 
                 </div>
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-datos">
+                <div class="panel-coordinador-pnf-carsce-resumen-datos">
 
                     <span>
                         Estudiantes
@@ -95,16 +116,20 @@
             </article>
 
 
-            <article class="PanelCoordinadorPNFCASRCE-tarjeta-resumen">
+            <!-- DOCENTES -->
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-icono">
+            <article class="panel-coordinador-pnf-carsce-resumen-card">
 
-                    <i class="fa-solid fa-chalkboard-user"
-                       aria-hidden="true"></i>
+                <div class="panel-coordinador-pnf-carsce-resumen-icono">
+
+                    <i
+                        class="fa-solid fa-chalkboard-user"
+                        aria-hidden="true"
+                    ></i>
 
                 </div>
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-datos">
+                <div class="panel-coordinador-pnf-carsce-resumen-datos">
 
                     <span>
                         Docentes
@@ -123,16 +148,20 @@
             </article>
 
 
-            <article class="PanelCoordinadorPNFCASRCE-tarjeta-resumen">
+            <!-- SECCIONES -->
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-icono">
+            <article class="panel-coordinador-pnf-carsce-resumen-card">
 
-                    <i class="fa-solid fa-layer-group"
-                       aria-hidden="true"></i>
+                <div class="panel-coordinador-pnf-carsce-resumen-icono">
+
+                    <i
+                        class="fa-solid fa-layer-group"
+                        aria-hidden="true"
+                    ></i>
 
                 </div>
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-datos">
+                <div class="panel-coordinador-pnf-carsce-resumen-datos">
 
                     <span>
                         Secciones
@@ -151,16 +180,20 @@
             </article>
 
 
-            <article class="PanelCoordinadorPNFCASRCE-tarjeta-resumen">
+            <!-- MATERIAS -->
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-icono">
+            <article class="panel-coordinador-pnf-carsce-resumen-card">
 
-                    <i class="fa-solid fa-book-open"
-                       aria-hidden="true"></i>
+                <div class="panel-coordinador-pnf-carsce-resumen-icono">
+
+                    <i
+                        class="fa-solid fa-book-open"
+                        aria-hidden="true"
+                    ></i>
 
                 </div>
 
-                <div class="PanelCoordinadorPNFCASRCE-resumen-datos">
+                <div class="panel-coordinador-pnf-carsce-resumen-datos">
 
                     <span>
                         Materias
@@ -183,18 +216,18 @@
 
         <!-- =====================================================
              CONTENIDO PRINCIPAL
-             ===================================================== -->
+        ====================================================== -->
 
-        <div class="PanelCoordinadorPNFCASRCE-principal">
+        <div class="panel-coordinador-pnf-carsce-principal">
 
 
             <!-- =================================================
                  ACCIONES PRINCIPALES
-                 ================================================= -->
+            ================================================== -->
 
-            <section class="PanelCoordinadorPNFCASRCE-modulo">
+            <section class="panel-coordinador-pnf-carsce-modulo">
 
-                <div class="PanelCoordinadorPNFCASRCE-modulo-cabecera">
+                <div class="panel-coordinador-pnf-carsce-modulo-cabecera">
 
                     <div>
 
@@ -206,25 +239,36 @@
                             Accesos principales
                         </h2>
 
+                        <p>
+                            Gestiona los principales elementos académicos
+                            relacionados con el PNF asignado.
+                        </p>
+
                     </div>
 
                 </div>
 
 
-                <div class="PanelCoordinadorPNFCASRCE-accesos">
+                <div class="panel-coordinador-pnf-carsce-accesos">
 
 
-                    <a href="#"
-                       class="PanelCoordinadorPNFCASRCE-acceso">
+                    <!-- ESTUDIANTES -->
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-icono">
+                    <a
+                        href="#"
+                        class="panel-coordinador-pnf-carsce-acceso"
+                    >
 
-                            <i class="fa-solid fa-user-graduate"
-                               aria-hidden="true"></i>
+                        <div class="panel-coordinador-pnf-carsce-acceso-icono">
+
+                            <i
+                                class="fa-solid fa-user-graduate"
+                                aria-hidden="true"
+                            ></i>
 
                         </div>
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-texto">
+                        <div class="panel-coordinador-pnf-carsce-acceso-texto">
 
                             <h3>
                                 Estudiantes
@@ -237,23 +281,31 @@
 
                         </div>
 
-                        <i class="fa-solid fa-arrow-right PanelCoordinadorPNFCASRCE-acceso-flecha"
-                           aria-hidden="true"></i>
+                        <i
+                            class="fa-solid fa-arrow-right panel-coordinador-pnf-carsce-acceso-flecha"
+                            aria-hidden="true"
+                        ></i>
 
                     </a>
 
 
-                    <a href="#"
-                       class="PanelCoordinadorPNFCASRCE-acceso">
+                    <!-- DOCENTES -->
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-icono">
+                    <a
+                        href="#"
+                        class="panel-coordinador-pnf-carsce-acceso"
+                    >
 
-                            <i class="fa-solid fa-chalkboard-user"
-                               aria-hidden="true"></i>
+                        <div class="panel-coordinador-pnf-carsce-acceso-icono">
+
+                            <i
+                                class="fa-solid fa-chalkboard-user"
+                                aria-hidden="true"
+                            ></i>
 
                         </div>
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-texto">
+                        <div class="panel-coordinador-pnf-carsce-acceso-texto">
 
                             <h3>
                                 Docentes
@@ -266,23 +318,31 @@
 
                         </div>
 
-                        <i class="fa-solid fa-arrow-right PanelCoordinadorPNFCASRCE-acceso-flecha"
-                           aria-hidden="true"></i>
+                        <i
+                            class="fa-solid fa-arrow-right panel-coordinador-pnf-carsce-acceso-flecha"
+                            aria-hidden="true"
+                        ></i>
 
                     </a>
 
 
-                    <a href="#"
-                       class="PanelCoordinadorPNFCASRCE-acceso">
+                    <!-- SECCIONES -->
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-icono">
+                    <a
+                        href="#"
+                        class="panel-coordinador-pnf-carsce-acceso"
+                    >
 
-                            <i class="fa-solid fa-layer-group"
-                               aria-hidden="true"></i>
+                        <div class="panel-coordinador-pnf-carsce-acceso-icono">
+
+                            <i
+                                class="fa-solid fa-layer-group"
+                                aria-hidden="true"
+                            ></i>
 
                         </div>
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-texto">
+                        <div class="panel-coordinador-pnf-carsce-acceso-texto">
 
                             <h3>
                                 Secciones
@@ -295,23 +355,31 @@
 
                         </div>
 
-                        <i class="fa-solid fa-arrow-right PanelCoordinadorPNFCASRCE-acceso-flecha"
-                           aria-hidden="true"></i>
+                        <i
+                            class="fa-solid fa-arrow-right panel-coordinador-pnf-carsce-acceso-flecha"
+                            aria-hidden="true"
+                        ></i>
 
                     </a>
 
 
-                    <a href="#"
-                       class="PanelCoordinadorPNFCASRCE-acceso">
+                    <!-- UNIDADES CURRICULARES -->
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-icono">
+                    <a
+                        href="#"
+                        class="panel-coordinador-pnf-carsce-acceso"
+                    >
 
-                            <i class="fa-solid fa-book-open"
-                               aria-hidden="true"></i>
+                        <div class="panel-coordinador-pnf-carsce-acceso-icono">
+
+                            <i
+                                class="fa-solid fa-book-open"
+                                aria-hidden="true"
+                            ></i>
 
                         </div>
 
-                        <div class="PanelCoordinadorPNFCASRCE-acceso-texto">
+                        <div class="panel-coordinador-pnf-carsce-acceso-texto">
 
                             <h3>
                                 Unidades curriculares
@@ -324,8 +392,10 @@
 
                         </div>
 
-                        <i class="fa-solid fa-arrow-right PanelCoordinadorPNFCASRCE-acceso-flecha"
-                           aria-hidden="true"></i>
+                        <i
+                            class="fa-solid fa-arrow-right panel-coordinador-pnf-carsce-acceso-flecha"
+                            aria-hidden="true"
+                        ></i>
 
                     </a>
 
@@ -337,18 +407,18 @@
 
             <!-- =================================================
                  COLUMNA LATERAL
-                 ================================================= -->
+            ================================================== -->
 
-            <aside class="PanelCoordinadorPNFCASRCE-lateral">
+            <aside class="panel-coordinador-pnf-carsce-lateral">
 
 
                 <!-- =============================================
                      INFORMACIÓN DEL PNF
-                     ============================================= -->
+                ============================================== -->
 
-                <section class="PanelCoordinadorPNFCASRCE-modulo-lateral">
+                <section class="panel-coordinador-pnf-carsce-modulo-lateral">
 
-                    <div class="PanelCoordinadorPNFCASRCE-lateral-cabecera">
+                    <div class="panel-coordinador-pnf-carsce-lateral-cabecera">
 
                         <span>
                             INFORMACIÓN
@@ -361,9 +431,10 @@
                     </div>
 
 
-                    <div class="PanelCoordinadorPNFCASRCE-datos-pnf">
+                    <div class="panel-coordinador-pnf-carsce-datos-pnf">
 
-                        <div>
+
+                        <div class="panel-coordinador-pnf-carsce-dato">
 
                             <span>
                                 Programa
@@ -376,7 +447,7 @@
                         </div>
 
 
-                        <div>
+                        <div class="panel-coordinador-pnf-carsce-dato">
 
                             <span>
                                 Núcleo
@@ -389,7 +460,7 @@
                         </div>
 
 
-                        <div>
+                        <div class="panel-coordinador-pnf-carsce-dato">
 
                             <span>
                                 Modalidad
@@ -401,6 +472,7 @@
 
                         </div>
 
+
                     </div>
 
                 </section>
@@ -408,11 +480,11 @@
 
                 <!-- =============================================
                      ACTIVIDAD RECIENTE
-                     ============================================= -->
+                ============================================== -->
 
-                <section class="PanelCoordinadorPNFCASRCE-modulo-lateral">
+                <section class="panel-coordinador-pnf-carsce-modulo-lateral">
 
-                    <div class="PanelCoordinadorPNFCASRCE-lateral-cabecera">
+                    <div class="panel-coordinador-pnf-carsce-lateral-cabecera">
 
                         <span>
                             ACTIVIDAD
@@ -425,19 +497,20 @@
                     </div>
 
 
-                    <div class="PanelCoordinadorPNFCASRCE-actividad">
+                    <div class="panel-coordinador-pnf-carsce-actividad">
 
+                        <div class="panel-coordinador-pnf-carsce-actividad-item">
 
-                        <div class="PanelCoordinadorPNFCASRCE-actividad-item">
+                            <div class="panel-coordinador-pnf-carsce-actividad-icono">
 
-                            <div class="PanelCoordinadorPNFCASRCE-actividad-icono">
-
-                                <i class="fa-solid fa-user-plus"
-                                   aria-hidden="true"></i>
+                                <i
+                                    class="fa-solid fa-clock"
+                                    aria-hidden="true"
+                                ></i>
 
                             </div>
 
-                            <div>
+                            <div class="panel-coordinador-pnf-carsce-actividad-datos">
 
                                 <strong>
                                     Sin actividad registrada
@@ -451,7 +524,6 @@
 
                         </div>
 
-
                     </div>
 
                 </section>
@@ -464,18 +536,20 @@
 
         <!-- =====================================================
              AVISO INSTITUCIONAL
-             ===================================================== -->
+        ====================================================== -->
 
-        <section class="PanelCoordinadorPNFCASRCE-aviso">
+        <section class="panel-coordinador-pnf-carsce-aviso">
 
-            <div class="PanelCoordinadorPNFCASRCE-aviso-icono">
+            <div class="panel-coordinador-pnf-carsce-aviso-icono">
 
-                <i class="fa-solid fa-circle-info"
-                   aria-hidden="true"></i>
+                <i
+                    class="fa-solid fa-circle-info"
+                    aria-hidden="true"
+                ></i>
 
             </div>
 
-            <div class="PanelCoordinadorPNFCASRCE-aviso-contenido">
+            <div class="panel-coordinador-pnf-carsce-aviso-contenido">
 
                 <strong>
                     Gestión restringida al PNF asignado
@@ -489,6 +563,7 @@
             </div>
 
         </section>
+
 
     </div>
 

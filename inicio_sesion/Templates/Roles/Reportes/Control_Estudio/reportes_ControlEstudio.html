@@ -1,0 +1,49 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="reportes-control-estudio-carsce">
+
+    <div class="reportes-control-estudio-carsce-contenedor">
+
+        <header class="reportes-control-estudio-carsce-encabezado">
+
+            <div class="reportes-control-estudio-carsce-identificacion">
+                <i class="fa-solid fa-chart-column"></i>
+                CONTROL DE ESTUDIO
+            </div>
+
+            <div class="reportes-control-estudio-carsce-presentacion">
+
+                <h1 class="reportes-control-estudio-carsce-titulo">
+                    Reportes Académicos
+                    <span>CARSCE</span>
+                </h1>
+
+                <p class="reportes-control-estudio-carsce-descripcion">
+                    Consulte, visualice y genere información académica
+                    gestionada mediante el sistema CARSCE.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <div class="reportes-control-estudio-carsce-listado">
+
+            {% include 'Roles/Reportes/Control_Estudio/reporte_estudiantes.html' %}
+
+            {% include 'Roles/Reportes/Control_Estudio/reporte_academico.html' %}
+
+            {% include 'Roles/Reportes/Control_Estudio/reporte_inscripciones.html' %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

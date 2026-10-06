@@ -2056,12 +2056,12 @@ def reg_nota_acad(request):
                 )
             })
          
-    return render(request, "Notas_Academicas/registrar_notas_academicas.html")
+    return render(request, "Roles/Docente/Notas_Academicas/registrar_notas_academicas.html")
 
 # Visualizar Notas Académicas
 
 def vis_not_acad(request):
-    return render (request, "Notas_Academicas/visualizar_notas_academicas.html")
+    return render (request, "Roles/Docente/Notas_Academicas/visualizar_notas_academicas.html")
 
 def vis_nucl_not(request):
     cedula = request.session.get("cedula_usuario")
@@ -5469,7 +5469,7 @@ def mod_calf_not(request):
 @transaction.atomic
 def mod_not_acad(request):
     if request.method != "POST":
-        return render(request, "Notas_Academicas/modificar_notas_academicas.html")
+        return render(request, "Roles/Docente/Notas_Academicas/modificar_notas_academicas.html")
 
     def respuesta(icon, title, descripcion, estado="fallo"):
         return JsonResponse({

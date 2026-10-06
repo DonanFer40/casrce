@@ -1,0 +1,1026 @@
+ /* ============================================================
+    ASIGNACIÓN DE MATERIAS - REGISTRAR
+    CARSCE
+============================================================ */
+
+#asignacion-materia-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+.asignacion-materia-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO
+============================================================ */
+
+.asignacion-materia-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+.asignacion-materia-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.asignacion-materia-carsce-identificacion i {
+    font-size: .72rem;
+}
+
+.asignacion-materia-carsce-presentacion {
+    margin-top: 8px;
+}
+
+.asignacion-materia-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+}
+
+.asignacion-materia-carsce-titulo span {
+    color: var(--color-azul-hover);
+    font-weight: 600;
+}
+
+.asignacion-materia-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .82rem;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   TARJETA PRINCIPAL
+============================================================ */
+
+.asignacion-materia-carsce-tarjeta {
+    width: 100%;
+
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* ============================================================
+   CABECERA DE TARJETA
+============================================================ */
+
+.asignacion-materia-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+.asignacion-materia-carsce-tarjeta-icono {
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-blanco);
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB 0%,
+            #1D4ED8 100%
+        );
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, .18);
+}
+
+.asignacion-materia-carsce-tarjeta-icono i {
+    font-size: 1rem;
+}
+
+.asignacion-materia-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+.asignacion-materia-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.asignacion-materia-carsce-tarjeta-descripcion {
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .75rem;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   LEYENDA DE DISPONIBILIDAD
+============================================================ */
+
+.asignacion-materia-carsce-leyenda {
+    width: 100%;
+
+    margin-bottom: 20px;
+    padding: 21px 20px 20px;
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+.asignacion-materia-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 18px;
+}
+
+.asignacion-materia-carsce-bloque-icono {
+    width: 35px;
+    height: 35px;
+
+    flex: 0 0 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-azul-hover);
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+}
+
+.asignacion-materia-carsce-bloque-icono i {
+    font-size: .78rem;
+}
+
+.asignacion-materia-carsce-bloque-informacion {
+    min-width: 0;
+}
+
+.asignacion-materia-carsce-bloque-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: .82rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.asignacion-materia-carsce-bloque-descripcion {
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .68rem;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   LISTA DE LEYENDA
+============================================================ */
+
+.asignacion-materia-carsce-leyenda-lista {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.asignacion-materia-carsce-leyenda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    min-width: 0;
+
+    padding: 11px 12px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+}
+
+.asignacion-materia-carsce-leyenda-color {
+    width: 10px;
+    height: 10px;
+
+    flex: 0 0 10px;
+
+    margin-top: 4px;
+
+    border-radius: 50%;
+}
+
+.asignacion-materia-carsce-leyenda-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    min-width: 0;
+}
+
+.asignacion-materia-carsce-leyenda-texto strong {
+    color: #334155;
+
+    font-size: .68rem;
+    font-weight: 700;
+}
+
+.asignacion-materia-carsce-leyenda-texto span {
+    color: var(--texto-secundario);
+
+    font-size: .62rem;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   COLORES DE LA LEYENDA
+============================================================ */
+
+.asignacion-materia-carsce-leyenda-verde {
+    background: #16A34A;
+}
+
+.asignacion-materia-carsce-leyenda-amarillo {
+    background: #EAB308;
+}
+
+.asignacion-materia-carsce-leyenda-naranja {
+    background: #F97316;
+}
+
+.asignacion-materia-carsce-leyenda-rojo {
+    background: #DC2626;
+}
+
+.asignacion-materia-carsce-leyenda-azul {
+    background: #2563EB;
+}
+
+
+/* ============================================================
+   FORMULARIO
+============================================================ */
+
+.asignacion-materia-carsce-formulario {
+    width: 100%;
+}
+
+
+/* ============================================================
+   BLOQUE DE DATOS
+============================================================ */
+
+.asignacion-materia-carsce-bloque {
+    width: 100%;
+
+    padding: 21px 20px 22px;
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+.asignacion-materia-carsce-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.asignacion-materia-carsce-campo {
+    width: 100%;
+    min-width: 0;
+}
+
+.asignacion-materia-carsce-etiqueta {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: .73rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* ============================================================
+   CONTROLES
+============================================================ */
+
+.asignacion-materia-carsce-control {
+    position: relative;
+    width: 100%;
+}
+
+.asignacion-materia-carsce-control > i:first-child {
+    position: absolute;
+
+    top: 50%;
+    left: 14px;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: .76rem;
+
+    pointer-events: none;
+}
+
+.asignacion-materia-carsce-control input,
+.asignacion-materia-carsce-control select {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 40px;
+
+    color: var(--texto-principal);
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .74rem;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.asignacion-materia-carsce-control select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.asignacion-materia-carsce-control input:hover,
+.asignacion-materia-carsce-control select:hover {
+    border-color: #94A3B8;
+}
+
+.asignacion-materia-carsce-control input:focus,
+.asignacion-materia-carsce-control select:focus {
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+.asignacion-materia-carsce-flecha {
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: .65rem;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   MATERIAS DINÁMICAS
+============================================================ */
+
+.asignacion-materia-carsce-materias {
+    width: 100%;
+
+    margin-top: 22px;
+}
+
+
+/* ============================================================
+   TÍTULO DE CADA TRAYECTO
+   GENERADO POR JAVASCRIPT
+============================================================ */
+
+.asignacion-materia-carsce-materias h4 {
+    display: flex;
+    align-items: center;
+
+    min-height: 32px;
+
+    margin: 22px 0 10px;
+    padding: 0 0 9px;
+
+    color: var(--color-azul-card);
+
+    border-bottom: 1px solid var(--color-borde-fino);
+
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.asignacion-materia-carsce-materias h4:first-child {
+    margin-top: 0;
+}
+
+.asignacion-materia-carsce-materias h4::before {
+    content: "";
+
+    width: 4px;
+    height: 17px;
+
+    margin-right: 9px;
+
+    background: var(--color-azul-hover);
+
+    border-radius: 4px;
+}
+
+
+/* ============================================================
+   TABLA DE MATERIAS
+   GENERADA POR JAVASCRIPT
+============================================================ */
+
+.tabla-materias {
+    width: 100%;
+
+    margin-bottom: 18px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+
+    overflow: hidden;
+}
+
+.tabla-materias thead {
+    background: #F1F5F9;
+}
+
+.tabla-materias th {
+    height: 40px;
+
+    padding: 0 13px;
+
+    color: #475569;
+
+    border-bottom: 1px solid #E2E8F0;
+
+    font-size: .67rem;
+    font-weight: 700;
+
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+}
+
+.tabla-materias td {
+    height: 45px;
+
+    padding: 0 13px;
+
+    color: #475569;
+
+    border-bottom: 1px solid #F1F5F9;
+
+    font-size: .72rem;
+    font-weight: 500;
+
+    vertical-align: middle;
+}
+
+.tabla-materias tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ============================================================
+   CHECKBOX
+============================================================ */
+
+.tabla-materias td:first-child {
+    width: 60px;
+
+    text-align: center;
+}
+
+.tabla-materias input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+
+    margin: 0;
+
+    accent-color: var(--color-azul-hover);
+
+    cursor: pointer;
+
+    vertical-align: middle;
+}
+
+.tabla-materias input[type="checkbox"]:disabled {
+    opacity: .45;
+
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   HOVER GENERAL
+============================================================ */
+
+.tabla-materias tbody tr {
+    transition:
+        background-color .18s ease;
+}
+
+.tabla-materias tbody tr:hover {
+    background: #F8FAFC;
+}
+
+
+/* ============================================================
+   ESTADO VERDE
+============================================================ */
+
+.tabla-materias tbody tr.materia-verde {
+    background: #F0FDF4;
+}
+
+.tabla-materias tbody tr.materia-verde:hover {
+    background: #DCFCE7;
+}
+
+.tabla-materias tbody tr.materia-verde td:last-child {
+    color: #15803D;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   ESTADO AMARILLO
+============================================================ */
+
+.tabla-materias tbody tr.materia-amarillo {
+    background: #FEFCE8;
+}
+
+.tabla-materias tbody tr.materia-amarillo:hover {
+    background: #FEF9C3;
+}
+
+.tabla-materias tbody tr.materia-amarillo td:last-child {
+    color: #A16207;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   ESTADO NARANJA
+============================================================ */
+
+.tabla-materias tbody tr.materia-naranja {
+    background: #FFF7ED;
+}
+
+.tabla-materias tbody tr.materia-naranja:hover {
+    background: #FFEDD5;
+}
+
+.tabla-materias tbody tr.materia-naranja td:last-child {
+    color: #C2410C;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   ESTADO ROJO
+============================================================ */
+
+.tabla-materias tbody tr.materia-rojo {
+    background: #FEF2F2;
+}
+
+.tabla-materias tbody tr.materia-rojo:hover {
+    background: #FEE2E2;
+}
+
+.tabla-materias tbody tr.materia-rojo td:last-child {
+    color: #B91C1C;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   ESTADO AZUL
+============================================================ */
+
+.tabla-materias tbody tr.materia-azul {
+    background: #EFF6FF;
+}
+
+.tabla-materias tbody tr.materia-azul:hover {
+    background: #DBEAFE;
+}
+
+.tabla-materias tbody tr.materia-azul td:last-child {
+    color: #1D4ED8;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   MENSAJES DINÁMICOS
+============================================================ */
+
+.asignacion-materia-carsce-materias > p {
+    margin: 18px 0 0;
+    padding: 18px 20px;
+
+    color: var(--texto-secundario);
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    font-size: .74rem;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* ============================================================
+   ACCIONES
+============================================================ */
+
+.asignacion-materia-carsce-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-top: 22px;
+    padding-top: 21px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+.asignacion-materia-carsce-acciones-informacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    max-width: 550px;
+
+    color: var(--texto-secundario);
+
+    font-size: .66rem;
+    line-height: 1.5;
+}
+
+.asignacion-materia-carsce-acciones-informacion i {
+    flex: 0 0 auto;
+
+    margin-top: 2px;
+
+    color: var(--color-azul-hover);
+
+    font-size: .72rem;
+}
+
+
+/* ============================================================
+   BOTÓN PRINCIPAL
+============================================================ */
+
+.asignacion-materia-carsce-boton {
+    min-width: 205px;
+    height: 44px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 18px;
+
+    color: var(--color-blanco);
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB 0%,
+            #1D4ED8 100%
+        );
+
+    border: none;
+    border-radius: 8px;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, .18);
+
+    cursor: pointer;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .76rem;
+    font-weight: 600;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.asignacion-materia-carsce-boton:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #1D4ED8 0%,
+            #1E40AF 100%
+        );
+
+    box-shadow:
+        0 7px 14px rgba(37, 99, 235, .22);
+
+    transform: translateY(-1px);
+}
+
+.asignacion-materia-carsce-boton:active {
+    transform: translateY(0);
+}
+
+.asignacion-materia-carsce-boton i {
+    font-size: .72rem;
+}
+
+
+/* ============================================================
+   RESPONSIVE - 900px
+============================================================ */
+
+@media (max-width: 900px) {
+
+    .asignacion-materia-carsce-titulo {
+        font-size: 1.4rem;
+    }
+
+    .asignacion-materia-carsce-tarjeta {
+        padding: 23px;
+    }
+
+    .asignacion-materia-carsce-leyenda-lista {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE - 700px
+============================================================ */
+
+@media (max-width: 700px) {
+
+    .asignacion-materia-carsce-titulo {
+        font-size: 1.28rem;
+    }
+
+    .asignacion-materia-carsce-descripcion {
+        font-size: .78rem;
+    }
+
+    .asignacion-materia-carsce-tarjeta {
+        padding: 21px;
+    }
+
+    .asignacion-materia-carsce-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .asignacion-materia-carsce-acciones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .asignacion-materia-carsce-acciones-informacion {
+        max-width: none;
+    }
+
+    .asignacion-materia-carsce-boton {
+        width: 100%;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE - 520px
+============================================================ */
+
+@media (max-width: 520px) {
+
+    #asignacion-materia-carsce {
+        padding-top: 2px;
+    }
+
+    .asignacion-materia-carsce-identificacion {
+        padding: 6px 10px;
+
+        font-size: .62rem;
+    }
+
+    .asignacion-materia-carsce-titulo {
+        font-size: 1.15rem;
+    }
+
+    .asignacion-materia-carsce-descripcion {
+        font-size: .74rem;
+    }
+
+    .asignacion-materia-carsce-tarjeta {
+        padding: 18px 16px 20px;
+    }
+
+    .asignacion-materia-carsce-tarjeta-cabecera {
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    .asignacion-materia-carsce-tarjeta-icono {
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+    }
+
+    .asignacion-materia-carsce-tarjeta-titulo {
+        font-size: .9rem;
+    }
+
+    .asignacion-materia-carsce-tarjeta-descripcion {
+        font-size: .69rem;
+    }
+
+    .asignacion-materia-carsce-leyenda {
+        padding: 17px 14px 18px;
+    }
+
+    .asignacion-materia-carsce-bloque {
+        padding: 17px 14px 18px;
+    }
+
+    .asignacion-materia-carsce-control input,
+    .asignacion-materia-carsce-control select {
+        height: 43px;
+    }
+
+    /*
+       Tabla desplazable horizontalmente
+       en dispositivos pequeños.
+    */
+    .asignacion-materia-carsce-materias {
+        overflow-x: auto;
+    }
+
+    .tabla-materias {
+        min-width: 540px;
+    }
+
+    .tabla-materias th,
+    .tabla-materias td {
+        padding: 0 10px;
+    }
+
+    .asignacion-materia-carsce-acciones-informacion {
+        font-size: .63rem;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE - 390px
+============================================================ */
+
+@media (max-width: 390px) {
+
+    .asignacion-materia-carsce-titulo {
+        font-size: 1.05rem;
+    }
+
+    .asignacion-materia-carsce-tarjeta {
+        padding: 16px 13px 18px;
+    }
+
+    .asignacion-materia-carsce-identificacion {
+        padding: 6px 9px;
+
+        font-size: .6rem;
+    }
+
+    .asignacion-materia-carsce-leyenda {
+        padding: 15px 11px 16px;
+    }
+
+    .asignacion-materia-carsce-bloque {
+        padding: 15px 11px 16px;
+    }
+
+    .asignacion-materia-carsce-bloque-icono {
+        width: 30px;
+        height: 30px;
+
+        flex-basis: 30px;
+    }
+
+    .asignacion-materia-carsce-bloque-titulo {
+        font-size: .75rem;
+    }
+
+    .asignacion-materia-carsce-bloque-descripcion {
+        font-size: .62rem;
+    }
+
+    .asignacion-materia-carsce-leyenda-texto span {
+        font-size: .59rem;
+    }
+
+    .asignacion-materia-carsce-materias h4 {
+        font-size: .75rem;
+    }
+}

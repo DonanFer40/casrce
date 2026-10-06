@@ -1,0 +1,535 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="planificacion-academica-carsce">
+
+    <div class="planificacion-academica-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+
+        <div class="planificacion-academica-carsce-encabezado">
+
+            <div class="planificacion-academica-carsce-identificacion">
+                <i class="fa-solid fa-calendar-days"></i>
+                PLANIFICACIÓN ACADÉMICA
+            </div>
+
+            <div class="planificacion-academica-carsce-presentacion">
+
+                <h2 class="planificacion-academica-carsce-titulo">
+                    Planificación Académica
+                    <span>UPT "José Félix Ribas"</span>
+                </h2>
+
+                <p
+                    class="planificacion-academica-carsce-descripcion"
+                    id="descripcion_plan"
+                >
+                    Registre el plan de actividad académica correspondiente a
+                    las materias asignadas, estableciendo sus unidades de
+                    contenido y evaluaciones. El módulo permite registrar un
+                    mínimo de <strong>4</strong> y un máximo de
+                    <strong>6 unidades</strong>.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             ESTADO DE UNIDADES
+        ====================================================== -->
+
+        <div
+            id="estado_unidades"
+            class="planificacion-academica-carsce-estado"
+        >
+            <i class="fa-solid fa-circle-info"></i>
+
+            <span>
+                Seleccione una materia asignada para consultar las unidades
+                registradas.
+            </span>
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <div class="planificacion-academica-carsce-tarjeta">
+
+            <!-- =================================================
+                 CABECERA DE LA TARJETA
+            ================================================== -->
+
+            <div class="planificacion-academica-carsce-tarjeta-cabecera">
+
+                <div class="planificacion-academica-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div class="planificacion-academica-carsce-tarjeta-informacion">
+
+                    <h3 class="planificacion-academica-carsce-tarjeta-titulo">
+                        Registro de planificación
+                    </h3>
+
+                    <p class="planificacion-academica-carsce-tarjeta-descripcion">
+                        Complete la información académica correspondiente para
+                        registrar la planificación de la unidad.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+            ================================================== -->
+
+            <form
+                method="post"
+                id="formulario_registrar"
+                class="planificacion-academica-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     BLOQUE: INFORMACIÓN ACADÉMICA
+                ============================================== -->
+
+                <div class="planificacion-academica-carsce-bloque">
+
+                    <div class="planificacion-academica-carsce-bloque-cabecera">
+
+                        <div class="planificacion-academica-carsce-bloque-icono">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+
+                        <div class="planificacion-academica-carsce-bloque-informacion">
+
+                            <h4 class="planificacion-academica-carsce-bloque-titulo">
+                                Información académica
+                            </h4>
+
+                            <p class="planificacion-academica-carsce-bloque-descripcion">
+                                Seleccione la información correspondiente a la
+                                asignación académica.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PERFIL ASIGNADO -->
+
+                    <div
+                        class="planificacion-academica-carsce-campo"
+                        style="display: none;"
+                    >
+
+                        <label
+                            class="planificacion-academica-carsce-etiqueta"
+                            for="perfiles_asignados"
+                        >
+                            Perfil Asignado
+                        </label>
+
+                        <div class="planificacion-academica-carsce-control">
+
+                            <select
+                                name="perfiles_asignados"
+                                id="perfiles_asignados"
+                            >
+                            </select>
+
+                        </div>
+
+                        <input
+                            type="text"
+                            name="perfiles_asignados"
+                            id="perfil_asignado"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <!-- NÚCLEO / PNF -->
+
+                    <div class="planificacion-academica-carsce-grid-2">
+
+                        <div class="planificacion-academica-carsce-campo">
+
+                            <label
+                                class="planificacion-academica-carsce-etiqueta"
+                                for="nucleo_asignado"
+                            >
+                                Núcleo Asignado
+                            </label>
+
+                            <div class="planificacion-academica-carsce-control">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <select
+                                    name="nucleo_asignado"
+                                    id="nucleo_asignado"
+                                >
+                                </select>
+
+                                <span class="planificacion-academica-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <div class="planificacion-academica-carsce-campo">
+
+                            <label
+                                class="planificacion-academica-carsce-etiqueta"
+                                for="pnfs_asignado"
+                            >
+                                P.N.F. Asignado
+                            </label>
+
+                            <div class="planificacion-academica-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select
+                                    name="pnfs_asignado"
+                                    id="pnfs_asignado"
+                                >
+                                </select>
+
+                                <span class="planificacion-academica-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DOCENTE -->
+
+                    <div
+                        id="contenedor_seleccion_docente"
+                        class="planificacion-academica-carsce-campo"
+                        style="display: none;"
+                    >
+
+                        <label
+                            class="planificacion-academica-carsce-etiqueta"
+                            for="seleccion_docente"
+                        >
+                            Docente
+                        </label>
+
+                        <div class="planificacion-academica-carsce-control">
+
+                            <i class="fa-solid fa-user-tie"></i>
+
+                            <select
+                                name="seleccion_docente"
+                                id="seleccion_docente"
+                            >
+
+                                <option value="" selected>
+                                    Selecciona un Docente
+                                </option>
+
+                            </select>
+
+                            <span class="planificacion-academica-carsce-flecha">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </div>
+
+                        <div class="planificacion-academica-carsce-mensaje"></div>
+
+                    </div>
+
+
+                    <!-- MATERIA / PERÍODO -->
+
+                    <div class="planificacion-academica-carsce-grid-2">
+
+                        <div class="planificacion-academica-carsce-campo">
+
+                            <label
+                                class="planificacion-academica-carsce-etiqueta"
+                                for="asignacion_materia"
+                            >
+                                Materia Asignada
+                            </label>
+
+                            <div class="planificacion-academica-carsce-control">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <select
+                                    name="asignacion_materia"
+                                    id="asignacion_materia"
+                                >
+                                </select>
+
+                                <span class="planificacion-academica-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="planificacion-academica-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <div class="planificacion-academica-carsce-campo">
+
+                            <label
+                                class="planificacion-academica-carsce-etiqueta"
+                                for="periodo_academico"
+                            >
+                                Período Académico
+                            </label>
+
+                            <div class="planificacion-academica-carsce-control">
+
+                                <i class="fa-solid fa-clock"></i>
+
+                                <input
+                                    type="text"
+                                    name="periodo_academico"
+                                    id="periodo_academico"
+                                    readonly
+                                >
+
+                            </div>
+
+                            <div class="planificacion-academica-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     BLOQUE: CONTENIDO DE LA UNIDAD
+                ============================================== -->
+
+                <div class="planificacion-academica-carsce-bloque">
+
+                    <div class="planificacion-academica-carsce-bloque-cabecera">
+
+                        <div class="planificacion-academica-carsce-bloque-icono">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+
+                        <div class="planificacion-academica-carsce-bloque-informacion">
+
+                            <h4 class="planificacion-academica-carsce-bloque-titulo">
+                                Contenido de la unidad
+                            </h4>
+
+                            <p class="planificacion-academica-carsce-bloque-descripcion">
+                                Defina el título y los contenidos que serán
+                                desarrollados durante la unidad académica.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="planificacion-academica-carsce-campo">
+
+                        <label
+                            class="planificacion-academica-carsce-etiqueta"
+                            for="titulo_unidad"
+                        >
+                            Título del Contenido
+                        </label>
+
+                        <div class="planificacion-academica-carsce-control">
+
+                            <i class="fa-solid fa-heading"></i>
+
+                            <input
+                                type="text"
+                                name="titulo_unidad"
+                                id="titulo_unidad"
+                                maxlength="120"
+                                placeholder="Ingrese el título de la unidad"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="planificacion-academica-carsce-mensaje"></div>
+
+                    </div>
+
+
+                    <div class="planificacion-academica-carsce-campo">
+
+                        <label
+                            class="planificacion-academica-carsce-etiqueta"
+                            for="contenido_unidad"
+                        >
+                            Contenido de la Unidad
+                        </label>
+
+                        <div class="planificacion-academica-carsce-control planificacion-academica-carsce-control-textarea">
+
+                            <i class="fa-solid fa-align-left"></i>
+
+                            <textarea
+                                name="contenido_unidad"
+                                id="contenido_unidad"
+                                placeholder="Describa los contenidos que serán desarrollados en la unidad"
+                            ></textarea>
+
+                        </div>
+
+                        <div class="planificacion-academica-carsce-mensaje"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     BLOQUE: EVALUACIONES
+                ============================================== -->
+
+                <div class="planificacion-academica-carsce-bloque">
+
+                    <div class="planificacion-academica-carsce-bloque-cabecera">
+
+                        <div class="planificacion-academica-carsce-bloque-icono">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+
+                        <div class="planificacion-academica-carsce-bloque-informacion">
+
+                            <h4 class="planificacion-academica-carsce-bloque-titulo">
+                                Evaluaciones
+                            </h4>
+
+                            <p class="planificacion-academica-carsce-bloque-descripcion">
+                                Seleccione la cantidad de evaluaciones y
+                                complete la información correspondiente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="planificacion-academica-carsce-campo">
+
+                        <label
+                            class="planificacion-academica-carsce-etiqueta"
+                            for="cantidad_evaluaciones"
+                        >
+                            Cantidad de Evaluaciones
+                        </label>
+
+                        <div class="planificacion-academica-carsce-control">
+
+                            <i class="fa-solid fa-list-ol"></i>
+
+                            <select
+                                id="cantidad_evaluaciones"
+                                name="cantidad_evaluaciones"
+                                required
+                            >
+
+                                <option value="">
+                                    Seleccione...
+                                </option>
+
+                                <option value="1">
+                                    Una evaluación
+                                </option>
+
+                                <option value="2">
+                                    Dos evaluaciones
+                                </option>
+
+                            </select>
+
+                            <span class="planificacion-academica-carsce-flecha">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+
+                        </div>
+
+                        <div class="planificacion-academica-carsce-mensaje"></div>
+
+                    </div>
+
+
+                    <!-- EVALUACIONES GENERADAS POR JAVASCRIPT -->
+
+                    <div
+                        id="contenedor_evaluacion"
+                        class="planificacion-academica-carsce-evaluaciones"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     ACCIONES
+                ============================================== -->
+
+                <div class="planificacion-academica-carsce-acciones">
+
+                    <input
+                        type="submit"
+                        value="Registrar"
+                        class="planificacion-academica-carsce-boton"
+                    >
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Docente/Planificacion_Academicas/registrar_planificacion.js' %}"></script>
+
+{% endblock %}

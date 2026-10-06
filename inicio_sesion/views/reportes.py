@@ -23,7 +23,7 @@ from reportlab.platypus import (
 from django.db.models import Avg, Count
 from inicio_sesion.models import AulaEstudiante, Estudiante
 from notas_academicas.models import Calificaciones
-
+from inicio_sesion.services.permisos import requiere_rol_reporte
 
 def reporte_estudiantes_pdf(request):
     """
@@ -1487,5 +1487,9 @@ def reporte_inscripciones_pdf(request):
         filename="reporte_inscripciones.pdf",
     )
 
+@requiere_rol_reporte(
+    "Director General",
+    "Control de Estudio"
+)
 def reportes_control_estudio(request):
-    return render(request, "Roles/Control_Estudio/reportes/reportes.html")
+    return render(request, "Roles/Reportes/Puente_Reportes.html")

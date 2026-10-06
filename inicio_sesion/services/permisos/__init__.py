@@ -1,0 +1,1 @@
+from .permisos_reportes import requiere_rol_reporte

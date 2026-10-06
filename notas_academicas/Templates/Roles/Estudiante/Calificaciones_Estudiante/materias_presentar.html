@@ -1,0 +1,216 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="materias-presentar-estudiante-carsce">
+
+    <div class="materias-presentar-estudiante-carsce-contenedor">
+
+        <header class="materias-presentar-estudiante-carsce-encabezado">
+
+            <div class="materias-presentar-estudiante-carsce-identificacion">
+                <i class="fa-solid fa-book-open"></i>
+                <span>GESTIÓN ACADÉMICA</span>
+            </div>
+
+            <div class="materias-presentar-estudiante-carsce-presentacion">
+
+                <h2 class="materias-presentar-estudiante-carsce-titulo">
+                    Materias a Presentar
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="materias-presentar-estudiante-carsce-descripcion">
+                    Consulta las unidades curriculares que debes presentar
+                    de acuerdo con el núcleo, P.N.F. y trayecto académico.
+                </p>
+
+            </div>
+
+        </header>
+
+        <div class="materias-presentar-estudiante-carsce-tarjeta">
+
+            <div class="materias-presentar-estudiante-carsce-tarjeta-cabecera">
+
+                <div class="materias-presentar-estudiante-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+
+                <div class="materias-presentar-estudiante-carsce-tarjeta-informacion">
+
+                    <h3 class="materias-presentar-estudiante-carsce-tarjeta-titulo">
+                        Consulta de materias
+                    </h3>
+
+                    <p class="materias-presentar-estudiante-carsce-tarjeta-descripcion">
+                        Selecciona los criterios académicos para consultar
+                        las materias correspondientes al trayecto seleccionado.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="materias-presentar-estudiante-carsce-bloque">
+
+                <div class="materias-presentar-estudiante-carsce-bloque-cabecera">
+
+                    <div class="materias-presentar-estudiante-carsce-bloque-icono">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+
+                    <div class="materias-presentar-estudiante-carsce-bloque-informacion">
+
+                        <h4 class="materias-presentar-estudiante-carsce-bloque-titulo">
+                            Criterios de consulta
+                        </h4>
+
+                        <p class="materias-presentar-estudiante-carsce-bloque-descripcion">
+                            Define el núcleo, P.N.F. y trayecto académico
+                            para localizar las materias correspondientes.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <form method="post"
+                      class="materias-presentar-estudiante-carsce-formulario">
+
+                    {% csrf_token %}
+
+                    <div class="materias-presentar-estudiante-carsce-grid">
+
+                        <div class="materias-presentar-estudiante-carsce-campo">
+
+                            <label for="nucleo_presentar"
+                                   class="materias-presentar-estudiante-carsce-etiqueta">
+                                Núcleo:
+                            </label>
+
+                            <div class="materias-presentar-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-building-columns"></i>
+
+                                <select name="nucleo_presentar"
+                                        id="nucleo_presentar">
+                                </select>
+
+                                <span class="materias-presentar-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="materias-presentar-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="materias-presentar-estudiante-carsce-campo">
+
+                            <label for="pnfs_cursar"
+                                   class="materias-presentar-estudiante-carsce-etiqueta">
+                                P.N.F.:
+                            </label>
+
+                            <div class="materias-presentar-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                <select name="pnfs_cursar"
+                                        id="pnfs_cursar">
+                                </select>
+
+                                <span class="materias-presentar-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="materias-presentar-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                        <div class="materias-presentar-estudiante-carsce-campo">
+
+                            <label for="trayecto_academico"
+                                   class="materias-presentar-estudiante-carsce-etiqueta">
+                                Trayecto Académico:
+                            </label>
+
+                            <div class="materias-presentar-estudiante-carsce-control">
+
+                                <i class="fa-solid fa-route"></i>
+
+                                <select name="trayecto_academico"
+                                        id="trayecto_academico">
+                                </select>
+
+                                <span class="materias-presentar-estudiante-carsce-flecha">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="materias-presentar-estudiante-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="materias-presentar-estudiante-carsce-bloque materias-presentar-estudiante-carsce-bloque-resultados">
+
+                <div class="materias-presentar-estudiante-carsce-bloque-cabecera">
+
+                    <div class="materias-presentar-estudiante-carsce-bloque-icono">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+
+                    <div class="materias-presentar-estudiante-carsce-bloque-informacion">
+
+                        <h4 class="materias-presentar-estudiante-carsce-bloque-titulo">
+                            Materias a presentar
+                        </h4>
+
+                        <p class="materias-presentar-estudiante-carsce-bloque-descripcion">
+                            Las unidades curriculares correspondientes
+                            se mostrarán en esta sección.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="contenedor_datos_academicos"
+                     class="materias-presentar-estudiante-carsce-resultados">
+                </div>
+
+            </div>
+
+            <div class="materias-presentar-estudiante-carsce-informacion">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <span>
+                    Selecciona los criterios académicos para consultar
+                    las materias que debes presentar.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="{% static 'Funciones_Asincronas/Estudiantes/materias_presentar.js' %}"></script>
+
+{% endblock %}

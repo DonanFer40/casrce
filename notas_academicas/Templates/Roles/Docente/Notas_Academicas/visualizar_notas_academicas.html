@@ -1,0 +1,473 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section
+    id="notas-academicas-visualizar-carsce"
+    class="notas-academicas-visualizar-carsce"
+>
+
+    <div class="notas-academicas-visualizar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+
+        <header class="notas-academicas-visualizar-carsce-encabezado">
+
+            <div class="notas-academicas-visualizar-carsce-identificacion">
+                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                GESTIÓN ACADÉMICA
+            </div>
+
+            <div class="notas-academicas-visualizar-carsce-presentacion">
+
+                <h1 class="notas-academicas-visualizar-carsce-titulo">
+                    Visualizar Notas Académicas
+                    <span>CARSCE</span>
+                </h1>
+
+                <p class="notas-academicas-visualizar-carsce-descripcion">
+                    Consulta las calificaciones registradas según el
+                    contexto académico seleccionado.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <section class="notas-academicas-visualizar-carsce-tarjeta">
+
+            <div class="notas-academicas-visualizar-carsce-tarjeta-cabecera">
+
+                <div class="notas-academicas-visualizar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                </div>
+
+                <div class="notas-academicas-visualizar-carsce-tarjeta-informacion">
+
+                    <h2 class="notas-academicas-visualizar-carsce-tarjeta-titulo">
+                        Consulta de calificaciones
+                    </h2>
+
+                    <p class="notas-academicas-visualizar-carsce-tarjeta-descripcion">
+                        Selecciona los criterios académicos para consultar
+                        las notas registradas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO DE BÚSQUEDA
+            ================================================== -->
+
+            <form
+                method="post"
+                id="formulario_busqueda"
+                class="notas-academicas-visualizar-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     CONTEXTO ACADÉMICO
+                ============================================== -->
+
+                <div class="notas-academicas-visualizar-carsce-bloque">
+
+                    <div class="notas-academicas-visualizar-carsce-bloque-cabecera">
+
+                        <div class="notas-academicas-visualizar-carsce-bloque-icono">
+                            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="notas-academicas-visualizar-carsce-bloque-informacion">
+
+                            <h3 class="notas-academicas-visualizar-carsce-bloque-titulo">
+                                Contexto académico
+                            </h3>
+
+                            <p class="notas-academicas-visualizar-carsce-bloque-descripcion">
+                                Define el núcleo, programa y docente que deseas consultar.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="notas-academicas-visualizar-carsce-grid">
+
+                        <!-- =====================================
+                             PERFIL
+                        ====================================== -->
+
+                        <div class="notas-academicas-visualizar-carsce-campo-oculto">
+
+                            <label
+                                for="perfiles_asignados"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                Perfil Asignado:
+                            </label>
+
+                            <select
+                                name="perfiles_asignados"
+                                id="perfiles_asignados"
+                                class="notas-academicas-visualizar-carsce-control-oculto"
+                                style="display: none;"
+                            ></select>
+
+                            <input
+                                type="text"
+                                name="perfiles_asignados"
+                                id="perfil_asignado"
+                                class="notas-academicas-visualizar-carsce-control-oculto"
+                                readonly
+                                style="display: none;"
+                            >
+
+                        </div>
+
+
+                        <!-- =====================================
+                             NÚCLEO
+                        ====================================== -->
+
+                        <div class="notas-academicas-visualizar-carsce-campo">
+
+                            <label
+                                for="nucleo_asignado"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                Núcleo Asignado:
+                            </label>
+
+                            <div class="notas-academicas-visualizar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-location-dot"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="nucleo_asignado"
+                                    id="nucleo_asignado"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down notas-academicas-visualizar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="notas-academicas-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- =====================================
+                             PNF
+                        ====================================== -->
+
+                        <div class="notas-academicas-visualizar-carsce-campo">
+
+                            <label
+                                for="pnf_asignado"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                P.N.F. Asignado:
+                            </label>
+
+                            <div class="notas-academicas-visualizar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-graduation-cap"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="pnf_asignado"
+                                    id="pnf_asignado"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down notas-academicas-visualizar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="notas-academicas-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- =====================================
+                             DOCENTE
+                        ====================================== -->
+
+                        <div
+                            id="contenedor_seleccion_docente"
+                            class="notas-academicas-visualizar-carsce-campo notas-academicas-visualizar-carsce-campo-docente"
+                            style="display: none;"
+                        >
+
+                            <label
+                                for="seleccion_docente"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                Docente:
+                            </label>
+
+                            <div class="notas-academicas-visualizar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-user-tie"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="seleccion_docente"
+                                    id="seleccion_docente"
+                                >
+                                    <option value="" selected>
+                                        Selecciona un Docente
+                                    </option>
+                                </select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down notas-academicas-visualizar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="notas-academicas-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     CRITERIOS DE CONSULTA
+                ================================================== -->
+
+                <div class="notas-academicas-visualizar-carsce-bloque">
+
+                    <div class="notas-academicas-visualizar-carsce-bloque-cabecera">
+
+                        <div class="notas-academicas-visualizar-carsce-bloque-icono">
+                            <i class="fa-solid fa-filter" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="notas-academicas-visualizar-carsce-bloque-informacion">
+
+                            <h3 class="notas-academicas-visualizar-carsce-bloque-titulo">
+                                Criterios de consulta
+                            </h3>
+
+                            <p class="notas-academicas-visualizar-carsce-bloque-descripcion">
+                                Selecciona la información académica que deseas visualizar.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="notas-academicas-visualizar-carsce-grid">
+
+
+                        <!-- =====================================
+                             TRAYECTO
+                        ====================================== -->
+
+                        <div class="notas-academicas-visualizar-carsce-campo">
+
+                            <label
+                                for="trayecto_academico"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                Trayecto Académico:
+                            </label>
+
+                            <div class="notas-academicas-visualizar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-layer-group"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="trayecto_academico"
+                                    id="trayecto_academico"
+                                >
+                                    <option value="" selected>
+                                        Debe seleccionar el Trayecto Académico
+                                    </option>
+                                </select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down notas-academicas-visualizar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="notas-academicas-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- =====================================
+                             MATERIA
+                        ====================================== -->
+
+                        <div class="notas-academicas-visualizar-carsce-campo">
+
+                            <label
+                                for="materia_asignada"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                Materia Asignada:
+                            </label>
+
+                            <div class="notas-academicas-visualizar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-book"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="materia_asignada"
+                                    id="materia_asignada"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down notas-academicas-visualizar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="notas-academicas-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- =====================================
+                             PERIODO
+                        ====================================== -->
+
+                        <div class="notas-academicas-visualizar-carsce-campo">
+
+                            <label
+                                for="periodo_academico"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                Periodo Académico:
+                            </label>
+
+                            <div class="notas-academicas-visualizar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-calendar-days"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="periodo_academico"
+                                    id="periodo_academico"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down notas-academicas-visualizar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="notas-academicas-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- =====================================
+                             FECHA
+                        ====================================== -->
+
+                        <div class="notas-academicas-visualizar-carsce-campo">
+
+                            <label
+                                for="fecha_registro_academico"
+                                class="notas-academicas-visualizar-carsce-etiqueta"
+                            >
+                                Fecha de Registro:
+                            </label>
+
+                            <div class="notas-academicas-visualizar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-clock-rotate-left"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="fecha_registro_academico"
+                                    id="fecha_registro_academico"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down notas-academicas-visualizar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="notas-academicas-visualizar-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     RESULTADOS
+                ================================================== -->
+
+                <section
+                    id="contenedor_notas_academicas"
+                    class="notas-academicas-visualizar-carsce-resultados"
+                ></section>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Docente/Notas_Academicas/visualizas_notas_academicas.js' %}"></script>
+
+{% endblock %}

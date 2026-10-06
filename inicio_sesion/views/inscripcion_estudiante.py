@@ -588,7 +588,7 @@ def obt_data_est(request):
 
 def inscr_est(request):
     if request.method != "POST":
-        return render(request, "Roles/Coordinador_PNF/inscripcion/inscripcion_rechazado.html")
+        return render(request, "Roles/Control_Estudio/inscripcion/inscripcion_rechazado.html")
 
     cedula_usuario = request.session.get("cedula_usuario")
 

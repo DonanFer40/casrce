@@ -17,3 +17,4 @@ from .planificacion_academica import *
 from .gestion_personal import *
 from .calendario_academico import *
 from .reportes import *
+from .noticias import *

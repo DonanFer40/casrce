@@ -1,0 +1,436 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section
+    id="evaluacion-reparacion-registrar-carsce"
+    class="evaluacion-reparacion-registrar-carsce"
+>
+
+    <div class="evaluacion-reparacion-registrar-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+
+        <header class="evaluacion-reparacion-registrar-carsce-encabezado">
+
+            <div class="evaluacion-reparacion-registrar-carsce-identificacion">
+                <i class="fa-solid fa-file-circle-check" aria-hidden="true"></i>
+                GESTIÓN ACADÉMICA
+            </div>
+
+            <div class="evaluacion-reparacion-registrar-carsce-presentacion">
+
+                <h1 class="evaluacion-reparacion-registrar-carsce-titulo">
+                    Registrar Evaluación de Reparación
+                    <span>CARSCE</span>
+                </h1>
+
+                <p class="evaluacion-reparacion-registrar-carsce-descripcion">
+                    Configura la evaluación de reparación asociada a una
+                    unidad curricular y establece los porcentajes correspondientes.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <section class="evaluacion-reparacion-registrar-carsce-tarjeta">
+
+            <div class="evaluacion-reparacion-registrar-carsce-tarjeta-cabecera">
+
+                <div class="evaluacion-reparacion-registrar-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+                </div>
+
+                <div class="evaluacion-reparacion-registrar-carsce-tarjeta-informacion">
+
+                    <h2 class="evaluacion-reparacion-registrar-carsce-tarjeta-titulo">
+                        Configuración de evaluación
+                    </h2>
+
+                    <p class="evaluacion-reparacion-registrar-carsce-tarjeta-descripcion">
+                        Selecciona el contexto académico y define los detalles
+                        de la evaluación de reparación.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+            ================================================== -->
+
+            <form
+                method="post"
+                id="formulario_registrar"
+                class="evaluacion-reparacion-registrar-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     CONTEXTO ACADÉMICO
+                ============================================== -->
+
+                <div class="evaluacion-reparacion-registrar-carsce-bloque">
+
+                    <div class="evaluacion-reparacion-registrar-carsce-bloque-cabecera">
+
+                        <div class="evaluacion-reparacion-registrar-carsce-bloque-icono">
+                            <i
+                                class="fa-solid fa-building-columns"
+                                aria-hidden="true"
+                            ></i>
+                        </div>
+
+                        <div class="evaluacion-reparacion-registrar-carsce-bloque-informacion">
+
+                            <h3 class="evaluacion-reparacion-registrar-carsce-bloque-titulo">
+                                Contexto académico
+                            </h3>
+
+                            <p class="evaluacion-reparacion-registrar-carsce-bloque-descripcion">
+                                Información institucional de la unidad curricular.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="evaluacion-reparacion-registrar-carsce-grid-2">
+
+                        <!-- NÚCLEO -->
+
+                        <div class="evaluacion-reparacion-registrar-carsce-campo">
+
+                            <label
+                                for="nucleo_asignado"
+                                class="evaluacion-reparacion-registrar-carsce-etiqueta"
+                            >
+                                Núcleo Asignado:
+                            </label>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-location-dot"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="nucleo_asignado"
+                                    id="nucleo_asignado"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down evaluacion-reparacion-registrar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- PNF -->
+
+                        <div class="evaluacion-reparacion-registrar-carsce-campo">
+
+                            <label
+                                for="pnf_asignado"
+                                class="evaluacion-reparacion-registrar-carsce-etiqueta"
+                            >
+                                P.N.F. Asignado:
+                            </label>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-graduation-cap"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="pnf_asignado"
+                                    id="pnf_asignado"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down evaluacion-reparacion-registrar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- MATERIA -->
+
+                        <div class="evaluacion-reparacion-registrar-carsce-campo">
+
+                            <label
+                                for="materia_asignada"
+                                class="evaluacion-reparacion-registrar-carsce-etiqueta"
+                            >
+                                Materia Asignada:
+                            </label>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-book"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <select
+                                    name="materia_asignada"
+                                    id="materia_asignada"
+                                ></select>
+
+                                <i
+                                    class="fa-solid fa-chevron-down evaluacion-reparacion-registrar-carsce-flecha"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </div>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-mensaje"></div>
+
+                        </div>
+
+
+                        <!-- TRAYECTO -->
+
+                        <div class="evaluacion-reparacion-registrar-carsce-campo">
+
+                            <label
+                                for="trayecto_academico"
+                                class="evaluacion-reparacion-registrar-carsce-etiqueta"
+                            >
+                                Trayecto Académico:
+                            </label>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-control">
+
+                                <i
+                                    class="fa-solid fa-layer-group"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <input
+                                    type="text"
+                                    name="trayecto_academico"
+                                    id="trayecto_academico"
+                                    readonly
+                                    placeholder="Trayecto Académico"
+                                >
+
+                            </div>
+
+                            <div class="evaluacion-reparacion-registrar-carsce-mensaje"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     DETALLE DE EVALUACIÓN
+                ============================================== -->
+
+                <div class="evaluacion-reparacion-registrar-carsce-bloque">
+
+                    <div class="evaluacion-reparacion-registrar-carsce-bloque-cabecera">
+
+                        <div class="evaluacion-reparacion-registrar-carsce-bloque-icono">
+                            <i
+                                class="fa-solid fa-list-check"
+                                aria-hidden="true"
+                            ></i>
+                        </div>
+
+                        <div class="evaluacion-reparacion-registrar-carsce-bloque-informacion">
+
+                            <h3 class="evaluacion-reparacion-registrar-carsce-bloque-titulo">
+                                Detalle de evaluación
+                            </h3>
+
+                            <p class="evaluacion-reparacion-registrar-carsce-bloque-descripcion">
+                                Define los tipos de evaluación y el porcentaje
+                                correspondiente a cada detalle.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONTENEDOR DE DETALLES -->
+
+                    <div
+                        id="contenedor_detalles_evaluacion"
+                        class="evaluacion-reparacion-registrar-carsce-detalles"
+                    >
+
+                        <div class="detalle_evaluacion evaluacion-reparacion-registrar-carsce-detalle">
+
+                            <div class="evaluacion-reparacion-registrar-carsce-detalle-campo">
+
+                                <label
+                                    class="evaluacion-reparacion-registrar-carsce-etiqueta"
+                                >
+                                    Tipo de Evaluación:
+                                </label>
+
+                                <div class="evaluacion-reparacion-registrar-carsce-control">
+
+                                    <i
+                                        class="fa-solid fa-list-check"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    <select
+                                        name="tipo_evaluacion[]"
+                                        class="tipo_evaluacion evaluacion-reparacion-registrar-carsce-tipo-evaluacion"
+                                    ></select>
+
+                                    <i
+                                        class="fa-solid fa-chevron-down evaluacion-reparacion-registrar-carsce-flecha"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="evaluacion-reparacion-registrar-carsce-detalle-campo">
+
+                                <label
+                                    class="evaluacion-reparacion-registrar-carsce-etiqueta"
+                                >
+                                    Porcentaje:
+                                </label>
+
+                                <div class="evaluacion-reparacion-registrar-carsce-control">
+
+                                    <i
+                                        class="fa-solid fa-percent"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    <input
+                                        type="text"
+                                        name="porcentaje[]"
+                                        class="porcentaje_evaluacion evaluacion-reparacion-registrar-carsce-porcentaje"
+                                        placeholder="Porcentaje"
+                                        autocomplete="off"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="evaluacion-reparacion-registrar-carsce-detalle-accion">
+
+                                <button
+                                    type="button"
+                                    class="btn_eliminar_detalle evaluacion-reparacion-registrar-carsce-eliminar"
+                                >
+                                    <i
+                                        class="fa-solid fa-trash-can"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    <span>Eliminar</span>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AGREGAR DETALLE -->
+
+                    <div class="evaluacion-reparacion-registrar-carsce-agregar">
+
+                        <button
+                            type="button"
+                            id="btn_agregar_detalle"
+                            class="evaluacion-reparacion-registrar-carsce-agregar-boton"
+                        >
+                            <i
+                                class="fa-solid fa-plus"
+                                aria-hidden="true"
+                            ></i>
+
+                            <span>Agregar detalle</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     ACCIONES
+                ============================================== -->
+
+                <div class="evaluacion-reparacion-registrar-carsce-acciones">
+
+                    <div class="evaluacion-reparacion-registrar-carsce-acciones-informacion">
+
+                        <i
+                            class="fa-solid fa-circle-info"
+                            aria-hidden="true"
+                        ></i>
+
+                        <span>
+                            Verifica los porcentajes antes de registrar la evaluación.
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="submit"
+                        value="Registrar Evaluación"
+                        class="evaluacion-reparacion-registrar-carsce-boton"
+                    >
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Docente/registrar_examen_reparacion.js' %}"></script>
+
+{% endblock %}

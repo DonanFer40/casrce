@@ -1,0 +1,380 @@
+{% extends 'Estructura/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section id="asignacion-materia-carsce">
+
+    <div class="asignacion-materia-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
+        <header class="asignacion-materia-carsce-encabezado">
+
+            <div class="asignacion-materia-carsce-identificacion">
+                <i class="fa-solid fa-book-open-reader"></i>
+                GESTIÓN ACADÉMICA
+            </div>
+
+            <div class="asignacion-materia-carsce-presentacion">
+
+                <h2 class="asignacion-materia-carsce-titulo">
+                    Asignar Materia a Docente
+                    <span>CARSCE</span>
+                </h2>
+
+                <p class="asignacion-materia-carsce-descripcion">
+                    Gestiona la asignación de materias a docentes de acuerdo
+                    con el rol académico disponible.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+        <div class="asignacion-materia-carsce-tarjeta">
+
+            <!-- CABECERA -->
+            <div class="asignacion-materia-carsce-tarjeta-cabecera">
+
+                <div class="asignacion-materia-carsce-tarjeta-icono">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+
+                <div class="asignacion-materia-carsce-tarjeta-informacion">
+
+                    <h3 class="asignacion-materia-carsce-tarjeta-titulo">
+                        Asignación académica
+                    </h3>
+
+                    <p class="asignacion-materia-carsce-tarjeta-descripcion">
+                        Selecciona el P.N.F., docente y rol correspondiente
+                        para consultar las materias disponibles.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 LEYENDA DE DISPONIBILIDAD
+            ================================================== -->
+            <div class="asignacion-materia-carsce-leyenda">
+
+                <div class="asignacion-materia-carsce-bloque-cabecera">
+
+                    <div class="asignacion-materia-carsce-bloque-icono">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+
+                    <div class="asignacion-materia-carsce-bloque-informacion">
+
+                        <h4 class="asignacion-materia-carsce-bloque-titulo">
+                            Estado de las materias
+                        </h4>
+
+                        <p class="asignacion-materia-carsce-bloque-descripcion">
+                            Los colores indican la disponibilidad de cada
+                            materia para realizar la asignación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="asignacion-materia-carsce-leyenda-lista">
+
+                    <div class="asignacion-materia-carsce-leyenda-item">
+
+                        <span class="asignacion-materia-carsce-leyenda-color asignacion-materia-carsce-leyenda-verde"></span>
+
+                        <div class="asignacion-materia-carsce-leyenda-texto">
+                            <strong>Verde</strong>
+                            <span>
+                                La materia está completamente disponible y
+                                puede ser asignada al docente en el rol seleccionado.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="asignacion-materia-carsce-leyenda-item">
+
+                        <span class="asignacion-materia-carsce-leyenda-color asignacion-materia-carsce-leyenda-amarillo"></span>
+
+                        <div class="asignacion-materia-carsce-leyenda-texto">
+                            <strong>Amarillo</strong>
+                            <span>
+                                El rol seleccionado ya está ocupado por otro
+                                docente y no puede realizarse la asignación.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="asignacion-materia-carsce-leyenda-item">
+
+                        <span class="asignacion-materia-carsce-leyenda-color asignacion-materia-carsce-leyenda-naranja"></span>
+
+                        <div class="asignacion-materia-carsce-leyenda-texto">
+                            <strong>Naranja</strong>
+                            <span>
+                                Uno de los roles de la materia ya está ocupado,
+                                pero el otro se encuentra disponible.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="asignacion-materia-carsce-leyenda-item">
+
+                        <span class="asignacion-materia-carsce-leyenda-color asignacion-materia-carsce-leyenda-rojo"></span>
+
+                        <div class="asignacion-materia-carsce-leyenda-texto">
+                            <strong>Rojo</strong>
+                            <span>
+                                Los roles de docente principal y secundario
+                                están ocupados. No hay disponibilidad.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="asignacion-materia-carsce-leyenda-item">
+
+                        <span class="asignacion-materia-carsce-leyenda-color asignacion-materia-carsce-leyenda-azul"></span>
+
+                        <div class="asignacion-materia-carsce-leyenda-texto">
+                            <strong>Azul</strong>
+                            <span>
+                                El docente seleccionado ya está asignado a
+                                esta materia y no puede ser asignado nuevamente.
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+            ================================================== -->
+            <form method="post"
+                  id="formulario_asignar_materia"
+                  class="asignacion-materia-carsce-formulario">
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     INFORMACIÓN DE ASIGNACIÓN
+                ============================================== -->
+                <div class="asignacion-materia-carsce-bloque">
+
+                    <div class="asignacion-materia-carsce-bloque-cabecera">
+
+                        <div class="asignacion-materia-carsce-bloque-icono">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+
+                        <div class="asignacion-materia-carsce-bloque-informacion">
+
+                            <h4 class="asignacion-materia-carsce-bloque-titulo">
+                                Datos de asignación
+                            </h4>
+
+                            <p class="asignacion-materia-carsce-bloque-descripcion">
+                                Selecciona los datos correspondientes para
+                                determinar las materias disponibles.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="asignacion-materia-carsce-grid-2">
+
+                        <!-- PERFIL -->
+                        <div class="asignacion-materia-carsce-campo">
+
+                            <label for="perfiles_asignados"
+                                   id="label_perfil"
+                                   class="asignacion-materia-carsce-etiqueta">
+                                Perfil Asignado:
+                            </label>
+
+                            <div class="asignacion-materia-carsce-control">
+
+                                <i class="fa-solid fa-user-tag"></i>
+
+                                <select name="perfiles_asignados"
+                                        id="perfiles_asignados"
+                                        style="display: none;">
+                                </select>
+
+                                <input type="text"
+                                       name="perfiles_asignados"
+                                       id="perfil_asignado"
+                                       readonly
+                                       style="display: none;">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PNF -->
+                        <div class="asignacion-materia-carsce-campo">
+
+                            <label for="pnfs_asignados"
+                                   id="label_pnf"
+                                   class="asignacion-materia-carsce-etiqueta">
+                                P.N.F Asignado:
+                            </label>
+
+                            <div class="asignacion-materia-carsce-control">
+
+                                <i class="fa-solid fa-sitemap"></i>
+
+                                <select name="pnfs_asignados"
+                                        id="pnfs_asignados">
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down asignacion-materia-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DOCENTE -->
+                        <div class="asignacion-materia-carsce-campo">
+
+                            <label for="docentes_registrados"
+                                   class="asignacion-materia-carsce-etiqueta">
+                                Docente:
+                            </label>
+
+                            <div class="asignacion-materia-carsce-control">
+
+                                <i class="fa-solid fa-chalkboard-user"></i>
+
+                                <select name="docente"
+                                        id="docentes_registrados"
+                                        required>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down asignacion-materia-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ROL -->
+                        <div class="asignacion-materia-carsce-campo">
+
+                            <label for="rol_docente"
+                                   class="asignacion-materia-carsce-etiqueta">
+                                Rol del Docente:
+                            </label>
+
+                            <div class="asignacion-materia-carsce-control">
+
+                                <i class="fa-solid fa-user-shield"></i>
+
+                                <select name="rol_docente"
+                                        id="rol_docente"
+                                        required>
+
+                                    <option value="">
+                                        Seleccione una opción
+                                    </option>
+
+                                    <option value="PRINCIPAL">
+                                        Docente Principal
+                                    </option>
+
+                                    <option value="SECUNDARIO">
+                                        Docente Secundario
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down asignacion-materia-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     MATERIAS DINÁMICAS
+                ================================================== -->
+                <div id="contenedor_materias"
+                     class="asignacion-materia-carsce-materias">
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCIONES
+                ================================================== -->
+                <div class="asignacion-materia-carsce-acciones">
+
+                    <div class="asignacion-materia-carsce-acciones-informacion">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <span>
+                            Selecciona el P.N.F., docente y rol para
+                            consultar las materias disponibles.
+                        </span>
+
+                    </div>
+
+                    <button type="submit"
+                            class="asignacion-materia-carsce-boton">
+
+                        <i class="fa-solid fa-link"></i>
+
+                        Asignar Materia
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="{% static 'Funciones_Asincronas/Coordinador_PNF/Asignacion_Materia/registrar_asignaciones.js' %}"></script>
+
+{% endblock %}

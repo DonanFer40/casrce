@@ -1,10 +1,10 @@
 /* =========================================================
-   BARRA LATERAL PRINCIPAL - CARSCE
+   BARRA LATERAL CARSCE
    ========================================================= */
 
-#navegacion_lateral_carsce {
+#barra-lateral-carsce {
     position: fixed;
-    top: 150px;
+    top: 160px;
     left: 0;
 
     width: 270px;
@@ -36,83 +36,60 @@
    CONTEXTO DE SESIÓN
    ========================================================= */
 
-.navegacion-lateral-carsce-contexto {
-    flex-shrink: 0;
+.barra-lateral-carsce-contexto {
+    width: 100%;
 
     display: flex;
     align-items: center;
 
     gap: 12px;
 
-    margin: 16px 14px 0;
-    padding: 13px 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(37, 99, 235, 0.14),
-            rgba(37, 99, 235, 0.04)
-        );
-
-    border: 1px solid rgba(96, 165, 250, 0.14);
-
-    border-radius: 12px;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
-}
-
-
-.navegacion-lateral-carsce-contexto:hover {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(37, 99, 235, 0.19),
-            rgba(37, 99, 235, 0.06)
-        );
-
-    border-color: rgba(96, 165, 250, 0.22);
-}
-
-
-/* =========================================================
-   ICONO DEL CONTEXTO
-   ========================================================= */
-
-.navegacion-lateral-carsce-contexto-icono {
-    width: 39px;
-    height: 39px;
+    padding: 18px 17px 16px;
 
     flex-shrink: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.16),
+            rgba(30, 41, 59, 0.15)
+        );
+}
+
+
+/* Icono */
+
+.barra-lateral-carsce-contexto-icono {
+    width: 42px;
+    height: 42px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    flex-shrink: 0;
+
     border-radius: 10px;
 
     background:
         linear-gradient(
-            145deg,
+            135deg,
             #2563EB,
             #1D4ED8
         );
 
     color: #FFFFFF;
 
-    font-size: 0.9rem;
+    font-size: 16px;
 
     box-shadow:
-        0 5px 12px rgba(37, 99, 235, 0.25);
+        0 5px 14px rgba(37, 99, 235, 0.25);
 }
 
 
-/* =========================================================
-   INFORMACIÓN DEL CONTEXTO
-   ========================================================= */
+/* Datos */
 
-.navegacion-lateral-carsce-contexto-datos {
+.barra-lateral-carsce-contexto-datos {
     min-width: 0;
 
     display: flex;
@@ -122,43 +99,40 @@
 }
 
 
-.navegacion-lateral-carsce-contexto-etiqueta {
-    color: #64748B;
+/* Etiqueta */
 
-    font-size: 0.58rem;
-    font-weight: 600;
+.barra-lateral-carsce-contexto-etiqueta {
+    color: #93C5FD;
 
-    letter-spacing: 0.09em;
+    font-size: 0.61rem;
+    font-weight: 700;
 
-    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 
-.navegacion-lateral-carsce-contexto-rol {
-    color: #F8FAFC;
+/* Rol */
 
-    font-size: 0.82rem;
-    font-weight: 600;
+.barra-lateral-carsce-contexto-rol {
+    color: #FFFFFF;
 
-    line-height: 1.25;
+    font-size: 0.76rem;
+    font-weight: 700;
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.3;
 }
 
 
-.navegacion-lateral-carsce-contexto-descripcion {
-    color: #94A3B8;
+/* Descripción */
 
-    font-size: 0.64rem;
+.barra-lateral-carsce-contexto-descripcion {
+    color: #CBD5E1;
+
+    font-size: 0.67rem;
     font-weight: 400;
 
-    line-height: 1.25;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.3;
 }
 
 
@@ -166,205 +140,265 @@
    SEPARADOR
    ========================================================= */
 
-.navegacion-lateral-carsce-separador {
-    width: calc(100% - 28px);
+.barra-lateral-carsce-separador {
+    width: calc(100% - 32px);
+
     height: 1px;
 
-    flex-shrink: 0;
+    margin: 0 16px;
 
-    margin: 14px auto 0;
+    flex-shrink: 0;
 
     background:
         linear-gradient(
             90deg,
-            rgba(148, 163, 184, 0.20),
-            rgba(148, 163, 184, 0.03)
+            transparent,
+            rgba(255, 255, 255, 0.12),
+            transparent
         );
 }
 
 
 /* =========================================================
-   CONTENIDO NAVEGABLE
+   NAVEGACIÓN
    ========================================================= */
 
-.navegacion-lateral-carsce-contenido {
-    flex: 1;
-    min-height: 0;
+.barra-lateral-carsce-navegacion {
+    width: 100%;
 
-    padding: 15px 12px 22px;
+    flex: 1;
 
     overflow-y: auto;
     overflow-x: hidden;
 
-    scrollbar-width: thin;
+    padding: 14px 10px 24px;
 
+    scrollbar-width: thin;
     scrollbar-color:
-        rgba(148, 163, 184, 0.22)
+        rgba(148, 163, 184, 0.35)
         transparent;
 }
 
 
-/* Scrollbar Chromium */
+/* Scrollbar Chrome / Edge */
 
-.navegacion-lateral-carsce-contenido::-webkit-scrollbar {
+.barra-lateral-carsce-navegacion::-webkit-scrollbar {
     width: 5px;
 }
 
-
-.navegacion-lateral-carsce-contenido::-webkit-scrollbar-track {
+.barra-lateral-carsce-navegacion::-webkit-scrollbar-track {
     background: transparent;
 }
 
+.barra-lateral-carsce-navegacion::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
 
-.navegacion-lateral-carsce-contenido::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.22);
-
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
-
-.navegacion-lateral-carsce-contenido::-webkit-scrollbar-thumb:hover {
-    background: rgba(148, 163, 184, 0.38);
+.barra-lateral-carsce-navegacion::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
 }
 
 
 /* =========================================================
-   ETIQUETAS DE SECCIÓN
+   SECCIONES
    ========================================================= */
 
-.navegacion-lateral-carsce-etiqueta {
+.barra-lateral-carsce-seccion,
+.barra-lateral-carsce-bloque-principal {
+    width: 100%;
+
+    margin-bottom: 17px;
+}
+
+
+/* =========================================================
+   ETIQUETA DE SECCIÓN
+   ========================================================= */
+
+.barra-lateral-carsce-etiqueta-seccion {
     display: block;
 
-    margin: 8px 8px 8px;
+    padding: 0 11px;
+    margin-bottom: 7px;
 
     color: #64748B;
 
-    font-size: 0.61rem;
-    font-weight: 600;
+    font-size: 0.59rem;
+    font-weight: 700;
 
-    letter-spacing: 0.10em;
+    letter-spacing: 0.09em;
 
-    line-height: 1.2;
+    text-transform: uppercase;
 }
 
 
 /* =========================================================
-   ENLACE PRINCIPAL
+   ENLACES PRINCIPALES
    ========================================================= */
 
-.navegacion-lateral-carsce-enlace-inicio {
+.barra-lateral-carsce-enlace-principal {
     position: relative;
+
+    width: 100%;
+    min-height: 43px;
 
     display: flex;
     align-items: center;
 
-    width: 100%;
+    gap: 10px;
 
-    min-height: 41px;
+    padding: 8px 11px;
 
-    padding: 7px 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
 
-    margin-bottom: 15px;
-
-    color: #E2E8F0;
+    color: #CBD5E1;
 
     text-decoration: none;
 
-    background:
-        rgba(37, 99, 235, 0.14);
-
-    border: 1px solid rgba(59, 130, 246, 0.25);
-
-    border-radius: 9px;
-
     transition:
-        background 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
         border-color 0.2s ease,
         transform 0.2s ease;
 }
 
 
-.navegacion-lateral-carsce-enlace-inicio:hover {
-    background:
-        rgba(37, 99, 235, 0.22);
+/* Hover */
 
-    border-color:
-        rgba(96, 165, 250, 0.34);
+.barra-lateral-carsce-enlace-principal:hover {
+    color: #FFFFFF;
+
+    background: rgba(37, 99, 235, 0.12);
+
+    border-color: rgba(96, 165, 250, 0.1);
 
     transform: translateX(2px);
 }
 
 
-.navegacion-lateral-carsce-icono-inicio {
-    width: 30px;
-    height: 30px;
+/* Icono */
 
-    flex-shrink: 0;
+.barra-lateral-carsce-enlace-icono {
+    width: 31px;
+    height: 31px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    margin-right: 9px;
-
-    color: #BFDBFE;
-
-    background:
-        rgba(37, 99, 235, 0.24);
+    flex-shrink: 0;
 
     border-radius: 7px;
 
-    font-size: 0.76rem;
-}
+    color: #94A3B8;
 
-
-.navegacion-lateral-carsce-texto-enlace {
-    flex: 1;
-
-    color: #E2E8F0;
-
-    font-size: 0.72rem;
-    font-weight: 600;
-
-    white-space: nowrap;
-}
-
-
-.navegacion-lateral-carsce-indicador {
-    color: #64748B;
-
-    font-size: 0.65rem;
+    font-size: 0.78rem;
 
     transition:
-        transform 0.2s ease,
-        color 0.2s ease;
+        color 0.2s ease,
+        background-color 0.2s ease;
 }
 
 
-.navegacion-lateral-carsce-enlace-inicio:hover
-.navegacion-lateral-carsce-indicador {
-    color: #93C5FD;
+.barra-lateral-carsce-enlace-principal:hover
+.barra-lateral-carsce-enlace-icono {
+    color: #60A5FA;
+
+    background: rgba(37, 99, 235, 0.12);
+}
+
+
+/* Texto */
+
+.barra-lateral-carsce-enlace-texto {
+    flex: 1;
+
+    min-width: 0;
+
+    color: inherit;
+
+    font-size: 0.72rem;
+    font-weight: 550;
+
+    line-height: 1.3;
+}
+
+
+/* Indicador */
+
+.barra-lateral-carsce-enlace-indicador {
+    color: #475569;
+
+    font-size: 0.62rem;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.barra-lateral-carsce-enlace-principal:hover
+.barra-lateral-carsce-enlace-indicador {
+    color: #60A5FA;
 
     transform: translateX(2px);
 }
 
 
 /* =========================================================
-   SECCIONES / ACORDEONES
+   ESTADO ACTIVO DE ENLACES PRINCIPALES
+   IMPORTANTE:
+   EL ESTADO ACTIVO ES INDEPENDIENTE DE LOS ACORDEONES
    ========================================================= */
 
-.navegacion-lateral-carsce-seccion {
-    margin-bottom: 5px;
+.barra-lateral-carsce-enlace-principal.activo-carsce {
+    color: #FFFFFF;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(37, 99, 235, 0.24),
+            rgba(37, 99, 235, 0.08)
+        );
+
+    border-color: rgba(96, 165, 250, 0.16);
+
+    box-shadow:
+        inset 3px 0 0 #2563EB;
 }
 
 
-.navegacion-lateral-carsce-bloque-inicio {
-    margin-bottom: 5px;
+.barra-lateral-carsce-enlace-principal.activo-carsce
+.barra-lateral-carsce-enlace-icono {
+    color: #FFFFFF;
+
+    background: rgba(37, 99, 235, 0.22);
 }
 
 
-.navegacion-lateral-carsce-acordeon {
+.barra-lateral-carsce-enlace-principal.activo-carsce
+.barra-lateral-carsce-enlace-indicador {
+    color: #60A5FA;
+}
+
+
+/* =========================================================
+   ACORDEONES
+   ========================================================= */
+
+.barra-lateral-carsce-acordeon {
     width: 100%;
+
+    margin-bottom: 3px;
+
+    border-radius: 8px;
+
+    /* IMPORTANTE:
+       No se coloca background aquí.
+       Abrir el details NO debe resaltar el módulo. */
 }
 
 
@@ -372,104 +406,124 @@
    CABECERA DEL ACORDEÓN
    ========================================================= */
 
-.navegacion-lateral-carsce-cabecera {
-    display: flex;
-    align-items: center;
-
+.barra-lateral-carsce-cabecera {
     width: 100%;
     min-height: 43px;
 
-    padding: 6px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    color: #CBD5E1;
+    gap: 8px;
+
+    padding: 7px 10px;
 
     border: 1px solid transparent;
-
-    border-radius: 9px;
+    border-radius: 8px;
 
     cursor: pointer;
 
     list-style: none;
 
+    color: #CBD5E1;
+
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease;
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
 
 
-.navegacion-lateral-carsce-cabecera::-webkit-details-marker {
+/* Eliminar marcador nativo */
+
+.barra-lateral-carsce-cabecera::-webkit-details-marker {
+    display: none;
+}
+
+.barra-lateral-carsce-cabecera::marker {
     display: none;
 }
 
 
-.navegacion-lateral-carsce-cabecera:hover {
-    color: #F8FAFC;
+/* Hover del módulo */
 
-    background:
-        rgba(255, 255, 255, 0.055);
+.barra-lateral-carsce-cabecera:hover {
+    color: #FFFFFF;
 
-    border-color:
-        rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.045);
+
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 
 /* =========================================================
-   PARTE IZQUIERDA DEL ACORDEÓN
+   CONTENIDO DE CABECERA
    ========================================================= */
 
-.navegacion-lateral-carsce-cabecera-izquierda {
+.barra-lateral-carsce-cabecera-contenido {
     min-width: 0;
-
-    flex: 1;
 
     display: flex;
     align-items: center;
+
+    gap: 10px;
+
+    flex: 1;
 }
 
 
-.navegacion-lateral-carsce-icono-modulo {
-    width: 30px;
-    height: 30px;
+/* =========================================================
+   ICONO DEL MÓDULO
+   ========================================================= */
 
-    flex-shrink: 0;
+.barra-lateral-carsce-modulo-icono {
+    width: 31px;
+    height: 31px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    margin-right: 9px;
-
-    color: #94A3B8;
-
-    background:
-        rgba(148, 163, 184, 0.09);
+    flex-shrink: 0;
 
     border-radius: 7px;
 
-    font-size: 0.73rem;
+    color: #94A3B8;
+
+    font-size: 0.76rem;
 
     transition:
         color 0.2s ease,
-        background 0.2s ease;
+        background-color 0.2s ease;
 }
 
 
-.navegacion-lateral-carsce-nombre-modulo {
+.barra-lateral-carsce-cabecera:hover
+.barra-lateral-carsce-modulo-icono {
+    color: #CBD5E1;
+
+    background: rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================================
+   NOMBRE DEL MÓDULO
+   ========================================================= */
+
+.barra-lateral-carsce-modulo-nombre {
     min-width: 0;
 
     overflow: hidden;
 
-    color: #CBD5E1;
+    color: inherit;
 
-    font-size: 0.71rem;
-    font-weight: 500;
+    font-size: 0.72rem;
+    font-weight: 550;
 
-    white-space: nowrap;
+    line-height: 1.3;
+
     text-overflow: ellipsis;
-
-    transition:
-        color 0.2s ease;
+    white-space: nowrap;
 }
 
 
@@ -477,57 +531,31 @@
    CHEVRON
    ========================================================= */
 
-.navegacion-lateral-carsce-chevron {
+.barra-lateral-carsce-chevron {
     flex-shrink: 0;
-
-    margin-left: 8px;
 
     color: #64748B;
 
     font-size: 0.61rem;
 
     transition:
-        transform 0.25s ease,
+        transform 0.22s ease,
         color 0.2s ease;
 }
 
 
 /* =========================================================
-   ACORDEÓN ABIERTO
+   MÓDULO ABIERTO
+   IMPORTANTE:
+   SOLO CAMBIA EL CHEVRON.
+   NO CAMBIA EL FONDO DEL MÓDULO.
    ========================================================= */
 
-.navegacion-lateral-carsce-acordeon[open]
-.navegacion-lateral-carsce-cabecera {
-    color: #F8FAFC;
-
-    background:
-        rgba(37, 99, 235, 0.095);
-
-    border-color:
-        rgba(59, 130, 246, 0.14);
-}
-
-
-.navegacion-lateral-carsce-acordeon[open]
-.navegacion-lateral-carsce-icono-modulo {
-    color: #BFDBFE;
-
-    background:
-        rgba(37, 99, 235, 0.20);
-}
-
-
-.navegacion-lateral-carsce-acordeon[open]
-.navegacion-lateral-carsce-nombre-modulo {
-    color: #F8FAFC;
-}
-
-
-.navegacion-lateral-carsce-acordeon[open]
-.navegacion-lateral-carsce-chevron {
-    color: #93C5FD;
-
+.barra-lateral-carsce-acordeon[open]
+.barra-lateral-carsce-chevron {
     transform: rotate(180deg);
+
+    color: #94A3B8;
 }
 
 
@@ -535,29 +563,30 @@
    SUBMENÚ
    ========================================================= */
 
-.navegacion-lateral-carsce-submenu {
+.barra-lateral-carsce-submenu {
+    position: relative;
+
     display: flex;
     flex-direction: column;
 
-    margin:
-        3px 0 7px 39px;
+    gap: 2px;
 
-    padding:
-        2px 0 2px 11px;
+    margin: 3px 0 5px 25px;
 
-    border-left:
-        1px solid rgba(96, 165, 250, 0.17);
+    padding: 3px 0 3px 13px;
 
-    animation:
-        navegacionCarsceEntrada 0.18s ease;
+    border-left: 1px solid rgba(96, 165, 250, 0.18);
+
+    animation: barraLateralCarsceSubmenuEntrada 0.18s ease;
 }
 
 
-@keyframes navegacionCarsceEntrada {
+/* Animación */
 
+@keyframes barraLateralCarsceSubmenuEntrada {
     from {
         opacity: 0;
-        transform: translateY(-4px);
+        transform: translateY(-3px);
     }
 
     to {
@@ -571,208 +600,265 @@
    ENLACES DEL SUBMENÚ
    ========================================================= */
 
-.navegacion-lateral-carsce-submenu a {
+.barra-lateral-carsce-submenu a {
     position: relative;
+
+    width: 100%;
+    min-height: 36px;
 
     display: flex;
     align-items: center;
 
-    min-height: 32px;
+    gap: 9px;
 
-    padding: 5px 8px;
+    padding: 6px 9px;
+
+    border: 1px solid transparent;
+    border-radius: 7px;
 
     color: #94A3B8;
 
-    font-size: 0.66rem;
-    font-weight: 400;
-
     text-decoration: none;
 
-    border-radius: 6px;
+    font-size: 0.66rem;
+    font-weight: 500;
 
     transition:
-        color 0.18s ease,
-        background 0.18s ease,
-        padding-left 0.18s ease;
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
-.navegacion-lateral-carsce-submenu a::before {
-    content: "";
+/* Iconos de submenú */
 
-    position: absolute;
+.barra-lateral-carsce-submenu a i {
+    width: 17px;
 
-    left: -12px;
-
-    width: 3px;
-    height: 0;
-
-    background: #3B82F6;
-
-    border-radius: 0 4px 4px 0;
-
-    transition:
-        height 0.18s ease;
-}
-
-
-.navegacion-lateral-carsce-submenu a:hover {
-    color: #E2E8F0;
-
-    background:
-        rgba(255, 255, 255, 0.045);
-
-    padding-left: 11px;
-}
-
-
-.navegacion-lateral-carsce-submenu a:hover::before {
-    height: 16px;
-}
-
-
-/* =========================================================
-   ICONOS DE SUBMENÚ
-   ========================================================= */
-
-.navegacion-lateral-carsce-submenu a i {
-    width: 18px;
-
-    margin-right: 5px;
+    flex-shrink: 0;
 
     color: #64748B;
 
-    font-size: 0.62rem;
+    font-size: 0.66rem;
 
     text-align: center;
 
     transition:
-        color 0.18s ease;
+        color 0.2s ease;
 }
 
 
-.navegacion-lateral-carsce-submenu a:hover i {
-    color: #93C5FD;
+/* Hover */
+
+.barra-lateral-carsce-submenu a:hover {
+    color: #E2E8F0;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    border-color: rgba(255, 255, 255, 0.04);
+
+    transform: translateX(2px);
 }
 
 
-/* =========================================================
-   ESTADO ACTIVO
-   ========================================================= */
-
-.navegacion-lateral-carsce-submenu a.activo-carsce {
-    color: #BFDBFE;
-
-    background:
-        rgba(37, 99, 235, 0.12);
-
-    font-weight: 500;
-}
-
-
-.navegacion-lateral-carsce-submenu a.activo-carsce::before {
-    height: 18px;
-}
-
-
-.navegacion-lateral-carsce-submenu a.activo-carsce i {
+.barra-lateral-carsce-submenu a:hover i {
     color: #60A5FA;
 }
 
 
 /* =========================================================
-   ESTADO ACTIVO DEL PANEL PRINCIPAL
+   OPCIÓN ACTIVA
+   ESTE ES EL ÚNICO ÉNFASIS FUERTE DEL SUBMENÚ
    ========================================================= */
 
-.navegacion-lateral-carsce-enlace-inicio.activo-carsce {
+.barra-lateral-carsce-submenu a.activo-carsce {
     color: #FFFFFF;
 
     background:
         linear-gradient(
             90deg,
-            rgba(37, 99, 235, 0.25),
-            rgba(37, 99, 235, 0.12)
+            rgba(37, 99, 235, 0.22),
+            rgba(37, 99, 235, 0.07)
         );
 
-    border-color:
-        rgba(96, 165, 250, 0.30);
+    border-color: rgba(96, 165, 250, 0.13);
+
+    box-shadow:
+        inset 3px 0 0 #2563EB;
 }
 
 
-.navegacion-lateral-carsce-enlace-inicio.activo-carsce
-.navegacion-lateral-carsce-icono-inicio {
-    color: #FFFFFF;
-
-    background:
-        rgba(37, 99, 235, 0.45);
+.barra-lateral-carsce-submenu a.activo-carsce i {
+    color: #60A5FA;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   FOCUS DE ACCESIBILIDAD
+   ========================================================= */
+
+.barra-lateral-carsce-cabecera:focus-visible,
+.barra-lateral-carsce-enlace-principal:focus-visible,
+.barra-lateral-carsce-submenu a:focus-visible {
+    outline: 2px solid #60A5FA;
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 1100px
    ========================================================= */
 
 @media (max-width: 1100px) {
 
-    #navegacion_lateral_carsce {
+    #barra-lateral-carsce {
         width: 250px;
     }
 
-}
-
-
-@media (max-width: 850px) {
-
-    #navegacion_lateral_carsce {
-        width: 235px;
-    }
-
-    .navegacion-lateral-carsce-contexto {
-        margin-left: 11px;
-        margin-right: 11px;
-    }
-
-}
-
-
-@media (max-width: 700px) {
-
-    #navegacion_lateral_carsce {
-        width: 220px;
-        top: 110px;
-        height: calc(100vh - 110px);
-    }
-
-    .navegacion-lateral-carsce-contexto {
-        padding: 11px 9px;
-    }
-
-    .navegacion-lateral-carsce-contexto-icono {
-        width: 36px;
-        height: 36px;
-    }
-
-    .navegacion-lateral-carsce-nombre-modulo {
-        font-size: 0.68rem;
-    }
-
-}
-
-
-@media (max-width: 560px) {
-
-    #navegacion_lateral_carsce {
-        width: 205px;
-    }
-
-    .navegacion-lateral-carsce-contenido {
+    .barra-lateral-carsce-navegacion {
         padding-left: 8px;
         padding-right: 8px;
     }
 
-    .navegacion-lateral-carsce-contexto {
-        margin-left: 8px;
-        margin-right: 8px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 850px
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    #barra-lateral-carsce {
+        width: 235px;
+    }
+
+    .barra-lateral-carsce-contexto {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .barra-lateral-carsce-modulo-nombre,
+    .barra-lateral-carsce-enlace-texto {
+        font-size: 0.69rem;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 700px
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    #barra-lateral-carsce {
+        width: 220px;
+        top: 150px;
+        height: calc(100vh - 150px);
+    }
+
+    .barra-lateral-carsce-contexto-icono {
+        width: 38px;
+        height: 38px;
+
+        font-size: 14px;
+    }
+
+    .barra-lateral-carsce-contexto-etiqueta {
+        font-size: 0.57rem;
+    }
+
+    .barra-lateral-carsce-contexto-descripcion {
+        font-size: 0.63rem;
+    }
+
+    .barra-lateral-carsce-submenu {
+        margin-left: 23px;
+        padding-left: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 560px
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    #barra-lateral-carsce {
+        width: 205px;
+    }
+
+    .barra-lateral-carsce-contexto {
+        gap: 9px;
+
+        padding: 14px 11px;
+    }
+
+    .barra-lateral-carsce-contexto-icono {
+        width: 35px;
+        height: 35px;
+
+        border-radius: 8px;
+
+        font-size: 13px;
+    }
+
+    .barra-lateral-carsce-navegacion {
+        padding-top: 11px;
+    }
+
+    .barra-lateral-carsce-etiqueta-seccion {
+        font-size: 0.55rem;
+    }
+
+    .barra-lateral-carsce-cabecera,
+    .barra-lateral-carsce-enlace-principal {
+        min-height: 40px;
+    }
+
+    .barra-lateral-carsce-modulo-icono,
+    .barra-lateral-carsce-enlace-icono {
+        width: 29px;
+        height: 29px;
+    }
+
+    .barra-lateral-carsce-modulo-nombre,
+    .barra-lateral-carsce-enlace-texto {
+        font-size: 0.65rem;
+    }
+
+    .barra-lateral-carsce-submenu a {
+        min-height: 34px;
+
+        font-size: 0.61rem;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCCIÓN DE MOVIMIENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .barra-lateral-carsce-enlace-principal,
+    .barra-lateral-carsce-cabecera,
+    .barra-lateral-carsce-submenu a,
+    .barra-lateral-carsce-chevron,
+    .barra-lateral-carsce-modulo-icono,
+    .barra-lateral-carsce-enlace-icono,
+    .barra-lateral-carsce-enlace-indicador {
+        transition: none;
+    }
+
+    .barra-lateral-carsce-submenu {
+        animation: none;
     }
 
 }

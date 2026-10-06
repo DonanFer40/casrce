@@ -1,0 +1,689 @@
+/* =========================================================
+   INFORMACIÓN ACADÉMICA — CARSCE
+   ========================================================= */
+
+#notas-academicas-informacion-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+    color: #2563EB;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-identificacion i {
+    font-size: .72rem;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-presentacion {
+    margin-top: 10px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-titulo {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-titulo span {
+    color: #2563EB;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+    color: var(--texto-secundario);
+    font-size: .82rem;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   TARJETA PRINCIPAL
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta {
+    padding: 26px 28px 28px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA DE LA TARJETA
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    border-radius: 11px;
+    color: #FFFFFF;
+    font-size: 1rem;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, .22);
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-titulo {
+    margin: 0;
+    color: var(--color-azul-card);
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-descripcion {
+    margin: 3px 0 0;
+    color: var(--texto-secundario);
+    font-size: .72rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BLOQUE DE FILTROS
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 21px 20px 22px;
+    background: var(--color-fondo-pagina);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 18px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+    color: #2563EB;
+    font-size: .78rem;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-informacion {
+    min-width: 0;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-titulo {
+    margin: 0;
+    color: var(--color-azul-card);
+    font-size: .82rem;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-descripcion {
+    margin: 2px 0 0;
+    color: var(--texto-secundario);
+    font-size: .68rem;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   FORMULARIO / GRID
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-formulario {
+    width: 100%;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-campo {
+    width: 100%;
+    min-width: 0;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-etiqueta {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--texto-principal);
+    font-size: .73rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control {
+    position: relative;
+    width: 100%;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control > i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    z-index: 2;
+    transform: translateY(-50%);
+    color: #64748B;
+    font-size: .74rem;
+    pointer-events: none;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control select {
+    width: 100%;
+    height: 45px;
+    padding: 0 40px;
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+    color: var(--texto-principal);
+    font-family: "Poppins", sans-serif;
+    font-size: .74rem;
+    line-height: 45px;
+    appearance: none;
+    cursor: pointer;
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control select:hover {
+    border-color: #94A3B8;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control select:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-flecha {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    z-index: 2;
+    transform: translateY(-50%);
+    color: #64748B;
+    font-size: .62rem;
+    pointer-events: none;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-mensaje {
+    min-height: 16px;
+    margin-top: 4px;
+    color: #DC2626;
+    font-size: .65rem;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   BLOQUE DE RESULTADOS
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-resultados {
+    margin-top: 20px;
+    margin-bottom: 0;
+    background: #FFFFFF;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-resultados {
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   BLOQUES DINÁMICOS GENERADOS POR JAVASCRIPT
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.bloque_datos_academicos {
+    width: 100%;
+    margin-top: 18px;
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, .03);
+}
+
+#notas-academicas-informacion-carsce
+.bloque_datos_academicos:first-child {
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   TÍTULOS DE RESULTADOS
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.titulo_datos_academicos {
+    display: flex;
+    align-items: center;
+    min-height: 35px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#notas-academicas-informacion-carsce
+.titulo_datos_academicos h3 {
+    margin: 0;
+    color: var(--color-azul-card);
+    font-size: .88rem;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   TABLAS DINÁMICAS
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.tabla_plan_estudio,
+#notas-academicas-informacion-carsce
+.tabla_notas_academicas {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    background: #FFFFFF;
+    font-size: .68rem;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_plan_estudio thead,
+#notas-academicas-informacion-carsce
+.tabla_notas_academicas thead {
+    background: #1E293B;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_plan_estudio th,
+#notas-academicas-informacion-carsce
+.tabla_notas_academicas th {
+    padding: 11px 12px;
+    border-bottom: 1px solid #334155;
+    color: #FFFFFF;
+    font-size: .65rem;
+    font-weight: 650;
+    line-height: 1.35;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_plan_estudio td,
+#notas-academicas-informacion-carsce
+.tabla_notas_academicas td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #E2E8F0;
+    color: #475569;
+    font-size: .67rem;
+    line-height: 1.45;
+    vertical-align: middle;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_plan_estudio tbody tr:last-child td,
+#notas-academicas-informacion-carsce
+.tabla_notas_academicas tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_plan_estudio tbody tr:hover,
+#notas-academicas-informacion-carsce
+.tabla_notas_academicas tbody tr:hover {
+    background: #F8FAFC;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_plan_estudio td[rowspan] {
+    background: #F8FAFC;
+    color: var(--texto-principal);
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MENSAJES DENTRO DE TABLAS
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.mensaje_tabla {
+    padding: 22px 16px !important;
+    color: var(--texto-secundario) !important;
+    background: #F8FAFC;
+    font-size: .68rem !important;
+    text-align: center;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   RESUMEN DE CALIFICACIONES
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.resumen_notas_academicas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+#notas-academicas-informacion-carsce
+.dato_nota {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    min-height: 70px;
+    padding: 12px 14px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+}
+
+#notas-academicas-informacion-carsce
+.dato_nota span {
+    margin-bottom: 5px;
+    color: #64748B;
+    font-size: .62rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+#notas-academicas-informacion-carsce
+.dato_nota strong {
+    overflow: hidden;
+    color: #0F172A;
+    font-size: .76rem;
+    font-weight: 650;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   INFORMACIÓN INFERIOR
+   ========================================================= */
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-informacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 17px;
+    border-top: 1px solid var(--color-borde-fino);
+    color: var(--texto-secundario);
+    font-size: .67rem;
+    line-height: 1.5;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-informacion i {
+    margin-top: 2px;
+    color: #2563EB;
+    font-size: .72rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 900 PX
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-contenedor {
+        max-width: 100%;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-tarjeta {
+        padding: 23px 22px 25px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .resumen_notas_academicas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #notas-academicas-informacion-carsce
+    .tabla_plan_estudio,
+    #notas-academicas-informacion-carsce
+    .tabla_notas_academicas {
+        min-width: 700px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-resultados {
+        overflow-x: auto;
+        padding-bottom: 3px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 700 PX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-titulo {
+        font-size: 1.35rem;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-tarjeta {
+        padding: 21px 18px 22px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-bloque {
+        padding: 18px 16px 19px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .bloque_datos_academicos {
+        padding: 17px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .resumen_notas_academicas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 520 PX
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-titulo {
+        font-size: 1.2rem;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-descripcion {
+        font-size: .74rem;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-tarjeta-icono {
+        width: 42px;
+        min-width: 42px;
+        height: 42px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .resumen_notas_academicas {
+        grid-template-columns: 1fr;
+    }
+
+    #notas-academicas-informacion-carsce
+    .dato_nota {
+        min-height: 62px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 390 PX
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-tarjeta {
+        padding: 18px 14px 19px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-bloque {
+        padding: 16px 13px 17px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-bloque-icono {
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-bloque-titulo {
+        font-size: .76rem;
+    }
+
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-bloque-descripcion {
+        font-size: .63rem;
+    }
+
+    #notas-academicas-informacion-carsce
+    .bloque_datos_academicos {
+        padding: 14px;
+    }
+
+    #notas-academicas-informacion-carsce
+    .titulo_datos_academicos {
+        margin-bottom: 13px;
+    }
+}

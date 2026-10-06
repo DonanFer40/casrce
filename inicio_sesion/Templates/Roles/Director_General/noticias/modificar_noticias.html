@@ -1,0 +1,552 @@
+{% extends "Estructura/base.html" %}
+{% load static %}
+
+{% block title %}Modificar noticia | CARSCE{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'CSS/Director_General/noticias/modificar_noticia.css' %}"
+>
+{% endblock %}
+
+{% block content %}
+
+
+<section id="director-noticias-modificar-carsce">
+
+    <div class="director-noticias-modificar-carsce-contenedor">
+
+
+        <!-- =====================================================
+             ENCABEZADO
+             ===================================================== -->
+
+        <div class="director-noticias-modificar-carsce-encabezado">
+
+
+            <div class="director-noticias-modificar-carsce-identificacion">
+
+                <span class="director-noticias-modificar-carsce-etiqueta">
+                    Gestión de Noticias
+                </span>
+
+                <span class="director-noticias-modificar-carsce-seccion">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
+
+                    Modificar noticia
+
+                </span>
+
+            </div>
+
+
+            <div class="director-noticias-modificar-carsce-presentacion">
+
+                <h1 class="director-noticias-modificar-carsce-titulo">
+                    Modificar noticia
+                </h1>
+
+                <p class="director-noticias-modificar-carsce-descripcion">
+                    Actualiza la información de la publicación seleccionada.
+                    El núcleo de la noticia se mantiene asociado automáticamente
+                    al núcleo del Director General.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             CONTENEDOR DEL FORMULARIO
+             ===================================================== -->
+
+        <div class="director-noticias-modificar-carsce-formulario-contenedor">
+
+
+            <!-- =================================================
+                 CABECERA DEL FORMULARIO
+                 ================================================= -->
+
+            <div class="director-noticias-modificar-carsce-formulario-cabecera">
+
+                <div class="director-noticias-modificar-carsce-formulario-icono">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
+
+                </div>
+
+
+                <div class="director-noticias-modificar-carsce-formulario-titulo">
+
+                    <h2>
+                        Información de la publicación
+                    </h2>
+
+                    <span>
+                        Modifica los datos principales de la noticia.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO
+                 ================================================= -->
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                id="director-noticias-modificar-carsce-formulario"
+                class="director-noticias-modificar-carsce-formulario"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     INFORMACIÓN DE LA PUBLICACIÓN
+                     ============================================== -->
+
+                <div class="director-noticias-modificar-carsce-fila">
+
+
+                    <!-- TÍTULO -->
+
+                    <div class="director-noticias-modificar-carsce-campo">
+
+                        <label
+                            for="director-noticias-modificar-carsce-titulo-input"
+                        >
+                            Título de la noticia:
+
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="director-noticias-modificar-carsce-titulo-input"
+                            name="titulo"
+                            value="{{ noticia.titulo }}"
+                            maxlength="200"
+                            required
+                            autocomplete="off"
+                        >
+
+                        <small>
+                            Máximo 200 caracteres.
+                        </small>
+
+                    </div>
+
+
+                    <!-- DESCRIPCIÓN -->
+
+                    <div class="director-noticias-modificar-carsce-campo">
+
+                        <label
+                            for="director-noticias-modificar-carsce-descripcion-input"
+                        >
+                            Descripción:
+
+                            <span>*</span>
+                        </label>
+
+                        <textarea
+                            id="director-noticias-modificar-carsce-descripcion-input"
+                            name="descripcion"
+                            maxlength="300"
+                            rows="4"
+                            required
+                        >{{ noticia.descripcion }}</textarea>
+
+                        <small>
+                            Máximo 300 caracteres.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     CONTENIDO DE LA NOTICIA
+                     ============================================== -->
+
+                <div class="director-noticias-modificar-carsce-campo director-noticias-modificar-carsce-campo-contenido">
+
+                    <label
+                        for="director-noticias-modificar-carsce-contenido-input"
+                    >
+                        Contenido de la noticia:
+
+                        <span>*</span>
+                    </label>
+
+                    <textarea
+                        id="director-noticias-modificar-carsce-contenido-input"
+                        name="contenido"
+                        rows="10"
+                        required
+                    >{{ noticia.contenido }}</textarea>
+
+                    <small>
+                        Escribe el contenido completo de la publicación.
+                    </small>
+
+                </div>
+
+
+                <!-- =================================================
+                     IMAGEN DE LA PUBLICACIÓN
+                     ================================================= -->
+
+                <div class="director-noticias-modificar-carsce-bloque">
+
+
+                    <div class="director-noticias-modificar-carsce-bloque-cabecera">
+
+                        <div class="director-noticias-modificar-carsce-bloque-icono">
+
+                            <i class="fa-solid fa-image"></i>
+
+                        </div>
+
+
+                        <div class="director-noticias-modificar-carsce-bloque-informacion">
+
+                            <h3>
+                                Imagen de la publicación
+                            </h3>
+
+                            <span>
+                                Puedes conservar la imagen actual
+                                o reemplazarla por una nueva.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- IMAGEN ACTUAL -->
+
+                    <div class="director-noticias-modificar-carsce-imagen-actual">
+
+                        <span class="director-noticias-modificar-carsce-etiqueta-imagen">
+                            Imagen actual
+                        </span>
+
+
+                        {% if noticia.imagen %}
+
+                            <div class="director-noticias-modificar-carsce-imagen-contenedor">
+
+                                <img
+                                    src="{{ noticia.imagen.url }}"
+                                    alt="Imagen actual de la noticia"
+                                    class="director-noticias-modificar-carsce-imagen-actual-img"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="director-noticias-modificar-carsce-imagen-sin-contenido">
+
+                                <i class="fa-regular fa-image"></i>
+
+                                <span>
+                                    Esta noticia no tiene una imagen registrada.
+                                </span>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- NUEVA IMAGEN -->
+
+                    <div class="director-noticias-modificar-carsce-selector-imagen">
+
+                        <label
+                            for="director-noticias-modificar-carsce-imagen-input"
+                        >
+                            Reemplazar imagen
+                        </label>
+
+                        <input
+                            type="file"
+                            id="director-noticias-modificar-carsce-imagen-input"
+                            name="imagen"
+                            accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                        >
+
+                        <small>
+                            Si seleccionas una nueva imagen,
+                            reemplazará la actual.
+                            Formatos permitidos: JPG, JPEG y PNG.
+                        </small>
+
+                    </div>
+
+
+                    <!-- PREVISUALIZACIÓN -->
+
+                    <div
+                        id="director-noticias-modificar-carsce-imagen-preview"
+                        class="director-noticias-modificar-carsce-imagen-preview"
+                    >
+
+                        <span class="director-noticias-modificar-carsce-etiqueta-imagen">
+                            Nueva imagen seleccionada
+                        </span>
+
+
+                        <div class="director-noticias-modificar-carsce-imagen-preview-contenedor">
+
+                            <img
+                                id="director-noticias-modificar-carsce-imagen-preview-img"
+                                src=""
+                                alt="Vista previa de la nueva imagen"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     NÚCLEO ASIGNADO
+                     ================================================= -->
+
+                <div class="director-noticias-modificar-carsce-bloque">
+
+
+                    <div class="director-noticias-modificar-carsce-bloque-cabecera">
+
+                        <div class="director-noticias-modificar-carsce-bloque-icono">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <div class="director-noticias-modificar-carsce-bloque-informacion">
+
+                            <h3>
+                                Núcleo asignado
+                            </h3>
+
+                            <span>
+                                La ubicación institucional de la noticia
+                                no puede modificarse desde este formulario.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="director-noticias-modificar-carsce-nucleo">
+
+
+                        <div class="director-noticias-modificar-carsce-nucleo-icono">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                        </div>
+
+
+                        <div class="director-noticias-modificar-carsce-nucleo-informacion">
+
+                            <span>
+                                Núcleo asignado
+                            </span>
+
+                            <strong>
+                                {{ nucleo_usuario }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="director-noticias-modificar-carsce-nucleo-estado">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            Núcleo protegido por el sistema
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     AVISO DE MODIFICACIÓN
+                     ================================================= -->
+
+                <div class="director-noticias-modificar-carsce-aviso">
+
+                    <div class="director-noticias-modificar-carsce-aviso-icono">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                    </div>
+
+
+                    <div class="director-noticias-modificar-carsce-aviso-informacion">
+
+                        <strong>
+                            Información de modificación
+                        </strong>
+
+                        <p>
+                            Los cambios realizados serán guardados en la
+                            noticia seleccionada. El núcleo y el usuario
+                            que registró originalmente la publicación
+                            no serán modificados.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCIONES
+                     ================================================= -->
+
+                <div class="director-noticias-modificar-carsce-acciones">
+
+
+                    <a
+                        href="{% url 'visualizar_noticias' %}"
+                        class="director-noticias-modificar-carsce-boton-cancelar"
+                    >
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Cancelar
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="director-noticias-modificar-carsce-boton-guardar"
+                    >
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Guardar cambios
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PREVISUALIZACIÓN DE IMAGEN
+     ========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const inputImagen =
+        document.getElementById(
+            "directorgeneral-noticias-modificar-carsce-imagen-input"
+        );
+
+
+    const preview =
+        document.getElementById(
+            "directorgeneral-noticias-modificar-carsce-imagen-preview"
+        );
+
+
+    const previewImagen =
+        document.getElementById(
+            "directorgeneral-noticias-modificar-carsce-imagen-preview-img"
+        );
+
+
+    if (!inputImagen || !preview || !previewImagen) {
+        return;
+    }
+
+
+    inputImagen.addEventListener("change", () => {
+
+        const archivo = inputImagen.files[0];
+
+
+        if (!archivo) {
+
+            preview.classList.remove(
+                "director-noticias-modificar-carsce-imagen-preview-visible"
+            );
+
+            previewImagen.removeAttribute("src");
+
+            return;
+        }
+
+
+        if (!archivo.type.startsWith("image/")) {
+
+            inputImagen.value = "";
+
+            preview.classList.remove(
+                "director-noticias-modificar-carsce-imagen-preview-visible"
+            );
+
+            previewImagen.removeAttribute("src");
+
+            return;
+        }
+
+
+        const lector = new FileReader();
+
+
+        lector.onload = (evento) => {
+
+            previewImagen.src = evento.target.result;
+
+            preview.classList.add(
+                "director-noticias-modificar-carsce-imagen-preview-visible"
+            );
+
+        };
+
+
+        lector.readAsDataURL(archivo);
+
+    });
+
+});
+
+</script>
+
+
+{% endblock %}

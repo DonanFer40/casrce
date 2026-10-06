@@ -3,45 +3,52 @@
 {% block content %}
 
 {% load static %}
-<section id="PanelControlEstudioCASRCE">
 
-    <div class="PanelControlEstudioCASRCE-contenedor">
+<section id="panel-control-estudio-carsce">
+
+    <div class="panel-control-estudio-carsce-contenedor">
+
 
         <!-- =====================================================
              ENCABEZADO DEL PANEL
              ===================================================== -->
 
-        <header class="PanelControlEstudioCASRCE-encabezado">
+        <header class="panel-control-estudio-carsce-encabezado">
 
-            <div class="PanelControlEstudioCASRCE-encabezado-info">
+            <div class="panel-control-estudio-carsce-encabezado-info">
 
-                <span class="PanelControlEstudioCASRCE-etiqueta">
+                <span class="panel-control-estudio-carsce-identificacion">
                     CONTROL DE ESTUDIO
                 </span>
 
-                <h2 class="PanelControlEstudioCASRCE-titulo">
+                <h1 class="panel-control-estudio-carsce-titulo">
                     Gestión Académica Institucional
-                </h2>
+                </h1>
 
-                <p class="PanelControlEstudioCASRCE-descripcion">
+                <p class="panel-control-estudio-carsce-descripcion">
                     Administración, consulta y seguimiento de la información
                     académica de la institución.
                 </p>
 
             </div>
 
-            <div class="PanelControlEstudioCASRCE-contexto">
 
-                <div class="PanelControlEstudioCASRCE-contexto-icono">
+            <div class="panel-control-estudio-carsce-contexto">
+
+                <div class="panel-control-estudio-carsce-contexto-icono">
                     <i class="fa-solid fa-building-columns"></i>
                 </div>
 
-                <div class="PanelControlEstudioCASRCE-contexto-info">
-                    <span>Núcleo</span>
+                <div class="panel-control-estudio-carsce-contexto-informacion">
+
+                    <span>
+                        Núcleo
+                    </span>
 
                     <strong>
                         {{ nucleo_usuario|default:"Sede Central / Sin Núcleo" }}
                     </strong>
+
                 </div>
 
             </div>
@@ -53,15 +60,16 @@
              INDICADORES
              ===================================================== -->
 
-        <section class="PanelControlEstudioCASRCE-indicadores">
+        <section class="panel-control-estudio-carsce-indicadores">
 
-            <article class="PanelControlEstudioCASRCE-indicador">
 
-                <div class="PanelControlEstudioCASRCE-indicador-icono">
+            <article class="panel-control-estudio-carsce-indicador">
+
+                <div class="panel-control-estudio-carsce-indicador-icono">
                     <i class="fa-solid fa-user-graduate"></i>
                 </div>
 
-                <div class="PanelControlEstudioCASRCE-indicador-datos">
+                <div class="panel-control-estudio-carsce-indicador-informacion">
 
                     <span>
                         Estudiantes registrados
@@ -76,13 +84,13 @@
             </article>
 
 
-            <article class="PanelControlEstudioCASRCE-indicador">
+            <article class="panel-control-estudio-carsce-indicador">
 
-                <div class="PanelControlEstudioCASRCE-indicador-icono">
+                <div class="panel-control-estudio-carsce-indicador-icono">
                     <i class="fa-solid fa-user-check"></i>
                 </div>
 
-                <div class="PanelControlEstudioCASRCE-indicador-datos">
+                <div class="panel-control-estudio-carsce-indicador-informacion">
 
                     <span>
                         Estudiantes inscritos
@@ -97,13 +105,13 @@
             </article>
 
 
-            <article class="PanelControlEstudioCASRCE-indicador">
+            <article class="panel-control-estudio-carsce-indicador">
 
-                <div class="PanelControlEstudioCASRCE-indicador-icono">
+                <div class="panel-control-estudio-carsce-indicador-icono">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
 
-                <div class="PanelControlEstudioCASRCE-indicador-datos">
+                <div class="panel-control-estudio-carsce-indicador-informacion">
 
                     <span>
                         Gestión académica
@@ -118,13 +126,13 @@
             </article>
 
 
-            <article class="PanelControlEstudioCASRCE-indicador">
+            <article class="panel-control-estudio-carsce-indicador">
 
-                <div class="PanelControlEstudioCASRCE-indicador-icono">
+                <div class="panel-control-estudio-carsce-indicador-icono">
                     <i class="fa-solid fa-calendar-check"></i>
                 </div>
 
-                <div class="PanelControlEstudioCASRCE-indicador-datos">
+                <div class="panel-control-estudio-carsce-indicador-informacion">
 
                     <span>
                         Período académico
@@ -138,6 +146,7 @@
 
             </article>
 
+
         </section>
 
 
@@ -145,44 +154,51 @@
              CONTENIDO PRINCIPAL
              ===================================================== -->
 
-        <div class="PanelControlEstudioCASRCE-contenido">
+        <div class="panel-control-estudio-carsce-contenido">
 
 
             <!-- =================================================
                  GESTIÓN ACADÉMICA
                  ================================================= -->
 
-            <section class="PanelControlEstudioCASRCE-modulo">
+            <section class="panel-control-estudio-carsce-modulo">
 
-                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+                <div class="panel-control-estudio-carsce-modulo-cabecera">
 
-                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                    <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
 
-                    <div>
-                        <h3>
+                    <div class="panel-control-estudio-carsce-modulo-informacion">
+
+                        <h2>
                             Gestión Académica
-                        </h3>
+                        </h2>
 
                         <p>
                             Administra y consulta la información académica
                             de los estudiantes.
                         </p>
+
                     </div>
 
                 </div>
 
 
-                <div class="PanelControlEstudioCASRCE-opciones">
+                <div class="panel-control-estudio-carsce-opciones">
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
+
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-users"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Estudiantes
                             </strong>
@@ -190,20 +206,25 @@
                             <small>
                                 Consultar y gestionar información académica.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
 
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-file-signature"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Inscripciones
                             </strong>
@@ -211,20 +232,25 @@
                             <small>
                                 Gestionar procesos de inscripción académica.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
 
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-book-open-reader"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Unidades Curriculares
                             </strong>
@@ -232,20 +258,25 @@
                             <small>
                                 Consultar materias y organización académica.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
 
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-layer-group"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Secciones Académicas
                             </strong>
@@ -253,11 +284,13 @@
                             <small>
                                 Consultar y organizar secciones.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
+
 
                 </div>
 
@@ -268,37 +301,44 @@
                  CALIFICACIONES
                  ================================================= -->
 
-            <section class="PanelControlEstudioCASRCE-modulo">
+            <section class="panel-control-estudio-carsce-modulo">
 
-                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+                <div class="panel-control-estudio-carsce-modulo-cabecera">
 
-                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                    <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-chart-column"></i>
                     </div>
 
-                    <div>
-                        <h3>
+                    <div class="panel-control-estudio-carsce-modulo-informacion">
+
+                        <h2>
                             Calificaciones
-                        </h3>
+                        </h2>
 
                         <p>
                             Consulta y supervisa los procesos relacionados
                             con las evaluaciones académicas.
                         </p>
+
                     </div>
 
                 </div>
 
 
-                <div class="PanelControlEstudioCASRCE-opciones">
+                <div class="panel-control-estudio-carsce-opciones">
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
+
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Registro de Calificaciones
                             </strong>
@@ -306,20 +346,25 @@
                             <small>
                                 Gestionar las calificaciones académicas.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
 
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Consulta de Calificaciones
                             </strong>
@@ -327,20 +372,25 @@
                             <small>
                                 Consultar resultados académicos.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
 
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-lock"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Cierre de Calificaciones
                             </strong>
@@ -348,11 +398,13 @@
                             <small>
                                 Supervisar el cierre de los períodos académicos.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
+
 
                 </div>
 
@@ -363,37 +415,44 @@
                  PLANIFICACIÓN ACADÉMICA
                  ================================================= -->
 
-            <section class="PanelControlEstudioCASRCE-modulo">
+            <section class="panel-control-estudio-carsce-modulo">
 
-                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+                <div class="panel-control-estudio-carsce-modulo-cabecera">
 
-                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                    <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-calendar-days"></i>
                     </div>
 
-                    <div>
-                        <h3>
+                    <div class="panel-control-estudio-carsce-modulo-informacion">
+
+                        <h2>
                             Planificación Académica
-                        </h3>
+                        </h2>
 
                         <p>
                             Consulta los períodos y procesos académicos
                             establecidos por la institución.
                         </p>
+
                     </div>
 
                 </div>
 
 
-                <div class="PanelControlEstudioCASRCE-opciones">
+                <div class="panel-control-estudio-carsce-opciones">
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
+
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Calendario Académico
                             </strong>
@@ -401,20 +460,25 @@
                             <small>
                                 Consultar fechas y períodos académicos.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
 
 
-                    <a href="#" class="PanelControlEstudioCASRCE-opcion">
+                    <a
+                        href="#"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-clock-rotate-left"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
+
                             <strong>
                                 Períodos Académicos
                             </strong>
@@ -422,11 +486,13 @@
                             <small>
                                 Consultar períodos disponibles y activos.
                             </small>
+
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
+
 
                 </div>
 
@@ -434,40 +500,46 @@
 
 
             <!-- =================================================
-     REPORTES
-     ================================================= -->
+                 REPORTES ACADÉMICOS
+                 ================================================= -->
 
-            <section class="PanelControlEstudioCASRCE-modulo">
+            <section class="panel-control-estudio-carsce-modulo">
 
-                <div class="PanelControlEstudioCASRCE-modulo-cabecera">
+                <div class="panel-control-estudio-carsce-modulo-cabecera">
 
-                    <div class="PanelControlEstudioCASRCE-modulo-icono">
+                    <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-chart-pie"></i>
                     </div>
 
-                    <div>
-                        <h3>
+                    <div class="panel-control-estudio-carsce-modulo-informacion">
+
+                        <h2>
                             Reportes Académicos
-                        </h3>
+                        </h2>
 
                         <p>
                             Consulta información consolidada para el
                             seguimiento académico institucional.
                         </p>
+
                     </div>
 
                 </div>
 
 
-                <div class="PanelControlEstudioCASRCE-opciones">
+                <div class="panel-control-estudio-carsce-opciones">
 
-                    <a href="{% url 'reportes_control_estudio' %}" class="PanelControlEstudioCASRCE-opcion">
 
-                        <span class="PanelControlEstudioCASRCE-opcion-icono">
+                    <a
+                        href="{% url 'reportes_control_estudio' %}"
+                        class="panel-control-estudio-carsce-opcion"
+                    >
+
+                        <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-file-lines"></i>
                         </span>
 
-                        <span class="PanelControlEstudioCASRCE-opcion-texto">
+                        <span class="panel-control-estudio-carsce-opcion-informacion">
 
                             <strong>
                                 Centro de Reportes
@@ -480,26 +552,27 @@
 
                         </span>
 
-                        <i class="fa-solid fa-chevron-right PanelControlEstudioCASRCE-opcion-flecha"></i>
+                        <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
 
                     </a>
+
 
                 </div>
 
             </section>
 
 
-            <!-- =====================================================
-             PIE INFORMATIVO
-             ===================================================== -->
+            <!-- =================================================
+                 PIE INFORMATIVO
+                 ================================================= -->
 
-            <footer class="PanelControlEstudioCASRCE-pie">
+            <footer class="panel-control-estudio-carsce-pie">
 
-                <div class="PanelControlEstudioCASRCE-pie-icono">
+                <div class="panel-control-estudio-carsce-pie-icono">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
 
-                <div class="PanelControlEstudioCASRCE-pie-texto">
+                <div class="panel-control-estudio-carsce-pie-informacion">
 
                     <strong>
                         Control de Estudio
@@ -515,7 +588,11 @@
 
             </footer>
 
+
         </div>
 
+    </div>
+
 </section>
+
 {% endblock %}

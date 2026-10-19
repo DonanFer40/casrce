@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(resultado);
 
             if (resultado.estado === "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -637,7 +637,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             dialogo_actualizar_asignacion.close();
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,

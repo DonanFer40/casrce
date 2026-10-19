@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario_buscar.reset();
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             bloquear_controles(controles, false);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: "Se encontraron los datos de la materia.",
                 icon: "success",
                 title: "Exito",
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json()
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 allowOutsideClick: false,

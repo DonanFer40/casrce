@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <!-- =====================================================
+         CONFIGURACIÓN DEL DOCUMENTO
+         ===================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Estilos/Email/base_email.css' %}">
+    <link rel="stylesheet" href="{% static 'Estilos/Email/reenviar_codigo.css' %}">
+
+    <title>
+        {% block titulo_email %}
+            UPT José Félix Ribas
+        {% endblock %}
+    </title>
+
+</head>
+
+<body id="correo-institucional-carsce">
+
+
+    <!-- =====================================================
+         ESTRUCTURA PRINCIPAL DEL CORREO
+         ===================================================== -->
+
+    <table id="correo-institucional-carsce-estructura"
+           class="correo-institucional-carsce-estructura"
+           role="presentation">
+
+        <tr>
+
+            <td class="correo-institucional-carsce-contenedor">
+
+
+                <!-- =================================================
+                     ENCABEZADO INSTITUCIONAL
+                     ================================================= -->
+
+                <table id="correo-institucional-carsce-encabezado"
+                       class="correo-institucional-carsce-seccion"
+                       role="presentation">
+
+                    <tr>
+
+                        <td class="correo-institucional-carsce-encabezado-contenido">
+
+
+                            <!-- =====================================
+                                 LOGOTIPO INSTITUCIONAL
+                                 ===================================== -->
+
+                            <div class="correo-institucional-carsce-logotipo">
+
+                                {% block logo_institucional %}
+                                {% endblock %}
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 NOMBRE DE LA UNIVERSIDAD
+                                 ===================================== -->
+
+                            <div class="correo-institucional-carsce-identidad">
+
+                                <h1 class="correo-institucional-carsce-nombre-institucion">
+
+                                    Universidad Politécnica Territorial
+                                    del Estado Barinas
+
+                                </h1>
+
+                                <p class="correo-institucional-carsce-nombre-universidad">
+
+                                    José Félix Ribas
+
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+
+                <!-- =================================================
+                     CONTENIDO PRINCIPAL DEL MENSAJE
+                     ================================================= -->
+
+                <table id="correo-institucional-carsce-contenido"
+                       class="correo-institucional-carsce-seccion"
+                       role="presentation">
+
+                    <tr>
+
+                        <td class="correo-institucional-carsce-contenido-principal">
+
+                            {% block contenido_email %}
+                            {% endblock %}
+
+                            {% block content %}
+                            {% endblock %}
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+
+                <!-- =================================================
+                     PIE DEL CORREO
+                     ================================================= -->
+
+                <table id="correo-institucional-carsce-pie"
+                       class="correo-institucional-carsce-seccion"
+                       role="presentation">
+
+                    <tr>
+
+                        <td class="correo-institucional-carsce-pie-contenido">
+
+
+                            <!-- =====================================
+                                 IDENTIFICACIÓN DE LA PLATAFORMA
+                                 ===================================== -->
+
+                            <p class="correo-institucional-carsce-pie-plataforma">
+
+                                Plataforma Digital para la Gestión de CARSCE
+
+                            </p>
+
+
+                            <!-- =====================================
+                                 DERECHOS INSTITUCIONALES
+                                 ===================================== -->
+
+                            <p class="correo-institucional-carsce-pie-derechos">
+
+                                © {% now "Y" %}
+
+                                Universidad Politécnica Territorial
+                                del Estado Barinas José Félix Ribas.
+
+                            </p>
+
+
+                            <!-- =====================================
+                                 AVISO AUTOMÁTICO
+                                 ===================================== -->
+
+                            <p class="correo-institucional-carsce-pie-aviso">
+
+                                Este mensaje fue generado automáticamente.
+                                Por favor, no respondas a este correo.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

@@ -8,13 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{% static 'Imagenes/UPT_LOGO.png' %}" type="image/png">
     <link rel="stylesheet" href="{% static 'Estilos/Estructura/estilos.css' %}">
-    <link rel="stylesheet" href="{% static 'Librerias/sweetalert2/dist/sweetalert2.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.8/dist/notiflix-aio-3.2.8.min.js"></script>
     <title>CASRCE - UPTB José Félix Ribas</title>
 </head>
 
 <body class="{% if request.session.usuario_nombre and not sin_estilos %}body-logueado{% endif %}">
-    <script src="{% static 'Librerias/sweetalert2/dist/sweetalert2.min.js' %}"></script>
 
     {% include 'Estructura/Encabezado.html' %}
 
@@ -29,10 +28,11 @@
     </main>
 
     {% if not request.session.usuario_nombre %}
-    {% include 'Estructura/Pie_Pagina.html' %}
+        {% include 'Estructura/Pie_Pagina.html' %}
     {% endif %}
 
-    <script src="{% static 'Funciones_Asincronas/Docente/actualizar_trayecto.js' %}"></script>
+    <script src="{% static 'Funcionalidades/Notification/notificaciones_general.js' %}"></script>
+    <script src="{% static 'Funciones_Asincronas/Docente/Calificaciones_Estudiante/actualizar_trayecto.js' %}"></script>
 </body>
 
 </html>

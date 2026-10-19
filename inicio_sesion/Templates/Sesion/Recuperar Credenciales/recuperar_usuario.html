@@ -1,0 +1,64 @@
+
+{% extends 'Estructura/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section id="recuperar-usuario-carsce">
+    <div class="recuperar-usuario-carsce-tarjeta">
+
+        <div class="recuperar-usuario-carsce-imagen">
+            <img
+                src="{% static 'Imagenes/recuperar_usuario.png' %}"
+                alt="Imagen para recuperar el nombre de usuario"
+            >
+        </div>
+
+        <span class="recuperar-usuario-carsce-etiqueta">
+            <i class="fa-solid fa-shield-halved"></i>
+            RECUPERACIÓN DE CREDENCIALES
+        </span>
+
+        <h1 class="recuperar-usuario-carsce-titulo">
+            Usuario
+        </h1>
+
+        <p class="recuperar-usuario-carsce-descripcion">
+            El nombre de usuario fue enviado al correo electrónico
+            principal registrado. Verifica tu bandeja de entrada
+            para consultar tus datos de acceso.
+        </p>
+
+        <div class="recuperar-usuario-carsce-accion">
+            <a
+                href="{% url 'inicio_sesion' %}"
+                class="recuperar-usuario-carsce-boton"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Regresar al inicio de sesión</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                if (
+                    window.NotificacionesCASRCE &&
+                    typeof NotificacionesCASRCE.mostrar === "function"
+                ) {
+                    NotificacionesCASRCE.mostrar({
+                        icon: "{{ message.tags|escapejs }}",
+                        text: "{{ message|escapejs }}",
+                        confirmButtonText: "Aceptar"
+                    });
+                }
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

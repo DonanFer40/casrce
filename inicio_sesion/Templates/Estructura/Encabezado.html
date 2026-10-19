@@ -106,7 +106,7 @@
             <!-- Marca -->
 
             <div class="marca-carsce-publica">
-                <span>CARSCE</span>
+                <span>CASRCE</span>
             </div>
 
 
@@ -378,7 +378,7 @@
             <!-- Marca -->
 
             <div class="marca-carsce-autenticada">
-                <span>CARSCE</span>
+                <span>CASRCE</span>
             </div>
 
 
@@ -455,12 +455,9 @@
                         </li>
 
 
-                        <li class="navegacion-autenticada-carsce-subitem">
+                        <li class="navegacion-autenticada-carsce-subitem">  
 
-                            <a
-                                href="{% url 'cerrar_sesion' %}"
-                                class="navegacion-autenticada-carsce-subenlace navegacion-autenticada-carsce-cerrar"
-                            >
+                            <a href="{% url 'cerrar_sesion' %}" class="navegacion-autenticada-carsce-subenlace navegacion-autenticada-carsce-cerrar">
 
                                 <i class="fa-solid fa-power-off"></i>
 
@@ -485,3 +482,6 @@
     </nav>
 
 </header>
+
+<script src="{% static 'Funcionalidades/menu_movil.js' %}"></script>
+<script src="{% static 'Funciones_Asincronas/Autenticacion/cerrar_sesion.js' %}"></script>

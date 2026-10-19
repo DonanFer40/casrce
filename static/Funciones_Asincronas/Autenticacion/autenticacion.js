@@ -1,45 +1,66 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formulario_autenticacion = document.getElementById("formulario_login");
 
-    formulario_autenticacion.addEventListener("submit", async function (e) {
-        e.preventDefault();
+    formulario_autenticacion.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
 
-        Swal.fire({
-            title: "Iniciando sesión...",
-            html: "Espere un momento por favor.",
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
+        NotificacionesCASRCE.cargar("Iniciando sesión...");
 
         try {
             const formulario = new FormData(formulario_autenticacion);
 
-            const respuesta = await fetch("/inicio_sesion/", {
-                method: "POST",
-                body: formulario
-            });
-            const resultado = await respuesta.json();
-            console.log(resultado);
-            Swal.close();
-
-            if (resultado.estado == "exito") {
-                window.location.href = resultado.url;
-            } else {
-                Swal.fire({
-                    title: resultado.title,
-                    text: resultado.descripcion,
-                    icon: resultado.icon,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false
-                });
+            const [respuesta] = await Promise.all([
+                    fetch("/inicio_sesion/", {
+                        method: "POST",
+                        body: formulario
+                    }),
+                    new Promise(resolve => setTimeout(resolve, 1200)) 
+                ]);
+            
+            if (!respuesta.ok) {
+                throw new Error(
+                    `El servidor respondió con el estado ${respuesta.status}.`
+                );
             }
-            formulario_autenticacion.reset();
+
+            const resultado = await respuesta.json();
+
+            NotificacionesCASRCE.detenerCarga();
+
+            if (resultado.estado === "exito") {
+                window.location.href = resultado.url;
+                return;
+            }
+
+            const tiposPermitidos = [
+                "exito",
+                "error",
+                "advertencia",
+                "informacion"
+            ];
+
+            const tipo = tiposPermitidos.includes(resultado.icon)
+                ? resultado.icon
+                : "error";
+
+            NotificacionesCASRCE.reporte(
+                tipo,
+                resultado.title || "No se pudo iniciar sesión",
+                resultado.descripcion || "Verifica tus datos e inténtalo nuevamente."
+            );
+
+            formulario.reset();
+
         } catch (error) {
-            Swal.close();
-            console.error(error);
+            NotificacionesCASRCE.detenerCarga();
+
+            console.error("Error en la autenticación:", error);
+
+            NotificacionesCASRCE.reporte(
+                "error",
+                "Error de conexión",
+                "No fue posible comunicarse con el servidor. Inténtalo nuevamente."
+            );
         }
     });
 });

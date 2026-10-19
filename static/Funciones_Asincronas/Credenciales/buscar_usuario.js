@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (resultado.estado === "exito") {
                 window.location.href = "/comp_usr/";
             } else {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon,

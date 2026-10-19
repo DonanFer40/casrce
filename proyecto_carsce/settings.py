@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-h0iyn4dy10g$uizs9i+o1g*+t0ly6!3u#rox5%fcj9-@wd+g4m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.107', '172.20.10.2', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -43,8 +43,8 @@ INSTALLED_APPS = [
 ]
 
 JAZZMIN_SETTINGS = {
-    "site_title": "CARSCE",
-    "site_brand": "CARSCE",
+    "site_title": "CASRCE",
+    "site_brand": "CASRCE",
     "site_header": "Sistema Administrativo",
 
     "icons": {
@@ -146,3 +146,17 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
+
+# Settings Email 
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+EMAIL_HOST_USER = "uptjfr2025@gmail.com"
+EMAIL_HOST_PASSWORD = "zoih qaet vkts ambs"
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

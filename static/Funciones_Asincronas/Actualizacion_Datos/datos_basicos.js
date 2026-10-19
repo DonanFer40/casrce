@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
             
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 allowOutsideClick: false,
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon,

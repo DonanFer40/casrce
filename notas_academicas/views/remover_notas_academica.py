@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.db import transaction
 from django.utils import timezone
 from decimal import Decimal
-from django.db.models import F, Exists, OuterRef, Q, Prefetch
+from django.db.models import F, Exists, OuterRef, Q, Prefetch, Avg
 
 from inicio_sesion.models import CoordinadorPNF, ControlEstudio, TrayectoAcademico, MateriaAsignada, CalendarioPeriodo, PeriodoAcademicoMateria, Usuario, Pnf, PNFNucleo, Estudiante, EstatusEstudiante, CalendarioAcademico, Nucleos, PeriodoAcademico, Materia, Docente, DocenteAsignadoMateria
 
@@ -204,9 +204,7 @@ def doc_rem_not_acad(request):
             "estado": "fallo",
             "datos": [],
             "title": "Sesión",
-            "descripcion": (
-                "No se encontró la cédula del usuario en la sesión."
-            ),
+            "descripcion": "No se encontró la cédula del usuario en la sesión.",
             "icon": "error"
         })
 
@@ -219,7 +217,6 @@ def doc_rem_not_acad(request):
             "icon": "warning"
         })
 
-    # CONTROL DE ESTUDIO
     control_estudio = (
         ControlEstudio.objects
         .select_related("nucleo")
@@ -244,12 +241,10 @@ def doc_rem_not_acad(request):
 
     nucleo_id = control_estudio.nucleo_id
 
-    # VALIDAR PNF DEL NÚCLEO
     if not PNFNucleo.objects.filter(
         id_nucleo=nucleo_id,
         id_pnf=pnf_seleccionado
     ).exists():
-
         return JsonResponse({
             "estado": "fallo",
             "datos": [],
@@ -261,24 +256,18 @@ def doc_rem_not_acad(request):
             "icon": "warning"
         })
 
-    # VALIDAR CALENDARIO ACADÉMICO
     fecha_actual = timezone.localdate()
     año_actual = fecha_actual.year
 
     calendarios_carga = (
         CalendarioPeriodo.objects
-        .select_related(
-            "periodo",
-            "calendario"
-        )
+        .select_related("periodo", "calendario")
         .filter(
             calendario__tipo="CARGA_NOTAS",
             calendario__activo=True,
             calendario__fecha_inicio__year=año_actual
         )
-        .order_by(
-            "calendario__fecha_inicio"
-        )
+        .order_by("calendario__fecha_inicio")
     )
 
     if not calendarios_carga.exists():
@@ -293,23 +282,16 @@ def doc_rem_not_acad(request):
             )
         })
 
-    calendarios_periodos = (
-        calendarios_carga
-        .filter(
-            calendario__fecha_inicio__lte=fecha_actual,
-            calendario__fecha_final__gte=fecha_actual
-        )
+    calendarios_periodos = calendarios_carga.filter(
+        calendario__fecha_inicio__lte=fecha_actual,
+        calendario__fecha_final__gte=fecha_actual
     )
 
     if not calendarios_periodos.exists():
         calendario_proximo = (
             calendarios_carga
-            .filter(
-                calendario__fecha_inicio__gt=fecha_actual
-            )
-            .order_by(
-                "calendario__fecha_inicio"
-            )
+            .filter(calendario__fecha_inicio__gt=fecha_actual)
+            .order_by("calendario__fecha_inicio")
             .first()
         )
 
@@ -321,8 +303,8 @@ def doc_rem_not_acad(request):
                 "icon": "warning",
                 "descripcion": (
                     "Actualmente no existe un período académico "
-                    "habilitado para la carga de notas. "
-                    "El próximo período disponible corresponde a "
+                    "habilitado para la carga de notas. El próximo "
+                    "período disponible corresponde a "
                     f"{calendario_proximo.periodo.nombre} y "
                     "inicia el "
                     f"{calendario_proximo.calendario.fecha_inicio.strftime('%d/%m/%Y')}."
@@ -331,12 +313,8 @@ def doc_rem_not_acad(request):
 
         calendario_anterior = (
             calendarios_carga
-            .filter(
-                calendario__fecha_final__lt=fecha_actual
-            )
-            .order_by(
-                "-calendario__fecha_final"
-            )
+            .filter(calendario__fecha_final__lt=fecha_actual)
+            .order_by("-calendario__fecha_final")
             .first()
         )
 
@@ -348,8 +326,7 @@ def doc_rem_not_acad(request):
                 "icon": "warning",
                 "descripcion": (
                     "El plazo de carga de notas del período "
-                    f"{calendario_anterior.periodo.nombre} "
-                    "finalizó el "
+                    f"{calendario_anterior.periodo.nombre} finalizó el "
                     f"{calendario_anterior.calendario.fecha_final.strftime('%d/%m/%Y')}. "
                     "Actualmente no existe otro período académico "
                     "habilitado para la carga de notas."
@@ -367,68 +344,58 @@ def doc_rem_not_acad(request):
             )
         })
 
-    # DOCENTES CON MODIFICACIONES REGISTRADAS
+    # Modificaciones del año actual que todavía figuran como MODIFICACION.
     historiales = (
         HistorialModificacionNotas.objects
         .filter(
             docente_asignado__docente__nucleo_id=nucleo_id,
             docente_asignado__docente__pnf_id=pnf_seleccionado,
-            docente_asignado__docente__activo=True,
-            tipo_modificacion="MODIFICACION"
+            fecha_modificacion__year=año_actual,
+            detalles__revertido=False
         )
         .select_related(
             "docente_asignado__docente__usuario"
         )
+        .distinct()
+        .order_by("-fecha_modificacion", "-id_historial")
     )
 
-    # NO EXISTEN MODIFICACIONES
-    if not historiales.exists():
-        return JsonResponse({
-            "estado": "vacio",
-            "datos": [],
-            "title": "Sin modificaciones",
-            "descripcion": (
-                "No existen docentes con modificaciones "
-                "de notas registradas para el P.N.F seleccionado."
-            ),
-            "icon": "info"
-        })
-    
-    # OBTENER DOCENTES SIN DUPLICADOS
     docentes = {}
+
     for historial in historiales:
         docente_asignado = historial.docente_asignado
 
-        if not docente_asignado:
+        if not docente_asignado or not docente_asignado.docente:
             continue
 
         docente = docente_asignado.docente
+        usuario_docente = docente.usuario
 
-        if not docente:
+        if not usuario_docente:
             continue
 
         docentes[docente.id_docente] = {
             "id_docente": docente.id_docente,
-            "cedula": docente.usuario.cedula_identidad,
-            "nombres": docente.usuario.nombres,
-            "apellidos": docente.usuario.apellidos
+            "cedula": usuario_docente.cedula_identidad,
+            "nombres": usuario_docente.nombres,
+            "apellidos": usuario_docente.apellidos
         }
 
     if not docentes:
         return JsonResponse({
             "estado": "vacio",
             "datos": [],
-            "title": "Sin modificaciones",
+            "title": "Sin modificaciones pendientes",
             "descripcion": (
-                "No existen docentes con modificaciones "
-                "de notas registradas para el P.N.F seleccionado."
+                "No existen docentes con notas individuales pendientes "
+                f"de reversión durante el año {año_actual} "
+                "para el P.N.F. seleccionado."
             ),
             "icon": "info"
         })
 
-    datos = list(docentes.values())
-
-    datos.sort(
+    datos = sorted(
+        docentes.values(),
         key=lambda docente: (
             docente["apellidos"].lower(),
             docente["nombres"].lower()
@@ -439,6 +406,7 @@ def doc_rem_not_acad(request):
         "estado": "exito",
         "datos": datos
     })
+
 
 def tray_rem_not(request):
     if request.method != "POST":
@@ -458,9 +426,7 @@ def tray_rem_not(request):
             "estado": "fallo",
             "title": "Sesión",
             "icon": "warning",
-            "descripcion": (
-                "No se pudo identificar al usuario de la sesión."
-            )
+            "descripcion": "No se pudo identificar al usuario de la sesión."
         })
 
     if not pnf_seleccionado:
@@ -468,9 +434,7 @@ def tray_rem_not(request):
             "estado": "fallo",
             "title": "P.N.F",
             "icon": "warning",
-            "descripcion": (
-                "Debe seleccionar un P.N.F."
-            )
+            "descripcion": "Debe seleccionar un P.N.F."
         })
 
     if not docente_seleccionado:
@@ -478,12 +442,9 @@ def tray_rem_not(request):
             "estado": "fallo",
             "title": "Docente",
             "icon": "warning",
-            "descripcion": (
-                "Debe seleccionar un docente."
-            )
+            "descripcion": "Debe seleccionar un docente."
         })
 
-    # CONTROL DE ESTUDIO
     control_estudio = (
         ControlEstudio.objects
         .select_related("nucleo")
@@ -507,12 +468,10 @@ def tray_rem_not(request):
 
     nucleo_asignado = control_estudio.nucleo_id
 
-    # VALIDAR PNF DEL NÚCLEO
     if not PNFNucleo.objects.filter(
         id_nucleo=nucleo_asignado,
         id_pnf=pnf_seleccionado
     ).exists():
-
         return JsonResponse({
             "estado": "fallo",
             "title": "P.N.F no válido",
@@ -523,7 +482,6 @@ def tray_rem_not(request):
             )
         })
 
-    # DOCENTE
     docente = (
         Docente.objects
         .select_related("usuario")
@@ -547,24 +505,18 @@ def tray_rem_not(request):
             )
         })
 
-    # VALIDAR CALENDARIO ACADÉMICO
     fecha_actual = timezone.localdate()
     año_actual = fecha_actual.year
 
     calendarios_carga = (
         CalendarioPeriodo.objects
-        .select_related(
-            "periodo",
-            "calendario"
-        )
+        .select_related("periodo", "calendario")
         .filter(
             calendario__tipo="CARGA_NOTAS",
             calendario__activo=True,
             calendario__fecha_inicio__year=año_actual
         )
-        .order_by(
-            "calendario__fecha_inicio"
-        )
+        .order_by("calendario__fecha_inicio")
     )
 
     if not calendarios_carga.exists():
@@ -578,12 +530,9 @@ def tray_rem_not(request):
             )
         })
 
-    calendarios_periodos = (
-        calendarios_carga
-        .filter(
-            calendario__fecha_inicio__lte=fecha_actual,
-            calendario__fecha_final__gte=fecha_actual
-        )
+    calendarios_periodos = calendarios_carga.filter(
+        calendario__fecha_inicio__lte=fecha_actual,
+        calendario__fecha_final__gte=fecha_actual
     )
 
     if not calendarios_periodos.exists():
@@ -593,9 +542,7 @@ def tray_rem_not(request):
             .filter(
                 calendario__fecha_inicio__gt=fecha_actual
             )
-            .order_by(
-                "calendario__fecha_inicio"
-            )
+            .order_by("calendario__fecha_inicio")
             .first()
         )
 
@@ -606,10 +553,9 @@ def tray_rem_not(request):
                 "icon": "warning",
                 "descripcion": (
                     "Actualmente no existe un período académico "
-                    "habilitado para la carga de notas. "
-                    "El próximo período disponible corresponde a "
-                    f"{calendario_proximo.periodo.nombre} y "
-                    f"inicia el "
+                    "habilitado para la carga de notas. El próximo "
+                    "período disponible corresponde a "
+                    f"{calendario_proximo.periodo.nombre} e inicia el "
                     f"{calendario_proximo.calendario.fecha_inicio.strftime('%d/%m/%Y')}."
                 )
             })
@@ -619,9 +565,7 @@ def tray_rem_not(request):
             .filter(
                 calendario__fecha_final__lt=fecha_actual
             )
-            .order_by(
-                "-calendario__fecha_final"
-            )
+            .order_by("-calendario__fecha_final")
             .first()
         )
 
@@ -632,8 +576,7 @@ def tray_rem_not(request):
                 "icon": "warning",
                 "descripcion": (
                     "El plazo de carga de notas del período "
-                    f"{calendario_anterior.periodo.nombre} "
-                    f"finalizó el "
+                    f"{calendario_anterior.periodo.nombre} finalizó el "
                     f"{calendario_anterior.calendario.fecha_final.strftime('%d/%m/%Y')}. "
                     "Actualmente no existe otro período académico "
                     "habilitado para la carga de notas."
@@ -649,34 +592,43 @@ def tray_rem_not(request):
                 "habilitado para la carga de notas."
             )
         })
+    
+    periodos_actuales = list(
+        calendarios_periodos.values_list("periodo_id", flat=True)
+    )
 
-    # PERÍODOS ACTUALMENTE HABILITADOS
-    periodos_actuales = calendarios_periodos.values_list(
-        "periodo_id",
-        flat=True
+    detalles_pendientes = (
+        HistorialDetalleNota.objects
+        .filter(
+            revertido=False,
+            historial__docente_asignado__docente=docente,
+            historial__periodo_academico_id__in=periodos_actuales,
+            historial__calificacion__estudiante__nucleo_id=nucleo_asignado,
+            historial__calificacion__estudiante__pnf_id=pnf_seleccionado,
+            historial__calificacion__materia_asignada__materia__id_pnf=pnf_seleccionado,
+        )
+        .filter(
+            historial__calificacion__materia_asignada__materia__activa=True,
+            historial__calificacion__materia_asignada__activo=True,
+        )
+        .select_related(
+            "historial__trayecto",
+            "historial__calificacion",
+        )
+    )
+
+    ids_trayectos = (
+        detalles_pendientes
+        .filter(historial__trayecto__isnull=False)
+        .values_list("historial__trayecto_id", flat=True)
+        .distinct()
     )
 
     trayectos = (
         TrayectoAcademico.objects
-        .filter(
-            materia__id_pnf=pnf_seleccionado,
-            materia__activa=True,
-
-            materia__asignaciones__activo=True,
-
-            materia__asignaciones__docentes__docente=docente,
-            materia__asignaciones__docentes__activo=True,
-
-            materia__asignaciones__docentes__historial_modificaciones_notas__tipo_modificacion=(
-                "MODIFICACION"
-            ),
-
-            materia__periodos_academicos__periodo_id__in=periodos_actuales
-        )
+        .filter(id_periodo_academico__in=ids_trayectos)
         .distinct()
-        .order_by(
-            "id_periodo_academico"
-        )
+        .order_by("id_periodo_academico")
     )
 
     if not trayectos.exists():
@@ -686,8 +638,8 @@ def tray_rem_not(request):
             "title": "Sin cambios de carga de notas",
             "icon": "info",
             "descripcion": (
-                "El docente seleccionado no tiene cambios de "
-                "carga de notas registrados para el P.N.F "
+                "El docente seleccionado no tiene modificaciones "
+                "de notas pendientes de reversión para el P.N.F "
                 "y los períodos académicos actualmente habilitados."
             )
         })
@@ -938,31 +890,24 @@ def mat_rem_not(request):
             )
         })
 
-    # MATERIAS DEL DOCENTE CON CAMBIOS DE NOTAS
+    # MATERIAS DEL DOCENTE CON NOTAS PENDIENTES DE REVERSIÓN
     materias_asignadas = (
         DocenteAsignadoMateria.objects
         .filter(
             docente=docente_obj,
             activo=True,
-
             materia_asignada__activo=True,
-
             materia_asignada__materia__activa=True,
             materia_asignada__materia__id_pnf_id=pnf_seleccionado,
             materia_asignada__materia__id_trayecto_id=trayecto_seleccionado,
 
-            # El historial pertenece directamente a
-            # DocenteAsignadoMateria.
             historial_modificaciones_notas__isnull=False,
 
-            # Solo historiales pertenecientes a períodos
-            # actualmente habilitados.
             historial_modificaciones_notas__periodo_academico_id__in=(
                 periodos_actuales
             ),
 
-            # Solo modificaciones que todavía no han sido revertidas.
-            historial_modificaciones_notas__tipo_modificacion="MODIFICACION"
+            historial_modificaciones_notas__detalles__revertido=False
         )
         .select_related(
             "materia_asignada__materia",
@@ -978,11 +923,11 @@ def mat_rem_not(request):
         return JsonResponse({
             "estado": "vacio",
             "datos": [],
-            "title": "Sin cambios de carga de notas",
+            "title": "Sin notas pendientes de reversión",
             "descripcion": (
-                "El P.N.F seleccionado no tiene cambios de carga "
-                "de notas registrados para el docente y trayecto "
-                "seleccionados."
+                "No existen materias con notas individuales pendientes "
+                "de reversión para el docente, trayecto y períodos "
+                "académicos habilitados seleccionados."
             ),
             "icon": "info"
         })
@@ -990,7 +935,6 @@ def mat_rem_not(request):
     materias = []
 
     for asignacion in materias_asignadas:
-
         materia_asignada = asignacion.materia_asignada
         materia = materia_asignada.materia
 
@@ -1060,7 +1004,6 @@ def perid_rem_not(request):
             )
         })
 
-    # CONTROL DE ESTUDIO
     control_estudio = (
         ControlEstudio.objects
         .filter(
@@ -1083,7 +1026,6 @@ def perid_rem_not(request):
 
     nucleo = control_estudio.nucleo_id
 
-    # VALIDAR PNF DEL NÚCLEO
     if not PNFNucleo.objects.filter(
         id_nucleo=nucleo,
         id_pnf=pnf_seleccionado
@@ -1098,7 +1040,6 @@ def perid_rem_not(request):
             )
         })
 
-    # VALIDAR DOCENTE
     docente = (
         Docente.objects
         .filter(
@@ -1121,7 +1062,6 @@ def perid_rem_not(request):
             )
         })
 
-    # VALIDAR MATERIA ASIGNADA
     materia_asignada = (
         MateriaAsignada.objects
         .filter(
@@ -1130,7 +1070,6 @@ def perid_rem_not(request):
             materia__activa=True,
             materia__id_pnf=pnf_seleccionado,
             materia__id_trayecto_id=trayecto_seleccionado,
-
             docentes__docente=docente,
             docentes__activo=True
         )
@@ -1138,6 +1077,7 @@ def perid_rem_not(request):
             "materia",
             "materia__id_trayecto"
         )
+        .distinct()
         .first()
     )
 
@@ -1157,10 +1097,16 @@ def perid_rem_not(request):
         .filter(
             docente_asignado__materia_asignada=materia_asignada,
             docente_asignado__docente=docente,
-            periodo_academico__isnull=False
+            periodo_academico__isnull=False,
+            trayecto_id=trayecto_seleccionado,
+            detalles__revertido=False
         )
         .select_related("periodo_academico")
-        .order_by("-fecha_modificacion")
+        .distinct()
+        .order_by(
+            "-fecha_modificacion",
+            "-id_historial"
+        )
         .first()
     )
 
@@ -1168,11 +1114,12 @@ def perid_rem_not(request):
         return JsonResponse({
             "estado": "vacio",
             "datos": [],
-            "title": "Sin modificaciones de notas",
+            "title": "Sin modificaciones pendientes",
             "icon": "info",
             "descripcion": (
-                "La materia seleccionada no tiene cambios de "
-                "calificaciones registrados para este docente."
+                "La materia seleccionada no tiene modificaciones "
+                "de notas pendientes de reversión para el docente "
+                "y trayecto seleccionados."
             )
         })
 
@@ -1190,16 +1137,16 @@ def cant_est_rem(request):
             "estado": "fallo",
             "title": "Error",
             "icon": "error",
-            "descripcion": (
-                "Método de solicitud no permitido."
-            )
+            "descripcion": "Método de solicitud no permitido."
         })
 
     pnf_seleccionado = request.POST.get("pnf_seleccionado")
     docente_seleccionado = request.POST.get("docente_seleccionado")
     trayecto_seleccionado = request.POST.get("trayecto_seleccionado")
     materia_seleccionado = request.POST.get("materia_seleccionado")
-    periodo_academico_seleccionado = request.POST.get("periodo_academico_seleccionado")
+    periodo_academico_seleccionado = request.POST.get(
+        "periodo_academico_seleccionado"
+    )
 
     cedula = request.session.get("cedula_usuario")
 
@@ -1226,11 +1173,10 @@ def cant_est_rem(request):
             "icon": "warning",
             "descripcion": (
                 "Faltan datos para obtener la cantidad "
-                "de estudiantes."
+                "de modificaciones."
             )
         })
 
-    # CONTROL DE ESTUDIO
     control_estudio = (
         ControlEstudio.objects
         .filter(
@@ -1254,7 +1200,6 @@ def cant_est_rem(request):
 
     nucleo = control_estudio.nucleo_id
 
-    # VALIDAR PNF DEL NÚCLEO
     if not PNFNucleo.objects.filter(
         id_nucleo=nucleo,
         id_pnf=pnf_seleccionado
@@ -1269,7 +1214,6 @@ def cant_est_rem(request):
             )
         })
 
-    # VALIDAR DOCENTE
     docente = (
         Docente.objects
         .filter(
@@ -1292,7 +1236,6 @@ def cant_est_rem(request):
             )
         })
 
-    # VALIDAR MATERIA ASIGNADA
     docente_asignado = (
         DocenteAsignadoMateria.objects
         .filter(
@@ -1306,21 +1249,23 @@ def cant_est_rem(request):
                 trayecto_seleccionado
             )
         )
+        .select_related("materia_asignada__materia")
         .first()
     )
 
     if not docente_asignado:
         return JsonResponse({
-            "estado": "fallo",
+            "estado": "vacio",
+            "cantidad_estudiantes": 0,
+            "cantidad_modificaciones": 0,
             "title": "Materia asignada",
-            "icon": "warning",
             "descripcion": (
                 "El docente no posee una asignación activa "
                 "para la materia y trayecto seleccionados."
-            )
+            ),
+            "icon": "info"
         })
 
-    # VALIDAR PERÍODO ACADÉMICO
     periodo_materia = (
         PeriodoAcademicoMateria.objects
         .filter(
@@ -1333,52 +1278,59 @@ def cant_est_rem(request):
 
     if not periodo_materia:
         return JsonResponse({
-            "estado": "fallo",
+            "estado": "vacio",
+            "cantidad_estudiantes": 0,
+            "cantidad_modificaciones": 0,
             "title": "Período académico",
-            "icon": "warning",
             "descripcion": (
                 "El período académico seleccionado no está "
                 "asociado a la materia."
-            )
+            ),
+            "icon": "info"
         })
 
-    # CONTAR ESTUDIANTES CON MODIFICACIONES
-    cantidad_estudiantes = (
+    detalles_pendientes = (
         HistorialDetalleNota.objects
         .filter(
             historial__docente_asignado=docente_asignado,
-            historial__periodo_academico=(
-                periodo_materia.periodo
-            ),
+            historial__periodo_academico=periodo_materia.periodo,
             historial__trayecto_id=trayecto_seleccionado,
-            historial__tipo_modificacion="MODIFICACION",
-            estudiante__nucleo_id=nucleo,
-            estudiante__pnf_id=pnf_seleccionado
+            historial__calificacion__materia_asignada_id=(
+                materia_seleccionado
+            ),
+            historial__calificacion__estudiante__nucleo_id=nucleo,
+            historial__calificacion__estudiante__pnf_id=pnf_seleccionado,
+            revertido=False
         )
-        .values(
-            "estudiante_id"
-        )
+    )
+
+    cantidad_modificaciones = detalles_pendientes.count()
+
+    cantidad_estudiantes = (
+        detalles_pendientes
+        .values("estudiante_id")
         .distinct()
         .count()
     )
-    print(cantidad_estudiantes)
 
-    if cantidad_estudiantes == 0:
+    if cantidad_modificaciones == 0:
         return JsonResponse({
             "estado": "vacio",
             "cantidad_estudiantes": 0,
-            "title": "Sin cambios de carga de nota",
+            "cantidad_modificaciones": 0,
+            "title": "Sin modificaciones pendientes",
             "icon": "info",
             "descripcion": (
-                "No existen estudiantes con modificaciones "
-                "de notas para la materia, trayecto y período "
+                "No existen modificaciones de notas pendientes "
+                "de reversión para la materia, trayecto y período "
                 "seleccionados."
             )
         })
 
     return JsonResponse({
         "estado": "exito",
-        "cantidad_estudiantes": cantidad_estudiantes
+        "cantidad_estudiantes": cantidad_estudiantes,
+        "cantidad_modificaciones": cantidad_modificaciones
     })
 
 def rem_calif_mod(request):
@@ -1387,16 +1339,16 @@ def rem_calif_mod(request):
             "estado": "fallo",
             "title": "Error",
             "icon": "error",
-            "descripcion": (
-                "Método de solicitud no permitido."
-            )
+            "descripcion": "Método de solicitud no permitido."
         })
 
     pnf_seleccionado = request.POST.get("pnf_seleccionado")
     docente_seleccionado = request.POST.get("docente_seleccionado")
     trayecto_seleccionado = request.POST.get("trayecto_seleccionado")
     materia_seleccionado = request.POST.get("materia_seleccionado")
-    periodo_academico_seleccionado = request.POST.get("periodo_academico_seleccionado")
+    periodo_academico_seleccionado = request.POST.get(
+        "periodo_academico_seleccionado"
+    )
 
     cedula = request.session.get("cedula_usuario")
 
@@ -1405,9 +1357,7 @@ def rem_calif_mod(request):
             "estado": "fallo",
             "title": "Sesión",
             "icon": "warning",
-            "descripcion": (
-                "No se pudo identificar al usuario de la sesión."
-            )
+            "descripcion": "No se pudo identificar al usuario de la sesión."
         })
 
     if not all([
@@ -1427,15 +1377,10 @@ def rem_calif_mod(request):
             )
         })
 
-    # CONTROL DE ESTUDIO
-    control_estudio = (
-        ControlEstudio.objects
-        .filter(
-            usuario__cedula_identidad=cedula,
-            activo=True
-        )
-        .first()
-    )
+    control_estudio = ControlEstudio.objects.filter(
+        usuario__cedula_identidad=cedula,
+        activo=True
+    ).first()
 
     if not control_estudio:
         return JsonResponse({
@@ -1450,7 +1395,6 @@ def rem_calif_mod(request):
 
     nucleo_id = control_estudio.nucleo_id
 
-    # VALIDAR PNF DEL NÚCLEO
     if not PNFNucleo.objects.filter(
         id_nucleo=nucleo_id,
         id_pnf=pnf_seleccionado
@@ -1460,22 +1404,17 @@ def rem_calif_mod(request):
             "title": "P.N.F no válido",
             "icon": "warning",
             "descripcion": (
-                "El P.N.F seleccionado no está asociado "
-                "al núcleo de Control de Estudio."
+                "El P.N.F seleccionado no está asociado al núcleo "
+                "de Control de Estudio."
             )
         })
 
-    # DOCENTE
-    docente = (
-        Docente.objects
-        .filter(
-            usuario__cedula_identidad=docente_seleccionado,
-            nucleo_id=nucleo_id,
-            pnf_id=pnf_seleccionado,
-            activo=True
-        )
-        .first()
-    )
+    docente = Docente.objects.filter(
+        usuario__cedula_identidad=docente_seleccionado,
+        nucleo_id=nucleo_id,
+        pnf_id=pnf_seleccionado,
+        activo=True
+    ).first()
 
     if not docente:
         return JsonResponse({
@@ -1483,12 +1422,11 @@ def rem_calif_mod(request):
             "title": "Docente",
             "icon": "warning",
             "descripcion": (
-                "El docente seleccionado no posee un registro "
-                "activo para el núcleo y P.N.F seleccionados."
+                "El docente seleccionado no posee un registro activo "
+                "para el núcleo y P.N.F seleccionados."
             )
         })
 
-    # ASIGNACIÓN DEL DOCENTE A LA MATERIA
     docente_asignado = (
         DocenteAsignadoMateria.objects
         .filter(
@@ -1502,9 +1440,7 @@ def rem_calif_mod(request):
                 trayecto_seleccionado
             )
         )
-        .select_related(
-            "materia_asignada__materia"
-        )
+        .select_related("materia_asignada__materia")
         .first()
     )
 
@@ -1520,7 +1456,6 @@ def rem_calif_mod(request):
             "icon": "info"
         })
 
-    # PERÍODO ACADÉMICO
     periodo_materia = (
         PeriodoAcademicoMateria.objects
         .filter(
@@ -1543,19 +1478,13 @@ def rem_calif_mod(request):
             "icon": "info"
         })
 
-    # HISTORIALES DE MODIFICACIÓN
-    #
-    # IMPORTANTE:
-    # Solo se muestran modificaciones que todavía pueden
-    # ser revertidas. Una vez revertido el historial,
-    # tipo_modificacion pasa a REVERSION y deja de aparecer.
     historiales = (
         HistorialModificacionNotas.objects
         .filter(
             docente_asignado=docente_asignado,
             periodo_academico=periodo_materia.periodo,
             trayecto_id=trayecto_seleccionado,
-            tipo_modificacion="MODIFICACION"
+            detalles__revertido=False
         )
         .select_related(
             "docente_asignado",
@@ -1565,26 +1494,148 @@ def rem_calif_mod(request):
             "periodo_academico",
             "trayecto",
             "calificacion",
-            "calificacion__estudiante",
-            "calificacion__estudiante__usuario",
             "usuario_modifica"
         )
         .prefetch_related(
             "detalles__estudiante",
+            "detalles__estudiante__usuario",
             "detalles__detalle_calificacion_unidad",
             "detalles__detalle_calificacion_unidad__unidad"
         )
-        .order_by(
-            "-fecha_modificacion",
-            "-id_historial"
-        )
+        .distinct()
+        .order_by("-fecha_modificacion", "-id_historial")
     )
 
-    if not historiales.exists():
+    datos = []
+
+    for historial in historiales:
+        calificacion = historial.calificacion
+
+        for detalle_historial in historial.detalles.filter(
+            revertido=False
+        ):
+            estudiante = detalle_historial.estudiante
+
+            if not estudiante or not estudiante.usuario:
+                continue
+
+            usuario_estudiante = estudiante.usuario
+            unidad = detalle_historial.detalle_calificacion_unidad
+
+            datos.append({
+                "id_historial": historial.id_historial,
+                "perfil_modificacion": historial.perfil_modificacion,
+                "fecha_modificacion": (
+                    historial.fecha_modificacion.strftime(
+                        "%d/%m/%Y %H:%M"
+                    )
+                    if historial.fecha_modificacion else None
+                ),
+                "motivo": historial.motivo,
+
+                "id_docente_asignado": historial.docente_asignado_id,
+                "id_periodo_academico": historial.periodo_academico_id,
+                "periodo_academico": (
+                    historial.periodo_academico.nombre
+                    if historial.periodo_academico else None
+                ),
+
+                "id_trayecto": historial.trayecto_id,
+                "trayecto": (
+                    historial.trayecto.nombre
+                    if historial.trayecto else None
+                ),
+
+                "id_usuario_modifica": historial.usuario_modifica_id,
+                "usuario_modifica": (
+                    f"{historial.usuario_modifica.nombres} "
+                    f"{historial.usuario_modifica.apellidos}"
+                    if historial.usuario_modifica else None
+                ),
+                "cedula_usuario_modifica": (
+                    historial.usuario_modifica.cedula_identidad
+                    if historial.usuario_modifica else None
+                ),
+
+                "id_estudiante": estudiante.id_estudiante,
+                "nombre_completo": (
+                    f"{usuario_estudiante.nombres} "
+                    f"{usuario_estudiante.apellidos}"
+                ),
+                "cedula": usuario_estudiante.cedula_identidad,
+
+                "id_calificaciones": (
+                    calificacion.id_calificaciones
+                    if calificacion else None
+                ),
+                "promedio_tramo": (
+                    float(calificacion.promedio_tramo)
+                    if calificacion
+                    and calificacion.promedio_tramo is not None
+                    else None
+                ),
+                "asistencia": (
+                    float(calificacion.asistencia)
+                    if calificacion
+                    and calificacion.asistencia is not None
+                    else None
+                ),
+                "condicion": (
+                    calificacion.condicion if calificacion else None
+                ),
+
+                "id_detalle": detalle_historial.id_detalle,
+                "id_historial_detalle": detalle_historial.id_detalle,
+
+                "id_detalle_calificaciones_unidad": (
+                    unidad.id_detalle_calificaciones_unidad
+                    if unidad else None
+                ),
+                "id_unidad": unidad.unidad_id if unidad else None,
+                "nombre_unidad": (
+                    unidad.unidad.titulo_unidad
+                    if unidad and unidad.unidad else None
+                ),
+
+                "nota_anterior": (
+                    float(detalle_historial.nota_anterior)
+                    if detalle_historial.nota_anterior is not None
+                    else None
+                ),
+                "nota_nueva": (
+                    float(detalle_historial.nota_nueva)
+                    if detalle_historial.nota_nueva is not None
+                    else None
+                ),
+
+                "asistencia_anterior": (
+                    float(detalle_historial.asistencia_anterior)
+                    if detalle_historial.asistencia_anterior is not None
+                    else None
+                ),
+                "asistencia_nueva": (
+                    float(detalle_historial.asistencia_nueva)
+                    if detalle_historial.asistencia_nueva is not None
+                    else None
+                ),
+
+                "promedio_anterior": (
+                    float(detalle_historial.promedio_anterior)
+                    if detalle_historial.promedio_anterior is not None
+                    else None
+                ),
+                "promedio_nuevo": (
+                    float(detalle_historial.promedio_nuevo)
+                    if detalle_historial.promedio_nuevo is not None
+                    else None
+                )
+            })
+
+    if not datos:
         return JsonResponse({
             "estado": "vacio",
             "datos": [],
-            "title": "Sin cambios de carga de nota",
+            "title": "Sin modificaciones pendientes",
             "descripcion": (
                 "No existen modificaciones de notas pendientes "
                 "de reversión para los criterios seleccionados."
@@ -1592,240 +1643,12 @@ def rem_calif_mod(request):
             "icon": "info"
         })
 
-    estudiantes = {}
-
-    for historial in historiales:
-
-        calificacion = historial.calificacion
-
-        if not calificacion:
-            continue
-
-        estudiante = calificacion.estudiante
-
-        if not estudiante:
-            continue
-
-        usuario_estudiante = estudiante.usuario
-
-        if not usuario_estudiante:
-            continue
-
-        id_estudiante = estudiante.id_estudiante
-
-        if id_estudiante not in estudiantes:
-
-            estudiantes[id_estudiante] = {
-                # HISTORIAL
-                "id_historial": historial.id_historial,
-                "perfil_modificacion": (
-                    historial.perfil_modificacion
-                ),
-                "fecha_modificacion": (
-                    historial.fecha_modificacion.strftime(
-                        "%d/%m/%Y %H:%M"
-                    )
-                    if historial.fecha_modificacion
-                    else None
-                ),
-                "motivo": historial.motivo,
-                "tipo_modificacion": (
-                    historial.tipo_modificacion
-                ),
-
-                # DOCENTE ASIGNADO
-                "id_docente_asignado": (
-                    historial.docente_asignado_id
-                ),
-
-                # PERÍODO
-                "id_periodo_academico": (
-                    historial.periodo_academico_id
-                ),
-                "periodo_academico": (
-                    historial.periodo_academico.nombre
-                    if historial.periodo_academico
-                    else None
-                ),
-
-                # TRAYECTO
-                "id_trayecto": historial.trayecto_id,
-                "trayecto": (
-                    historial.trayecto.nombre
-                    if historial.trayecto
-                    else None
-                ),
-
-                # USUARIO QUE MODIFICÓ
-                "id_usuario_modifica": (
-                    historial.usuario_modifica_id
-                ),
-                "usuario_modifica": (
-                    f"{historial.usuario_modifica.nombres} "
-                    f"{historial.usuario_modifica.apellidos}"
-                    if historial.usuario_modifica
-                    else None
-                ),
-                "cedula_usuario_modifica": (
-                    historial.usuario_modifica.cedula_identidad
-                    if historial.usuario_modifica
-                    else None
-                ),
-
-                # ESTUDIANTE
-                "id_estudiante": id_estudiante,
-                "nombre_completo": (
-                    f"{usuario_estudiante.nombres} "
-                    f"{usuario_estudiante.apellidos}"
-                ),
-                "cedula": (
-                    usuario_estudiante.cedula_identidad
-                ),
-
-                # CALIFICACIÓN
-                "id_calificaciones": (
-                    calificacion.id_calificaciones
-                ),
-                "promedio_tramo": (
-                    float(calificacion.promedio_tramo)
-                    if calificacion.promedio_tramo is not None
-                    else None
-                ),
-                "asistencia": (
-                    float(calificacion.asistencia)
-                    if calificacion.asistencia is not None
-                    else None
-                ),
-                "condicion": calificacion.condicion,
-
-                # DETALLES
-                "detalles": []
-            }
-
-        estudiante_data = estudiantes[id_estudiante]
-
-        for detalle_historial in historial.detalles.all():
-
-            unidad = (
-                detalle_historial.detalle_calificacion_unidad
-            )
-
-            estudiante_data["detalles"].append({
-                # HISTORIAL DETALLE
-                "id_detalle": (
-                    detalle_historial.id_detalle
-                ),
-                "id_historial": (
-                    detalle_historial.historial_id
-                ),
-
-                # ESTUDIANTE
-                "id_estudiante": (
-                    detalle_historial.estudiante_id
-                ),
-
-                # DETALLE DE UNIDAD
-                "id_detalle_calificaciones_unidad": (
-                    unidad.id_detalle_calificaciones_unidad
-                    if unidad
-                    else None
-                ),
-
-                # UNIDAD
-                "id_unidad": (
-                    unidad.unidad_id
-                    if unidad
-                    else None
-                ),
-                "nombre_unidad": (
-                    unidad.unidad.titulo_unidad
-                    if unidad and unidad.unidad
-                    else None
-                ),
-
-                # NOTA ANTERIOR
-                "nota_anterior": (
-                    float(detalle_historial.nota_anterior)
-                    if detalle_historial.nota_anterior is not None
-                    else None
-                ),
-
-                # NOTA NUEVA
-                "nota_nueva": (
-                    float(detalle_historial.nota_nueva)
-                    if detalle_historial.nota_nueva is not None
-                    else None
-                ),
-
-                # ASISTENCIA ANTERIOR
-                "asistencia_anterior": (
-                    float(
-                        detalle_historial.asistencia_anterior
-                    )
-                    if (
-                        detalle_historial.asistencia_anterior
-                        is not None
-                    )
-                    else None
-                ),
-
-                # ASISTENCIA NUEVA
-                "asistencia_nueva": (
-                    float(
-                        detalle_historial.asistencia_nueva
-                    )
-                    if (
-                        detalle_historial.asistencia_nueva
-                        is not None
-                    )
-                    else None
-                ),
-
-                # PROMEDIO ANTERIOR
-                "promedio_anterior": (
-                    float(
-                        detalle_historial.promedio_anterior
-                    )
-                    if (
-                        detalle_historial.promedio_anterior
-                        is not None
-                    )
-                    else None
-                ),
-
-                # PROMEDIO NUEVO
-                "promedio_nuevo": (
-                    float(
-                        detalle_historial.promedio_nuevo
-                    )
-                    if (
-                        detalle_historial.promedio_nuevo
-                        is not None
-                    )
-                    else None
-                )
-            })
-
-    if not estudiantes:
-        return JsonResponse({
-            "estado": "vacio",
-            "datos": [],
-            "title": "Sin estudiantes",
-            "descripcion": (
-                "No existen estudiantes asociados a "
-                "las modificaciones de notas pendientes "
-                "de reversión."
-            ),
-            "icon": "info"
-        })
-
-    datos = list(
-        estudiantes.values()
-    )
-
     datos.sort(
-        key=lambda estudiante: (
-            estudiante["nombre_completo"].lower()
+        key=lambda registro: (
+            registro["nombre_completo"].lower(),
+            registro["fecha_modificacion"] or "",
+            registro["id_historial"],
+            registro["id_detalle"]
         )
     )
 
@@ -1841,12 +1664,11 @@ def rem_camb_not(request):
             "estado": "fallo",
             "title": "Error",
             "icon": "error",
-            "descripcion": (
-                "Método de solicitud no permitido."
-            )
+            "descripcion": "Método de solicitud no permitido."
         })
 
     id_historial = request.POST.get("id_historial")
+    id_detalle = request.POST.get("id_detalle")
     cedula = request.session.get("cedula_usuario")
 
     if not cedula:
@@ -1854,51 +1676,36 @@ def rem_camb_not(request):
             "estado": "fallo",
             "title": "Sesión",
             "icon": "warning",
-            "descripcion": (
-                "No se pudo identificar al usuario de la sesión."
-            )
+            "descripcion": "No se pudo identificar al usuario de la sesión."
         })
 
-    if not id_historial:
+    try:
+        id_historial = int(id_historial)
+        id_detalle = int(id_detalle)
+    except (TypeError, ValueError):
         return JsonResponse({
             "estado": "fallo",
-            "title": "Modificación",
+            "title": "Identificador inválido",
             "icon": "warning",
-            "descripcion": (
-                "Debe seleccionar una modificación "
-                "para realizar la reversión."
-            )
+            "descripcion": "Los identificadores no son válidos."
         })
 
-    # USUARIO
-    usuario = (
-        Usuario.objects
-        .filter(
-            cedula_identidad=cedula
-        )
-        .first()
-    )
+    usuario = Usuario.objects.filter(
+        cedula_identidad=cedula
+    ).first()
 
     if not usuario:
         return JsonResponse({
             "estado": "fallo",
             "title": "Usuario",
             "icon": "error",
-            "descripcion": (
-                "No se encontró el usuario asociado "
-                "a la sesión."
-            )
+            "descripcion": "No se encontró el usuario de la sesión."
         })
 
-    # CONTROL DE ESTUDIO
-    control_estudio = (
-        ControlEstudio.objects
-        .filter(
-            usuario__cedula_identidad=cedula,
-            activo=True
-        )
-        .first()
-    )
+    control_estudio = ControlEstudio.objects.filter(
+        usuario=usuario,
+        activo=True
+    ).first()
 
     if not control_estudio:
         return JsonResponse({
@@ -1906,278 +1713,146 @@ def rem_camb_not(request):
             "title": "Control de Estudio",
             "icon": "error",
             "descripcion": (
-                "El usuario no posee un perfil activo "
-                "de Control de Estudio."
+                "El usuario no posee un perfil activo de Control de Estudio."
             )
         })
 
-    # VALIDAR ID DEL HISTORIAL
-    try:
-        id_historial = int(id_historial)
-    except (TypeError, ValueError):
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Modificación",
-            "icon": "warning",
-            "descripcion": (
-                "El identificador de la modificación "
-                "no es válido."
-            )
-        })
-
-    # HISTORIAL DE MODIFICACIÓN
     try:
         historial = (
             HistorialModificacionNotas.objects
             .select_for_update()
-            .get(
-                id_historial=id_historial
-            )
+            .get(id_historial=id_historial)
         )
-
     except HistorialModificacionNotas.DoesNotExist:
         return JsonResponse({
             "estado": "fallo",
             "title": "Modificación no encontrada",
             "icon": "warning",
-            "descripcion": (
-                "La modificación seleccionada no existe."
-            )
+            "descripcion": "La modificación seleccionada no existe."
         })
 
-    # VALIDAR ESTADO DEL HISTORIAL
-    if historial.tipo_modificacion == "REVERSION":
+    try:
+        detalle = (
+            HistorialDetalleNota.objects
+            .select_for_update()
+            .get(
+                id_detalle=id_detalle,
+                historial=historial
+            )
+        )
+    except HistorialDetalleNota.DoesNotExist:
         return JsonResponse({
             "estado": "fallo",
-            "title": "Modificación ya revertida",
+            "title": "Detalle no encontrado",
             "icon": "warning",
             "descripcion": (
-                "La modificación seleccionada ya fue "
-                "revertida y no puede volver a revertirse."
+                "El detalle seleccionado no pertenece al historial indicado."
             )
         })
 
-    if historial.tipo_modificacion != "MODIFICACION":
+    if detalle.revertido:
         return JsonResponse({
             "estado": "fallo",
-            "title": "Estado no válido",
+            "title": "Detalle ya revertido",
             "icon": "warning",
             "descripcion": (
-                "La modificación seleccionada posee "
-                "un estado no válido para realizar la reversión."
+                "Esta nota ya fue revertida y no puede revertirse nuevamente."
             )
         })
 
-    # CALIFICACIÓN RELACIONADA CON EL HISTORIAL
+    if detalle.nota_anterior is None:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Nota anterior no disponible",
+            "icon": "warning",
+            "descripcion": (
+                "El historial no contiene la nota anterior que debe restaurarse."
+            )
+        })
+
     if not historial.calificacion_id:
         return JsonResponse({
             "estado": "fallo",
             "title": "Calificación no encontrada",
             "icon": "warning",
             "descripcion": (
-                "La modificación seleccionada no tiene "
-                "una calificación asociada."
+                "El historial no tiene una calificación asociada."
             )
         })
 
-    # BLOQUEAR LA CALIFICACIÓN
     try:
         calificacion = (
             Calificaciones.objects
             .select_for_update()
-            .get(
-                id_calificaciones=historial.calificacion_id
-            )
+            .get(id_calificaciones=historial.calificacion_id)
         )
-
     except Calificaciones.DoesNotExist:
         return JsonResponse({
             "estado": "fallo",
             "title": "Calificación no encontrada",
             "icon": "warning",
-            "descripcion": (
-                "La calificación asociada a la modificación "
-                "ya no existe."
-            )
+            "descripcion": "La calificación asociada ya no existe."
         })
 
-    # DETALLES DEL HISTORIAL
-    detalles = list(
-        HistorialDetalleNota.objects
-        .select_for_update()
-        .filter(
-            historial=historial
-        )
-    )
-
-    if not detalles:
+    if not detalle.detalle_calificacion_unidad_id:
         return JsonResponse({
             "estado": "fallo",
-            "title": "Sin respaldo",
+            "title": "Nota no disponible",
             "icon": "warning",
             "descripcion": (
-                "La modificación seleccionada no posee "
-                "un respaldo para realizar la reversión."
+                "El detalle no está asociado a una nota de unidad."
             )
         })
 
-    # VALIDAR CALIFICACIÓN CONGELADA
-    if calificacion.congelada:
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Calificación congelada",
-            "icon": "warning",
-            "descripcion": (
-                "La calificación relacionada con la "
-                "modificación se encuentra congelada "
-                "y no puede ser revertida."
-            )
-        })
-
-    # BLOQUEAR Y VALIDAR UNIDADES
-    detalles_unidad = []
-
-    for detalle in detalles:
-        if not detalle.detalle_calificacion_unidad_id:
-            continue
-
-        try:
-            detalle_calificacion = (
-                DetalleCalificacionesUnidad.objects
-                .select_for_update()
-                .get(
-                    id_detalle_calificaciones_unidad=(
-                        detalle.detalle_calificacion_unidad_id
-                    )
-                )
-            )
-
-        except DetalleCalificacionesUnidad.DoesNotExist:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Unidad no encontrada",
-                "icon": "warning",
-                "descripcion": (
-                    "Una de las unidades relacionadas con "
-                    "la modificación ya no existe."
-                )
-            })
-
-        if detalle_calificacion.congelada:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Unidad congelada",
-                "icon": "warning",
-                "descripcion": (
-                    "Una de las unidades relacionadas con "
-                    "la modificación se encuentra congelada "
-                    "y no puede ser revertida."
-                )
-            })
-
-        detalles_unidad.append(
-            (
-                detalle,
-                detalle_calificacion
+    try:
+        unidad = (
+            DetalleCalificacionesUnidad.objects
+            .select_for_update()
+            .get(
+                id_detalle_calificaciones_unidad=(
+                    detalle.detalle_calificacion_unidad_id
+                ),
+                calificacion=calificacion
             )
         )
-
-    # VARIABLES DE CONTROL
-    nota_modificada = False
-    asistencia_modificada = False
-    promedio_modificado = False
-
-    # RESTAURAR NOTAS DE LAS UNIDADES
-    for detalle, detalle_calificacion in detalles_unidad:
-
-        if detalle.nota_anterior != detalle.nota_nueva:
-
-            detalle_calificacion.nota_unidad = (
-                detalle.nota_anterior
-            )
-
-            detalle_calificacion.modificado_por = usuario
-            detalle_calificacion.fecha_modificacion = (
-                timezone.now()
-            )
-            detalle_calificacion.perfil_modificacion = (
-                "CONTROL_ESTUDIO"
-            )
-
-            detalle_calificacion.save(
-                update_fields=[
-                    "nota_unidad",
-                    "modificado_por",
-                    "fecha_modificacion",
-                    "perfil_modificacion"
-                ]
-            )
-
-            nota_modificada = True
-
-    # RESTAURAR ASISTENCIA Y PROMEDIO
-    for detalle in detalles:
-
-        if (
-            detalle.asistencia_anterior
-            != detalle.asistencia_nueva
-        ):
-            calificacion.asistencia = (
-                detalle.asistencia_anterior
-            )
-
-            asistencia_modificada = True
-
-        if (
-            detalle.promedio_anterior
-            != detalle.promedio_nuevo
-        ):
-            calificacion.promedio_tramo = (
-                detalle.promedio_anterior
-            )
-
-            promedio_modificado = True
-
-    # VALIDAR QUE HUBO ALGUNA MODIFICACIÓN
-    if not (
-        nota_modificada
-        or asistencia_modificada
-        or promedio_modificado
-    ):
+    except DetalleCalificacionesUnidad.DoesNotExist:
         return JsonResponse({
             "estado": "fallo",
-            "title": "Sin cambios para revertir",
+            "title": "Unidad no encontrada",
             "icon": "warning",
             "descripcion": (
-                "No se encontraron notas, asistencia "
-                "o promedio modificados en el historial."
+                "La unidad relacionada con la nota no existe "
+                "o no pertenece a la calificación indicada."
             )
         })
 
-    # VALIDAR MATERIA
+    if unidad.nota_unidad != detalle.nota_nueva:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Nota modificada posteriormente",
+            "icon": "warning",
+            "descripcion": (
+                "La nota actual no coincide con la registrada en el historial. "
+                "No se realizó ningún cambio."
+            )
+        })
+
     if not calificacion.materia_asignada_id:
         return JsonResponse({
             "estado": "fallo",
             "title": "Materia no encontrada",
             "icon": "warning",
             "descripcion": (
-                "La calificación no tiene una materia "
-                "asignada relacionada."
+                "La calificación no tiene una materia asignada."
             )
         })
 
-    # OBTENER NOMBRE DE LA MATERIA
     nombre_materia = (
         MateriaAsignada.objects
         .filter(
-            id_materia_asignada=(
-                calificacion.materia_asignada_id
-            )
+            id_materia_asignada=calificacion.materia_asignada_id
         )
-        .values_list(
-            "materia__nombre",
-            flat=True
-        )
+        .values_list("materia__nombre", flat=True)
         .first()
     )
 
@@ -2187,105 +1862,111 @@ def rem_camb_not(request):
             "title": "Materia no encontrada",
             "icon": "warning",
             "descripcion": (
-                "No se pudo identificar la materia "
-                "asociada a la calificación."
+                "No se pudo identificar la materia asociada."
             )
         })
 
-    # NORMALIZAR NOMBRE
-    nombre_materia = (
-        nombre_materia
-        .strip()
-        .lower()
+    nombre_materia = nombre_materia.strip().casefold()
+
+    es_proyecto = "proyecto socio tecnológico" in nombre_materia
+    nota_aprobacion = Decimal("16") if es_proyecto else Decimal("12")
+
+    notas_unidad = list(
+        DetalleCalificacionesUnidad.objects
+        .filter(calificacion=calificacion)
+        .exclude(
+            id_detalle_calificaciones_unidad=(
+                detalle.detalle_calificacion_unidad_id
+            )
+        )
+        .values_list("nota_unidad", flat=True)
     )
 
-    # DETERMINAR SI ES PROYECTO
-    es_proyecto = (
-        "proyecto socio tecnológico"
-        in nombre_materia
-    )
+    notas_unidad.append(detalle.nota_anterior)
 
-    nota_aprobacion = (
-        Decimal("16")
-        if es_proyecto
-        else Decimal("12")
-    )
+    notas_validas = [
+        nota for nota in notas_unidad
+        if nota is not None
+    ]
 
-    # ACTUALIZAR CONDICIÓN
+    if not notas_validas:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Promedio no disponible",
+            "icon": "warning",
+            "descripcion": (
+                "No existen notas válidas para calcular el promedio."
+            )
+        })
+
+    promedio_recalculado = (
+        sum(notas_validas, Decimal("0")) / len(notas_validas)
+    ).quantize(Decimal("0.01"))
+
     asistencia = (
         calificacion.asistencia
         if calificacion.asistencia is not None
-        else 0
+        else Decimal("0")
     )
 
-    if asistencia < 75:
-
-        calificacion.condicion = "REPROBADO"
-
-    elif (
-        calificacion.promedio_tramo is not None
-        and calificacion.promedio_tramo >= nota_aprobacion
-    ):
-
-        calificacion.condicion = "APROBADO"
-
+    if asistencia < Decimal("75"):
+        condicion = "REPROBADO"
+    elif promedio_recalculado >= nota_aprobacion:
+        condicion = "APROBADO"
     elif es_proyecto:
-
-        calificacion.condicion = "REPROBADO"
-
+        condicion = "REPROBADO"
     else:
+        condicion = "REPARACIÓN"
 
-        calificacion.condicion = "REPARACIÓN"
+    ahora = timezone.now()
 
-    # AUDITORÍA DE CALIFICACIÓN
+    nota_restaurada = detalle.nota_anterior
+
+    unidad.nota_unidad = nota_restaurada
+    unidad.modificado_por = usuario
+    unidad.fecha_modificacion = ahora
+    unidad.perfil_modificacion = "CONTROL_ESTUDIO"
+
+    unidad.save(update_fields=[
+        "nota_unidad",
+        "modificado_por",
+        "fecha_modificacion",
+        "perfil_modificacion"
+    ])
+
+    calificacion.promedio_tramo = promedio_recalculado
+    calificacion.condicion = condicion
     calificacion.modificado_por = usuario
-    calificacion.fecha_modificacion = timezone.now()
-    calificacion.perfil_modificacion = (
-        "CONTROL_ESTUDIO"
-    )
+    calificacion.fecha_modificacion = ahora
+    calificacion.perfil_modificacion = "CONTROL_ESTUDIO"
 
-    calificacion.save(
-        update_fields=[
-            "asistencia",
-            "promedio_tramo",
-            "condicion",
-            "modificado_por",
-            "fecha_modificacion",
-            "perfil_modificacion"
-        ]
-    )
+    calificacion.save(update_fields=[
+        "promedio_tramo",
+        "condicion",
+        "modificado_por",
+        "fecha_modificacion",
+        "perfil_modificacion"
+    ])
 
-    # CAMBIAR HISTORIAL A REVERSION
-    historial.tipo_modificacion = "REVERSION"
-    historial.usuario_modifica = usuario
-    historial.perfil_modificacion = (
-        "CONTROL_ESTUDIO"
-    )
-    historial.fecha_modificacion = timezone.now()
-    historial.motivo = (
-        f"Reversión de la modificación "
-        f"del Historial {historial.id_historial}."
-    )
+    detalle.revertido = True
 
-    historial.save(
-        update_fields=[
-            "tipo_modificacion",
-            "usuario_modifica",
-            "perfil_modificacion",
-            "fecha_modificacion",
-            "motivo"
-        ]
-    )
+    detalle.save(update_fields=["revertido"])
 
     return JsonResponse({
         "estado": "exito",
         "title": "Reversión realizada",
         "icon": "success",
         "descripcion": (
-            "La modificación fue revertida correctamente "
-            "y se restauraron los valores anteriores."
+            "La nota individual fue restaurada correctamente. "
+            "El detalle quedó marcado como revertido y ya no debe "
+            "mostrarse en el listado. Se actualizaron el promedio "
+            "y la condición de la calificación."
         ),
-        "id_historial": historial.id_historial
+        "id_historial": historial.id_historial,
+        "id_detalle": detalle.id_detalle,
+        "nota_restaurada": str(nota_restaurada),
+        "promedio_recalculado": str(calificacion.promedio_tramo),
+        "condicion": calificacion.condicion
     })
 
 def rem_not_acad(request):

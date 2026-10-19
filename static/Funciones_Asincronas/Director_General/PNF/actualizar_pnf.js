@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.log(resultado);
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon,
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return;
             }
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: "Exito",
                 text: "Se encontraron los datos",
                 icon: "success",
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon,

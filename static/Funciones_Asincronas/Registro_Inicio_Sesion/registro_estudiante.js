@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 icon: resultado.icon,
                 text: resultado.descripcion,

@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("ID del plan:", id_plan);
             console.log("Botón presionado:", estado);
 
-            const confirmacion = await Swal.fire({
+            const confirmacion = await NotificacionesCASRCE.mostrar({
                 title: estado === "ACEPTADA"
                     ? "¿Aceptar plan de actividades?"
                     : "¿Denegar plan de actividades?",
@@ -553,7 +553,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,

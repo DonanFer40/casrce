@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon

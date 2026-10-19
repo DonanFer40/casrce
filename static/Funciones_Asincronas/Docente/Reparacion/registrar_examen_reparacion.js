@@ -7,10 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formulario_registrar = document.getElementById("formulario_registrar");
 
+    const contenedor_seleccion_docente = document.getElementById("contenedor_seleccion_docente");
+    const select_seleccion_docente = document.getElementById("seleccion_docente");
+
+    const select_perfiles_asignados = document.getElementById("perfiles_asignados");
+    const input_perfil_asignado = document.getElementById("perfil_asignado");
+
     const contenedor = document.getElementById('contenedor_detalles_evaluacion');
     const btnAgregar = document.getElementById('btn_agregar_detalle');
 
-    let pnf = "", nucleo = "";
+    let pnf = "", nucleo = "", docente = "", trayecto = "", materia = "";
+    let perfil_seleccionado = "";
 
     function obtener_csrf_token() {
 
@@ -23,15 +30,123 @@ document.addEventListener("DOMContentLoaded", () => {
             : "";
     }
 
-    async function nucleos_asignados() {
+    async function perfiles_asignados() {
         try {
-            const respuesta = await fetch("/notas_academicas/nucl_asig_doc/");
+            const respuesta = await fetch("/notas_academicas/perf_asig/");
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            select_pnf_asignado.innerHTML = "<option value='' selected>Selecciona el núcleo primero</option>";
+            const tiene_docente = resultado.docente;
+            const tiene_control = resultado.control_estudio;
+
+            input_perfil_asignado.value = "";
+
+            select_perfiles_asignados.innerHTML = "<option value='' selected>Selecciona un perfil</option>";
+
+            // Tiene ambos perfiles
+            if (tiene_docente && tiene_control) {
+                const option_docente = document.createElement("option");
+                option_docente.value = "DOCENTE";
+                option_docente.textContent = "Docente";
+
+                const option_control = document.createElement("option");
+                option_control.value = "CONTROL_ESTUDIO";
+                option_control.textContent = "Encargado de Control de Estudio";
+
+                select_perfiles_asignados.append(option_docente, option_control);
+
+                select_perfiles_asignados.style.display = "";
+                input_perfil_asignado.style.display = "none";
+
+                perfil_seleccionado = ""; // Todavía no hay perfil seleccionado
+
+                limpiar_nucleos(); // No cargar núcleos todavía
+            }
+
+            // Solamente Docente
+            else if (tiene_docente) {
+                perfil_seleccionado = "DOCENTE";
+
+                input_perfil_asignado.value = "Docente";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                await nucleos_asignados(perfil_seleccionado);
+            }
+
+            // Solamente Control de Estudio
+            else if (tiene_control) {
+                perfil_seleccionado = "CONTROL_ESTUDIO";
+
+                input_perfil_asignado.value = "Encargado de Control de Estudio";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                await nucleos_asignados(perfil_seleccionado);
+
+                limpiar_nucleos();
+            }
+
+            // No tiene ningún perfil
+            else {
+                perfil_seleccionado = "";
+
+                input_perfil_asignado.value = "";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                limpiar_nucleos();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    perfiles_asignados();
+
+    select_perfiles_asignados.addEventListener("change", async () => {
+        perfil_seleccionado = select_perfiles_asignados.value;
+
+        limpiar_nucleos();
+
+        if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+            contenedor_seleccion_docente.style.display = "";
+        } else {
+            contenedor_seleccion_docente.style.display = "none";
+        }
+
+        await nucleos_asignados(perfil_seleccionado);
+    });
+
+    async function nucleos_asignados(perfil) {
+        try {
+            const formulario = new FormData();
+            formulario.append("perfil", perfil);
+
+            const respuesta = await fetch("/notas_academicas/nucl_not_rep/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": obtener_csrf_token()
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
 
             select_nucleo_asignado.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
+
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
 
             resultado.datos.forEach(nucleo => {
                 const option_nucleo = document.createElement("option");
@@ -43,9 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
         }
     }
-    nucleos_asignados();
 
-    select_nucleo_asignado.addEventListener("change", async (e) => {
+    select_nucleo_asignado.addEventListener("change", async () => {
         nucleo = select_nucleo_asignado.value;
 
         await pnfs_asignados();
@@ -55,22 +169,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function pnfs_asignados() {
         try {
-            if (!nucleo) return;
-
             const formulario = new FormData();
             formulario.append("nucleo_asignado", nucleo);
+            formulario.append("perfil", perfil_seleccionado);
 
-            const respuesta = await fetch("/notas_academicas/pnfs_asig_doc/", {
+            const respuesta = await fetch("/notas_academicas/pnf_not_rep/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": obtener_csrf_token()
                 },
                 body: formulario
             });
             const resultado = await respuesta.json();
             console.log(resultado);
 
+            select_materia_asignada.innerHTML = "<option value='' selected>Selecciona el pnf primero</option>";
+
             select_pnf_asignado.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
+
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
 
             resultado.datos.forEach(pnf => {
                 const option_pnf = document.createElement("option");
@@ -83,8 +209,61 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    select_pnf_asignado.addEventListener("change", async (e) => {
+    select_pnf_asignado.addEventListener("change", async () => {
         pnf = select_pnf_asignado.value;
+
+        await materias_reparacion();
+
+        if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+            await docente_seleccionado();
+        }
+    });
+
+    async function docente_seleccionado() {
+        try {
+            if (!pnf || !nucleo) return;
+
+            const formulario = new FormData();
+            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("pnf_seleccionado", pnf);
+
+            const respuesta = await fetch("/notas_academicas/doc_not_rep/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": obtener_csrf_token()
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            select_seleccion_docente.innerHTML = "<option value='' selected>Debe seleccionar el docente</option>";
+
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
+
+            resultado.datos.forEach(docente => {
+                const option = document.createElement("option");
+                option.value = docente.cedula;
+                option.textContent = docente.nombres + " " + docente.apellidos;
+                select_seleccion_docente.append(option);
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    select_seleccion_docente.addEventListener("change", async () => {
+        docente = select_seleccion_docente.value;
 
         await materias_reparacion();
     });
@@ -96,6 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const formulario = new FormData();
             formulario.append("id_nucleo", nucleo);
             formulario.append("id_pnf", pnf);
+            formulario.append("perfil", perfil_seleccionado);
+            formulario.append("docente", docente);
 
             const respuesta = await fetch("/notas_academicas/mat_rep_not/", {
                 method: "POST",
@@ -134,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         try {
             const formulario = new FormData(formulario_registrar);
+            formulario.append("perfil", perfil_seleccionado)
 
             const respuesta = await fetch("/notas_academicas/reg_eval_rep/", {
                 method: "POST",
@@ -145,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,
@@ -155,6 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (resultado.estado == "exito") {
                 formulario_registrar.reset();
+                await perfiles_asignados();
 
                 limpiarContenedoresEvaluacion();
             }

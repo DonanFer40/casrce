@@ -1,0 +1,180 @@
+{% extends 'Estructura/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="recuperacion-credenciales-carsce">
+
+    <div class="recuperacion-credenciales-carsce-contenedor">
+
+
+        <!-- =====================================================
+             CABECERA DEL PANEL
+             ===================================================== -->
+
+        <div class="recuperacion-credenciales-carsce-cabecera">
+
+            <span class="recuperacion-credenciales-carsce-etiqueta">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                SEGURIDAD DE ACCESO
+
+            </span>
+
+            <h1>
+                Recuperación de credenciales
+            </h1>
+
+            <p>
+                Selecciona el tipo de credencial que deseas recuperar
+                para continuar con el proceso de verificación.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             OPCIONES DE RECUPERACIÓN
+             ===================================================== -->
+
+        <div class="recuperacion-credenciales-carsce-opciones">
+
+
+            <!-- =================================================
+                 RECUPERAR USUARIO
+                 ================================================= -->
+
+            <article class="recuperacion-credenciales-carsce-tarjeta">
+
+
+                <!-- =============================================
+                     IMAGEN
+                     ============================================= -->
+
+                <div class="recuperacion-credenciales-carsce-imagen">
+                    <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+                </div>
+
+
+                <!-- =============================================
+                     INFORMACIÓN
+                     ============================================= -->
+
+                <div class="recuperacion-credenciales-carsce-contenido">
+
+                    <h2>
+                        Recuperar usuario
+                    </h2>
+
+                    <p>
+                        Recupera tu nombre de usuario siguiendo
+                        el proceso de verificación de identidad.
+                    </p>
+
+                </div>
+
+
+                <!-- =============================================
+                     BOTÓN DE ACCIÓN
+                     ============================================= -->
+
+                <div class="recuperacion-credenciales-carsce-accion">
+
+                    <a href="{% url 'rec_usr'%}"
+                       class="recuperacion-credenciales-carsce-boton"
+                       aria-label="Continuar con la recuperación de usuario">
+
+                        <span>
+                            Continuar
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================================
+                 RECUPERAR CONTRASEÑA
+                 ================================================= -->
+
+            <article class="recuperacion-credenciales-carsce-tarjeta">
+
+
+                <!-- =============================================
+                     IMAGEN
+                     ============================================= -->
+
+                <div class="recuperacion-credenciales-carsce-imagen">
+                    <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                </div>
+
+
+                <!-- =============================================
+                     INFORMACIÓN
+                     ============================================= -->
+
+                <div class="recuperacion-credenciales-carsce-contenido">
+
+                    <h2>
+                        Recuperar contraseña
+                    </h2>
+
+                    <p>
+                        Restablece tu contraseña mediante un
+                        proceso seguro de verificación.
+                    </p>
+
+                </div>
+
+
+                <!-- =============================================
+                     BOTÓN DE ACCIÓN
+                     ============================================= -->
+
+                <div class="recuperacion-credenciales-carsce-accion">
+
+                    <a href="{% url 'rec_cont'%}"
+                       class="recuperacion-credenciales-carsce-boton"
+                       aria-label="Continuar con la recuperación de contraseña">
+
+                        <span>
+                            Continuar
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <!-- =====================================================
+             AVISO DE SEGURIDAD
+             ===================================================== -->
+
+        <div class="recuperacion-credenciales-carsce-aviso">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <p>
+                Por tu seguridad, verifica tu identidad antes de
+                realizar cambios en las credenciales de acceso.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

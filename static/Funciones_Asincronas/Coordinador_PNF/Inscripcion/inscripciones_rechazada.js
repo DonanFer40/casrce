@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 contenedor_rechazados.innerHTML = "";
 
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     title: resultado.titulo || "¡Advertencia!",
                     text: resultado.descripcion || "No se pudo obtener la información.",
                     icon: resultado.icon || "warning"
@@ -454,7 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const selectAula = fila.querySelector(".select_aula");
 
         if (!selectAula) {
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 title: "¡Advertencia!",
                 text: "No se encontró el selector de aula.",
                 icon: "warning"
@@ -466,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const aula = selectAula.value;
 
         if (!aula) {
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 title: "¡Advertencia!",
                 text: "Debe seleccionar un aula.",
                 icon: "warning"
@@ -497,7 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.titulo,
                 text: resultado.descripcion,
                 icon: resultado.icon

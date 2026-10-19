@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             bloquear_controles(controles, false);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: "Se encontraron los datos",
                 icon: "success",
                 title: "Exito",
@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (resultado_cargo.existe) {
                     const autoridad = resultado_cargo.autoridad;
-                    const confirmacion = await Swal.fire({
+                    const confirmacion = await NotificacionesCASRCE.mostrar({
                         title: "¿Cambiar cargo?",
                         html: `
                             <p>El cargo actual es: <strong>${cargo_anterior}</strong></p>
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     cambiar_cargo = confirmacion.isConfirmed;
                 } else {
-                    const confirmacion = await Swal.fire({
+                    const confirmacion = await NotificacionesCASRCE.mostrar({
                         title: "¿Cambiar cargo?",
                         html: `
                             <p>El cargo actual es: <strong>${cargo_anterior}</strong></p>
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,

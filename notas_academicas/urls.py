@@ -10,7 +10,11 @@ urlpatterns = [
     path('reg_pl_act/', views.reg_pl_act, name="reg_pl_act"),
     path('fech_cal_mat/', views.fech_cal_mat, name="fech_cal_mat"),
     path('fech_reg_mat/', views.fech_reg_mat, name="fech_reg_mat"),
+    
+    path('vis_planif_nuc/', views.vis_planif_nuc, name="vis_planif_nuc"),
+    
     path('tray_mat_asig/', views.tray_mat_asig, name="tray_mat_asig"),
+    path('tray_mat_planif/', views.tray_mat_planif, name="tray_mat_planif"),
 
     path('doc_selec/', views.doc_selec, name="doc_selec"),
     path('perf_asig/', views.perf_asig, name="perf_asig"),
@@ -78,19 +82,24 @@ urlpatterns = [
     path('calc_prom_est/', views.calc_prom_est, name="calc_prom_est"),
     path('act_prom_rep/', views.act_prom_rep, name="act_prom_rep"),
     path('mod_cant_pla/', views.mod_cant_pla, name="mod_cant_pla"),
-    path('vis_cant_planif/', views.vis_cant_planif, name="vis_cant_planif"),
     
     path('act_tray_est/', views.act_tray_est, name="act_tray_est"),
 
-    path('reg_eval_rep/', views.reg_eval_rep, name="reg_eval_rep"),
-    path('mat_rep_not/', views.mat_rep_not, name="mat_rep_not"),
-
+    
     path('dato_eval_rep/', views.dato_eval_rep, name="dato_eval_rep"),
     path('vis_eval_rep/', views.vis_eval_rep, name="vis_eval_rep"),
 
     path('mat_reg_eval/', views.mat_reg_eval, name="mat_reg_eval"),
     path('eval_reg_rep/', views.eval_reg_rep, name="eval_reg_rep"),
     path('mod_eval_rep/', views.mod_eval_rep, name="mod_eval_rep"),
+    
+    path('nucl_carg_not_rep/', views.nucl_carg_not_rep, name="nucl_carg_not_rep"),
+    path('pnf_carg_not_rep/', views.pnf_carg_not_rep, name="pnf_carg_not_rep"),
+    path('doc_carg_not_rep/', views.doc_carg_not_rep, name="doc_carg_not_rep"),
+
+    path('nucl_not_rep_vis/', views.nucl_not_rep_vis, name="nucl_not_rep_vis"),
+    path('pnf_not_rep_vis/', views.pnf_not_rep_vis, name="pnf_not_rep_vis"),
+    path('doc_not_rep_vis/', views.doc_not_rep_vis, name="doc_not_rep_vis"),
 
     path('eval_mat_rep/', views.eval_mat_rep, name="eval_mat_rep"),
     path('est_rep_not/', views.est_rep_not, name="est_rep_not"),
@@ -114,4 +123,11 @@ urlpatterns = [
     path('rem_calif_mod/', views.rem_calif_mod, name="rem_calif_mod"),
     path('rem_camb_not/', views.rem_camb_not, name="rem_camb_not"),
     path('rem_not_acad/', views.rem_not_acad, name="rem_not_acad"),
+
+    path('nucl_not_rep/', views.nucl_not_rep, name="nucl_not_rep"),
+    path('pnf_not_rep/', views.pnf_not_rep, name="pnf_not_rep"),
+    path('doc_not_rep/', views.doc_not_rep, name="doc_not_rep"),
+
+    path('reg_eval_rep/', views.reg_eval_rep, name="reg_eval_rep"),
+    path('mat_rep_not/', views.mat_rep_not, name="mat_rep_not"),
 ]

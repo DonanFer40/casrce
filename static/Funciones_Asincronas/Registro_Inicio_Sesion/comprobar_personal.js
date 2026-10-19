@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     /*
                      * Mensaje de confirmación.
                      */
-                    await Swal.fire({
+                    await NotificacionesCASRCE.mostrar({
 
                         title: "Éxito",
 
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 else {
 
-                    await Swal.fire({
+                    await NotificacionesCASRCE.mostrar({
 
                         title: resultado.title,
 
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // MENSAJE DEL SERVIDOR
                 // =================================================
 
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
 
                     title: resultado.title,
 

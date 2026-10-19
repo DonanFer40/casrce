@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
 
             if (resultado.estado !== "exito") {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -46,27 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const fila = document.createElement("tr");
                 fila.innerHTML = `
-                    <td>
-                        ${registro.id_evaluacion}
-                    </td>
-                    <td>
-                        ${registro.pnf}
-                    </td>
-                    <td>
-                        ${registro.materia}
-                    </td>
-                    <td>
-                        ${registro.fecha_creacion}
-                    </td>
-                    <td>
-                        ${evaluacion_1}
-                    </td>
-                    <td>
-                        ${evaluacion_2}
-                    </td>
-                    <td>
-                        ${evaluacion_3}
-                    </td>
+                    <td>${registro.id_evaluacion}</td>
+                    <td>${registro.pnf}</td>
+                    <td>${registro.materia}</td>
+                    <td>${registro.fecha_creacion}</td>
+                    <td>${evaluacion_1}</td>
+                    <td>${evaluacion_2}</td>
+                    <td>${evaluacion_3}</td>
                 `;
 
                 contenedor_evaluaciones.appendChild(fila);

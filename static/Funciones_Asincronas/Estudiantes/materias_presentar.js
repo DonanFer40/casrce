@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_trayecto_academico.innerHTML = "<option value='' selected>Selecciona la trayecto academico</option>";
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado === "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,

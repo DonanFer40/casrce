@@ -16,7 +16,6 @@ def pl_reg_coord_pnf(request):
     id_pnf = request.POST.get("pnf_asignado", "").strip()
     perfil = request.POST.get("perfil", "").strip()
     cedula = request.session.get("cedula_usuario")
-    print(perfil)
 
     if not cedula or not perfil:
         return JsonResponse({
@@ -122,7 +121,7 @@ def pl_reg_coord_pnf(request):
             "id_planificacion"
         )
     )
-
+    
     datos = []
 
     for plan in planes:
@@ -307,10 +306,7 @@ def datos_pl_reg_coord_pnf(request):
         })
 
 def vis_pl_env(request):
-    return render(
-        request,
-        'Roles/Control_Estudio/planificacion_academica/visualizar_planes_actividades.html'
-    )
+    return render(request, 'Roles/Coordinador_PNF/planificacion_academica/visualizar_planes_actividades.html')
 
 def camb_est_pl(request):
     if request.method == "POST":

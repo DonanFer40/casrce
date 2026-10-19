@@ -1,0 +1,145 @@
+
+{% extends 'Estructura/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section id="cambiar-contrasenia-carsce">
+    <div class="cambiar-contrasenia-carsce-tarjeta">
+
+        <!-- Imagen principal -->
+        <div class="cambiar-contrasenia-carsce-imagen">
+            <img
+                src="{% static 'Imagenes/nueva_contrasenia.png' %}"
+                alt="Ilustración de cambio de contraseña"
+            >
+        </div>
+
+        <!-- Cabecera -->
+        <span class="cambiar-contrasenia-carsce-etiqueta">
+            <i class="fa-solid fa-shield-halved"></i>
+            SEGURIDAD DE ACCESO
+        </span>
+
+        <h1 class="cambiar-contrasenia-carsce-titulo">
+            Cambiar contraseña
+        </h1>
+
+        <p class="cambiar-contrasenia-carsce-descripcion">
+            Establece una nueva contraseña para proteger el acceso
+            a tu cuenta institucional.
+        </p>
+
+        <!-- Formulario -->
+        <form
+            method="post"
+            id="cambiar-contrasenia-carsce-formulario"
+            class="cambiar-contrasenia-carsce-formulario"
+        >
+            {% csrf_token %}
+
+            <!-- Nueva contraseña -->
+            <div class="cambiar-contrasenia-carsce-grupo">
+
+                <label
+                    for="cambiar-contrasenia-carsce-nueva"
+                    class="cambiar-contrasenia-carsce-label"
+                >
+                    Nueva contraseña
+                </label>
+
+                <div class="cambiar-contrasenia-carsce-campo">
+                    <i class="fa-solid fa-lock cambiar-contrasenia-carsce-icono-campo"></i>
+
+                    <input
+                        type="password"
+                        name="nueva_contrasenia"
+                        id="password"
+                        class="cambiar-contrasenia-carsce-input"
+                        placeholder="Introduce tu nueva contraseña"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <input type="checkbox" id="oculta_aparecer">
+
+                    <label class="fa-solid fa-eye-slash AccesoInstitucionalCASRCE-ojo-off"
+                        for="oculta_aparecer"
+                        aria-label="Mostrar contraseña">
+                    </label>
+
+                    <label class="fa-solid fa-eye AccesoInstitucionalCASRCE-ojo-on"
+                        for="oculta_aparecer"
+                        aria-label="Ocultar contraseña">
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- Confirmar contraseña -->
+            <div class="cambiar-contrasenia-carsce-grupo">
+
+                <label
+                    for="cambiar-contrasenia-carsce-confirmar"
+                    class="cambiar-contrasenia-carsce-label"
+                >
+                    Confirmar contraseña
+                </label>
+
+                <div class="cambiar-contrasenia-carsce-campo">
+                    <i class="fa-solid fa-lock cambiar-contrasenia-carsce-icono-campo"></i>
+
+                    <input
+                        type="password"
+                        name="confirmar_contrasenia"
+                        id="confirm-password"
+                        class="cambiar-contrasenia-carsce-input"
+                        placeholder="Repite tu nueva contraseña"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <input type="checkbox" id="oculta_aparecer-confirm">
+
+                    <label class="fa-solid fa-eye-slash AccesoInstitucionalCASRCE-ojo-off-confirm"
+                        for="oculta_aparecer-confirm"
+                        aria-label="Mostrar contraseña">
+                    </label>
+
+                    <label class="fa-solid fa-eye AccesoInstitucionalCASRCE-ojo-on-confirm"
+                        for="oculta_aparecer-confirm"
+                        aria-label="Ocultar contraseña">
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- Botón para cambiar la contraseña -->
+            <div class="cambiar-contrasenia-carsce-accion">
+                <button
+                    type="submit"
+                    class="cambiar-contrasenia-carsce-boton"
+                >
+                    <span>Cambiar contraseña</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+        </form>
+
+        <!-- Aviso de seguridad -->
+        <div class="cambiar-contrasenia-carsce-aviso">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>
+                Utiliza una contraseña segura y evita compartirla
+                con otras personas.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<script src="{% static 'Funcionalidades/contrasenia.js' %}"></script>
+<script src="{% static 'Funciones_Asincronas/Credenciales/actualizar_password.js' %}"></script>
+
+{% endblock %}

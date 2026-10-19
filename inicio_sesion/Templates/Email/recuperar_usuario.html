@@ -1,0 +1,101 @@
+
+{% extends 'Email/Base.html' %}
+
+{% block content %}
+
+
+<!-- =========================================================
+     CONTENEDOR DE RECUPERACIÓN DE USUARIO
+     ========================================================= -->
+
+<section id="recuperar_usuario_email">
+
+    <div class="contenedor_recuperar_usuario_email">
+
+
+        <!-- =================================================
+             CABECERA DEL MENSAJE
+             ================================================= -->
+
+        <div class="recuperar_usuario_email-cabecera">
+
+            <h2>
+                Recuperación de usuario
+            </h2>
+
+        </div>
+
+
+        <!-- =================================================
+             INTRODUCCIÓN
+             ================================================= -->
+
+        <div class="recuperar_usuario_email-introduccion">
+
+            <p>
+                Estimado(a)
+                <strong>{{ nombres }} {{ apellidos }}</strong>,
+                hemos recibido una solicitud para recuperar el
+                nombre de usuario asociado a su cuenta.
+            </p>
+
+            <p>
+                A continuación encontrará el nombre de usuario
+                registrado en la Plataforma Digital para la
+                Gestión de CASRCE.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             NOMBRE DE USUARIO
+             ================================================= -->
+
+        <div class="recuperar_usuario_email-contenedor-usuario">
+
+            <p class="recuperar_usuario_email-etiqueta-usuario">
+                Nombre de usuario
+            </p>
+
+            <div id="nombre_usuario_email">
+                {{ nombre_usuario }}
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             INSTRUCCIONES DE ACCESO
+             ================================================= -->
+
+        <div class="recuperar_usuario_email-instrucciones">
+
+            <p>
+                Utilice este nombre de usuario para iniciar sesión
+                en la plataforma.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             AVISO DE SEGURIDAD
+             ================================================= -->
+
+        <div class="recuperar_usuario_email-aviso">
+
+            <p>
+                <strong>Importante:</strong>
+                no comparta sus credenciales con otras personas.
+                Si usted no realizó esta solicitud, puede ignorar
+                este correo de forma segura.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -744,23 +744,35 @@
     box-shadow: 0 0 0 3px rgba(37,99,235,.08);
 }
 
+/* =========================================================
+   CONTRASEÑA - REGISTRO ESTUDIANTIL CASRCE
+   ========================================================= */
+
 
 /* =========================================================
-   CONTRASEÑA
+   CONTENEDOR DEL CAMPO
    ========================================================= */
 
 #RegistroEstudiantilCASRCE
-.RegistroEstudiantilCASRCE-password{
+.RegistroEstudiantilCASRCE-password {
 
     position: relative;
 
     width: 100%;
 }
 
+
+/* =========================================================
+   INPUT DE CONTRASEÑA
+   ========================================================= */
+
 #RegistroEstudiantilCASRCE
 .RegistroEstudiantilCASRCE-password > input[type="password"],
+
 #RegistroEstudiantilCASRCE
-.RegistroEstudiantilCASRCE-password > input[type="text"]{
+.RegistroEstudiantilCASRCE-password > input[type="text"] {
+
+    display: block;
 
     width: 100%;
     height: 42px;
@@ -786,40 +798,62 @@
         background .2s ease;
 }
 
+
+/* =========================================================
+   ENFOQUE DEL INPUT
+   ========================================================= */
+
 #RegistroEstudiantilCASRCE
 .RegistroEstudiantilCASRCE-password > input[type="password"]:focus,
+
 #RegistroEstudiantilCASRCE
-.RegistroEstudiantilCASRCE-password > input[type="text"]:focus{
+.RegistroEstudiantilCASRCE-password > input[type="text"]:focus {
 
     background: var(--color-blanco);
+
     border-color: var(--color-azul-hover);
 
-    box-shadow: 0 0 0 3px rgba(37,99,235,.08);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .08);
 }
 
 
-/* Checkbox oculto */
+/* =========================================================
+   CHECKBOX DE VISIBILIDAD
+   ========================================================= */
 
 #RegistroEstudiantilCASRCE
 .RegistroEstudiantilCASRCE-password
-input[type="checkbox"]{
+> input[type="checkbox"] {
 
     position: absolute;
 
     width: 1px;
     height: 1px;
 
+    margin: 0;
+    padding: 0;
+
     opacity: 0;
-    pointer-events: none;
+
+    overflow: hidden;
+
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
 }
 
 
-/* Iconos */
+/* =========================================================
+   ICONOS: OJO TACHADO Y OJO NORMAL
+   Clases exactas del HTML
+   ========================================================= */
 
 #RegistroEstudiantilCASRCE
-.RegistroEstudiantilCASRCE-ojo-off,
+.RegistroEstudiantilCASRCE-password
+> label.AccesoInstitucionalCASRCE-ojo-off,
+
 #RegistroEstudiantilCASRCE
-.RegistroEstudiantilCASRCE-ojo-on{
+.RegistroEstudiantilCASRCE-password
+> label.AccesoInstitucionalCASRCE-ojo-on {
 
     position: absolute;
 
@@ -829,7 +863,6 @@ input[type="checkbox"]{
     width: 18px;
     height: 18px;
 
-    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -838,20 +871,99 @@ input[type="checkbox"]{
     color: var(--texto-secundario);
 
     font-size: 14px;
+    line-height: 1;
 
     cursor: pointer;
+    user-select: none;
 
     transition: color .2s ease;
 }
 
+
+/* =========================================================
+   CONTRASEÑA OCULTA: MOSTRAR OJO TACHADO
+   ========================================================= */
+
 #RegistroEstudiantilCASRCE
-.RegistroEstudiantilCASRCE-ojo-off:hover,
+.RegistroEstudiantilCASRCE-password
+> input[type="checkbox"] ~ label.AccesoInstitucionalCASRCE-ojo-off {
+
+    display: flex;
+}
+
+
+/* =========================================================
+   CONTRASEÑA OCULTA: OCULTAR OJO NORMAL
+   ========================================================= */
+
 #RegistroEstudiantilCASRCE
-.RegistroEstudiantilCASRCE-ojo-on:hover{
+.RegistroEstudiantilCASRCE-password
+> input[type="checkbox"] ~ label.AccesoInstitucionalCASRCE-ojo-on {
+
+    display: none;
+}
+
+
+/* =========================================================
+   CHECKBOX ACTIVADO: OCULTAR OJO TACHADO
+   ========================================================= */
+
+#RegistroEstudiantilCASRCE
+.RegistroEstudiantilCASRCE-password
+> input[type="checkbox"]:checked ~ label.AccesoInstitucionalCASRCE-ojo-off {
+
+    display: none;
+}
+
+
+/* =========================================================
+   CHECKBOX ACTIVADO: MOSTRAR OJO NORMAL
+   ========================================================= */
+
+#RegistroEstudiantilCASRCE
+.RegistroEstudiantilCASRCE-password
+> input[type="checkbox"]:checked ~ label.AccesoInstitucionalCASRCE-ojo-on {
+
+    display: flex;
+}
+
+
+/* =========================================================
+   EFECTO HOVER DE LOS ICONOS
+   ========================================================= */
+
+#RegistroEstudiantilCASRCE
+.RegistroEstudiantilCASRCE-password
+> label.AccesoInstitucionalCASRCE-ojo-off:hover,
+
+#RegistroEstudiantilCASRCE
+.RegistroEstudiantilCASRCE-password
+> label.AccesoInstitucionalCASRCE-ojo-on:hover {
 
     color: var(--color-azul-hover);
 }
 
+
+/* =========================================================
+   INDICADOR DE FOCO ACCESIBLE
+   ========================================================= */
+
+#RegistroEstudiantilCASRCE
+.RegistroEstudiantilCASRCE-password
+> input[type="checkbox"]:focus-visible
+~ label.AccesoInstitucionalCASRCE-ojo-off,
+
+#RegistroEstudiantilCASRCE
+.RegistroEstudiantilCASRCE-password
+> input[type="checkbox"]:focus-visible
+~ label.AccesoInstitucionalCASRCE-ojo-on {
+
+    outline: 2px solid var(--color-azul-hover);
+
+    outline-offset: 4px;
+
+    border-radius: 3px;
+}
 
 /* =========================================================
    MENSAJES DE VALIDACIÓN

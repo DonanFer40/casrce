@@ -462,6 +462,10 @@ class VerificacionCodigo(models.Model):
     codigo = models.CharField(max_length=10)
     creado = models.DateTimeField()
     intentos = models.PositiveIntegerField(default=0)
+
+    # Nuevo contador independiente
+    numero_reenvios = models.PositiveIntegerField(default=0)
+
     bloqueado_hasta = models.DateTimeField(null=True, blank=True)
     activo = models.IntegerField()
     descripcion = models.CharField(max_length=100)

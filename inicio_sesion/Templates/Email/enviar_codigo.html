@@ -1,0 +1,96 @@
+{% extends 'Email/Base.html' %}
+
+{% block content %}
+
+
+<!-- =========================================================
+     CONTENEDOR DEL ENVÍO DE CÓDIGO
+     ========================================================= -->
+
+<section id="enviar_codigo_email">
+
+    <div class="contenedor_enviar_codigo">
+
+
+        <!-- =================================================
+             CABECERA DEL MENSAJE
+             ================================================= -->
+
+        <div class="enviar_codigo_email-cabecera">
+
+            <h2>
+                Código de autenticación
+            </h2>
+
+        </div>
+
+
+        <!-- =================================================
+             INTRODUCCIÓN
+             ================================================= -->
+
+        <div class="enviar_codigo_email-introduccion">
+
+            <p>
+                Estimado(a) usuario(a), hemos recibido una solicitud
+                para recuperar las credenciales de acceso a su cuenta.
+            </p>
+
+            <p>
+                A continuación encontrará el código de autenticación
+                necesario para continuar con el proceso de verificación.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             CÓDIGO DE AUTENTICACIÓN
+             ================================================= -->
+
+        <div class="enviar_codigo_email-contenedor-codigo">
+
+            <p class="enviar_codigo_email-etiqueta-codigo">
+                Código de autenticación
+            </p>
+
+            <div id="codigo_autenticacion">
+                {{ codigo }}
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             VIGENCIA DEL CÓDIGO
+             ================================================= -->
+
+        <div class="enviar_codigo_email-vigencia">
+
+            <p>
+                Este código es válido por
+                <strong>15 minutos</strong>.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             AVISO DE SEGURIDAD
+             ================================================= -->
+
+        <div class="enviar_codigo_email-aviso">
+
+            <p>
+                No comparta este código con ninguna persona.
+                Si usted no realizó esta solicitud, puede ignorar
+                este correo de forma segura.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

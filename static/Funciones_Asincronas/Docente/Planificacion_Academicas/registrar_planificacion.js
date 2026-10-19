@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const select_nucleo_asignado = document.getElementById("nucleo_asignado");
     const select_pnfs_asignado = document.getElementById("pnfs_asignado");
 
+    const select_trayectos_academicos = document.getElementById("trayectos_academicos");
     const select_asignacion_materia = document.getElementById("asignacion_materia");
     const input_periodo_academico = document.getElementById("periodo_academico");
     const select_seleccion_docente = document.getElementById("seleccion_docente");
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const estado_unidades = document.getElementById("estado_unidades");
 
-    let materia = "", nucleo = "", pnf = "", periodo = "", docente = "";
+    let materia = "", nucleo = "", pnf = "", periodo = "", docente = "", trayecto = "";
     let fecha_inicio_periodo = "";
     let fecha_final_periodo = "";
     let evaluaciones_registradas = [];
@@ -83,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 input_perfil_asignado.style.display = "";
                 select_perfiles_asignados.style.display = "none";
+                contenedor_seleccion_docente.style.display = "none";
 
                 await nucleos_asignados(perfil_seleccionado);
             }
@@ -95,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 input_perfil_asignado.style.display = "";
                 select_perfiles_asignados.style.display = "none";
+                contenedor_seleccion_docente.style.display = "";
 
                 await nucleos_asignados(perfil_seleccionado);
             }
@@ -118,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
     perfiles_asignados();
 
     select_perfiles_asignados.addEventListener("change", async () => {
-
         perfil_seleccionado = select_perfiles_asignados.value;
 
         if (!perfil_seleccionado) {
@@ -127,25 +129,52 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (perfil_seleccionado === "CONTROL_ESTUDIO") {
-
-            contenedor_seleccion_docente.style.display = "";
+            contenedor_seleccion_docente.style.display = "display";
 
         } else {
-
             contenedor_seleccion_docente.style.display = "none";
 
-            select_seleccion_docente.innerHTML =
-                "<option value='' selected>Selecciona un Docente</option>";
+            select_seleccion_docente.innerHTML = "<option value='' selected>Selecciona un Docente</option>";
         }
 
         await nucleos_asignados(perfil_seleccionado);
     });
 
     function limpiar_nucleos() {
-
         select_nucleo_asignado.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
-
         select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona el núcleo primero</option>";
+    }
+
+    function limpiar_pnf() {
+        pnf = "";
+        select_pnfs_asignado.innerHTML =
+            "<option value='' selected>Selecciona un P.N.F</option>";
+    }
+
+    function limpiar_docente() {
+        docente = "";
+        select_seleccion_docente.innerHTML =
+            "<option value='' selected>Selecciona un Docente</option>";
+    }
+
+    function limpiar_trayecto() {
+        trayecto = "";
+        select_trayectos_academicos.innerHTML =
+            "<option value='' selected>Selecciona el Trayecto Académico</option>";
+    }
+
+    function limpiar_materia() {
+        materia = "";
+        periodo = "";
+
+        select_asignacion_materia.innerHTML =
+            "<option value='' selected>Selecciona la materia</option>";
+
+        input_periodo_academico.value = "";
+
+        delete input_periodo_academico.dataset.id_periodo_academico;
+        delete input_periodo_academico.dataset.fecha_inicio;
+        delete input_periodo_academico.dataset.fecha_final;
     }
 
     async function nucleos_asignados(perfil) {
@@ -167,6 +196,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             select_nucleo_asignado.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
 
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
+
             resultado.datos.forEach(nucleo => {
                 const option_nucleo = document.createElement("option");
                 option_nucleo.value = nucleo.id_nucleo;
@@ -178,12 +218,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    select_nucleo_asignado.addEventListener("change", async (e) => {
+    select_nucleo_asignado.addEventListener("change", async () => {
         nucleo = select_nucleo_asignado.value;
 
-        await pnfs_asignados();
+        limpiar_pnf();
+        limpiar_docente();
+        limpiar_trayecto();
+        limpiar_materia();
 
-        await materias_asignadas();
+        if (!nucleo) {
+            return;
+        }
+
+        await pnfs_asignados();
     });
 
     async function pnfs_asignados() {
@@ -205,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -227,23 +274,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     select_pnfs_asignado.addEventListener("change", async () => {
-
         pnf = select_pnfs_asignado.value;
+
+        limpiar_docente();
+        limpiar_trayecto();
+        limpiar_materia();
 
         if (!pnf || !nucleo) {
             return;
         }
 
         if (perfil_seleccionado === "CONTROL_ESTUDIO") {
-
-            // Primero debe seleccionar el docente
             await docente_seleccionado();
-
-        } else if (perfil_seleccionado === "DOCENTE") {
-
-            // El docente ya es el usuario de la sesión
-            await materias_asignadas();
+            return;
         }
+
+        await trayectos_materias();
     });
 
     async function docente_seleccionado() {
@@ -268,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_seleccion_docente.innerHTML = "<option value='' selected>Selecciona un Docente</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -293,16 +339,23 @@ document.addEventListener("DOMContentLoaded", () => {
     select_seleccion_docente.addEventListener("change", async () => {
         docente = select_seleccion_docente.value;
 
-        await materias_asignadas();
+        limpiar_trayecto();
+        limpiar_materia();
+
+        if (!docente || !nucleo || !pnf) {
+            return;
+        }
+
+        await trayectos_materias();
     });
 
-    async function materias_asignadas() {
+    async function trayectos_materias() {
         try {
             if (!nucleo || !pnf) return;
 
             const formulario = new FormData();
-            formulario.append("id_nucleo", nucleo);
-            formulario.append("id_pnf", pnf);
+            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("pnf_seleccionado", pnf);
             formulario.append("perfil", perfil_seleccionado);
 
             if (perfil_seleccionado === "CONTROL_ESTUDIO") {
@@ -311,26 +364,89 @@ document.addEventListener("DOMContentLoaded", () => {
                 formulario.append("docente", docente);
             }
 
-            const respuesta = await fetch(
-                "/notas_academicas/mat_asig_doc/",
-                {
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": obtener_csrf_token()
-                    },
-                    body: formulario
-                }
-            );
-
+            const respuesta = await fetch("/notas_academicas/tray_mat_planif/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": obtener_csrf_token()
+                },
+                body: formulario
+            });
             const resultado = await respuesta.json();
-
             console.log(resultado);
 
-            select_asignacion_materia.innerHTML =
-                "<option value='' selected>Selecciona la materia</option>";
+            select_trayectos_academicos.innerHTML = "<option value='' selected>Selecciona el Trayecto Académico</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
+
+            resultado.datos.forEach(trayecto => {
+                const option_trayecto = document.createElement("option");
+                option_trayecto.value = trayecto.id_trayecto;
+                option_trayecto.textContent = trayecto.nombre;
+                select_trayectos_academicos.append(option_trayecto);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    select_trayectos_academicos.addEventListener("change", async () => {
+        trayecto = select_trayectos_academicos.value;
+
+        limpiar_materia();
+
+        if (!trayecto || !nucleo || !pnf) {
+            return;
+        }
+
+        await materias_asignadas();
+    });
+
+    async function materias_asignadas() {
+        try {
+            if (!nucleo || !pnf || !trayecto) {
+                limpiar_materia();
+                return;
+            }
+
+            const formulario = new FormData();
+
+            formulario.append("id_nucleo", nucleo);
+            formulario.append("id_pnf", pnf);
+            formulario.append("id_trayecto", trayecto);
+            formulario.append("perfil", perfil_seleccionado);
+
+            if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+                if (!docente) {
+                    limpiar_materia();
+                    return;
+                }
+
+                formulario.append("docente", docente);
+            }
+
+            const respuesta = await fetch("/notas_academicas/mat_asig_doc/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": obtener_csrf_token()
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            limpiar_materia();
+
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -342,44 +458,20 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             resultado.datos.forEach(materia => {
-                const option_materia =
-                    document.createElement("option");
-
-                option_materia.value =
-                    materia.id_materia_asignada;
-
-                option_materia.textContent =
-                    materia.nombre;
-
-                select_asignacion_materia.append(
-                    option_materia
-                );
+                const option_materia = document.createElement("option");
+                option_materia.value = materia.id_materia_asignada;
+                option_materia.textContent = materia.nombre;
+                select_asignacion_materia.append(option_materia);
             });
 
-            if (
-                resultado.periodos_academicos &&
-                resultado.periodos_academicos.length > 0
-            ) {
-                const periodo =
-                    resultado.periodos_academicos[0];
+            if (resultado.periodos_academicos &&
+                resultado.periodos_academicos.length > 0) {
 
-                input_periodo_academico.value =
-                    periodo.nombre;
-
-                input_periodo_academico.dataset.id_periodo_academico =
-                    periodo.id_periodo;
-
-                input_periodo_academico.dataset.fecha_inicio =
-                    periodo.fecha_inicio;
-
-                input_periodo_academico.dataset.fecha_final =
-                    periodo.fecha_final;
-            } else {
-                input_periodo_academico.value = "";
-
-                delete input_periodo_academico.dataset.id_periodo_academico;
-                delete input_periodo_academico.dataset.fecha_inicio;
-                delete input_periodo_academico.dataset.fecha_final;
+                const periodo = resultado.periodos_academicos[0];
+                input_periodo_academico.value = periodo.nombre;
+                input_periodo_academico.dataset.id_periodo_academico = periodo.id_periodo;
+                input_periodo_academico.dataset.fecha_inicio = periodo.fecha_inicio;
+                input_periodo_academico.dataset.fecha_final = periodo.fecha_final;
             }
 
         } catch (error) {
@@ -390,7 +482,11 @@ document.addEventListener("DOMContentLoaded", () => {
     select_asignacion_materia.addEventListener("change", async () => {
         materia = select_asignacion_materia.value;
 
-        periodo = input_periodo_academico.dataset.id_periodo_academico;
+        periodo = input_periodo_academico.dataset.id_periodo_academico || "";
+
+        if (!materia || !trayecto || !pnf || !nucleo) {
+            return;
+        }
 
         await fecha_periodo_seleccionado();
 
@@ -399,8 +495,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function fecha_periodo_seleccionado() {
         try {
+            if (!periodo || !materia || !trayecto) return;
+
             const formulario = new FormData();
             formulario.append("id_periodo", periodo);
+            formulario.append("id_materia", materia);
+            formulario.append("id_trayecto", trayecto);
 
             const respuesta = await fetch("/notas_academicas/fech_cal_mat/", {
                 method: "POST",
@@ -409,14 +509,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
             if (resultado.estado === "exito") {
                 fecha_inicio_periodo = resultado.fecha_inicio;
                 fecha_final_periodo = resultado.fecha_final;
 
-                document.querySelectorAll('input[type="date"][name^="fecha_evaluacion_"]')
+                document
+                    .querySelectorAll('input[type="date"][name^="fecha_evaluacion_"]')
                     .forEach(input => {
                         input.min = fecha_inicio_periodo;
                         input.max = fecha_final_periodo;
@@ -435,7 +538,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function obtener_ultima_fecha_evaluacion() {
-
         if (!evaluaciones_registradas.length) {
             return fecha_inicio_periodo;
         }
@@ -556,7 +658,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     contenedor_evaluacion.addEventListener("change", (e) => {
-
         if (!e.target.classList.contains("fecha_evaluacion")) {
             return;
         }
@@ -647,31 +748,31 @@ document.addEventListener("DOMContentLoaded", () => {
             const cantidad = Number(resultado.cantidad || 0);
 
             estado_unidades.innerHTML = `
-            <strong>Unidades registradas:</strong> ${cantidad} de 6
-            <span class="separador">|</span>
-            <strong>Mínimo:</strong> 4
-            <span class="separador">|</span>
-            <strong>Máximo:</strong> 6
-        `;
+                <strong>Unidades registradas:</strong> ${cantidad} de 6
+                <span class="separador">|</span>
+                <strong>Mínimo:</strong> 4
+                <span class="separador">|</span>
+                <strong>Máximo:</strong> 6
+            `;
 
             if (cantidad < 4) {
                 estado_unidades.className = "estado_unidades estado_advertencia";
 
                 estado_unidades.innerHTML += `
-                <p>El plan aún no cumple con el mínimo de <strong>4 unidades</strong>.</p>
-            `;
+                    <p>El plan aún no cumple con el mínimo de <strong>4 unidades</strong>.</p>
+                `;
             } else if (cantidad <= 6) {
                 estado_unidades.className = "estado_unidades estado_correcto";
 
                 estado_unidades.innerHTML += `
-                <p>El plan cumple con la cantidad de unidades requerida.</p>
-            `;
+                    <p>El plan cumple con la cantidad de unidades requerida.</p>
+                `;
             } else {
                 estado_unidades.className = "estado_unidades estado_error";
 
                 estado_unidades.innerHTML += `
-                <p>El plan supera el máximo permitido de <strong>6 unidades</strong>.</p>
-            `;
+                    <p>El plan supera el máximo permitido de <strong>6 unidades</strong>.</p>
+                `;
             }
 
             mostrar_controles_evaluacion();
@@ -697,7 +798,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,
@@ -710,6 +811,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 contenedor_evaluacion.innerHTML = "";
                 estado_unidades.innerHTML = "";
             }
+
+            await perfiles_asignados();
         } catch (error) {
             console.error(error);
         }

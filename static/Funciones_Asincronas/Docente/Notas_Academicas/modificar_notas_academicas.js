@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_nucleo_asignado.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
 
             if (resultado.estado != "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_seleccion_docente.innerHTML = "<option value='' selected>Debe seleccionar el docente</option>";
 
             if (resultado.estado != "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -297,9 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (perfil_seleccionado === "CONTROL_ESTUDIO") {
                 formulario.append("docente", docente);
             }
-
             formulario.append("perfil", perfil_seleccionado);
-            console.log(perfil_seleccionado);
 
             const respuesta = await fetch("/notas_academicas/tray_mod_not/", {
                 method: "POST",
@@ -314,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_trayecto_academico.innerHTML = "<option value='' selected>Selecciona el Trayecto Académico</option>";
 
             if (resultado.estado != "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -349,7 +347,9 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario.append("id_nucleo", nucleo);
             formulario.append("id_pnf", pnf);
             formulario.append("trayecto", trayecto);
-            formulario.append("docente", docente);
+            if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+                formulario.append("docente", docente);
+            }
             formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/notas_academicas/mod_mat_not/", {
@@ -365,7 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_materia_asignada.innerHTML = "<option value='' selected>Selecciona la materia</option>";
 
             if (resultado.estado != "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -402,7 +402,9 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario.append("id_materia_asignada", materia);
             formulario.append("id_nucleo", nucleo);
             formulario.append("trayecto", trayecto);
-            formulario.append("docente", docente);
+            if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+                formulario.append("docente", docente);
+            }
             formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/notas_academicas/mod_per_not/", {
@@ -416,7 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -444,7 +446,9 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario.append("id_materia_asignada", materia);
             formulario.append("id_periodo_materia", input_periodo_academico.dataset.idPeriodo);
             formulario.append("trayecto", trayecto);
-            formulario.append("docente", docente);
+            if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+                formulario.append("docente", docente);
+            }
             formulario.append("perfil", perfil_seleccionado);
 
             const [respuestaEstudiantes, respuestaActividades] = await Promise.all([
@@ -670,7 +674,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,

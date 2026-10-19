@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from inicio_sesion.models import MateriaAsignada, PeriodoAcademico, TrayectoAcademico, Docente, Usuario, PeriodoAcademicoMateria, Estudiante, Materia, DocenteAsignadoMateria, Pnf, Nucleos
 
@@ -27,7 +28,7 @@ class DetallePlanificacion(models.Model):
     ponderacion = models.DecimalField(max_digits=5, decimal_places=2)
     contenido_unidad = models.TextField()
 
-    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT,  related_name="detalles_planificacion_registrados", blank=True, null=True)
+    registrado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="detalles_planificacion_registrados", blank=True, null=True)
     fecha_registro = models.DateTimeField(blank=True, null=True)
 
     modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="detalles_planificacion_modificados", blank=True, null=True)
@@ -52,6 +53,8 @@ class PromedioFinal(models.Model):
     estado = models.CharField(max_length=100)
     fecha_promedio = models.DateField()
     motivo = models.TextField(blank=True, null=True)
+    congelada = models.BooleanField(default=False)
+    fecha_congelacion = models.DateTimeField(blank=True, null=True)
 
 # Reparación
 
@@ -96,7 +99,7 @@ class Reparacion(models.Model):
         default="PENDIENTE",
         blank=True, null=True
     )
-    
+
 class ModificacionReparacion(models.Model):
     id_modificacion = models.AutoField(primary_key=True)
     evaluacion_reparacion = models.ForeignKey(EvaluacionReparacion, on_delete=models.PROTECT, related_name="modificaciones")
@@ -118,7 +121,7 @@ class DetalleModificacionReparacion(models.Model):
     def __str__(self):
         return f"{self.reparacion.estudiante} - modificación"
 
-# CALIFICACIONES 
+# Calificaciones 
 
 class Calificaciones(models.Model):
     id_calificaciones = models.AutoField(primary_key=True)
@@ -147,9 +150,6 @@ class Calificaciones(models.Model):
     modificado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT, related_name="calificaciones_modificadas", blank=True, null=True)
     fecha_modificacion = models.DateTimeField(blank=True, null=True)
     perfil_modificacion = models.CharField(max_length=50, blank=True, null=True)
-
-    congelada = models.BooleanField(default=False)
-    fecha_congelacion = models.DateTimeField(blank=True, null=True)
 
 class DetalleCalificacionesUnidad(models.Model):
     id_detalle_calificaciones_unidad = models.AutoField(primary_key=True)
@@ -185,15 +185,6 @@ class HistorialModificacionNotas(models.Model):
     fecha_modificacion = models.DateTimeField(blank=True, null=True)
     motivo = models.TextField(blank=True, null=True)
     
-    tipo_modificacion = models.CharField(
-        max_length=20,
-        choices=[
-            ("MODIFICACION", "Modificación"),
-            ("REVERSION", "Reversión"),
-        ],
-        default="MODIFICACION"
-    )
-
     def __str__(self):
         return f"Modificación {self.id_historial}"
 
@@ -209,6 +200,7 @@ class HistorialDetalleNota(models.Model):
     asistencia_nueva = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     promedio_anterior = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     promedio_nuevo = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    revertido = models.BooleanField(default=False)
 
 # Promedio Final y Actualización de Trayecto
 
@@ -232,4 +224,3 @@ class HistorialTrayectoEstudiante(models.Model):
             f"{self.anio} - "
             f"{self.trayecto_anterior}"
         )
-

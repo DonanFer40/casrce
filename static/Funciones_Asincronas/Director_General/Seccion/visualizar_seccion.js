@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             filas = "";
             await secciones_registradas();
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 allowOutsideClick: false,

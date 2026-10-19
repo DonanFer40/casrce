@@ -4,12 +4,289 @@
 
 {% load static %}
 
+<style>
+    /* ========================================
+   MÓDULO REGISTRAR REPARACIÓN
+======================================== */
+
+    #modulo_registrar_reparacion {
+        width: 100%;
+        padding: 30px 20px;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #243247;
+    }
+
+    #modulo_registrar_reparacion * {
+        box-sizing: border-box;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+
+    .contenedor_registrar_reparacion {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border: 1px solid #e1e8ef;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(16, 47, 78, 0.08);
+    }
+
+    /* TÍTULO */
+
+    .contenedor_registrar_reparacion h2 {
+        margin: 0 0 28px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #e7edf3;
+        color: #102f4e;
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    .contenedor_registrar_reparacion h2::after {
+        content: "";
+        display: block;
+        width: 65px;
+        height: 4px;
+        margin-top: 12px;
+        border-radius: 4px;
+        background-color: #00779e;
+    }
+
+    /* FORMULARIO */
+
+    #formulario_registrar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px 25px;
+        width: 100%;
+    }
+
+    /* CAMPOS */
+
+    #formulario_registrar .grupo_campo {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        gap: 9px;
+    }
+
+    #formulario_registrar>label {
+        display: none;
+    }
+
+    #formulario_registrar .grupo_campo label {
+        display: block;
+        margin: 0;
+        color: #344256;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* SELECT E INPUT */
+
+    #formulario_registrar .grupo_campo select,
+    #formulario_registrar .grupo_campo input[type="text"] {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 13px;
+        border: 1px solid #cbd5e1;
+        border-radius: 7px;
+        outline: none;
+        background-color: #ffffff;
+        color: #243247;
+        font-family: inherit;
+        font-size: 14px;
+        transition: border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+    }
+
+    /* FLECHA DE LOS SELECT */
+
+    #formulario_registrar .grupo_campo select {
+        cursor: pointer;
+    }
+
+    /* EFECTO DE ENFOQUE */
+
+    #formulario_registrar .grupo_campo select:focus,
+    #formulario_registrar .grupo_campo input[type="text"]:focus {
+        border-color: #00779e;
+        box-shadow: 0 0 0 3px rgba(0, 119, 158, 0.12);
+    }
+
+    /* CAMPOS DESHABILITADOS */
+
+    #formulario_registrar .grupo_campo select:disabled,
+    #formulario_registrar .grupo_campo input:disabled {
+        background-color: #f1f5f9;
+        color: #8492a6;
+        cursor: not-allowed;
+    }
+
+    /* TRAYECTO ACADÉMICO */
+
+    #trayecto_academico {
+        background-color: #f1f7fb !important;
+        border-color: #d5e5ef !important;
+        color: #102f4e !important;
+        font-weight: 600;
+        cursor: default;
+    }
+
+    #trayecto_academico::placeholder {
+        color: #8492a6;
+        font-weight: 400;
+    }
+
+    /* CONTENEDOR DEL DOCENTE */
+
+    #contenedor_seleccion_docente {
+        width: 100%;
+    }
+
+    #contenedor_seleccion_docente label {
+        margin-bottom: 9px !important;
+    }
+
+    /* BOTÓN REGISTRAR */
+
+    .contenedor_boton_notas {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 5px;
+        padding-top: 20px;
+        border-top: 1px solid #e7edf3;
+    }
+
+    .contenedor_boton_notas input[type="submit"] {
+        min-width: 155px;
+        min-height: 44px;
+        padding: 11px 25px;
+        border: none;
+        border-radius: 7px;
+        background-color: #102f4e;
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .contenedor_boton_notas input[type="submit"]:hover {
+        background-color: #00779e;
+        box-shadow: 0 4px 12px rgba(0, 119, 158, 0.2);
+    }
+
+    .contenedor_boton_notas input[type="submit"]:active {
+        transform: scale(0.98);
+    }
+
+    .contenedor_boton_notas input[type="submit"]:focus-visible {
+        outline: 3px solid rgba(0, 119, 158, 0.3);
+        outline-offset: 3px;
+    }
+
+    /* TABLA Y EVALUACIONES */
+
+    #contenedor_evaluaciones {
+        grid-column: 1 / -1;
+        width: 100%;
+        min-width: 0;
+        margin-top: 5px;
+    }
+
+    /* ========================================
+   DISEÑO RESPONSIVO
+======================================== */
+
+    /* TABLET */
+
+    @media (max-width: 768px) {
+        #modulo_registrar_reparacion {
+            padding: 20px 12px;
+        }
+
+        .contenedor_registrar_reparacion {
+            padding: 22px;
+        }
+
+        .contenedor_registrar_reparacion h2 {
+            font-size: 22px;
+        }
+
+        #formulario_registrar {
+            grid-template-columns: 1fr;
+            gap: 19px;
+        }
+
+        .contenedor_boton_notas,
+        #contenedor_evaluaciones {
+            grid-column: 1;
+        }
+
+        .contenedor_boton_notas input[type="submit"] {
+            width: 100%;
+        }
+    }
+
+    /* TELÉFONOS */
+
+    @media (max-width: 480px) {
+        #modulo_registrar_reparacion {
+            padding: 12px 8px;
+        }
+
+        .contenedor_registrar_reparacion {
+            padding: 18px 14px;
+            border-radius: 9px;
+        }
+
+        .contenedor_registrar_reparacion h2 {
+            margin-bottom: 22px;
+            font-size: 20px;
+        }
+
+        #formulario_registrar {
+            gap: 17px;
+        }
+
+        #formulario_registrar .grupo_campo label {
+            font-size: 13px;
+        }
+
+        #formulario_registrar .grupo_campo select,
+        #formulario_registrar .grupo_campo input[type="text"] {
+            min-height: 42px;
+            padding: 9px 10px;
+            font-size: 13px;
+        }
+
+        .contenedor_boton_notas {
+            padding-top: 16px;
+        }
+    }
+</style>
+
 <section id="modulo_registrar_reparacion">
     <div class="contenedor_registrar_reparacion">
         <h2>Registrar Reparación</h2>
 
         <form method="post" id="formulario_registrar">
             {% csrf_token %}
+            <label for="perfiles_asignados">Perfil Asignado:</label>
+            <select name="perfiles_asignados" id="perfiles_asignados" style="display: none;"></select>
+
+            <input type="text" name="perfiles_asignados" id="perfil_asignado" readonly style="display: none;">
 
             <div class="grupo_campo">
                 <label for="nucleo_asignado">Núcleo Asignado:</label>
@@ -19,6 +296,15 @@
             <div class="grupo_campo">
                 <label for="pnf_asignado">P.N.F Asignado:</label>
                 <select name="pnf_asignado" id="pnf_asignado"></select>
+            </div>
+
+            <div class="grupo_campo">
+                <div id="contenedor_seleccion_docente" style="display: none;">
+                    <label for="seleccion_docente">Docente:</label>
+                    <select name="seleccion_docente" id="seleccion_docente">
+                        <option value="" selected>Selecciona un Docente</option>
+                    </select>
+                </div>
             </div>
 
             <div class="grupo_campo">
@@ -41,6 +327,6 @@
     </div>
 </section>
 
-<script src="{% static 'Funciones_Asincronas/Docente/registrar_reparacion.js' %}"></script>
+<script src="{% static 'Funciones_Asincronas/Docente/Reparacion/registrar_reparacion.js' %}"></script>
 
 {% endblock %}

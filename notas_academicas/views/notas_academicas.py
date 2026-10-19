@@ -5,12 +5,15 @@ from django.utils import timezone
 from django.db.models import F, Exists, OuterRef, Q, Prefetch, Count 
 from datetime import datetime
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+from django.db.models import OuterRef
+import re
 
 from inicio_sesion.models import Usuario, CoordinadorPNF, ControlEstudio, TrayectoAcademico, MateriaAsignada, CalendarioPeriodo, PeriodoAcademicoMateria, Usuario, Pnf, PNFNucleo, Estudiante, EstatusEstudiante, CalendarioAcademico, Nucleos, PeriodoAcademico, Materia, Docente, DocenteAsignadoMateria
 
 from notas_academicas.models import PlanificacionAcademica, Reparacion, DetallePlanificacion, HistorialTrayectoEstudiante, HistorialDetalleNota, HistorialModificacionNotas, DetalleEvaluacion, PromedioFinal, Calificaciones, DetalleCalificacionesUnidad
 
 # Registrar Notas Académicas
+
 def nucl_reg_not(request):
     cedula = request.session.get("cedula_usuario")
     perfil = request.POST.get("perfil")
@@ -377,6 +380,14 @@ def tray_mat_asig(request):
             "descripcion": "El perfil indicado no permite consultar trayectos."
         })
 
+    if not nucleo or not pnf:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Datos incompletos",
+            "icon": "warning",
+            "descripcion": "Debe indicar el núcleo y el PNF."
+        })
+
     if perfil == "DOCENTE":
 
         try:
@@ -400,16 +411,7 @@ def tray_mat_asig(request):
         id_docentes = [docente.id_docente]
 
     else:
-        if not nucleo or not pnf:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Datos incompletos",
-                "icon": "warning",
-                "descripcion": (
-                    "Debe indicar el núcleo y el PNF."
-                )
 
-            })
         try:
             ControlEstudio.objects.get(
                 usuario__cedula_identidad=cedula,
@@ -424,6 +426,14 @@ def tray_mat_asig(request):
                     "El usuario no tiene un perfil activo de "
                     "Control de Estudio."
                 )
+            })
+
+        if not cedula_docente:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Docente",
+                "icon": "warning",
+                "descripcion": "Debe indicar el docente."
             })
 
         id_docentes = list(
@@ -449,130 +459,17 @@ def tray_mat_asig(request):
                 )
             })
 
-    # VALIDAR CALENDARIO ACADÉMICO
-    fecha_actual = timezone.localdate()
-    año_actual = fecha_actual.year
-
-    calendarios_carga = (
-        CalendarioPeriodo.objects
-        .select_related(
-            "periodo",
-            "calendario"
-        )
-        .filter(
-            calendario__tipo="CARGA_NOTAS",
-            calendario__activo=True,
-            calendario__fecha_inicio__year=año_actual
-        )
-        .order_by(
-            "calendario__fecha_inicio"
-        )
-    )
-
-    if not calendarios_carga.exists():
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Calendario académico",
-            "icon": "warning",
-            "descripcion": (
-                "No existe un calendario académico de carga "
-                f"de notas registrado para el año {año_actual}."
-            )
-        })
-
-    calendarios_periodos = (
-        calendarios_carga
-        .filter(
-            calendario__fecha_inicio__lte=fecha_actual,
-            calendario__fecha_final__gte=fecha_actual
-        )
-    )
-
-    if not calendarios_periodos.exists():
-        calendario_proximo = (
-            calendarios_carga
-            .filter(
-                calendario__fecha_inicio__gt=fecha_actual
-            )
-            .order_by(
-                "calendario__fecha_inicio"
-            )
-            .first()
-        )
-
-        if calendario_proximo:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Carga de notas no habilitada",
-                "icon": "warning",
-                "descripcion": (
-                    "Actualmente no existe un período académico "
-                    "habilitado para la carga de notas. "
-                    "El próximo período disponible corresponde a "
-                    f"{calendario_proximo.periodo.nombre} y "
-                    f"inicia el "
-                    f"{calendario_proximo.calendario.fecha_inicio.strftime('%d/%m/%Y')}."
-                )
-            })
-
-        calendario_anterior = (
-            calendarios_carga
-            .filter(
-                calendario__fecha_final__lt=fecha_actual
-            )
-            .order_by(
-                "-calendario__fecha_final"
-            )
-            .first()
-        )
-
-        if calendario_anterior:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Plazo de carga vencido",
-                "icon": "warning",
-                "descripcion": (
-                    "El plazo de carga de notas del período "
-                    f"{calendario_anterior.periodo.nombre} "
-                    f"finalizó el "
-                    f"{calendario_anterior.calendario.fecha_final.strftime('%d/%m/%Y')}. "
-                    "Actualmente no existe otro período académico "
-                    "habilitado para la carga de notas."
-                )
-            })
-
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Carga de notas no habilitada",
-            "icon": "warning",
-            "descripcion": (
-                "Actualmente no existe un período académico "
-                "habilitado para la carga de notas."
-            )
-        })
-
-    periodos_actuales = calendarios_periodos.values_list(
-        "periodo_id",
-        flat=True
-    )
-
     trayectos = (
         TrayectoAcademico.objects
         .filter(
-            materia__asignaciones__docentes__docente_id__in=id_docentes,
-            materia__asignaciones__activo=True,
-            materia__asignaciones__docentes__activo=True,
-            materia__activa=True,
-            materia__id_pnf_id=pnf,
-
-            materia__periodos_academicos__periodo_id__in=(
-                periodos_actuales
-            )
+            materias__asignaciones__docentes__docente_id__in=id_docentes,
+            materias__asignaciones__activo=True,
+            materias__asignaciones__docentes__activo=True,
+            materias__activa=True,
+            materias__id_pnf_id=pnf
         )
         .distinct()
-        .order_by(
-            "id_periodo_academico"
-        )
+        .order_by("id_periodo_academico")
     )
 
     datos = [
@@ -582,6 +479,17 @@ def tray_mat_asig(request):
         }
         for trayecto in trayectos
     ]
+
+    if not datos:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Sin trayectos",
+            "icon": "info",
+            "descripcion": (
+                "El docente no tiene materias asignadas "
+                "en ningún trayecto del PNF seleccionado."
+            )
+        })
 
     return JsonResponse({
         "estado": "exito",
@@ -1145,81 +1053,219 @@ def cant_det_pla(request):
         "estado": "exito",
         "cantidad_actividades": cantidad_unidades
     })
-    
+
 def est_not_acad(request):
     if request.method != "POST":
         return JsonResponse({
             "estado": "fallo",
-            "title": "Error",
+            "title": "Método no permitido",
             "icon": "error",
-            "descripcion": "Método de solicitud no permitido."
+            "descripcion": "La solicitud debe realizarse mediante POST."
         })
 
-    nucleo = request.POST.get("id_nucleo")
-    pnf = request.POST.get("id_pnf")
-    trayecto = request.POST.get("trayecto")
-    perfil = request.POST.get("perfil")
     cedula = request.session.get("cedula_usuario")
+    id_nucleo = request.POST.get("id_nucleo")
+    id_pnf = request.POST.get("id_pnf")
+    id_trayecto = request.POST.get("trayecto")
+    id_materia_asignada = request.POST.get("id_materia_asignada")
+    id_periodo = request.POST.get("id_periodo")
+    perfil = request.POST.get("perfil")
 
     if not cedula:
         return JsonResponse({
             "estado": "fallo",
-            "title": "Sesión",
+            "title": "Sesión no válida",
             "icon": "warning",
-            "descripcion": "No se pudo identificar al usuario de la sesión."
+            "descripcion": "No se encontró un usuario autenticado."
         })
 
-    if perfil not in ["CONTROL_ESTUDIO", "DOCENTE"]:
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Perfil",
-            "icon": "warning",
-            "descripcion": "El perfil indicado no permite realizar esta consulta."
-        })
-
-    if not all([nucleo, pnf, trayecto]):
+    if not id_nucleo or not id_pnf or not id_trayecto or not id_materia_asignada:
         return JsonResponse({
             "estado": "fallo",
             "title": "Datos incompletos",
             "icon": "warning",
-            "descripcion": "Faltan datos para realizar la consulta."
+            "descripcion": "Debe indicar núcleo, PNF, trayecto y materia."
+        })
+
+    if perfil not in ("DOCENTE", "CONTROL_ESTUDIO", "COORDINADOR_PNF"):
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Perfil no válido",
+            "icon": "error",
+            "descripcion": "El perfil seleccionado no es válido."
         })
 
     try:
+        nucleo = Nucleos.objects.get(id_nucleo=id_nucleo)
+        pnf = Pnf.objects.get(id_pnf=id_pnf)
         trayecto_obj = TrayectoAcademico.objects.get(
-            id_periodo_academico=trayecto
+            id_periodo_academico=id_trayecto
         )
+        materia_asignada = (
+            MateriaAsignada.objects
+            .select_related("materia", "materia__id_pnf", "materia__id_trayecto")
+            .get(
+                id_materia_asignada=id_materia_asignada,
+                activo=True
+            )
+        )
+
+    except Nucleos.DoesNotExist:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Núcleo no encontrado",
+            "icon": "error",
+            "descripcion": "El núcleo seleccionado no existe."
+        })
+
+    except Pnf.DoesNotExist:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "PNF no encontrado",
+            "icon": "error",
+            "descripcion": "El PNF seleccionado no existe."
+        })
+
     except TrayectoAcademico.DoesNotExist:
         return JsonResponse({
             "estado": "fallo",
-            "title": "Trayecto",
-            "icon": "warning",
-            "descripcion": "El trayecto académico no existe."
+            "title": "Trayecto no encontrado",
+            "icon": "error",
+            "descripcion": "El trayecto académico seleccionado no existe."
         })
 
-    if perfil == "CONTROL_ESTUDIO":
-        try:
-            ControlEstudio.objects.get(
-                usuario__cedula_identidad=cedula,
-                activo=True
-            )
-        except ControlEstudio.DoesNotExist:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Control de Estudio",
-                "icon": "error",
-                "descripcion": (
-                    "El usuario no tiene un perfil activo de "
-                    "Control de Estudio."
-                )
-            })
+    except MateriaAsignada.DoesNotExist:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Materia no encontrada",
+            "icon": "error",
+            "descripcion": "La materia asignada seleccionada no existe o está inactiva."
+        })
 
-    estudiantes = (
+    if materia_asignada.materia.id_pnf_id != pnf.id_pnf:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Materia no válida",
+            "icon": "warning",
+            "descripcion": "La materia seleccionada no pertenece al PNF indicado."
+        })
+
+    calendario_periodo = None
+
+    if id_periodo:
+        calendario_periodo = (
+            CalendarioPeriodo.objects
+            .filter(
+                periodo_id=id_periodo,
+                calendario__tipo="PERIODO",
+                calendario__activo=True
+            )
+            .select_related("calendario", "periodo")
+            .order_by("-calendario__fecha_inicio")
+            .first()
+        )
+
+    if not calendario_periodo:
+        calendario_periodo = (
+            CalendarioPeriodo.objects
+            .filter(
+                calendario__tipo="PERIODO",
+                calendario__activo=True
+            )
+            .select_related("calendario", "periodo")
+            .order_by("-calendario__fecha_inicio")
+            .first()
+        )
+
+    if not calendario_periodo:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Calendario no encontrado",
+            "icon": "warning",
+            "descripcion": "No se encontró el calendario académico correspondiente al período seleccionado."
+        })
+
+    if not materia_asignada.materia.id_trayecto_id:
+        return JsonResponse({
+            "estado": "fallo",
+            "title": "Trayecto no definido",
+            "icon": "warning",
+            "descripcion": "La materia seleccionada no tiene un trayecto académico definido."
+        })
+
+    estudiantes_actuales = (
         Estudiante.objects
         .filter(
-            nucleo_id=nucleo,
-            pnf_id=pnf,
+            nucleo=nucleo,
+            pnf=pnf,
             estatus__trayecto=trayecto_obj,
+            estatus__estatus="Inscrito(a)",
+            estatus__estado="Activo"
+        )
+        .select_related("usuario")
+        .distinct()
+        .order_by("usuario__apellidos", "usuario__nombres")
+    )
+
+    anio_actual = calendario_periodo.calendario.fecha_inicio.year
+    anio_anterior = anio_actual - 1
+    trayecto_materia_id = materia_asignada.materia.id_trayecto_id
+
+    promedios_anteriores = (
+        PromedioFinal.objects
+        .filter(
+            materia_asignacion__materia_id=materia_asignada.materia_id,
+            materia_asignacion__materia__id_trayecto_id=(
+                materia_asignada.materia.id_trayecto_id
+            ),
+            fecha_promedio__year=anio_anterior,
+            estado__istartswith="REPROBADO",
+            estudiante__nucleo=nucleo,
+            estudiante__pnf=pnf,
+            estudiante__estatus__estatus="Inscrito(a)",
+            estudiante__estatus__estado="Activo"
+        )
+        .select_related(
+            "estudiante",
+            "estudiante__usuario",
+            "materia_asignacion",
+            "trayecto"
+        )
+        .order_by(
+            "estudiante__usuario_id",
+            "-fecha_promedio",
+            "-id_promedio_final"
+        )
+    )
+
+    estudiantes_por_usuario = {}
+    usuarios_agregados = set()
+
+    for estudiante in estudiantes_actuales:
+        if not estudiante.usuario_id or not estudiante.usuario:
+            continue
+
+        usuario_id = estudiante.usuario_id
+
+        if usuario_id in usuarios_agregados:
+            continue
+
+        usuarios_agregados.add(usuario_id)
+        estudiantes_por_usuario[usuario_id] = {
+            "id_estudiante": estudiante.id_estudiante,
+            "cedula": estudiante.usuario.cedula_identidad,
+            "nombre": (
+                f"{estudiante.usuario.nombres} "
+                f"{estudiante.usuario.apellidos}"
+            ),
+            "tipo": "REGULAR"
+        }
+
+    estudiantes_activos = (
+        Estudiante.objects
+        .filter(
+            nucleo=nucleo,
+            pnf=pnf,
             estatus__estatus="Inscrito(a)",
             estatus__estado="Activo"
         )
@@ -1227,24 +1273,93 @@ def est_not_acad(request):
         .distinct()
     )
 
-    datos = [
-        {
+    estudiantes_activos_por_usuario = {
+        estudiante.usuario_id: estudiante
+        for estudiante in estudiantes_activos
+        if estudiante.usuario_id and estudiante.usuario
+    }
+
+    for promedio in promedios_anteriores:
+        estudiante = estudiantes_activos_por_usuario.get(
+            promedio.estudiante.usuario_id
+        )
+
+        if not estudiante:
+            continue
+
+        # VALIDAR QUE EL ESTUDIANTE CURSE UN TRAYECTO SUPERIOR
+        trayecto_actual = (
+            Estudiante.objects
+            .filter(
+                id_estudiante=estudiante.id_estudiante,
+                nucleo=nucleo,
+                pnf=pnf,
+                estatus__estatus="Inscrito(a)",
+                estatus__estado="Activo"
+            )
+            .values_list(
+                "estatus__trayecto_id",
+                flat=True
+            )
+            .first()
+        )
+
+        if (
+            trayecto_actual is None
+            or trayecto_actual <= trayecto_materia_id
+        ):
+            continue
+
+        usuario_id = estudiante.usuario_id
+
+        if usuario_id in estudiantes_por_usuario:
+            estudiantes_por_usuario[usuario_id].update({
+                "tipo": "ARRASTRE",
+                "promedio_final": str(promedio.promedio_final),
+                "asistencia": (
+                    str(promedio.asistencia)
+                    if promedio.asistencia is not None
+                    else None
+                ),
+                "estado": promedio.estado
+            })
+            continue
+
+        if usuario_id in usuarios_agregados:
+            continue
+
+        usuarios_agregados.add(usuario_id)
+
+        estudiantes_por_usuario[usuario_id] = {
             "id_estudiante": estudiante.id_estudiante,
-            "nombre_completo": (
-                estudiante.usuario.nombres
-                + " "
-                + estudiante.usuario.apellidos
+            "cedula": estudiante.usuario.cedula_identidad,
+            "nombre": (
+                f"{estudiante.usuario.nombres} "
+                f"{estudiante.usuario.apellidos}"
             ),
-            "cedula": estudiante.usuario.cedula_identidad
+            "tipo": "ARRASTRE",
+            "promedio_final": str(promedio.promedio_final),
+            "asistencia": (
+                str(promedio.asistencia)
+                if promedio.asistencia is not None
+                else None
+            ),
+            "estado": promedio.estado
         }
-        for estudiante in estudiantes
-    ]
+
+    datos = sorted(
+        estudiantes_por_usuario.values(),
+        key=lambda estudiante: (
+            estudiante["nombre"].casefold(),
+            estudiante["cedula"]
+        )
+    )
 
     return JsonResponse({
         "estado": "exito",
         "estudiantes": datos
     })
-    
+
 def reg_nota_acad(request):
     if request.method == "POST":
         nucleo_asignado = request.POST.get("nucleo_asignado")
@@ -1523,6 +1638,8 @@ def reg_nota_acad(request):
         # CALENDARIO DE CARGA DE NOTAS
         hoy = timezone.localdate()
         año_actual = hoy.year
+        año_anterior = año_actual - 1
+        trayecto_materia_id = materia_asignada_obj.materia.id_trayecto_id
 
         calendario_habilitado = (
             CalendarioPeriodo.objects
@@ -1910,6 +2027,63 @@ def reg_nota_acad(request):
                             pnf_id=pnf_asignado
                         )
                     )
+                                        
+                    # VALIDAR INSCRIPCIÓN ACTUAL O MATERIA ARRASTRADA
+                    estatus_actual = (
+                        Estudiante.objects
+                        .filter(
+                            id_estudiante=estudiante.id_estudiante,
+                            nucleo_id=nucleo_asignado,
+                            pnf_id=pnf_asignado,
+                            estatus__estatus="Inscrito(a)",
+                            estatus__estado="Activo"
+                        )
+                        .values_list(
+                            "estatus__trayecto_id",
+                            flat=True
+                        )
+                        .first()
+                    )
+
+                    inscrito_trayecto = (
+                        estatus_actual == trayecto_obj.id_periodo_academico
+                    )
+
+                    arrastre_valido = False
+
+                    # Un arrastre solo procede desde un trayecto inferior
+                    if (
+                        estatus_actual is not None
+                        and estatus_actual > trayecto_materia_id
+                    ):
+                        arrastre_valido = PromedioFinal.objects.filter(
+                            estudiante=estudiante,
+                            materia_asignacion__materia_id=(
+                                materia_asignada_obj.materia_id
+                            ),
+                            materia_asignacion__materia__id_trayecto_id=(
+                                trayecto_materia_id
+                            ),
+                            trayecto_id=trayecto_materia_id,
+                            fecha_promedio__year=año_anterior,
+                            estado__istartswith="REPROBADO"
+                        ).exists()
+
+                    if not inscrito_trayecto and not arrastre_valido:
+                        return JsonResponse({
+                            "estado": "fallo",
+                            "icon": "error",
+                            "title": "Estudiante no autorizado",
+                            "descripcion": (
+                                f"El estudiante {estudiante.usuario.nombres} "
+                                f"{estudiante.usuario.apellidos} no está inscrito "
+                                "en el trayecto seleccionado ni cumple las "
+                                "condiciones para registrar una materia "
+                                "arrastrada de un trayecto anterior."
+                            )
+                        })
+
+
 
                     # VALIDAR SI YA EXISTE
                     ya_registrada = (
@@ -1979,9 +2153,6 @@ def reg_nota_acad(request):
 
                     else:
                         condicion = "REPROBADO"
-
-                    print(usuario_registro)
-                    print(perfil)
 
                     # CALIFICACIÓN
                     calificacion = (
@@ -3136,293 +3307,6 @@ def fech_reg_not(request):
         )
     })
 
-def vis_cant_planif(request):
-    if request.method != "POST":
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Error",
-            "icon": "error",
-            "descripcion": "Método de solicitud no permitido."
-        })
-
-    nucleo = request.POST.get("id_nucleo")
-    pnf = request.POST.get("id_pnf")
-    materia_asignada = request.POST.get("id_materia_asignada")
-    periodo_materia = request.POST.get("id_periodo_materia")
-    trayecto = request.POST.get("trayecto")
-    docente = request.POST.get("docente")
-    perfil = request.POST.get("perfil")
-    cedula = request.session.get("cedula_usuario")
-    fecha_calificacion = request.POST.get("fecha_calificacion")
-
-    if not cedula:
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Sesión",
-            "icon": "warning",
-            "descripcion": "No se pudo identificar al usuario de la sesión."
-        })
-
-    if perfil not in ["CONTROL_ESTUDIO", "DOCENTE"]:
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Perfil",
-            "icon": "warning",
-            "descripcion": (
-                "El perfil indicado no permite realizar esta consulta."
-            )
-        })
-
-    if not all([
-        nucleo,
-        pnf,
-        materia_asignada,
-        periodo_materia,
-        trayecto,
-        fecha_calificacion
-    ]):
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Datos incompletos",
-            "icon": "warning",
-            "descripcion": "Faltan datos para realizar la consulta."
-        })
-
-    # AÑO EN CURSO
-    anio_actual = timezone.localdate().year
-
-    # VALIDAR FECHA
-    try:
-        fecha_calificacion = datetime.strptime(
-            fecha_calificacion,
-            "%Y-%m-%d"
-        ).date()
-
-    except (ValueError, TypeError):
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Fecha",
-            "icon": "warning",
-            "descripcion": "La fecha de calificación no es válida."
-        })
-
-    # ==========================================================
-    # VALIDAR PERFIL DOCENTE
-    # ==========================================================
-
-    if perfil == "DOCENTE":
-
-        try:
-            docente_obj = (
-                Docente.objects
-                .get(
-                    usuario__cedula_identidad=cedula,
-                    nucleo_id=nucleo,
-                    pnf_id=pnf,
-                    activo=True
-                )
-            )
-
-        except Docente.DoesNotExist:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Docente",
-                "icon": "warning",
-                "descripcion": (
-                    "No se encontró un registro activo de docente "
-                    "para el núcleo y PNF seleccionados."
-                )
-            })
-
-    # ==========================================================
-    # VALIDAR PERFIL CONTROL DE ESTUDIO
-    # ==========================================================
-
-    elif perfil == "CONTROL_ESTUDIO":
-
-        if not docente:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Docente",
-                "icon": "warning",
-                "descripcion": "Debe seleccionar un docente."
-            })
-
-        try:
-            ControlEstudio.objects.get(
-                usuario__cedula_identidad=cedula,
-                nucleo_id=nucleo,
-                activo=True
-            )
-
-        except ControlEstudio.DoesNotExist:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Control de Estudio",
-                "icon": "error",
-                "descripcion": (
-                    "El usuario no tiene un perfil activo de "
-                    "Control de Estudio."
-                )
-            })
-
-        try:
-            docente_obj = (
-                Docente.objects
-                .get(
-                    usuario__cedula_identidad=docente,
-                    nucleo_id=nucleo,
-                    pnf_id=pnf,
-                    activo=True
-                )
-            )
-
-        except Docente.DoesNotExist:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Docente",
-                "icon": "warning",
-                "descripcion": (
-                    "El docente seleccionado no está asignado "
-                    "al núcleo y PNF seleccionados."
-                )
-            })
-
-    # ==========================================================
-    # VALIDAR MATERIA ASIGNADA
-    # ==========================================================
-
-    try:
-        materia_asignada_obj = (
-            MateriaAsignada.objects
-            .select_related("materia")
-            .get(
-                id_materia_asignada=materia_asignada,
-                activo=True,
-                materia__id_pnf_id=pnf
-            )
-        )
-
-    except MateriaAsignada.DoesNotExist:
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Materia",
-            "icon": "error",
-            "descripcion": (
-                "La materia asignada no es válida, "
-                "se encuentra inactiva o no pertenece "
-                "al PNF seleccionado."
-            )
-        })
-
-    # ==========================================================
-    # VALIDAR PERÍODO ACADÉMICO
-    # ==========================================================
-
-    try:
-        periodo_materia_obj = (
-            PeriodoAcademicoMateria.objects
-            .select_related("periodo")
-            .get(
-                periodo_id=periodo_materia,
-                materia=materia_asignada_obj.materia
-            )
-        )
-
-    except PeriodoAcademicoMateria.DoesNotExist:
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Período académico",
-            "icon": "error",
-            "descripcion": (
-                "La materia seleccionada no está asociada "
-                "al período académico seleccionado."
-            )
-        })
-
-    # ==========================================================
-    # BUSCAR PLANIFICACIÓN DEL AÑO EN CURSO
-    # ==========================================================
-
-    planificacion = (
-        PlanificacionAcademica.objects
-        .filter(
-            pnf_id=pnf,
-            nucleo_id=nucleo,
-            materia_asignacion=materia_asignada_obj,
-            periodo_academico=periodo_materia_obj.periodo,
-            fecha_creacion__year=anio_actual,
-            activo=True,
-            estado_aceptacion="ACEPTADA"
-        )
-        .order_by("-id_planificacion")
-        .first()
-    )
-
-    if not planificacion:
-        return JsonResponse({
-            "estado": "exito",
-            "cantidad_actividades": 0
-        })
-
-    # ==========================================================
-    # CALIFICACIONES DEL AÑO EN CURSO
-    # ==========================================================
-
-    calificaciones = (
-        Calificaciones.objects
-        .filter(
-            planificacion_academica=planificacion,
-            periodo_materia=periodo_materia_obj,
-            materia_asignada=materia_asignada_obj,
-            trayecto_id=trayecto,
-            estudiante__nucleo_id=nucleo,
-            estudiante__pnf_id=pnf,
-            estudiante__anio=anio_actual,
-            detalles_unidad__registrado_por=docente_obj.usuario
-        )
-        .distinct()
-    )
-
-    # ==========================================================
-    # CALIFICACIONES CON DETALLE EN LA FECHA SOLICITADA
-    # ==========================================================
-
-    calificaciones_fecha = (
-        calificaciones
-        .filter(
-            detalles_unidad__fecha_calificacion=fecha_calificacion
-        )
-        .distinct()
-    )
-
-    if not calificaciones_fecha.exists():
-        return JsonResponse({
-            "estado": "exito",
-            "cantidad_actividades": 0
-        })
-
-    # ==========================================================
-    # CONTAR UNIDADES REGISTRADAS EN ESA FECHA
-    # ==========================================================
-
-    cantidad_unidades = (
-        DetalleCalificacionesUnidad.objects
-        .filter(
-            calificacion__in=calificaciones_fecha,
-            fecha_calificacion=fecha_calificacion,
-            registrado_por=docente_obj
-        )
-        .values("unidad_id")
-        .distinct()
-        .count()
-    )
-
-    return JsonResponse({
-        "estado": "exito",
-        "cantidad_actividades": cantidad_unidades
-    })
-
 def calf_reg_not(request):
     if request.method == "POST":
         cedula = request.session.get("cedula_usuario")
@@ -3435,17 +3319,8 @@ def calf_reg_not(request):
         trayecto = request.POST.get("trayecto")
         cedula_docente = request.POST.get("docente")
         perfil = request.POST.get("perfil")
-       
 
-        if not all([
-            cedula,
-            nucleo,
-            pnf,
-            materia_asignada,
-            id_periodo_materia,
-            trayecto,
-            perfil
-        ]):
+        if not all([cedula, nucleo, pnf, materia_asignada, id_periodo_materia, fecha_calificacion, trayecto, perfil]):
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "warning",
@@ -3454,6 +3329,27 @@ def calf_reg_not(request):
                     "Faltan datos para realizar la consulta."
                 )
             })
+
+        # VALIDAR FECHA
+        try:
+            fecha_calificacion = datetime.strptime(
+                fecha_calificacion,
+                "%Y-%m-%d"
+            ).date()
+
+        except (TypeError, ValueError):
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Fecha inválida",
+                "descripcion": (
+                    "La fecha de calificación no tiene "
+                    "un formato válido."
+                )
+            })
+
+        # OBTENER AÑO DESDE LA FECHA COMPLETA
+        anio_calificacion = fecha_calificacion.year
 
         # VALIDACIÓN DEL PERFIL
         if perfil == "DOCENTE":
@@ -3546,6 +3442,7 @@ def calf_reg_not(request):
 
         # VALIDAR MATERIA ASIGNADA
         try:
+
             materia_asignacion = (
                 MateriaAsignada.objects
                 .select_related(
@@ -3574,30 +3471,23 @@ def calf_reg_not(request):
                 )
             })
 
-        periodo_academico = PeriodoAcademico.objects.get(id_periodo_academico=id_periodo_materia)
-
-        # VALIDAR PERIODO ACADÉMICO
+        # VALIDAR PERÍODO ACADÉMICO
         try:
-            periodo_materia = (
-                PeriodoAcademicoMateria.objects
-                .select_related(
-                    "periodo",
-                    "materia"
-                )
+            periodo_academico = (
+                PeriodoAcademico.objects
                 .get(
-                    periodo=periodo_academico,
-                    materia=materia_asignacion.materia
+                    id_periodo_academico=id_periodo_materia
                 )
             )
 
-        except PeriodoAcademicoMateria.DoesNotExist:
+        except PeriodoAcademico.DoesNotExist:
+
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
                 "title": "Periodo académico",
                 "descripcion": (
-                    "La materia seleccionada no está asociada "
-                    "al período académico seleccionado."
+                    "El período académico seleccionado no existe."
                 )
             })
 
@@ -3616,17 +3506,23 @@ def calf_reg_not(request):
                 "trayecto"
             )
             .prefetch_related(
-                "detalles_unidad",
-                "detalles_unidad__unidad"
+                Prefetch(
+                    "detalles_unidad",
+                    queryset=(
+                        DetalleCalificacionesUnidad.objects
+                        .select_related("unidad")
+                        .order_by("unidad__id_detalle")
+                    )
+                )
             )
             .filter(
-                periodo_materia=periodo_materia,
                 materia_asignada=materia_asignacion,
 
                 estudiante__nucleo_id=nucleo,
                 estudiante__pnf_id=pnf,
 
-                trayecto__id_periodo_academico=trayecto,
+                # LA FECHA ESTÁ EN CALIFICACIONES
+                fecha_promedio=fecha_calificacion,
 
                 materia_asignada__docentes__docente=docente,
                 materia_asignada__docentes__activo=True
@@ -3637,20 +3533,15 @@ def calf_reg_not(request):
             )
             .distinct()
         )
-
-        # FILTRAR POR FECHA
-        if fecha_calificacion:
-            calificaciones = calificaciones.filter(
-                detalles_unidad__fecha_calificacion=fecha_calificacion
-            ).distinct()
-
-        # CONSTRUIR RESPUESTA
+        
         datos = []
         for calificacion in calificaciones:
+
             estudiante = calificacion.estudiante
             usuario = estudiante.usuario
-        
+
             unidades = []
+
             for detalle in calificacion.detalles_unidad.all():
 
                 unidades.append({
@@ -3663,23 +3554,6 @@ def calf_reg_not(request):
                     ),
                     "nota_unidad": str(
                         detalle.nota_unidad
-                    ),
-                    "fecha_calificacion": (
-                        detalle.fecha_calificacion.strftime(
-                            "%Y-%m-%d"
-                        )
-                        if detalle.fecha_calificacion
-                        else None
-                    ),
-
-                    "congelada": detalle.congelada,
-
-                    "fecha_congelacion": (
-                        detalle.fecha_congelacion.strftime(
-                            "%Y-%m-%d %H:%M:%S"
-                        )
-                        if detalle.fecha_congelacion
-                        else None
                     )
                 })
 
@@ -3712,45 +3586,38 @@ def calf_reg_not(request):
                     if calificacion.trayecto
                     else None
                 ),
-                "congelada": (
-                    calificacion.congelada
-                ),
-                "fecha_congelacion": (
-                    calificacion.fecha_congelacion.strftime(
-                        "%Y-%m-%d %H:%M:%S"
+                "fecha_promedio": (
+                    calificacion.fecha_promedio.strftime(
+                        "%Y-%m-%d"
                     )
-                    if calificacion.fecha_congelacion
+                    if calificacion.fecha_promedio
                     else None
                 ),
                 "unidades": unidades
             })
 
+        # SIN RESULTADOS
         if not datos:
+
             return JsonResponse({
                 "estado": "vacio",
                 "icon": "info",
                 "title": "Sin calificaciones",
                 "descripcion": (
                     "No existen calificaciones registradas "
-                    "para la materia, período académico, "
-                    "trayecto y docente seleccionados."
+                    f"para el año {anio_calificacion}, "
+                    "fecha de calificación, materia, "
+                    "período académico, trayecto y docente "
+                    "seleccionados."
                 ),
                 "calificaciones": []
             })
 
+        # RESULTADO
         return JsonResponse({
             "estado": "exito",
             "calificaciones": datos
         })
-
-    return JsonResponse({
-        "estado": "fallo",
-        "icon": "error",
-        "title": "Solicitud no válida",
-        "descripcion": (
-            "La solicitud debe realizarse mediante POST."
-        )
-    })
 
 # Modificar Notas Académicas
 
@@ -4312,17 +4179,17 @@ def tray_mod_not(request):
     trayectos = (
         TrayectoAcademico.objects
         .filter(
-            materia__id_pnf_id=pnf,
-            materia__activa=True,
+            materias__id_pnf_id=pnf,
+            materias__activa=True,
 
-            materia__asignaciones__activo=True,
+            materias__asignaciones__activo=True,
 
-            materia__asignaciones__docentes__docente_id__in=id_docentes,
-            materia__asignaciones__docentes__activo=True,
+            materias__asignaciones__docentes__docente_id__in=id_docentes,
+            materias__asignaciones__docentes__activo=True,
 
-            materia__periodos_academicos__periodo_id__in=periodos_actuales,
+            materias__periodos_academicos__periodo_id__in=periodos_actuales,
 
-            materia__asignaciones__calificaciones_materia__isnull=False
+            materias__asignaciones__calificaciones_materia__isnull=False
         )
         .distinct()
         .order_by(
@@ -5081,10 +4948,7 @@ def mod_calf_not(request):
             )
         })
 
-    # ==========================================================
     # VALIDAR PERFIL
-    # ==========================================================
-
     if perfil == "DOCENTE":
 
         docente_obj = (
@@ -5112,7 +4976,6 @@ def mod_calf_not(request):
         cedula_docente = cedula
 
     elif perfil == "CONTROL_ESTUDIO":
-
         if not cedula_docente:
             return JsonResponse({
                 "estado": "fallo",
@@ -5168,7 +5031,6 @@ def mod_calf_not(request):
             })
 
     else:
-
         return JsonResponse({
             "estado": "fallo",
             "icon": "error",
@@ -5178,12 +5040,8 @@ def mod_calf_not(request):
             )
         })
 
-    # ==========================================================
     # MATERIA ASIGNADA
-    # ==========================================================
-
     try:
-
         materia_asignada_obj = (
             MateriaAsignada.objects
             .select_related(
@@ -5201,7 +5059,6 @@ def mod_calf_not(request):
         )
 
     except MateriaAsignada.DoesNotExist:
-
         return JsonResponse({
             "estado": "fallo",
             "icon": "error",
@@ -5213,12 +5070,8 @@ def mod_calf_not(request):
             )
         })
 
-    # ==========================================================
     # PERÍODO ACADÉMICO DE LA MATERIA
-    # ==========================================================
-
     try:
-
         periodo_materia = (
             PeriodoAcademicoMateria.objects
             .select_related(
@@ -5232,7 +5085,6 @@ def mod_calf_not(request):
         )
 
     except PeriodoAcademicoMateria.DoesNotExist:
-
         return JsonResponse({
             "estado": "fallo",
             "icon": "error",
@@ -5243,16 +5095,10 @@ def mod_calf_not(request):
             )
         })
 
-    # ==========================================================
     # AÑO ACADÉMICO ACTUAL
-    # ==========================================================
-
     ano_actual = timezone.localdate().year
 
-    # ==========================================================
     # CALIFICACIONES DEL AÑO EN CURSO
-    # ==========================================================
-
     calificaciones = (
         Calificaciones.objects
             .filter(
@@ -5302,21 +5148,15 @@ def mod_calf_not(request):
             )
         })
 
-    # ==========================================================
     # INFORMACIÓN GENERAL
-    # ==========================================================
-
     primera_calificacion = calificaciones.first()
 
     periodo = periodo_materia.periodo
     materia = materia_asignada_obj.materia
 
     datos = []
-
-    # ==========================================================
+    
     # CONSTRUIR CALIFICACIONES
-    # ==========================================================
-
     for calificacion in calificaciones:
 
         estudiante = calificacion.estudiante
@@ -5340,7 +5180,7 @@ def mod_calf_not(request):
             ),
 
             "promedio": (
-                int(calificacion.promedio_tramo)
+                float(calificacion.promedio_tramo)
                 if calificacion.promedio_tramo is not None
                 else None
             ),
@@ -5358,19 +5198,6 @@ def mod_calf_not(request):
                 if calificacion.trayecto
                 else None
             ),
-
-            "congelada": (
-                calificacion.congelada
-            ),
-
-            "fecha_congelacion": (
-                calificacion.fecha_congelacion.strftime(
-                    "%Y-%m-%d %H:%M:%S"
-                )
-                if calificacion.fecha_congelacion
-                else None
-            ),
-
             "unidades": [
                 {
                     "id_detalle": (
@@ -5390,7 +5217,7 @@ def mod_calf_not(request):
                     ),
 
                     "nota_unidad": (
-                        int(detalle.nota_unidad)
+                        float(detalle.nota_unidad)
                         if detalle.nota_unidad is not None
                         else None
                     ),
@@ -5403,27 +5230,13 @@ def mod_calf_not(request):
                         else None
                     ),
 
-                    "congelada": (
-                        detalle.congelada
-                    ),
 
-                    "fecha_congelacion": (
-                        detalle.fecha_congelacion.strftime(
-                            "%Y-%m-%d %H:%M:%S"
-                        )
-                        if detalle.fecha_congelacion
-                        else None
-                    )
                 }
                 for indice, detalle in enumerate(
                     calificacion.detalles_unidad.all()
                 )
             ]
         })
-
-    # ==========================================================
-    # RESPUESTA
-    # ==========================================================
 
     return JsonResponse({
         "estado": "exito",
@@ -5471,7 +5284,11 @@ def mod_not_acad(request):
     if request.method != "POST":
         return render(request, "Roles/Docente/Notas_Academicas/modificar_notas_academicas.html")
 
+    
     def respuesta(icon, title, descripcion, estado="fallo"):
+        if estado != "exito":
+            transaction.set_rollback(True)
+
         return JsonResponse({
             "estado": estado,
             "icon": icon,
@@ -5698,38 +5515,56 @@ def mod_not_acad(request):
             )
         )
 
+    
     hoy = timezone.localdate()
     ano_actual = hoy.year
 
     calendario_carga = (
         CalendarioPeriodo.objects
-        .select_related(
-            "calendario",
-            "periodo"
-        )
+        .select_related("calendario", "periodo")
         .filter(
             periodo_id=periodo_materia.periodo_id,
             calendario__tipo="CARGA_NOTAS",
             calendario__activo=True,
             calendario__fecha_inicio__year=ano_actual
         )
-        .order_by(
-            "-calendario__fecha_final"
-        )
+        .order_by("-calendario__fecha_final")
         .first()
     )
 
+    if not calendario_carga:
+        return respuesta(
+            "warning",
+            "Calendario académico",
+            (
+                "No existe un calendario activo de carga de notas "
+                f"para el período seleccionado en el año {ano_actual}."
+            )
+        )
+
     fecha_inicio_carga = calendario_carga.calendario.fecha_inicio
     fecha_final_carga = calendario_carga.calendario.fecha_final
+
+    if not fecha_inicio_carga or not fecha_final_carga:
+        return respuesta(
+            "error",
+            "Calendario incompleto",
+            "El calendario seleccionado no tiene fechas válidas."
+        )
+
+    if fecha_inicio_carga.year != ano_actual:
+        return respuesta(
+            "warning",
+            "Período académico",
+            f"El calendario no corresponde al año en curso ({ano_actual})."
+        )
 
     if hoy < fecha_inicio_carga:
         return respuesta(
             "warning",
             "Carga de notas no habilitada",
             (
-                "El período académico seleccionado todavía no "
-                "se encuentra habilitado para la modificación "
-                "de calificaciones. El plazo inicia el "
+                "El plazo de modificación comienza el "
                 f"{fecha_inicio_carga.strftime('%d/%m/%Y')}."
             )
         )
@@ -5739,13 +5574,11 @@ def mod_not_acad(request):
             "warning",
             "Plazo vencido",
             (
-                "El plazo establecido en el calendario académico "
-                "para la modificación de calificaciones finalizó el "
-                f"{fecha_final_carga.strftime('%d/%m/%Y')}. "
-                "Las calificaciones de este período ya no pueden "
-                "ser modificadas."
+                "El plazo de modificación finalizó el "
+                f"{fecha_final_carga.strftime('%d/%m/%Y')}."
             )
         )
+
 
     ano_actual = timezone.localdate().year
 
@@ -5832,6 +5665,7 @@ def mod_not_acad(request):
         DocenteAsignadoMateria.objects
         .filter(
             materia_asignada=materia_asignacion,
+            docente=docente_obj,
             activo=True
         )
         .first()
@@ -5977,7 +5811,6 @@ def mod_not_acad(request):
                 periodo_materia=periodo_materia,
                 materia_asignada=materia_asignacion,
                 estudiante=estudiante,
-                trayecto=trayecto_obj,
                 fecha_registro__year=ano_actual
             )
         )
@@ -5989,8 +5822,9 @@ def mod_not_acad(request):
                 "error",
                 "Calificación no encontrada",
                 (
-                    f"No existe una calificación para "
-                    f"el estudiante {estudiante_id}."
+                    f"No existe una calificación registrada en el año "
+                    f"{ano_actual} para el estudiante {estudiante_id}, "
+                    "la materia y el período seleccionados."
                 )
             )
 
@@ -5999,14 +5833,14 @@ def mod_not_acad(request):
                 "error",
                 "Registros duplicados",
                 (
-                    f"El estudiante {estudiante_id} tiene "
-                    f"{cantidad_calificaciones} registros principales "
-                    "de calificación para la misma materia, período "
-                    "y trayecto. Debe existir un solo registro."
+                    f"El estudiante {estudiante_id} tiene varios registros "
+                    "de calificación para la materia y el período seleccionados."
                 )
             )
 
-        calificacion = calificaciones_existentes.first()        
+        calificacion = calificaciones_existentes.first()
+
+
         asistencia_anterior = calificacion.asistencia
         promedio_anterior = calificacion.promedio_tramo
 
@@ -6106,17 +5940,6 @@ def mod_not_acad(request):
 
             nota_anterior = detalle.nota_unidad
 
-            if detalle.congelada and nota_anterior != nota_unidad:
-                return respuesta(
-                    "warning",
-                    "Unidad congelada",
-                    (
-                        f"La unidad {numero_unidad} del estudiante "
-                        f"{estudiante_id} se encuentra congelada "
-                        "y no puede ser modificada."
-                    )
-                )
-
             if nota_anterior != nota_unidad:
 
                 cambios_unidades.append({
@@ -6139,37 +5962,31 @@ def mod_not_acad(request):
                     ]
                 )
 
+        
         notas_validas = list(
             DetalleCalificacionesUnidad.objects
             .filter(
                 calificacion=calificacion,
                 nota_unidad__isnull=False
             )
-            .values_list(
-                "nota_unidad",
-                flat=True
-            )
+            .values_list("nota_unidad", flat=True)
         )
 
         if not notas_validas:
             return respuesta(
                 "warning",
                 "Sin notas",
-                (
-                    f"No existen notas registradas "
-                    f"para el estudiante {estudiante_id}."
-                )
+                f"No existen notas registradas para el estudiante {estudiante_id}."
             )
 
         promedio = (
-            sum(
-                notas_validas,
-                Decimal("0")
-            ) / Decimal(len(notas_validas))
+            sum(notas_validas, Decimal("0"))
+            / Decimal(len(notas_validas))
         ).quantize(
-            Decimal("1"),
+            Decimal("0.01"),
             rounding=ROUND_HALF_UP
         )
+
 
         if asistencia < 75:
             condicion = "REPROBADO"
@@ -6229,20 +6046,17 @@ def mod_not_acad(request):
 
             calificacion = cambio["calificacion"]
 
-            historial = (
-                HistorialModificacionNotas.objects.create(
-                    docente_asignado=docente_asignado,
-                    periodo_academico=periodo_materia.periodo,
-                    trayecto=trayecto_obj,
-                    calificacion=calificacion,
-                    usuario_modifica=usuario,
-                    perfil_modificacion=perfil,
-                    fecha_modificacion=timezone.now(),
-                    motivo=(
-                        motivo
-                        or "Modificación de notas académicas."
-                    ),
-                    tipo_modificacion="MODIFICACION"
+            historial = HistorialModificacionNotas.objects.create(
+                docente_asignado=docente_asignado,
+                periodo_academico=periodo_materia.periodo,
+                trayecto=trayecto_obj,
+                calificacion=calificacion,
+                usuario_modifica=usuario,
+                perfil_modificacion=perfil,
+                fecha_modificacion=timezone.now(),
+                motivo=(
+                    motivo
+                    or "Modificación de notas académicas."
                 )
             )
 
@@ -6251,6 +6065,11 @@ def mod_not_acad(request):
             asistencia_cambio = (
                 cambio["asistencia_anterior"]
                 != cambio["asistencia_nueva"]
+            )
+
+            promedio_cambio = (
+                cambio["promedio_anterior"]
+                != cambio["promedio_nuevo"]
             )
 
             for unidad in cambio["cambios_unidades"]:
@@ -6262,29 +6081,24 @@ def mod_not_acad(request):
                         detalle_calificacion_unidad=unidad["detalle"],
                         nota_anterior=unidad["nota_anterior"],
                         nota_nueva=unidad["nota_nueva"],
-                        asistencia_anterior=(
-                            cambio["asistencia_anterior"]
-                            if asistencia_cambio
-                            else None
-                        ),
-                        asistencia_nueva=(
-                            cambio["asistencia_nueva"]
-                            if asistencia_cambio
-                            else None
-                        ),
+                        asistencia_anterior=None,
+                        asistencia_nueva=None,
                         promedio_anterior=(
                             cambio["promedio_anterior"]
+                            if promedio_cambio
+                            else None
                         ),
                         promedio_nuevo=(
                             cambio["promedio_nuevo"]
-                        )
+                            if promedio_cambio
+                            else None
+                        ),
+                        revertido=False
                     )
                 )
 
-            if (
-                asistencia_cambio
-                and not cambio["cambios_unidades"]
-            ):
+            if asistencia_cambio:
+
                 detalles_historial.append(
                     HistorialDetalleNota(
                         historial=historial,
@@ -6300,17 +6114,27 @@ def mod_not_acad(request):
                         ),
                         promedio_anterior=(
                             cambio["promedio_anterior"]
+                            if promedio_cambio
+                            else None
                         ),
                         promedio_nuevo=(
                             cambio["promedio_nuevo"]
-                        )
+                            if promedio_cambio
+                            else None
+                        ),
+                        revertido=False
                     )
                 )
 
             if detalles_historial:
+
                 HistorialDetalleNota.objects.bulk_create(
                     detalles_historial
                 )
+
+            else:
+                historial.delete()
+
 
     return respuesta(
         "success",
@@ -6324,4 +6148,3 @@ def mod_not_acad(request):
         ),
         "exito"
     )
-

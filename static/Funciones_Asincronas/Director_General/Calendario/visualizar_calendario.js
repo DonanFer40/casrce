@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             dialogo_fecha_academica.close();
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,

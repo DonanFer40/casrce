@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_trayecto_academico.innerHTML = "<option value='' selected>Selecciona la trayecto academico</option>";
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_periodo_academico.innerHTML = "<option value='' selected>Selecciona el periodo académico</option>";
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("CALIFICACIONES:", resultado_notas);
 
             if (resultado_planificacion.estado === "fallo") {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     icon: resultado_planificacion.icon,
                     title: resultado_planificacion.title,
                     text: resultado_planificacion.descripcion
@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (resultado_notas.estado === "fallo") {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     icon: resultado_notas.icon,
                     title: resultado_notas.title,
                     text: resultado_notas.descripcion
@@ -581,7 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 error
             );
 
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 icon: "error",
                 title: "Error",
                 text: "Ocurrió un error al cargar la información académica."

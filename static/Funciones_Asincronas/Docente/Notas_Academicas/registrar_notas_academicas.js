@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_nucleo_asignado.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_seleccion_docente.innerHTML = "<option value='' selected>Debe seleccionar el docente</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_trayecto_academico.innerHTML = "<option value='' selected>Selecciona el Trayecto Académico</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_materia_asignada.innerHTML = "<option value='' selected>Selecciona la materia</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -424,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 input_periodo_academico.value = "";
                 delete input_periodo_academico.dataset.idPeriodoAcademico;
 
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -569,7 +569,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 fila.innerHTML = `
                     <td>${indice + 1}</td>
-                    <td>${estudiante.nombre_completo}</td>
+                    <td>${estudiante.nombre}</td>
                     <td>${estudiante.cedula}</td>
                     ${controles}
                     <td class="celda-asistencia">
@@ -712,7 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,
@@ -731,7 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 trayecto = "";
                 perfil_seleccionado = "";
                 limpiar_nucleos();
-
+                perfiles_asignados();
             }
         } catch (error) {
             console.error(error);

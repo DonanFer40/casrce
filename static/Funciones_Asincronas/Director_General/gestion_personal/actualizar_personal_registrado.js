@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario_busqueda.reset();
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon,
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: "Exito",
                 text: "Se encontro los datos del usuario.",
                 icon: "success",
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     icon: resultado.icon,
                     title: resultado.title,
                     text: resultado.descripcion
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
             dialogo_actualizar.close();
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon,
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
 
             if (resultado.estado !== "exito") {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     icon: resultado.icon,
                     title: resultado.title,
                     text: resultado.descripcion
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formulario = new FormData(formulario_registrar);
 
             if (!formulario.getAll("perfiles").length) {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     icon: "warning",
                     title: "Perfil no seleccionado",
                     text: "Debe seleccionar al menos un perfil."
@@ -410,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             await perfiles_registrados();
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon,
@@ -451,7 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
             if (resultado.estado === "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon,

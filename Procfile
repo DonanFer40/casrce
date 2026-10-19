@@ -1,0 +1,1 @@
+web: gunicorn proyecto_carsce.wsgi:application

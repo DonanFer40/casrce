@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!validarPasoActual()) {
 
-            Swal.fire({
+            NotificacionesCASRCE.mostrar({
                 title: "Campos incompletos",
                 text: "Debe completar todos los campos obligatorios antes de continuar.",
                 icon: "warning",

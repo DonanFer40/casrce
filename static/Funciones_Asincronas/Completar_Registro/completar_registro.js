@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado == "no_exite") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon,
@@ -594,7 +594,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon,

@@ -346,7 +346,6 @@
 
                     </div>
 
-
                     <div class="RegistroEstudiantilCASRCE-grupo">
 
                         <label for="password">
@@ -356,26 +355,24 @@
                         <div class="RegistroEstudiantilCASRCE-password">
 
                             <input type="password"
-                                   name="password"
-                                   id="password"
-                                   autocomplete="off"
-                                   maxlength="10"
-                                   placeholder="Contraseña de 4 a 10 caracteres">
+                                name="password"
+                                id="password"
+                                autocomplete="new-password"
+                                maxlength="10"
+                                placeholder="Contraseña de 4 a 10 caracteres">
 
+                            <input type="checkbox" id="oculta_aparecer">
 
-                            <input type="checkbox"
-                                   id="oculta_aparecer">
-
-
-                            <label class="icon-eye-off RegistroEstudiantilCASRCE-ojo-off"
-                                   for="oculta_aparecer"
-                                   aria-label="Mostrar contraseña">
+                            <!-- Icono: contraseña oculta -->
+                            <label class="fa-solid fa-eye-slash AccesoInstitucionalCASRCE-ojo-off"
+                                for="oculta_aparecer"
+                                aria-label="Mostrar contraseña">
                             </label>
 
-
-                            <label class="icon-eye RegistroEstudiantilCASRCE-ojo-on"
-                                   for="oculta_aparecer"
-                                   aria-label="Ocultar contraseña">
+                            <!-- Icono: contraseña visible -->
+                            <label class="fa-solid fa-eye AccesoInstitucionalCASRCE-ojo-on"
+                                for="oculta_aparecer"
+                                aria-label="Ocultar contraseña">
                             </label>
 
                         </div>
@@ -383,10 +380,7 @@
                         <small id="mensaje_password"></small>
 
                     </div>
-
                 </div>
-
-
                 <!-- =================================================
                      BOTÓN
                      ================================================= -->

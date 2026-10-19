@@ -1,34 +1,38 @@
+
 /* =========================================================
    BARRA LATERAL CARSCE
    ========================================================= */
 
 #barra-lateral-carsce {
+    --barra-carsce-alto-header: 160px;
+
     position: fixed;
-    top: 160px;
+    top: var(--barra-carsce-alto-header);
+    bottom: 0;
     left: 0;
 
     width: 270px;
-    height: calc(100vh - 150px);
+    height: auto;
 
     display: flex;
     flex-direction: column;
 
-    background:
-        linear-gradient(
-            180deg,
-            #0F172A 0%,
-            #111C31 52%,
-            #0F172A 100%
-        );
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        180deg,
+        #0F172A 0%,
+        #111C31 52%,
+        #0F172A 100%
+    );
 
     border-right: 1px solid rgba(255, 255, 255, 0.08);
 
-    box-shadow:
-        8px 0 25px rgba(15, 23, 42, 0.12);
+    box-shadow: 8px 0 25px rgba(15, 23, 42, 0.12);
 
     overflow: hidden;
 
-    z-index: 900;
+    z-index: 1100;
 }
 
 
@@ -41,23 +45,19 @@
 
     display: flex;
     align-items: center;
-
     gap: 12px;
 
     padding: 18px 17px 16px;
 
+    box-sizing: border-box;
     flex-shrink: 0;
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(37, 99, 235, 0.16),
-            rgba(30, 41, 59, 0.15)
-        );
+    background: linear-gradient(
+        135deg,
+        rgba(37, 99, 235, 0.16),
+        rgba(30, 41, 59, 0.15)
+    );
 }
-
-
-/* Icono */
 
 .barra-lateral-carsce-contexto-icono {
     width: 42px;
@@ -68,70 +68,46 @@
     justify-content: center;
 
     flex-shrink: 0;
-
     border-radius: 10px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #2563EB,
-            #1D4ED8
-        );
-
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
     color: #FFFFFF;
 
     font-size: 16px;
 
-    box-shadow:
-        0 5px 14px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 5px 14px rgba(37, 99, 235, 0.25);
 }
-
-
-/* Datos */
 
 .barra-lateral-carsce-contexto-datos {
     min-width: 0;
 
     display: flex;
     flex-direction: column;
-
     gap: 2px;
 }
-
-
-/* Etiqueta */
 
 .barra-lateral-carsce-contexto-etiqueta {
     color: #93C5FD;
 
     font-size: 0.61rem;
     font-weight: 700;
-
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
-
-
-/* Rol */
 
 .barra-lateral-carsce-contexto-rol {
     color: #FFFFFF;
 
     font-size: 0.76rem;
     font-weight: 700;
-
     line-height: 1.3;
 }
-
-
-/* Descripción */
 
 .barra-lateral-carsce-contexto-descripcion {
     color: #CBD5E1;
 
     font-size: 0.67rem;
     font-weight: 400;
-
     line-height: 1.3;
 }
 
@@ -142,45 +118,41 @@
 
 .barra-lateral-carsce-separador {
     width: calc(100% - 32px);
-
     height: 1px;
 
     margin: 0 16px;
 
     flex-shrink: 0;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.12),
-            transparent
-        );
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.12),
+        transparent
+    );
 }
 
 
 /* =========================================================
-   NAVEGACIÓN
+   NAVEGACIÓN Y SCROLL
    ========================================================= */
 
 .barra-lateral-carsce-navegacion {
     width: 100%;
 
     flex: 1;
+    min-height: 0;
 
     overflow-y: auto;
     overflow-x: hidden;
 
     padding: 14px 10px 24px;
 
+    box-sizing: border-box;
+
     scrollbar-width: thin;
-    scrollbar-color:
-        rgba(148, 163, 184, 0.35)
-        transparent;
+    scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
 }
-
-
-/* Scrollbar Chrome / Edge */
 
 .barra-lateral-carsce-navegacion::-webkit-scrollbar {
     width: 5px;
@@ -192,7 +164,6 @@
 
 .barra-lateral-carsce-navegacion::-webkit-scrollbar-thumb {
     background: rgba(148, 163, 184, 0.3);
-
     border-radius: 10px;
 }
 
@@ -208,14 +179,8 @@
 .barra-lateral-carsce-seccion,
 .barra-lateral-carsce-bloque-principal {
     width: 100%;
-
     margin-bottom: 17px;
 }
-
-
-/* =========================================================
-   ETIQUETA DE SECCIÓN
-   ========================================================= */
 
 .barra-lateral-carsce-etiqueta-seccion {
     display: block;
@@ -227,9 +192,7 @@
 
     font-size: 0.59rem;
     font-weight: 700;
-
     letter-spacing: 0.09em;
-
     text-transform: uppercase;
 }
 
@@ -246,16 +209,16 @@
 
     display: flex;
     align-items: center;
-
     gap: 10px;
 
     padding: 8px 11px;
+
+    box-sizing: border-box;
 
     border: 1px solid transparent;
     border-radius: 8px;
 
     color: #CBD5E1;
-
     text-decoration: none;
 
     transition:
@@ -265,21 +228,14 @@
         transform 0.2s ease;
 }
 
-
-/* Hover */
-
 .barra-lateral-carsce-enlace-principal:hover {
     color: #FFFFFF;
 
     background: rgba(37, 99, 235, 0.12);
-
     border-color: rgba(96, 165, 250, 0.1);
 
     transform: translateX(2px);
 }
-
-
-/* Icono */
 
 .barra-lateral-carsce-enlace-icono {
     width: 31px;
@@ -292,7 +248,6 @@
     flex-shrink: 0;
 
     border-radius: 7px;
-
     color: #94A3B8;
 
     font-size: 0.78rem;
@@ -302,36 +257,25 @@
         background-color 0.2s ease;
 }
 
-
 .barra-lateral-carsce-enlace-principal:hover
 .barra-lateral-carsce-enlace-icono {
     color: #60A5FA;
-
     background: rgba(37, 99, 235, 0.12);
 }
 
-
-/* Texto */
-
 .barra-lateral-carsce-enlace-texto {
     flex: 1;
-
     min-width: 0;
 
     color: inherit;
 
     font-size: 0.72rem;
     font-weight: 550;
-
     line-height: 1.3;
 }
 
-
-/* Indicador */
-
 .barra-lateral-carsce-enlace-indicador {
     color: #475569;
-
     font-size: 0.62rem;
 
     transition:
@@ -339,45 +283,36 @@
         transform 0.2s ease;
 }
 
-
 .barra-lateral-carsce-enlace-principal:hover
 .barra-lateral-carsce-enlace-indicador {
     color: #60A5FA;
-
     transform: translateX(2px);
 }
 
 
 /* =========================================================
-   ESTADO ACTIVO DE ENLACES PRINCIPALES
-   IMPORTANTE:
-   EL ESTADO ACTIVO ES INDEPENDIENTE DE LOS ACORDEONES
+   ENLACES PRINCIPALES ACTIVOS
    ========================================================= */
 
 .barra-lateral-carsce-enlace-principal.activo-carsce {
     color: #FFFFFF;
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(37, 99, 235, 0.24),
-            rgba(37, 99, 235, 0.08)
-        );
+    background: linear-gradient(
+        90deg,
+        rgba(37, 99, 235, 0.24),
+        rgba(37, 99, 235, 0.08)
+    );
 
     border-color: rgba(96, 165, 250, 0.16);
 
-    box-shadow:
-        inset 3px 0 0 #2563EB;
+    box-shadow: inset 3px 0 0 #2563EB;
 }
-
 
 .barra-lateral-carsce-enlace-principal.activo-carsce
 .barra-lateral-carsce-enlace-icono {
     color: #FFFFFF;
-
     background: rgba(37, 99, 235, 0.22);
 }
-
 
 .barra-lateral-carsce-enlace-principal.activo-carsce
 .barra-lateral-carsce-enlace-indicador {
@@ -391,20 +326,10 @@
 
 .barra-lateral-carsce-acordeon {
     width: 100%;
-
     margin-bottom: 3px;
 
     border-radius: 8px;
-
-    /* IMPORTANTE:
-       No se coloca background aquí.
-       Abrir el details NO debe resaltar el módulo. */
 }
-
-
-/* =========================================================
-   CABECERA DEL ACORDEÓN
-   ========================================================= */
 
 .barra-lateral-carsce-cabecera {
     width: 100%;
@@ -413,16 +338,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 8px;
 
     padding: 7px 10px;
+
+    box-sizing: border-box;
 
     border: 1px solid transparent;
     border-radius: 8px;
 
     cursor: pointer;
-
     list-style: none;
 
     color: #CBD5E1;
@@ -433,48 +358,27 @@
         border-color 0.2s ease;
 }
 
-
-/* Eliminar marcador nativo */
-
-.barra-lateral-carsce-cabecera::-webkit-details-marker {
-    display: none;
-}
-
+.barra-lateral-carsce-cabecera::-webkit-details-marker,
 .barra-lateral-carsce-cabecera::marker {
     display: none;
 }
-
-
-/* Hover del módulo */
 
 .barra-lateral-carsce-cabecera:hover {
     color: #FFFFFF;
 
     background: rgba(255, 255, 255, 0.045);
-
     border-color: rgba(255, 255, 255, 0.05);
 }
-
-
-/* =========================================================
-   CONTENIDO DE CABECERA
-   ========================================================= */
 
 .barra-lateral-carsce-cabecera-contenido {
     min-width: 0;
 
     display: flex;
     align-items: center;
-
     gap: 10px;
 
     flex: 1;
 }
-
-
-/* =========================================================
-   ICONO DEL MÓDULO
-   ========================================================= */
 
 .barra-lateral-carsce-modulo-icono {
     width: 31px;
@@ -487,7 +391,6 @@
     flex-shrink: 0;
 
     border-radius: 7px;
-
     color: #94A3B8;
 
     font-size: 0.76rem;
@@ -497,18 +400,11 @@
         background-color 0.2s ease;
 }
 
-
 .barra-lateral-carsce-cabecera:hover
 .barra-lateral-carsce-modulo-icono {
     color: #CBD5E1;
-
     background: rgba(255, 255, 255, 0.05);
 }
-
-
-/* =========================================================
-   NOMBRE DEL MÓDULO
-   ========================================================= */
 
 .barra-lateral-carsce-modulo-nombre {
     min-width: 0;
@@ -519,23 +415,16 @@
 
     font-size: 0.72rem;
     font-weight: 550;
-
     line-height: 1.3;
 
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-
-/* =========================================================
-   CHEVRON
-   ========================================================= */
-
 .barra-lateral-carsce-chevron {
     flex-shrink: 0;
 
     color: #64748B;
-
     font-size: 0.61rem;
 
     transition:
@@ -543,18 +432,9 @@
         color 0.2s ease;
 }
 
-
-/* =========================================================
-   MÓDULO ABIERTO
-   IMPORTANTE:
-   SOLO CAMBIA EL CHEVRON.
-   NO CAMBIA EL FONDO DEL MÓDULO.
-   ========================================================= */
-
 .barra-lateral-carsce-acordeon[open]
 .barra-lateral-carsce-chevron {
     transform: rotate(180deg);
-
     color: #94A3B8;
 }
 
@@ -568,20 +448,15 @@
 
     display: flex;
     flex-direction: column;
-
     gap: 2px;
 
     margin: 3px 0 5px 25px;
-
     padding: 3px 0 3px 13px;
 
     border-left: 1px solid rgba(96, 165, 250, 0.18);
 
     animation: barraLateralCarsceSubmenuEntrada 0.18s ease;
 }
-
-
-/* Animación */
 
 @keyframes barraLateralCarsceSubmenuEntrada {
     from {
@@ -595,11 +470,6 @@
     }
 }
 
-
-/* =========================================================
-   ENLACES DEL SUBMENÚ
-   ========================================================= */
-
 .barra-lateral-carsce-submenu a {
     position: relative;
 
@@ -608,16 +478,16 @@
 
     display: flex;
     align-items: center;
-
     gap: 9px;
 
     padding: 6px 9px;
+
+    box-sizing: border-box;
 
     border: 1px solid transparent;
     border-radius: 7px;
 
     color: #94A3B8;
-
     text-decoration: none;
 
     font-size: 0.66rem;
@@ -630,37 +500,26 @@
         transform 0.2s ease;
 }
 
-
-/* Iconos de submenú */
-
 .barra-lateral-carsce-submenu a i {
     width: 17px;
-
     flex-shrink: 0;
 
     color: #64748B;
-
     font-size: 0.66rem;
 
     text-align: center;
 
-    transition:
-        color 0.2s ease;
+    transition: color 0.2s ease;
 }
-
-
-/* Hover */
 
 .barra-lateral-carsce-submenu a:hover {
     color: #E2E8F0;
 
     background: rgba(255, 255, 255, 0.045);
-
     border-color: rgba(255, 255, 255, 0.04);
 
     transform: translateX(2px);
 }
-
 
 .barra-lateral-carsce-submenu a:hover i {
     color: #60A5FA;
@@ -668,26 +527,22 @@
 
 
 /* =========================================================
-   OPCIÓN ACTIVA
-   ESTE ES EL ÚNICO ÉNFASIS FUERTE DEL SUBMENÚ
+   OPCIÓN ACTIVA DEL SUBMENÚ
    ========================================================= */
 
 .barra-lateral-carsce-submenu a.activo-carsce {
     color: #FFFFFF;
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(37, 99, 235, 0.22),
-            rgba(37, 99, 235, 0.07)
-        );
+    background: linear-gradient(
+        90deg,
+        rgba(37, 99, 235, 0.22),
+        rgba(37, 99, 235, 0.07)
+    );
 
     border-color: rgba(96, 165, 250, 0.13);
 
-    box-shadow:
-        inset 3px 0 0 #2563EB;
+    box-shadow: inset 3px 0 0 #2563EB;
 }
-
 
 .barra-lateral-carsce-submenu a.activo-carsce i {
     color: #60A5FA;
@@ -695,46 +550,147 @@
 
 
 /* =========================================================
-   FOCUS DE ACCESIBILIDAD
+   ACCESIBILIDAD
    ========================================================= */
 
 .barra-lateral-carsce-cabecera:focus-visible,
 .barra-lateral-carsce-enlace-principal:focus-visible,
 .barra-lateral-carsce-submenu a:focus-visible {
     outline: 2px solid #60A5FA;
-
     outline-offset: 2px;
 }
 
 
 /* =========================================================
-   RESPONSIVE — 1100px
+   ESCRITORIO — 1360 PX EN ADELANTE
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (min-width: 1360px) {
+    body.body-logueado #barra-lateral-carsce {
+        top: 160px;
+        bottom: 0;
+        left: 0;
 
-    #barra-lateral-carsce {
-        width: 250px;
+        width: 270px;
+        height: auto;
+
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+
+        border-radius: 0;
+
+        z-index: 1100;
     }
 
-    .barra-lateral-carsce-navegacion {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
+    body.body-logueado .main-logueado {
+        position: fixed;
+        top: 145px;
+        left: 270px;
+        right: 0;
+        bottom: 0;
 
+        width: auto;
+        height: auto;
+        margin: 0;
+
+        box-sizing: border-box;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
 }
 
 
 /* =========================================================
-   RESPONSIVE — 850px
+   TABLETS Y PANTALLAS MENORES DE 1360 PX
    ========================================================= */
 
-@media (max-width: 850px) {
+@media (max-width: 1359px) {
+    body.body-logueado #barra-lateral-carsce {
+        top: 160px;
+        bottom: 0;
+        left: 0;
 
-    #barra-lateral-carsce {
-        width: 235px;
+        width: min(300px, 86vw);
+        height: auto;
+        max-height: none;
+
+        box-sizing: border-box;
+
+        overflow: hidden;
+
+        border-radius: 0 12px 12px 0;
+
+        box-shadow: 12px 0 35px rgba(15, 23, 42, 0.25);
+
+        transform: translateX(-105%);
+        visibility: hidden;
+        pointer-events: none;
+
+        z-index: 1200;
+
+        transition:
+            transform 0.3s ease,
+            visibility 0.3s ease;
     }
 
+    body.body-logueado
+    #barra-lateral-carsce.barra-lateral-carsce-movil-abierta {
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    body.body-logueado.barra-lateral-carsce-fondo-activo::after {
+        content: "";
+
+        position: fixed;
+        top: 130px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        background: rgba(15, 23, 42, 0.30);
+
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+
+        z-index: 1100;
+        pointer-events: auto;
+    }
+
+    body.body-logueado .main-logueado {
+        position: fixed;
+        top: 145px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        width: 100%;
+        height: auto;
+        margin: 0;
+
+        box-sizing: border-box;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+}
+
+
+/* =========================================================
+   AJUSTES DE TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+    .barra-lateral-carsce-navegacion {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+@media (max-width: 850px) {
     .barra-lateral-carsce-contexto {
         padding-left: 14px;
         padding-right: 14px;
@@ -744,26 +700,38 @@
     .barra-lateral-carsce-enlace-texto {
         font-size: 0.69rem;
     }
-
 }
 
 
 /* =========================================================
-   RESPONSIVE — 700px
+   MÓVILES — HASTA 700 PX
    ========================================================= */
 
 @media (max-width: 700px) {
+    body.body-logueado header,
+    body.body-logueado #encabezado-principal-carsce {
+        height: 110px;
+    }
 
-    #barra-lateral-carsce {
-        width: 220px;
-        top: 150px;
-        height: calc(100vh - 150px);
+    body.body-logueado #barra-lateral-carsce {
+        --barra-carsce-alto-header: 110px;
+
+        top: 110px;
+        width: min(250px, 88vw);
+    }
+
+    body.body-logueado.barra-lateral-carsce-fondo-activo::after {
+        top: 110px;
+    }
+
+    body.body-logueado .main-logueado {
+        top: 125px;
+        padding: 24px 18px 30px;
     }
 
     .barra-lateral-carsce-contexto-icono {
         width: 38px;
         height: 38px;
-
         font-size: 14px;
     }
 
@@ -779,23 +747,24 @@
         margin-left: 23px;
         padding-left: 11px;
     }
-
 }
 
 
 /* =========================================================
-   RESPONSIVE — 560px
+   MÓVILES PEQUEÑOS — HASTA 560 PX
    ========================================================= */
 
 @media (max-width: 560px) {
+    body.body-logueado #barra-lateral-carsce {
+        width: min(250px, 88vw);
+    }
 
-    #barra-lateral-carsce {
-        width: 205px;
+    body.body-logueado .main-logueado {
+        padding: 20px 14px 28px;
     }
 
     .barra-lateral-carsce-contexto {
         gap: 9px;
-
         padding: 14px 11px;
     }
 
@@ -804,7 +773,6 @@
         height: 35px;
 
         border-radius: 8px;
-
         font-size: 13px;
     }
 
@@ -834,19 +802,41 @@
 
     .barra-lateral-carsce-submenu a {
         min-height: 34px;
-
         font-size: 0.61rem;
     }
-
 }
 
 
 /* =========================================================
-   REDUCCIÓN DE MOVIMIENTO
+   ENCABEZADO SOBRE EL RESTO DE LA INTERFAZ
+   ========================================================= */
+
+body.body-logueado header,
+body.body-logueado #encabezado-principal-carsce {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+    z-index: 1300;
+}
+
+@media (max-width: 1359px) {
+    body.body-logueado #encabezado-principal-carsce #hamburger-btn {
+        position: relative;
+        z-index: 1301;
+    }
+}
+
+
+/* =========================================================
+   MOVIMIENTO REDUCIDO
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
+    #barra-lateral-carsce,
     .barra-lateral-carsce-enlace-principal,
     .barra-lateral-carsce-cabecera,
     .barra-lateral-carsce-submenu a,
@@ -854,11 +844,10 @@
     .barra-lateral-carsce-modulo-icono,
     .barra-lateral-carsce-enlace-icono,
     .barra-lateral-carsce-enlace-indicador {
-        transition: none;
+        transition: none !important;
     }
 
     .barra-lateral-carsce-submenu {
         animation: none;
     }
-
 }

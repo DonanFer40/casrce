@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dialogo_actualizar_aula.showModal();
 
             if (resultado.estado === "fallo") {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             dialogo_actualizar_aula.close();
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,

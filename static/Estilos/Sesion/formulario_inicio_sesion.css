@@ -488,7 +488,6 @@
 /* =========================================================
    CHECKBOX DE CONTRASEÑA
    ========================================================= */
-
 #AccesoInstitucionalCASRCE
 #oculta_aparecer{
     position:absolute;
@@ -505,7 +504,6 @@
 /* =========================================================
    OJOS DE CONTRASEÑA
    ========================================================= */
-
 #AccesoInstitucionalCASRCE
 .AccesoInstitucionalCASRCE-ojo-off,
 #AccesoInstitucionalCASRCE
@@ -532,7 +530,7 @@
     font-size:11px;
 }
 
-
+/* #cambiar-contrasenia-carsce .cambiar-contrasenia-carsce-grupo, */
 #AccesoInstitucionalCASRCE
 .AccesoInstitucionalCASRCE-ojo-on{
     display:none;
@@ -542,13 +540,11 @@
 /* =========================================================
    CAMBIO DE ICONO AL MOSTRAR CONTRASEÑA
    ========================================================= */
-
-#AccesoInstitucionalCASRCE
-#oculta_aparecer:checked
+#AccesoInstitucionalCASRCE 
+#oculta_aparecer:checked 
 ~ .AccesoInstitucionalCASRCE-ojo-off{
     display:none;
 }
-
 
 #AccesoInstitucionalCASRCE
 #oculta_aparecer:checked

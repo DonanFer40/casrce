@@ -1,0 +1,424 @@
+{% extends 'Estructura/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="director-verificacion-codigo-carsce">
+
+    <div class="director-verificacion-codigo-carsce-contenedor">
+
+
+        <!-- =====================================================
+             PANEL DE INFORMACIÓN
+             ===================================================== -->
+
+        <div class="director-verificacion-codigo-carsce-informacion">
+
+
+            <!-- =================================================
+                 IMAGEN / ICONO DE SEGURIDAD
+                 ================================================= -->
+
+            <div class="director-verificacion-codigo-carsce-presentacion">
+
+                <div class="director-verificacion-codigo-carsce-imagen">
+
+                    <div class="director-verificacion-codigo-carsce-icono">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TEXTO INSTITUCIONAL
+                     ================================================= -->
+
+                <div class="director-verificacion-codigo-carsce-texto">
+
+                    <span class="director-verificacion-codigo-carsce-etiqueta">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        SEGURIDAD DE ACCESO
+
+                    </span>
+
+
+                    <h1>
+                        Verificación de identidad
+                    </h1>
+
+
+                    <p>
+                        Este proceso permite confirmar tu identidad
+                        mediante un código enviado a tu correo electrónico,
+                        como medida de protección para tus credenciales
+                        de acceso al sistema.
+                    </p>
+
+
+                    <div class="director-verificacion-codigo-carsce-linea"></div>
+
+
+                    <span class="director-verificacion-codigo-carsce-subtexto">
+
+                        Tu cuenta está protegida por la institución
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PANEL DE VERIFICACIÓN
+             ===================================================== -->
+
+        <div class="director-verificacion-codigo-carsce-acceso">
+
+
+            <!-- =================================================
+                 CABECERA
+                 ================================================= -->
+
+            <div class="director-verificacion-codigo-carsce-cabecera">
+
+                <span class="director-verificacion-codigo-carsce-indicador">
+
+                    VERIFICACIÓN DE CREDENCIALES
+
+                </span>
+
+
+                <h2>
+                    Verificar código
+                </h2>
+
+
+                <p>
+                    Ingresa el código de seis caracteres que hemos
+                    enviado a tu correo electrónico para verificar
+                    tu identidad.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 TEMPORIZADOR DEL CÓDIGO
+                 ================================================= -->
+
+            <div class="director-verificacion-codigo-carsce-temporizador">
+
+                <div class="director-verificacion-codigo-carsce-temporizador-icono">
+
+                    <i class="fa-regular fa-clock"></i>
+
+                </div>
+
+
+                <div class="director-verificacion-codigo-carsce-temporizador-informacion">
+
+                    <span>
+                        Tiempo restante del código
+                    </span>
+
+
+                    <strong id="contador_codigo">05:00</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULARIO DE VERIFICACIÓN
+                 ================================================= -->
+
+            <form method="post"
+                  id="formulario_comprar_usuario"
+                  class="director-verificacion-codigo-carsce-formulario">
+
+                {% csrf_token %}
+
+
+                <!-- =============================================
+                     CÓDIGO DE VERIFICACIÓN
+                     ============================================= -->
+
+                <div class="director-verificacion-codigo-carsce-grupo">
+
+                    <label for="password">
+
+                        Código de verificación
+
+                    </label>
+
+
+                    <div class="director-verificacion-codigo-carsce-campo">
+
+                        <input type="password"
+                               name="codigo"
+                               id="password"
+                               autocomplete="off"
+                               maxlength="6"
+                               minlength="6"
+                               pattern="[A-Z0-9]{6}"
+                               title="El código debe contener exactamente 6 caracteres en mayúsculas y números, sin símbolos."
+                               placeholder="Ingrese el código"
+                               required>
+
+
+                        <!-- =====================================
+                             MOSTRAR / OCULTAR CÓDIGO
+                             ===================================== -->
+
+                        <input type="checkbox"
+                               id="oculta_aparecer"
+                               class="director-verificacion-codigo-carsce-alternar">
+
+
+                        <label class="icon-eye-off eye_off director-verificacion-codigo-carsce-ojo"
+                               for="oculta_aparecer"
+                               aria-label="Mostrar u ocultar código">
+
+                        </label>
+
+
+                        <label class="icon-eye eye_on director-verificacion-codigo-carsce-ojo"
+                               for="oculta_aparecer"
+                               aria-label="Mostrar u ocultar código">
+
+                        </label>
+
+                    </div>
+
+
+                    <span class="director-verificacion-codigo-carsce-ayuda">
+
+                        El código debe contener seis letras mayúsculas
+                        o números, sin espacios ni símbolos.
+
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     BOTÓN VERIFICAR
+                     ================================================= -->
+
+                <button type="submit"
+                        class="director-verificacion-codigo-carsce-boton">
+
+                    <span>
+                        Verificar código
+                    </span>
+
+
+                    <i class="icon-right-open"></i>
+
+                </button>
+
+            </form>
+
+
+            <!-- =================================================
+                 REENVÍO DEL CÓDIGO
+                 ================================================= -->
+
+            <div class="director-verificacion-codigo-carsce-reenvio">
+
+
+                <span class="director-verificacion-codigo-carsce-reenvio-texto">
+
+                    ¿No recibiste el código?
+
+                </span>
+
+
+                <button type="button"
+                        id="btn_reenviar_codigo"
+                        class="director-verificacion-codigo-carsce-boton-reenvio btn-reenvio"
+                        disabled>
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+
+                    <span>
+
+                        Reenviar código
+
+                        (<span id="contador_reenvio">60</span>s)
+
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 AVISO DE SEGURIDAD
+                 ================================================= -->
+
+            <div class="director-verificacion-codigo-carsce-aviso">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+
+                <p>
+
+                    Por seguridad, no compartas este código
+                    con otras personas.
+
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 PIE
+                 ================================================= -->
+
+            <div class="director-verificacion-codigo-carsce-pie">
+
+                Sistema de gestión académica · CASRCE
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DIÁLOGO DE SELECCIÓN DE CORREO
+     ========================================================= -->
+
+<dialog id="dialogo_correos"
+        class="director-verificacion-codigo-carsce-dialogo">
+
+
+    <div class="director-verificacion-codigo-carsce-dialogo-contenedor">
+
+
+        <!-- =================================================
+             CABECERA DEL DIÁLOGO
+             ================================================= -->
+
+        <div class="director-verificacion-codigo-carsce-dialogo-cabecera">
+
+            <div class="director-verificacion-codigo-carsce-dialogo-icono">
+
+                <i class="fa-solid fa-envelope-circle-check"></i>
+
+            </div>
+
+
+            <h2>
+                Correos electrónicos
+            </h2>
+
+
+            <p>
+
+                Selecciona el correo electrónico al que deseas
+                enviar el código de verificación.
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             FORMULARIO DE ENVÍO
+             ================================================= -->
+
+        <form method="post"
+              id="formulario_enviar"
+              class="director-verificacion-codigo-carsce-dialogo-formulario">
+
+            {% csrf_token %}
+
+
+            <!-- =============================================
+                 CORREO PRINCIPAL
+                 ============================================= -->
+
+            <div class="director-verificacion-codigo-carsce-correo">
+
+                <label for="correo_principal"
+                       id="label_correo_principal">
+
+                </label>
+
+
+                <input type="radio"
+                       name="correo_verificacion"
+                       id="correo_principal"
+                       value="principal"
+                       checked>
+
+            </div>
+
+
+            <!-- =============================================
+                 CORREO SECUNDARIO
+                 ============================================= -->
+
+            <div class="director-verificacion-codigo-carsce-correo">
+
+                <label for="correo_secundario"
+                       id="label_correo_secundario">
+
+                </label>
+
+
+                <input type="radio"
+                       name="correo_verificacion"
+                       id="correo_secundario"
+                       value="secundario">
+
+            </div>
+
+
+            <!-- =============================================
+                 BOTÓN DE ENVÍO
+                 ============================================= -->
+
+            <button type="submit"
+                    class="director-verificacion-codigo-carsce-dialogo-boton">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+
+                <span>
+                    Enviar código
+                </span>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</dialog>
+
+
+<!-- =========================================================
+     FUNCIONALIDADES
+     ========================================================= -->
+
+<script src="{% static 'Funciones_Asincronas/Credenciales/validar_codigo.js' %}"></script>
+
+{% endblock %}

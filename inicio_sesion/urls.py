@@ -95,12 +95,6 @@ urlpatterns = [
     path('act_asig/', views.act_asig, name="act_asig"),
     path('pnf_per_acad/', views.pnf_per_acad, name="pnf_per_acad"),
 
-    # path('dat_usr/', views.dat_usr, name="dat_usr"),
-    # path('corr_usr/', views.corr_usr, name="corr_usr"),
-    # path('env_cod_act_corr/', views.env_cod_act_corr, name="env_cod_act_corr"),
-    # path('aut_act_corr/', views.aut_act_corr, name="aut_act_corr"),
-    # path('act_dat_usr/', views.act_dat_usr, name="act_dat_usr"),
-
     path('bus_usr/', views.bus_usr, name="bus_usr"),
     path('comp_usr/', views.comp_usr, name="comp_usr"),
     path('env_cod_usr/', views.env_cod_usr, name="env_cod_usr"),

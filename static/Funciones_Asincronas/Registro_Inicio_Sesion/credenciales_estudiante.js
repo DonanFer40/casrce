@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ocultar_busqueda(true);
                 ocultar_credenciales(false);
             } else {
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     allowOutsideClick: false,
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ocultar_credenciales(true);
             }
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 allowOutsideClick: false,

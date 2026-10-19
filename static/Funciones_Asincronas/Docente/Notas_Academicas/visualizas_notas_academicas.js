@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_nucleo_asignado.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -440,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_seleccion_docente.innerHTML = "<option value='' selected>Debe seleccionar el docente</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -503,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_trayecto_academico.innerHTML = "<option value='' selected>Selecciona el Trayecto Académico</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -558,7 +558,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -670,7 +670,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado == "fallo") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -806,8 +806,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let numeroFila = 1;
 
-            resultadoEstudiantes.calificaciones.forEach((estudiante) => {
 
+            resultadoEstudiantes.calificaciones.forEach((estudiante) => {
                 const idEstudiante = estudiante.id_estudiante;
 
                 if (estudiantesMostrados.has(idEstudiante)) {
@@ -818,57 +818,70 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const fila = document.createElement("tr");
 
+                // Ordenar las unidades sin perder sus demás propiedades.
+                const unidadesOrdenadas = [...(estudiante.unidades || [])].sort(
+                    (a, b) => {
+                        const numeroA = Number(
+                            a.nombre_unidad?.match(/\d+/)?.[0]
+                        );
+                        const numeroB = Number(
+                            b.nombre_unidad?.match(/\d+/)?.[0]
+                        );
+
+                        if (!Number.isFinite(numeroA)) {
+                            return 1;
+                        }
+
+                        if (!Number.isFinite(numeroB)) {
+                            return -1;
+                        }
+
+                        return numeroA - numeroB;
+                    }
+                );
+
                 let controles = "";
 
-                for (let i = 1; i <= cantidadActividades; i++) {
+                for (let i = 0; i < cantidadActividades; i++) {
+                    const unidad = unidadesOrdenadas[i];
 
-                    const unidad = estudiante.unidades?.[i - 1];
-
-                    const notaUnidad = unidad
-                        ? parseInt(unidad.nota_unidad)
+                    const notaUnidad = unidad?.nota_unidad != null
+                        ? parseFloat(unidad.nota_unidad)
                         : "";
 
                     controles += `
-                    <td class="celda-calificacion">
-                        ${notaUnidad}
-                    </td>
-                `;
+            <td class="celda-calificacion"
+                data-id-detalle="${unidad?.id_detalle ?? ""}"
+                data-id-unidad="${unidad?.id_unidad ?? ""}"
+                title="${unidad?.nombre_unidad ?? ""}">
+                ${notaUnidad}
+            </td>
+        `;
                 }
 
                 const promedio =
                     estudiante.promedio !== null &&
                         estudiante.promedio !== undefined
-                        ? parseInt(estudiante.promedio)
+                        ? parseFloat(estudiante.promedio)
                         : "";
 
                 fila.innerHTML = `
-                <td>
-                    ${numeroFila}
-                </td>
-
-                <td>
-                    ${estudiante.nombre_estudiante}
-                </td>
-
-                <td>
-                    ${estudiante.cedula_identidad}
-                </td>
-
-                ${controles}
-
-                <td class="celda-asistencia">
-                    ${estudiante.asistencia}%
-                </td>
-
-                <td class="celda-promedio">
-                    ${promedio}
-                </td>
-            `;
+        <td>${numeroFila}</td>
+        <td>${estudiante.nombre_estudiante}</td>
+        <td>${estudiante.cedula_identidad}</td>
+        ${controles}
+        <td class="celda-asistencia">
+            ${estudiante.asistencia ?? ""}%
+        </td>
+        <td class="celda-promedio">
+            ${promedio}
+        </td>
+    `;
 
                 tbody.appendChild(fila);
-
                 numeroFila++;
             });
+
 
             contenedor_notas_academicas.appendChild(tabla);
 

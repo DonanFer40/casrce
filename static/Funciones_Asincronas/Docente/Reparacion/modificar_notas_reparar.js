@@ -7,9 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const select_materia_asignada = document.getElementById("materia_asignada");
     const input_trayecto_academico = document.getElementById("trayecto_academico");
 
+    const contenedor_seleccion_docente = document.getElementById("contenedor_seleccion_docente");
+    const select_seleccion_docente = document.getElementById("seleccion_docente");
+
+    const select_perfiles_asignados = document.getElementById("perfiles_asignados");
+    const input_perfil_asignado = document.getElementById("perfil_asignado");
+
     const contenedor_notas_academicas = document.getElementById("contenedor_evaluaciones");
 
-    let materia = "", pnf = "", nucleo = "", id_trayecto = "";
+    let materia = "", pnf = "", nucleo = "", id_trayecto = "", docente = "";
+    let perfil_seleccionado = "";
 
     function obtener_csrf_token() {
         const cookie = document.cookie.split("; ").find(row => row.startsWith("csrftoken="));
@@ -17,15 +24,123 @@ document.addEventListener("DOMContentLoaded", () => {
         return cookie ? decodeURIComponent(cookie.split("=")[1]) : "";
     }
 
-    async function nucleos_asignados() {
+    async function perfiles_asignados() {
         try {
-            const respuesta = await fetch("/notas_academicas/nucl_asig_doc/");
+            const respuesta = await fetch("/notas_academicas/perf_asig/");
             const resultado = await respuesta.json();
             console.log(resultado);
 
-            select_pnfs_asignado.innerHTML = "<option value='' selected>Selecciona el núcleo primero</option>";
+            const tiene_docente = resultado.docente;
+            const tiene_control = resultado.control_estudio;
+
+            input_perfil_asignado.value = "";
+
+            select_perfiles_asignados.innerHTML = "<option value='' selected>Selecciona un perfil</option>";
+
+            // Tiene ambos perfiles
+            if (tiene_docente && tiene_control) {
+                const option_docente = document.createElement("option");
+                option_docente.value = "DOCENTE";
+                option_docente.textContent = "Docente";
+
+                const option_control = document.createElement("option");
+                option_control.value = "CONTROL_ESTUDIO";
+                option_control.textContent = "Encargado de Control de Estudio";
+
+                select_perfiles_asignados.append(option_docente, option_control);
+
+                select_perfiles_asignados.style.display = "";
+                input_perfil_asignado.style.display = "none";
+
+                perfil_seleccionado = ""; // Todavía no hay perfil seleccionado
+
+                limpiar_nucleos(); // No cargar núcleos todavía
+            }
+
+            // Solamente Docente
+            else if (tiene_docente) {
+                perfil_seleccionado = "DOCENTE";
+
+                input_perfil_asignado.value = "Docente";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                await nucleos_asignados(perfil_seleccionado);
+            }
+
+            // Solamente Control de Estudio
+            else if (tiene_control) {
+                perfil_seleccionado = "CONTROL_ESTUDIO";
+
+                input_perfil_asignado.value = "Encargado de Control de Estudio";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                await nucleos_asignados(perfil_seleccionado);
+
+                limpiar_nucleos();
+            }
+
+            // No tiene ningún perfil
+            else {
+                perfil_seleccionado = "";
+
+                input_perfil_asignado.value = "";
+
+                input_perfil_asignado.style.display = "";
+                select_perfiles_asignados.style.display = "none";
+
+                limpiar_nucleos();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    perfiles_asignados();
+
+    select_perfiles_asignados.addEventListener("change", async () => {
+        perfil_seleccionado = select_perfiles_asignados.value;
+
+        limpiar_nucleos();
+
+        if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+            contenedor_seleccion_docente.style.display = "";
+        } else {
+            contenedor_seleccion_docente.style.display = "none";
+        }
+
+        await nucleos_asignados(perfil_seleccionado);
+    });
+
+    async function nucleos_asignados(perfil) {
+        try {
+            const formulario = new FormData();
+            formulario.append("perfil", perfil);
+
+            const respuesta = await fetch("/notas_academicas/nucl_carg_not_rep/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": obtener_csrf_token()
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
 
             select_nucleo_asignado.innerHTML = "<option value='' selected>Selecciona un núcleo</option>";
+
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
 
             resultado.datos.forEach(nucleo => {
                 const option_nucleo = document.createElement("option");
@@ -37,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
         }
     }
-    nucleos_asignados();
 
     select_nucleo_asignado.addEventListener("change", async (e) => {
         nucleo = select_nucleo_asignado.value;
@@ -53,8 +167,9 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const formulario = new FormData();
             formulario.append("nucleo_asignado", nucleo);
+            formulario.append("perfil", perfil_seleccionado);
 
-            const respuesta = await fetch("/notas_academicas/pnfs_asig_doc/", {
+            const respuesta = await fetch("/notas_academicas/pnf_carg_not_rep/", {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": obtener_csrf_token()
@@ -85,6 +200,59 @@ document.addEventListener("DOMContentLoaded", () => {
         await materias_asignadas();
 
         await estudiantes_reparacion_modificar();
+
+        if (perfil_seleccionado === "CONTROL_ESTUDIO") {
+            await docente_seleccionado();
+        }
+    });
+
+    async function docente_seleccionado() {
+        try {
+            if (!pnf || !nucleo) return;
+
+            const formulario = new FormData();
+            formulario.append("nucleo_asignado", nucleo);
+            formulario.append("pnf_seleccionado", pnf);
+
+            const respuesta = await fetch("/notas_academicas/doc_carg_not_rep/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": obtener_csrf_token()
+                },
+                body: formulario
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
+
+            select_seleccion_docente.innerHTML = "<option value='' selected>Debe seleccionar el docente</option>";
+
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
+
+            resultado.datos.forEach(docente => {
+                const option = document.createElement("option");
+                option.value = docente.cedula;
+                option.textContent = docente.nombres + " " + docente.apellidos;
+                select_seleccion_docente.append(option);
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    select_seleccion_docente.addEventListener("change", async () => {
+        docente = select_seleccion_docente.value;
+
+        await materias_registradas();
     });
 
     async function materias_asignadas() {
@@ -94,6 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const formulario = new FormData();
             formulario.append("id_nucleo", nucleo);
             formulario.append("id_pnf", pnf);
+            formulario.append("docente", docente);
+            formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/notas_academicas/mod_mat_rep_reg/", {
                 method: "POST",
@@ -142,6 +312,8 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario.append("id_pnf", pnf);
             formulario.append("id_materia_asignacion", materia);
             formulario.append("id_trayecto", id_trayecto);
+            formulario.append("docente", docente);
+            formulario.append("perfil", perfil_seleccionado);
 
             const respuesta = await fetch("/notas_academicas/mod_not_rep_reg/", {
                 method: "POST",
@@ -257,46 +429,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formulario_actualizar.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         try {
-            const formulario = new FormData(formulario_actualizar);
 
-            // 1. Agregar id_trayecto desde el dataset
-            const idTrayecto = input_trayecto_academico?.dataset?.id_trayecto || "";
-            formulario.append("id_trayecto", idTrayecto);
-
-            // 2. Extraer las notas e incluir id_reparacion
-            const inputsNotas = contenedor_notas_academicas.querySelectorAll(".input-nota-reparacion");
             const listaNotas = [];
-            let hayCamposVacios = false;
+            let formularioValido = true;
 
-            inputsNotas.forEach(input => {
-                const notaVal = input.value.trim();
+            const inputsNotas = contenedor_notas_academicas.querySelectorAll(".input-nota-reparacion");
+            inputsNotas.forEach((input) => {
+                const valor = input.value.trim();
+                const nota = Number(valor);
+                const idReparacion = input.dataset.idReparacion;
 
-                if (notaVal === "") {
-                    hayCamposVacios = true;
+                const notaValida =
+                    valor !== "" &&
+                    Number.isFinite(nota) &&
+                    nota >= 0 &&
+                    nota <= 20 &&
+                    idReparacion;
+
+                if (!notaValida) {
                     input.classList.add("is-invalid");
-                } else {
-                    input.classList.remove("is-invalid");
-                    listaNotas.push({
-                        id_reparacion: input.dataset.idReparacion, // Requerido por el backend
-                        id_estudiante: input.dataset.idEstudiante,
-                        calificacion: parseInt(notaVal, 10)         // Cambiado de "nota" a "calificacion"
-                    });
+                    formularioValido = false;
+                    return;
                 }
+
+                input.classList.remove("is-invalid");
+
+                listaNotas.push({
+                    id_reparacion: idReparacion,
+                    id_estudiante: input.dataset.idEstudiante,
+                    calificacion: nota
+                });
             });
 
-            // Validar que no existan campos sin nota antes de procesar
-            if (hayCamposVacios || listaNotas.length === 0) {
-                Swal.fire({
-                    title: "Atención",
-                    text: "Debe ingresar una nota válida para todos los estudiantes.",
-                    icon: "warning"
-                });
-                return;
-            }
-
-            // 3. Serializar con la clave "notas" que espera Django (request.POST.get("notas"))
-            formulario.append("notas", JSON.stringify(listaNotas));
+            const formulario = new FormData(formulario_actualizar);
+            formulario.set("perfil", perfil_seleccionado);
+            formulario.set("id_trayecto", id_trayecto);
+            formulario.set("notas", JSON.stringify(listaNotas));
+            console.log(id_trayecto);
 
             const respuesta = await fetch("/notas_academicas/mod_rep_reg/", {
                 method: "POST",
@@ -305,13 +476,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
-
             const resultado = await respuesta.json();
+            console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
+                title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon,
-                title: resultado.title,
                 allowOutsideClick: false,
                 allowEscapeKey: false
             });

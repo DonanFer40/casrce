@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (resultado.estado !== "exito") {
                 contenedor_pre_inscripcion.innerHTML = "";
-                Swal.fire({
+                NotificacionesCASRCE.mostrar({
                     title: resultado.titulo,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -544,7 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.titulo,
                 text: resultado.descripcion,
                 icon: resultado.icon

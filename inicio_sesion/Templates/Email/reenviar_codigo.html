@@ -1,0 +1,128 @@
+{% extends "Email/Base.html" %}
+
+{% block content %}
+
+
+<!-- =========================================================
+     CONTENEDOR DEL REENVÍO DE CÓDIGO
+     ========================================================= -->
+
+<section id="reenviar_codigo_email">
+
+    <div class="contenedor_enviar_codigo">
+
+
+        <!-- =================================================
+             CABECERA DEL MENSAJE
+             ================================================= -->
+
+        <div class="reenviar_codigo_email-cabecera">
+
+            <h2>
+                Nuevo Código de Autenticación
+            </h2>
+
+        </div>
+
+
+        <!-- =================================================
+             INTRODUCCIÓN
+             ================================================= -->
+
+        <div class="reenviar_codigo_email-introduccion">
+
+            <p>
+
+                Estimado(a)
+                <strong>{{ nombres }} {{ apellidos }}</strong>,
+
+                de acuerdo con su solicitud, se ha generado un nuevo
+                código de autenticación para continuar con el proceso
+                de recuperación de credenciales de acceso.
+
+            </p>
+
+            <p>
+
+                El código anterior ha sido reemplazado y ya no es válido.
+                Utilice únicamente el código que se muestra a continuación.
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             NÚMERO DE REENVÍO
+             ================================================= -->
+
+        <div class="reenviar_codigo_email-intento">
+
+            <p id="numero_intento">
+
+                <strong>
+                    Reenvío N.º {{ numero_intento }}
+                </strong>
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             CÓDIGO DE AUTENTICACIÓN
+             ================================================= -->
+
+        <div class="reenviar_codigo_email-contenedor-codigo">
+
+            <div id="codigo_autenticacion">
+
+                {{ codigo }}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             VIGENCIA DEL CÓDIGO
+             ================================================= -->
+
+        <div class="reenviar_codigo_email-vigencia">
+
+            <p>
+
+                Este nuevo código permanecerá vigente durante
+                <strong>5 minutos</strong>.
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             AVISO DE SEGURIDAD
+             ================================================= -->
+
+        <div class="reenviar_codigo_email-aviso">
+
+            <p>
+
+                Por motivos de seguridad, no comparta este código
+                con ninguna persona.
+
+                Si usted no solicitó este nuevo código, ignore este
+                mensaje y comuníquese con el administrador de la
+                plataforma si considera que su cuenta puede estar
+                comprometida.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

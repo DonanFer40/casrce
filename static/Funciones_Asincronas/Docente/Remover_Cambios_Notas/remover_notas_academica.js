@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_pnf_asignado.innerHTML = "<option value='' selected>Selecciona un P.N.F</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_seleccion_docente.innerHTML = "<option value='' selected>Debe seleccionar el docente</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_trayecto_academico.innerHTML = "<option value='' selected>Selecciona el Trayecto Académico</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_materia_asignada.innerHTML = "<option value='' selected>Selecciona la materia</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -182,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 option_materia.textContent = materia.nombre;
                 select_materia_asignada.append(option_materia);
             });
-
         } catch (error) {
             console.error(error);
         }
@@ -219,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -237,9 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function calificaciones_materia() {
         try {
-            if (!pnf || !materia || !trayecto || !docente) {
-                return;
-            }
+            if (!pnf || !materia || !trayecto || !docente) return;
 
             const idPeriodo = input_periodo_academico.dataset.idPeriodo;
 
@@ -253,14 +250,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const respuesta = await fetch("/notas_academicas/rem_calif_mod/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken":
-                        document.querySelector(
-                            "[name=csrfmiddlewaretoken]"
-                        ).value
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
                 },
                 body: formulario
             });
-
             const resultado = await respuesta.json();
             console.log(resultado);
 
@@ -276,25 +269,30 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!resultado.datos || resultado.datos.length === 0) {
                 contenedor_notas_academicas.innerHTML = `
                     <p>
-                        No existen estudiantes con modificaciones
-                        de notas para los criterios seleccionados.
+                        No existen modificaciones de notas
+                        para los criterios seleccionados.
                     </p>
                 `;
                 return;
             }
 
-            const estudiantes = resultado.datos;
+            const modificaciones = resultado.datos;
 
             const tabla = document.createElement("table");
             tabla.classList.add("tabla-calificaciones");
-
             tabla.innerHTML = `
                 <thead>
                     <tr>
-                        <th>ID Historial</th>
+                        <th>ID</th>
                         <th>Estudiante</th>
                         <th>C.I.</th>
-                        <th>ID Calificación</th>
+                        <th>Unidad</th>
+                        <th>Nota Anterior</th>
+                        <th>Nota Nueva</th>
+                        <th>Asistencia Anterior</th>
+                        <th>Asistencia Nueva</th>
+                        <th>Promedio Anterior</th>
+                        <th>Promedio Nuevo</th>
                         <th>Período Académico</th>
                         <th>Trayecto</th>
                         <th>Perfil Modificación</th>
@@ -302,10 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <th>C.I. Usuario</th>
                         <th>Fecha Modificación</th>
                         <th>Motivo</th>
-                        <th>Tipo Modificación</th>
-                        <th>Promedio</th>
-                        <th>Asistencia</th>
-                        <th>Condición</th>
                         <th>Revertir</th>
                     </tr>
                 </thead>
@@ -313,36 +307,37 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             const tbody = tabla.querySelector("tbody");
-            estudiantes.forEach((estudiante) => {
 
+            modificaciones.forEach((modificacion, index) => {
                 const fila = document.createElement("tr");
                 fila.innerHTML = `
-                    <td>${estudiante.id_historial ?? ""}</td>
-                    <td>${estudiante.nombre_completo ?? ""}</td>
-                    <td>${estudiante.cedula ?? ""}</td>
-                    <td>${estudiante.id_calificaciones ?? ""}</td>
-                    <td>${estudiante.periodo_academico ?? ""}</td>
-                    <td>${estudiante.trayecto ?? ""}</td>
-                    <td>${estudiante.perfil_modificacion ?? ""}</td>
-                    <td>${estudiante.usuario_modifica ?? ""}</td>
-                    <td>${estudiante.cedula_usuario_modifica ?? ""}</td>
-                    <td>${estudiante.fecha_modificacion ?? ""}</td>
-                    <td>${estudiante.motivo ?? ""}</td>
-                    <td>${estudiante.tipo_modificacion ?? ""}</td>
-                    <td>${estudiante.promedio_tramo ?? ""}</td>
-                    <td>${estudiante.asistencia ?? ""}</td>
-                    <td>${estudiante.condicion ?? ""}</td>
+                    <td>${index + 1}</td>
+                    <td>${modificacion.nombre_completo}</td>
+                    <td>${modificacion.cedula}</td>
+                    <td>${modificacion.nombre_unidad}</td>
+                    <td>${modificacion.nota_anterior ?? "Calificación no modificada"}</td>
+                    <td>${modificacion.nota_nueva ?? "Calificación no modificada"}</td>
+                    <td>${modificacion.asistencia_anterior ?? "Asistencia no modificada"}</td>
+                    <td>${modificacion.asistencia_nueva ?? "Asistencia no modificada"}</td>
+                    <td>${modificacion.promedio_anterior ?? "Promedio no actualizado"}</td>
+                    <td>${modificacion.promedio_nuevo ?? "Promedio no actualizado"}</td>
+                    <td>${modificacion.periodo_academico}</td>
+                    <td>${modificacion.trayecto}</td>
+                    <td>${modificacion.perfil_modificacion}</td>
+                    <td>${modificacion.usuario_modifica}</td>
+                    <td>${modificacion.cedula_usuario_modifica}</td>
+                    <td>${modificacion.fecha_modificacion}</td>
+                    <td>${modificacion.motivo}</td>
                     <td>
-                        <button
-                            type="button"
-                            class="boton-reversion"
-                            data-id-historial="${estudiante.id_historial}"
-                            data-id-estudiante="${estudiante.id_estudiante}">
-                            Revertir
-                        </button>
+                     <button
+                        type="button"
+                        class="boton-reversion"
+                        data-id-historial="${modificacion.id_historial}"
+                        data-id-detalle="${modificacion.id_detalle}">
+                        Revertir
+                    </button>
                     </td>
                 `;
-
                 tbody.appendChild(fila);
             });
 
@@ -352,55 +347,53 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+
     contenedor_notas_academicas.addEventListener("click", async (e) => {
+        const botonReversion = e.target.closest(".boton-reversion");
+
+        if (!botonReversion) {
+            return;
+        }
+
         e.preventDefault();
+
         try {
-            const botonReversion = e.target.closest(".boton-reversion");
-            if (!botonReversion) {
-                return;
-            }
-
             const idHistorial = botonReversion.dataset.idHistorial;
-            if (!idHistorial) {
-                console.error("No se encontró el ID del historial.");
-                return;
-            }
-
-            const confirmar = await Swal.fire({
-                title: "¿Revertir modificación?",
-                text: (
-                    "Se restaurarán las calificaciones, "
-                    + "asistencia y promedio anteriores."
-                ),
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí, revertir",
-                cancelButtonText: "Cancelar"
+            const idDetalle = botonReversion.dataset.idDetalle;
+            console.log({
+                idHistorial: botonReversion.dataset.idHistorial,
+                idDetalle: botonReversion.dataset.idDetalle
             });
-
-            if (!confirmar.isConfirmed) {
+            if (!idHistorial || !idDetalle) {
+                await NotificacionesCASRCE.mostrar({
+                    title: "Modificación",
+                    text: "No se pudo identificar la modificación seleccionada. Actualice la consulta e inténtelo nuevamente.",
+                    icon: "warning"
+                });
                 return;
             }
 
             const formulario = new FormData();
             formulario.append("id_historial", idHistorial);
-            console.log(idHistorial)
+            formulario.append("id_detalle", idDetalle);
 
-            const respuesta = await fetch("/notas_academicas/rem_camb_not/", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken":
-                        document.querySelector(
+            const respuesta = await fetch(
+                "/notas_academicas/rem_camb_not/",
+                {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": document.querySelector(
                             "[name=csrfmiddlewaretoken]"
                         ).value
-                },
-                body: formulario
-            });
+                    },
+                    body: formulario
+                }
+            );
+
             const resultado = await respuesta.json();
-            console.log(resultado);
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
                     icon: resultado.icon
@@ -408,17 +401,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
                 icon: resultado.icon
             });
 
-            contenedor_notas_academicas.innerHTML = "";
             await calificaciones_materia();
+
         } catch (error) {
-            console.error(error);
+            console.error("Error al revertir la modificación:", error);
         }
     });
-
 });

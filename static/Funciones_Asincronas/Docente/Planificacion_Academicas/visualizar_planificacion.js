@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formulario = new FormData();
             formulario.append("perfil", perfil);
 
-            const respuesta = await fetch("/notas_academicas/nucl_asig_doc/", {
+            const respuesta = await fetch("/notas_academicas/vis_planif_nuc/", {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
             select_seleccion_docente.innerHTML = "<option value='' selected>Selecciona un Docente</option>";
 
             if (resultado.estado !== "exito") {
-                await Swal.fire({
+                await NotificacionesCASRCE.mostrar({
                     text: resultado.descripcion,
                     icon: resultado.icon,
                     title: resultado.title,
@@ -384,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const id_plan = boton.dataset.idPlan;
             if (!id_plan || id_plan === "undefined") return;
 
-            const resultado = await Swal.fire({
+            const resultado = await NotificacionesCASRCE.mostrar({
                 title: "¿Enviar plan de actividades?",
                 text: "¿Está seguro de enviar este plan de actividades al Coordinador PNF?",
                 icon: "question",
@@ -409,7 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!id_plan || id_plan === "undefined") return;
 
         if (estado === "ACEPTADA" || estado === "ENVIADO") {
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 title: "Plan aceptado",
                 text: "Este plan ya fue aceptado y no puede ser modificado.",
                 icon: "info",
@@ -423,7 +423,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (estado === "DENEGADA") {
             const observacion = fila.dataset.observacion || "";
 
-            const resultado = await Swal.fire({
+            const resultado = await NotificacionesCASRCE.mostrar({
                 title: "Plan de actividades denegado",
                 html: `
                     <div style="text-align: left;">
@@ -458,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const resultado = await Swal.fire({
+        const resultado = await NotificacionesCASRCE.mostrar({
             title: "¿Qué desea hacer?",
             text: "Seleccione una opción para el plan de actividades.",
             icon: "question",
@@ -473,7 +473,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if (resultado.dismiss === Swal.DismissReason.cancel) {
+        if (resultado.dismiss === NotificacionesCASRCE.DismissReason.cancel) {
             await actualizar_plan_estudio(id_plan);
             return;
         }
@@ -726,7 +726,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // CREAR EVALUACIONES
                 detalle.evaluaciones.forEach((evaluacion, j) => {
-
                     const indice = `${i}_${j}`;
 
                     let fechaMinimaEvaluacion;
@@ -739,11 +738,26 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
                     } else {
                         const evaluacionAnterior = detalle.evaluaciones[j - 1];
-
-                        fechaMinimaEvaluacion =
-                            evaluacionAnterior.fecha_evaluacion;
+                        fechaMinimaEvaluacion = evaluacionAnterior.fecha_evaluacion;
                     }
 
+                    const fechaActual = evaluacion.fecha_evaluacion;
+
+                    if (
+                        fechaMinimaEvaluacion &&
+                        fechaActual &&
+                        fechaActual < fechaMinimaEvaluacion
+                    ) {
+                        fechaMinimaEvaluacion = fechaActual;
+                    }
+
+                    if (
+                        fechaMinimaEvaluacion &&
+                        fechaFinalPeriodo &&
+                        fechaMinimaEvaluacion > fechaFinalPeriodo
+                    ) {
+                        fechaMinimaEvaluacion = fechaFinalPeriodo;
+                    }
                     const contenedor = document.createElement("div");
                     contenedor.classList.add("evaluacion_actualizar");
 
@@ -1036,9 +1050,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
                 });
 
-
-
-
                 // ACTUALIZAR CONTROLES DE EVALUACIONES
                 function actualizarControles() {
                     const cantidad = contenedorEvaluaciones.querySelectorAll(".evaluacion_actualizar").length;
@@ -1238,7 +1249,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await response.json();
             console.log(resultado);
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,
@@ -1270,7 +1281,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             dialogo_actualizar_plan_estudio.close();
 
-            await Swal.fire({
+            await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
                 icon: resultado.icon,
                 title: resultado.title,

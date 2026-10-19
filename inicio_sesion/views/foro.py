@@ -58,31 +58,31 @@ def noticias_por_nucleo(request):
 
 
 def Historia(request):
-    return render(request, 'Foro/Historia.html')
+    return render(request, 'foro/Historia.html')
 
 
 def mision_vision(request):
-    return render(request, 'Foro/mision_vision.html')
+    return render(request, 'foro/mision_vision.html')
 
 
 def psc(request):
-    return render(request, 'Foro/psc.html')
+    return render(request, 'foro/psc.html')
 
 
 def pst(request):
-    return render(request, 'Foro/pst.html')
+    return render(request, 'foro/pst.html')
 
 
 def trayectoria(request):
-    return render(request, 'Foro/trayectoria.html')
+    return render(request, 'foro/trayectoria.html')
 
 
 def carreras_impartidas(request):
-    return render(request, 'Foro/carreras_impartidas.html')
+    return render(request, 'foro/carreras_impartidas.html')
 
 
 def Planificacion_Docente(request):
-    return render(request, 'Foro/Planificacion_Docente.html')
+    return render(request, 'foro/Planificacion_Docente.html')
 
 
 def barra_lateral(request):

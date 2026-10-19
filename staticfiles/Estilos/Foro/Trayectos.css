@@ -1,0 +1,268 @@
+/* =========================================================
+   ORGANIZACIÓN ACADÉMICA - CARSCE
+========================================================= */
+
+#OrganizacionAcademica{
+    width:100%;
+    min-height:100vh;
+
+    padding:150px 0 80px;
+
+    background:var(--color-fondo-pagina);
+    color:var(--texto-principal);
+
+    box-sizing:border-box;
+}
+
+#OrganizacionAcademica *{
+    box-sizing:border-box;
+}
+
+/* =========================================================
+   CONTENEDOR
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-contenedor{
+    width:min(1080px,90%);
+    margin:0 auto;
+
+    display:flex;
+    flex-direction:column;
+}
+
+/* =========================================================
+   BLOQUES
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-bloque{
+    display:grid;
+    grid-template-columns:95px minmax(0,1fr);
+
+    gap:28px;
+
+    padding:34px 0;
+
+    border-bottom:1px solid var(--color-borde-fino);
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-bloque:first-child{
+    padding-top:0;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-bloque:last-child{
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+/* =========================================================
+   IDENTIFICADOR
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-identificador{
+    position:relative;
+
+    display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-numero{
+    color:var(--color-rojo-acento);
+
+    font-size:14px;
+    font-weight:700;
+
+    letter-spacing:.08em;
+}
+
+/* Línea decorativa */
+
+#OrganizacionAcademica .OrganizacionAcademica-linea{
+    position:absolute;
+
+    top:25px;
+    left:0;
+
+    width:32px;
+    height:1px;
+
+    background:var(--color-rojo-acento);
+}
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-contenido{
+    max-width:850px;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-titulo{
+    position:relative;
+
+    margin:0 0 18px;
+    padding-left:16px;
+
+    color:var(--color-azul-profundo);
+
+    font-size:29px;
+    font-weight:600;
+
+    line-height:1.25;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-titulo::before{
+    content:"";
+
+    position:absolute;
+
+    top:2px;
+    bottom:2px;
+    left:0;
+
+    width:4px;
+
+    background:var(--color-rojo-acento);
+}
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+#OrganizacionAcademica .OrganizacionAcademica-texto{
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:15.5px;
+    line-height:1.9;
+
+    text-align:justify;
+}
+
+/* =========================================================
+   ANIMACIÓN
+========================================================= */
+
+#OrganizacionAcademica.reveal{
+    animation:OrganizacionAcademicaEntrada .55s ease both;
+}
+
+@keyframes OrganizacionAcademicaEntrada{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width:900px){
+
+    #OrganizacionAcademica{
+        padding:125px 0 65px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-contenedor{
+        width:90%;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-bloque{
+        grid-template-columns:75px minmax(0,1fr);
+
+        gap:22px;
+
+        padding:30px 0;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-titulo{
+        font-size:27px;
+    }
+
+}
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width:600px){
+
+    #OrganizacionAcademica{
+        padding:105px 0 55px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-contenedor{
+        width:90%;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-bloque{
+        grid-template-columns:48px minmax(0,1fr);
+
+        gap:16px;
+
+        padding:27px 0;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-numero{
+        font-size:12px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-linea{
+        top:22px;
+        width:25px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-titulo{
+        margin-bottom:16px;
+        padding-left:13px;
+
+        font-size:23px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-titulo::before{
+        width:3px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-texto{
+        font-size:14px;
+        line-height:1.85;
+
+        text-align:left;
+    }
+
+}
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width:400px){
+
+    #OrganizacionAcademica{
+        padding-bottom:45px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-bloque{
+        grid-template-columns:42px minmax(0,1fr);
+
+        gap:14px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-titulo{
+        font-size:21px;
+    }
+
+    #OrganizacionAcademica .OrganizacionAcademica-texto{
+        font-size:13.5px;
+    }
+
+}

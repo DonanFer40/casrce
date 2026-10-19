@@ -1,0 +1,1517 @@
+/* =========================================================
+   ENCABEZADO PRINCIPAL CARSCE
+   ========================================================= */
+
+#encabezado-principal-carsce {
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+}
+
+#navegacion-principal-carsce {
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   SECCIÓN INSTITUCIONAL SUPERIOR
+   ========================================================= */
+
+.encabezado-institucional-carsce {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 104px;
+
+    padding: 7px 18px;
+
+    box-sizing: border-box;
+
+    background: var(--color-blanco);
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+.encabezado-institucional-carsce-bloque {
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+.encabezado-institucional-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 17px;
+    font-weight: 650;
+
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+
+/* =========================================================
+   GOBIERNO BOLIVARIANO
+   ========================================================= */
+
+.encabezado-institucional-carsce-gobierno {
+    display: flex;
+    align-items: center;
+}
+
+.encabezado-institucional-carsce-logo-gobierno {
+    width: auto;
+    height: 56px;
+
+    margin-right: 13px;
+}
+
+.encabezado-institucional-carsce-gobierno
+.encabezado-institucional-carsce-titulo {
+    text-align: left;
+}
+
+
+/* =========================================================
+   MINISTERIO
+   ========================================================= */
+
+.encabezado-institucional-carsce-ministerio {
+    display: flex;
+    align-items: center;
+}
+
+.encabezado-institucional-carsce-ministerio
+.encabezado-institucional-carsce-titulo {
+    text-align: center;
+}
+
+
+/* =========================================================
+   UNIVERSIDAD
+   ========================================================= */
+
+.encabezado-institucional-carsce-universidad {
+    display: flex;
+    align-items: center;
+}
+
+.encabezado-institucional-carsce-logo-universidad {
+    width: auto;
+    height: 64px;
+
+    margin-right: 13px;
+}
+
+.encabezado-institucional-carsce-universidad
+.encabezado-institucional-carsce-titulo {
+    text-align: left;
+}
+
+
+/* =========================================================
+   SEPARADORES
+   ========================================================= */
+
+.encabezado-institucional-carsce-separador {
+    display: flex;
+    align-items: center;
+
+    margin: 0 20px;
+
+    color: #CBD5E1;
+
+    font-size: 30px;
+    font-weight: 300;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   BOTÓN HAMBURGUESA
+   ========================================================= */
+
+.encabezado-institucional-carsce-hamburguesa {
+    display: none;
+}
+
+
+/* =========================================================
+   BARRA DE NAVEGACIÓN PÚBLICA
+   ========================================================= */
+
+.navegacion-publica-carsce,
+.navegacion-autenticada-carsce {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 62px;
+
+    padding: 0 30px;
+
+    box-sizing: border-box;
+
+    background: var(--color-azul-profundo);
+}
+
+
+/* =========================================================
+   MARCA CARSCE
+   ========================================================= */
+
+.marca-carsce-publica,
+.marca-carsce-autenticada {
+    position: absolute;
+
+    left: 30px;
+    top: 50%;
+
+    display: flex;
+    align-items: center;
+
+    height: 38px;
+
+    padding-right: 24px;
+
+    transform: translateY(-50%);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.marca-carsce-publica span,
+.marca-carsce-autenticada span {
+    position: relative;
+
+    display: block;
+
+    color: var(--color-blanco);
+
+    font-size: 23px;
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+    line-height: 1;
+}
+
+.marca-carsce-publica span::after,
+.marca-carsce-autenticada span::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -8px;
+
+    width: 27px;
+    height: 2px;
+
+    background: var(--color-rojo-acento);
+
+    border-radius: 2px;
+}
+
+
+/* =========================================================
+   MENÚ PÚBLICO
+   ========================================================= */
+
+.navegacion-publica-carsce-lista {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2px;
+
+    width: 100%;
+    height: 62px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.navegacion-publica-carsce-item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    list-style: none;
+}
+
+
+/* =========================================================
+   ENLACES PÚBLICOS
+   ========================================================= */
+
+.navegacion-publica-carsce-enlace {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    height: 40px;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    color: #E2E8F0;
+
+    font-size: 14px;
+    font-weight: 550;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.navegacion-publica-carsce-enlace i {
+    font-size: 13px;
+}
+
+.navegacion-publica-carsce-enlace:hover {
+    color: var(--color-blanco);
+
+    background: rgba(255, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   FLECHAS
+   ========================================================= */
+
+.navegacion-publica-carsce-flecha {
+    margin-left: 2px;
+
+    font-size: 9px !important;
+
+    transition: transform 0.2s ease;
+}
+
+.navegacion-publica-carsce-dropdown:hover
+.navegacion-publica-carsce-flecha {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   DROPDOWNS PÚBLICOS
+   ========================================================= */
+
+.navegacion-publica-carsce-dropdown {
+    position: relative;
+}
+
+.navegacion-publica-carsce-submenu {
+    position: absolute;
+
+    top: calc(100% - 2px);
+    left: 50%;
+
+    min-width: 235px;
+
+    margin: 0;
+    padding: 7px;
+
+    transform: translate(-50%, 8px);
+
+    visibility: hidden;
+    opacity: 0;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    box-shadow: var(--sombra-elevada);
+
+    list-style: none;
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0.18s ease;
+}
+
+.navegacion-publica-carsce-dropdown:hover
+.navegacion-publica-carsce-submenu {
+    visibility: visible;
+
+    opacity: 1;
+
+    transform: translate(-50%, 0);
+}
+
+
+/* =========================================================
+   OPCIONES DROPDOWN
+   ========================================================= */
+
+.navegacion-publica-carsce-subitem {
+    list-style: none;
+}
+
+.navegacion-publica-carsce-subenlace {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-height: 39px;
+
+    padding: 0 11px;
+
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.navegacion-publica-carsce-subenlace i {
+    width: 17px;
+
+    text-align: center;
+
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+}
+
+.navegacion-publica-carsce-subenlace:hover {
+    color: var(--color-azul-hover);
+
+    background: #F1F5F9;
+}
+
+.navegacion-publica-carsce-subenlace:hover i {
+    color: var(--color-azul-hover);
+}
+
+
+/* =========================================================
+   BOTÓN ACCEDER
+   ========================================================= */
+
+.navegacion-publica-carsce-acceso {
+    margin-left: 8px;
+}
+
+.navegacion-publica-carsce-boton-acceso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-width: 105px;
+    height: 38px;
+
+    padding: 0 16px;
+
+    color: var(--color-blanco);
+
+    background: var(--color-rojo-acento);
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    text-decoration: none;
+
+    box-shadow: 0 3px 8px rgba(220, 38, 38, 0.18);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.navegacion-publica-carsce-boton-acceso:hover {
+    color: var(--color-blanco);
+
+    background: #B91C1C;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 12px rgba(220, 38, 38, 0.25);
+}
+
+
+/* =========================================================
+   NAVEGACIÓN AUTENTICADA
+   ========================================================= */
+
+.navegacion-autenticada-carsce {
+    justify-content: center;
+}
+
+
+/* =========================================================
+   NÚCLEO DEL USUARIO
+   ========================================================= */
+
+.navegacion-autenticada-carsce-nucleo {
+    position: absolute;
+
+    left: 245px;
+    top: 50%;
+
+    display: flex;
+    align-items: center;
+
+    transform: translateY(-50%);
+}
+
+.directorgeneral-panel-carsce-nucleo {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding: 0 13px;
+
+    color: #CBD5E1;
+
+    background: rgba(255, 255, 255, 0.055);
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+.directorgeneral-panel-carsce-nucleo i {
+    color: #93C5FD;
+
+    font-size: 13px;
+}
+
+.directorgeneral-panel-carsce-nucleo strong {
+    color: var(--color-blanco);
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   LISTA DEL USUARIO
+   ========================================================= */
+
+.navegacion-autenticada-carsce-lista {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 2px;
+
+    width: 100%;
+    height: 62px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.navegacion-autenticada-carsce-item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    list-style: none;
+}
+
+
+/* =========================================================
+   ENLACE DEL USUARIO
+   ========================================================= */
+
+.navegacion-autenticada-carsce-enlace {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    height: 40px;
+
+    padding: 0 15px;
+
+    color: #E2E8F0;
+
+    font-size: 14px;
+    font-weight: 550;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.navegacion-autenticada-carsce-enlace:hover {
+    color: var(--color-blanco);
+
+    background: rgba(255, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   AVATAR
+   ========================================================= */
+
+.navegacion-autenticada-carsce-avatar {
+    font-size: 18px !important;
+}
+
+
+/* =========================================================
+   NOMBRE DE USUARIO
+   ========================================================= */
+
+.navegacion-autenticada-carsce-nombre {
+    max-width: 190px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FLECHA DEL USUARIO
+   ========================================================= */
+
+.navegacion-autenticada-carsce-flecha {
+    margin-left: 2px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+
+    transition: transform 0.2s ease;
+}
+
+.navegacion-autenticada-carsce-dropdown:hover
+.navegacion-autenticada-carsce-flecha {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   DROPDOWN DEL USUARIO
+   ========================================================= */
+
+.navegacion-autenticada-carsce-dropdown {
+    position: relative;
+}
+
+.navegacion-autenticada-carsce-submenu {
+    position: absolute;
+
+    top: calc(100% - 2px);
+    right: 0;
+
+    min-width: 210px;
+
+    margin: 0;
+    padding: 7px;
+
+    transform: translateY(8px);
+
+    visibility: hidden;
+    opacity: 0;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    box-shadow: var(--sombra-elevada);
+
+    list-style: none;
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0.18s ease;
+}
+
+.navegacion-autenticada-carsce-dropdown:hover
+.navegacion-autenticada-carsce-submenu {
+    visibility: visible;
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   OPCIONES DEL USUARIO
+   ========================================================= */
+
+.navegacion-autenticada-carsce-subitem {
+    list-style: none;
+}
+
+.navegacion-autenticada-carsce-subenlace {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-height: 39px;
+
+    padding: 0 11px;
+
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.navegacion-autenticada-carsce-subenlace i {
+    width: 17px;
+
+    text-align: center;
+
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+}
+
+.navegacion-autenticada-carsce-subenlace:hover {
+    color: var(--color-azul-hover);
+
+    background: #F1F5F9;
+}
+
+
+/* =========================================================
+   CERRAR SESIÓN
+   ========================================================= */
+
+.navegacion-autenticada-carsce-cerrar {
+    color: #DC2626;
+}
+
+.navegacion-autenticada-carsce-cerrar i {
+    color: #DC2626 !important;
+}
+
+.navegacion-autenticada-carsce-cerrar:hover {
+    color: #B91C1C;
+
+    background: var(--color-rojo-soft);
+}
+
+
+/* =========================================================
+   HEADER CON SESIÓN INICIADA
+   ========================================================= */
+
+#encabezado-principal-carsce.header-logueado {
+    min-height: 166px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .encabezado-institucional-carsce-titulo {
+        font-size: 14px;
+    }
+
+    .encabezado-institucional-carsce-logo-gobierno {
+        height: 50px;
+    }
+
+    .encabezado-institucional-carsce-logo-universidad {
+        height: 57px;
+    }
+
+    .encabezado-institucional-carsce-separador {
+        margin: 0 13px;
+    }
+
+    .navegacion-publica-carsce-enlace {
+        padding: 0 8px;
+
+        font-size: 13px;
+    }
+
+    .marca-carsce-publica,
+    .marca-carsce-autenticada {
+        left: 20px;
+    }
+
+    .navegacion-autenticada-carsce-nucleo {
+        left: 220px;
+    }
+}
+
+
+/* =========================================================
+   CARSCE — PUNTO DE CORTE PRINCIPAL: 1360px
+   ========================================================= */
+
+/* Escritorio: navegación completa y sin hamburguesa */
+
+@media (min-width: 1360px) {
+
+    .encabezado-institucional-carsce-hamburguesa {
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET Y PANTALLAS MENORES DE 1360px
+   ========================================================= */
+
+@media (max-width: 1359px) {
+
+    /* -----------------------------------------------------
+       ENCABEZADO INSTITUCIONAL
+       ----------------------------------------------------- */
+
+    .encabezado-institucional-carsce {
+        position: relative;
+        justify-content: flex-start;
+    }
+
+    .encabezado-institucional-carsce-hamburguesa {
+        position: absolute;
+        top: 50%;
+        right: 18px;
+        z-index: 1010;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 42px;
+        height: 42px;
+
+        transform: translateY(-50%);
+
+        color: var(--color-blanco);
+        background: var(--color-azul-profundo);
+
+        border: 0;
+        border-radius: 7px;
+
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .encabezado-institucional-carsce-hamburguesa:focus-visible {
+        outline: 2px solid var(--color-azul-hover);
+        outline-offset: 3px;
+    }
+
+
+    /* -----------------------------------------------------
+       BARRAS DE NAVEGACIÓN
+       ----------------------------------------------------- */
+
+    .navegacion-publica-carsce,
+    .navegacion-autenticada-carsce {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        width: 100%;
+        min-height: 62px;
+
+        padding: 0;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------------------
+       MARCA CARSCE
+       ----------------------------------------------------- */
+
+    .marca-carsce-publica,
+    .marca-carsce-autenticada {
+        position: relative;
+
+        top: auto;
+        left: auto;
+
+        flex-shrink: 0;
+
+        margin-left: 18px;
+
+        transform: none;
+    }
+
+
+    /* -----------------------------------------------------
+       MENÚ PÚBLICO CERRADO POR DEFECTO
+       ----------------------------------------------------- */
+
+    .navegacion-publica-carsce-lista {
+        display: none;
+
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+
+        width: 100%;
+        height: auto;
+
+        margin: 0;
+        padding: 8px 14px 14px;
+
+        box-sizing: border-box;
+
+        gap: 3px;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    #menu-contenedor.menu-movil-abierto
+    .navegacion-publica-carsce-lista {
+        display: flex;
+    }
+
+    .navegacion-publica-carsce-item {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        width: 100%;
+        height: auto;
+    }
+
+    .navegacion-publica-carsce-enlace {
+        width: 100%;
+        min-height: 44px;
+        height: auto;
+
+        padding: 11px 12px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------------------
+       SUBMENÚS PÚBLICOS
+       ----------------------------------------------------- */
+
+    .navegacion-publica-carsce-dropdown {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .navegacion-publica-carsce-dropdown
+    > .navegacion-publica-carsce-submenu {
+        position: static;
+
+        display: none;
+
+        width: 100%;
+        min-width: 0;
+
+        margin: 0;
+        padding: 4px 0 6px;
+
+        box-sizing: border-box;
+
+        transform: none;
+        visibility: visible;
+        opacity: 1;
+
+        background: rgba(255, 255, 255, 0.055);
+
+        border: 0;
+        border-radius: 7px;
+        box-shadow: none;
+    }
+
+    .navegacion-publica-carsce-dropdown.submenu-abierto
+    > .navegacion-publica-carsce-submenu {
+        display: block;
+    }
+
+    .navegacion-publica-carsce-subenlace {
+        min-height: 44px;
+        padding: 10px 14px 10px 22px;
+
+        color: #E2E8F0;
+    }
+
+    .navegacion-publica-carsce-subenlace i {
+        color: #CBD5E1;
+    }
+
+    .navegacion-publica-carsce-dropdown.submenu-abierto
+    > .navegacion-publica-carsce-enlace
+    .navegacion-publica-carsce-flecha {
+        transform: rotate(180deg);
+    }
+
+
+    /* -----------------------------------------------------
+       ACCESO
+       ----------------------------------------------------- */
+
+    .navegacion-publica-carsce-acceso {
+        margin: 5px 0 0;
+    }
+
+    .navegacion-publica-carsce-boton-acceso {
+        width: 100%;
+        min-height: 44px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* -----------------------------------------------------
+       NAVEGACIÓN AUTENTICADA
+       ----------------------------------------------------- */
+
+    .navegacion-autenticada-carsce {
+        justify-content: flex-start;
+    }
+
+    .navegacion-autenticada-carsce-nucleo {
+        position: relative;
+
+        top: auto;
+        left: auto;
+
+        min-width: 0;
+
+        margin-left: 20px;
+
+        transform: none;
+    }
+
+    .navegacion-autenticada-carsce-lista {
+        display: flex;
+
+        width: auto;
+        height: 62px;
+
+        margin-left: auto;
+        margin-right: 15px;
+    }
+
+    .navegacion-autenticada-carsce-item {
+        height: auto;
+    }
+
+    .navegacion-autenticada-carsce-enlace {
+        min-height: 44px;
+    }
+
+    .navegacion-autenticada-carsce-submenu {
+        z-index: 1020;
+    }
+
+    #menu-contenedor-logueado.menu-movil-abierto
+    .navegacion-autenticada-carsce-submenu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   AJUSTES PARA PANTALLAS DE 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .encabezado-institucional-carsce-titulo {
+        font-size: 14px;
+    }
+
+    .encabezado-institucional-carsce-logo-gobierno {
+        height: 50px;
+    }
+
+    .encabezado-institucional-carsce-logo-universidad {
+        height: 57px;
+    }
+
+    .encabezado-institucional-carsce-separador {
+        margin: 0 13px;
+    }
+
+    .navegacion-autenticada-carsce-nucleo {
+        margin-left: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   AJUSTES PARA TABLET Y MÓVIL — 900px
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .encabezado-institucional-carsce {
+        min-height: 82px;
+        padding: 6px 68px 6px 15px;
+    }
+
+    .encabezado-institucional-carsce-gobierno
+    .encabezado-institucional-carsce-titulo,
+
+    .encabezado-institucional-carsce-ministerio
+    .encabezado-institucional-carsce-titulo {
+        display: none;
+    }
+
+    .encabezado-institucional-carsce-universidad
+    .encabezado-institucional-carsce-titulo {
+        font-size: 13px;
+    }
+
+    .encabezado-institucional-carsce-logo-gobierno {
+        height: 45px;
+    }
+
+    .encabezado-institucional-carsce-logo-universidad {
+        height: 51px;
+    }
+
+    .encabezado-institucional-carsce-separador {
+        margin: 0 10px;
+        font-size: 24px;
+    }
+
+    .encabezado-institucional-carsce-hamburguesa {
+        right: 14px;
+    }
+
+    .navegacion-autenticada-carsce-nucleo {
+        margin-left: 10px;
+    }
+
+    .directorgeneral-panel-carsce-nucleo {
+        min-height: 34px;
+        padding: 0 9px;
+        font-size: 11px;
+    }
+
+    .directorgeneral-panel-carsce-nucleo i {
+        font-size: 11px;
+    }
+
+    .navegacion-autenticada-carsce-lista {
+        margin-right: 10px;
+    }
+
+    .navegacion-autenticada-carsce-nombre {
+        max-width: 100px;
+    }
+
+}
+
+
+/* =========================================================
+   TELÉFONOS — 600px
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .encabezado-institucional-carsce {
+        justify-content: flex-start;
+        min-height: 76px;
+    }
+
+    .encabezado-institucional-carsce-universidad
+    .encabezado-institucional-carsce-titulo {
+        display: none;
+    }
+
+    .encabezado-institucional-carsce-logo-universidad {
+        height: 48px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .encabezado-institucional-carsce-gobierno {
+        display: none;
+    }
+
+    .encabezado-institucional-carsce-separador {
+        display: none;
+    }
+
+    .marca-carsce-publica,
+    .marca-carsce-autenticada {
+        margin-left: 15px;
+    }
+
+    .marca-carsce-publica span,
+    .marca-carsce-autenticada span {
+        font-size: 20px;
+    }
+
+    .navegacion-autenticada-carsce {
+        padding-right: 8px;
+    }
+
+    .navegacion-autenticada-carsce-nucleo {
+        max-width: calc(100% - 145px);
+        margin-left: 8px;
+    }
+
+    .directorgeneral-panel-carsce-nucleo {
+        min-width: 0;
+        max-width: 100%;
+        padding: 0 7px;
+        gap: 5px;
+        box-sizing: border-box;
+    }
+
+    .directorgeneral-panel-carsce-nucleo strong {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .navegacion-autenticada-carsce-lista {
+        margin-right: 4px;
+    }
+
+    .navegacion-autenticada-carsce-nombre {
+        display: none;
+    }
+
+    .navegacion-autenticada-carsce-enlace {
+        padding: 0 8px;
+    }
+
+}
+
+
+/* =========================================================
+   TELÉFONOS ESTRECHOS — 380px
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .encabezado-institucional-carsce {
+        min-height: 70px;
+    }
+
+    .encabezado-institucional-carsce-logo-universidad {
+        height: 42px;
+    }
+
+    .navegacion-autenticada-carsce-nucleo {
+        max-width: calc(100% - 130px);
+        margin-left: 6px;
+    }
+
+    .directorgeneral-panel-carsce-nucleo {
+        gap: 4px;
+        padding: 0 6px;
+        font-size: 10px;
+    }
+
+    .navegacion-autenticada-carsce-avatar {
+        font-size: 17px !important;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .navegacion-publica-carsce-enlace,
+    .navegacion-publica-carsce-flecha,
+    .navegacion-publica-carsce-submenu,
+    .navegacion-publica-carsce-subenlace,
+    .navegacion-publica-carsce-boton-acceso,
+    .navegacion-autenticada-carsce-enlace,
+    .navegacion-autenticada-carsce-flecha,
+    .navegacion-autenticada-carsce-submenu,
+    .navegacion-autenticada-carsce-subenlace {
+        transition: none;
+    }
+
+}
+
+
+
+/* =========================================================
+   CARSCE — CORRECCIÓN FINAL DEL ENCABEZADO Y LA SIDEBAR
+   ========================================================= */
+
+/* El encabezado completo queda por encima del fondo difuminado */
+#encabezado-principal-carsce {
+    position: relative;
+    z-index: 1300;
+}
+
+#navegacion-principal-carsce {
+    position: relative;
+    z-index: 1300;
+}
+
+/* Evitar que la hamburguesa se desplace fuera de su sección */
+#encabezado-principal-carsce
+.encabezado-institucional-carsce {
+    position: relative;
+}
+
+#encabezado-principal-carsce #hamburger-btn {
+    box-sizing: border-box;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+
+    margin: 0;
+    padding: 0;
+
+    line-height: 1;
+}
+
+/* =========================================================
+   ESCRITORIO: SIDEBAR SIEMPRE VISIBLE
+   ========================================================= */
+
+@media (min-width: 1360px) {
+    #encabezado-principal-carsce #hamburger-btn {
+        display: none !important;
+    }
+
+    #barra-lateral-carsce {
+        position: fixed;
+        top: 166px;
+        bottom: 0;
+        left: 0;
+
+        width: 270px;
+        height: auto;
+        max-height: none;
+
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+
+        z-index: 1100;
+    }
+
+    body.barra-lateral-carsce-fondo-activo::after {
+        content: none;
+    }
+}
+
+/* =========================================================
+   TABLET Y MÓVIL: SIDEBAR DESLIZABLE DESDE LA IZQUIERDA
+   ========================================================= */
+
+@media (max-width: 1359px) {
+    #encabezado-principal-carsce #hamburger-btn {
+        display: inline-flex !important;
+        position: absolute;
+
+        top: 50%;
+        right: 18px;
+
+        transform: translateY(-50%);
+
+        z-index: 1301;
+    }
+
+    #barra-lateral-carsce {
+        position: fixed;
+
+        top: 166px;
+        bottom: 0;
+        left: 0;
+
+        box-sizing: border-box;
+
+        width: min(300px, 86vw);
+        height: auto;
+        max-height: none;
+
+        margin: 0;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+
+        border-radius: 0 14px 0 0;
+
+        box-shadow: 12px 0 35px rgba(15, 23, 42, 0.25);
+
+        z-index: 1200;
+
+        transform: translateX(-105%);
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+            transform 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    #barra-lateral-carsce.barra-lateral-carsce-movil-abierta {
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Fondo detrás del encabezado y de la barra lateral */
+    body.barra-lateral-carsce-fondo-activo::after {
+        content: "";
+
+        position: fixed;
+        inset: 0;
+
+        background: rgba(15, 23, 42, 0.32);
+
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+
+        z-index: 1050;
+        pointer-events: auto;
+    }
+}
+
+/* =========================================================
+   TELÉFONOS
+   ========================================================= */
+
+@media (max-width: 600px) {
+    #encabezado-principal-carsce #hamburger-btn {
+        right: 14px;
+    }
+
+    #barra-lateral-carsce {
+        width: min(285px, 88vw);
+    }
+}
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    #barra-lateral-carsce {
+        transition: none !important;
+    }
+}
+
+
+/* =========================================================
+   CORRECCIÓN DE POSICIÓN DE LA HAMBURGUESA
+   ========================================================= */
+
+@media (max-width: 1359px) {
+    #encabezado-principal-carsce {
+        position: relative;
+    }
+
+    #encabezado-principal-carsce
+    .encabezado-institucional-carsce {
+        position: relative;
+    }
+
+    #encabezado-principal-carsce
+    .encabezado-institucional-carsce-hamburguesa {
+        position: absolute !important;
+
+        top: 50% !important;
+        right: 18px !important;
+        left: auto !important;
+        bottom: auto !important;
+
+        transform: translateY(-50%) !important;
+
+        width: 42px;
+        height: 42px;
+
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-sizing: border-box;
+        z-index: 1301;
+    }
+}
+
+@media (max-width: 600px) {
+    #encabezado-principal-carsce
+    .encabezado-institucional-carsce-hamburguesa {
+        right: 14px !important;
+    }
+}

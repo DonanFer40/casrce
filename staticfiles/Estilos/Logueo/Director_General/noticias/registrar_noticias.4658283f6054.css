@@ -1,0 +1,948 @@
+/* ============================================================
+   REGISTRAR NOTICIA — DIRECTOR GENERAL
+   CARSCE
+   ============================================================ */
+
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+#director-noticias-registrar-carsce {
+    width: 100%;
+    padding: 35px 30px 50px;
+    background: var(--color-fondo-pagina);
+}
+
+
+.director-noticias-registrar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO
+   ============================================================ */
+
+.director-noticias-registrar-carsce-encabezado {
+    margin-bottom: 28px;
+}
+
+
+/* ------------------------------------------------------------
+   IDENTIFICACIÓN
+   ------------------------------------------------------------ */
+
+.director-noticias-registrar-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+
+.director-noticias-registrar-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 6px;
+
+    background: var(--color-azul-profundo);
+    color: var(--color-blanco);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+
+.director-noticias-registrar-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.director-noticias-registrar-carsce-seccion i {
+    color: var(--color-azul-hover);
+    font-size: 13px;
+}
+
+
+/* ------------------------------------------------------------
+   PRESENTACIÓN
+   ------------------------------------------------------------ */
+
+.director-noticias-registrar-carsce-presentacion {
+    width: 100%;
+}
+
+
+.director-noticias-registrar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+
+.director-noticias-registrar-carsce-descripcion {
+    max-width: 720px;
+    margin-top: 9px;
+
+    color: var(--texto-secundario);
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+
+/* ============================================================
+   CONTENEDOR DEL FORMULARIO
+   ============================================================ */
+
+.director-noticias-registrar-carsce-formulario-contenedor {
+    width: 100%;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   CABECERA DEL FORMULARIO
+   ============================================================ */
+
+.director-noticias-registrar-carsce-formulario-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 22px 26px;
+
+    background: var(--color-fondo-pagina);
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+
+.director-noticias-registrar-carsce-formulario-icono {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: var(--color-azul-profundo);
+    color: var(--color-blanco);
+
+    font-size: 18px;
+}
+
+
+.director-noticias-registrar-carsce-formulario-titulo h2 {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.director-noticias-registrar-carsce-formulario-titulo span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--texto-secundario);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+
+.director-noticias-registrar-carsce-formulario {
+    width: 100%;
+    padding: 28px;
+}
+
+
+/* ============================================================
+   FILA DE CAMPOS
+   ============================================================ */
+
+.director-noticias-registrar-carsce-fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+
+    margin-bottom: 22px;
+}
+
+
+/* ============================================================
+   CAMPOS
+   ============================================================ */
+
+.director-noticias-registrar-carsce-campo {
+    width: 100%;
+}
+
+
+.director-noticias-registrar-carsce-campo label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.director-noticias-registrar-carsce-campo label span {
+    color: var(--color-rojo-acento);
+    margin-left: 2px;
+}
+
+
+.director-noticias-registrar-carsce-campo input,
+.director-noticias-registrar-carsce-campo textarea {
+    width: 100%;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+
+    background: var(--color-blanco);
+    color: var(--texto-principal);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.director-noticias-registrar-carsce-campo input {
+    height: 44px;
+    padding: 0 13px;
+}
+
+
+.director-noticias-registrar-carsce-campo textarea {
+    min-height: 95px;
+    padding: 12px 13px;
+
+    resize: vertical;
+    line-height: 1.6;
+}
+
+
+.director-noticias-registrar-carsce-campo input::placeholder,
+.director-noticias-registrar-carsce-campo textarea::placeholder {
+    color: var(--texto-mutado);
+}
+
+
+.director-noticias-registrar-carsce-campo input:focus,
+.director-noticias-registrar-carsce-campo textarea:focus {
+    border-color: var(--color-azul-hover);
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+
+    background: var(--color-blanco);
+}
+
+
+.director-noticias-registrar-carsce-campo small {
+    display: block;
+
+    margin-top: 6px;
+
+    color: var(--texto-mutado);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   CAMPO DE CONTENIDO
+   ============================================================ */
+
+.director-noticias-registrar-carsce-campo-contenido {
+    margin-bottom: 30px;
+}
+
+
+.director-noticias-registrar-carsce-campo-contenido textarea {
+    min-height: 220px;
+}
+
+
+/* ============================================================
+   BLOQUES INTERNOS
+   ============================================================ */
+
+.director-noticias-registrar-carsce-bloque {
+    width: 100%;
+
+    margin-top: 26px;
+    padding: 22px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+
+    background: var(--color-fondo-pagina);
+}
+
+
+/* ============================================================
+   CABECERA DE BLOQUE
+   ============================================================ */
+
+.director-noticias-registrar-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    margin-bottom: 20px;
+}
+
+
+.director-noticias-registrar-carsce-bloque-icono {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: var(--color-azul-card);
+    color: var(--color-blanco);
+
+    font-size: 15px;
+}
+
+
+.director-noticias-registrar-carsce-bloque-informacion h3 {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.director-noticias-registrar-carsce-bloque-informacion span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--texto-secundario);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   IMAGEN
+   ============================================================ */
+
+.director-noticias-registrar-carsce-imagen {
+    width: 100%;
+}
+
+
+.director-noticias-registrar-carsce-imagen-selector {
+    min-height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    padding: 20px;
+
+    border: 1px dashed var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.director-noticias-registrar-carsce-imagen-selector:hover {
+    border-color: var(--color-azul-hover);
+    background: #F8FAFF;
+}
+
+
+.director-noticias-registrar-carsce-imagen-icono {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #EFF6FF;
+    color: var(--color-azul-hover);
+
+    font-size: 17px;
+}
+
+
+.director-noticias-registrar-carsce-imagen-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.director-noticias-registrar-carsce-imagen-texto strong {
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.director-noticias-registrar-carsce-imagen-texto span {
+    color: var(--texto-mutado);
+
+    font-size: 11px;
+}
+
+
+/* INPUT OCULTO */
+
+.director-noticias-registrar-carsce-imagen input[type="file"] {
+    display: none;
+}
+
+
+/* ============================================================
+   PREVISUALIZACIÓN DE IMAGEN
+   ============================================================ */
+
+.director-noticias-registrar-carsce-imagen-preview {
+    display: none;
+
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 12px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+}
+
+
+.director-noticias-registrar-carsce-imagen-preview-visible {
+    display: block;
+}
+
+
+.director-noticias-registrar-carsce-imagen-preview img {
+    display: block;
+
+    width: 100%;
+    max-height: 420px;
+
+    object-fit: contain;
+
+    border-radius: 7px;
+}
+
+
+/* ============================================================
+   NÚCLEO ASIGNADO
+   ============================================================ */
+
+.director-noticias-registrar-carsce-nucleo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 15px 17px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+}
+
+
+.director-noticias-registrar-carsce-nucleo-icono {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: var(--color-azul-profundo);
+    color: var(--color-blanco);
+
+    font-size: 15px;
+}
+
+
+.director-noticias-registrar-carsce-nucleo-informacion {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    flex: 1;
+}
+
+
+.director-noticias-registrar-carsce-nucleo-informacion span {
+    color: var(--texto-mutado);
+
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+.director-noticias-registrar-carsce-nucleo-informacion strong {
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.director-noticias-registrar-carsce-nucleo-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    background: #F1F5F9;
+    color: var(--texto-secundario);
+
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+.director-noticias-registrar-carsce-nucleo-estado i {
+    font-size: 10px;
+}
+
+
+/* ============================================================
+   AVISO
+   ============================================================ */
+
+.director-noticias-registrar-carsce-aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    margin-top: 25px;
+    padding: 14px 16px;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+
+    background: #EFF6FF;
+    color: var(--texto-secundario);
+}
+
+
+.director-noticias-registrar-carsce-aviso > i {
+    margin-top: 2px;
+
+    color: var(--color-azul-hover);
+
+    font-size: 15px;
+}
+
+
+.director-noticias-registrar-carsce-aviso p {
+    margin: 0;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+.director-noticias-registrar-carsce-aviso strong {
+    color: var(--texto-principal);
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   ACCIONES
+   ============================================================ */
+
+.director-noticias-registrar-carsce-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 11px;
+
+    margin-top: 30px;
+    padding-top: 22px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+
+.director-noticias-registrar-carsce-boton-cancelar,
+.director-noticias-registrar-carsce-boton-registrar {
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 17px;
+
+    border-radius: 7px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* ------------------------------------------------------------
+   CANCELAR
+   ------------------------------------------------------------ */
+
+.director-noticias-registrar-carsce-boton-cancelar {
+    border: 1px solid var(--color-borde-fino);
+
+    background: var(--color-blanco);
+    color: var(--texto-secundario);
+}
+
+
+.director-noticias-registrar-carsce-boton-cancelar:hover {
+    border-color: #CBD5E1;
+
+    background: #F8FAFC;
+    color: var(--texto-principal);
+}
+
+
+/* ------------------------------------------------------------
+   REGISTRAR
+   ------------------------------------------------------------ */
+
+.director-noticias-registrar-carsce-boton-registrar {
+    border: 1px solid var(--color-azul-hover);
+
+    background: linear-gradient(
+        135deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    color: var(--color-blanco);
+
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.20);
+}
+
+
+.director-noticias-registrar-carsce-boton-registrar:hover {
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+.director-noticias-registrar-carsce-boton-registrar:active {
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   RESPONSIVE — 900px
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    #director-noticias-registrar-carsce {
+        padding: 30px 22px 45px;
+    }
+
+
+    .director-noticias-registrar-carsce-titulo {
+        font-size: 27px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario {
+        padding: 24px;
+    }
+
+
+    .director-noticias-registrar-carsce-fila {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 700px
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    #director-noticias-registrar-carsce {
+        padding: 25px 18px 40px;
+    }
+
+
+    .director-noticias-registrar-carsce-identificacion {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+
+    .director-noticias-registrar-carsce-titulo {
+        font-size: 24px;
+    }
+
+
+    .director-noticias-registrar-carsce-descripcion {
+        font-size: 13px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario-cabecera {
+        padding: 19px 20px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario {
+        padding: 20px;
+    }
+
+
+    .director-noticias-registrar-carsce-bloque {
+        padding: 18px;
+    }
+
+
+    .director-noticias-registrar-carsce-nucleo {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+
+    .director-noticias-registrar-carsce-nucleo-estado {
+        width: 100%;
+        justify-content: center;
+    }
+
+
+    .director-noticias-registrar-carsce-acciones {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+
+    .director-noticias-registrar-carsce-boton-cancelar,
+    .director-noticias-registrar-carsce-boton-registrar {
+        width: 100%;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 520px
+   ============================================================ */
+
+@media (max-width: 520px) {
+
+    #director-noticias-registrar-carsce {
+        padding: 22px 13px 35px;
+    }
+
+
+    .director-noticias-registrar-carsce-titulo {
+        font-size: 22px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario-cabecera {
+        align-items: flex-start;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario-icono {
+        width: 40px;
+        height: 40px;
+
+        font-size: 16px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario-titulo h2 {
+        font-size: 15px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario {
+        padding: 17px;
+    }
+
+
+    .director-noticias-registrar-carsce-bloque {
+        padding: 15px;
+    }
+
+
+    .director-noticias-registrar-carsce-bloque-cabecera {
+        align-items: flex-start;
+    }
+
+
+    .director-noticias-registrar-carsce-imagen-selector {
+        flex-direction: column;
+        text-align: center;
+    }
+
+
+    .director-noticias-registrar-carsce-nucleo {
+        gap: 11px;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 390px
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    #director-noticias-registrar-carsce {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+
+    .director-noticias-registrar-carsce-titulo {
+        font-size: 20px;
+    }
+
+
+    .director-noticias-registrar-carsce-descripcion {
+        font-size: 12px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario {
+        padding: 14px;
+    }
+
+
+    .director-noticias-registrar-carsce-formulario-cabecera {
+        padding: 16px;
+    }
+
+
+    .director-noticias-registrar-carsce-bloque {
+        padding: 13px;
+    }
+
+
+    .director-noticias-registrar-carsce-aviso {
+        padding: 12px;
+    }
+
+}

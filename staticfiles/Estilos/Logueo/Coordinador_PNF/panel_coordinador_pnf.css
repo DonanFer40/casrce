@@ -1,0 +1,1049 @@
+/* =========================================================
+   PANEL COORDINADOR PNF — CARSCE
+   ========================================================= */
+
+#panel-coordinador-pnf-carsce {
+    width: 100%;
+    min-height: 100%;
+
+    padding: 4px 0 30px;
+
+    color: var(--texto-principal);
+}
+
+
+/* =========================================================
+   CONTENEDOR GENERAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-encabezado {
+    width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 28px;
+
+    margin-bottom: 24px;
+}
+
+
+/* =========================================================
+   PRESENTACIÓN
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-presentacion {
+    min-width: 0;
+    flex: 1;
+}
+
+
+/* =========================================================
+   IDENTIFICACIÓN
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-identificacion {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    margin-bottom: 9px;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    background: #EFF6FF;
+
+    color: #2563EB;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+
+.panel-coordinador-pnf-carsce-identificacion i {
+    font-size: 0.7rem;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.02em;
+}
+
+
+.panel-coordinador-pnf-carsce-titulo span {
+    color: var(--color-azul-hover);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-descripcion {
+    max-width: 700px;
+
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    font-weight: 400;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   CONTEXTO DEL PNF
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-contexto {
+    width: 285px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+
+    background: var(--color-blanco);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   ICONO CONTEXTO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-contexto-icono {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB,
+            #1D4ED8
+        );
+
+    color: #FFFFFF;
+
+    font-size: 0.95rem;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.18);
+}
+
+
+/* =========================================================
+   DATOS CONTEXTO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-contexto-datos {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.panel-coordinador-pnf-carsce-contexto-datos span {
+    color: var(--texto-secundario);
+
+    font-size: 0.63rem;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+.panel-coordinador-pnf-carsce-contexto-datos strong {
+    overflow: hidden;
+
+    color: var(--color-azul-card);
+
+    font-size: 0.76rem;
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.panel-coordinador-pnf-carsce-contexto-datos small {
+    color: var(--texto-mutado);
+
+    font-size: 0.64rem;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   RESUMEN ACADÉMICO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-resumen {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   TARJETAS DE RESUMEN
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-resumen-card {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 16px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+
+    background: var(--color-blanco);
+
+    box-shadow: var(--sombra-card);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.panel-coordinador-pnf-carsce-resumen-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #CBD5E1;
+
+    box-shadow: var(--sombra-hover);
+}
+
+
+/* =========================================================
+   ICONO RESUMEN
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-resumen-icono {
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 9px;
+
+    background: #EFF6FF;
+
+    color: var(--color-azul-hover);
+
+    font-size: 0.82rem;
+}
+
+
+/* =========================================================
+   DATOS RESUMEN
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-resumen-datos {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.panel-coordinador-pnf-carsce-resumen-datos span {
+    color: var(--texto-secundario);
+
+    font-size: 0.64rem;
+    font-weight: 600;
+}
+
+
+.panel-coordinador-pnf-carsce-resumen-datos strong {
+    color: var(--texto-principal);
+
+    font-size: 1.18rem;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+.panel-coordinador-pnf-carsce-resumen-datos small {
+    color: var(--texto-mutado);
+
+    font-size: 0.59rem;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-principal {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1.55fr) minmax(270px, 0.75fr);
+
+    gap: 18px;
+
+    align-items: start;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   MÓDULO PRINCIPAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-modulo {
+    width: 100%;
+
+    padding: 25px 27px 27px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    background: var(--color-blanco);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA DEL MÓDULO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-modulo-cabecera {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 21px;
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+
+.panel-coordinador-pnf-carsce-modulo-cabecera > div > span,
+.panel-coordinador-pnf-carsce-lateral-cabecera > span {
+    color: var(--color-azul-hover);
+
+    font-size: 0.62rem;
+    font-weight: 700;
+
+    letter-spacing: 0.07em;
+}
+
+
+.panel-coordinador-pnf-carsce-modulo-cabecera h2,
+.panel-coordinador-pnf-carsce-lateral-cabecera h2 {
+    margin: 3px 0 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+
+    line-height: 1.3;
+}
+
+
+.panel-coordinador-pnf-carsce-modulo-cabecera p {
+    max-width: 650px;
+
+    margin: 5px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.69rem;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ACCESOS
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-accesos {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+
+/* =========================================================
+   ACCESO INDIVIDUAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-acceso {
+    width: 100%;
+    min-height: 82px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px 13px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: #FFFFFF;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.panel-coordinador-pnf-carsce-acceso:hover {
+    transform: translateX(3px);
+
+    border-color: #BFDBFE;
+
+    background: #F8FAFF;
+
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================================================
+   ICONO ACCESO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-acceso-icono {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+
+    color: var(--color-azul-hover);
+
+    font-size: 0.84rem;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.panel-coordinador-pnf-carsce-acceso:hover
+.panel-coordinador-pnf-carsce-acceso-icono {
+    background: #DBEAFE;
+
+    color: #1D4ED8;
+}
+
+
+/* =========================================================
+   TEXTO ACCESO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-acceso-texto {
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.panel-coordinador-pnf-carsce-acceso-texto h3 {
+    margin: 0 0 3px;
+
+    color: var(--color-azul-card);
+
+    font-size: 0.78rem;
+    font-weight: 650;
+
+    line-height: 1.3;
+}
+
+
+.panel-coordinador-pnf-carsce-acceso-texto p {
+    max-width: 540px;
+
+    margin: 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.65rem;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   FLECHA
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-acceso-flecha {
+    flex-shrink: 0;
+
+    color: #94A3B8;
+
+    font-size: 0.7rem;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.panel-coordinador-pnf-carsce-acceso:hover
+.panel-coordinador-pnf-carsce-acceso-flecha {
+    color: var(--color-azul-hover);
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   COLUMNA LATERAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-lateral {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   MÓDULO LATERAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-modulo-lateral {
+    width: 100%;
+
+    padding: 21px 21px 22px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    background: var(--color-blanco);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA LATERAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-lateral-cabecera {
+    margin-bottom: 17px;
+    padding-bottom: 14px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   DATOS DEL PNF
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-datos-pnf {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0;
+}
+
+
+.panel-coordinador-pnf-carsce-dato {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid #F1F5F9;
+}
+
+
+.panel-coordinador-pnf-carsce-dato:first-child {
+    padding-top: 0;
+}
+
+
+.panel-coordinador-pnf-carsce-dato:last-child {
+    padding-bottom: 0;
+
+    border-bottom: none;
+}
+
+
+.panel-coordinador-pnf-carsce-dato span {
+    color: var(--texto-mutado);
+
+    font-size: 0.61rem;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+
+.panel-coordinador-pnf-carsce-dato strong {
+    color: var(--color-azul-card);
+
+    font-size: 0.7rem;
+    font-weight: 650;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   ACTIVIDAD
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-actividad {
+    width: 100%;
+}
+
+
+.panel-coordinador-pnf-carsce-actividad-item {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+}
+
+
+.panel-coordinador-pnf-carsce-actividad-icono {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+
+    background: #F8FAFC;
+
+    color: #64748B;
+
+    font-size: 0.72rem;
+}
+
+
+.panel-coordinador-pnf-carsce-actividad-datos {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.panel-coordinador-pnf-carsce-actividad-datos strong {
+    color: var(--color-azul-card);
+
+    font-size: 0.68rem;
+    font-weight: 650;
+
+    line-height: 1.35;
+}
+
+
+.panel-coordinador-pnf-carsce-actividad-datos span {
+    color: var(--texto-secundario);
+
+    font-size: 0.61rem;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   AVISO INSTITUCIONAL
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-aviso {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 10px;
+
+    background: #EFF6FF;
+}
+
+
+/* =========================================================
+   ICONO AVISO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-aviso-icono {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: #FFFFFF;
+
+    color: var(--color-azul-hover);
+
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   CONTENIDO AVISO
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-aviso-contenido {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.panel-coordinador-pnf-carsce-aviso-contenido strong {
+    color: #1E3A8A;
+
+    font-size: 0.69rem;
+    font-weight: 700;
+
+    line-height: 1.35;
+}
+
+
+.panel-coordinador-pnf-carsce-aviso-contenido p {
+    margin: 0;
+
+    color: #475569;
+
+    font-size: 0.63rem;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.panel-coordinador-pnf-carsce-acceso:focus-visible {
+    outline: 2px solid #60A5FA;
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 900px
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .panel-coordinador-pnf-carsce-encabezado {
+        align-items: flex-start;
+    }
+
+    .panel-coordinador-pnf-carsce-contexto {
+        width: 260px;
+    }
+
+    .panel-coordinador-pnf-carsce-resumen {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .panel-coordinador-pnf-carsce-principal {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-coordinador-pnf-carsce-lateral {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 700px
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    #panel-coordinador-pnf-carsce {
+        padding: 3px 0 25px;
+    }
+
+    .panel-coordinador-pnf-carsce-encabezado {
+        flex-direction: column;
+
+        gap: 16px;
+    }
+
+    .panel-coordinador-pnf-carsce-contexto {
+        width: 100%;
+    }
+
+    .panel-coordinador-pnf-carsce-titulo {
+        font-size: 1.28rem;
+    }
+
+    .panel-coordinador-pnf-carsce-descripcion {
+        font-size: 0.78rem;
+    }
+
+    .panel-coordinador-pnf-carsce-modulo {
+        padding: 21px;
+    }
+
+    .panel-coordinador-pnf-carsce-lateral {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 520px
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .panel-coordinador-pnf-carsce-identificacion {
+        padding: 6px 9px;
+
+        font-size: 0.61rem;
+    }
+
+    .panel-coordinador-pnf-carsce-titulo {
+        font-size: 1.15rem;
+    }
+
+    .panel-coordinador-pnf-carsce-descripcion {
+        font-size: 0.74rem;
+    }
+
+    .panel-coordinador-pnf-carsce-resumen {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .panel-coordinador-pnf-carsce-resumen-card {
+        padding: 14px;
+    }
+
+    .panel-coordinador-pnf-carsce-modulo {
+        padding: 18px 16px 20px;
+    }
+
+    .panel-coordinador-pnf-carsce-modulo-lateral {
+        padding: 18px 16px 20px;
+    }
+
+    .panel-coordinador-pnf-carsce-acceso {
+        min-height: 78px;
+
+        padding: 11px;
+    }
+
+    .panel-coordinador-pnf-carsce-acceso-texto p {
+        font-size: 0.62rem;
+    }
+
+    .panel-coordinador-pnf-carsce-aviso {
+        align-items: flex-start;
+
+        padding: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 390px
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .panel-coordinador-pnf-carsce-titulo {
+        font-size: 1.05rem;
+    }
+
+    .panel-coordinador-pnf-carsce-contexto {
+        padding: 11px;
+    }
+
+    .panel-coordinador-pnf-carsce-contexto-icono {
+        width: 38px;
+        height: 38px;
+    }
+
+    .panel-coordinador-pnf-carsce-modulo {
+        padding: 16px 13px 18px;
+    }
+
+    .panel-coordinador-pnf-carsce-modulo-lateral {
+        padding: 16px 13px 18px;
+    }
+
+    .panel-coordinador-pnf-carsce-acceso-icono {
+        width: 36px;
+        height: 36px;
+    }
+
+    .panel-coordinador-pnf-carsce-acceso-texto h3 {
+        font-size: 0.72rem;
+    }
+
+    .panel-coordinador-pnf-carsce-acceso-texto p {
+        font-size: 0.59rem;
+    }
+
+    .panel-coordinador-pnf-carsce-acceso-flecha {
+        font-size: 0.62rem;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCCIÓN DE MOVIMIENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .panel-coordinador-pnf-carsce-resumen-card,
+    .panel-coordinador-pnf-carsce-acceso,
+    .panel-coordinador-pnf-carsce-acceso-icono,
+    .panel-coordinador-pnf-carsce-acceso-flecha {
+        transition: none;
+    }
+
+}

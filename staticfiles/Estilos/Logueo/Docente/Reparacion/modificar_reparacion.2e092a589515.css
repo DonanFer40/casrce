@@ -1,0 +1,990 @@
+/* ============================================================
+   MODIFICAR REPARACIÓN — CARSCE
+   ============================================================ */
+
+#reparacion-modificar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    color: #2563EB;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-identificacion i {
+    font-size: 0.75rem;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-presentacion {
+    margin-top: 9px;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-titulo span {
+    color: #2563EB;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   TARJETA PRINCIPAL
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-tarjeta {
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* ============================================================
+   CABECERA DE TARJETA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    border-radius: 11px;
+
+    color: var(--color-blanco);
+
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.22);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-tarjeta-icono i {
+    font-size: 1rem;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-tarjeta-descripcion {
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-formulario {
+    width: 100%;
+}
+
+
+/* ============================================================
+   BLOQUES
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque {
+    width: 100%;
+
+    margin-bottom: 18px;
+    padding: 21px 20px 22px;
+
+    background: var(--color-fondo-pagina);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque:last-of-type {
+    margin-bottom: 0;
+}
+
+
+/* ============================================================
+   CABECERA DE BLOQUE
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 18px;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+
+    color: #2563EB;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque-icono i {
+    font-size: 0.78rem;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque-descripcion {
+    margin: 2px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.68rem;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   GRID ACADÉMICO
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-campo {
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* ============================================================
+   ETIQUETAS
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-etiqueta {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--texto-principal);
+
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   CONTROLES
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control {
+    position: relative;
+
+    width: 100%;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control > i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: 0.76rem;
+
+    pointer-events: none;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control select,
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 40px;
+
+    background: var(--color-blanco);
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    color: var(--texto-principal);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.74rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control input::placeholder {
+    color: #94A3B8;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control select:hover,
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control input:hover {
+    border-color: #94A3B8;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control select:focus,
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control input:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* ============================================================
+   INPUT DE SOLO LECTURA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-control-lectura input {
+    background: #F8FAFC;
+    color: #475569;
+
+    cursor: default;
+}
+
+
+/* ============================================================
+   FLECHA SELECT
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-flecha {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    pointer-events: none;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-flecha i {
+    font-size: 0.65rem;
+}
+
+
+/* ============================================================
+   MENSAJES DE VALIDACIÓN
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-mensaje {
+    min-height: 16px;
+
+    margin-top: 4px;
+
+    color: #DC2626;
+
+    font-size: 0.65rem;
+}
+
+
+/* ============================================================
+   BLOQUE DE EVALUACIONES / ESTUDIANTES
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-bloque-evaluaciones {
+    overflow: hidden;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones {
+    width: 100%;
+}
+
+
+/* ============================================================
+   ALERTAS GENERADAS POR JAVASCRIPT
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .alert {
+    width: 100%;
+
+    margin: 4px 0 0;
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .alert-warning {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+
+    color: #92400E;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .alert-info {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+
+    color: #1D4ED8;
+}
+
+
+/* ============================================================
+   FORMULARIO DINÁMICO DE MODIFICACIÓN
+   ============================================================ */
+
+#reparacion-modificar-carsce
+#form_guardar_modificacion_rep {
+    width: 100%;
+}
+
+
+/* ============================================================
+   CONTENEDOR DE TABLA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table-responsive {
+    width: 100%;
+
+    margin-top: 3px;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+
+    scrollbar-width: thin;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table-responsive::-webkit-scrollbar {
+    height: 7px;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table-responsive::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table-responsive::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 20px;
+}
+
+
+/* ============================================================
+   TABLA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table {
+    width: 100%;
+    min-width: 850px;
+
+    margin: 0;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: var(--color-blanco);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.72rem;
+}
+
+
+/* ============================================================
+   CABECERA DE TABLA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table-dark {
+    background: var(--color-azul-profundo);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table thead th {
+    height: 48px;
+
+    padding: 11px 14px;
+
+    background: var(--color-azul-profundo);
+    border-bottom: 1px solid #334155;
+
+    color: var(--color-blanco);
+
+    font-size: 0.68rem;
+    font-weight: 650;
+
+    letter-spacing: 0.02em;
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+
+/* ============================================================
+   CUERPO DE TABLA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table tbody td {
+    min-height: 54px;
+
+    padding: 12px 14px;
+
+    background: var(--color-blanco);
+    border-bottom: 1px solid #E2E8F0;
+
+    color: #334155;
+
+    font-size: 0.71rem;
+    font-weight: 500;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ============================================================
+   HOVER DE FILAS
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table-hover tbody tr {
+    transition: background 0.18s ease;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .table-hover tbody tr:hover td {
+    background: #F8FAFC;
+}
+
+
+/* ============================================================
+   COLUMNAS CENTRADAS
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .text-center {
+    text-align: center;
+}
+
+
+/* ============================================================
+   INPUT DE NOTA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .input-nota-reparacion {
+    display: block;
+
+    width: 80px;
+    height: 38px;
+
+    margin: 0 auto;
+
+    padding: 0 10px;
+
+    background: var(--color-blanco);
+    border: 1px solid #CBD5E1;
+    border-radius: 7px;
+
+    outline: none;
+
+    color: var(--texto-principal);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+
+    text-align: center;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .input-nota-reparacion:hover {
+    border-color: #94A3B8;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .input-nota-reparacion:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* ============================================================
+   NOTA INVÁLIDA
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .input-nota-reparacion.is-invalid {
+    border-color: #DC2626;
+
+    background: #FEF2F2;
+
+    box-shadow:
+        0 0 0 3px rgba(220, 38, 38, 0.08);
+}
+
+
+/* ============================================================
+   ESTADO DE REPARACIÓN
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 78px;
+    min-height: 26px;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 0.63rem;
+    font-weight: 650;
+
+    line-height: 1;
+    white-space: nowrap;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .bg-success {
+    background: #DCFCE7;
+    border: 1px solid #BBF7D0;
+
+    color: #15803D;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-evaluaciones .bg-danger {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+
+    color: #DC2626;
+}
+
+
+/* ============================================================
+   ACCIONES FINALES
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-top: 21px;
+    padding-top: 21px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-acciones-informacion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.67rem;
+    line-height: 1.45;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-acciones-informacion i {
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    font-size: 0.78rem;
+}
+
+
+/* ============================================================
+   BOTÓN ACTUALIZAR
+   ============================================================ */
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 225px;
+    height: 44px;
+
+    padding: 0 24px;
+
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    border: none;
+    border-radius: 8px;
+
+    color: var(--color-blanco);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.76rem;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-boton:hover {
+    background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.24);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-boton:active {
+    transform: translateY(0);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-boton:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.18),
+        0 5px 12px rgba(37, 99, 235, 0.20);
+}
+
+#reparacion-modificar-carsce
+.reparacion-modificar-carsce-boton i {
+    font-size: 0.75rem;
+}
+
+
+/* ============================================================
+   RESPONSIVE — 900px
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-contenedor {
+        max-width: 100%;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-tarjeta {
+        padding: 23px 22px 25px;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-evaluaciones .table {
+        min-width: 800px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 700px
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-titulo {
+        font-size: 1.35rem;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-tarjeta {
+        padding: 21px 18px 22px;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-bloque {
+        padding: 18px 16px 19px;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-acciones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-acciones-informacion {
+        align-items: flex-start;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-boton {
+        width: 100%;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 520px
+   ============================================================ */
+
+@media (max-width: 520px) {
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-titulo {
+        font-size: 1.2rem;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-descripcion {
+        font-size: 0.74rem;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-tarjeta-icono {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-evaluaciones .table {
+        min-width: 760px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 390px
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-tarjeta {
+        padding: 18px 14px 19px;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-bloque {
+        padding: 16px 13px 17px;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-bloque-icono {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-bloque-titulo {
+        font-size: 0.76rem;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-bloque-descripcion {
+        font-size: 0.63rem;
+    }
+
+    #reparacion-modificar-carsce
+    .reparacion-modificar-carsce-evaluaciones .table {
+        min-width: 720px;
+    }
+}

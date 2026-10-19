@@ -1,0 +1,762 @@
+/* ============================================================
+   REACTIVAR ASIGNACIONES DE MATERIAS
+   CARSCE
+============================================================ */
+
+#asignacion-materia-reactivar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+.asignacion-materia-reactivar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-encabezado {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.asignacion-materia-reactivar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.asignacion-materia-reactivar-carsce-presentacion {
+    margin-top: 9px;
+}
+
+.asignacion-materia-reactivar-carsce-titulo {
+    margin: 0;
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+}
+
+.asignacion-materia-reactivar-carsce-titulo span {
+    color: var(--color-azul-hover);
+    font-weight: 600;
+}
+
+.asignacion-materia-reactivar-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .82rem;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   TARJETA PRINCIPAL
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-tarjeta {
+    width: 100%;
+
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* ============================================================
+   CABECERA DE TARJETA
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+.asignacion-materia-reactivar-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+
+    color: var(--color-blanco);
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border-radius: 11px;
+
+    box-shadow: 0 5px 12px rgba(37, 99, 235, .20);
+}
+
+.asignacion-materia-reactivar-carsce-tarjeta-icono i {
+    font-size: 1rem;
+}
+
+.asignacion-materia-reactivar-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+.asignacion-materia-reactivar-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.asignacion-materia-reactivar-carsce-tarjeta-descripcion {
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .75rem;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   BLOQUE DE FILTROS
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-bloque {
+    width: 100%;
+
+    padding: 21px 20px 22px;
+
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+.asignacion-materia-reactivar-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 18px;
+}
+
+.asignacion-materia-reactivar-carsce-bloque-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 35px;
+    width: 35px;
+    height: 35px;
+
+    color: var(--color-azul-hover);
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+}
+
+.asignacion-materia-reactivar-carsce-bloque-icono i {
+    font-size: .8rem;
+}
+
+.asignacion-materia-reactivar-carsce-bloque-informacion {
+    min-width: 0;
+}
+
+.asignacion-materia-reactivar-carsce-bloque-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: .82rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.asignacion-materia-reactivar-carsce-bloque-descripcion {
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .68rem;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   FORMULARIO
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-formulario {
+    width: 100%;
+}
+
+.asignacion-materia-reactivar-carsce-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+
+    margin-top: 16px;
+}
+
+.asignacion-materia-reactivar-carsce-grid-2:first-child {
+    margin-top: 0;
+}
+
+
+/* ============================================================
+   CAMPOS
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-campo {
+    width: 100%;
+    min-width: 0;
+}
+
+.asignacion-materia-reactivar-carsce-etiqueta {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: .73rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* ============================================================
+   CONTROL OCULTO
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-control-oculto {
+    display: none;
+
+    width: 100%;
+}
+
+
+/* ============================================================
+   CONTROLES
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-control {
+    position: relative;
+    width: 100%;
+}
+
+.asignacion-materia-reactivar-carsce-control > i:first-child {
+    position: absolute;
+
+    top: 50%;
+    left: 14px;
+
+    z-index: 2;
+
+    color: #64748B;
+
+    font-size: .78rem;
+
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.asignacion-materia-reactivar-carsce-control select,
+.asignacion-materia-reactivar-carsce-control input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 40px;
+
+    color: var(--texto-principal);
+
+    background: var(--color-blanco);
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .74rem;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.asignacion-materia-reactivar-carsce-control select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+}
+
+.asignacion-materia-reactivar-carsce-control select:hover,
+.asignacion-materia-reactivar-carsce-control input:hover {
+    border-color: #94A3B8;
+}
+
+.asignacion-materia-reactivar-carsce-control select:focus,
+.asignacion-materia-reactivar-carsce-control input:focus {
+    border-color: var(--color-azul-hover);
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+.asignacion-materia-reactivar-carsce-control input::placeholder {
+    color: #94A3B8;
+}
+
+.asignacion-materia-reactivar-carsce-flecha {
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    color: #64748B;
+
+    font-size: .65rem;
+
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   RESULTADOS
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-resultados {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.asignacion-materia-reactivar-carsce-resultados:empty {
+    display: none;
+}
+
+
+/* ============================================================
+   MENSAJE
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-resultados > p {
+    margin: 0;
+
+    padding: 18px;
+
+    color: var(--texto-secundario);
+
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+
+    font-size: .74rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+
+/* ============================================================
+   P.N.F.
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-resultados
+.contenedor_pnf_materias {
+    width: 100%;
+
+    margin-top: 18px;
+    padding: 20px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+
+    box-shadow: var(--sombra-card);
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.contenedor_pnf_materias:first-child {
+    margin-top: 0;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.contenedor_pnf_materias h2 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 0 18px;
+
+    color: var(--color-azul-card);
+
+    font-size: .95rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.contenedor_pnf_materias h2::before {
+    content: "";
+
+    display: block;
+
+    width: 4px;
+    height: 21px;
+
+    background: var(--color-azul-hover);
+    border-radius: 4px;
+}
+
+
+/* ============================================================
+   TRAYECTO
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-resultados
+.contenedor_trayecto_materias {
+    width: 100%;
+
+    margin-top: 17px;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.contenedor_trayecto_materias:first-of-type {
+    margin-top: 0;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.contenedor_trayecto_materias h3 {
+    margin: 0 0 9px;
+
+    color: #334155;
+
+    font-size: .75rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+
+/* ============================================================
+   TABLA DE MATERIAS
+============================================================ */
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias thead th {
+    padding: 11px 13px;
+
+    color: var(--texto-claro);
+
+    background: var(--color-azul-card);
+
+    font-size: .65rem;
+    font-weight: 650;
+    letter-spacing: .02em;
+    text-align: left;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias tbody td {
+    padding: 11px 13px;
+
+    color: var(--texto-secundario);
+
+    border-top: 1px solid var(--color-borde-fino);
+
+    font-size: .7rem;
+    line-height: 1.4;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias tbody tr {
+    cursor: pointer;
+
+    transition:
+        background .18s ease,
+        color .18s ease;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias tbody tr:hover {
+    background: #EFF6FF;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias tbody tr:hover td {
+    color: var(--texto-principal);
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias tbody td:first-child {
+    width: 65px;
+
+    color: #64748B;
+
+    font-weight: 600;
+    text-align: center;
+}
+
+.asignacion-materia-reactivar-carsce-resultados
+.tabla-materias tbody td:nth-child(3) {
+    width: 150px;
+
+    color: var(--color-azul-hover);
+
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   RESPONSIVE — 900px
+============================================================ */
+
+@media (max-width: 900px) {
+
+    .asignacion-materia-reactivar-carsce-titulo {
+        font-size: 1.4rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta {
+        padding: 23px 24px 25px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 700px
+============================================================ */
+
+@media (max-width: 700px) {
+
+    .asignacion-materia-reactivar-carsce-titulo {
+        font-size: 1.28rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-descripcion {
+        font-size: .78rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta {
+        padding: 21px 20px 23px;
+    }
+
+    .asignacion-materia-reactivar-carsce-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .asignacion-materia-reactivar-carsce-resultados
+    .contenedor_pnf_materias {
+        padding: 18px 16px;
+    }
+
+    .asignacion-materia-reactivar-carsce-resultados
+    .tabla-materias {
+        display: block;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 520px
+============================================================ */
+
+@media (max-width: 520px) {
+
+    .asignacion-materia-reactivar-carsce-identificacion {
+        padding: 6px 10px;
+
+        font-size: .62rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-titulo {
+        font-size: 1.15rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-descripcion {
+        font-size: .74rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta {
+        padding: 18px 16px 20px;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta-cabecera {
+        gap: 11px;
+
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta-icono {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta-titulo {
+        font-size: .92rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta-descripcion {
+        font-size: .7rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-bloque {
+        padding: 18px 15px 19px;
+    }
+
+    .asignacion-materia-reactivar-carsce-bloque-cabecera {
+        margin-bottom: 15px;
+    }
+
+    .asignacion-materia-reactivar-carsce-control select,
+    .asignacion-materia-reactivar-carsce-control input {
+        height: 43px;
+    }
+
+    .asignacion-materia-reactivar-carsce-resultados
+    .contenedor_pnf_materias {
+        padding: 16px 13px;
+    }
+
+    .asignacion-materia-reactivar-carsce-resultados
+    .contenedor_pnf_materias h2 {
+        font-size: .86rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-resultados
+    .contenedor_trayecto_materias h3 {
+        font-size: .7rem;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 390px
+============================================================ */
+
+@media (max-width: 390px) {
+
+    .asignacion-materia-reactivar-carsce-identificacion {
+        padding: 6px 9px;
+
+        font-size: .6rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-titulo {
+        font-size: 1.05rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta {
+        padding: 16px 13px 18px;
+    }
+
+    .asignacion-materia-reactivar-carsce-tarjeta-icono {
+        flex-basis: 38px;
+        width: 38px;
+        height: 38px;
+    }
+
+    .asignacion-materia-reactivar-carsce-bloque {
+        padding: 15px 11px 16px;
+    }
+
+    .asignacion-materia-reactivar-carsce-bloque-icono {
+        flex-basis: 30px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .asignacion-materia-reactivar-carsce-bloque-titulo {
+        font-size: .77rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-bloque-descripcion {
+        font-size: .64rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-etiqueta {
+        font-size: .69rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-control select,
+    .asignacion-materia-reactivar-carsce-control input {
+        padding-left: 37px;
+        padding-right: 35px;
+
+        font-size: .7rem;
+    }
+
+    .asignacion-materia-reactivar-carsce-resultados
+    .contenedor_pnf_materias {
+        padding: 15px 11px;
+    }
+
+    .asignacion-materia-reactivar-carsce-resultados
+    .tabla-materias th,
+    .asignacion-materia-reactivar-carsce-resultados
+    .tabla-materias td {
+        padding: 9px 10px;
+
+        font-size: .64rem;
+    }
+}

@@ -1,0 +1,214 @@
+/* =========================================================
+   MISIÓN Y VISIÓN - UPTJFR
+========================================================= */
+
+#MisionVision{
+    width:100%;
+
+    padding:150px 0 45px;
+
+    background:var(--color-fondo-pagina);
+    color:var(--texto-principal);
+
+    box-sizing:border-box;
+}
+
+#MisionVision *{
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+#MisionVision .MisionVision-contenedor{
+    width:min(1080px,90%);
+    margin:0 auto;
+
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+
+    gap:42px;
+    align-items:start;
+}
+
+
+/* =========================================================
+   BLOQUES MISIÓN / VISIÓN
+========================================================= */
+
+#MisionVision .MisionVision-bloque{
+    position:relative;
+
+    padding:0 0 30px;
+
+    border-bottom:1px solid var(--color-borde-fino);
+}
+
+#MisionVision .MisionVision-bloque::before{
+    content:"";
+
+    position:absolute;
+    top:2px;
+    bottom:30px;
+    left:0;
+
+    width:4px;
+
+    background:var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+#MisionVision .MisionVision-titulo{
+    margin:0 0 20px;
+    padding-left:18px;
+
+    color:var(--color-azul-profundo);
+
+    font-size:32px;
+    font-weight:600;
+    line-height:1.2;
+}
+
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+#MisionVision .MisionVision-texto{
+    margin:0;
+    padding-left:18px;
+
+    color:var(--texto-secundario);
+
+    font-size:15.5px;
+    line-height:1.85;
+
+    text-align:justify;
+}
+
+
+/* =========================================================
+   VISIÓN
+========================================================= */
+
+#MisionVision .MisionVision-bloque:nth-child(2){
+    align-self:center;
+}
+
+
+/* =========================================================
+   ANIMACIÓN
+========================================================= */
+
+#MisionVision.reveal{
+    animation:MisionVisionEntrada .55s ease both;
+}
+
+@keyframes MisionVisionEntrada{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width:900px){
+
+    #MisionVision{
+        padding:125px 0 40px;
+    }
+
+    #MisionVision .MisionVision-contenedor{
+        width:90%;
+
+        grid-template-columns:1fr;
+
+        gap:38px;
+    }
+
+    #MisionVision .MisionVision-bloque:nth-child(2){
+        align-self:auto;
+    }
+
+    #MisionVision .MisionVision-titulo{
+        font-size:29px;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width:600px){
+
+    #MisionVision{
+        padding:105px 0 35px;
+    }
+
+    #MisionVision .MisionVision-contenedor{
+        width:90%;
+        gap:32px;
+    }
+
+    #MisionVision .MisionVision-bloque{
+        padding-bottom:27px;
+    }
+
+    #MisionVision .MisionVision-bloque::before{
+        width:3px;
+        bottom:27px;
+    }
+
+    #MisionVision .MisionVision-titulo{
+        margin-bottom:18px;
+        padding-left:14px;
+
+        font-size:25px;
+    }
+
+    #MisionVision .MisionVision-texto{
+        padding-left:14px;
+
+        font-size:14px;
+        line-height:1.8;
+
+        text-align:left;
+    }
+}
+
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width:400px){
+
+    #MisionVision{
+        padding-bottom:30px;
+    }
+
+    #MisionVision .MisionVision-titulo{
+        font-size:23px;
+    }
+
+    #MisionVision .MisionVision-texto{
+        font-size:13.5px;
+    }
+}

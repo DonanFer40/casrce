@@ -1,0 +1,303 @@
+
+/* =========================================================
+   ESTRUCTURA GENERAL DEL SISTEMA LOGUEADO - CARSCE
+   ========================================================= */
+
+
+/* =========================================================
+   CUERPO PRINCIPAL
+   ========================================================= */
+
+body.body-logueado {
+    width: 100%;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+body.body-logueado header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 130px;
+
+    z-index: 1300;
+}
+
+
+/* Parte institucional */
+
+body.body-logueado header #navegacion .contenedor {
+    height: 80px;
+}
+
+
+/* Barra del usuario */
+
+body.body-logueado header .contenedor_logueado {
+    height: 50px;
+}
+
+
+/* =========================================================
+   BARRA LATERAL - ESCRITORIO
+   ========================================================= */
+
+body.body-logueado #navegacion_lateral_carsce {
+    position: fixed;
+
+    top: 150px;
+    bottom: 0;
+    left: 0;
+
+    width: 270px;
+    height: auto;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    z-index: 900;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL - ESCRITORIO
+   ========================================================= */
+
+body.body-logueado .main-logueado {
+    position: fixed;
+
+    top: 160px;
+    left: 270px;
+    right: 0;
+    bottom: 0;
+
+    width: auto;
+    height: auto;
+
+    margin: 0;
+    padding: 28px 32px 40px;
+
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(100, 116, 139, 0.35)
+        transparent;
+}
+
+
+/* =========================================================
+   SCROLLBAR DEL CONTENIDO
+   ========================================================= */
+
+body.body-logueado .main-logueado::-webkit-scrollbar {
+    width: 7px;
+}
+
+body.body-logueado .main-logueado::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body.body-logueado .main-logueado::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.30);
+    border-radius: 20px;
+}
+
+body.body-logueado .main-logueado::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.50);
+}
+
+
+/* =========================================================
+   TABLET GRANDE Y PORTÁTILES PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    body.body-logueado #navegacion_lateral_carsce {
+        width: 250px;
+    }
+
+    body.body-logueado .main-logueado {
+        left: 250px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    body.body-logueado #navegacion_lateral_carsce {
+        width: 235px;
+    }
+
+    body.body-logueado .main-logueado {
+        left: 235px;
+    }
+}
+
+
+/* =========================================================
+   MODO MÓVIL Y TABLET - MENOS DE 1360 PX
+   El contenido ocupa todo el ancho.
+   La barra lateral aparece superpuesta.
+   ========================================================= */
+
+@media (max-width: 1359px) {
+
+    /* Encabezado fijo en la parte superior */
+
+    body.body-logueado header {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+
+        z-index: 1300;
+    }
+
+
+    /* Contenido separado del encabezado */
+
+    body.body-logueado .main-logueado {
+        position: fixed;
+
+        top: 145px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        width: 100%;
+        height: auto;
+
+        margin: 0;
+
+        box-sizing: border-box;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+
+    /* Barra lateral oculta fuera de la pantalla */
+
+    body.body-logueado #navegacion_lateral_carsce {
+        position: fixed;
+
+        top: 130px;
+        bottom: 0;
+        left: 0;
+
+        width: min(270px, 85vw);
+        height: auto;
+
+        margin: 0;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        box-sizing: border-box;
+
+        z-index: 1200;
+
+        transform: translateX(-105%);
+
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+            transform 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+
+    /* Barra lateral abierta mediante la hamburguesa */
+
+    body.body-logueado
+    #navegacion_lateral_carsce.barra-lateral-carsce-movil-abierta {
+        transform: translateX(0);
+
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
+
+
+/* =========================================================
+   TELÉFONOS Y PANTALLAS DE HASTA 700 PX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* El encabezado es más compacto */
+
+    body.body-logueado header {
+        height: 110px;
+    }
+
+
+    /* El contenido baja para no quedar pegado al encabezado */
+
+    body.body-logueado .main-logueado {
+        top: 120px;
+
+        padding: 24px 24px 35px;
+    }
+
+
+    /* La barra lateral comienza debajo del encabezado */
+
+    body.body-logueado #navegacion_lateral_carsce {
+        top: 110px;
+
+        width: min(250px, 88vw);
+    }
+}
+
+
+/* =========================================================
+   TELÉFONOS PEQUEÑOS - HASTA 560 PX
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    body.body-logueado .main-logueado {
+        padding: 20px 18px 30px;
+    }
+
+    body.body-logueado #navegacion_lateral_carsce {
+        width: min(250px, 88vw);
+    }
+}
+
+
+/* =========================================================
+   MOVIMIENTO REDUCIDO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    body.body-logueado #navegacion_lateral_carsce {
+        transition: none;
+    }
+}

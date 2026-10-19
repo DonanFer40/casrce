@@ -1,0 +1,687 @@
+/* =========================================================
+   CONSULTA DE MATERIAS - CARSCE
+   ========================================================= */
+
+#director-materias-consulta-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 35px;
+
+    color: var(--texto-principal);
+    font-family: "Poppins", sans-serif;
+}
+
+#director-materias-consulta-carsce
+.director-materias-consulta-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.director-materias-consulta-carsce-encabezado {
+    margin-bottom: 25px;
+}
+
+.director-materias-consulta-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 5px 10px;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    color: var(--color-azul-hover);
+
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.director-materias-consulta-carsce-identificacion i {
+    font-size: 0.72rem;
+}
+
+.director-materias-consulta-carsce-presentacion {
+    margin-top: 10px;
+}
+
+.director-materias-consulta-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.director-materias-consulta-carsce-titulo span {
+    color: var(--color-azul-hover);
+}
+
+.director-materias-consulta-carsce-descripcion {
+    max-width: 720px;
+
+    margin: 7px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.81rem;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   PANEL DE CONSULTA
+   ========================================================= */
+
+.director-materias-consulta-carsce-panel {
+    width: 100%;
+
+    padding: 24px 26px 26px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 12px;
+
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   CABECERA DEL PANEL
+   ========================================================= */
+
+.director-materias-consulta-carsce-panel-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+.director-materias-consulta-carsce-panel-icono {
+    width: 44px;
+    height: 44px;
+
+    flex: 0 0 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border-radius: 10px;
+
+    color: var(--color-blanco);
+
+    font-size: 0.92rem;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.18);
+}
+
+.director-materias-consulta-carsce-panel-texto h4 {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 0.98rem;
+    font-weight: 700;
+}
+
+.director-materias-consulta-carsce-panel-texto p {
+    margin: 4px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 0.74rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.director-materias-consulta-carsce-formulario {
+    width: 100%;
+}
+
+.director-materias-consulta-carsce-campo {
+    width: 100%;
+}
+
+.director-materias-consulta-carsce-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 0.71rem;
+    font-weight: 600;
+}
+
+.director-materias-consulta-carsce-select-contenedor {
+    position: relative;
+
+    width: 100%;
+    height: 45px;
+}
+
+.director-materias-consulta-carsce-select-contenedor > i:first-child {
+    position: absolute;
+
+    top: 50%;
+    left: 14px;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    color: var(--color-azul-hover);
+
+    font-size: 0.8rem;
+
+    pointer-events: none;
+}
+
+.director-materias-consulta-carsce-select-contenedor select {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 42px 0 40px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background: var(--color-blanco);
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    color: var(--texto-principal);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 0.77rem;
+    font-weight: 500;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.director-materias-consulta-carsce-select-contenedor select:hover {
+    border-color: #94A3B8;
+}
+
+.director-materias-consulta-carsce-select-contenedor select:focus {
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.director-materias-consulta-carsce-select-flecha {
+    position: absolute;
+
+    top: 50%;
+    right: 15px;
+
+    transform: translateY(-50%);
+
+    color: var(--texto-secundario);
+
+    font-size: 0.68rem;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   RESULTADOS
+   ========================================================= */
+
+.director-materias-consulta-carsce-resultados {
+    width: 100%;
+
+    margin-top: 28px;
+}
+
+.director-materias-consulta-carsce-resultados:empty {
+    display: none;
+}
+
+
+/* =========================================================
+   BLOQUE DE CADA PNF
+   ========================================================= */
+
+.director-materias-consulta-carsce-bloque {
+    width: 100%;
+
+    margin-bottom: 24px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 11px;
+
+    overflow: hidden;
+
+    box-shadow: var(--sombra-card);
+}
+
+.director-materias-consulta-carsce-bloque:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   CABECERA DEL RESULTADO
+   ========================================================= */
+
+.director-materias-consulta-carsce-resultado-cabecera {
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 17px;
+
+    background: #F8FAFC;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+.director-materias-consulta-carsce-resultado-identidad {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+
+    gap: 12px;
+}
+
+.director-materias-consulta-carsce-resultado-icono {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 9px;
+
+    color: var(--color-azul-hover);
+
+    font-size: 0.78rem;
+}
+
+.director-materias-consulta-carsce-resultado-etiqueta {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: var(--texto-mutado);
+
+    font-size: 0.57rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+}
+
+.director-materias-consulta-carsce-resultado-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 0.91rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   CONTADOR
+   ========================================================= */
+
+.director-materias-consulta-carsce-contador {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 10px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+
+    white-space: nowrap;
+}
+
+.director-materias-consulta-carsce-contador strong {
+    color: var(--color-azul-hover);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.director-materias-consulta-carsce-contador span {
+    color: var(--texto-secundario);
+
+    font-size: 0.62rem;
+}
+
+
+/* =========================================================
+   CONTENEDOR DE TABLA
+   ========================================================= */
+
+.director-materias-consulta-carsce-tabla-contenedor {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.director-materias-consulta-carsce-tabla {
+    width: 100%;
+    min-width: 850px;
+
+    border-collapse: collapse;
+
+    color: var(--texto-principal);
+
+    font-size: 0.71rem;
+}
+
+
+/* =========================================================
+   ENCABEZADO DE TABLA
+   ========================================================= */
+
+.director-materias-consulta-carsce-tabla thead {
+    background: var(--color-azul-profundo);
+}
+
+.director-materias-consulta-carsce-tabla th {
+    padding: 11px 12px;
+
+    color: var(--texto-claro);
+
+    font-size: 0.63rem;
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+.director-materias-consulta-carsce-tabla th:first-child,
+.director-materias-consulta-carsce-tabla td:first-child {
+    text-align: center;
+}
+
+
+/* =========================================================
+   FILAS
+   ========================================================= */
+
+.director-materias-consulta-carsce-tabla td {
+    padding: 10px 12px;
+
+    background: var(--color-blanco);
+
+    border-bottom: 1px solid var(--color-borde-fino);
+
+    color: #334155;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+.director-materias-consulta-carsce-tabla tbody tr:nth-child(even) td {
+    background: #F8FAFC;
+}
+
+.director-materias-consulta-carsce-tabla tbody tr:hover td {
+    background: #EFF6FF;
+}
+
+.director-materias-consulta-carsce-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   COLUMNA ID
+   ========================================================= */
+
+.director-materias-consulta-carsce-columna-id {
+    width: 55px;
+
+    color: var(--texto-mutado) !important;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   COLUMNA MATERIA
+   ========================================================= */
+
+.director-materias-consulta-carsce-columna-materia {
+    min-width: 220px;
+
+    color: var(--texto-principal) !important;
+
+    font-weight: 600;
+
+    white-space: normal !important;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.director-materias-consulta-carsce-tabla-contenedor::-webkit-scrollbar {
+    height: 7px;
+}
+
+.director-materias-consulta-carsce-tabla-contenedor::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+
+.director-materias-consulta-carsce-tabla-contenedor::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+
+    border-radius: 10px;
+}
+
+.director-materias-consulta-carsce-tabla-contenedor::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+
+/* =========================================================
+   RESPONSIVE - 900px
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    #director-materias-consulta-carsce
+    .director-materias-consulta-carsce-contenedor {
+        max-width: calc(100% - 30px);
+    }
+
+    .director-materias-consulta-carsce-titulo {
+        font-size: 1.4rem;
+    }
+
+    .director-materias-consulta-carsce-panel {
+        padding: 22px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 700px
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .director-materias-consulta-carsce-titulo {
+        font-size: 1.28rem;
+    }
+
+    .director-materias-consulta-carsce-descripcion {
+        font-size: 0.75rem;
+    }
+
+    .director-materias-consulta-carsce-panel {
+        padding: 19px;
+    }
+
+    .director-materias-consulta-carsce-resultado-cabecera {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 11px;
+    }
+
+    .director-materias-consulta-carsce-contador {
+        align-self: flex-start;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 520px
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    #director-materias-consulta-carsce
+    .director-materias-consulta-carsce-contenedor {
+        max-width: calc(100% - 20px);
+    }
+
+    .director-materias-consulta-carsce-panel {
+        padding: 17px 15px 19px;
+    }
+
+    .director-materias-consulta-carsce-panel-cabecera {
+        align-items: flex-start;
+    }
+
+    .director-materias-consulta-carsce-panel-icono {
+        width: 40px;
+        height: 40px;
+
+        flex-basis: 40px;
+    }
+
+    .director-materias-consulta-carsce-resultado-cabecera {
+        padding: 13px;
+    }
+
+    .director-materias-consulta-carsce-resultado-titulo {
+        font-size: 0.84rem;
+    }
+
+    .director-materias-consulta-carsce-bloque {
+        margin-bottom: 18px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 390px
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    #director-materias-consulta-carsce
+    .director-materias-consulta-carsce-contenedor {
+        max-width: calc(100% - 14px);
+    }
+
+    .director-materias-consulta-carsce-titulo {
+        font-size: 1.05rem;
+    }
+
+    .director-materias-consulta-carsce-panel {
+        padding: 15px 12px 17px;
+    }
+
+    .director-materias-consulta-carsce-panel-texto h4 {
+        font-size: 0.9rem;
+    }
+
+    .director-materias-consulta-carsce-panel-texto p {
+        font-size: 0.68rem;
+    }
+
+    .director-materias-consulta-carsce-label {
+        font-size: 0.67rem;
+    }
+
+    .director-materias-consulta-carsce-resultado-identidad {
+        gap: 9px;
+    }
+
+    .director-materias-consulta-carsce-resultado-icono {
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+    }
+
+    .director-materias-consulta-carsce-resultado-etiqueta {
+        font-size: 0.5rem;
+    }
+
+    .director-materias-consulta-carsce-resultado-titulo {
+        font-size: 0.78rem;
+    }
+}

@@ -1,0 +1,402 @@
+/* =========================================================
+   PROYECTO SOCIO-TECNOLÓGICO - CARSCE
+========================================================= */
+
+#ProyectoSocioTecnologico{
+    width:100%;
+    min-height:100vh;
+
+    padding:150px 0 75px;
+
+    background:var(--color-fondo-pagina);
+    color:var(--texto-principal);
+
+    box-sizing:border-box;
+}
+
+#ProyectoSocioTecnologico *{
+    box-sizing:border-box;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-contenedor{
+    width:min(1080px,90%);
+    margin:0 auto;
+
+    display:flex;
+    flex-direction:column;
+    gap:42px;
+}
+
+/* =========================================================
+   SECCIONES
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-seccion{
+    position:relative;
+
+    padding:0 0 38px;
+
+    border-bottom:1px solid var(--color-borde-fino);
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-seccion:last-child{
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-titulo{
+    position:relative;
+
+    margin:0 0 23px;
+    padding-left:18px;
+
+    color:var(--color-azul-profundo);
+
+    font-size:32px;
+    font-weight:600;
+    line-height:1.2;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-titulo::before{
+    content:"";
+
+    position:absolute;
+    top:2px;
+    bottom:2px;
+    left:0;
+
+    width:4px;
+
+    background:var(--color-rojo-acento);
+}
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-texto{
+    margin:0;
+
+    color:var(--texto-secundario);
+
+    font-size:15.5px;
+    line-height:1.9;
+
+    text-align:justify;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-texto strong{
+    color:var(--color-azul-profundo);
+    font-weight:650;
+}
+
+/* =========================================================
+   ESTRATEGIAS DE EVALUACIÓN
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-evaluacion{
+    padding-bottom:0;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-detalles{
+    width:100%;
+
+    border:1px solid var(--color-borde-fino);
+    border-radius:10px;
+
+    background:var(--color-blanco);
+
+    box-shadow:var(--sombra-card);
+
+    overflow:hidden;
+
+    transition:
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-detalles[open]{
+    border-color:#CBD5E1;
+    box-shadow:var(--sombra-elevada);
+}
+
+/* =========================================================
+   CABECERA DEL DESPLEGABLE
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen{
+    min-height:72px;
+
+    display:flex;
+    align-items:center;
+
+    gap:16px;
+
+    padding:16px 22px;
+
+    cursor:pointer;
+
+    list-style:none;
+
+    color:var(--color-azul-profundo);
+
+    font-size:16px;
+    font-weight:650;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen::-webkit-details-marker{
+    display:none;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen:hover{
+    background:#F8FAFC;
+}
+
+/* =========================================================
+   ICONO
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen-icono{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:8px;
+
+    background:var(--color-rojo-soft);
+    color:var(--color-rojo-acento);
+
+    font-size:15px;
+}
+
+/* =========================================================
+   TEXTO DEL SUMMARY
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen-texto{
+    flex:1;
+}
+
+/* =========================================================
+   FLECHA
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen-flecha{
+    width:30px;
+    height:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    color:var(--texto-mutado);
+
+    font-size:12px;
+
+    transition:
+        transform .25s ease,
+        color .25s ease;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-detalles[open]
+.ProyectoSocioTecnologico-resumen-flecha{
+    transform:rotate(180deg);
+    color:var(--color-azul-hover);
+}
+
+/* =========================================================
+   CONTENIDO DEL DESPLEGABLE
+========================================================= */
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-detalles-contenido{
+    padding:0 28px 25px 78px;
+
+    border-top:1px solid var(--color-borde-fino);
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-lista{
+    margin:20px 0 0;
+
+    padding-left:19px;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-lista li{
+    margin:9px 0;
+
+    color:var(--texto-secundario);
+
+    font-size:14.5px;
+    line-height:1.6;
+}
+
+#ProyectoSocioTecnologico .ProyectoSocioTecnologico-lista li::marker{
+    color:var(--color-azul-hover);
+}
+
+/* =========================================================
+   ANIMACIÓN DE ENTRADA
+========================================================= */
+
+#ProyectoSocioTecnologico.reveal{
+    animation:ProyectoSocioTecnologicoEntrada .55s ease both;
+}
+
+@keyframes ProyectoSocioTecnologicoEntrada{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width:900px){
+
+    #ProyectoSocioTecnologico{
+        padding:125px 0 65px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-contenedor{
+        width:90%;
+        gap:38px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-titulo{
+        font-size:29px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-detalles-contenido{
+        padding-left:70px;
+    }
+
+}
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width:600px){
+
+    #ProyectoSocioTecnologico{
+        padding:105px 0 55px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-contenedor{
+        width:90%;
+        gap:34px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-seccion{
+        padding-bottom:30px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-titulo{
+        margin-bottom:19px;
+        padding-left:14px;
+
+        font-size:25px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-titulo::before{
+        width:3px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-texto{
+        font-size:14px;
+        line-height:1.85;
+
+        text-align:left;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen{
+        min-height:65px;
+
+        gap:12px;
+
+        padding:14px 16px;
+
+        font-size:14.5px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen-icono{
+        width:36px;
+        height:36px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-detalles-contenido{
+        padding:0 20px 22px 52px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-lista{
+        padding-left:17px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-lista li{
+        font-size:14px;
+    }
+
+}
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width:400px){
+
+    #ProyectoSocioTecnologico{
+        padding-bottom:45px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-titulo{
+        font-size:23px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-texto{
+        font-size:13.5px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen{
+        padding:13px 14px;
+
+        font-size:14px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-resumen-icono{
+        width:34px;
+        height:34px;
+    }
+
+    #ProyectoSocioTecnologico .ProyectoSocioTecnologico-detalles-contenido{
+        padding-left:48px;
+        padding-right:17px;
+    }
+
+}

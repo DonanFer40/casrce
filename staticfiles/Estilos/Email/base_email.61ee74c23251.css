@@ -1,0 +1,657 @@
+/* =========================================================
+   DOCUMENTO PRINCIPAL
+   ========================================================= */
+
+#correo-institucional-carsce {
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin: 0;
+
+    padding: 35px 16px;
+
+    box-sizing: border-box;
+
+    background: var(--color-fondo-pagina);
+
+    color: var(--texto-principal);
+}
+
+
+/* =========================================================
+   ESTRUCTURA PRINCIPAL
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-estructura {
+
+    width: 100%;
+
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    border-spacing: 0;
+
+    border-collapse: separate;
+
+    table-layout: fixed;
+}
+
+
+/* =========================================================
+   CONTENEDOR GENERAL
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenedor {
+
+    width: 100%;
+
+    padding: 0;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-elevada);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SECCIONES PRINCIPALES
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-seccion {
+
+    width: 100%;
+
+    border: 0;
+
+    border-spacing: 0;
+
+    border-collapse: collapse;
+
+}
+
+
+/* =========================================================
+   ENCABEZADO INSTITUCIONAL
+   ========================================================= */
+
+#correo-institucional-carsce
+#correo-institucional-carsce-encabezado {
+
+    background: var(--color-azul-profundo);
+
+    border-bottom: 4px solid var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   CONTENIDO DEL ENCABEZADO
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-encabezado-contenido {
+
+    padding: 32px 36px;
+
+    text-align: center;
+
+    color: var(--texto-claro);
+}
+
+
+/* =========================================================
+   LOGOTIPO INSTITUCIONAL
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-logotipo {
+
+    width: 100%;
+
+    margin: 0 auto 16px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   IMAGEN DEL LOGOTIPO
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-logotipo img {
+
+    display: inline-block;
+
+    width: auto;
+
+    max-width: 100%;
+
+    max-height: 90px;
+
+    height: auto;
+
+    border: 0;
+
+    outline: none;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   IDENTIDAD INSTITUCIONAL
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-identidad {
+
+    width: 100%;
+
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   NOMBRE DE LA UNIVERSIDAD
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-nombre-institucion {
+
+    margin: 0;
+
+    color: var(--color-blanco);
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    line-height: 1.35;
+
+    letter-spacing: -.025em;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   NOMBRE CORTO DE LA UNIVERSIDAD
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-nombre-universidad {
+
+    margin: 8px 0 0;
+
+    color: var(--texto-claro);
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    letter-spacing: .08em;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL DEL MENSAJE
+   ========================================================= */
+
+#correo-institucional-carsce
+#correo-institucional-carsce-contenido {
+
+    background: var(--color-blanco);
+}
+
+
+/* =========================================================
+   CONTENEDOR DEL CONTENIDO
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal {
+
+    padding: 36px;
+
+    color: var(--texto-principal);
+
+    background: var(--color-blanco);
+
+    font-size: 14px;
+
+    line-height: 1.75;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   TÍTULOS DEL CONTENIDO
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal h1,
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal h2,
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal h3 {
+
+    color: var(--color-azul-profundo);
+
+    font-weight: 800;
+
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   TÍTULO PRINCIPAL DEL MENSAJE
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal h2 {
+
+    margin: 0 0 22px;
+
+    font-size: 25px;
+
+    letter-spacing: -.025em;
+}
+
+
+/* =========================================================
+   PÁRRAFOS DEL CONTENIDO
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal p {
+
+    margin: 0 0 18px;
+
+    color: var(--texto-secundario);
+
+    font-size: 14px;
+
+    line-height: 1.75;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   TEXTO DESTACADO
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal strong {
+
+    color: var(--color-azul-hover);
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   ENLACES DEL MENSAJE
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal a {
+
+    color: var(--color-azul-hover);
+
+    font-weight: 700;
+
+    text-decoration: underline;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   LISTAS DEL MENSAJE
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal ul,
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal ol {
+
+    margin: 0 0 20px;
+
+    padding-left: 24px;
+
+    color: var(--texto-secundario);
+}
+
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal li {
+
+    margin-bottom: 8px;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   TABLAS DENTRO DEL MENSAJE
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-contenido-principal table {
+
+    max-width: 100%;
+
+    border-spacing: 0;
+
+    border-collapse: collapse;
+}
+
+
+/* =========================================================
+   PIE INSTITUCIONAL
+   ========================================================= */
+
+#correo-institucional-carsce
+#correo-institucional-carsce-pie {
+
+    background: #F8FAFC;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   CONTENIDO DEL PIE
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-pie-contenido {
+
+    padding: 24px 30px;
+
+    text-align: center;
+
+    background: #F8FAFC;
+}
+
+
+/* =========================================================
+   NOMBRE DE LA PLATAFORMA
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-pie-plataforma {
+
+    margin: 0 0 9px;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   DERECHOS INSTITUCIONALES
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-pie-derechos {
+
+    margin: 0 0 9px;
+
+    color: var(--texto-secundario);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   AVISO AUTOMÁTICO
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-pie-aviso {
+
+    margin: 0;
+
+    color: var(--texto-mutado);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CONTENIDO FINAL DEL PIE
+   ========================================================= */
+
+#correo-institucional-carsce
+.correo-institucional-carsce-pie-contenido p:last-child {
+
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    #correo-institucional-carsce {
+
+        padding: 24px 12px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-encabezado-contenido {
+
+        padding: 28px 24px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-nombre-institucion {
+
+        font-size: 21px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-contenido-principal {
+
+        padding: 30px 26px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-pie-contenido {
+
+        padding: 22px 24px;
+    }
+
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    #correo-institucional-carsce {
+
+        padding: 12px 8px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-encabezado-contenido {
+
+        padding: 24px 17px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-logotipo {
+
+        margin-bottom: 12px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-logotipo img {
+
+        max-height: 70px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-nombre-institucion {
+
+        font-size: 18px;
+
+        line-height: 1.4;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-nombre-universidad {
+
+        margin-top: 6px;
+
+        font-size: 12px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-contenido-principal {
+
+        padding: 25px 19px;
+
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-contenido-principal h2 {
+
+        margin-bottom: 17px;
+
+        font-size: 22px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-contenido-principal p {
+
+        margin-bottom: 16px;
+
+        font-size: 13px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-pie-contenido {
+
+        padding: 20px 16px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-pie-plataforma {
+
+        font-size: 11px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-pie-derechos {
+
+        font-size: 10px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-pie-aviso {
+
+        font-size: 9px;
+    }
+
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 340px) {
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-encabezado-contenido {
+
+        padding: 20px 12px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-nombre-institucion {
+
+        font-size: 16px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-contenido-principal {
+
+        padding: 21px 14px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-contenido-principal h2 {
+
+        font-size: 20px;
+    }
+
+
+    #correo-institucional-carsce
+    .correo-institucional-carsce-pie-contenido {
+
+        padding: 18px 12px;
+    }
+
+}

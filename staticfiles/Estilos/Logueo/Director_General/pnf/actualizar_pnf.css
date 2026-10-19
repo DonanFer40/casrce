@@ -1,0 +1,835 @@
+/* =========================================================
+   MODIFICAR PNF - CARSCE
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   CONTENEDOR PRINCIPAL
+   --------------------------------------------------------- */
+
+#director-pnf-modificar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+}
+
+.director-pnf-modificar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ---------------------------------------------------------
+   ENCABEZADO
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-encabezado {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.director-pnf-modificar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 10px;
+    padding: 6px 11px;
+
+    color: #1D4ED8;
+    background: #EFF6FF;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+}
+
+.director-pnf-modificar-carsce-identificacion i {
+    font-size: .72rem;
+}
+
+.director-pnf-modificar-carsce-presentacion {
+    width: 100%;
+}
+
+.director-pnf-modificar-carsce-titulo {
+    margin: 0;
+
+    color: #0F172A;
+
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02em;
+}
+
+.director-pnf-modificar-carsce-descripcion {
+    max-width: 720px;
+
+    margin: 7px 0 0;
+
+    color: #64748B;
+
+    font-size: .86rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+
+/* ---------------------------------------------------------
+   TARJETA PRINCIPAL
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-tarjeta {
+    width: 100%;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, .05),
+        0 1px 2px rgba(0, 0, 0, .08);
+
+    overflow: hidden;
+}
+
+
+/* ---------------------------------------------------------
+   CABECERA DE LA TARJETA
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 17px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #F8FAFC 0%,
+        #FFFFFF 100%
+    );
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.director-pnf-modificar-carsce-tarjeta-icono {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    background: linear-gradient(
+        145deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    border-radius: 10px;
+
+    font-size: .9rem;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, .20);
+}
+
+.director-pnf-modificar-carsce-tarjeta-informacion {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.director-pnf-modificar-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: #0F172A;
+
+    font-size: .95rem;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.director-pnf-modificar-carsce-tarjeta-descripcion {
+    margin: 0;
+
+    color: #64748B;
+
+    font-size: .74rem;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+
+/* ---------------------------------------------------------
+   FORMULARIO DE BÚSQUEDA
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-formulario-busqueda {
+    width: 100%;
+    padding: 22px 20px 20px;
+}
+
+.director-pnf-modificar-carsce-campo-busqueda {
+    width: 100%;
+}
+
+.director-pnf-modificar-carsce-campo-busqueda > label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: .76rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* ---------------------------------------------------------
+   GRUPO DE BÚSQUEDA
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-grupo-busqueda {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.director-pnf-modificar-carsce-control-busqueda {
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.director-pnf-modificar-carsce-control-busqueda > i {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #94A3B8;
+
+    font-size: .78rem;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    transition: color .18s ease;
+}
+
+
+/* ---------------------------------------------------------
+   INPUT DE BÚSQUEDA
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-control-busqueda input {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 13px 0 38px;
+
+    color: #0F172A;
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .78rem;
+    font-weight: 400;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+}
+
+.director-pnf-modificar-carsce-control-busqueda input::placeholder {
+    color: #94A3B8;
+    opacity: 1;
+}
+
+.director-pnf-modificar-carsce-control-busqueda input:hover {
+    border-color: #94A3B8;
+}
+
+.director-pnf-modificar-carsce-control-busqueda input:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .09);
+}
+
+.director-pnf-modificar-carsce-control-busqueda:focus-within > i {
+    color: #2563EB;
+}
+
+
+/* ---------------------------------------------------------
+   BOTÓN BUSCAR
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-boton-buscar {
+    min-width: 135px;
+    height: 43px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 17px;
+
+    color: #FFFFFF;
+    background: #2563EB;
+
+    border: 1px solid #2563EB;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .74rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, .14);
+
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+.director-pnf-modificar-carsce-boton-buscar i {
+    font-size: .7rem;
+}
+
+.director-pnf-modificar-carsce-boton-buscar:hover {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 15px rgba(37, 99, 235, .20);
+}
+
+.director-pnf-modificar-carsce-boton-buscar:active {
+    transform: translateY(0);
+}
+
+.director-pnf-modificar-carsce-boton-buscar:focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .18),
+        0 4px 10px rgba(37, 99, 235, .14);
+}
+
+
+/* ---------------------------------------------------------
+   SEPARADOR
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-separador {
+    display: flex;
+    align-items: center;
+
+    width: calc(100% - 40px);
+    height: 1px;
+
+    margin: 0 20px;
+
+    background: #E2E8F0;
+}
+
+.director-pnf-modificar-carsce-separador span {
+    display: none;
+}
+
+
+/* ---------------------------------------------------------
+   FORMULARIO DE ACTUALIZACIÓN
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-formulario-actualizar {
+    width: 100%;
+    padding: 22px 20px 20px;
+}
+
+
+/* ---------------------------------------------------------
+   FILA DE EDICIÓN
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-fila-edicion {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+
+    width: 100%;
+}
+
+.director-pnf-modificar-carsce-campo-edicion {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.director-pnf-modificar-carsce-campo-edicion > label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: .76rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* ---------------------------------------------------------
+   CONTROLES DE EDICIÓN
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-control-edicion {
+    position: relative;
+
+    width: 100%;
+    min-height: 43px;
+}
+
+.director-pnf-modificar-carsce-control-edicion > i:first-child {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #94A3B8;
+
+    font-size: .78rem;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    transition: color .18s ease;
+}
+
+
+/* ---------------------------------------------------------
+   INPUT DE EDICIÓN
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-control-edicion input {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 13px 0 38px;
+
+    color: #0F172A;
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .78rem;
+    font-weight: 400;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.director-pnf-modificar-carsce-control-edicion input::placeholder {
+    color: #94A3B8;
+    opacity: 1;
+}
+
+.director-pnf-modificar-carsce-control-edicion input:hover {
+    border-color: #94A3B8;
+}
+
+.director-pnf-modificar-carsce-control-edicion input:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .09);
+}
+
+.director-pnf-modificar-carsce-control-edicion:focus-within > i:first-child {
+    color: #2563EB;
+}
+
+
+/* ---------------------------------------------------------
+   SELECT DE PERIODO
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-control-select {
+    position: relative;
+}
+
+.director-pnf-modificar-carsce-control-select select {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 38px 0 38px;
+
+    color: #0F172A;
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+
+    outline: none;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .78rem;
+    font-weight: 400;
+
+    cursor: pointer;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.director-pnf-modificar-carsce-control-select select:hover {
+    border-color: #94A3B8;
+}
+
+.director-pnf-modificar-carsce-control-select select:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .09);
+}
+
+.director-pnf-modificar-carsce-flecha {
+    position: absolute;
+
+    right: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #64748B;
+
+    font-size: .65rem;
+
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   ÁREA DE ACCIONES
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-acciones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    width: 100%;
+
+    margin-top: 20px;
+    padding-top: 17px;
+
+    border-top: 1px solid #E2E8F0;
+}
+
+
+/* ---------------------------------------------------------
+   BOTÓN ACTUALIZAR
+   --------------------------------------------------------- */
+
+.director-pnf-modificar-carsce-boton-actualizar {
+    min-width: 155px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 18px;
+
+    color: #FFFFFF;
+    background: #2563EB;
+
+    border: 1px solid #2563EB;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: .76rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, .16);
+
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+.director-pnf-modificar-carsce-boton-actualizar i {
+    font-size: .72rem;
+}
+
+.director-pnf-modificar-carsce-boton-actualizar:hover {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 15px rgba(37, 99, 235, .22);
+}
+
+.director-pnf-modificar-carsce-boton-actualizar:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 3px 7px rgba(37, 99, 235, .16);
+}
+
+.director-pnf-modificar-carsce-boton-actualizar:focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .18),
+        0 4px 10px rgba(37, 99, 235, .16);
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 900 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    #director-pnf-modificar-carsce {
+        padding-top: 0;
+    }
+
+    .director-pnf-modificar-carsce-contenedor {
+        max-width: 100%;
+    }
+
+    .director-pnf-modificar-carsce-titulo {
+        font-size: 1.5rem;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 700 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .director-pnf-modificar-carsce-fila-edicion {
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .director-pnf-modificar-carsce-grupo-busqueda {
+        grid-template-columns: 1fr;
+    }
+
+    .director-pnf-modificar-carsce-boton-buscar {
+        width: 100%;
+    }
+
+    .director-pnf-modificar-carsce-formulario-busqueda,
+    .director-pnf-modificar-carsce-formulario-actualizar {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .director-pnf-modificar-carsce-separador {
+        width: calc(100% - 34px);
+        margin-left: 17px;
+        margin-right: 17px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 520 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 520px) {
+
+    #director-pnf-modificar-carsce {
+        padding-bottom: 20px;
+    }
+
+    .director-pnf-modificar-carsce-encabezado {
+        margin-bottom: 18px;
+    }
+
+    .director-pnf-modificar-carsce-identificacion {
+        padding: 5px 9px;
+
+        font-size: .62rem;
+    }
+
+    .director-pnf-modificar-carsce-titulo {
+        font-size: 1.3rem;
+    }
+
+    .director-pnf-modificar-carsce-descripcion {
+        font-size: .78rem;
+    }
+
+    .director-pnf-modificar-carsce-tarjeta-cabecera {
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .director-pnf-modificar-carsce-tarjeta-icono {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 9px;
+
+        font-size: .8rem;
+    }
+
+    .director-pnf-modificar-carsce-tarjeta-titulo {
+        font-size: .87rem;
+    }
+
+    .director-pnf-modificar-carsce-tarjeta-descripcion {
+        font-size: .68rem;
+    }
+
+    .director-pnf-modificar-carsce-formulario-busqueda,
+    .director-pnf-modificar-carsce-formulario-actualizar {
+        padding: 18px 14px 16px;
+    }
+
+    .director-pnf-modificar-carsce-separador {
+        width: calc(100% - 28px);
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .director-pnf-modificar-carsce-campo-busqueda > label,
+    .director-pnf-modificar-carsce-campo-edicion > label {
+        font-size: .72rem;
+    }
+
+    .director-pnf-modificar-carsce-control-busqueda input,
+    .director-pnf-modificar-carsce-control-edicion input,
+    .director-pnf-modificar-carsce-control-select select {
+        font-size: .74rem;
+    }
+
+    .director-pnf-modificar-carsce-acciones {
+        justify-content: stretch;
+    }
+
+    .director-pnf-modificar-carsce-boton-actualizar {
+        width: 100%;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE - 390 PX
+   --------------------------------------------------------- */
+
+@media (max-width: 390px) {
+
+    .director-pnf-modificar-carsce-titulo {
+        font-size: 1.18rem;
+    }
+
+    .director-pnf-modificar-carsce-descripcion {
+        font-size: .74rem;
+    }
+
+    .director-pnf-modificar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    .director-pnf-modificar-carsce-tarjeta-icono {
+        width: 35px;
+        height: 35px;
+
+        font-size: .72rem;
+    }
+
+    .director-pnf-modificar-carsce-formulario-busqueda,
+    .director-pnf-modificar-carsce-formulario-actualizar {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .director-pnf-modificar-carsce-separador {
+        width: calc(100% - 24px);
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .director-pnf-modificar-carsce-control-busqueda input,
+    .director-pnf-modificar-carsce-control-edicion input,
+    .director-pnf-modificar-carsce-control-select select {
+        height: 41px;
+    }
+
+    .director-pnf-modificar-carsce-boton-buscar,
+    .director-pnf-modificar-carsce-boton-actualizar {
+        height: 41px;
+
+        font-size: .72rem;
+    }
+
+}

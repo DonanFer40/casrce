@@ -1,0 +1,1116 @@
+/* ============================================================
+   MODIFICAR NOTICIA — DIRECTOR GENERAL
+   CARSCE
+   ============================================================ */
+
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+#director-noticias-modificar-carsce {
+    width: 100%;
+    padding: 35px 30px 50px;
+    background: var(--color-fondo-pagina);
+}
+
+
+.director-noticias-modificar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO
+   ============================================================ */
+
+.director-noticias-modificar-carsce-encabezado {
+    margin-bottom: 28px;
+}
+
+
+/* ============================================================
+   IDENTIFICACIÓN
+   ============================================================ */
+
+.director-noticias-modificar-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 12px;
+}
+
+
+.director-noticias-modificar-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 6px 12px;
+
+    border-radius: 6px;
+
+    background: var(--color-azul-profundo);
+    color: var(--color-blanco);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+
+.director-noticias-modificar-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.director-noticias-modificar-carsce-seccion i {
+    color: var(--color-azul-hover);
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   PRESENTACIÓN
+   ============================================================ */
+
+.director-noticias-modificar-carsce-presentacion {
+    width: 100%;
+}
+
+
+.director-noticias-modificar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 30px;
+    font-weight: 700;
+
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+
+.director-noticias-modificar-carsce-descripcion {
+    max-width: 760px;
+
+    margin-top: 9px;
+
+    color: var(--texto-secundario);
+
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.7;
+}
+
+
+/* ============================================================
+   CONTENEDOR DEL FORMULARIO
+   ============================================================ */
+
+.director-noticias-modificar-carsce-formulario-contenedor {
+    width: 100%;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   CABECERA DEL FORMULARIO
+   ============================================================ */
+
+.director-noticias-modificar-carsce-formulario-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 22px 26px;
+
+    background: var(--color-fondo-pagina);
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+
+.director-noticias-modificar-carsce-formulario-icono {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: var(--color-azul-profundo);
+    color: var(--color-blanco);
+
+    font-size: 18px;
+}
+
+
+.director-noticias-modificar-carsce-formulario-titulo h2 {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.director-noticias-modificar-carsce-formulario-titulo span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--texto-secundario);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+
+.director-noticias-modificar-carsce-formulario {
+    width: 100%;
+    padding: 28px;
+}
+
+
+/* ============================================================
+   FILA DE CAMPOS
+   ============================================================ */
+
+.director-noticias-modificar-carsce-fila {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 22px;
+
+    margin-bottom: 22px;
+}
+
+
+/* ============================================================
+   CAMPOS
+   ============================================================ */
+
+.director-noticias-modificar-carsce-campo {
+    width: 100%;
+}
+
+
+.director-noticias-modificar-carsce-campo label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.director-noticias-modificar-carsce-campo label span {
+    margin-left: 2px;
+
+    color: var(--color-rojo-acento);
+}
+
+
+.director-noticias-modificar-carsce-campo input,
+.director-noticias-modificar-carsce-campo textarea {
+    width: 100%;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+
+    background: var(--color-blanco);
+    color: var(--texto-principal);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.director-noticias-modificar-carsce-campo input {
+    height: 44px;
+
+    padding: 0 13px;
+}
+
+
+.director-noticias-modificar-carsce-campo textarea {
+    min-height: 100px;
+
+    padding: 12px 13px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+
+.director-noticias-modificar-carsce-campo input:focus,
+.director-noticias-modificar-carsce-campo textarea:focus {
+    border-color: var(--color-azul-hover);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+
+    background: var(--color-blanco);
+}
+
+
+.director-noticias-modificar-carsce-campo input::placeholder,
+.director-noticias-modificar-carsce-campo textarea::placeholder {
+    color: var(--texto-mutado);
+}
+
+
+.director-noticias-modificar-carsce-campo small {
+    display: block;
+
+    margin-top: 6px;
+
+    color: var(--texto-mutado);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   CONTENIDO DE LA NOTICIA
+   ============================================================ */
+
+.director-noticias-modificar-carsce-campo-contenido {
+    margin-bottom: 30px;
+}
+
+
+.director-noticias-modificar-carsce-campo-contenido textarea {
+    min-height: 230px;
+}
+
+
+/* ============================================================
+   BLOQUES INTERNOS
+   ============================================================ */
+
+.director-noticias-modificar-carsce-bloque {
+    width: 100%;
+
+    margin-top: 26px;
+
+    padding: 22px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+
+    background: var(--color-fondo-pagina);
+}
+
+
+/* ============================================================
+   CABECERA DE BLOQUE
+   ============================================================ */
+
+.director-noticias-modificar-carsce-bloque-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    margin-bottom: 20px;
+}
+
+
+.director-noticias-modificar-carsce-bloque-icono {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: var(--color-azul-card);
+    color: var(--color-blanco);
+
+    font-size: 15px;
+}
+
+
+.director-noticias-modificar-carsce-bloque-informacion h3 {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.director-noticias-modificar-carsce-bloque-informacion span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--texto-secundario);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   IMAGEN ACTUAL
+   ============================================================ */
+
+.director-noticias-modificar-carsce-imagen-actual {
+    width: 100%;
+}
+
+
+.director-noticias-modificar-carsce-etiqueta-imagen {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--texto-principal);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.director-noticias-modificar-carsce-imagen-contenedor {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 14px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+}
+
+
+.director-noticias-modificar-carsce-imagen-actual-img {
+    display: block;
+
+    width: 100%;
+    max-width: 430px;
+    max-height: 500px;
+
+    object-fit: contain;
+
+    border-radius: 7px;
+}
+
+
+/* ============================================================
+   SIN IMAGEN
+   ============================================================ */
+
+.director-noticias-modificar-carsce-imagen-sin-contenido {
+    min-height: 130px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 20px;
+
+    border: 1px dashed var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+
+    color: var(--texto-mutado);
+
+    text-align: center;
+}
+
+
+.director-noticias-modificar-carsce-imagen-sin-contenido i {
+    font-size: 24px;
+}
+
+
+.director-noticias-modificar-carsce-imagen-sin-contenido span {
+    font-size: 11px;
+}
+
+
+/* ============================================================
+   SELECTOR DE NUEVA IMAGEN
+   ============================================================ */
+
+.director-noticias-modificar-carsce-selector-imagen {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+
+.director-noticias-modificar-carsce-selector-imagen label {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 14px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+
+    background: var(--color-blanco);
+    color: var(--texto-principal);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.director-noticias-modificar-carsce-selector-imagen label:hover {
+    border-color: var(--color-azul-hover);
+
+    background: #EFF6FF;
+
+    color: var(--color-azul-hover);
+}
+
+
+.director-noticias-modificar-carsce-selector-imagen input[type="file"] {
+    width: 100%;
+
+    padding: 8px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+
+    background: var(--color-blanco);
+
+    color: var(--texto-secundario);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
+}
+
+
+.director-noticias-modificar-carsce-selector-imagen input[type="file"]::file-selector-button {
+    margin-right: 10px;
+
+    padding: 7px 11px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: var(--color-azul-profundo);
+    color: var(--color-blanco);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+
+.director-noticias-modificar-carsce-selector-imagen input[type="file"]::file-selector-button:hover {
+    background: var(--color-azul-hover);
+}
+
+
+.director-noticias-modificar-carsce-selector-imagen small {
+    color: var(--texto-mutado);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   PREVISUALIZACIÓN
+   ============================================================ */
+
+.director-noticias-modificar-carsce-imagen-preview {
+    display: none;
+
+    width: 100%;
+
+    margin-top: 22px;
+}
+
+
+.director-noticias-modificar-carsce-imagen-preview-visible {
+    display: block;
+}
+
+
+.director-noticias-modificar-carsce-imagen-preview-contenedor {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 14px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+}
+
+
+.director-noticias-modificar-carsce-imagen-preview-contenedor img {
+    display: block;
+
+    width: 100%;
+    max-width: 430px;
+    max-height: 500px;
+
+    object-fit: contain;
+
+    border-radius: 7px;
+}
+
+
+/* ============================================================
+   NÚCLEO
+   ============================================================ */
+
+.director-noticias-modificar-carsce-nucleo {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 15px 17px;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+
+    background: var(--color-blanco);
+}
+
+
+.director-noticias-modificar-carsce-nucleo-icono {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: var(--color-azul-profundo);
+    color: var(--color-blanco);
+
+    font-size: 15px;
+}
+
+
+.director-noticias-modificar-carsce-nucleo-informacion {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    flex: 1;
+}
+
+
+.director-noticias-modificar-carsce-nucleo-informacion span {
+    color: var(--texto-mutado);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+.director-noticias-modificar-carsce-nucleo-informacion strong {
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.director-noticias-modificar-carsce-nucleo-estado {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    background: #F1F5F9;
+    color: var(--texto-secundario);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.director-noticias-modificar-carsce-nucleo-estado i {
+    font-size: 10px;
+}
+
+
+/* ============================================================
+   AVISO
+   ============================================================ */
+
+.director-noticias-modificar-carsce-aviso {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    margin-top: 25px;
+    padding: 14px 16px;
+
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+
+    background: #EFF6FF;
+}
+
+
+.director-noticias-modificar-carsce-aviso-icono {
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: var(--color-azul-hover);
+
+    font-size: 15px;
+}
+
+
+.director-noticias-modificar-carsce-aviso-informacion {
+    flex: 1;
+}
+
+
+.director-noticias-modificar-carsce-aviso-informacion strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--texto-principal);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.director-noticias-modificar-carsce-aviso-informacion p {
+    margin: 0;
+
+    color: var(--texto-secundario);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   ACCIONES
+   ============================================================ */
+
+.director-noticias-modificar-carsce-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 11px;
+
+    margin-top: 30px;
+    padding-top: 22px;
+
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+
+.director-noticias-modificar-carsce-boton-cancelar,
+.director-noticias-modificar-carsce-boton-guardar {
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0 17px;
+
+    border-radius: 7px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* ============================================================
+   CANCELAR
+   ============================================================ */
+
+.director-noticias-modificar-carsce-boton-cancelar {
+    border: 1px solid var(--color-borde-fino);
+
+    background: var(--color-blanco);
+    color: var(--texto-secundario);
+}
+
+
+.director-noticias-modificar-carsce-boton-cancelar:hover {
+    border-color: #CBD5E1;
+
+    background: #F8FAFC;
+    color: var(--texto-principal);
+}
+
+
+/* ============================================================
+   GUARDAR CAMBIOS
+   ============================================================ */
+
+.director-noticias-modificar-carsce-boton-guardar {
+    border: 1px solid var(--color-azul-hover);
+
+    background: linear-gradient(
+        135deg,
+        var(--color-azul-hover),
+        #1D4ED8
+    );
+
+    color: var(--color-blanco);
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.20);
+}
+
+
+.director-noticias-modificar-carsce-boton-guardar:hover {
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #1E40AF
+    );
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+.director-noticias-modificar-carsce-boton-guardar:active {
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   RESPONSIVE — 900px
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    #director-noticias-modificar-carsce {
+        padding: 30px 22px 45px;
+    }
+
+
+    .director-noticias-modificar-carsce-titulo {
+        font-size: 27px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario {
+        padding: 24px;
+    }
+
+
+    .director-noticias-modificar-carsce-fila {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 700px
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    #director-noticias-modificar-carsce {
+        padding: 25px 18px 40px;
+    }
+
+
+    .director-noticias-modificar-carsce-identificacion {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 7px;
+    }
+
+
+    .director-noticias-modificar-carsce-titulo {
+        font-size: 24px;
+    }
+
+
+    .director-noticias-modificar-carsce-descripcion {
+        font-size: 13px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario-cabecera {
+        padding: 19px 20px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario {
+        padding: 20px;
+    }
+
+
+    .director-noticias-modificar-carsce-bloque {
+        padding: 18px;
+    }
+
+
+    .director-noticias-modificar-carsce-nucleo {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+
+    .director-noticias-modificar-carsce-nucleo-estado {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    .director-noticias-modificar-carsce-acciones {
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+
+    .director-noticias-modificar-carsce-boton-cancelar,
+    .director-noticias-modificar-carsce-boton-guardar {
+        width: 100%;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 520px
+   ============================================================ */
+
+@media (max-width: 520px) {
+
+    #director-noticias-modificar-carsce {
+        padding: 22px 13px 35px;
+    }
+
+
+    .director-noticias-modificar-carsce-titulo {
+        font-size: 22px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario-cabecera {
+        align-items: flex-start;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario-icono {
+        width: 40px;
+        height: 40px;
+
+        font-size: 16px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario-titulo h2 {
+        font-size: 15px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario {
+        padding: 17px;
+    }
+
+
+    .director-noticias-modificar-carsce-bloque {
+        padding: 15px;
+    }
+
+
+    .director-noticias-modificar-carsce-bloque-cabecera {
+        align-items: flex-start;
+    }
+
+
+    .director-noticias-modificar-carsce-nucleo {
+        gap: 11px;
+    }
+
+
+    .director-noticias-modificar-carsce-aviso {
+        padding: 12px;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — 390px
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    #director-noticias-modificar-carsce {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+
+    .director-noticias-modificar-carsce-titulo {
+        font-size: 20px;
+    }
+
+
+    .director-noticias-modificar-carsce-descripcion {
+        font-size: 12px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario {
+        padding: 14px;
+    }
+
+
+    .director-noticias-modificar-carsce-formulario-cabecera {
+        padding: 16px;
+    }
+
+
+    .director-noticias-modificar-carsce-bloque {
+        padding: 13px;
+    }
+
+
+    .director-noticias-modificar-carsce-imagen-actual-img,
+    .director-noticias-modificar-carsce-imagen-preview-contenedor img {
+        max-height: 380px;
+    }
+
+}

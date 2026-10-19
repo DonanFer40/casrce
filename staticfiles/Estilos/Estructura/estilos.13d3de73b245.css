@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* ESTRUCTURA */
+@import url("encabezado.a806b90b9d4b.css");
+@import url("barra_lateral.d2417ddb76f8.css");
+@import url("pie_pagina.c73193964dd4.css");
+/* CSS ENCARGADO DE ORDENAR LA PAGINA */
+@import url("../Logueo/logueado.8ade67983584.css");
+
+/* FORO */
+@import url("../Foro/carrusel.ba8e9fec574c.css");
+@import url("../Foro/Historia.80bd3c9c0a5a.css");
+@import url("../Foro/mision_vision.b7f69b4c6b6e.css");
+@import url("../Foro/PST.a903329d72a9.css");
+@import url("../Foro/PSC.d3245a95f8a1.css");
+@import url("../Foro/Trayectos.3d94a40b8037.css");
+@import url("../Foro/carreras_impartidas.3869c6af51bf.css");
+@import url("../Foro/info_sedes.957bde2093fa.css"); 
+
+/* SESION */
+@import url("../Sesion/formulario_inicio_sesion.bfab5885149c.css");
+@import url("../Sesion/formularios_registros.ed673a393037.css");
+@import url("../Sesion/formulario_registro_personal.2eedb166f476.css");
+@import url("../Sesion/formulario_registro_estudiantil.b13bf9328981.css");
+@import url("../Sesion/formularios_recuperar_credenciales.8cdba9e52f12.css");
+
+/* RECUPERACION DE CREDENCIALES */
+@import url("../Sesion/Recuperar_Credenciales/comprobar_usuario.1971cc995019.css");
+@import url("../Sesion/Recuperar_Credenciales/panel_recuperacion.552e75558b62.css");
+@import url("../Sesion/Recuperar_Credenciales/recuperar_contrasenia.4eb6897ead26.css");
+@import url("../Sesion/Recuperar_Credenciales/recuperar_usuario.48d99ab3b145.css");
+
+/* COMPLETAR REGISTRO DE USUARIOS */
+@import url("../Logueo/completar_registro.67a83c645a3c.css");
+
+/*========================*/
+/*    DIRECTOR GENERAL    */
+/*========================*/
+@import url("../Logueo/Director_General/panel_director_general.23984ec1870c.css");
+
+@import url("../Logueo/Director_General/gestionar_personal/gestionar_personal.a1abb4d7a01d.css");
+@import url("../Logueo/Director_General/gestionar_personal/actualizar_personal.8c88dd2b1f2c.css");
+@import url("../Logueo/Director_General/gestionar_personal/visualizar_personal.3c59a5b432cc.css");
+
+@import url("../Logueo/Director_General/aula/registrar_aula.10e5a13dcc19.css");
+@import url("../Logueo/Director_General/aula/visualizar_aula.5bab6f68e9eb.css");
+
+@import url("../Logueo/Director_General/autoridades/actualizar_autoridades.ac781be2faa5.css");
+@import url("../Logueo/Director_General/autoridades/reasignar_autoridades.5ae12218900d.css");
+@import url("../Logueo/Director_General/autoridades/registrar_autoridades.d2ce9a094ac0.css");
+@import url("../Logueo/Director_General/autoridades/visualizar_autoridades.78f15cc00cb6.css");
+
+@import url("../Logueo/Director_General/calendario_notas/registrar_calendario.5f2dd585e867.css");
+@import url("../Logueo/Director_General/calendario_notas/visualizar_calendario.8aa931aaa942.css");
+
+@import url("../Logueo/Director_General/materia/actualizar_materia.0e8ca4a05382.css");
+@import url("../Logueo/Director_General/materia/registrar_materia.8ed98de000c6.css");
+@import url("../Logueo/Director_General/materia/visualizar_materia.c05fca165097.css");
+
+@import url("../Logueo/Director_General/pnf/actualizar_pnf.4832726ce99c.css");
+@import url("../Logueo/Director_General/pnf/registrar_pnf.abe96c94cb86.css");
+@import url("../Logueo/Director_General/pnf/consultar_pnf.8d1a44b02708.css");
+
+@import url("../Logueo/Director_General/secciones_academicas/registrar_seccion.461b76773546.css");
+@import url("../Logueo/Director_General/secciones_academicas/visualizar_seccion.ef4bf12675b1.css");
+
+@import url("../Logueo/Director_General/noticias/visualizar_noticias.91fbedcfa0b7.css");
+@import url("../Logueo/Director_General/noticias/registrar_noticias.4658283f6054.css");
+@import url("../Logueo/Director_General/noticias/modificar_noticias.6efff73b6982.css");
+
+@import url("../reportes/Director_General/reportes_DirectorGeneral.416ea84f5ac9.css");
+
+/*========================*/
+/*    COORDINADOR PNF     */
+/*========================*/
+@import url("../Logueo/Coordinador_PNF/panel_coordinador_pnf.15e86d43db27.css");
+
+/*========================*/
+/*       ACADEMICO        */
+/*========================*/
+@import url("../Logueo/Academico/panel_academico.ad09361fb88a.css");
+
+/*========================*/
+/*  CONTROL DE ESTUDIO    */
+/*========================*/
+@import url("../Logueo/Control_Estudio/panel_control_estudio.530679fcb479.css");
+
+@import url("../Logueo/Control_Estudio/planificacion_academica/registrar_planificacion.858797544bc0.css");
+@import url("../Logueo/Control_Estudio/planificacion_academica/visualizar_planificacion.c5d6b2da5f7b.css");
+@import url("../Logueo/Control_Estudio/planificacion_academica/visualizar_planes_actividades.7144011809d7.css");
+
+@import url("../Logueo/Control_Estudio/remover_cambios_notas/remover_notas_academicas.2f26de84c31d.css");
+
+@import url("../Logueo/Control_Estudio/asignacion_materia/reactivar_asignaciones.2e33f936fe7b.css");
+@import url("../Logueo/Control_Estudio/asignacion_materia/registrar_asignaciones.2793afe20711.css");
+@import url("../Logueo/Control_Estudio/asignacion_materia/visualizar_asignaciones.0f732dae858b.css");
+
+@import url("../Logueo/Control_Estudio/inscripcion/inscripcion_rechazado.384a48bda5a3.css");
+
+@import url("../reportes/Control_Estudio/reportes_ControlEstudio.b8ce291ee7a7.css");
+
+/*========================*/
+/*        DOCENTE         */
+/*========================*/
+@import url("../Logueo/Docente/panel_docente.d41d8cd98f00.css");
+
+@import url("../Logueo/Docente/notas_academicas/registrar_notas_academicas.455972c0cbd7.css");
+@import url("../Logueo/Docente/notas_academicas/visualizar_notas_academicas.1f86035f60d1.css");
+@import url("../Logueo/Docente/notas_academicas/modificar_notas_academicas.74d2e82a304c.css");
+
+@import url("../Logueo/Docente/Evaluacion_Reparacion/modificar_evaluaciones_reparar.080224ba32bd.css");
+@import url("../Logueo/Docente/Evaluacion_Reparacion/registrar_examen_reparacion.76986f15d594.css");
+@import url("../Logueo/Docente/Evaluacion_Reparacion/visualizar_evaluaciones_reparar.4e81d8011258.css");
+
+@import url("../Logueo/Docente/Reparacion/modificar_reparacion.2e092a589515.css");
+@import url("../Logueo/Docente/Reparacion/registrar_reparacion.7cbc9e9bb476.css");
+@import url("../Logueo/Docente/Reparacion/visualizar_reparacion.198c767d6af4.css");
+
+/*========================*/
+/*       ESTUDIANTE       */
+/*========================*/
+
+@import url("../Logueo/Estudiante/panel_estudiante.d41d8cd98f00.css");
+
+@import url("../Logueo/Estudiante/Calificaciones_estudiante/info_academica_estudiante.bd5b6a281290.css");
+@import url("../Logueo/Estudiante/Calificaciones_estudiante/materia_presentar.2d145ddd0f94.css");
+@import url("../Logueo/Estudiante/Calificaciones_estudiante/planificaciones_academicas.3a7ec02d6fe2.css");
+
+
+/* VARIABLES */
+:root {
+    /* Paleta Institucional Refinada */
+    --color-azul-profundo: #0F172A;      /* Base oscura y sobria para sidebar y headers */
+    --color-azul-card: #1E293B;          /* Superficies oscuras secundarias */
+    --color-azul-hover: #2563EB;         /* Azul activo para enlaces y hover */
+
+    /* Acentos Estratégicos (Botones e Información Clave) */
+    --color-amarillo-accion: #F59E0B;    /* Amarillo dorado para llamadas a la acción (CTA) */
+    --color-amarillo-hover: #D97706;     /* Hover para botones de acción */
+    --color-rojo-acento: #DC2626;         /* Rojo elegante para noticias y etiquetas destacadas */
+    --color-rojo-soft: #FEF2F2;           /* Fondo suave para distintivos */
+
+    /* Neutros, Fondos y Tipografía */
+    --color-blanco: #FFFFFF;
+    --color-fondo-pagina: #F8FAFC;       /* Gris ultra suave para descanso visual */
+    --color-borde-fino: #E2E8F0;
+    --color-borde-oscuro: rgba(255, 255, 255, 0.1);
+
+    --texto-principal: #0F172A;          /* Negro suave / Slate oscuro para lectura */
+    --texto-secundario: #64748B;        /* Gris medio para metadatos */
+    --texto-claro: #F8FAFC;             /* Blanco/Gris para superficies oscuras */
+    --texto-mutado: #94A3B8;
+
+    /* Sombras Elevadas y Bordes */
+    --sombra-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.08);
+    --sombra-elevada: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+    --sombra-hover: 0 12px 20px -3px rgba(15, 23, 42, 0.15);
+    --radio-card: 12px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:"Poppins", sans-serif;
+}
+
+.oculto {
+    display: none;
+}
+
+html,
+body{
+    min-height:100%;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+body > main{
+    flex:1 0 auto;
+}

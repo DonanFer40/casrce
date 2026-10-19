@@ -1,0 +1,477 @@
+/* =========================================================
+   VISUALIZAR EVALUACIONES DE REPARACIÓN — CARSCE
+   Diseño institucional CARSCE
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce {
+    width: 100%;
+    min-height: 100%;
+    padding: 4px 0 30px;
+    color: var(--texto-principal);
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-encabezado {
+    margin-bottom: 24px;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-identificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 7px;
+
+    color: #2563EB;
+
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-presentacion {
+    margin-top: 8px;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-titulo {
+    margin: 0;
+
+    color: var(--texto-principal);
+
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-titulo span {
+    color: #2563EB;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-descripcion {
+    max-width: 800px;
+    margin: 7px 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .82rem;
+    line-height: 1.55;
+}
+
+/* =========================================================
+   TARJETA PRINCIPAL
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tarjeta {
+    padding: 26px 28px 28px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+}
+
+/* =========================================================
+   CABECERA DE TARJETA
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 25px;
+    padding-bottom: 21px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tarjeta-icono {
+    flex: 0 0 46px;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    border-radius: 11px;
+
+    color: #FFFFFF;
+    font-size: .95rem;
+
+    box-shadow: 0 5px 12px rgba(37, 99, 235, .22);
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tarjeta-informacion {
+    min-width: 0;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tarjeta-titulo {
+    margin: 0;
+
+    color: var(--color-azul-card);
+
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tarjeta-descripcion {
+    margin: 3px 0 0;
+
+    color: var(--texto-secundario);
+
+    font-size: .72rem;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   CONTENEDOR DE TABLA
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-contenedor {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+
+    background: #FFFFFF;
+
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-contenedor::-webkit-scrollbar {
+    height: 7px;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-contenedor::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-contenedor::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 10px;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-contenedor::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+/* =========================================================
+   TABLA
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla {
+    width: 100%;
+    min-width: 850px;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    font-family: "Poppins", sans-serif;
+}
+
+/* =========================================================
+   CABECERA DE TABLA
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-cabecera {
+    background: #F8FAFC;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th {
+    height: 48px;
+
+    padding: 0 14px;
+
+    border-bottom: 1px solid #E2E8F0;
+
+    color: #475569;
+
+    font-size: .67rem;
+    font-weight: 700;
+    letter-spacing: .035em;
+    text-align: left;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   CUERPO DE TABLA
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-cuerpo td {
+    min-height: 52px;
+
+    padding: 13px 14px;
+
+    border-bottom: 1px solid #F1F5F9;
+
+    color: var(--texto-principal);
+
+    font-size: .71rem;
+    line-height: 1.45;
+
+    vertical-align: middle;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-cuerpo tr:last-child td {
+    border-bottom: none;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-cuerpo tr {
+    transition: background .2s ease;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-cuerpo tr:hover {
+    background: #F8FAFC;
+}
+
+/* =========================================================
+   COLUMNAS
+========================================================= */
+
+/* ID */
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th:nth-child(1),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla td:nth-child(1) {
+    width: 65px;
+
+    color: #64748B;
+
+    font-weight: 600;
+}
+
+/* PNF */
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th:nth-child(2),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla td:nth-child(2) {
+    min-width: 150px;
+}
+
+/* MATERIA */
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th:nth-child(3),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla td:nth-child(3) {
+    min-width: 190px;
+}
+
+/* FECHA */
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th:nth-child(4),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla td:nth-child(4) {
+    min-width: 125px;
+
+    white-space: nowrap;
+}
+
+/* EVALUACIONES */
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th:nth-child(5),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th:nth-child(6),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla th:nth-child(7) {
+    min-width: 120px;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla td:nth-child(5),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla td:nth-child(6),
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla td:nth-child(7) {
+    color: #475569;
+    font-weight: 500;
+}
+
+/* =========================================================
+   INFORMACIÓN INFERIOR
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-informacion {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-top: 15px;
+
+    color: var(--texto-secundario);
+
+    font-size: .67rem;
+    line-height: 1.4;
+}
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-informacion i {
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    font-size: .72rem;
+}
+
+/* =========================================================
+   ESTADO SIN REGISTROS
+========================================================= */
+
+#evaluacion-reparacion-visualizar-carsce
+.evaluacion-reparacion-visualizar-carsce-tabla-cuerpo:empty::after {
+    content: "No existen evaluaciones de reparación registradas.";
+
+    display: table-cell;
+
+    height: 100px;
+
+    padding: 30px;
+
+    color: #64748B;
+
+    font-size: .72rem;
+    text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
+
+@media (max-width: 900px) {
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-contenedor {
+        max-width: 100%;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-tarjeta {
+        padding: 23px 22px 25px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 700px
+========================================================= */
+
+@media (max-width: 700px) {
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-titulo {
+        font-size: 1.35rem;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-tarjeta {
+        padding: 21px 18px 22px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 520px
+========================================================= */
+
+@media (max-width: 520px) {
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-titulo {
+        font-size: 1.2rem;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-descripcion {
+        font-size: .74rem;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-tarjeta-cabecera {
+        align-items: flex-start;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-tarjeta-icono {
+        flex: 0 0 42px;
+
+        width: 42px;
+        height: 42px;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-informacion {
+        align-items: flex-start;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 390px
+========================================================= */
+
+@media (max-width: 390px) {
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-tarjeta {
+        padding: 18px 14px 19px;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-tarjeta-icono {
+        flex: 0 0 40px;
+
+        width: 40px;
+        height: 40px;
+    }
+
+    #evaluacion-reparacion-visualizar-carsce
+    .evaluacion-reparacion-visualizar-carsce-informacion {
+        font-size: .63rem;
+    }
+}

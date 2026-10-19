@@ -1,0 +1,253 @@
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+#enviar_codigo_email {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: var(--texto-principal);
+    font-family: 'Poppins', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+#enviar_codigo_email *,
+#enviar_codigo_email *::before,
+#enviar_codigo_email *::after {
+    box-sizing: border-box;
+}
+
+#enviar_codigo_email .contenedor_enviar_codigo {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+/* =========================================================
+   CABECERA DEL MENSAJE
+   ========================================================= */
+
+#enviar_codigo_email .enviar_codigo_email-cabecera {
+    margin: 0 0 24px;
+    padding: 0 0 16px;
+    border-bottom: 2px solid var(--color-borde-fino);
+}
+
+#enviar_codigo_email .enviar_codigo_email-cabecera h2 {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
+
+
+/* =========================================================
+   INTRODUCCIÓN DEL MENSAJE
+   ========================================================= */
+
+#enviar_codigo_email .enviar_codigo_email-introduccion {
+    margin: 0 0 22px;
+}
+
+#enviar_codigo_email .enviar_codigo_email-introduccion p {
+    margin: 0 0 14px;
+    color: var(--texto-secundario);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+}
+
+#enviar_codigo_email .enviar_codigo_email-introduccion p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   CONTENEDOR DEL CÓDIGO DE AUTENTICACIÓN
+   ========================================================= */
+
+#enviar_codigo_email .enviar_codigo_email-contenedor-codigo {
+    width: 100%;
+    margin: 0 0 22px;
+    padding: 24px 16px;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    background-color: var(--color-fondo-pagina);
+    text-align: center;
+}
+
+
+/* =========================================================
+   ETIQUETA DEL CÓDIGO
+   ========================================================= */
+
+#enviar_codigo_email .enviar_codigo_email-etiqueta-codigo {
+    margin: 0 0 14px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+/* =========================================================
+   CÓDIGO DE AUTENTICACIÓN
+   ========================================================= */
+
+#enviar_codigo_email #codigo_autenticacion {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0;
+    padding: 14px 20px;
+    border: 1px dashed var(--color-azul-hover);
+    border-radius: 8px;
+    background-color: var(--color-blanco);
+    color: var(--color-azul-profundo);
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-align: center;
+}
+
+
+/* =========================================================
+   VIGENCIA DEL CÓDIGO
+   ========================================================= */
+
+#enviar_codigo_email .enviar_codigo_email-vigencia {
+    margin: 0 0 22px;
+    padding: 14px 16px;
+    border-left: 4px solid var(--color-amarillo-accion);
+    border-radius: 0 8px 8px 0;
+    background-color: var(--color-fondo-pagina);
+}
+
+#enviar_codigo_email .enviar_codigo_email-vigencia p {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.7;
+    text-align: left;
+}
+
+#enviar_codigo_email .enviar_codigo_email-vigencia strong {
+    color: var(--color-azul-profundo);
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   AVISO DE SEGURIDAD
+   ========================================================= */
+
+#enviar_codigo_email .enviar_codigo_email-aviso {
+    margin: 0;
+    padding: 16px 18px;
+    border: 1px solid var(--color-rojo-soft);
+    border-radius: 8px;
+    background-color: var(--color-rojo-soft);
+}
+
+#enviar_codigo_email .enviar_codigo_email-aviso p {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+}
+
+
+/* =========================================================
+   ADAPTACIÓN PARA DISPOSITIVOS MÓVILES
+   ========================================================= */
+
+@media screen and (max-width: 600px) {
+
+    #enviar_codigo_email .contenedor_enviar_codigo {
+        max-width: 100%;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-cabecera {
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-cabecera h2 {
+        font-size: 21px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-introduccion p {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-contenedor-codigo {
+        margin-bottom: 20px;
+        padding: 20px 12px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-etiqueta-codigo {
+        font-size: 13px;
+    }
+
+    #enviar_codigo_email #codigo_autenticacion {
+        padding: 12px 14px;
+        font-size: 25px;
+        letter-spacing: 6px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-vigencia {
+        margin-bottom: 20px;
+        padding: 12px 14px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-aviso {
+        padding: 14px;
+    }
+}
+
+
+/* =========================================================
+   ADAPTACIÓN PARA PANTALLAS MUY PEQUEÑAS
+   ========================================================= */
+
+@media screen and (max-width: 360px) {
+
+    #enviar_codigo_email .enviar_codigo_email-cabecera h2 {
+        font-size: 19px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-introduccion p {
+        font-size: 13px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-contenedor-codigo {
+        padding: 16px 10px;
+    }
+
+    #enviar_codigo_email #codigo_autenticacion {
+        padding: 10px;
+        font-size: 22px;
+        letter-spacing: 4px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-vigencia p {
+        font-size: 13px;
+    }
+
+    #enviar_codigo_email .enviar_codigo_email-aviso p {
+        font-size: 12px;
+    }
+}

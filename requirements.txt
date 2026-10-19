@@ -1,0 +1,25 @@
+# Dependencias del proyecto CASRCE
+# Instalación: python -m pip install -r requirements.txt
+
+# Framework web (versión identificada en proyecto_carsce/settings.py)
+Django==6.0.3
+
+# Panel administrativo personalizado
+django-jazzmin>=3.0,<4.0
+
+# Base de datos PostgreSQL (backend utilizado en settings.py)
+psycopg[binary]>=3.2,<4.0
+
+# Procesamiento de imágenes
+Pillow>=12.3,<13.0
+
+# Generación de documentos PDF y reportes
+reportlab>=4.4,<5.0
+
+# Adaptación de CSS para correos HTML
+premailer>=3.10,<4.0
+
+# Servidor WSGI para producción (Railway)
+gunicorn>=23.0,<24.0
+
+whitenoise>=6.8,<7.0

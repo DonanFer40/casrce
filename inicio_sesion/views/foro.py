@@ -8,7 +8,7 @@ def foro(request):
         "noticias_carrusel": [],
     }
 
-    return render(request, "Foro/foro.html", contexto)
+    return render(request, "foro/foro.html", contexto)
 
 
 def noticias_por_nucleo(request):

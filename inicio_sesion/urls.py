@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('foro/', views.foro, name="foro"),
+    path('', views.foro, name='inicio_publico'),
     path('inicio_sesion/', views.autenticacion, name="inicio_sesion"),
     path('panel_usuario/', views.panel_usuario, name="panel_usuario"),
     path('panel_registro/', views.panel_registro, name="panel_registro"),

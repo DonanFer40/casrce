@@ -98,7 +98,6 @@ WSGI_APPLICATION = 'proyecto_carsce.wsgi.application'
 import os
 import dj_database_url
 
-# Lee DATABASE_PUBLIC_URL si estás en local, o DATABASE_URL si estás en producción
 database_url = os.environ.get("DATABASE_PUBLIC_URL") or os.environ.get("DATABASE_URL")
 
 if not database_url:

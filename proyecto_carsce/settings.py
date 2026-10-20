@@ -95,15 +95,21 @@ WSGI_APPLICATION = 'proyecto_carsce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+import os
+import dj_database_url
+
+# Lee DATABASE_PUBLIC_URL si estás en local, o DATABASE_URL si estás en producción
+database_url = os.environ.get("DATABASE_PUBLIC_URL") or os.environ.get("DATABASE_URL")
+
+if not database_url:
+    raise ValueError("No se ha configurado la URL de la base de datos.")
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'casrce',
-        'USER': 'postgres',
-        'PASSWORD': '31359116e',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    "default": dj_database_url.parse(
+        database_url,
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
 
 # Password validation

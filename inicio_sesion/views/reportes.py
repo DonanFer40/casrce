@@ -23,7 +23,7 @@ from reportlab.platypus import (
 from django.db.models import Avg, Count
 from inicio_sesion.models import AulaEstudiante, Estudiante
 from notas_academicas.models import Calificaciones
-from inicio_sesion.services.permisos import requiere_rol_reporte
+from gestion_institucional.services.permisos import requiere_rol_reporte
 
 def reporte_estudiantes_pdf(request):
     """

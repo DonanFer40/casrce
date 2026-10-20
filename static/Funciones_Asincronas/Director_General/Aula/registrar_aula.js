@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formulario = new FormData();
             formulario.append("aula", input_nombre_aula.value);
 
-            const respuesta = await fetch("/val_aula/", {
+            const respuesta = await fetch("/gestion_institucional/val_aula/", {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function pnfs_registrados() {
         try {
-            const respuesta = await fetch("/pnfs_reg/");
+            const respuesta = await fetch("/gestion_institucional/pnfs_reg/");
             const resultado = await respuesta.json();
             console.log(resultado);
 
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function secciones_registradas() {
         try {
-            const respuesta = await fetch("/sec_reg/");
+            const respuesta = await fetch("/gestion_institucional/sec_reg/");
             const resultado = await respuesta.json();
             console.log(resultado);
 
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const formulario = new FormData(formulario_registrar)
 
-            const respuesta = await fetch("/reg_aula/", {
+            const respuesta = await fetch("/gestion_institucional/reg_aula/", {
                 method: "POST",
                 body: formulario
             });

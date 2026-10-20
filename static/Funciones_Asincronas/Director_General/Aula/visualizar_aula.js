@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function aulas_registradas() {
         try {
-            const respuesta = await fetch("/aulas_reg/");
+            const respuesta = await fetch("/gestion_institucional//aulas_reg/");
             const resultado = await respuesta.json();
             console.log(resultado);
 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'inicio_sesion',
     'notas_academicas',
+    'gestion_institucional',
 ]
 
 JAZZMIN_SETTINGS = {

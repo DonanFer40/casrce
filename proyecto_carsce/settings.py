@@ -179,6 +179,6 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 EMAIL_HOST_USER = "uptjfr2025@gmail.com"
-EMAIL_HOST_PASSWORD = "zoih qaet vkts ambs"
+EMAIL_HOST_PASSWORD = "hzhf xnhd zybj ddor"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

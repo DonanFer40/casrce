@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import transaction
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+import unicodedata
 
 from inicio_sesion.models import Usuario, Estudiante, Pnf, Contacto, Nucleos, PNFNucleo, DirectorGeneral, Docente, CoordinadorPNF, ControlEstudio
 
@@ -12,58 +15,216 @@ PERFILES = {
     "3": "Docente"
 }
 
-def datos_perfiles(request):
-    director = DirectorGeneral.objects.select_related("nucleo").get(usuario__cedula_identidad=request.session.get("cedula_usuario"))
+@require_POST
+def validar_telefono(request):
 
-    nucleo_director = director.nucleo
+    # =========================================================
+    # VALIDAR SESIÓN DEL DIRECTOR GENERAL
+    # =========================================================
 
-    perfiles = [
-        {
-            "id_perfil": 1,
-            "perfil": "Coordinador PNF"
-        },
-        {
-            "id_perfil": 3,
-            "perfil": "Docente"
-        }
+    cedula_usuario = request.session.get("cedula_usuario")
+
+    if not cedula_usuario:
+        return JsonResponse({
+            "error": "No tienes autorización para realizar esta operación."
+        }, status=403)
+
+    director_autorizado = DirectorGeneral.objects.filter(
+        usuario__cedula_identidad=cedula_usuario
+    ).exists()
+
+    if not director_autorizado:
+        return JsonResponse({
+            "error": "No tienes autorización para realizar esta operación."
+        }, status=403)
+
+    # =========================================================
+    # OBTENER DATOS
+    # =========================================================
+
+    prefijo = request.POST.get("prefijo", "").strip()
+    telefono = request.POST.get("telefono", "").strip()
+
+    prefijos_validos = [
+        "0414",
+        "0424",
+        "0416",
+        "0426",
+        "0412",
+        "0422"
     ]
 
-    # Verificar si el núcleo ya tiene Control de Estudio
-    existe_control = ControlEstudio.objects.filter(
-        nucleo=nucleo_director
+    if prefijo not in prefijos_validos:
+
+        return JsonResponse({
+            "error": "El prefijo telefónico no es válido."
+        }, status=400)
+
+    if not telefono.isdigit() or len(telefono) != 7:
+
+        return JsonResponse({
+            "error": "El número telefónico debe contener exactamente 7 dígitos."
+        }, status=400)
+
+    # =========================================================
+    # COMPROBAR EXISTENCIA
+    # =========================================================
+
+    telefono_completo = prefijo + telefono
+
+    existe = Contacto.objects.filter(
+        telefono_personal=telefono_completo
     ).exists()
-    if not existe_control:
-        perfiles.insert(
-            1,
-            {
-                "id_perfil": 2,
-                "perfil": "Control de Estudio"
-            }
-        )
 
     return JsonResponse({
-        "perfiles": perfiles
+        "existe": existe
     })
 
+def obtener_icono_pnf(nombre):
+    nombre_normalizado = unicodedata.normalize(
+        "NFKD", nombre.lower()
+    ).encode("ascii", "ignore").decode("ascii")
+
+    iconos = {
+        "informatica": "fa-laptop-code",
+        "electronica": "fa-microchip",
+        "veterinaria": "fa-paw",
+        "nutricion": "fa-apple-whole",
+        "electricidad": "fa-bolt",
+        "mecanica": "fa-gears",
+        "agroalimentacion": "fa-seedling",
+        "construccion": "fa-building",
+        "industrial": "fa-industry",
+    }
+
+    for palabra, icono in iconos.items():
+        if palabra in nombre_normalizado:
+            return icono
+
+    return "fa-graduation-cap"
+
+def datos_perfiles(request):
+
+    if request.method != "GET":
+        return JsonResponse(
+            {"error": "Método no permitido."},
+            status=405
+        )
+
+    try:
+        director = DirectorGeneral.objects.select_related(
+            "nucleo"
+        ).get(
+            usuario__cedula_identidad=request.session.get(
+                "cedula_usuario"
+            )
+        )
+
+        nucleo_director = director.nucleo
+
+        perfiles = []
+
+        # ================================================
+        # COORDINADOR PNF
+        # ================================================
+
+        pnfs_ocupados = CoordinadorPNF.objects.filter(
+            nucleo=nucleo_director
+        ).values_list(
+            "pnf_id",
+            flat=True
+        )
+
+        existen_pnfs_disponibles = PNFNucleo.objects.filter(
+            id_nucleo=nucleo_director
+        ).exclude(
+            id_pnf_id__in=pnfs_ocupados
+        ).exists()
+
+        if existen_pnfs_disponibles:
+            perfiles.append({
+                "id_perfil": 1,
+                "perfil": "Coordinador PNF"
+            })
+
+        # ================================================
+        # CONTROL DE ESTUDIO
+        # ================================================
+
+        existe_control = ControlEstudio.objects.filter(
+            nucleo=nucleo_director
+        ).exists()
+
+        if not existe_control:
+            perfiles.append({
+                "id_perfil": 2,
+                "perfil": "Control de Estudio"
+            })
+
+        # ================================================
+        # DOCENTE
+        # ================================================
+
+        perfiles.append({
+            "id_perfil": 3,
+            "perfil": "Docente"
+        })
+
+        return JsonResponse({
+            "perfiles": perfiles
+        })
+
+    except DirectorGeneral.DoesNotExist:
+        return JsonResponse(
+            {"error": "No se encontró el Director General."},
+            status=403
+        )
+
+    except Exception:
+        return JsonResponse(
+            {"error": "No fue posible consultar los perfiles disponibles."},
+            status=500
+        )
+
 def pnfs_disp(request):
-    if request.method == "POST":
+
+    if request.method != "POST":
+        return JsonResponse(
+            {"error": "Método no permitido."},
+            status=405
+        )
+
+    try:
         data = json.loads(request.body)
 
         perfil_id = int(data.get("id_perfil"))
 
+        if perfil_id not in (1, 3):
+            return JsonResponse(
+                {"error": "El perfil solicitado no es válido."},
+                status=400
+            )
+
         director = DirectorGeneral.objects.select_related(
             "nucleo"
         ).get(
-            usuario__cedula_identidad=request.session.get("cedula_usuario")
+            usuario__cedula_identidad=request.session.get(
+                "cedula_usuario"
+            )
         )
 
         nucleo = director.nucleo
 
         pnfs = PNFNucleo.objects.filter(
             id_nucleo=nucleo
-        ).select_related("id_pnf")
+        ).select_related(
+            "id_pnf"
+        )
 
-        # Coordinador PNF (id_perfil = 1)
+        # ================================================
+        # DISPONIBILIDAD PARA COORDINADOR PNF
+        # ================================================
+
         if perfil_id == 1:
 
             pnfs_ocupados = CoordinadorPNF.objects.filter(
@@ -77,10 +238,17 @@ def pnfs_disp(request):
                 id_pnf_id__in=pnfs_ocupados
             )
 
+        # ================================================
+        # RESULTADO
+        # ================================================
+
         resultado = [
             {
                 "id_pnf": item.id_pnf.id_pnf,
-                "pnf": item.id_pnf.pnf
+                "pnf": item.id_pnf.pnf,
+                "icono": obtener_icono_pnf(
+                    item.id_pnf.pnf
+                )
             }
             for item in pnfs
         ]
@@ -89,114 +257,360 @@ def pnfs_disp(request):
             "pnfs": resultado
         })
 
-
-def pre_reg_personal(request):
-    if request.method == "POST":
-        nombres = request.POST.get("nombres")
-        apellidos = request.POST.get("apellidos")
-        nacionalidad = request.POST.get("nacionalidad")
-        num_cedula = request.POST.get("cedula_identidad")
-        nombre_correo = request.POST.get("correo_electronico")
-        dominio = request.POST.get("dominio")
-        prefijo = request.POST.get("prefijo")
-        num_telefono = request.POST.get("telefono")
-
-        perfiles_asignados = request.POST.getlist("perfil")
-
-        pnfs_coordinador = request.POST.getlist("pnf_coordinador_pnf")
-        pnfs_docente = request.POST.getlist("pnf_docente")
-
-        # Obtener núcleo del Director General
-        director = DirectorGeneral.objects.select_related(
-            "usuario",
-            "nucleo"
-        ).get(
-            usuario__cedula_identidad=request.session.get("cedula_usuario")
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {"error": "Los datos recibidos no son válidos."},
+            status=400
         )
 
-        nucleo_director = director.nucleo
+    except (TypeError, ValueError):
+        return JsonResponse(
+            {"error": "El perfil solicitado no es válido."},
+            status=400
+        )
 
-        campos = [
-            (nombres, "Nombres", "Por favor, ingresar los nombres del usuario."),
-            (apellidos, "Apellidos", "Por favor, ingresar los apellidos del usuario."),
-            (nacionalidad, "Nacionalidad", "Por favor, selecciona la nacionalidad."),
-            (num_cedula, "Cédula", "Por favor, ingresa la cédula."),
-            (nombre_correo, "Correo", "Por favor, ingresa el correo."),
-            (dominio, "Dominio", "Por favor, selecciona el dominio."),
-            (prefijo, "Prefijo", "Por favor, selecciona el prefijo."),
-            (num_telefono, "Teléfono", "Por favor, ingresa el teléfono."),
-        ]
+    except DirectorGeneral.DoesNotExist:
+        return JsonResponse(
+            {"error": "No se encontró el Director General."},
+            status=403
+        )
 
-        for valor, campo, mensaje in campos:
-            if not valor:
-                return JsonResponse({
-                    "estado": "fallo",
-                    "title": campo,
-                    "descripcion": mensaje,
-                    "icon": "warning"
-                })
-
-        perfiles_asignados = [
-            perfil for perfil in request.POST.getlist("perfil")
-            if perfil.strip()
-        ]
-
-        pnfs_coordinador = [
-            pnf for pnf in request.POST.getlist("pnf_coordinador_pnf")
-            if pnf.strip()
-        ]
-
-        pnfs_docente = [
-            pnf for pnf in request.POST.getlist("pnf_docente")
-            if pnf.strip()
-        ]
-
-        # Validar que exista al menos un perfil
-        if not perfiles_asignados:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Perfil vacío",
-                "descripcion": "Debe seleccionar al menos un perfil para el usuario.",
-                "icon": "warning"
-            })
+    except Exception:
+        return JsonResponse(
+            {"error": "No fue posible consultar los PNF."},
+            status=500
+        )
 
 
-        # Validar los PNF según el perfil seleccionado
-        for perfil_id in perfiles_asignados:
+def pre_reg_personal(request):
 
-            perfil = PERFILES.get(perfil_id)
+    if request.method != "POST":
+        return render(
+            request,
+            "Roles/Director_General/gestion_personal/pre_registro_personal.html"
+        )
 
-            if perfil == "Coordinador PNF":
+    # =========================================================
+    # FUNCIÓN PARA RESPUESTAS DE ERROR
+    # =========================================================
 
-                if not pnfs_coordinador:
-                    return JsonResponse({
-                        "estado": "fallo",
-                        "title": "PNF vacío",
-                        "descripcion": "Debe seleccionar al menos un PNF para el perfil Coordinador PNF.",
-                        "icon": "warning"
-                    })
+    def respuesta_fallo(title, descripcion, icon="warning"):
+        return JsonResponse({
+            "estado": "fallo",
+            "title": title,
+            "descripcion": descripcion,
+            "icon": icon
+        })
 
-            elif perfil == "Docente":
+    # =========================================================
+    # DATOS DEL FORMULARIO
+    # =========================================================
 
-                if not pnfs_docente:
-                    return JsonResponse({
-                        "estado": "fallo",
-                        "title": "PNF vacío",
-                        "descripcion": "Debe seleccionar al menos un PNF para el perfil Docente.",
-                        "icon": "warning"
-                    })
-                        
+    nombres = request.POST.get("nombres", "").strip()
+    apellidos = request.POST.get("apellidos", "").strip()
+    nacionalidad = request.POST.get("nacionalidad", "").strip()
+    num_cedula = request.POST.get("cedula_identidad", "").strip()
 
-        cedula_identidad = f"{nacionalidad}-{num_cedula}"
-        correo_principal = f"{nombre_correo}{dominio}"
-        telefono_principal = f"{prefijo}{num_telefono}"
+    nombre_correo = request.POST.get("correo_electronico", "").strip()
+    dominio = request.POST.get("dominio", "").strip()
+
+    prefijo = request.POST.get("prefijo", "").strip()
+    num_telefono = request.POST.get("telefono", "").strip()
+
+    perfiles_asignados = [
+        perfil.strip()
+        for perfil in request.POST.getlist("perfil")
+        if perfil.strip()
+    ]
+
+    pnfs_coordinador = [
+        pnf.strip()
+        for pnf in request.POST.getlist("pnf_coordinador_pnf")
+        if pnf.strip()
+    ]
+
+    pnfs_docente = [
+        pnf.strip()
+        for pnf in request.POST.getlist("pnf_docente")
+        if pnf.strip()
+    ]
+
+    # =========================================================
+    # VALIDAR CAMPOS OBLIGATORIOS
+    # =========================================================
+
+    campos = [
+        (
+            nombres,
+            "Nombres",
+            "Por favor, ingresar los nombres del usuario."
+        ),
+        (
+            apellidos,
+            "Apellidos",
+            "Por favor, ingresar los apellidos del usuario."
+        ),
+        (
+            nacionalidad,
+            "Nacionalidad",
+            "Por favor, selecciona la nacionalidad."
+        ),
+        (
+            num_cedula,
+            "Cédula",
+            "Por favor, ingresa la cédula."
+        ),
+        (
+            nombre_correo,
+            "Correo",
+            "Por favor, ingresa el correo."
+        ),
+        (
+            dominio,
+            "Dominio",
+            "Por favor, selecciona el dominio."
+        ),
+        (
+            prefijo,
+            "Prefijo",
+            "Por favor, selecciona el prefijo."
+        ),
+        (
+            num_telefono,
+            "Teléfono",
+            "Por favor, ingresa el teléfono."
+        ),
+    ]
+
+    for valor, campo, mensaje in campos:
+
+        if not valor:
+            return respuesta_fallo(
+                campo,
+                mensaje
+            )
+
+    # =========================================================
+    # VALIDAR PERFILES
+    # =========================================================
+
+    if not perfiles_asignados:
+        return respuesta_fallo(
+            "Perfil vacío",
+            "Debe seleccionar al menos un perfil para el usuario."
+        )
+
+    perfiles_validos = set(PERFILES.keys())
+
+    if len(perfiles_asignados) != len(set(perfiles_asignados)):
+        return respuesta_fallo(
+            "Perfiles duplicados",
+            "Se ha enviado un perfil más de una vez."
+        )
+
+    if not set(perfiles_asignados).issubset(perfiles_validos):
+        return respuesta_fallo(
+            "Perfil no válido",
+            "Uno o más perfiles seleccionados no son válidos."
+        )
+
+    # =========================================================
+    # VALIDAR CANTIDAD DE PNF POR PERFIL
+    # =========================================================
+
+    # COORDINADOR PNF
+
+    if "1" in perfiles_asignados:
+
+        if len(pnfs_coordinador) == 0:
+            return respuesta_fallo(
+                "PNF vacío",
+                "Debe seleccionar un PNF para el perfil Coordinador PNF."
+            )
+
+        if len(pnfs_coordinador) > 1:
+            return respuesta_fallo(
+                "Selección no válida",
+                "Solo puede seleccionar un PNF para el perfil Coordinador PNF."
+            )
+
+    # DOCENTE
+
+    if "3" in perfiles_asignados:
+
+        if len(pnfs_docente) == 0:
+            return respuesta_fallo(
+                "PNF vacío",
+                "Debe seleccionar un PNF para el perfil Docente."
+            )
+
+        if len(pnfs_docente) > 1:
+            return respuesta_fallo(
+                "Selección no válida",
+                "Solo puede seleccionar un PNF para el perfil Docente."
+            )
+
+    # =========================================================
+    # CONVERTIR IDENTIFICADORES DE PNF
+    # =========================================================
+
+    id_pnf_coordinador = None
+    id_pnf_docente = None
+
+    try:
+
+        if "1" in perfiles_asignados:
+            id_pnf_coordinador = int(
+                pnfs_coordinador[0]
+            )
+
+            if id_pnf_coordinador <= 0:
+                raise ValueError
+
+        if "3" in perfiles_asignados:
+            id_pnf_docente = int(
+                pnfs_docente[0]
+            )
+
+            if id_pnf_docente <= 0:
+                raise ValueError
+
+    except (ValueError, TypeError):
+        return respuesta_fallo(
+            "PNF no válido",
+            "El PNF seleccionado no tiene un identificador válido."
+        )
+
+    # =========================================================
+    # OBTENER DIRECTOR GENERAL Y NÚCLEO
+    # =========================================================
+
+    director = DirectorGeneral.objects.select_related(
+        "usuario",
+        "nucleo"
+    ).filter(
+        usuario__cedula_identidad=request.session.get(
+            "cedula_usuario"
+        )
+    ).first()
+
+    if not director:
+        return respuesta_fallo(
+            "Director General no encontrado",
+            "No se encontró el Director General de la sesión actual.",
+            "error"
+        )
+
+    nucleo_director = director.nucleo
+
+    # =========================================================
+    # CONSTRUIR DATOS DE CONTACTO
+    # =========================================================
+
+    cedula_identidad = f"{nacionalidad}-{num_cedula}"
+    correo_principal = f"{nombre_correo}{dominio}"
+    telefono_principal = f"{prefijo}{num_telefono}"
+
+    # =========================================================
+    # VALIDACIONES Y REGISTRO
+    # =========================================================
+
+    try:
 
         with transaction.atomic():
+
+            # =================================================
+            # VALIDAR CONTROL DE ESTUDIO
+            # =================================================
+
+            if "2" in perfiles_asignados:
+
+                existe_control = ControlEstudio.objects.filter(
+                    nucleo=nucleo_director
+                ).exists()
+
+                if existe_control:
+                    return respuesta_fallo(
+                        "Perfil no disponible",
+                        "El núcleo ya cuenta con un responsable de Control de Estudio."
+                    )
+
+            # =================================================
+            # VALIDAR PNF DEL COORDINADOR
+            # =================================================
+
+            if "1" in perfiles_asignados:
+
+                # ---------------------------------------------
+                # COMPROBAR QUE EL PNF PERTENEZCA AL NÚCLEO
+                # ---------------------------------------------
+
+                pnf_coordinador = PNFNucleo.objects.filter(
+                    id_nucleo=nucleo_director,
+                    id_pnf_id=id_pnf_coordinador
+                ).first()
+
+                if not pnf_coordinador:
+                    return respuesta_fallo(
+                        "PNF no permitido",
+                        "El PNF seleccionado no pertenece al núcleo del Director General."
+                    )
+
+                # ---------------------------------------------
+                # BLOQUEAR LA RELACIÓN PARA EVITAR ASIGNACIONES
+                # SIMULTÁNEAS DEL MISMO PNF
+                # ---------------------------------------------
+
+                PNFNucleo.objects.select_for_update().filter(
+                    id_nucleo=nucleo_director,
+                    id_pnf_id=id_pnf_coordinador
+                ).first()
+
+                # ---------------------------------------------
+                # COMPROBAR DISPONIBILIDAD
+                # ---------------------------------------------
+
+                pnf_ocupado = CoordinadorPNF.objects.filter(
+                    nucleo=nucleo_director,
+                    pnf_id=id_pnf_coordinador
+                ).exists()
+
+                if pnf_ocupado:
+                    return respuesta_fallo(
+                        "PNF no disponible",
+                        "El PNF seleccionado ya tiene un Coordinador asignado. Actualiza la lista de PNF disponibles e intenta nuevamente."
+                    )
+
+            # =================================================
+            # VALIDAR PNF DEL DOCENTE
+            # =================================================
+
+            if "3" in perfiles_asignados:
+
+                pnf_docente = PNFNucleo.objects.filter(
+                    id_nucleo=nucleo_director,
+                    id_pnf_id=id_pnf_docente
+                ).exists()
+
+                if not pnf_docente:
+                    return respuesta_fallo(
+                        "PNF no permitido",
+                        "El PNF seleccionado para Docente no pertenece al núcleo del Director General."
+                    )
+
+            # =================================================
+            # CREAR USUARIO
+            # =================================================
+
             usuario = Usuario.objects.create(
                 nombres=nombres,
                 apellidos=apellidos,
                 cedula_identidad=cedula_identidad
             )
+
+            # =================================================
+            # CREAR CONTACTO
+            # =================================================
 
             Contacto.objects.create(
                 correo_electronico=correo_principal,
@@ -204,51 +618,69 @@ def pre_reg_personal(request):
                 id_usuario=usuario
             )
 
-            for perfil_id in perfiles_asignados:
-                perfil = PERFILES.get(perfil_id)
+            # =================================================
+            # CREAR PERFILES
+            # =================================================
 
-                # Control de Estudio
-                if perfil == "Control de Estudio":
-                    ControlEstudio.objects.create(
-                        usuario=usuario,
-                        nucleo=nucleo_director
-                    )
+            # ---------------------------------------------
+            # CONTROL DE ESTUDIO
+            # ---------------------------------------------
 
-                # Coordinador PNF
-                elif perfil == "Coordinador PNF":
-                    for pnf_id in pnfs_coordinador:
-                        if PNFNucleo.objects.filter(
-                            id_nucleo=nucleo_director,
-                            id_pnf_id=pnf_id
-                        ).exists():
+            if "2" in perfiles_asignados:
 
-                            CoordinadorPNF.objects.create(
-                                usuario=usuario,
-                                nucleo=nucleo_director,
-                                pnf_id=pnf_id
-                            )
+                ControlEstudio.objects.create(
+                    usuario=usuario,
+                    nucleo=nucleo_director
+                )
 
-                # Docente
-                elif perfil == "Docente":
-                    for pnf_id in pnfs_docente:
-                        if PNFNucleo.objects.filter(
-                            id_nucleo=nucleo_director,
-                            id_pnf_id=pnf_id
-                        ).exists():
-                            Docente.objects.create(
-                                usuario=usuario,
-                                nucleo=nucleo_director,
-                                pnf_id=pnf_id
-                            )
+            # ---------------------------------------------
+            # COORDINADOR PNF
+            # ---------------------------------------------
+
+            if "1" in perfiles_asignados:
+
+                CoordinadorPNF.objects.create(
+                    usuario=usuario,
+                    nucleo=nucleo_director,
+                    pnf_id=id_pnf_coordinador
+                )
+
+            # ---------------------------------------------
+            # DOCENTE
+            # ---------------------------------------------
+
+            if "3" in perfiles_asignados:
+
+                Docente.objects.create(
+                    usuario=usuario,
+                    nucleo=nucleo_director,
+                    pnf_id=id_pnf_docente
+                )
+
+        # =====================================================
+        # REGISTRO EXITOSO
+        # =====================================================
 
         return JsonResponse({
             "estado": "exito",
             "icon": "success",
             "title": "Éxito",
-            "descripcion": "Los datos del usuario se registraron exitosamente."
+            "descripcion": (
+                "Los datos del usuario se registraron exitosamente."
+            )
         })
 
-    return render(request, "Roles/Director_General/gestion_personal/pre_registro_personal.html")
+    except Exception as error:
+
+        print(
+            f"Error en pre_reg_personal: {error}"
+        )
+
+        return respuesta_fallo(
+            "Error de registro",
+            "Ocurrió un problema al registrar el personal. Verifica los datos e intenta nuevamente.",
+            "error"
+        )
 
 def per_reg_asig(request):
     # DIRECTOR GENERAL DE LA SESIÓN

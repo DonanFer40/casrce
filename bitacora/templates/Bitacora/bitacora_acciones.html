@@ -1,0 +1,146 @@
+{% extends 'Estructura/Base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Estilos/Bitacora/bitacora_acciones.css' %}">
+
+<section id="bitacora-acciones-carsce">
+    <div class="bitacora-acciones-carsce-contenedor">
+        <header class="bitacora-acciones-carsce-encabezado">
+            <div class="bitacora-acciones-carsce-encabezado-texto">
+                <span class="bitacora-acciones-carsce-etiqueta">SEGURIDAD Y SUPERVISIÓN</span>
+                <h1>Bitácora de acciones</h1>
+                <p>Consulta la trazabilidad de las operaciones realizadas dentro de CASRCE.</p>
+            </div>
+            <div class="bitacora-acciones-carsce-icono">
+                <i class="fa-solid fa-clipboard-list" aria-hidden="true"></i>
+            </div>
+        </header>
+
+        <div class="bitacora-acciones-carsce-estadisticas">
+            <article class="bitacora-acciones-carsce-indicador">
+                <span class="bitacora-acciones-carsce-indicador-icono azul"><i class="fa-solid fa-list-check"></i></span>
+                <div><span>Total de registros</span><strong>{{ total_registros }}</strong></div>
+            </article>
+            <article class="bitacora-acciones-carsce-indicador">
+                <span class="bitacora-acciones-carsce-indicador-icono verde"><i class="fa-solid fa-circle-check"></i></span>
+                <div><span>Operaciones exitosas</span><strong>{{ total_exitosos }}</strong></div>
+            </article>
+            <article class="bitacora-acciones-carsce-indicador">
+                <span class="bitacora-acciones-carsce-indicador-icono rojo"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                <div><span>Fallidas o rechazadas</span><strong>{{ total_fallidos }}</strong></div>
+            </article>
+            <article class="bitacora-acciones-carsce-indicador">
+                <span class="bitacora-acciones-carsce-indicador-icono amarillo"><i class="fa-solid fa-calendar-day"></i></span>
+                <div><span>Actividad de hoy</span><strong>{{ actividad_hoy }}</strong></div>
+            </article>
+        </div>
+
+        <section class="bitacora-acciones-carsce-panel">
+            <div class="bitacora-acciones-carsce-panel-titulo">
+                <div>
+                    <h2>Historial de actividad</h2>
+                    <p>Utiliza los filtros para localizar operaciones específicas.</p>
+                </div>
+                <span class="bitacora-acciones-carsce-solo-lectura"><i class="fa-solid fa-lock"></i> Solo lectura</span>
+            </div>
+
+            <form method="get" class="bitacora-acciones-carsce-filtros">
+                <label class="bitacora-acciones-carsce-busqueda">
+                    <span>Buscar</span>
+                    <div><i class="fa-solid fa-magnifying-glass"></i><input type="search" name="q" value="{{ filtros.q }}" placeholder="Usuario, cédula, acción o módulo"></div>
+                </label>
+                <label>
+                    <span>Categoría</span>
+                    <select name="categoria">
+                        <option value="">Todas</option>
+                        {% for valor, etiqueta in categorias %}
+                        <option value="{{ valor }}" {% if filtros.categoria == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>
+                    <span>Resultado</span>
+                    <select name="resultado">
+                        <option value="">Todos</option>
+                        {% for valor, etiqueta in resultados %}
+                        <option value="{{ valor }}" {% if filtros.resultado == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>
+                    <span>Rol</span>
+                    <input type="text" name="rol" value="{{ filtros.rol }}" placeholder="Ej. Control de Estudio">
+                </label>
+                <label>
+                    <span>Módulo</span>
+                    <select name="modulo">
+                        <option value="">Todos</option>
+                        {% for nombre_modulo in modulos %}
+                        <option value="{{ nombre_modulo }}" {% if filtros.modulo == nombre_modulo %}selected{% endif %}>{{ nombre_modulo }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>
+                    <span>Acción</span>
+                    <input type="text" name="accion" value="{{ filtros.accion }}" placeholder="Ej. Crear, actualizar...">
+                </label>
+                <label>
+                    <span>Desde</span>
+                    <input type="date" name="desde" value="{{ filtros.desde }}">
+                </label>
+                <label>
+                    <span>Hasta</span>
+                    <input type="date" name="hasta" value="{{ filtros.hasta }}">
+                </label>
+                <div class="bitacora-acciones-carsce-filtro-acciones">
+                    <button type="submit"><i class="fa-solid fa-filter"></i> Aplicar filtros</button>
+                    <a href="{% url 'bitacora_acciones' %}">Limpiar</a>
+                </div>
+            </form>
+
+            <div class="bitacora-acciones-carsce-tabla-contenedor">
+                <table class="bitacora-acciones-carsce-tabla">
+                    <thead>
+                        <tr>
+                            <th>Fecha y hora</th>
+                            <th>Usuario</th>
+                            <th>Acción / módulo</th>
+                            <th>Categoría</th>
+                            <th>Resultado</th>
+                            <th>Rol</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registro in pagina %}
+                        <tr>
+                            <td class="bitacora-acciones-carsce-fecha">{{ registro.fecha_hora|date:"d/m/Y" }}<small>{{ registro.fecha_hora|date:"H:i:s" }}</small></td>
+                            <td><strong>{{ registro.nombre_usuario|default:"Sistema" }}</strong><small>{{ registro.cedula_usuario|default:"Sin identificación" }}</small></td>
+                            <td><strong>{{ registro.accion }}</strong><small>{{ registro.modulo }}</small></td>
+                            <td>{{ registro.get_categoria_display }}</td>
+                            <td><span class="bitacora-acciones-carsce-estado {{ registro.resultado|lower }}">{{ registro.get_resultado_display }}</span></td>
+                            <td>{{ registro.rol|default:"Sistema" }}</td>
+                            <td><a class="bitacora-acciones-carsce-ver" href="{% url 'detalle_accion' registro.id_registro %}" aria-label="Ver detalle"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="7" class="bitacora-acciones-carsce-vacio"><i class="fa-regular fa-folder-open"></i><strong>No hay registros para mostrar</strong><span>Cuando se registren operaciones, aparecerán en este historial.</span></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if pagina.paginator.num_pages > 1 %}
+            <nav class="bitacora-acciones-carsce-paginacion" aria-label="Paginación">
+                <span>Página {{ pagina.number }} de {{ pagina.paginator.num_pages }}</span>
+                <div>
+                    {% if pagina.has_previous %}<a href="?q={{ filtros.q|urlencode }}&categoria={{ filtros.categoria }}&resultado={{ filtros.resultado }}&rol={{ filtros.rol|urlencode }}&modulo={{ filtros.modulo|urlencode }}&accion={{ filtros.accion|urlencode }}&desde={{ filtros.desde }}&hasta={{ filtros.hasta }}&page={{ pagina.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i> Anterior</a>{% endif %}
+                    {% if pagina.has_next %}<a href="?q={{ filtros.q|urlencode }}&categoria={{ filtros.categoria }}&resultado={{ filtros.resultado }}&rol={{ filtros.rol|urlencode }}&modulo={{ filtros.modulo|urlencode }}&accion={{ filtros.accion|urlencode }}&desde={{ filtros.desde }}&hasta={{ filtros.hasta }}&page={{ pagina.next_page_number }}">Siguiente <i class="fa-solid fa-chevron-right"></i></a>{% endif %}
+                </div>
+            </nav>
+            {% endif %}
+        </section>
+        <p class="bitacora-acciones-carsce-nota"><i class="fa-solid fa-shield-halved"></i> Los registros de esta bitácora son de consulta y no pueden modificarse desde este módulo.</p>
+    </div>
+</section>
+{% endblock %}

@@ -96,6 +96,8 @@ urlpatterns = [
     path('vis_pl_env/', views.vis_pl_env, name="vis_pl_env"),
     path('datos_pl_reg_coord_pnf/', views.datos_pl_reg_coord_pnf, name="datos_pl_reg_coord_pnf"),
     path('camb_est_pl/', views.camb_est_pl, name="camb_est_pl"),
+    path("validar_telefono/",views.validar_telefono, name="validar_telefono"
+),
 
 ]
 

@@ -1,18 +1,15 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
-
-{% load static %}
 
 <section id="director-personal-preregistro-carsce">
 
     <div class="director-personal-preregistro-carsce-contenedor">
 
-        <!-- =====================================================
-             ENCABEZADO
-             ===================================================== -->
+        <!-- ENCABEZADO DEL MÓDULO -->
 
-        <div class="director-personal-preregistro-carsce-encabezado">
+        <header class="director-personal-preregistro-carsce-encabezado">
 
             <div class="director-personal-preregistro-carsce-identificacion">
 
@@ -27,26 +24,23 @@
 
             </div>
 
-
             <div class="director-personal-preregistro-carsce-presentacion">
 
                 <h1 class="director-personal-preregistro-carsce-titulo">
-                    Pre Registro Personal
+                    Pre Registro de Personal
                 </h1>
 
                 <p class="director-personal-preregistro-carsce-descripcion">
                     Registra previamente los datos del personal y asigna
-                    los perfiles correspondientes dentro del sistema CARSCE.
+                    los perfiles correspondientes dentro del sistema CASRCE.
                 </p>
 
             </div>
 
-        </div>
+        </header>
 
 
-        <!-- =====================================================
-             FORMULARIO
-             ===================================================== -->
+        <!-- TARJETA DEL FORMULARIO -->
 
         <div class="director-personal-preregistro-carsce-formulario-contenedor">
 
@@ -58,194 +52,322 @@
 
                 <div class="director-personal-preregistro-carsce-formulario-titulo">
 
-                    <h2>
-                        Datos del personal
-                    </h2>
+                    <h2>Datos del personal</h2>
 
                     <span>
-                        Complete la información solicitada
+                        Complete la información para generar el pre registro.
                     </span>
 
                 </div>
 
+                <span class="director-personal-preregistro-carsce-formulario-distintivo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Gestión administrativa
+                </span>
+
             </div>
 
 
-            <form method="post" id="formulario_registrar" class="director-personal-preregistro-carsce-formulario">
+            <form
+                method="post"
+                id="formulario_registrar"
+                class="director-personal-preregistro-carsce-formulario"
+            >
 
                 {% csrf_token %}
 
 
-                <!-- =================================================
-                     NOMBRES Y APELLIDOS
-                     ================================================= -->
+                <!-- DATOS PERSONALES -->
 
-                <div class="director-personal-preregistro-carsce-fila">
+                <div class="director-personal-preregistro-carsce-grupo-seccion">
 
-                    <div class="director-personal-preregistro-carsce-campo">
+                    <div class="director-personal-preregistro-carsce-seccion-cabecera">
 
-                        <label for="nombres_usuario">
-                            Nombres:
-                        </label>
+                        <span class="director-personal-preregistro-carsce-seccion-numero">
+                            01
+                        </span>
 
-                        <input type="text" name="nombres" id="nombres_usuario" autocomplete="off"
-                            placeholder="Ingrese los nombres">
-
-                    </div>
-
-
-                    <div class="director-personal-preregistro-carsce-campo">
-
-                        <label for="apellidos_usuario">
-                            Apellidos:
-                        </label>
-
-                        <input type="text" name="apellidos" id="apellidos_usuario" autocomplete="off"
-                            placeholder="Ingrese los apellidos">
+                        <div>
+                            <h3>Identificación personal</h3>
+                            <p>Información básica del integrante del personal.</p>
+                        </div>
 
                     </div>
 
-                </div>
 
+                    <div class="director-personal-preregistro-carsce-fila">
 
-                <!-- =================================================
-                     CÉDULA Y TELÉFONO
-                     ================================================= -->
+                        <div class="director-personal-preregistro-carsce-campo">
 
-                <div class="director-personal-preregistro-carsce-fila">
+                            <label for="nombres_usuario">
+                                <i class="fa-solid fa-user"></i>
+                                Nombres
+                            </label>
 
-                    <div class="director-personal-preregistro-carsce-campo">
-
-                        <label for="cedula_identidad">
-                            Cédula Identidad:
-                        </label>
-
-                        <div class="director-personal-preregistro-carsce-grupo-campo">
-
-                            <select name="nacionalidad" id="nacionalidad">
-                                <option value="">N</option>
-                                <option value="V">V</option>
-                                <option value="E">E</option>
-                            </select>
-
-                            <input type="text" name="cedula_identidad" id="cedula_identidad" autocomplete="off">
+                            <input
+                                type="text"
+                                name="nombres"
+                                id="nombres_usuario"
+                                data-validacion="letras"
+                                class="js-solo-letras js-nombre-propio"
+                                autocomplete="off"
+                                placeholder="Ingrese los nombres"
+                            >
 
                         </div>
 
-                        <small id="mensaje_cedula_identidad"></small>
 
-                    </div>
+                        <div class="director-personal-preregistro-carsce-campo">
 
+                            <label for="apellidos_usuario">
+                                <i class="fa-solid fa-users"></i>
+                                Apellidos
+                            </label>
 
-                    <div class="director-personal-preregistro-carsce-campo">
-
-                        <label for="numero_telefonico">
-                            Teléfono (Principal):
-                        </label>
-
-                        <div class="director-personal-preregistro-carsce-grupo-campo">
-
-                            <select name="prefijo" id="prefijo_telefono"></select>
-
-                            <input type="text" name="telefono" id="numero_telefonico" autocomplete="off">
+                            <input
+                                type="text"
+                                name="apellidos"
+                                id="apellidos_usuario"
+                                data-validacion="letras"
+                                class="js-solo-letras js-nombre-propio"
+                                autocomplete="off"
+                                placeholder="Ingrese los apellidos"
+                            >
 
                         </div>
 
                     </div>
 
-                </div>
+
+                    <div class="director-personal-preregistro-carsce-fila">
+
+                        <!-- CÉDULA -->
+
+                        <div class="director-personal-preregistro-carsce-campo">
+
+                            <label for="cedula_identidad">
+                                <i class="fa-solid fa-id-card"></i>
+                                Cédula de identidad
+                            </label>
+
+                            <div class="director-personal-preregistro-carsce-grupo-campo">
+
+                                <select
+                                    name="nacionalidad"
+                                    id="nacionalidad"
+                                    aria-label="Nacionalidad"
+                                >
+                                    <option value="">N</option>
+                                    <option value="V">V</option>
+                                    <option value="E">E</option>
+                                </select>
+
+                                <input
+                                    type="text"
+                                    name="cedula_identidad"
+                                    id="cedula_identidad"
+                                    data-validacion="numeros"
+                                    autocomplete="off"
+                                    inputmode="numeric"
+                                    disabled
+                                    placeholder="Seleccione nacionalidad"
+                                    aria-describedby="mensaje_cedula_identidad"
+                                >
+
+                            </div>
+
+                            <small
+                                id="mensaje_cedula_identidad"
+                                class="estado-pendiente"
+                                aria-live="polite"
+                            >
+                                Seleccione su nacionalidad.
+                            </small>
+
+                        </div>
 
 
-                <!-- =================================================
-                     CORREO ELECTRÓNICO
-                     ================================================= -->
+                        <!-- TELÉFONO -->
 
-                <div
-                    class="director-personal-preregistro-carsce-campo director-personal-preregistro-carsce-campo-correo">
+                        <div class="director-personal-preregistro-carsce-campo">
 
-                    <label for="correo_electronico">
-                        Correo Electrónico (Principal):
-                    </label>
+                            <label for="numero_telefonico">
+                                <i class="fa-solid fa-phone"></i>
+                                Teléfono principal
+                            </label>
 
-                    <div class="director-personal-preregistro-carsce-grupo-campo">
+                            <div class="director-personal-preregistro-carsce-grupo-campo">
 
-                        <input type="text" name="correo_electronico" id="correo_electronico"
-                            placeholder="Ejemplo: ejemplo123" autocomplete="off">
+                                <select
+                                    name="prefijo"
+                                    id="prefijo_telefono"
+                                    aria-label="Prefijo telefónico"
+                                ></select>
 
-                        <select name="dominio" id="dominio"></select>
+                                <input
+                                    type="text"
+                                    name="telefono"
+                                    id="numero_telefonico"
+                                    data-validacion="numeros"
+                                    class="js-solo-numeros"
+                                    autocomplete="off"
+                                    inputmode="numeric"
+                                    maxlength="7"
+                                    placeholder="Número telefónico"
+                                    disabled
+                                    aria-describedby="mensaje_telefono"
+                                >
+
+                            </div>
+
+                            <small
+                                id="mensaje_telefono"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
 
                     </div>
 
-                    <small id="mensaje_correo_electronico"></small>
+
+                    <!-- CORREO -->
+
+                    <div class="director-personal-preregistro-carsce-campo director-personal-preregistro-carsce-campo-correo">
+
+                        <label for="correo_electronico">
+                            <i class="fa-solid fa-envelope"></i>
+                            Correo electrónico principal
+                        </label>
+
+                        <div class="director-personal-preregistro-carsce-grupo-campo">
+
+                            <input
+                                type="text"
+                                name="correo_electronico"
+                                id="correo_electronico"
+                                class="js-solo-minusculas"
+                                autocomplete="off"
+                                placeholder="Ejemplo: usuario123"
+                                aria-describedby="mensaje_correo_electronico"
+                            >
+
+                            <select
+                                name="dominio"
+                                id="dominio"
+                                aria-label="Dominio del correo electrónico"
+                            ></select>
+
+                        </div>
+
+                        <small
+                            id="mensaje_correo_electronico"
+                            aria-live="polite"
+                        ></small>
+
+                    </div>
 
                 </div>
 
 
-                <!-- =================================================
-     PERFILES
-     ================================================= -->
+                <!-- ASIGNACIÓN DE PERFILES -->
 
-                <div id="contenedor_perfiles"
-                    class="director-personal-preregistro-carsce-bloque-dinamico director-personal-preregistro-carsce-bloque-perfiles">
+                <div class="director-personal-preregistro-carsce-grupo-seccion">
 
-                    <label>
-                        Perfiles:
-                    </label>
+                    <div class="director-personal-preregistro-carsce-seccion-cabecera">
 
-                    <div id="perfil" class="director-personal-preregistro-carsce-contenido-dinamico"></div>
+                        <span class="director-personal-preregistro-carsce-seccion-numero">
+                            02
+                        </span>
+
+                        <div>
+                            <h3>Asignación de perfiles</h3>
+                            <p>Selecciona las responsabilidades que tendrá el personal dentro del sistema.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="contenedor_perfiles"
+                        class="director-personal-preregistro-carsce-bloque-dinamico director-personal-preregistro-carsce-bloque-perfiles"
+                    >
+
+                        <label class="director-personal-preregistro-carsce-bloque-titulo">
+                            <i class="fa-solid fa-user-shield"></i>
+                            Perfiles disponibles
+                        </label>
+
+                        <div
+                            id="perfil"
+                            class="director-personal-preregistro-carsce-contenido-dinamico"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- PNF COORDINADOR -->
+
+                    <div
+                        id="contenedor_pnfs_coordinador_pnf"
+                        class="director-personal-preregistro-carsce-bloque-dinamico director-personal-preregistro-carsce-bloque-coordinador"
+                    >
+
+                        <label class="director-personal-preregistro-carsce-bloque-titulo">
+                            <i class="fa-solid fa-sitemap"></i>
+                            Programa Nacional de Formación
+                            <span>Coordinador PNF</span>
+                        </label>
+
+                        <div
+                            id="pnf_coordinador_pnf"
+                            class="director-personal-preregistro-carsce-contenido-dinamico"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- PNF DOCENTE -->
+
+                    <div
+                        id="contenedor_pnfs_docente"
+                        class="director-personal-preregistro-carsce-bloque-dinamico director-personal-preregistro-carsce-bloque-docente"
+                    >
+
+                        <label class="director-personal-preregistro-carsce-bloque-titulo">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                            Programa Nacional de Formación
+                            <span>Docente</span>
+                        </label>
+
+                        <div
+                            id="pnf_docente"
+                            class="director-personal-preregistro-carsce-contenido-dinamico"
+                        ></div>
+
+                    </div>
 
                 </div>
 
 
-                <!-- =================================================
-     PNF COORDINADOR
-     ================================================= -->
-
-                <div id="contenedor_pnfs_coordinador_pnf"
-                    class="director-personal-preregistro-carsce-bloque-dinamico director-personal-preregistro-carsce-bloque-coordinador">
-
-                    <label>
-                        PNF: (Coordinador PNF)
-                    </label>
-
-                    <div id="pnf_coordinador_pnf" class="director-personal-preregistro-carsce-contenido-dinamico"></div>
-
-                </div>
-
-
-                <!-- =================================================
-     PNF DOCENTE
-     ================================================= -->
-
-                <div id="contenedor_pnfs_docente"
-                    class="director-personal-preregistro-carsce-bloque-dinamico director-personal-preregistro-carsce-bloque-docente">
-
-                    <label>
-                        PNF: (Docente)
-                    </label>
-
-                    <div id="pnf_docente" class="director-personal-preregistro-carsce-contenido-dinamico"></div>
-
-                </div>
-
-
-                <!-- =================================================
-                     ACCIONES
-                     ================================================= -->
+                <!-- ACCIONES -->
 
                 <div class="director-personal-preregistro-carsce-acciones">
 
-                    <button type="submit" id="btn_registro" class="director-personal-preregistro-carsce-boton">
+                    <div class="director-personal-preregistro-carsce-nota">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Verifique los datos antes de realizar el pre registro.
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="btn_registro"
+                        class="director-personal-preregistro-carsce-boton"
+                    >
                         <i class="fa-solid fa-user-plus"></i>
-
-                        <span>
-                            Pre Registro
-                        </span>
-
+                        <span>Pre Registrar Personal</span>
                     </button>
 
                 </div>
-
 
             </form>
 
@@ -256,15 +378,12 @@
 </section>
 
 
-<!-- =========================================================
-     JAVASCRIPT DEL MÓDULO
-     ========================================================= -->
+<!-- JAVASCRIPT DEL MÓDULO -->
 
 <script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
-
 <script src="{% static 'Funcionalidades/correo_electronico.js' %}"></script>
-
 <script src="{% static 'Funcionalidades/telefono.js' %}"></script>
+<script src="{% static 'Funcionalidades/validacion_campos.js' %}"></script>
 
 <script src="{% static 'Funciones_Asincronas/Director_General/gestion_personal/pre_registro_personal.js' %}"></script>
 

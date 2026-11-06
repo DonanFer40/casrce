@@ -1,268 +1,789 @@
-/* =========================================================
-   ORGANIZACIÓN ACADÉMICA - CARSCE
-========================================================= */
-
-#OrganizacionAcademica{
-    width:100%;
-    min-height:100vh;
-
-    padding:150px 0 80px;
-
-    background:var(--color-fondo-pagina);
-    color:var(--texto-principal);
-
-    box-sizing:border-box;
-}
-
-#OrganizacionAcademica *{
-    box-sizing:border-box;
-}
 
 /* =========================================================
-   CONTENEDOR
-========================================================= */
+   1. CONTENEDOR GENERAL
+   ========================================================= */
 
-#OrganizacionAcademica .OrganizacionAcademica-contenedor{
-    width:min(1080px,90%);
-    margin:0 auto;
+#OrganizacionAcademica {
+    width: 100%;
+    min-width: 0;
+    padding: 34px 24px 42px;
 
-    display:flex;
-    flex-direction:column;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
 }
+
+#OrganizacionAcademica,
+#OrganizacionAcademica * {
+    box-sizing: border-box;
+}
+
+#OrganizacionAcademica img {
+    display: block;
+    max-width: 100%;
+}
+
+#OrganizacionAcademica h1,
+#OrganizacionAcademica h2,
+#OrganizacionAcademica h3,
+#OrganizacionAcademica h4,
+#OrganizacionAcademica p {
+    overflow-wrap: break-word;
+}
+
 
 /* =========================================================
-   BLOQUES
-========================================================= */
+   2. CABECERA INSTITUCIONAL
+   ========================================================= */
 
-#OrganizacionAcademica .OrganizacionAcademica-bloque{
-    display:grid;
-    grid-template-columns:95px minmax(0,1fr);
+#OrganizacionAcademica .OrganizacionAcademica-encabezado {
+    position: relative;
 
-    gap:28px;
+    width: min(1180px, 100%);
+    margin: 0 auto 26px;
+    padding: 38px 42px 35px;
 
-    padding:34px 0;
+    overflow: hidden;
 
-    border-bottom:1px solid var(--color-borde-fino);
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 15px;
+    box-shadow: var(--sombra-elevada);
+
+    text-align: left;
 }
 
-#OrganizacionAcademica .OrganizacionAcademica-bloque:first-child{
-    padding-top:0;
+#OrganizacionAcademica .OrganizacionAcademica-encabezado::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+
+    width: 5px;
+
+    background: var(--color-rojo-acento);
+    content: "";
 }
 
-#OrganizacionAcademica .OrganizacionAcademica-bloque:last-child{
-    padding-bottom:0;
-    border-bottom:none;
+
+/* Etiqueta superior */
+
+#OrganizacionAcademica .OrganizacionAcademica-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 0 19px;
+
+    color: var(--texto-secundario);
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    text-align: left;
 }
+
+#OrganizacionAcademica .OrganizacionAcademica-etiqueta::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    border: 1px solid #DBEAFE;
+    border-radius: 9px;
+
+    color: var(--color-azul-hover);
+
+    content: "\f19d";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.95rem;
+}
+
+
+/* Título principal */
+
+#OrganizacionAcademica .OrganizacionAcademica-titulo-principal {
+    margin: 0;
+
+    color: var(--color-azul-profundo);
+    font-size: clamp(2rem, 4vw, 2.85rem);
+    font-weight: 700;
+    letter-spacing: -1.1px;
+    line-height: 1.2;
+    text-align: left;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-titulo-principal span {
+    color: var(--color-azul-hover);
+}
+
+
+/* Subtítulo */
+
+#OrganizacionAcademica .OrganizacionAcademica-subtitulo {
+    max-width: 720px;
+    margin: 16px 0 23px;
+
+    color: var(--texto-secundario);
+    font-size: 0.96rem;
+    line-height: 1.85;
+    text-align: left;
+}
+
+
+/* Indicador institucional */
+
+#OrganizacionAcademica .OrganizacionAcademica-indicador {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 9px;
+
+    color: var(--texto-secundario);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.75px;
+    line-height: 1.7;
+    text-align: left;
+}
+
+#OrganizacionAcademica
+.OrganizacionAcademica-indicador > span:first-child {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+
+    background: var(--color-rojo-acento);
+    border-radius: 50%;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-separador {
+    color: var(--color-rojo-acento);
+}
+
 
 /* =========================================================
-   IDENTIFICADOR
-========================================================= */
+   3. CONTENEDOR DE LOS BLOQUES ACADÉMICOS
+   ========================================================= */
 
-#OrganizacionAcademica .OrganizacionAcademica-identificador{
-    position:relative;
+#OrganizacionAcademica .OrganizacionAcademica-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-    display:flex;
-    align-items:flex-start;
-    justify-content:flex-start;
+    width: min(1180px, 100%);
+    margin: 0 auto;
 }
 
-#OrganizacionAcademica .OrganizacionAcademica-numero{
-    color:var(--color-rojo-acento);
-
-    font-size:14px;
-    font-weight:700;
-
-    letter-spacing:.08em;
-}
-
-/* Línea decorativa */
-
-#OrganizacionAcademica .OrganizacionAcademica-linea{
-    position:absolute;
-
-    top:25px;
-    left:0;
-
-    width:32px;
-    height:1px;
-
-    background:var(--color-rojo-acento);
-}
 
 /* =========================================================
-   CONTENIDO
-========================================================= */
+   4. TARJETAS DE ORGANIZACIÓN ACADÉMICA
+   ========================================================= */
 
-#OrganizacionAcademica .OrganizacionAcademica-contenido{
-    max-width:850px;
+#OrganizacionAcademica .OrganizacionAcademica-bloque {
+    display: grid;
+    grid-template-columns: 48px 100px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 24px;
+
+    min-width: 0;
+    padding: 28px 30px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
-#OrganizacionAcademica .OrganizacionAcademica-titulo{
-    position:relative;
-
-    margin:0 0 18px;
-    padding-left:16px;
-
-    color:var(--color-azul-profundo);
-
-    font-size:29px;
-    font-weight:600;
-
-    line-height:1.25;
+#OrganizacionAcademica .OrganizacionAcademica-bloque:hover {
+    border-color: #CBD5E1;
+    box-shadow: var(--sombra-elevada);
+    transform: translateY(-2px);
 }
 
-#OrganizacionAcademica .OrganizacionAcademica-titulo::before{
-    content:"";
-
-    position:absolute;
-
-    top:2px;
-    bottom:2px;
-    left:0;
-
-    width:4px;
-
-    background:var(--color-rojo-acento);
-}
 
 /* =========================================================
-   TEXTO
-========================================================= */
+   5. IDENTIFICADOR NUMÉRICO
+   ========================================================= */
 
-#OrganizacionAcademica .OrganizacionAcademica-texto{
-    margin:0;
+#OrganizacionAcademica .OrganizacionAcademica-identificador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    color:var(--texto-secundario);
-
-    font-size:15.5px;
-    line-height:1.9;
-
-    text-align:justify;
+    min-width: 0;
+    height: 100%;
 }
+
+#OrganizacionAcademica .OrganizacionAcademica-numero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 10px;
+
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    line-height: 1;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-linea {
+    display: block;
+
+    width: 1px;
+    flex: 1;
+
+    min-height: 25px;
+    margin-top: 12px;
+
+    background: linear-gradient(
+        to bottom,
+        #CBD5E1,
+        #E2E8F0
+    );
+}
+
 
 /* =========================================================
-   ANIMACIÓN
-========================================================= */
+   6. ILUSTRACIONES CON FONT AWESOME
+   ========================================================= */
 
-#OrganizacionAcademica.reveal{
-    animation:OrganizacionAcademicaEntrada .55s ease both;
+#OrganizacionAcademica .OrganizacionAcademica-ilustracion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: start;
+
+    width: 100px;
+    height: 100px;
+
+    color: var(--color-azul-hover);
+    background: linear-gradient(145deg, #F8FAFC, #EFF6FF);
+    border: 1px solid #DBEAFE;
+    border-radius: 16px;
+
+    font-size: 2.25rem;
+    line-height: 1;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
 }
 
-@keyframes OrganizacionAcademicaEntrada{
-
-    from{
-        opacity:0;
-        transform:translateY(12px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
+#OrganizacionAcademica
+.OrganizacionAcademica-ilustracion i {
+    display: inline-block;
+    line-height: 1;
 }
+
+#OrganizacionAcademica
+.OrganizacionAcademica-bloque:hover
+.OrganizacionAcademica-ilustracion {
+    color: var(--texto-claro);
+    background: var(--color-azul-profundo);
+    border-color: var(--color-azul-profundo);
+    transform: scale(1.035);
+}
+
 
 /* =========================================================
-   TABLET
-========================================================= */
+   7. CONTENIDO DE CADA TARJETA
+   ========================================================= */
 
-@media (max-width:900px){
+#OrganizacionAcademica .OrganizacionAcademica-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-    #OrganizacionAcademica{
-        padding:125px 0 65px;
-    }
+    min-width: 0;
 
-    #OrganizacionAcademica .OrganizacionAcademica-contenedor{
-        width:90%;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-bloque{
-        grid-template-columns:75px minmax(0,1fr);
-
-        gap:22px;
-
-        padding:30px 0;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-titulo{
-        font-size:27px;
-    }
-
+    text-align: left;
 }
 
-/* =========================================================
-   MÓVIL
-========================================================= */
 
-@media (max-width:600px){
+/* Metadatos */
 
-    #OrganizacionAcademica{
-        padding:105px 0 55px;
-    }
+#OrganizacionAcademica .OrganizacionAcademica-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
 
-    #OrganizacionAcademica .OrganizacionAcademica-contenedor{
-        width:90%;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-bloque{
-        grid-template-columns:48px minmax(0,1fr);
-
-        gap:16px;
-
-        padding:27px 0;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-numero{
-        font-size:12px;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-linea{
-        top:22px;
-        width:25px;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-titulo{
-        margin-bottom:16px;
-        padding-left:13px;
-
-        font-size:23px;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-titulo::before{
-        width:3px;
-    }
-
-    #OrganizacionAcademica .OrganizacionAcademica-texto{
-        font-size:14px;
-        line-height:1.85;
-
-        text-align:left;
-    }
-
+    width: 100%;
+    margin: 0 0 12px;
 }
 
+#OrganizacionAcademica .OrganizacionAcademica-categoria {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 27px;
+    padding: 5px 10px;
+
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 5px;
+
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.75px;
+    line-height: 1.5;
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-duracion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 27px;
+    padding: 5px 10px;
+
+    color: var(--texto-secundario);
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+
+    font-size: 0.69rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+
+/* Título de cada período */
+
+#OrganizacionAcademica .OrganizacionAcademica-titulo {
+    width: 100%;
+    margin: 0;
+
+    color: var(--color-azul-profundo);
+    font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+    font-weight: 700;
+    letter-spacing: -0.45px;
+    line-height: 1.4;
+    text-align: left;
+
+    transition: color 0.2s ease;
+}
+
+#OrganizacionAcademica
+.OrganizacionAcademica-bloque:hover
+.OrganizacionAcademica-titulo {
+    color: var(--color-azul-hover);
+}
+
+
+/* Descripción */
+
+#OrganizacionAcademica .OrganizacionAcademica-texto {
+    width: 100%;
+    max-width: 850px;
+    margin: 13px 0 0;
+
+    color: var(--texto-secundario);
+    font-size: 0.88rem;
+    line-height: 1.9;
+    text-align: left;
+}
+
+
 /* =========================================================
-   MÓVILES PEQUEÑOS
-========================================================= */
+   8. PIE INSTITUCIONAL
+   ========================================================= */
 
-@media (max-width:400px){
+#OrganizacionAcademica .OrganizacionAcademica-pie {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 17px;
 
-    #OrganizacionAcademica{
-        padding-bottom:45px;
+    width: min(1180px, 100%);
+    margin: 24px auto 0;
+    padding: 19px 20px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+    box-shadow: var(--sombra-card);
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-pie > span {
+    display: block;
+
+    width: 34px;
+    height: 1px;
+    flex: 0 0 34px;
+
+    background: var(--color-rojo-acento);
+}
+
+#OrganizacionAcademica .OrganizacionAcademica-pie p {
+    margin: 0;
+
+    color: var(--texto-secundario);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+
+/* =========================================================
+   9. RESPONSIVE — PORTÁTILES
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    #OrganizacionAcademica {
+        padding: 28px 20px 35px;
     }
 
-    #OrganizacionAcademica .OrganizacionAcademica-bloque{
-        grid-template-columns:42px minmax(0,1fr);
-
-        gap:14px;
+    #OrganizacionAcademica
+    .OrganizacionAcademica-bloque {
+        grid-template-columns: 42px 85px minmax(0, 1fr);
+        gap: 19px;
+        padding: 25px;
     }
 
-    #OrganizacionAcademica .OrganizacionAcademica-titulo{
-        font-size:21px;
+    #OrganizacionAcademica
+    .OrganizacionAcademica-numero {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
     }
 
-    #OrganizacionAcademica .OrganizacionAcademica-texto{
-        font-size:13.5px;
+    #OrganizacionAcademica
+    .OrganizacionAcademica-ilustracion {
+        width: 85px;
+        height: 85px;
+        font-size: 2rem;
+        border-radius: 14px;
     }
 
+    #OrganizacionAcademica
+    .OrganizacionAcademica-texto {
+        font-size: 0.85rem;
+    }
+}
+
+
+/* =========================================================
+   10. RESPONSIVE — TABLETAS
+   ========================================================= */
+
+@media (max-width: 820px) {
+
+    #OrganizacionAcademica {
+        padding: 22px 16px 30px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-encabezado {
+        padding: 31px 29px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-contenedor {
+        gap: 16px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-bloque {
+        grid-template-columns: 38px 76px minmax(0, 1fr);
+        gap: 17px;
+        padding: 23px 21px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-numero {
+        width: 37px;
+        height: 37px;
+        flex-basis: 37px;
+        font-size: 0.75rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-ilustracion {
+        width: 76px;
+        height: 76px;
+        font-size: 1.8rem;
+        border-radius: 12px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-titulo {
+        font-size: 1.35rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-texto {
+        font-size: 0.83rem;
+        line-height: 1.85;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-pie {
+        margin-top: 19px;
+    }
+}
+
+
+/* =========================================================
+   11. RESPONSIVE — MÓVILES
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    #OrganizacionAcademica {
+        padding: 16px 12px 24px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-encabezado {
+        margin-bottom: 18px;
+        padding: 25px 21px 24px;
+        border-radius: 11px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-etiqueta {
+        gap: 8px;
+        margin-bottom: 16px;
+
+        font-size: 0.62rem;
+        letter-spacing: 0.45px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-etiqueta::before {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+        font-size: 0.85rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-titulo-principal {
+        font-size: clamp(1.75rem, 8vw, 2.25rem);
+        letter-spacing: -0.8px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-subtitulo {
+        margin: 13px 0 18px;
+        font-size: 0.85rem;
+        line-height: 1.8;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-indicador {
+        gap: 7px;
+        font-size: 0.61rem;
+        letter-spacing: 0.35px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-contenedor {
+        gap: 14px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-bloque {
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 14px;
+
+        padding: 20px 17px;
+        border-radius: 11px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-identificador {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-numero {
+        width: 33px;
+        height: 33px;
+        flex-basis: 33px;
+        border-radius: 8px;
+        font-size: 0.68rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-linea {
+        margin-top: 10px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-ilustracion {
+        grid-column: 2;
+        grid-row: 1;
+
+        width: 60px;
+        height: 60px;
+        margin-bottom: 2px;
+
+        font-size: 1.55rem;
+        border-radius: 11px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-contenido {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-meta {
+        gap: 7px;
+        margin-bottom: 10px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-categoria {
+        min-height: 25px;
+        padding: 4px 7px;
+        font-size: 0.59rem;
+        letter-spacing: 0.45px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-duracion {
+        min-height: 25px;
+        padding: 4px 8px;
+        font-size: 0.65rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-titulo {
+        font-size: 1.27rem;
+        letter-spacing: -0.3px;
+        line-height: 1.4;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-texto {
+        margin-top: 11px;
+        font-size: 0.81rem;
+        line-height: 1.85;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-pie {
+        gap: 9px;
+        margin-top: 16px;
+        padding: 15px 10px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-pie > span {
+        width: 17px;
+        flex-basis: 17px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-pie p {
+        max-width: calc(100% - 52px);
+        font-size: 0.61rem;
+        letter-spacing: 0.35px;
+    }
+}
+
+
+/* =========================================================
+   12. RESPONSIVE — MÓVILES ESTRECHOS
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-encabezado {
+        padding: 22px 16px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-bloque {
+        grid-template-columns: 30px minmax(0, 1fr);
+        gap: 11px;
+        padding: 17px 13px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-numero {
+        width: 29px;
+        height: 29px;
+        flex-basis: 29px;
+        font-size: 0.63rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-ilustracion {
+        width: 54px;
+        height: 54px;
+        font-size: 1.4rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-categoria {
+        font-size: 0.55rem;
+        letter-spacing: 0.25px;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-duracion {
+        font-size: 0.61rem;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-texto {
+        font-size: 0.78rem;
+    }
+}
+
+
+/* =========================================================
+   13. ACCESIBILIDAD — MOVIMIENTO REDUCIDO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #OrganizacionAcademica *,
+    #OrganizacionAcademica *::before,
+    #OrganizacionAcademica *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    #OrganizacionAcademica
+    .OrganizacionAcademica-bloque:hover,
+    #OrganizacionAcademica
+    .OrganizacionAcademica-bloque:hover
+    .OrganizacionAcademica-ilustracion {
+        transform: none;
+    }
 }

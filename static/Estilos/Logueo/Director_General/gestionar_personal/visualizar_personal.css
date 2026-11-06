@@ -1,662 +1,1525 @@
-/* =========================================================
-   VISUALIZAR PERSONAL REGISTRADO - CARSCE
-   DIRECTOR GENERAL
-   ========================================================= */
-
 
 /* =========================================================
-   CONTENEDOR PRINCIPAL
+   PERSONAL REGISTRADO — CASRCE
+   Directorio y gestión institucional
+   Identidad visual Acceso Institucional
    ========================================================= */
 
-#director-personal-registrado-carsce {
+#DirectorPersonalRegistradoCASRCE {
     width: 100%;
+    min-height: calc(100vh - 140px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    padding: 42px 24px 60px;
+
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+}
+
+#DirectorPersonalRegistradoCASRCE,
+#DirectorPersonalRegistradoCASRCE * {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   01. MARCO PRINCIPAL
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-marco {
+    position: relative;
+
+    width: min(1250px, 100%);
+    min-height: 680px;
+
+    display: grid;
+    grid-template-columns: 34% 66%;
+
+    overflow: hidden;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 14px;
+
+    box-shadow: var(--sombra-elevada);
+}
+
+
+/* =========================================================
+   02. PANEL INSTITUCIONAL
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-informacion {
+    position: relative;
+    isolation: isolate;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
     min-width: 0;
     min-height: 100%;
 
-    margin: 0;
-    padding: 0;
+    padding: 34px 34px 25px;
+
+    background: #FFFFFF;
+
+    border-right: 1px solid var(--color-borde-fino);
 }
 
 
-.director-personal-registrado-carsce-contenedor {
-    width: 100%;
-    max-width: 1250px;
+/* Decoración institucional */
 
-    margin: 0 auto;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-informacion::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    width: 300px;
+    height: 300px;
+
+    top: 190px;
+    right: -190px;
+
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 30px rgba(15, 23, 42, 0.018),
+        0 0 0 65px rgba(15, 23, 42, 0.012);
+
+    pointer-events: none;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-informacion::after {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    width: 120px;
+    height: 120px;
+
+    right: -55px;
+    bottom: 65px;
+
+    border: 17px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+
+    pointer-events: none;
 }
 
 
 /* =========================================================
-   ENCABEZADO
+   03. MARCA INSTITUCIONAL
    ========================================================= */
 
-.director-personal-registrado-carsce-encabezado {
-    width: 100%;
-
-    margin-bottom: 27px;
-}
-
-
-.director-personal-registrado-carsce-identificacion {
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-marca {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap;
 
-    gap: 20px;
+    gap: 9px;
 
-    margin-bottom: 16px;
+    width: fit-content;
+    max-width: 100%;
+
+    margin-bottom: 28px;
 }
 
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-marca > span:first-child {
+    color: var(--color-azul-profundo);
 
-.director-personal-registrado-carsce-etiqueta {
-    display: inline-flex;
-    align-items: center;
-
-    min-height: 30px;
-
-    padding: 5px 12px;
-
-    color: #1D4ED8;
-
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-
-    border-radius: 7px;
-
-    font-size: 0.72rem;
-    font-weight: 600;
-
-    letter-spacing: 0.035em;
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
 }
 
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-marca-linea {
+    width: 25px;
+    height: 2px;
 
-.director-personal-registrado-carsce-seccion {
-    display: inline-flex;
-    align-items: center;
+    background: var(--color-rojo-acento);
 
-    gap: 7px;
-
-    color: #64748B;
-
-    font-size: 0.76rem;
-    font-weight: 500;
+    border-radius: 2px;
 }
 
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-marca-tipo {
+    color: var(--texto-secundario);
 
-.director-personal-registrado-carsce-seccion i {
-    color: #2563EB;
-
-    font-size: 0.82rem;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 
 /* =========================================================
-   PRESENTACIÓN
+   04. ILUSTRACIÓN INSTITUCIONAL
    ========================================================= */
 
-.director-personal-registrado-carsce-presentacion {
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-ilustracion {
+    position: relative;
+
     width: 100%;
+    height: 215px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E9EEF5;
+    border-radius: 10px;
 }
 
 
-.director-personal-registrado-carsce-titulo {
+/* Círculos decorativos */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-circulo {
+    position: absolute;
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-circulo-uno {
+    width: 145px;
+    height: 145px;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-circulo-dos {
+    width: 185px;
+    height: 185px;
+
+    border-color: rgba(220, 38, 38, 0.10);
+}
+
+
+/* Icono principal */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-ilustracion-icono {
+    position: relative;
+    z-index: 2;
+
+    width: 105px;
+    height: 105px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 22px;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 43px;
+
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.09);
+}
+
+
+/* Insignia */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-ilustracion-insignia {
+    position: absolute;
+    z-index: 3;
+
+    right: calc(50% - 75px);
+    bottom: 43px;
+
+    width: 37px;
+    height: 37px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-rojo-acento);
+
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+
+    color: #FFFFFF;
+
+    font-size: 13px;
+
+    box-shadow: 0 3px 8px rgba(220, 38, 38, 0.20);
+}
+
+
+/* =========================================================
+   05. INFORMACIÓN DEL PANEL
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-informacion-contenido {
+    position: relative;
+    z-index: 1;
+
+    margin-top: auto;
+}
+
+
+/* Indicador */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-indicador {
+    display: inline-block;
+
+    margin-bottom: 12px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 1.5px;
+}
+
+
+/* Título */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-informacion-contenido h1 {
     margin: 0;
 
-    color: #0F172A;
+    color: var(--color-azul-profundo);
 
-    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-    font-weight: 700;
+    font-size: clamp(31px, 3vw, 39px);
+    font-weight: 850;
 
-    line-height: 1.15;
-
-    letter-spacing: -0.035em;
+    line-height: 1.04;
+    letter-spacing: -1.4px;
 }
 
 
-.director-personal-registrado-carsce-descripcion {
-    max-width: 780px;
+/* Descripción */
 
-    margin: 10px 0 0;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-informacion-contenido p {
+    max-width: 340px;
 
-    color: #64748B;
+    margin: 16px 0 0;
 
-    font-size: 0.88rem;
-    font-weight: 400;
+    color: var(--texto-secundario);
 
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* Línea institucional */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-linea {
+    width: 35px;
+    height: 2px;
+
+    margin-top: 20px;
+
+    background: var(--color-rojo-acento);
+
+    border-radius: 2px;
+}
+
+
+/* Submarca */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-submarca {
+    display: block;
+
+    max-width: 310px;
+
+    margin-top: 12px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
     line-height: 1.6;
 }
 
 
 /* =========================================================
-   CONTENEDOR DE FILTROS
+   06. PIE INSTITUCIONAL
    ========================================================= */
 
-.director-personal-registrado-carsce-filtros {
-    width: 100%;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-pie-institucional {
+    display: flex;
+    align-items: center;
 
-    margin-bottom: 20px;
+    gap: 9px;
 
-    padding: 21px;
+    margin-top: 27px;
+    padding-top: 16px;
 
-    background: #FFFFFF;
+    border-top: 1px solid var(--color-borde-fino);
 
-    border: 1px solid #E2E8F0;
+    color: #94A3B8;
 
-    border-radius: 12px;
+    font-size: 9px;
+    line-height: 1.5;
+}
 
-    box-shadow:
-        0 1px 3px rgba(15, 23, 42, 0.04),
-        0 1px 2px rgba(15, 23, 42, 0.04);
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-pie-institucional i {
+    color: var(--color-rojo-acento);
+
+    font-size: 12px;
 }
 
 
 /* =========================================================
-   CABECERA DE FILTROS
+   07. PANEL DE DIRECTORIO
    ========================================================= */
 
-.director-personal-registrado-carsce-filtros-cabecera {
-    display: flex;
-    align-items: center;
-
-    gap: 13px;
-
-    padding-bottom: 17px;
-
-    margin-bottom: 19px;
-
-    border-bottom: 1px solid #E2E8F0;
-}
-
-
-.director-personal-registrado-carsce-filtros-icono {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 42px;
-    height: 42px;
-
-    flex-shrink: 0;
-
-    color: #2563EB;
-
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-
-    border-radius: 9px;
-
-    font-size: 0.9rem;
-}
-
-
-.director-personal-registrado-carsce-filtros-titulo {
-    min-width: 0;
-
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-directorio {
     display: flex;
     flex-direction: column;
 
-    gap: 3px;
-}
+    min-width: 0;
 
+    padding: 37px 38px 24px;
 
-.director-personal-registrado-carsce-filtros-titulo h2 {
-    margin: 0;
-
-    color: #0F172A;
-
-    font-size: 1rem;
-    font-weight: 650;
-
-    line-height: 1.3;
-}
-
-
-.director-personal-registrado-carsce-filtros-titulo span {
-    color: #64748B;
-
-    font-size: 0.75rem;
-    font-weight: 400;
-
-    line-height: 1.4;
+    background: #FFFFFF;
 }
 
 
 /* =========================================================
-   FORMULARIO DE FILTROS
+   08. CABECERA DEL DIRECTORIO
    ========================================================= */
 
-.director-personal-registrado-carsce-formulario-filtros {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     gap: 18px;
 
-    width: 100%;
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
 }
 
 
-/* =========================================================
-   FILTRO INDIVIDUAL
-   ========================================================= */
+/* Etiqueta */
 
-.director-personal-registrado-carsce-filtro {
-    min-width: 0;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-etiqueta {
+    display: inline-block;
 
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 9px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 1.4px;
 }
 
 
-.director-personal-registrado-carsce-filtro label {
-    display: block;
+/* Título */
 
-    margin-bottom: 7px;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-cabecera-texto h2 {
+    margin: 0;
 
-    color: #334155;
+    color: var(--color-azul-profundo);
 
-    font-size: 0.77rem;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 850;
 
-    line-height: 1.3;
+    line-height: 1.2;
+    letter-spacing: -0.7px;
 }
 
 
-.director-personal-registrado-carsce-filtro select {
-    width: 100%;
-    height: 43px;
+/* Descripción */
 
-    padding: 0 11px;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-cabecera-texto p {
+    margin: 8px 0 0;
 
-    color: #0F172A;
+    color: var(--texto-secundario);
 
-    background: #FFFFFF;
-
-    border: 1px solid #CBD5E1;
-
-    border-radius: 7px;
-
-    outline: none;
-
-    cursor: pointer;
-
-    font-family: inherit;
-    font-size: 0.79rem;
-
-    transition:
-        border-color 0.18s ease,
-        box-shadow 0.18s ease;
+    font-size: 11px;
+    line-height: 1.6;
 }
 
 
-.director-personal-registrado-carsce-filtro select:focus {
-    border-color: #2563EB;
+/* Estado del sistema */
 
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-
-/* =========================================================
-   TABLA
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla-contenedor {
-    width: 100%;
-
-    background: #FFFFFF;
-
-    border: 1px solid #E2E8F0;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 1px 3px rgba(15, 23, 42, 0.04),
-        0 1px 2px rgba(15, 23, 42, 0.04);
-
-    overflow: hidden;
-}
-
-
-/* =========================================================
-   CABECERA DE TABLA
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla-cabecera {
-    display: flex;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-estado {
+    display: inline-flex;
     align-items: center;
 
-    width: 100%;
+    flex-shrink: 0;
 
-    padding: 18px 21px;
+    gap: 8px;
 
-    border-bottom: 1px solid #E2E8F0;
+    padding: 8px 11px;
+
+    background: #F0FDF4;
+
+    border: 1px solid #DCFCE7;
+    border-radius: 5px;
+
+    color: #15803D;
+
+    font-size: 9px;
+    font-weight: 750;
 }
 
 
-.director-personal-registrado-carsce-tabla-titulo {
+/* Punto de estado */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-estado-punto {
+    width: 7px;
+    height: 7px;
+
+    background: #16A34A;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
+}
+
+
+/* =========================================================
+   09. FILTROS DE CONSULTA
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-filtros {
+    padding: 22px 0 25px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+
+/* Cabecera de sección */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-seccion-cabecera {
     display: flex;
     align-items: center;
 
     gap: 12px;
+
+    margin-bottom: 19px;
 }
 
 
-.director-personal-registrado-carsce-tabla-icono {
+/* Icono */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-seccion-icono {
+    width: 38px;
+    height: 38px;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
-    width: 40px;
-    height: 40px;
-
     flex-shrink: 0;
 
-    color: #2563EB;
-
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-
-    border-radius: 9px;
-
-    font-size: 0.85rem;
-}
-
-
-.director-personal-registrado-carsce-tabla-titulo h2 {
-    margin: 0 0 3px;
-
-    color: #0F172A;
-
-    font-size: 1rem;
-    font-weight: 650;
-
-    line-height: 1.25;
-}
-
-
-.director-personal-registrado-carsce-tabla-titulo span {
-    color: #64748B;
-
-    font-size: 0.73rem;
-    font-weight: 400;
-
-    line-height: 1.3;
-}
-
-
-/* =========================================================
-   SCROLL HORIZONTAL
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla-scroll {
-    width: 100%;
-
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    scrollbar-width: thin;
-    scrollbar-color: #CBD5E1 transparent;
-}
-
-
-/* =========================================================
-   TABLA
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla {
-    width: 100%;
-    min-width: 950px;
-
-    border-collapse: collapse;
-
-    table-layout: fixed;
-}
-
-
-/* =========================================================
-   ENCABEZADOS
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla thead {
-    background: #0F172A;
-}
-
-
-.director-personal-registrado-carsce-tabla th {
-    height: 49px;
-
-    padding: 12px 13px;
-
-    color: #F8FAFC;
-
-    font-size: 0.7rem;
-    font-weight: 650;
-
-    text-align: center;
-
-    letter-spacing: 0.045em;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   CELDAS
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla td {
-    padding: 14px 13px;
-
-    color: #334155;
-
-    background: #FFFFFF;
-
-    border-bottom: 1px solid #E8EDF0;
-
-    font-size: 0.76rem;
-    font-weight: 400;
-
-    text-align: center;
-    vertical-align: middle;
-
-    line-height: 1.45;
-
-    word-wrap: break-word;
-}
-
-
-.director-personal-registrado-carsce-tabla tbody tr {
-    transition:
-        background-color 0.18s ease;
-}
-
-
-.director-personal-registrado-carsce-tabla tbody tr:hover td {
     background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 7px;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 14px;
 }
 
 
-.director-personal-registrado-carsce-tabla tbody tr:last-child td {
-    border-bottom: none;
+/* Título de sección */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-seccion-texto h3 {
+    margin: 0;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 13px;
+    font-weight: 800;
 }
 
 
-/* =========================================================
-   ANCHOS DE COLUMNAS
-   ========================================================= */
+/* Descripción */
 
-.director-personal-registrado-carsce-tabla th:nth-child(1),
-.director-personal-registrado-carsce-tabla td:nth-child(1) {
-    width: 70px;
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-seccion-texto p {
+    margin: 5px 0 0;
 
-    text-align: center;
-}
+    color: var(--texto-secundario);
 
-
-.director-personal-registrado-carsce-tabla th:nth-child(2),
-.director-personal-registrado-carsce-tabla td:nth-child(2) {
-    width: 180px;
-}
-
-
-.director-personal-registrado-carsce-tabla th:nth-child(3),
-.director-personal-registrado-carsce-tabla td:nth-child(3) {
-    width: 180px;
-}
-
-
-.director-personal-registrado-carsce-tabla th:nth-child(4),
-.director-personal-registrado-carsce-tabla td:nth-child(4) {
-    width: 130px;
-}
-
-
-.director-personal-registrado-carsce-tabla th:nth-child(5),
-.director-personal-registrado-carsce-tabla td:nth-child(5) {
-    width: 180px;
-}
-
-
-.director-personal-registrado-carsce-tabla th:nth-child(6),
-.director-personal-registrado-carsce-tabla td:nth-child(6) {
-    width: 260px;
-}
-
-
-/* =========================================================
-   ID
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla td:first-child {
-    color: #2563EB;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   CÉDULA
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla td:nth-child(4) {
-    color: #334155;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   PNF
-   ========================================================= */
-
-.director-personal-registrado-carsce-tabla td:nth-child(6) {
+    font-size: 10px;
     line-height: 1.5;
 }
 
 
 /* =========================================================
-   RESPONSIVE - 900PX
+   10. FORMULARIO DE FILTROS
    ========================================================= */
 
-@media (max-width: 900px) {
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-formulario {
+    display: grid;
 
-    .director-personal-registrado-carsce-formulario-filtros {
-        gap: 13px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 17px;
+}
+
+
+/* Grupo */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-grupo {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    gap: 8px;
+}
+
+
+/* Etiqueta */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-grupo > label {
+    color: #334155;
+
+    font-size: 10px;
+    font-weight: 750;
+}
+
+
+/* Campo */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-campo {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 43px;
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Icono del campo */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-campo > i:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 39px;
+    height: 100%;
+
+    flex-shrink: 0;
+
+    color: #94A3B8;
+
+    font-size: 12px;
+
+    transition: color 0.2s ease;
+}
+
+
+/* Select */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-campo select {
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+
+    padding: 0 34px 0 0;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background: transparent;
+
+    border: none;
+    outline: none;
+
+    color: #334155;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* Flecha */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-flecha {
+    position: absolute;
+
+    top: 50%;
+    right: 13px;
+
+    transform: translateY(-50%);
+
+    color: #94A3B8;
+
+    font-size: 9px;
+
+    pointer-events: none;
+}
+
+
+/* Focus */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-campo:focus-within {
+    background: #FFFFFF;
+
+    border-color: var(--color-azul-hover);
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-campo:focus-within > i:first-child {
+    color: var(--color-azul-hover);
+}
+
+
+/* =========================================================
+   11. RESULTADOS DEL DIRECTORIO
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados {
+    min-width: 0;
+
+    padding-top: 24px;
+}
+
+
+/* Cabecera de resultados */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    margin-bottom: 17px;
+}
+
+
+/* Identidad de resultados */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-identidad {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+/* Icono */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 40px;
+    height: 40px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 7px;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 15px;
+}
+
+
+/* Identificación */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-identidad > div:last-child > span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 8px;
+    font-weight: 850;
+    letter-spacing: 1.1px;
+}
+
+
+/* Título */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-identidad h3 {
+    margin: 0;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 15px;
+    font-weight: 800;
+}
+
+
+/* Tipo de directorio */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-tipo {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 10px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 5px;
+
+    color: #64748B;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-tipo i {
+    color: var(--color-rojo-acento);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   12. TABLA DE PERSONAL
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla-marco {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto;
+
+    background: #FFFFFF;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 #F8FAFC;
+}
+
+
+/* Scrollbar */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla-marco::-webkit-scrollbar {
+    height: 7px;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla-marco::-webkit-scrollbar-track {
+    background: #F8FAFC;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla-marco::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+
+    border-radius: 10px;
+}
+
+
+/* Tabla */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla {
+    width: 100%;
+
+    min-width: 780px;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    text-align: left;
+}
+
+
+/* Caption */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-caption {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* Encabezados */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla thead {
+    background: #F8FAFC;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla th {
+    height: 47px;
+
+    padding: 0 15px;
+
+    background: #F8FAFC;
+
+    border-bottom: 1px solid #E2E8F0;
+
+    color: #475569;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* Contenido de encabezados */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla th span {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla th i {
+    color: #94A3B8;
+
+    font-size: 10px;
+}
+
+
+/* Celdas */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla td {
+    padding: 13px 15px;
+
+    border-bottom: 1px solid #F1F5F9;
+
+    color: #475569;
+
+    font-size: 10px;
+    line-height: 1.5;
+
+    vertical-align: middle;
+}
+
+
+/* Última fila */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Hover */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla tbody tr {
+    transition: background-color 0.18s ease;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla tbody tr:hover {
+    background: #F8FAFC;
+}
+
+
+/* Celdas fuertes */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla td strong {
+    color: var(--color-azul-profundo);
+
+    font-weight: 750;
+}
+
+
+/* Enlaces de tabla */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla td a {
+    color: var(--color-azul-hover);
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla td a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   13. ESTADOS Y ELEMENTOS GENERADOS POR JAVASCRIPT
+   ========================================================= */
+
+/* Etiquetas de perfiles */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla td .badge,
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla td .etiqueta-rol {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 8px;
+
+    background: #F1F5F9;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 5px;
+
+    color: #475569;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+/* PNF */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla td .etiqueta-pnf {
+    display: inline-flex;
+
+    padding: 4px 7px;
+    margin: 2px;
+
+    background: #FEF2F2;
+
+    border: 1px solid #FECACA;
+    border-radius: 4px;
+
+    color: #B91C1C;
+
+    font-size: 9px;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   14. PIE DE RESULTADOS
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-pie {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin-top: 15px;
+    padding: 12px 13px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E9EEF5;
+    border-radius: 6px;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-pie i {
+    flex-shrink: 0;
+
+    margin-top: 2px;
+
+    color: #94A3B8;
+
+    font-size: 11px;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-resultados-pie p {
+    margin: 0;
+
+    color: #64748B;
+
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   15. PIE GENERAL DEL DIRECTORIO
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: auto;
+    padding-top: 20px;
+
+    color: #94A3B8;
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-pie i {
+    color: var(--color-rojo-acento);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   16. ESTADOS VACÍOS
+   ========================================================= */
+
+#DirectorPersonalRegistradoCASRCE
+.DirectorPersonalRegistradoCASRCE-tabla tbody:empty::after {
+    content: "No hay registros disponibles para mostrar.";
+
+    display: block;
+
+    padding: 35px 20px;
+
+    color: #94A3B8;
+
+    font-size: 11px;
+    text-align: center;
+}
+
+
+/* =========================================================
+   17. RESPONSIVE — TABLETS
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    #DirectorPersonalRegistradoCASRCE {
+        padding: 32px 18px 45px;
     }
 
-
-    .director-personal-registrado-carsce-filtros {
-        padding: 18px;
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-marco {
+        grid-template-columns: 32% 68%;
     }
 
-
-    .director-personal-registrado-carsce-tabla-cabecera {
-        padding: 17px 18px;
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion {
+        padding: 30px 25px 22px;
     }
 
-
-    .director-personal-registrado-carsce-tabla th {
-        height: 46px;
-
-        padding: 11px 10px;
-
-        font-size: 0.67rem;
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-directorio {
+        padding: 32px 27px 22px;
     }
 
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-ilustracion {
+        height: 190px;
+    }
 
-    .director-personal-registrado-carsce-tabla td {
-        padding: 12px 10px;
-
-        font-size: 0.72rem;
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion-contenido h1 {
+        font-size: 32px;
     }
 
 }
 
 
 /* =========================================================
-   RESPONSIVE - 700PX
+   18. RESPONSIVE — TABLETS PEQUEÑAS
    ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 850px) {
 
-    .director-personal-registrado-carsce-identificacion {
+    #DirectorPersonalRegistradoCASRCE {
         align-items: flex-start;
 
-        flex-direction: column;
-
-        gap: 9px;
+        padding: 25px 17px 40px;
     }
 
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-marco {
+        width: min(720px, 100%);
 
-    .director-personal-registrado-carsce-formulario-filtros {
         grid-template-columns: 1fr;
     }
 
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion {
+        display: grid;
 
-    .director-personal-registrado-carsce-filtros-cabecera {
-        align-items: flex-start;
+        grid-template-columns: 1fr 180px;
+        grid-template-areas:
+            "marca marca"
+            "contenido ilustracion"
+            "pie pie";
+
+        column-gap: 22px;
+
+        min-height: auto;
+
+        padding: 27px 30px 22px;
+
+        border-right: none;
+        border-bottom: 1px solid var(--color-borde-fino);
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-marca {
+        grid-area: marca;
+
+        margin-bottom: 20px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion-contenido {
+        grid-area: contenido;
+
+        align-self: center;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-ilustracion {
+        grid-area: ilustracion;
+
+        align-self: center;
+
+        height: 175px;
+
+        margin-bottom: 0;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-ilustracion-icono {
+        width: 85px;
+        height: 85px;
+
+        font-size: 34px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-circulo-uno {
+        width: 120px;
+        height: 120px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-circulo-dos {
+        width: 150px;
+        height: 150px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-ilustracion-insignia {
+        right: calc(50% - 62px);
+        bottom: 32px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion-contenido h1 {
+        font-size: 30px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-pie-institucional {
+        grid-area: pie;
+
+        margin-top: 22px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-directorio {
+        padding: 30px;
     }
 
 }
 
 
 /* =========================================================
-   RESPONSIVE - 520PX
+   19. RESPONSIVE — MÓVILES
    ========================================================= */
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
 
-    .director-personal-registrado-carsce-titulo {
-        font-size: 1.55rem;
+    #DirectorPersonalRegistradoCASRCE {
+        padding: 18px 11px 30px;
     }
 
-
-    .director-personal-registrado-carsce-descripcion {
-        font-size: 0.8rem;
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-marco {
+        border-radius: 10px;
     }
 
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion {
+        grid-template-columns: 1fr;
 
-    .director-personal-registrado-carsce-filtros {
-        padding: 16px;
+        grid-template-areas:
+            "marca"
+            "ilustracion"
+            "contenido"
+            "pie";
+
+        padding: 23px 21px 19px;
     }
 
-
-    .director-personal-registrado-carsce-tabla-cabecera {
-        padding: 15px;
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-marca {
+        margin-bottom: 19px;
     }
 
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-ilustracion {
+        width: 100%;
+        height: 150px;
 
-    .director-personal-registrado-carsce-tabla-icono {
-        width: 38px;
-        height: 38px;
+        margin-bottom: 22px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-ilustracion-icono {
+        width: 75px;
+        height: 75px;
+
+        border-radius: 17px;
+
+        font-size: 30px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-circulo-uno {
+        width: 105px;
+        height: 105px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-circulo-dos {
+        width: 130px;
+        height: 130px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-ilustracion-insignia {
+        right: calc(50% - 56px);
+        bottom: 22px;
+
+        width: 32px;
+        height: 32px;
+
+        font-size: 11px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion-contenido h1 {
+        font-size: 29px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion-contenido p {
+        max-width: 100%;
+
+        font-size: 11px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-pie-institucional {
+        margin-top: 20px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-directorio {
+        padding: 24px 19px 20px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-cabecera {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 14px;
+
+        padding-bottom: 20px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-cabecera-texto h2 {
+        font-size: 23px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-estado {
+        align-self: flex-start;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-formulario {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-resultados-cabecera {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-resultados-tipo {
+        align-self: flex-start;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-pie {
+        margin-top: 22px;
+    }
+
+}
+
+
+/* =========================================================
+   20. MÓVILES PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion {
+        padding: 20px 16px 17px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-directorio {
+        padding: 21px 14px 18px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-informacion-contenido h1 {
+        font-size: 26px;
+    }
+
+    #DirectorPersonalRegistradoCASRCE
+    .DirectorPersonalRegistradoCASRCE-resultados-identidad h3 {
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   21. ACCESIBILIDAD
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #DirectorPersonalRegistradoCASRCE *,
+    #DirectorPersonalRegistradoCASRCE *::before,
+    #DirectorPersonalRegistradoCASRCE *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
     }
 
 }

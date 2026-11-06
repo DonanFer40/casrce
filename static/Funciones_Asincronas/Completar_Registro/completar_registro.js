@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pais_profesion = document.getElementById("pais_profesion");
 
     const genero = ["Masculino", "Femenino"];
-    const estado_civil = ["Soltero", "Casado", "Divorsiado", "Viudo"];
+    const estado_civil = ["Soltero(a)", "Casado(a)", "Divorsiado(a)", "Viudo(a)"];
 
     // Controles para validar
     const nacionalidad_auxiliar = document.getElementById("nacionalidad_auxiliar");
@@ -40,7 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const fecha_grado = document.getElementById("fecha_grado");
     const codigo_sin_opsu = document.getElementById("codigo_sin_opsu");
 
-    const nucleos = document.querySelectorAll("#contenedor_pnfs_cursar input[type='checkbox']");
+    const nucleos = document.querySelectorAll(
+        "#contenedor_pnfs_cursar input[type='radio'][name='nucleo_seleccionado']"
+    );
 
     // Mensaje de validar
     const msg_ced_aux = document.getElementById("msg_ced_aux");
@@ -626,48 +628,832 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     nucleos.forEach(nucleo => {
-        nucleo.addEventListener("change", async function () {
-            const contenedor = document.getElementById(`contenedor_pnfs_${this.value}`);
-            console.log("Contenedor:", contenedor);
 
-            if (!this.checked) {
-                if (contenedor) {
-                    contenedor.innerHTML = "";
+        nucleo.addEventListener("change", async function () {
+
+            if (!this.checked) return;
+
+            // Limpiar los PNF de los demás núcleos.
+            nucleos.forEach(otroNucleo => {
+
+                if (otroNucleo === this) return;
+
+                const otroContenedor = document.getElementById(
+                    `contenedor_pnfs_${otroNucleo.value}`
+                );
+
+                if (otroContenedor) {
+                    otroContenedor.innerHTML = "";
                 }
-                return;
-            }
+
+            });
+
+            // Cargar los PNF del núcleo seleccionado.
             await cursarpnfs(this.value);
         });
     });
 
+    function obtenerIconoPNF(nombre) {
+        const texto = String(nombre || "").toLowerCase();
+        if (/sistema|informática|informatica|computación|computacion|software/.test(texto)) return "fa-laptop-code";
+        if (/electr[oó]nica|electricidad|eléctric|electric/.test(texto)) return "fa-bolt";
+        if (/veterinaria|animal/.test(texto)) return "fa-paw";
+        if (/agroaliment|agronom|agro/.test(texto)) return "fa-leaf";
+        if (/construcci[oó]n|civil|edificaci/.test(texto)) return "fa-hard-hat";
+        if (/mec[aá]nica|mecanic/.test(texto)) return "fa-gears";
+        if (/industrial|industria/.test(texto)) return "fa-industry";
+        if (/administraci[oó]n|gesti[oó]n/.test(texto)) return "fa-briefcase";
+        if (/contadur[ií]a|contable/.test(texto)) return "fa-calculator";
+        if (/turismo|hotel/.test(texto)) return "fa-hotel";
+        return "fa-graduation-cap";
+    }
+
     async function cursarpnfs(nucleo) {
+
+        const contenedor = document.getElementById(
+            `contenedor_pnfs_${nucleo}`
+        );
+
+        if (!contenedor) {
+            console.error(`No se encontró el contenedor de PNF para ${nucleo}.`);
+            return;
+        }
+
         try {
+
+            // Indicar que los PNF se están cargando.
+            contenedor.dataset.estado = "cargando";
+            contenedor.innerHTML = `
+                <p class="registro-completo-pnf-mensaje">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    Cargando programas de formación...
+                </p>
+            `;
+
+            const csrfToken = document.querySelector(
+                "[name=csrfmiddlewaretoken]"
+            )?.value;
+
+            if (!csrfToken) {
+                throw new Error("No se encontró el token CSRF.");
+            }
+
             const formulario = new FormData();
             formulario.append("nucleo", nucleo);
 
             const respuesta = await fetch("/pnfs_cursar/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": csrfToken
                 },
                 body: formulario
             });
+
+            if (!respuesta.ok) {
+                throw new Error(
+                    `Error al consultar los PNF. Código HTTP: ${respuesta.status}`
+                );
+            }
+
             const resultado = await respuesta.json();
+
+            if (!resultado || !Array.isArray(resultado.pnfs)) {
+                throw new Error("La respuesta del servidor no contiene una lista válida de PNF.");
+            }
+
             console.log(resultado);
 
-            const contenedor = document.getElementById(`contenedor_pnfs_${nucleo}`);
-
+            // Limpiar el contenedor.
             contenedor.innerHTML = "";
-            resultado.pnfs.forEach(pnf => {
-                contenedor.innerHTML += `
-                    <label>${pnf.nombre}
-                        <input type="checkbox" value="${pnf.id}" name="pnf_${nucleo}">
-                    </label>
+
+            // Comprobar si existen programas disponibles.
+            if (resultado.pnfs.length === 0) {
+
+                contenedor.dataset.estado = "vacio";
+
+                contenedor.innerHTML = `
+                    <p class="registro-completo-pnf-mensaje">
+                        No hay programas de formación disponibles para este núcleo.
+                    </p>
                 `;
-            });
+
+            } else {
+
+                // Generar las opciones de PNF.
+                resultado.pnfs.forEach(pnf => {
+
+                    const icono = obtenerIconoPNF(pnf.nombre);
+
+                    const etiqueta = document.createElement("label");
+                    etiqueta.className = "registro-completo-pnf-opcion";
+
+                    const iconoContenedor = document.createElement("span");
+                    iconoContenedor.className = "registro-completo-pnf-icono";
+                    iconoContenedor.setAttribute("aria-hidden", "true");
+
+                    const elementoIcono = document.createElement("i");
+                    elementoIcono.className = `fa-solid ${icono}`;
+
+                    iconoContenedor.appendChild(elementoIcono);
+
+                    const nombre = document.createElement("span");
+                    nombre.className = "registro-completo-pnf-nombre";
+                    nombre.textContent = pnf.nombre;
+
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.value = pnf.id;
+                    input.name = "pnf_seleccionado";
+                    input.required = true;
+
+                    etiqueta.appendChild(iconoContenedor);
+                    etiqueta.appendChild(nombre);
+                    etiqueta.appendChild(input);
+
+                    contenedor.appendChild(etiqueta);
+                });
+
+                contenedor.dataset.estado = "listo";
+            }
+
+            // Notificar que terminó la actualización.
+            document.dispatchEvent(
+                new CustomEvent("casrce:pnfs-actualizados", {
+                    detail: {
+                        nucleo,
+                        cantidad: resultado.pnfs.length,
+                        estado: contenedor.dataset.estado
+                    }
+                })
+            );
 
         } catch (error) {
-            console.error(error);
+
+            console.error("Error al cargar los PNF:", error);
+
+            contenedor.dataset.estado = "error";
+
+            contenedor.innerHTML = `
+                <p class="registro-completo-pnf-mensaje">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    No se pudieron cargar los programas de formación.
+                    Selecciona nuevamente el núcleo para intentarlo otra vez.
+                </p>
+            `;
+
+            document.dispatchEvent(
+                new CustomEvent("casrce:pnfs-actualizados", {
+                    detail: {
+                        nucleo,
+                        cantidad: 0,
+                        estado: "error"
+                    }
+                })
+            );
         }
     }
 });
+
+// ==========================================================
+// VALIDACIÓN DE CAMPOS POR PASO
+
+const formulario_registro = document.getElementById("formulario_registro");
+
+// ==========================================================
+
+const btnAnterior = document.getElementById("btn_anterior");
+const btnSiguiente = document.getElementById("btn_siguiente");
+
+const pasosFormulario = Array.from(
+    document.querySelectorAll("#formulario_registro .paso_formulario")
+);
+
+// Campos opcionales: se indica expresamente que pueden quedar vacíos.
+const nombresOpcionales = [
+    "correo_secundaria",
+    "dominio_correo_secundaria",
+    "prefijo_telefono_secundaria",
+    "num_telefono_secundaria",
+    "nombres_auxiliar",
+    "apellidos_auxiliar",
+    "nacionalidad_auxiliar",
+    "ci_auxiliar",
+    "prefijo_auxiliar",
+    "telefono_auxiliar",
+    "parestenco_auxiliar",
+    "carnet_dispacidad",
+    "registro_medico",
+    "tipos_discapacidad",
+    "tipo_discapacidad",
+    "grado_discapacidad",
+    "causa_discapacidad"
+];
+
+// Marcar visualmente los campos opcionales.
+nombresOpcionales.forEach(nombre => {
+    formulario_registro
+        .querySelectorAll(`[name="${nombre}"]`)
+        .forEach(campo => {
+            campo.required = false;
+
+            const etiqueta = campo.id
+                ? formulario_registro.querySelector(
+                    `label[for="${campo.id}"]`
+                )
+                : null;
+
+            if (
+                etiqueta &&
+                !/opcional/i.test(etiqueta.textContent)
+            ) {
+                const marca = document.createElement("small");
+                marca.textContent = " ";
+                marca.className = "etiqueta-opcional";
+                etiqueta.appendChild(marca);
+            }
+        });
+});
+
+// ==========================================================
+// DISCAPACIDAD: CARNET Y REGISTRO MÉDICO CONDICIONAL
+// ==========================================================
+
+const selectorCarnetDiscapacidad = document.getElementById(
+    "codigo_carnet_dispacidad"
+);
+
+const numeroRegistroMedico = document.getElementById(
+    "nro_registro_medico"
+);
+
+function actualizarValidacionDiscapacidad() {
+    if (!selectorCarnetDiscapacidad) return;
+
+    const poseeCarnet = selectorCarnetDiscapacidad.value === "Si";
+    const camposCondicionales = [
+        numeroRegistroMedico,
+        document.getElementById("tipos_discapacidad"),
+        document.getElementById("grado_discapacidad"),
+        document.getElementById("causa_discapacidad")
+    ].filter(Boolean);
+
+    // Con "Sí", todos los datos de discapacidad son obligatorios.
+    // Con "No" (o mientras no se seleccione una respuesta), son opcionales.
+    camposCondicionales.forEach(campo => {
+        campo.required = poseeCarnet;
+        if (!poseeCarnet) campo.setCustomValidity("");
+    });
+
+    if (numeroRegistroMedico) {
+        const valorRegistro = numeroRegistroMedico.value.trim();
+        numeroRegistroMedico.setCustomValidity(
+            !valorRegistro || /^[A-Z]-\d{6}$/.test(valorRegistro)
+                ? ""
+                : "Utilice el formato de una letra, un guion y seis números. Ejemplo: D-123456."
+        );
+    }
+
+    // Actualiza los indicadores visuales de obligatoriedad.
+    document.dispatchEvent(new CustomEvent("casrce:discapacidad-actualizada"));
+}
+
+if (selectorCarnetDiscapacidad && numeroRegistroMedico) {
+    selectorCarnetDiscapacidad.addEventListener(
+        "change",
+        actualizarValidacionDiscapacidad
+    );
+
+    numeroRegistroMedico.addEventListener("input", () => {
+        const valor = numeroRegistroMedico.value.toUpperCase();
+        const primeraLetra = valor.charAt(0);
+
+        if (/^[A-Z]$/.test(primeraLetra)) {
+            const digitos = valor.slice(1).replace(/\D/g, "").slice(0, 6);
+            numeroRegistroMedico.value = `${primeraLetra}-${digitos}`;
+        } else {
+            numeroRegistroMedico.value = valor
+                .replace(/[^A-Z0-9-]/g, "")
+                .slice(0, 8);
+        }
+
+        actualizarValidacionDiscapacidad();
+    });
+
+    actualizarValidacionDiscapacidad();
+}
+
+// ==========================================================
+// SECUNDARIA: MÁXIMO DOS DÍGITOS EN EL NOMBRE DEL LICEO
+// ==========================================================
+
+const nombreLiceo = document.getElementById("nombre_secundaria");
+
+if (nombreLiceo) {
+    nombreLiceo.addEventListener("input", () => {
+        let digitosPermitidos = 0;
+
+        nombreLiceo.value = nombreLiceo.value.replace(/\d/g, digito => {
+            digitosPermitidos += 1;
+            return digitosPermitidos <= 2 ? digito : "";
+        });
+    });
+}
+
+// ==========================================================
+// DOCUMENTOS: VISTA PREVIA LOCAL DE ARCHIVOS
+// ==========================================================
+
+const documentosConVistaPrevia = [
+    { inputId: "documentoCI_estudiante", previewId: "vista_previa_documentoCI_estudiante" },
+    { inputId: "documentoTB_estudiante", previewId: "vista_previa_documentoTB_estudiante" },
+    { inputId: "documentoSN_estudiante", previewId: "vista_previa_documentoSN_estudiante" },
+    { inputId: "documentoOPSU_estudiante", previewId: "vista_previa_documentoOPSU_estudiante" }
+];
+
+function formatoTamanoArchivo(bytes) {
+    if (bytes < 1024 * 1024) {
+        return `${(bytes / 1024).toFixed(1)} KB`;
+    }
+    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
+
+documentosConVistaPrevia.forEach(({ inputId, previewId }) => {
+    const inputArchivo = document.getElementById(inputId);
+    const contenedorVistaPrevia = document.getElementById(previewId);
+
+    if (!inputArchivo || !contenedorVistaPrevia) return;
+
+    let urlTemporal = null;
+
+    inputArchivo.addEventListener("change", () => {
+        if (urlTemporal) {
+            URL.revokeObjectURL(urlTemporal);
+            urlTemporal = null;
+        }
+
+        contenedorVistaPrevia.replaceChildren();
+        contenedorVistaPrevia.classList.remove("tiene-archivo");
+
+        const archivo = inputArchivo.files && inputArchivo.files[0];
+
+        if (!archivo) {
+            const vacio = document.createElement("span");
+            vacio.className = "vista-previa-vacio";
+            vacio.textContent = "Aún no se ha seleccionado un archivo.";
+            contenedorVistaPrevia.appendChild(vacio);
+            return;
+        }
+
+        contenedorVistaPrevia.classList.add("tiene-archivo");
+
+        const informacion = document.createElement("div");
+        informacion.className = "vista-previa-archivo-info";
+
+        const nombre = document.createElement("strong");
+        nombre.textContent = archivo.name;
+
+        const tamano = document.createElement("small");
+        tamano.textContent = formatoTamanoArchivo(archivo.size);
+
+        informacion.append(nombre, tamano);
+        contenedorVistaPrevia.appendChild(informacion);
+
+        urlTemporal = URL.createObjectURL(archivo);
+
+        if (archivo.type.startsWith("image/")) {
+            const imagen = document.createElement("img");
+            imagen.className = "vista-previa-imagen";
+            imagen.src = urlTemporal;
+            imagen.alt = `Vista previa de ${archivo.name}`;
+            contenedorVistaPrevia.appendChild(imagen);
+        } else if (
+            archivo.type === "application/pdf" ||
+            archivo.name.toLowerCase().endsWith(".pdf")
+        ) {
+            const visor = document.createElement("iframe");
+            visor.className = "vista-previa-pdf";
+            visor.src = urlTemporal;
+            visor.title = `Vista previa de ${archivo.name}`;
+            visor.loading = "lazy";
+            contenedorVistaPrevia.appendChild(visor);
+        } else {
+            const nota = document.createElement("small");
+            nota.className = "vista-previa-no-disponible";
+            nota.textContent =
+                "La vista previa de este formato no está disponible en el navegador.";
+            contenedorVistaPrevia.appendChild(nota);
+        }
+
+        const quitar = document.createElement("button");
+        quitar.type = "button";
+        quitar.className = "vista-previa-quitar";
+        quitar.textContent = "Quitar archivo";
+        quitar.addEventListener("click", () => {
+            inputArchivo.value = "";
+            inputArchivo.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+        contenedorVistaPrevia.appendChild(quitar);
+    });
+});
+
+// Estilos de los campos pendientes y de la lista de errores.
+const estilosValidacion = document.createElement("style");
+
+estilosValidacion.textContent = `
+    #formulario_registro .campo-error {
+        border: 1px solid #dc2626 !important;
+        box-shadow: 0 0 0 2px rgba(220, 38, 38, .12) !important;
+    }
+
+    #formulario_registro .mensaje-validacion-paso {
+        margin: 0 0 16px;
+        padding: 14px 16px;
+        border: 1px solid #fecaca;
+        border-radius: 10px;
+        background: #fef2f2;
+        color: #991b1b;
+    }
+
+    #formulario_registro .mensaje-validacion-paso strong {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    #formulario_registro .mensaje-validacion-paso ul {
+        margin: 0 0 0 20px;
+    }
+
+    #formulario_registro .mensaje-validacion-paso li {
+        margin-top: 5px;
+    }
+
+    #formulario_registro .etiqueta-opcional {
+        color: #64748b;
+        font-size: .82em;
+        font-weight: normal;
+    }
+`;
+
+document.head.appendChild(estilosValidacion);
+
+// Encuentra el paso que se encuentra visible.
+function obtenerPasoVisible() {
+    return pasosFormulario.find(paso => {
+        const estilo = window.getComputedStyle(paso);
+
+        return (
+            estilo.display !== "none" &&
+            estilo.visibility !== "hidden"
+        );
+    });
+}
+
+// Comprueba si un campo está oculto o desactivado.
+function campoNoVisible(campo) {
+    if (
+        campo.disabled ||
+        campo.type === "hidden" ||
+        campo.closest("[hidden]")
+    ) {
+        return true;
+    }
+
+    const estilo = window.getComputedStyle(campo);
+
+    if (
+        estilo.display === "none" ||
+        estilo.visibility === "hidden"
+    ) {
+        return true;
+    }
+
+    const paso = campo.closest(".paso_formulario");
+
+    if (paso) {
+        const estiloPaso = window.getComputedStyle(paso);
+
+        if (
+            estiloPaso.display === "none" ||
+            estiloPaso.visibility === "hidden"
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Obtiene el nombre legible del campo.
+function obtenerNombreCampo(campo) {
+
+    const etiqueta = campo.id
+        ? formulario_registro.querySelector(`label[for="${campo.id}"]`)
+        : campo.closest("label");
+
+    if (etiqueta) {
+        return etiqueta.textContent.trim();
+    }
+
+    if (campo.type === "file") {
+        return "Documento: " + campo.name.replaceAll("_", " ");
+    }
+
+    return campo.name.replaceAll("_", " ");
+}
+
+// Comprueba si un campo obligatorio tiene valor.
+function campoVacio(campo) {
+    if (campo.type === "checkbox" || campo.type === "radio") {
+        return !campo.checked;
+    }
+
+    if (campo.type === "file") {
+        return !campo.files || campo.files.length === 0;
+    }
+
+    return !String(campo.value || "").trim();
+}
+
+// Obtiene todos los campos pendientes del paso actual.
+function obtenerCamposPendientes(paso) {
+
+    const pendientes = [];
+
+    const campos = paso.querySelectorAll(
+        "input[required], select[required], textarea[required]"
+    );
+
+    campos.forEach(campo => {
+
+        if (["correo_secundario", "dominio_secundario"].includes(campo.id)) {
+            return;
+        }
+
+        if (campoNoVisible(campo)) {
+            return;
+        }
+
+        // Validar los grupos de radio como una sola selección.
+        if (campo.type === "radio") {
+
+            const grupo = Array.from(
+                paso.querySelectorAll('input[type="radio"]')
+            ).filter(radio =>
+                radio.name === campo.name &&
+                !campoNoVisible(radio)
+            );
+
+            // Evitar validar varias veces el mismo grupo.
+            if (grupo[0] !== campo) {
+                return;
+            }
+
+            const seleccionado = grupo.some(radio => radio.checked);
+
+            if (!seleccionado) {
+                pendientes.push({
+                    campo: campo,
+                    nombre: obtenerNombreCampo(campo)
+                });
+            }
+
+            return;
+        }
+
+        // No repetir campos con el mismo nombre.
+        if (
+            pendientes.some(item => item.campo.name === campo.name) &&
+            campo.type !== "checkbox"
+        ) {
+            return;
+        }
+
+        if (campoVacio(campo)) {
+
+            pendientes.push({
+                campo: campo,
+                nombre: obtenerNombreCampo(campo)
+            });
+
+        } else if (
+            typeof campo.checkValidity === "function" &&
+            !campo.checkValidity()
+        ) {
+
+            pendientes.push({
+                campo: campo,
+                nombre: obtenerNombreCampo(campo)
+            });
+
+        }
+
+    });
+
+    if (paso.id === "contenedor_pnfs_cursar") {
+        const nucleoSeleccionado = paso.querySelector(
+            'input[name="nucleo_seleccionado"]:checked'
+        );
+
+        if (nucleoSeleccionado) {
+            const contenedorActivo = document.getElementById(
+                `contenedor_pnfs_${nucleoSeleccionado.value}`
+            );
+            const opcionesPNF = contenedorActivo
+                ? Array.from(contenedorActivo.querySelectorAll(
+                    'input[type="radio"][name="pnf_seleccionado"]'
+                ))
+                : [];
+
+            const pnfSeleccionado = opcionesPNF.some(opcion => opcion.checked);
+
+            const yaReportado = pendientes.some(
+                item => item.campo.name === "pnf_seleccionado"
+            );
+
+            if (!pnfSeleccionado && !yaReportado) {
+                pendientes.push({
+                    campo: opcionesPNF[0] || nucleoSeleccionado,
+                    nombre: "Seleccione un Programa Nacional de Formación (PNF)"
+                });
+            }
+        }
+    }
+
+    return pendientes;
+}
+
+// Muestra una lista de los campos que faltan.
+function mostrarCamposPendientes(paso, pendientes) {
+    let aviso = paso.querySelector(".mensaje-validacion-paso");
+
+    if (!aviso) {
+        aviso = document.createElement("div");
+        aviso.className = "mensaje-validacion-paso";
+        aviso.setAttribute("role", "alert");
+
+        const encabezado = paso.querySelector(
+            ".registro-completo-paso-encabezado"
+        );
+
+        if (encabezado) {
+            encabezado.insertAdjacentElement("afterend", aviso);
+        } else {
+            paso.prepend(aviso);
+        }
+    }
+
+    aviso.replaceChildren();
+
+    const titulo = document.createElement("strong");
+    titulo.textContent =
+        "Completa los siguientes campos para continuar:";
+
+    aviso.appendChild(titulo);
+
+    const lista = document.createElement("ul");
+
+    pendientes.forEach(({ campo, nombre }) => {
+        const elemento = document.createElement("li");
+        elemento.textContent = nombre;
+        lista.appendChild(elemento);
+
+        campo.classList.add("campo-error");
+    });
+
+    aviso.appendChild(lista);
+}
+
+// Borra los avisos cuando el usuario corrige los campos.
+function limpiarErroresPaso(paso) {
+    paso.querySelectorAll(".mensaje-validacion-paso")
+        .forEach(aviso => aviso.remove());
+
+    paso.querySelectorAll(".campo-error")
+        .forEach(campo => campo.classList.remove("campo-error"));
+}
+
+// Valida un paso completo.
+function validarPasoActual(paso) {
+    if (!paso) {
+        return true;
+    }
+
+    limpiarErroresPaso(paso);
+
+    const pendientes = obtenerCamposPendientes(paso);
+
+    if (pendientes.length > 0) {
+        mostrarCamposPendientes(paso, pendientes);
+
+        const primerCampo = pendientes[0].campo;
+
+        if (primerCampo) {
+            primerCampo.focus({ preventScroll: false });
+        }
+
+        return false;
+    }
+
+    return true;
+}
+
+// Evita que el navegador valide campos que están en pasos ocultos.
+// La validación se realiza paso por paso.
+formulario_registro.noValidate = true;
+
+// Validar antes de que se ejecute la navegación existente.
+if (btnSiguiente) {
+    btnSiguiente.addEventListener("click", evento => {
+        const paso = obtenerPasoVisible();
+
+        if (!validarPasoActual(paso)) {
+            evento.preventDefault();
+            evento.stopImmediatePropagation();
+        }
+    }, true);
+}
+
+// Limpiar los errores al volver al paso anterior.
+if (btnAnterior) {
+    btnAnterior.addEventListener("click", () => {
+        const paso = obtenerPasoVisible();
+
+        if (paso) {
+            limpiarErroresPaso(paso);
+        }
+    }, true);
+}
+
+// Actualizar los errores cuando se editen los campos.
+formulario_registro
+    .querySelectorAll("input, select, textarea")
+    .forEach(campo => {
+        campo.addEventListener("input", () => {
+            campo.classList.remove("campo-error");
+
+            const paso = campo.closest(".paso_formulario");
+
+            if (
+                paso &&
+                paso.querySelector(".mensaje-validacion-paso")
+            ) {
+                const pendientes = obtenerCamposPendientes(paso);
+
+                if (pendientes.length === 0) {
+                    limpiarErroresPaso(paso);
+                } else {
+                    mostrarCamposPendientes(paso, pendientes);
+                }
+            }
+        });
+
+        campo.addEventListener("change", () => {
+            campo.classList.remove("campo-error");
+        });
+    });
+
+    // ==========================================================
+    // CONTADORES DE CARACTERES DE LAS DIRECCIONES
+    // ==========================================================
+    const camposDireccion = [
+        {
+            campo: document.getElementById("direccion_nacimiento"),
+            contador: document.getElementById("contador_direccion_nacimiento")
+        },
+        {
+            campo: document.getElementById("direccion_domicilio"),
+            contador: document.getElementById("contador_direccion")
+        }
+    ];
+
+    const limite_direccion = 100;
+
+    camposDireccion.forEach(({ campo, contador }) => {
+
+        if (!campo || !contador) return;
+
+        // Establecer el límite desde JavaScript también.
+        campo.maxLength = limite_direccion;
+
+        function actualizarContador() {
+            const caracteres = campo.value.length;
+
+            contador.textContent =
+                `${caracteres} / ${limite_direccion}`;
+
+            contador.classList.toggle(
+                "contador-direccion-cerca",
+                caracteres >= 80 && caracteres < limite_direccion
+            );
+
+            contador.classList.toggle(
+                "contador-direccion-limite",
+                caracteres >= limite_direccion
+            );
+        }
+
+        campo.addEventListener("input", actualizarContador);
+
+        // Mostrar el conteo inicial.
+        actualizarContador();
+    });

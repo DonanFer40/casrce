@@ -22,6 +22,7 @@
 @import url('../Sesion/formulario_registro_personal.css');
 @import url('../Sesion/formulario_registro_estudiantil.css');
 @import url('../Sesion/formularios_recuperar_credenciales.css');
+@import url('../Sesion/registro_verificacion.css');
 
 /* RECUPERACION DE CREDENCIALES */
 @import url('../Sesion/Recuperar_Credenciales/comprobar_usuario.css');
@@ -31,6 +32,8 @@
 
 /* COMPLETAR REGISTRO DE USUARIOS */
 @import url('../Logueo/completar_registro.css');
+/* EXPEDIENTES ESTUDIANTIL */
+@import url('../Logueo/expedientes_estudiantiles.css');
 
 /*========================*/
 /*    DIRECTOR GENERAL    */

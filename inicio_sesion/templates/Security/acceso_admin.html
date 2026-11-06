@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Verificación administrativa | CASRCE</title>
+    <link rel="stylesheet" href="{% static 'Estilos/security/seguridad_admin.css' %}">
+</head>
+<body>
+<main class="seguridad-admin">
+    <section class="seguridad-admin__panel">
+        <h1>Verificación administrativa</h1>
+        <p>Completa las verificaciones para continuar al panel administrativo.</p>
+
+        <div id="paso-correo" {% if etapa != "CORREO" %}hidden{% endif %}>
+            <h2>1. Verificar correo electrónico</h2>
+            <p>Introduce el código de seis dígitos enviado al correo del administrador.</p>
+            <form id="form-correo">
+                {% csrf_token %}
+                <label for="codigo-correo">Código de correo</label>
+                <input id="codigo-correo" name="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
+                <button type="submit">Verificar correo</button>
+            </form>
+            <button type="button" id="reenviar-codigo">Reenviar código</button>
+        </div>
+
+        <div id="paso-totp" {% if etapa != "TOTP" %}hidden{% endif %}>
+            <h2>2. Google Authenticator</h2>
+            <p>Introduce el código temporal de seis dígitos de tu aplicación autenticadora.</p>
+            <form id="form-totp">
+                {% csrf_token %}
+                <label for="codigo-totp">Código TOTP</label>
+                <input id="codigo-totp" name="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
+                <button type="submit">Validar y continuar</button>
+            </form>
+        </div>
+
+        <p id="mensaje-seguridad" role="status" aria-live="polite"></p>
+        <form id="form-cancelar">
+            {% csrf_token %}
+            <button type="submit" class="secundario">Cancelar acceso</button>
+        </form>
+    </section>
+</main>
+<script src="{% static 'Funcionalidades/seguridad_admin.js' %}" defer></script>
+</body>
+</html>

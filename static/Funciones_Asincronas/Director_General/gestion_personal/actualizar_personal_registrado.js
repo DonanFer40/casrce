@@ -1,8 +1,10 @@
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const formulario_busqueda = document.getElementById("formulario_busqueda");
     const select_nacionalidad = document.getElementById("nacionalidad");
     const input_cedula_identidad = document.getElementById("cedula_identidad");
+    const mensaje_cedula = document.getElementById("mensaje_cedula_identidad");
 
     const btn_agregar_perfil = document.getElementById("btn_agregar_perfil");
     const btn_limpiar_controles = document.getElementById("btn_limpiar_controles");
@@ -32,21 +34,231 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contenedor_perfiles = document.getElementById("contenedor_perfiles");
 
+    // =========================================================
+    // CONFIGURACIÓN DE CÉDULA
+    // =========================================================
+
     configurarCedula(select_nacionalidad, input_cedula_identidad);
 
+    // Evitar mensajes emergentes del navegador.
+    // La validación se mostrará debajo del input.
+    formulario_busqueda.noValidate = true;
+
+    // =========================================================
+    // VALIDACIÓN VISUAL DE CÉDULA
+    // =========================================================
+
+    function mostrarEstadoCedula(estado, texto) {
+
+        if (mensaje_cedula) {
+            mensaje_cedula.textContent = texto;
+            mensaje_cedula.className = estado;
+        }
+
+        input_cedula_identidad.classList.remove(
+            "is-valid",
+            "is-invalid"
+        );
+
+        if (estado === "estado-correcto") {
+            input_cedula_identidad.classList.add("is-valid");
+        }
+
+        if (estado === "estado-error") {
+            input_cedula_identidad.classList.add("is-invalid");
+        }
+    }
+
+    function validarCedulaPersonal() {
+
+        const nacionalidad = select_nacionalidad.value;
+        const cedula = input_cedula_identidad.value.trim();
+
+        input_cedula_identidad.setCustomValidity("");
+
+        // Nacionalidad no seleccionada.
+        if (!nacionalidad) {
+
+            input_cedula_identidad.setCustomValidity(
+                "Seleccione la nacionalidad."
+            );
+
+            mostrarEstadoCedula(
+                "estado-pendiente",
+                "Seleccione nacionalidad."
+            );
+
+            return false;
+        }
+
+        // Documento vacío.
+        if (!cedula) {
+
+            input_cedula_identidad.setCustomValidity(
+                "Ingrese el documento de identidad."
+            );
+
+            mostrarEstadoCedula(
+                "estado-pendiente",
+                "Ingrese su documento."
+            );
+
+            return false;
+        }
+
+        // Comprobar que solamente contenga números.
+        if (!/^\d+$/.test(cedula)) {
+
+            input_cedula_identidad.setCustomValidity(
+                "El documento debe contener solamente números."
+            );
+
+            mostrarEstadoCedula(
+                "estado-error",
+                "Solo números."
+            );
+
+            return false;
+        }
+
+        // Comprobar longitud según nacionalidad.
+        let longitudValida = false;
+
+        if (nacionalidad === "V") {
+            longitudValida =
+                cedula.length >= 7 && cedula.length <= 8;
+        }
+
+        if (nacionalidad === "E") {
+            longitudValida =
+                cedula.length >= 8 && cedula.length <= 10;
+        }
+
+        if (!longitudValida) {
+
+            input_cedula_identidad.setCustomValidity(
+                "La longitud del documento no es válida."
+            );
+
+            mostrarEstadoCedula(
+                "estado-error",
+                "Longitud no válida."
+            );
+
+            return false;
+        }
+
+        // Documento válido.
+        input_cedula_identidad.setCustomValidity("");
+
+        mostrarEstadoCedula(
+            "estado-correcto",
+            "Documento válido."
+        );
+
+        return true;
+    }
+
+    // =========================================================
+    // VALIDAR MIENTRAS SE ESCRIBE
+    // =========================================================
+
+    input_cedula_identidad.addEventListener("input", () => {
+
+        // Permitir únicamente números.
+        const valorLimpio = input_cedula_identidad.value.replace(/\D/g, "");
+
+        if (input_cedula_identidad.value !== valorLimpio) {
+            input_cedula_identidad.value = valorLimpio;
+        }
+
+        validarCedulaPersonal();
+
+    });
+
+    // Al cambiar nacionalidad, configurarCedula()
+    // limpia el documento y actualiza el mensaje pendiente.
+    select_nacionalidad.addEventListener("change", () => {
+
+        input_cedula_identidad.setCustomValidity("");
+
+        input_cedula_identidad.classList.remove(
+            "is-valid",
+            "is-invalid"
+        );
+
+        if (select_nacionalidad.value === "") {
+
+            mostrarEstadoCedula(
+                "estado-pendiente",
+                "Seleccione nacionalidad."
+            );
+
+        } else {
+
+            mostrarEstadoCedula(
+                "estado-pendiente",
+                "Ingrese su documento."
+            );
+
+        }
+
+    });
+
+    // =========================================================
+    // RESTABLECER ESTADO VISUAL DE CÉDULA
+    // =========================================================
+
+    function restablecerEstadoCedula() {
+
+        input_cedula_identidad.value = "";
+
+        input_cedula_identidad.setCustomValidity("");
+
+        input_cedula_identidad.classList.remove(
+            "is-valid",
+            "is-invalid"
+        );
+
+        if (select_nacionalidad.value === "") {
+
+            mostrarEstadoCedula(
+                "estado-pendiente",
+                "Seleccione nacionalidad."
+            );
+
+        } else {
+
+            mostrarEstadoCedula(
+                "estado-pendiente",
+                "Ingrese su documento."
+            );
+
+        }
+    }
+
+    // =========================================================
+    // OBTENER COOKIE CSRF
+    // =========================================================
+
     function getCookie(nombre) {
+
         let cookieValue = null;
 
         if (document.cookie && document.cookie !== "") {
+
             const cookies = document.cookie.split(";");
 
             for (let cookie of cookies) {
+
                 cookie = cookie.trim();
 
                 if (cookie.startsWith(nombre + "=")) {
+
                     cookieValue = decodeURIComponent(
                         cookie.substring(nombre.length + 1)
                     );
+
                     break;
                 }
             }
@@ -55,9 +267,20 @@ document.addEventListener("DOMContentLoaded", () => {
         return cookieValue;
     }
 
+    // =========================================================
+    // BUSCAR PERSONAL
+    // =========================================================
+
     formulario_busqueda.addEventListener("submit", async (e) => {
+
         e.preventDefault();
+
+        if (!validarCedulaPersonal()) {
+            return;
+        }
+
         try {
+
             const formulario = new FormData(formulario_busqueda);
 
             const respuesta = await fetch("/bus_per_asig/", {
@@ -67,12 +290,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
-            formulario_busqueda.reset();
-
             if (resultado.estado == "fallo") {
+
                 await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
@@ -80,6 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     allowOutsideClick: false,
                     allowEscapeKey: false
                 });
+
                 return;
             }
 
@@ -101,8 +326,11 @@ document.addEventListener("DOMContentLoaded", () => {
             contenedor_perfiles.innerHTML = "";
 
             if (resultado.perfiles && resultado.perfiles.length > 0) {
+
                 resultado.perfiles.forEach((perfil, index) => {
+
                     const fila = document.createElement("tr");
+
                     fila.dataset.idPerfil = perfil.id_perfil;
                     fila.dataset.rol = perfil.rol;
 
@@ -115,34 +343,50 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
 
                     contenedor_perfiles.appendChild(fila);
+
                 });
 
             } else {
+
                 const fila = document.createElement("tr");
+
                 fila.innerHTML = `
                     <td colspan="3" class="sin_perfiles">
                         No hay perfiles registrados para este usuario.
                     </td>
                 `;
+
                 contenedor_perfiles.appendChild(fila);
             }
+
         } catch (error) {
+
             console.error(error);
+
         }
     });
 
+    // =========================================================
+    // SELECCIONAR PERFIL REGISTRADO
+    // =========================================================
+
     contenedor_perfiles.addEventListener("click", async (e) => {
+
         const fila = e.target.closest("tr");
+
         if (!fila || !fila.dataset.rol) return;
 
         const rol = fila.dataset.rol;
         const idPerfil = fila.dataset.idPerfil;
 
-        console.log(rol)
+        console.log(rol);
 
         try {
+
             const formulario = new FormData();
+
             formulario.append("rol", rol);
+
             const respuesta = await fetch("/info_per_asig/", {
                 method: "POST",
                 headers: {
@@ -150,30 +394,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
+
             if (resultado.estado !== "exito") {
+
                 await NotificacionesCASRCE.mostrar({
                     icon: resultado.icon,
                     title: resultado.title,
                     text: resultado.descripcion
                 });
+
                 return;
             }
+
             input_rol_seleccionado.value = rol;
             input_perfil_seleccionado.value = idPerfil;
 
             input_estado_perfil_seleccionado.value = resultado.activo;
+
             input_habilitar_perfil.checked = false;
             input_deshabilitar_perfil.checked = false;
 
-
             if (resultado.activo === true) {
+
                 input_habilitar_perfil.checked = true;
+
             } else if (resultado.activo === false) {
+
                 input_deshabilitar_perfil.checked = true;
+
             }
+
             contenedor_pnfs.innerHTML = "";
+
             const pnfsAsignados = new Set(
                 (resultado.pnfs_asignados || []).map(
                     pnf => String(pnf.id_pnf)
@@ -181,6 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             const pnfsDisponibles = resultado.pnfs_disponibles || [];
+
             pnfsDisponibles.forEach((pnf) => {
 
                 const idPnf = String(pnf.id_pnf);
@@ -191,44 +448,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 contenedor.classList.add("pnf_opcion");
 
-                const tipoInput = rol === "Coordinador de PNF" ? "radio" : "checkbox";
-                const nombreInput = rol === "Coordinador de PNF" ? "pnf_coordinador" : "pnf";
+                const tipoInput =
+                    rol === "Coordinador de PNF" ? "radio" : "checkbox";
+
+                const nombreInput =
+                    rol === "Coordinador de PNF"
+                        ? "pnf_coordinador"
+                        : "pnf";
 
                 contenedor.innerHTML = `
-                <label>
-                    <input
-                        type="${tipoInput}"
-                        name="${nombreInput}"
-                        value="${pnf.id_pnf}"
-                        ${asignado ? "checked" : ""}
-                    >
-                    <span>${pnf.pnf}</span>
-                    <small>${pnf.codigo}</small>
-                </label>
-            `;
+                    <label>
+                        <input
+                            type="${tipoInput}"
+                            name="${nombreInput}"
+                            value="${pnf.id_pnf}"
+                            ${asignado ? "checked" : ""}
+                        >
+                        <span>${pnf.pnf}</span>
+                        <small>${pnf.codigo}</small>
+                    </label>
+                `;
+
                 contenedor_pnfs.appendChild(contenedor);
+
             });
 
             if (pnfsDisponibles.length === 0) {
+
                 contenedor_pnfs.innerHTML = `
-                <div class="sin_pnfs">
-                    No hay PNF disponibles para asignar.
-                </div>
-            `;
+                    <div class="sin_pnfs">
+                        No hay PNF disponibles para asignar.
+                    </div>
+                `;
+
             }
 
             dialogo_actualizar.showModal();
+
         } catch (error) {
+
             console.error(error);
+
         }
     });
 
+    // =========================================================
+    // ACTUALIZAR PERFIL
+    // =========================================================
+
     formulario_actualizar.addEventListener("submit", async (e) => {
+
         e.preventDefault();
+
         const perfilActivo = input_habilitar_perfil.checked;
-        input_estado_perfil_seleccionado.value = perfilActivo ? "true" : "false";
+
+        input_estado_perfil_seleccionado.value =
+            perfilActivo ? "true" : "false";
 
         try {
+
             const formulario = new FormData(formulario_actualizar);
 
             console.log("ROL:", formulario.get("rol"));
@@ -242,9 +520,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
+
             dialogo_actualizar.close();
+
             await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 text: resultado.descripcion,
@@ -252,35 +534,53 @@ document.addEventListener("DOMContentLoaded", () => {
                 allowOutsideClick: false,
                 allowEscapeKey: false
             });
+
             if (resultado.estado === "exito") {
+
                 await perfiles_registrados();
+
             }
+
         } catch (error) {
+
             console.error(error);
+
         }
     });
 
     cerrar_dialogo_actualizar.addEventListener("click", () => {
+
         dialogo_actualizar.close();
+
     });
 
+    // =========================================================
+    // AGREGAR NUEVO PERFIL
+    // =========================================================
+
     btn_agregar_perfil.addEventListener("click", async () => {
+
         try {
+
             const respuesta = await fetch("/per_dis_asi/");
+
             const resultado = await respuesta.json();
 
             if (resultado.estado !== "exito") {
+
                 NotificacionesCASRCE.mostrar({
                     icon: resultado.icon,
                     title: resultado.title,
                     text: resultado.descripcion
                 });
+
                 return;
             }
 
             contenedor_nuevo_perfiles.innerHTML = "";
 
             if (!resultado.perfiles?.length) {
+
                 contenedor_nuevo_perfiles.innerHTML = `
                     <p class="mensaje_sin_perfiles">
                         No existen perfiles disponibles para asignar
@@ -289,11 +589,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
                 dialogo_registrar.showModal();
+
                 return;
             }
 
             resultado.perfiles.forEach((perfil) => {
+
                 const contenedor = document.createElement("div");
+
                 contenedor.className = "perfil_disponible";
 
                 const clavePerfil = {
@@ -317,26 +620,40 @@ document.addEventListener("DOMContentLoaded", () => {
                     </label>
                 `;
 
-                /* PNF DEL PERFIL */
+                // PNF DEL PERFIL
                 if (perfil.pnfs?.length) {
+
                     const contenedorPnfs = document.createElement("div");
+
                     contenedorPnfs.className = "contenedor_pnfs_disponibles";
+
                     contenedorPnfs.hidden = true;
 
                     contenedorPnfs.innerHTML = `
                         <p class="titulo_pnf">
                             PNF disponibles en ${resultado.nucleo.municipio}
                         </p>
+
                         <div class="lista_checkbox_pnf"></div>
                     `;
 
-                    const listaPnfs = contenedorPnfs.querySelector(".lista_checkbox_pnf");
+                    const listaPnfs = contenedorPnfs.querySelector(
+                        ".lista_checkbox_pnf"
+                    );
 
                     perfil.pnfs.forEach((pnf) => {
+
                         const etiqueta = document.createElement("label");
+
                         etiqueta.className = "checkbox_pnf";
+
                         etiqueta.innerHTML = `
-                            <input type="checkbox" name="pnfs_${clavePerfil}" value="${pnf.id_pnf}">
+                            <input
+                                type="checkbox"
+                                name="pnfs_${clavePerfil}"
+                                value="${pnf.id_pnf}"
+                            >
+
                             <span>
                                 ${pnf.id_pnf__pnf}
                                 <small>
@@ -344,55 +661,80 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </small>
                             </span>
                         `;
+
                         listaPnfs.appendChild(etiqueta);
+
                     });
 
                     contenedor.appendChild(contenedorPnfs);
 
-                    /* MOSTRAR / OCULTAR PNF */
-                    const checkboxPerfil = contenedor.querySelector(`#${idPerfil}`);
+                    // MOSTRAR / OCULTAR PNF
+                    const checkboxPerfil = contenedor.querySelector(
+                        `#${idPerfil}`
+                    );
 
                     checkboxPerfil.addEventListener("change", () => {
+
                         if (checkboxPerfil.checked) {
+
                             contenedorPnfs.hidden = false;
+
                         } else {
+
                             contenedorPnfs.hidden = true;
 
                             contenedorPnfs.querySelectorAll(
                                 'input[type="checkbox"]'
-                            )
-                                .forEach((checkbox) => {
-                                    checkbox.checked = false;
-                                });
+                            ).forEach((checkbox) => {
+
+                                checkbox.checked = false;
+
+                            });
+
                         }
+
                     });
                 }
 
                 contenedor_nuevo_perfiles.appendChild(contenedor);
+
             });
 
             dialogo_registrar.showModal();
+
         } catch (error) {
+
             console.error(error);
+
         }
     });
 
     cerrar_dialogo_registrar.addEventListener("click", () => {
+
         dialogo_registrar.close();
+
     });
 
+    // =========================================================
+    // REGISTRAR NUEVOS PERFILES
+    // =========================================================
+
     formulario_registrar.addEventListener("submit", async (e) => {
+
         e.preventDefault();
 
         try {
+
             const formulario = new FormData(formulario_registrar);
 
             if (!formulario.getAll("perfiles").length) {
+
                 NotificacionesCASRCE.mostrar({
                     icon: "warning",
                     title: "Perfil no seleccionado",
                     text: "Debe seleccionar al menos un perfil."
                 });
+
                 return;
             }
 
@@ -403,7 +745,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
 
             dialogo_registrar.close();
@@ -417,40 +761,74 @@ document.addEventListener("DOMContentLoaded", () => {
                 allowOutsideClick: false,
                 allowEscapeKey: false
             });
+
         } catch (error) {
+
             console.error(error);
+
         }
     });
 
+    // =========================================================
+    // LIMPIAR CONTROLES
+    // =========================================================
+
     async function limpiar_controles() {
+
         try {
+
             const respuesta = await fetch("/eli_var_sec/");
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
+
             input_nombres_usuario.value = "";
             input_apellidos_usuario.value = "";
-            input_cedula_identidad.value = "";
+            input_ci_usuario_visualizar.value = "";
+
+            // Limpiar documento y restablecer su estado visual.
+            restablecerEstadoCedula();
+
             contenedor_perfiles.innerHTML = "";
+
             btn_agregar_perfil.disabled = true;
+
         } catch (error) {
+
             console.error(error);
+
         }
     }
 
     btn_limpiar_controles.addEventListener("click", async () => {
+
         await limpiar_controles();
+
     });
 
     window.addEventListener("load", async () => {
+
         await limpiar_controles();
+
     });
 
+    // =========================================================
+    // CONSULTAR PERFILES REGISTRADOS
+    // =========================================================
+
     async function perfiles_registrados() {
+
         try {
+
             const respuesta = await fetch("/per_reg/");
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
+
             if (resultado.estado === "fallo") {
+
                 await NotificacionesCASRCE.mostrar({
                     title: resultado.title,
                     text: resultado.descripcion,
@@ -458,52 +836,76 @@ document.addEventListener("DOMContentLoaded", () => {
                     allowOutsideClick: false,
                     allowEscapeKey: false
                 });
+
                 return;
             }
+
             contenedor_perfiles.innerHTML = "";
+
             if (!resultado.perfiles || resultado.perfiles.length === 0) {
+
                 const fila = document.createElement("tr");
+
                 fila.innerHTML = `
-                <td colspan="5" class="sin_perfiles">
-                    No hay perfiles registrados.
-                </td>
-            `;
+                    <td colspan="5" class="sin_perfiles">
+                        No hay perfiles registrados.
+                    </td>
+                `;
+
                 contenedor_perfiles.appendChild(fila);
+
                 return;
             }
+
             resultado.perfiles.forEach((perfil, index) => {
+
                 const fila = document.createElement("tr");
+
                 fila.dataset.idPerfil = perfil.id_perfil;
                 fila.dataset.rol = perfil.rol;
+
                 console.log(fila.dataset.idPerfil);
+
                 fila.innerHTML = `
-                <td>
-                    ${index + 1}
-                </td>
-                <td>
-                    ${perfil.rol}
-                </td>
-                <td>
-                    ${perfil.pnf
-                        ? perfil.pnf.nombre
-                        : "NO CUENTA CON P.N.F"
-                    }
-                </td>
-                <td>
-                    ${perfil.nucleo
-                        ? perfil.nucleo.municipio
-                        : "NO CUENTA CON NÚCLEO"
-                    }
-                </td>
-                <td>
-                    ${perfil.estado}
-                </td>
-            `;
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${perfil.rol}
+                    </td>
+
+                    <td>
+                        ${perfil.pnf
+                            ? perfil.pnf.nombre
+                            : "NO CUENTA CON P.N.F"
+                        }
+                    </td>
+
+                    <td>
+                        ${perfil.nucleo
+                            ? perfil.nucleo.municipio
+                            : "NO CUENTA CON NÚCLEO"
+                        }
+                    </td>
+
+                    <td>
+                        ${perfil.estado}
+                    </td>
+                `;
+
                 contenedor_perfiles.appendChild(fila);
+
             });
+
         } catch (error) {
+
             console.error(error);
+
         }
     }
+
+    // Cargar perfiles al iniciar.
     perfiles_registrados();
+
 });

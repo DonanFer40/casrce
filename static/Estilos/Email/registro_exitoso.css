@@ -1,0 +1,257 @@
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+#registro_exitoso_email {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: var(--texto-principal);
+    font-family: 'Poppins', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+#registro_exitoso_email *,
+#registro_exitoso_email *::before,
+#registro_exitoso_email *::after {
+    box-sizing: border-box;
+}
+
+#registro_exitoso_email .contenedor_registro_exitoso {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+/* =========================================================
+   CABECERA DEL MENSAJE
+   ========================================================= */
+
+#registro_exitoso_email .registro_exitoso-cabecera {
+    margin: 0 0 24px;
+    padding: 0 0 16px;
+    border-bottom: 2px solid var(--color-borde-fino);
+}
+
+#registro_exitoso_email .registro_exitoso-cabecera h2 {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
+
+
+/* =========================================================
+   ETIQUETA INSTITUCIONAL
+   ========================================================= */
+
+#registro_exitoso_email .registro_exitoso-etiqueta {
+    display: block;
+    margin: 0 0 12px;
+    color: var(--texto-secundario);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INTRODUCCIÓN DEL MENSAJE
+   ========================================================= */
+
+#registro_exitoso_email .registro_exitoso-contenido {
+    margin: 0;
+    padding: 0;
+}
+
+#registro_exitoso_email .registro_exitoso-contenido p {
+    margin: 0 0 14px;
+    color: var(--texto-secundario);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    text-align: left;
+}
+
+#registro_exitoso_email .registro_exitoso-contenido p:last-child {
+    margin-bottom: 0;
+}
+
+#registro_exitoso_email .registro_exitoso-contenido p strong {
+    color: var(--color-azul-profundo);
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTENEDOR DE LOS DATOS DEL REGISTRO
+   ========================================================= */
+
+#registro_exitoso_email .registro_exitoso-datos {
+    width: 100%;
+    margin: 0 0 22px;
+    padding: 24px 16px;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    background-color: var(--color-fondo-pagina);
+    text-align: center;
+}
+
+
+/* =========================================================
+   ETIQUETA DEL NOMBRE DE USUARIO
+   ========================================================= */
+
+#registro_exitoso_email .registro_exitoso-etiqueta-datos {
+    display: block;
+    margin: 0 0 14px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+/* =========================================================
+   NOMBRE DE USUARIO
+   ========================================================= */
+
+#registro_exitoso_email .registro_exitoso-datos strong {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0;
+    padding: 14px 20px;
+    border: 1px dashed var(--color-azul-hover);
+    border-radius: 8px;
+    background-color: var(--color-blanco);
+    color: var(--color-azul-profundo);
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-align: center;
+}
+
+
+/* =========================================================
+   DESPEDIDA DEL MENSAJE
+   ========================================================= */
+
+#registro_exitoso_email .registro_exitoso-contenido p.registro_exitoso-despedida {
+    margin: 22px 0 0;
+    padding: 14px 16px;
+    border-left: 4px solid var(--color-azul-hover);
+    border-radius: 0 8px 8px 0;
+    background-color: var(--color-fondo-pagina);
+    color: var(--texto-secundario);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+}
+
+#registro_exitoso_email .registro_exitoso-despedida strong {
+    color: var(--color-azul-profundo);
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ADAPTACIÓN PARA DISPOSITIVOS MÓVILES
+   ========================================================= */
+
+@media screen and (max-width: 600px) {
+
+    #registro_exitoso_email .contenedor_registro_exitoso {
+        max-width: 100%;
+    }
+
+    #registro_exitoso_email .registro_exitoso-cabecera {
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-cabecera h2 {
+        font-size: 21px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-etiqueta {
+        font-size: 11px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-contenido p {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    #registro_exitoso_email .registro_exitoso-datos {
+        margin-bottom: 20px;
+        padding: 20px 12px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-etiqueta-datos {
+        font-size: 13px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-datos strong {
+        padding: 12px 14px;
+        font-size: 18px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-contenido p.registro_exitoso-despedida {
+        margin-top: 20px;
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   ADAPTACIÓN PARA PANTALLAS MUY PEQUEÑAS
+   ========================================================= */
+
+@media screen and (max-width: 360px) {
+
+    #registro_exitoso_email .registro_exitoso-cabecera h2 {
+        font-size: 19px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-etiqueta {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-contenido p {
+        font-size: 13px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-datos {
+        padding: 16px 10px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-etiqueta-datos {
+        font-size: 12px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-datos strong {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    #registro_exitoso_email .registro_exitoso-contenido p.registro_exitoso-despedida {
+        padding: 12px;
+        font-size: 12px;
+    }
+}

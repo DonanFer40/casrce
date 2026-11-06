@@ -1,0 +1,209 @@
+
+{% extends 'Email/Base.html' %}
+{% load static %}
+
+{% block titulo_email %}
+    Planilla de inscripción | CASRCE
+{% endblock %}
+
+
+{% block estilos_email %}
+    <link rel="stylesheet"
+          href="{% static 'Estilos/Email/planilla_inscripcion.css' %}">
+{% endblock %}
+
+
+{% block logo_institucional %}
+
+    <span class="planilla-email-marca">
+        CASRCE
+    </span>
+
+{% endblock %}
+
+
+{% block contenido_email %}
+
+    <!-- =====================================================
+         CONFIRMACIÓN DE INSCRIPCIÓN
+         ===================================================== -->
+
+    <section class="planilla-email-contenido">
+
+        <span class="planilla-email-indicador">
+            CONFIRMACIÓN DE REGISTRO
+        </span>
+
+        <h2 class="planilla-email-titulo">
+            ¡Tu inscripción ha sido recibida!
+        </h2>
+
+        <p class="planilla-email-saludo">
+            Estimado(a)
+            <strong>{{ nombre_estudiante }}</strong>:
+        </p>
+
+        <p class="planilla-email-descripcion">
+            Te informamos que tu proceso de registro en el
+            Sistema de Gestión Académica CASRCE ha sido
+            recibido correctamente.
+        </p>
+
+        <p class="planilla-email-descripcion">
+            Como constancia de recepción, hemos generado
+            tu planilla de inscripción institucional,
+            la cual encontrarás adjunta a este correo
+            electrónico en formato PDF.
+        </p>
+
+
+        <!-- =============================================
+             INFORMACIÓN DEL DOCUMENTO
+             ============================================= -->
+
+        <table class="planilla-email-documento"
+               role="presentation"
+               width="100%"
+               cellspacing="0"
+               cellpadding="0">
+
+            <tr>
+                <td class="planilla-email-documento-cabecera">
+
+                    <span class="planilla-email-documento-indicador">
+                        DOCUMENTACIÓN INSTITUCIONAL
+                    </span>
+
+                    <h3>
+                        Información del documento
+                    </h3>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="planilla-email-documento-datos">
+
+                    <table role="presentation"
+                           width="100%"
+                           cellspacing="0"
+                           cellpadding="0">
+
+                        <tr>
+                            <td class="planilla-email-etiqueta">
+                                Estudiante
+                            </td>
+
+                            <td class="planilla-email-valor">
+                                {{ nombre_estudiante }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="planilla-email-etiqueta">
+                                Código de documento
+                            </td>
+
+                            <td class="planilla-email-valor">
+                                {{ codigo_documento }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="planilla-email-etiqueta">
+                                Documento
+                            </td>
+
+                            <td class="planilla-email-valor">
+                                {{ titulo_documento }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="planilla-email-etiqueta">
+                                Fecha de emisión
+                            </td>
+
+                            <td class="planilla-email-valor">
+                                {{ fecha_emision|date:"d/m/Y H:i" }}
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+        </table>
+
+
+        <!-- =============================================
+             ESTADO DE LA INSCRIPCIÓN
+             ============================================= -->
+
+        <table class="planilla-email-aviso"
+               role="presentation"
+               width="100%"
+               cellspacing="0"
+               cellpadding="0">
+
+            <tr>
+
+                <td class="planilla-email-aviso-acento"></td>
+
+                <td class="planilla-email-aviso-contenido">
+
+                    <h3>
+                        Revisión administrativa
+                    </h3>
+
+                    <p>
+                        La recepción de esta planilla no representa
+                        la aprobación definitiva de tu inscripción.
+                        Tu expediente deberá pasar por el proceso
+                        de revisión y validación correspondiente
+                        por parte de la institución.
+                    </p>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <!-- =============================================
+             RECOMENDACIÓN
+             ============================================= -->
+
+        <p class="planilla-email-recomendacion">
+            Te recomendamos conservar este correo electrónico
+            y el archivo PDF adjunto como respaldo de tu
+            proceso de inscripción.
+        </p>
+
+
+        <!-- =============================================
+             DESPEDIDA
+             ============================================= -->
+
+        <div class="planilla-email-firma">
+
+            <p>
+                Atentamente,
+            </p>
+
+            <strong>
+                Coordinación de Control de Estudio
+            </strong>
+
+            <span>
+                Universidad Politécnica Territorial del Estado
+                Barinas José Félix Ribas
+            </span>
+
+        </div>
+
+    </section>
+
+{% endblock %}

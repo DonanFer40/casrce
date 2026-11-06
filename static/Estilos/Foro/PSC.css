@@ -1,474 +1,1147 @@
-/* =========================================================
-   PROYECTO SOCIO-COMUNITARIO - CARSCE
-========================================================= */
-
-#ProyectoSocioComunitario{
-    width:100%;
-    min-height:100vh;
-
-    padding:150px 0 75px;
-
-    background:var(--color-fondo-pagina);
-    color:var(--texto-principal);
-
-    box-sizing:border-box;
-}
-
-#ProyectoSocioComunitario *{
-    box-sizing:border-box;
-}
 
 /* =========================================================
-   CONTENEDOR PRINCIPAL
-========================================================= */
+   1. CONTENEDOR GENERAL
+   ========================================================= */
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-contenedor{
-    width:min(1080px,90%);
-    margin:0 auto;
-
-    display:flex;
-    flex-direction:column;
-    gap:42px;
+#ProyectoSocioComunitario {
+    width: 100%;
+    min-width: 0;
+    padding: 34px 24px 42px;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
 }
 
-/* =========================================================
-   PRESENTACIÓN
-========================================================= */
-
-#ProyectoSocioComunitario .ProyectoSocioComunitario-presentacion{
-    display:grid;
-    grid-template-columns:390px minmax(0,1fr);
-
-    gap:42px;
-    align-items:center;
-
-    padding-bottom:38px;
-
-    border-bottom:1px solid var(--color-borde-fino);
+#ProyectoSocioComunitario,
+#ProyectoSocioComunitario * {
+    box-sizing: border-box;
 }
 
+#ProyectoSocioComunitario img {
+    display: block;
+    max-width: 100%;
+}
+
+#ProyectoSocioComunitario p,
+#ProyectoSocioComunitario h1,
+#ProyectoSocioComunitario h2,
+#ProyectoSocioComunitario h3,
+#ProyectoSocioComunitario h4 {
+    overflow-wrap: break-word;
+}
+
+
 /* =========================================================
-   IMAGEN
-========================================================= */
+   2. CABECERA INSTITUCIONAL
+   ========================================================= */
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-imagen-contenedor{
-    width:100%;
-    height:290px;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-encabezado {
+    position: relative;
+    width: min(1180px, 100%);
+    margin: 0 auto 26px;
+    padding: 38px 42px 35px;
+    overflow: hidden;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 15px;
+    box-shadow: var(--sombra-elevada);
 
-    padding:8px;
+    text-align: left;
+}
 
-    border:1px solid var(--color-borde-fino);
-    border-radius:10px;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-encabezado::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: var(--color-rojo-acento);
+    content: "";
+}
 
-    background:var(--color-blanco);
+#ProyectoSocioComunitario .ProyectoSocioComunitario-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 19px;
 
-    box-shadow:var(--sombra-card);
+    color: var(--texto-secundario);
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    text-align: left;
+}
 
-    overflow:hidden;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-etiqueta::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    background-color: #EFF6FF;
+    background-image: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    border: 1px solid #DBEAFE;
+    border-radius: 9px;
+
+    content: "\f19d";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: var(--color-azul-hover);
+}
+
+
+/* Título principal */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-titulo-principal {
+    margin: 0;
+
+    color: var(--color-azul-profundo);
+    font-size: clamp(2rem, 4vw, 2.85rem);
+    font-weight: 700;
+    letter-spacing: -1.1px;
+    line-height: 1.2;
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-titulo-principal span {
+    color: var(--color-azul-hover);
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-subtitulo {
+    max-width: 720px;
+    margin: 16px 0 23px;
+
+    color: var(--texto-secundario);
+    font-size: 0.96rem;
+    line-height: 1.85;
+    text-align: left;
+}
+
+
+/* Indicador institucional */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-indicador {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 9px;
+
+    color: var(--texto-secundario);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.75px;
+    line-height: 1.7;
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-indicador > span:first-child {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+
+    background: var(--color-rojo-acento);
+    border-radius: 50%;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-separador {
+    color: var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   3. CONTENEDOR Y ESTRUCTURA GENERAL
+   ========================================================= */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-presentacion,
+#ProyectoSocioComunitario .ProyectoSocioComunitario-evaluacion {
+    min-width: 0;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   4. PRESENTACIÓN DEL SERVICIO COMUNITARIO
+   ========================================================= */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-presentacion {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: stretch;
+    gap: 0;
+    overflow: hidden;
+}
+
+
+/* Imagen principal */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-imagen-contenedor {
+    position: relative;
+    align-self: stretch;
+    min-width: 0;
+    min-height: 100%;
+    overflow: hidden;
+    background: #F1F5F9;
+    isolation: isolate;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-imagen {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.35s ease;
+}
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-imagen-contenedor:hover
+.ProyectoSocioComunitario-imagen {
+    transform: scale(1.025);
+}
+
+
+/* Identificación de la imagen */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-imagen-acento {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 21px 24px;
+
+    color: var(--color-blanco);
+    background: linear-gradient(
+        0deg,
+        rgba(15, 23, 42, 0.94),
+        rgba(15, 23, 42, 0.65) 70%,
+        transparent
+    );
+
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    line-height: 1.6;
+}
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-imagen-acento span:first-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+
+    color: var(--texto-claro);
+    background: var(--color-rojo-acento);
+    border-radius: 8px;
+
+    font-size: 0.8rem;
+    letter-spacing: 0;
+}
+
+
+/* Contenido textual */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-informacion {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    min-width: 0;
+    padding: 35px;
+
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-linea {
+    display: inline-block;
+    margin-bottom: 10px;
+
+    color: var(--color-azul-hover);
+    font-size: 0.71rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-linea > span {
+    padding: 0 3px;
+    color: var(--color-rojo-acento);
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-titulo {
+    width: 100%;
+    margin: 0;
+
+    color: var(--color-azul-profundo);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.4;
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-texto {
+    width: 100%;
+    margin: 16px 0 0;
+
+    color: var(--texto-secundario);
+    font-size: 0.89rem;
+    line-height: 1.9;
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-texto strong {
+    color: var(--color-azul-profundo);
+    font-weight: 700;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-texto-secundario {
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   5. DATOS DESTACADOS: 50 % Y 120 HORAS
+   ========================================================= */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-dato-destacado {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 19px;
+
+    width: 100%;
+    margin-top: 23px;
+    padding: 20px;
+
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-dato {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7px;
+
+    min-width: 0;
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-dato-valor {
+    color: var(--color-azul-profundo);
+    font-size: clamp(1.7rem, 3vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1.2;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-dato-texto {
+    color: var(--texto-secundario);
+    font-size: 0.77rem;
+    line-height: 1.7;
+    text-align: left;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-dato-divisor {
+    display: block;
+    width: 1px;
+    min-height: 52px;
+    align-self: stretch;
+    background: var(--color-borde-fino);
+}
+
+
+/* =========================================================
+   6. MENSAJE DE COMPROMISO SOCIAL
+   ========================================================= */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-mensaje {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+
+    width: 100%;
+    margin-top: 23px;
+    padding: 15px 16px;
+
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-mensaje-marca {
+    width: 3px;
+    min-width: 3px;
+    align-self: stretch;
+
+    background: var(--color-rojo-acento);
+    border-radius: 5px;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-mensaje p {
+    margin: 0;
+
+    color: var(--color-azul-profundo);
+    font-size: 0.83rem;
+    font-weight: 600;
+    line-height: 1.8;
+    text-align: left;
+}
+
+
+/* =========================================================
+   7. SECCIÓN DE REQUISITOS
+   ========================================================= */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-evaluacion {
+    padding: 32px;
+}
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-seccion-encabezado {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+
+    margin-bottom: 25px;
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-seccion-encabezado > div {
+    min-width: 0;
+    width: 100%;
+}
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-seccion-encabezado
+.ProyectoSocioComunitario-linea {
+    margin-bottom: 10px;
+}
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-seccion-encabezado
+.ProyectoSocioComunitario-titulo {
+    max-width: 760px;
+}
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-seccion-descripcion {
+    max-width: 720px;
+    margin: 12px 0 0;
+
+    color: var(--texto-secundario);
+    font-size: 0.84rem;
+    line-height: 1.8;
+    text-align: left;
+}
+
+
+/* =========================================================
+   8. ACORDEÓN DE DOCUMENTOS
+   ========================================================= */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-detalles {
+    width: 100%;
+    overflow: hidden;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
 
     transition:
-        transform .25s ease,
-        box-shadow .25s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-imagen-contenedor:hover{
-    transform:translateY(-3px);
-    box-shadow:var(--sombra-elevada);
+#ProyectoSocioComunitario .ProyectoSocioComunitario-detalles:hover {
+    border-color: #CBD5E1;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-imagen{
-    width:100%;
-    height:100%;
-
-    display:block;
-
-    object-fit:cover;
-
-    border-radius:6px;
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-detalles[open] {
+    border-color: #CBD5E1;
+    box-shadow: var(--sombra-card);
 }
 
-/* =========================================================
-   INFORMACIÓN
-========================================================= */
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-informacion{
-    min-width:0;
+/* Cabecera del acordeón */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    min-width: 0;
+    padding: 24px 28px;
+
+    cursor: pointer;
+    list-style: none;
+
+    transition: background 0.2s ease;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-titulo{
-    position:relative;
-
-    margin:0 0 23px;
-    padding-left:18px;
-
-    color:var(--color-azul-profundo);
-
-    font-size:32px;
-    font-weight:600;
-    line-height:1.2;
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-resumen::-webkit-details-marker {
+    display: none;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-titulo::before{
-    content:"";
-
-    position:absolute;
-    top:2px;
-    bottom:2px;
-    left:0;
-
-    width:4px;
-
-    background:var(--color-rojo-acento);
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-resumen::marker {
+    content: "";
 }
 
-/* =========================================================
-   TEXTO
-========================================================= */
-
-#ProyectoSocioComunitario .ProyectoSocioComunitario-texto{
-    margin:0;
-
-    color:var(--texto-secundario);
-
-    font-size:15.5px;
-    line-height:1.9;
-
-    text-align:justify;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen:hover {
+    background: #F8FAFC;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-texto strong{
-    color:var(--color-azul-profundo);
-    font-weight:650;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen:focus-visible {
+    outline: 3px solid var(--color-azul-hover);
+    outline-offset: -4px;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-texto-secundario{
-    margin-top:25px;
-}
 
-/* =========================================================
-   REQUISITOS
-========================================================= */
+/* Icono Font Awesome de documentos */
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-evaluacion{
-    width:100%;
-}
+#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-detalles{
-    width:100%;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
 
-    border:1px solid var(--color-borde-fino);
-    border-radius:10px;
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 10px;
 
-    background:var(--color-blanco);
-
-    box-shadow:var(--sombra-card);
-
-    overflow:hidden;
+    font-size: 1.35rem;
+    line-height: 1;
 
     transition:
-        box-shadow .25s ease,
-        border-color .25s ease;
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-detalles[open]{
-    border-color:#CBD5E1;
-    box-shadow:var(--sombra-elevada);
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-resumen-icono i {
+    display: inline-block;
+    line-height: 1;
 }
 
-/* =========================================================
-   CABECERA DEL DESPLEGABLE
-========================================================= */
-
-#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen{
-    min-height:72px;
-
-    display:flex;
-    align-items:center;
-
-    gap:16px;
-
-    padding:16px 22px;
-
-    cursor:pointer;
-
-    list-style:none;
-
-    color:var(--color-azul-profundo);
-
-    font-size:16px;
-    font-weight:650;
-
-    transition:background .2s ease;
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-detalles[open]
+.ProyectoSocioComunitario-resumen-icono {
+    color: var(--texto-claro);
+    background: var(--color-azul-profundo);
+    border-color: var(--color-azul-profundo);
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen::-webkit-details-marker{
-    display:none;
+
+/* Texto del acordeón */
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-texto {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    min-width: 0;
+    text-align: left;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen:hover{
-    background:#F8FAFC;
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-resumen-texto strong {
+    color: var(--color-azul-profundo);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: left;
 }
 
-/* =========================================================
-   ICONO
-========================================================= */
-
-#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-icono{
-    width:40px;
-    height:40px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    flex-shrink:0;
-
-    border-radius:8px;
-
-    background:var(--color-rojo-soft);
-    color:var(--color-rojo-acento);
-
-    font-size:15px;
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-resumen-texto small {
+    color: var(--texto-secundario);
+    font-size: 0.79rem;
+    line-height: 1.7;
+    text-align: left;
 }
 
-/* =========================================================
-   TEXTO DEL SUMMARY
-========================================================= */
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-texto{
-    flex:1;
-}
+/* Flecha Font Awesome */
 
-/* =========================================================
-   FLECHA
-========================================================= */
+#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-flecha {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-flecha{
-    width:30px;
-    height:30px;
+    width: 35px;
+    height: 35px;
+    flex: 0 0 35px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    color: var(--texto-secundario);
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
 
-    flex-shrink:0;
-
-    color:var(--texto-mutado);
-
-    font-size:12px;
+    font-size: 0.9rem;
+    line-height: 1;
 
     transition:
-        transform .25s ease,
-        color .25s ease;
+        transform 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-detalles[open]
-.ProyectoSocioComunitario-resumen-flecha{
-    transform:rotate(180deg);
-    color:var(--color-azul-hover);
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-resumen-flecha i {
+    display: inline-block;
+    line-height: 1;
 }
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-detalles[open]
+.ProyectoSocioComunitario-resumen-flecha {
+    color: var(--color-azul-hover);
+    background: #EFF6FF;
+    transform: rotate(180deg);
+}
+
+
+/* Contenido desplegable */
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-detalles-contenido {
+    padding: 0 28px 28px;
+    border-top: 1px solid var(--color-borde-fino);
+    animation: PSC-apertura 0.2s ease-out;
+}
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-lista-introduccion {
+    margin: 22px 0 18px;
+
+    color: var(--texto-secundario);
+    font-size: 0.86rem;
+    line-height: 1.8;
+    text-align: left;
+}
+
 
 /* =========================================================
-   CONTENIDO DE REQUISITOS
-========================================================= */
+   9. LISTA DE DOCUMENTOS
+   ========================================================= */
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-detalles-contenido{
-    padding:0 28px 25px 78px;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-lista {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
 
-    border-top:1px solid var(--color-borde-fino);
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-lista{
-    margin:20px 0 0;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-lista li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-    padding-left:19px;
+    min-width: 0;
+    min-height: 68px;
+    padding: 13px 14px;
+
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-lista li{
-    margin:9px 0;
-
-    color:var(--texto-secundario);
-
-    font-size:14.5px;
-    line-height:1.6;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-lista li:hover {
+    background: #FFFFFF;
+    border-color: #CBD5E1;
+    transform: translateY(-2px);
 }
 
-#ProyectoSocioComunitario .ProyectoSocioComunitario-lista li::marker{
-    color:var(--color-azul-hover);
+#ProyectoSocioComunitario .ProyectoSocioComunitario-lista-numero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    color: var(--color-azul-hover);
+    background: #FFFFFF;
+    border: 1px solid #DBEAFE;
+    border-radius: 8px;
+
+    font-size: 0.7rem;
+    font-weight: 700;
 }
+
+#ProyectoSocioComunitario
+.ProyectoSocioComunitario-lista li > span:last-child {
+    min-width: 0;
+
+    color: var(--texto-secundario);
+    font-size: 0.81rem;
+    line-height: 1.7;
+    text-align: left;
+}
+
 
 /* =========================================================
-   ANIMACIÓN
-========================================================= */
+   10. CIERRE INSTITUCIONAL
+   ========================================================= */
 
-#ProyectoSocioComunitario.reveal{
-    animation:ProyectoSocioComunitarioEntrada .55s ease both;
+#ProyectoSocioComunitario .ProyectoSocioComunitario-pie {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 17px;
+
+    padding: 18px 20px;
+
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 10px;
 }
 
-@keyframes ProyectoSocioComunitarioEntrada{
+#ProyectoSocioComunitario .ProyectoSocioComunitario-pie > span {
+    width: 34px;
+    height: 1px;
+    flex: 0 0 34px;
 
-    from{
-        opacity:0;
-        transform:translateY(12px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
+    background: var(--color-rojo-acento);
 }
+
+#ProyectoSocioComunitario .ProyectoSocioComunitario-pie p {
+    margin: 0;
+
+    color: var(--texto-secundario);
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    line-height: 1.7;
+    text-align: left;
+}
+
 
 /* =========================================================
-   TABLET
-========================================================= */
+   11. ANIMACIÓN DEL ACORDEÓN
+   ========================================================= */
 
-@media (max-width:900px){
-
-    #ProyectoSocioComunitario{
-        padding:125px 0 65px;
+@keyframes PSC-apertura {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-contenedor{
-        width:90%;
-        gap:38px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-presentacion{
-        grid-template-columns:1fr;
-
-        gap:30px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-imagen-contenedor{
-        height:310px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-titulo{
-        font-size:29px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-detalles-contenido{
-        padding-left:70px;
-    }
-
 }
 
+
 /* =========================================================
-   MÓVIL
-========================================================= */
+   12. RESPONSIVE — PORTÁTILES
+   ========================================================= */
 
-@media (max-width:600px){
+@media (max-width: 1050px) {
 
-    #ProyectoSocioComunitario{
-        padding:105px 0 55px;
+    #ProyectoSocioComunitario {
+        padding: 28px 20px 35px;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-contenedor{
-        width:90%;
-        gap:34px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-informacion {
+        padding: 28px;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-presentacion{
-        gap:24px;
-        padding-bottom:30px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-dato-destacado {
+        gap: 14px;
+        padding: 17px;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-imagen-contenedor{
-        height:230px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-evaluacion {
+        padding: 27px;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-titulo{
-        margin-bottom:19px;
-        padding-left:14px;
-
-        font-size:25px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-lista {
+        gap: 9px;
     }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-titulo::before{
-        width:3px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-texto{
-        font-size:14px;
-        line-height:1.85;
-
-        text-align:left;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-texto-secundario{
-        margin-top:20px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-resumen{
-        min-height:65px;
-
-        gap:12px;
-
-        padding:14px 16px;
-
-        font-size:14.5px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-icono{
-        width:36px;
-        height:36px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-detalles-contenido{
-        padding:0 20px 22px 52px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-lista{
-        padding-left:17px;
-    }
-
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-lista li{
-        font-size:14px;
-    }
-
 }
 
+
 /* =========================================================
-   MÓVILES PEQUEÑOS
-========================================================= */
+   13. RESPONSIVE — TABLETAS
+   ========================================================= */
 
-@media (max-width:400px){
+@media (max-width: 820px) {
 
-    #ProyectoSocioComunitario{
-        padding-bottom:45px;
+    #ProyectoSocioComunitario {
+        padding: 22px 16px 30px;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-imagen-contenedor{
-        height:200px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-encabezado {
+        padding: 31px 29px;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-titulo{
-        font-size:23px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-presentacion {
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-texto{
-        font-size:13.5px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-imagen-contenedor {
+        min-height: 0;
+        aspect-ratio: 16 / 9;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-resumen{
-        padding:13px 14px;
-
-        font-size:14px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-imagen {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-resumen-icono{
-        width:34px;
-        height:34px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-informacion {
+        padding: 29px;
     }
 
-    #ProyectoSocioComunitario .ProyectoSocioComunitario-detalles-contenido{
-        padding-left:48px;
-        padding-right:17px;
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-evaluacion {
+        padding: 27px;
     }
 
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-seccion-encabezado {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-seccion-descripcion {
+        max-width: 600px;
+    }
+}
+
+
+/* =========================================================
+   14. RESPONSIVE — MÓVILES
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    #ProyectoSocioComunitario {
+        padding: 16px 12px 24px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-contenedor {
+        gap: 17px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-encabezado {
+        margin-bottom: 18px;
+        padding: 25px 21px 24px;
+        border-radius: 11px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-etiqueta {
+        gap: 8px;
+        margin-bottom: 16px;
+        font-size: 0.63rem;
+        letter-spacing: 0.55px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-etiqueta::before {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+        font-size: 0.85rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-titulo-principal {
+        font-size: clamp(1.75rem, 8vw, 2.25rem);
+        letter-spacing: -0.8px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-subtitulo {
+        margin: 13px 0 18px;
+        font-size: 0.86rem;
+        line-height: 1.8;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-indicador {
+        gap: 7px;
+        font-size: 0.63rem;
+        letter-spacing: 0.4px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-presentacion {
+        border-radius: 11px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-imagen-contenedor {
+        aspect-ratio: 4 / 3;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-imagen-acento {
+        gap: 10px;
+        padding: 15px;
+        font-size: 0.63rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-imagen-acento span:first-child {
+        width: 32px;
+        height: 32px;
+        flex-basis: 32px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-informacion {
+        padding: 23px 19px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-linea {
+        font-size: 0.65rem;
+        letter-spacing: 0.65px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-titulo {
+        font-size: 1.4rem;
+        letter-spacing: -0.3px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-texto {
+        margin-top: 13px;
+        font-size: 0.83rem;
+        line-height: 1.85;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-texto-secundario {
+        margin-top: 19px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-dato-destacado {
+        gap: 11px;
+        margin-top: 19px;
+        padding: 14px 11px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-dato-valor {
+        font-size: 1.75rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-dato-texto {
+        font-size: 0.71rem;
+        line-height: 1.65;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-mensaje {
+        gap: 10px;
+        margin-top: 18px;
+        padding: 13px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-mensaje p {
+        font-size: 0.78rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-evaluacion {
+        padding: 22px 17px;
+        border-radius: 11px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-seccion-encabezado {
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-seccion-descripcion {
+        font-size: 0.81rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-resumen {
+        gap: 11px;
+        padding: 18px 15px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-resumen-icono {
+        width: 39px;
+        height: 39px;
+        flex-basis: 39px;
+        font-size: 1.1rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-resumen-flecha {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+        font-size: 0.8rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-resumen-texto strong {
+        font-size: 0.88rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-resumen-texto small {
+        font-size: 0.72rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-detalles-contenido {
+        padding: 0 16px 19px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-lista {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-lista li {
+        min-height: 0;
+        padding: 11px;
+        font-size: 0.78rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-lista-numero {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+        font-size: 0.66rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-lista li > span:last-child {
+        font-size: 0.78rem;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-pie {
+        gap: 9px;
+        padding: 15px 10px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-pie > span {
+        width: 17px;
+        flex-basis: 17px;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-pie p {
+        font-size: 0.64rem;
+        letter-spacing: 0.45px;
+    }
+}
+
+
+/* =========================================================
+   15. ACCESIBILIDAD — MOVIMIENTO REDUCIDO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #ProyectoSocioComunitario *,
+    #ProyectoSocioComunitario *::before,
+    #ProyectoSocioComunitario *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    #ProyectoSocioComunitario
+    .ProyectoSocioComunitario-imagen-contenedor:hover
+    .ProyectoSocioComunitario-imagen {
+        transform: none;
+    }
 }

@@ -1,27 +1,175 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
-
 <section id="MisionVision" class="reveal">
+
+    <!-- CABECERA INSTITUCIONAL -->
+    <header class="MisionVision-encabezado">
+
+        <div class="MisionVision-encabezado-contenido">
+
+            <span class="MisionVision-etiqueta">
+                <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                NUESTRA ESENCIA
+            </span>
+
+            <h1 class="MisionVision-titulo-principal">
+                Misión <span>y</span> Visión
+            </h1>
+
+            <p class="MisionVision-subtitulo">
+                Formando profesionales, construyendo un mejor futuro.
+            </p>
+
+            <div class="MisionVision-indicador">
+                <span aria-hidden="true"></span>
+                UPTJFR · BARINAS, VENEZUELA
+            </div>
+
+        </div>
+
+    </header>
+
+
     <div class="MisionVision-contenedor">
 
-    <div class="MisionVision-bloque">
-        <h2 class="MisionVision-titulo">Misión</h2>
-        <p class="MisionVision-texto">
-            Contribuir a la formación de un profesional de carácter humanista en las diferentes áreas del conocimiento, atendiendo la vocación, centrado en principios y valores universales, con sensibilidad social, ambiental-ecológica e identidad regional, nacional, latinoamericana y caribeña. Un profesional con capacidad de integrarse a un mundo pluripolar y multicultural, prestando servicios educativos de calidad que conlleven a la vinculación con la comunidad y a la creación intelectual, con la apertura de espacios de reflexión e intercambio de saberes, en función del desarrollo endógeno para la transformación y el mejoramiento de la calidad de vida de los ciudadanos y ciudadanas.
-        </p>
+        <!-- MISIÓN -->
+        <article class="MisionVision-bloque MisionVision-mision">
+
+            <div class="MisionVision-imagen">
+
+                <img
+                    src="{% static 'Imagenes/Foro/carrusel_1.png' %}"
+                    alt="Instalaciones universitarias"
+                    loading="lazy"
+                >
+
+                <div class="MisionVision-imagen-acento">
+                    <span class="MisionVision-icono" aria-hidden="true">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </span>
+                    <span>01</span>
+                </div>
+
+            </div>
+
+
+            <div class="MisionVision-contenido">
+
+                <span class="MisionVision-linea">
+                    NUESTRO PROPÓSITO
+                </span>
+
+                <h2 class="MisionVision-titulo">
+                    Misión
+                </h2>
+
+                <p class="MisionVision-texto">
+                    Contribuir a la formación de un profesional de carácter
+                    humanista en las diferentes áreas del conocimiento,
+                    atendiendo la vocación, centrado en principios y valores
+                    universales, con sensibilidad social, ambiental-ecológica
+                    e identidad regional, nacional, latinoamericana y caribeña.
+                    Un profesional con capacidad de integrarse a un mundo
+                    pluripolar y multicultural, prestando servicios educativos
+                    de calidad que conlleven a la vinculación con la comunidad
+                    y a la creación intelectual, con la apertura de espacios
+                    de reflexión e intercambio de saberes, en función del
+                    desarrollo endógeno para la transformación y el
+                    mejoramiento de la calidad de vida de los ciudadanos
+                    y ciudadanas.
+                </p>
+
+                <div class="MisionVision-destacado">
+                    <span
+                        class="MisionVision-destacado-marca"
+                        aria-hidden="true"
+                    ></span>
+
+                    <p>
+                        Formación humanista, sensibilidad social y compromiso
+                        con el desarrollo de la comunidad.
+                    </p>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- VISIÓN -->
+        <article class="MisionVision-bloque MisionVision-vision">
+
+            <div class="MisionVision-contenido">
+
+                <span class="MisionVision-linea">
+                    NUESTRO HORIZONTE
+                </span>
+
+                <h2 class="MisionVision-titulo">
+                    Visión
+                </h2>
+
+                <p class="MisionVision-texto">
+                    Ser un referente nacional e internacional, promotor de
+                    pensamientos que generen conocimientos innovadores para
+                    el desarrollo endógeno y sostenible del país, fundamentado
+                    en los valores y principios de una sociedad socialista.
+                </p>
+
+                <div class="MisionVision-frase">
+                    <span aria-hidden="true">“</span>
+
+                    <p>
+                        Conocimiento, innovación y compromiso con el futuro.
+                    </p>
+                </div>
+
+                <div class="MisionVision-vision-indicador">
+                    <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                    <span>Una mirada hacia el futuro</span>
+                </div>
+
+            </div>
+
+
+            <div class="MisionVision-imagen">
+
+                <img
+                    src="{% static 'Imagenes/Foro/carrusel_2.png' %}"
+                    alt="Entorno universitario y desarrollo académico"
+                    loading="lazy"
+                >
+
+                <div class="MisionVision-imagen-acento">
+                    <span class="MisionVision-icono" aria-hidden="true">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                    <span>02</span>
+                </div>
+
+            </div>
+
+        </article>
+
     </div>
 
-    <div class="MisionVision-bloque">
-        <h2 class="MisionVision-titulo">Visión</h2>
-        <p class="MisionVision-texto">
-            Ser un referente nacional e internacional, promotor de pensamientos que generen conocimientos innovadores para el desarrollo endógeno y sostenible del país, fundamentado en los valores y principios de una sociedad socialista.
-        </p>
-    </div>
 
-</div>
+    <!-- CIERRE INSTITUCIONAL -->
+    <footer class="MisionVision-pie">
+
+        <span aria-hidden="true"></span>
+
+        <p>
+            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+            Educación · Desarrollo · Transformación social
+        </p>
+
+        <span aria-hidden="true"></span>
+
+    </footer>
 
 </section>
 

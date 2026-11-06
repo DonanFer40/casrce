@@ -3,28 +3,88 @@
 
 {% block content %}
 
-<section id="OrganizacionAcademica" class="reveal">
+<section id="OrganizacionAcademica" class="reveal"
+         aria-labelledby="OrganizacionAcademica-titulo-principal">
+
+    <header class="OrganizacionAcademica-encabezado">
+
+        <span class="OrganizacionAcademica-etiqueta">
+            ESTRUCTURA · PLANIFICACIÓN · FORMACIÓN
+        </span>
+
+        <h1 id="OrganizacionAcademica-titulo-principal"
+            class="OrganizacionAcademica-titulo-principal">
+            Organización <span>Académica</span>
+        </h1>
+
+        <p class="OrganizacionAcademica-subtitulo">
+            Conoce cómo se organizan los períodos de formación
+            académica y las etapas que estructuran el proceso educativo.
+        </p>
+
+        <div class="OrganizacionAcademica-indicador"
+             aria-label="Organización del proceso formativo">
+
+            <span aria-hidden="true"></span>
+            ESTRUCTURA FORMATIVA
+
+            <span class="OrganizacionAcademica-separador"
+                  aria-hidden="true">·</span>
+
+            PERÍODOS ACADÉMICOS
+
+        </div>
+
+    </header>
+
 
     <div class="OrganizacionAcademica-contenedor">
 
-        <article class="OrganizacionAcademica-bloque">
+        <!-- 01. TRAMOS / TRIMESTRES -->
+        <article class="OrganizacionAcademica-bloque"
+                 aria-labelledby="OrganizacionAcademica-titulo-tramos">
 
-            <div class="OrganizacionAcademica-identificador">
+            <div class="OrganizacionAcademica-identificador"
+                 aria-hidden="true">
+
                 <span class="OrganizacionAcademica-numero">01</span>
                 <span class="OrganizacionAcademica-linea"></span>
+
+            </div>
+
+            <div class="OrganizacionAcademica-ilustracion"
+                 aria-hidden="true">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
             </div>
 
             <div class="OrganizacionAcademica-contenido">
 
-                <h2 class="OrganizacionAcademica-titulo">
-                    Tramos/Trimestres
+                <div class="OrganizacionAcademica-meta">
+
+                    <span class="OrganizacionAcademica-categoria">
+                        PERÍODO ACADÉMICO
+                    </span>
+
+                    <span class="OrganizacionAcademica-duracion">
+                        3 meses
+                    </span>
+
+                </div>
+
+                <h2 id="OrganizacionAcademica-titulo-tramos"
+                    class="OrganizacionAcademica-titulo">
+                    Tramos / Trimestres
                 </h2>
 
                 <p class="OrganizacionAcademica-texto">
-                    Un tramo es una parte específica y segmentada dentro de un proceso más amplio.
-                    En este caso, un tramo corresponde a un lapso académico de 3 meses, que representa
-                    una sección concreta dentro del año de formación. Cada tramo divide el proceso
-                    educativo en partes manejables y organizadas.
+                    Un tramo es una parte específica y segmentada dentro
+                    de un proceso más amplio. En este contexto, corresponde
+                    a un lapso académico de tres meses que representa una
+                    etapa concreta dentro de la formación. Esta división
+                    permite organizar el proceso educativo en períodos
+                    más manejables y estructurados.
                 </p>
 
             </div>
@@ -32,24 +92,50 @@
         </article>
 
 
-        <article class="OrganizacionAcademica-bloque">
+        <!-- 02. TRAYECTOS -->
+        <article class="OrganizacionAcademica-bloque"
+                 aria-labelledby="OrganizacionAcademica-titulo-trayectos">
 
-            <div class="OrganizacionAcademica-identificador">
+            <div class="OrganizacionAcademica-identificador"
+                 aria-hidden="true">
+
                 <span class="OrganizacionAcademica-numero">02</span>
                 <span class="OrganizacionAcademica-linea"></span>
+
+            </div>
+
+            <div class="OrganizacionAcademica-ilustracion"
+                 aria-hidden="true">
+
+                <i class="fa-solid fa-route"></i>
+
             </div>
 
             <div class="OrganizacionAcademica-contenido">
 
-                <h2 class="OrganizacionAcademica-titulo">
+                <div class="OrganizacionAcademica-meta">
+
+                    <span class="OrganizacionAcademica-categoria">
+                        RECORRIDO FORMATIVO
+                    </span>
+
+                    <span class="OrganizacionAcademica-duracion">
+                        Año académico
+                    </span>
+
+                </div>
+
+                <h2 id="OrganizacionAcademica-titulo-trayectos"
+                    class="OrganizacionAcademica-titulo">
                     Trayectos
                 </h2>
 
                 <p class="OrganizacionAcademica-texto">
-                    Un trayecto se refiere al recorrido o proceso educativo completo.
-                    A diferencia del tramo, el trayecto abarca todo el año académico, incluyendo
-                    todos los tramos que lo conforman. Es la visión global del avance formativo,
-                    desde el inicio hasta la culminación del ciclo anual.
+                    Un trayecto representa un recorrido dentro del proceso
+                    educativo. En la organización descrita, comprende el
+                    año académico y los tramos que lo conforman, ofreciendo
+                    una visión global del avance formativo desde el inicio
+                    hasta la culminación del ciclo anual.
                 </p>
 
             </div>
@@ -57,25 +143,51 @@
         </article>
 
 
-        <article class="OrganizacionAcademica-bloque">
+        <!-- 03. SEMESTRES -->
+        <article class="OrganizacionAcademica-bloque"
+                 aria-labelledby="OrganizacionAcademica-titulo-semestres">
 
-            <div class="OrganizacionAcademica-identificador">
+            <div class="OrganizacionAcademica-identificador"
+                 aria-hidden="true">
+
                 <span class="OrganizacionAcademica-numero">03</span>
+
+            </div>
+
+            <div class="OrganizacionAcademica-ilustracion"
+                 aria-hidden="true">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
             </div>
 
             <div class="OrganizacionAcademica-contenido">
 
-                <h2 class="OrganizacionAcademica-titulo">
+                <div class="OrganizacionAcademica-meta">
+
+                    <span class="OrganizacionAcademica-categoria">
+                        PERÍODO ACADÉMICO
+                    </span>
+
+                    <span class="OrganizacionAcademica-duracion">
+                        6 meses
+                    </span>
+
+                </div>
+
+                <h2 id="OrganizacionAcademica-titulo-semestres"
+                    class="OrganizacionAcademica-titulo">
                     Semestres
                 </h2>
 
                 <p class="OrganizacionAcademica-texto">
-                    Un semestre es un período académico equivalente a 6 meses de formación.
-                    Representa la mitad de un año académico y suele organizarse en dos partes
-                    dentro de un ciclo anual. A diferencia del tramo (3 meses) y del trayecto
-                    (año completo), el semestre funciona como una unidad intermedia que permite
-                    estructurar los contenidos y evaluaciones en bloques más amplios, manteniendo
-                    una continuidad en el proceso educativo.
+                    Un semestre es un período académico equivalente a seis
+                    meses de formación y representa la mitad de un año
+                    académico. Puede utilizarse para distribuir contenidos
+                    y evaluaciones en bloques más amplios, manteniendo
+                    continuidad en el proceso educativo. A diferencia
+                    del tramo, que comprende tres meses, el semestre
+                    abarca un período de mayor duración.
                 </p>
 
             </div>
@@ -83,6 +195,19 @@
         </article>
 
     </div>
+
+
+    <footer class="OrganizacionAcademica-pie">
+
+        <span aria-hidden="true"></span>
+
+        <p>
+            PLANIFICACIÓN · CONTINUIDAD · FORMACIÓN INTEGRAL
+        </p>
+
+        <span aria-hidden="true"></span>
+
+    </footer>
 
 </section>
 

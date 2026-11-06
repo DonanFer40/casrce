@@ -1,0 +1,408 @@
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+#planilla_inscripcion_email {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: var(--texto-principal);
+    font-family: 'Poppins', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+#planilla_inscripcion_email *,
+#planilla_inscripcion_email *::before,
+#planilla_inscripcion_email *::after {
+    box-sizing: border-box;
+}
+
+#planilla_inscripcion_email .planilla-email-contenido {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+/* =========================================================
+   INDICADOR DEL MENSAJE
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-indicador {
+    display: inline-block;
+    margin: 0 0 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background-color: var(--color-rojo-soft);
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: 0.07em;
+    text-align: center;
+}
+
+
+/* =========================================================
+   TÍTULO PRINCIPAL
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-titulo {
+    margin: 0 0 22px;
+    color: var(--color-azul-profundo);
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   SALUDO DEL ESTUDIANTE
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-saludo {
+    margin: 0 0 16px;
+    color: var(--texto-principal);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.8;
+    text-align: left;
+}
+
+#planilla_inscripcion_email .planilla-email-saludo strong {
+    color: var(--color-azul-profundo);
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   INTRODUCCIÓN DEL MENSAJE
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-descripcion {
+    margin: 0 0 16px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+}
+
+#planilla_inscripcion_email .planilla-email-descripcion:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   CONTENEDOR DE INFORMACIÓN DEL DOCUMENTO
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-documento {
+    width: 100%;
+    margin: 26px 0 22px;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    border-spacing: 0;
+    border-collapse: separate;
+    background-color: var(--color-blanco);
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CABECERA DE LA INFORMACIÓN DOCUMENTAL
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-documento-cabecera {
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--color-borde-fino);
+    background-color: var(--color-fondo-pagina);
+}
+
+#planilla_inscripcion_email .planilla-email-documento-indicador {
+    display: block;
+    margin: 0 0 7px;
+    color: var(--texto-secundario);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+}
+
+#planilla_inscripcion_email .planilla-email-documento-cabecera h3 {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   DATOS DEL DOCUMENTO
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-documento-datos {
+    padding: 18px 22px;
+    background-color: var(--color-blanco);
+}
+
+#planilla_inscripcion_email .planilla-email-documento-datos table {
+    width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#planilla_inscripcion_email .planilla-email-documento-datos tr {
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#planilla_inscripcion_email .planilla-email-documento-datos tr:last-child {
+    border-bottom: 0;
+}
+
+#planilla_inscripcion_email .planilla-email-etiqueta {
+    width: 38%;
+    padding: 12px 10px 12px 0;
+    color: var(--texto-secundario);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+#planilla_inscripcion_email .planilla-email-valor {
+    padding: 12px 0 12px 10px;
+    color: var(--color-azul-profundo);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: right;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   AVISO DE REVISIÓN ADMINISTRATIVA
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-aviso {
+    width: 100%;
+    margin: 0 0 22px;
+    border: 1px solid var(--color-rojo-soft);
+    border-radius: 8px;
+    border-spacing: 0;
+    border-collapse: separate;
+    background-color: var(--color-rojo-soft);
+}
+
+#planilla_inscripcion_email .planilla-email-aviso-acento {
+    width: 5px;
+    padding: 0;
+    background-color: var(--color-rojo-acento);
+}
+
+#planilla_inscripcion_email .planilla-email-aviso-contenido {
+    padding: 17px 18px;
+}
+
+#planilla_inscripcion_email .planilla-email-aviso-contenido h3 {
+    margin: 0 0 8px;
+    color: var(--color-azul-profundo);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+#planilla_inscripcion_email .planilla-email-aviso-contenido p {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+}
+
+
+/* =========================================================
+   RECOMENDACIÓN AL ESTUDIANTE
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-recomendacion {
+    margin: 0 0 24px;
+    padding: 14px 16px;
+    border-left: 4px solid var(--color-amarillo-accion);
+    border-radius: 0 8px 8px 0;
+    background-color: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+}
+
+
+/* =========================================================
+   FIRMA INSTITUCIONAL
+   ========================================================= */
+
+#planilla_inscripcion_email .planilla-email-firma {
+    margin: 0;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--color-borde-fino);
+}
+
+#planilla_inscripcion_email .planilla-email-firma p {
+    margin: 0 0 7px;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+#planilla_inscripcion_email .planilla-email-firma strong {
+    display: block;
+    margin: 0 0 5px;
+    color: var(--color-azul-profundo);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.6;
+}
+
+#planilla_inscripcion_email .planilla-email-firma span {
+    display: block;
+    color: var(--texto-secundario);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   ADAPTACIÓN PARA DISPOSITIVOS MÓVILES
+   ========================================================= */
+
+@media screen and (max-width: 600px) {
+
+    #planilla_inscripcion_email .planilla-email-contenido {
+        max-width: 100%;
+    }
+
+    #planilla_inscripcion_email .planilla-email-titulo {
+        margin-bottom: 18px;
+        font-size: 22px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-saludo {
+        font-size: 14px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-descripcion {
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    #planilla_inscripcion_email .planilla-email-documento {
+        margin: 22px 0 20px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-documento-cabecera {
+        padding: 17px 16px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-documento-cabecera h3 {
+        font-size: 16px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-documento-datos {
+        padding: 14px 16px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-etiqueta {
+        width: 40%;
+        font-size: 11px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-valor {
+        font-size: 12px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-aviso-contenido {
+        padding: 14px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-aviso-contenido p {
+        font-size: 12px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-recomendacion {
+        padding: 12px 14px;
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   ADAPTACIÓN PARA PANTALLAS MUY PEQUEÑAS
+   ========================================================= */
+
+@media screen and (max-width: 360px) {
+
+    #planilla_inscripcion_email .planilla-email-indicador {
+        font-size: 10px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-titulo {
+        font-size: 20px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-saludo,
+    #planilla_inscripcion_email .planilla-email-descripcion {
+        font-size: 12px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-documento-cabecera {
+        padding: 15px 12px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-documento-datos {
+        padding: 12px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-etiqueta {
+        width: 42%;
+        font-size: 10px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-valor {
+        font-size: 11px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-aviso-contenido h3 {
+        font-size: 13px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-aviso-contenido p,
+    #planilla_inscripcion_email .planilla-email-recomendacion {
+        font-size: 11px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-firma strong {
+        font-size: 13px;
+    }
+
+    #planilla_inscripcion_email .planilla-email-firma span {
+        font-size: 11px;
+    }
+}

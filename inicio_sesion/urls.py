@@ -3,6 +3,16 @@ from inicio_sesion import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from inicio_sesion.views.seguridad_admin import (
+    iniciar_acceso_admin,
+    verificar_codigo_correo_admin,
+    verificar_totp_admin,
+    reenviar_codigo_admin,
+    cancelar_acceso_admin,
+    configurar_totp_admin,
+    confirmar_totp_admin,
+)
+
 urlpatterns = [
     path('foro/', views.foro, name="foro"),
     path('', views.foro, name='inicio_publico'),
@@ -12,19 +22,26 @@ urlpatterns = [
     path('cerrar_sesion/', views.cerrar_sesion, name="cerrar_sesion"),
 
     path('comp_registro/', views.comp_registro, name="comp_registro"),
+    path('expedientes/', views.lista_expedientes, name="lista_expedientes"),
+    path('expedientes/<int:id_expediente>/', views.detalle_expediente, name="detalle_expediente"),
+    path('expedientes/<int:id_expediente>/estado/', views.actualizar_estado_expediente, name="actualizar_estado_expediente"),
+    path('expedientes/documentos/<int:id_documento>/', views.descargar_documento_expediente, name="descargar_documento_expediente"),
     path('datos_usr_admin/', views.datos_usr_admin, name="datos_usr_admin"),
     path('validar_ci_auxiliar/', views.validar_ci_auxiliar, name="validar_ci_auxiliar"),
     path('validar_cod_opsu/', views.validar_cod_opsu, name="validar_cod_opsu"),
  
     path('validar_ci_usr/', views.validar_ci_usr, name="validar_ci_usr"),
     path('validar_email/', views.validar_email, name="validar_email"),
-    path('panel_registro/', views.panel_registro, name="panel_registro"),
     path('val_usuario/', views.val_usuario, name="val_usuario"),
     path('val_password/', views.val_password, name="val_password"),
     path('registro_est/', views.registro_est, name="registro_est"),
+    path('verificar_codigo_registro/', views.verificar_codigo_registro, name="verificar_codigo_registro"),
+    path('reenviar_codigo_registro/', views.reenviar_codigo_registro, name="reenviar_codigo_registro"),
     path('confirmar_reg/', views.confirmar_reg, name="confirmar_reg"),
     path('guardar_cred/', views.guardar_cred, name="guardar_cred"),
     path('pnfs_cursar/', views.pnfs_cursar, name="pnfs_cursar"),
+    path('verificar_codigo_personal/',views.verificar_codigo_personal,name='verificar_codigo_personal'),
+    path('reenviar_codigo_personal/',views.reenviar_codigo_personal,name='reenviar_codigo_personal'),
 
     path('bus_usr/', views.bus_usr, name="bus_usr"),
     path('comp_usr/', views.comp_usr, name="comp_usr"),
@@ -62,6 +79,15 @@ urlpatterns = [
     path('noticias/modificar/<int:id_noticia>/', views.modificar_noticia, name="modificar_noticia"),
     path('noticias/desactivar/<int:id_noticia>/', views.desactivar_noticia, name="desactivar_noticia"),
     path('noticias/activar/<int:id_noticia>/', views.activar_noticia, name="activar_noticia"),
+
+    # SEGURIDAD DE ACCESO ADMINISTRATIVO
+    path('seguridad-admin/iniciar/', iniciar_acceso_admin, name='iniciar_acceso_admin'),
+    path('seguridad-admin/verificar-correo/', verificar_codigo_correo_admin, name='verificar_codigo_correo_admin'),
+    path('seguridad-admin/verificar-totp/', verificar_totp_admin, name='verificar_totp_admin'),
+    path('seguridad-admin/reenviar-codigo/', reenviar_codigo_admin, name='reenviar_codigo_admin'),
+    path('seguridad-admin/cancelar/', cancelar_acceso_admin, name='cancelar_acceso_admin'),
+    path('seguridad-admin/configurar-totp/', configurar_totp_admin, name='configurar_totp_admin'),
+    path('seguridad-admin/confirmar-totp/', confirmar_totp_admin, name='confirmar_totp_admin'),
 ]
 
 if settings.DEBUG:

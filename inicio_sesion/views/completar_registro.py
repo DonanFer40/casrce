@@ -1,37 +1,71 @@
+import logging
+from pathlib import Path
+
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import JsonResponse
 from django.db import transaction
-
 from django.utils import timezone
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 
-from inicio_sesion.models import Usuario, Nucleos, TrayectoAcademico, Pnf, Contacto, PNFNucleo,  Nacimiento, Residencia, Estudiante, Docente, CoordinadorPNF, ControlEstudio, DirectorGeneral, ContactoAuxiliar, Discapacidad, EstatusEstudiante, DocumentosEstudiante, InformacionSecundaria, DatosPreofesion 
+from inicio_sesion.models import (
+    Usuario,
+    Nucleos,
+    TrayectoAcademico,
+    Pnf,
+    Contacto,
+    PNFNucleo,
+    Nacimiento,
+    Residencia,
+    Estudiante,
+    Docente,
+    CoordinadorPNF,
+    ControlEstudio,
+    DirectorGeneral,
+    ContactoAuxiliar,
+    Discapacidad,
+    EstatusEstudiante,
+    DocumentosEstudiante,
+    InformacionSecundaria,
+    DatosPreofesion,
+    ExpedienteEstudiante,
+    HistorialExpedienteEstudiante,
+)
 
-import os
-from reportlab.platypus import Table, TableStyle
-from reportlab.platypus import Image
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from inicio_sesion.services.verificacion_documentos import (
+    verificar_documentos_estudiante,
+    ErrorVerificacionGemini,
+    ErrorArchivoDocumento,
+)
+
+from documentos.models import DocumentoInstitucional
+from documentos.services.generador_pdf import crear_documento_institucional
+from documentos.services.planilla_inscripcion import construir_contenido_planilla
+from documentos.services.correo_planilla import enviar_planilla_inscripcion
+
+
+logger = logging.getLogger(__name__)
+
 
 def datos_usr_admin(request):
+
     if not request.session.get("usuario_nombre"):
         return JsonResponse({
             "estado": "no_exite",
             "icon": "error",
             "title": "No Existe",
-            "descripcion": "Estimado(a), no ha realizado el proceso autenticación.",
+            "descripcion": (
+                "Estimado(a), no ha realizado el proceso autenticación."
+            ),
             "url": reverse("inicio_sesion")
         })
 
     ci_usuario = request.session.get("cedula_usuario")
 
-    datos_basicos = Usuario.objects.filter(cedula_identidad=ci_usuario).first()
+    datos_basicos = Usuario.objects.filter(
+        cedula_identidad=ci_usuario
+    ).first()
+
     if not datos_basicos:
         return JsonResponse({
             "estado": "no_exite",
@@ -41,7 +75,9 @@ def datos_usr_admin(request):
             "url": reverse("inicio_sesion")
         })
 
-    contacto = Contacto.objects.filter(id_usuario=datos_basicos).first()
+    contacto = Contacto.objects.filter(
+        id_usuario=datos_basicos
+    ).first()
 
     return JsonResponse({
         "usuario": {
@@ -52,45 +88,61 @@ def datos_usr_admin(request):
             "estado_civil": datos_basicos.estado_civil
         },
         "contacto": {
-            "telefono_personal": contacto.telefono_personal if contacto else "",
-            "correo_electronico": contacto.correo_electronico if contacto else "",
+            "telefono_personal": (
+                contacto.telefono_personal if contacto else ""
+            ),
+            "correo_electronico": (
+                contacto.correo_electronico if contacto else ""
+            ),
         }
     })
 
+
 def validar_ci_auxiliar(request):
+
     if request.method == "POST":
+
         nacionalidad = request.POST.get("nacionalidad")
         cedula = request.POST.get("cedula")
 
-        existe = ContactoAuxiliar.objects.filter(cedula_identidad=f"{nacionalidad}-{cedula}").exists()
-        if existe:
-            return JsonResponse({ "existe": True })
+        existe = ContactoAuxiliar.objects.filter(
+            cedula_identidad=f"{nacionalidad}-{cedula}"
+        ).exists()
 
-        return JsonResponse({ "existe": False })
+        return JsonResponse({"existe": existe})
+
 
 def validar_cod_opsu(request):
+
     if request.method == "POST":
+
         codigo_opsu = request.POST.get("codigo")
 
-        existe = InformacionSecundaria.objects.filter(codigo_sni_opsu=codigo_opsu).exists()
-        if existe:
-            return JsonResponse({ "existe": True })
+        existe = InformacionSecundaria.objects.filter(
+            codigo_sni_opsu=codigo_opsu
+        ).exists()
 
-        return JsonResponse({ "existe": False })
+        return JsonResponse({"existe": existe})
+
 
 def validar_ci_usr(request):
+
     if request.method == "POST":
+
         nacionalidad = request.POST.get("nacionalidad")
         cedula = request.POST.get("cedula")
 
-        existe = Usuario.objects.filter(cedula_identidad=f"{nacionalidad}-{cedula}").exists()
-        if existe:
-            return JsonResponse({ "existe": True })
+        existe = Usuario.objects.filter(
+            cedula_identidad=f"{nacionalidad}-{cedula}"
+        ).exists()
 
-        return JsonResponse({ "existe": False })
+        return JsonResponse({"existe": existe})
+
 
 def validar_email(request):
+
     if request.method == "POST":
+
         correo = request.POST.get("correo")
         dominio = request.POST.get("dominio")
 
@@ -103,18 +155,26 @@ def validar_email(request):
 
         return JsonResponse({"existe": existe})
 
+
 def pnfs_cursar(request):
+
     nucleo_seleccionado = request.POST.get("nucleo")
-    print(nucleo_seleccionado)
-    nucleo = Nucleos.objects.filter(municipio=nucleo_seleccionado).first()
-    print(nucleo)
+
+    nucleo = Nucleos.objects.filter(
+        municipio=nucleo_seleccionado
+    ).first()
+
     if not nucleo:
         return JsonResponse({"pnfs": []})
 
-    pnfs = PNFNucleo.objects.select_related("id_pnf").filter(id_nucleo=nucleo)
+    pnfs = PNFNucleo.objects.select_related(
+        "id_pnf"
+    ).filter(id_nucleo=nucleo)
 
     datos = []
+
     for pnf_nucleo in pnfs:
+
         datos.append({
             "id": pnf_nucleo.id_pnf.id_pnf,
             "nombre": pnf_nucleo.id_pnf.pnf
@@ -124,29 +184,282 @@ def pnfs_cursar(request):
         "pnfs": datos
     })
 
+
 def comp_registro(request):
+
     if request.method == "POST":
+
+        # ==========================================================
+        # VALIDACIÓN DE LONGITUD DE LAS DIRECCIONES
+        # ==========================================================
+
+        direccion_nacimiento = (
+            request.POST.get("direccion_nacimiento", "") or ""
+        )
+
+        direccion_domicilio = (
+            request.POST.get("direccion_domicilio", "") or ""
+        )
+
+        direcciones = {
+            "Dirección de nacimiento": direccion_nacimiento,
+            "Dirección de residencia": direccion_domicilio,
+        }
+
+        for nombre, direccion in direcciones.items():
+
+            if len(direccion) > 100:
+
+                return JsonResponse({
+                    "estado": "fallo",
+                    "title": "Dirección demasiado larga",
+                    "descripcion": (
+                        f"{nombre} no puede superar los 100 caracteres."
+                    ),
+                    "icon": "warning"
+                })
+
+        # ==========================================================
+        # VALIDACIÓN GENERAL DE CAMPOS OBLIGATORIOS
+        # ==========================================================
+
+        usuario_sesion = Usuario.objects.filter(
+            cedula_identidad=request.session.get("cedula_usuario")
+        ).first()
+
+        if not usuario_sesion:
+
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Sesión no válida",
+                "descripcion": (
+                    "No se encontró el usuario de la sesión. "
+                    "Inicia sesión nuevamente."
+                ),
+                "icon": "error"
+            }, status=401)
+
+        es_estudiante = Estudiante.objects.filter(
+            usuario=usuario_sesion
+        ).exists()
+
+        if (
+            es_estudiante
+            and ExpedienteEstudiante.objects.filter(
+                usuario=usuario_sesion
+            ).exists()
+        ):
+
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Registro ya recibido",
+                "descripcion": (
+                    "Este estudiante ya posee un expediente registrado. "
+                    "No se sobrescribirá su información ni su historial administrativo."
+                ),
+                "icon": "info",
+            }, status=409)
+
+        # ==========================================================
+        # CAMPOS OBLIGATORIOS GENERALES
+        # ==========================================================
+
+        campos_requeridos = [
+            ("genero", "Género"),
+            ("estado_civil", "Estado civil"),
+            ("prefijo_telefono_principal", "Prefijo del teléfono principal"),
+            ("num_telefono_principal", "Número del teléfono principal"),
+            ("correo_principal", "Correo electrónico principal"),
+            ("dominio_correo_principal", "Dominio del correo principal"),
+            ("pais_nacimiento", "País de nacimiento"),
+            ("direccion_nacimiento", "Dirección de nacimiento"),
+            ("fecha_nacimiento", "Fecha de nacimiento"),
+            ("condicion_residencia", "Condición de residencia"),
+            ("municipio_residencia", "Municipio de residencia"),
+            ("parroquia_residencia", "Parroquia de residencia"),
+            ("direccion_domicilio", "Dirección de residencia"),
+        ]
+
+        faltantes = []
+
+        for nombre_campo, etiqueta in campos_requeridos:
+
+            valor = request.POST.get(nombre_campo, "").strip()
+
+            if not valor:
+                faltantes.append(etiqueta)
+
+        # ==========================================================
+        # VALIDACIÓN DE UBICACIÓN DE NACIMIENTO
+        # ==========================================================
+
+        ubicaciones = [
+            (
+                ("estado_nacimiento", "estado_novzla"),
+                "Estado de nacimiento"
+            ),
+            (
+                ("municipio_nacimiento", "municipio_novzla"),
+                "Municipio de nacimiento"
+            ),
+            (
+                ("parroquia_nacimiento", "parroquia_novzla"),
+                "Parroquia de nacimiento"
+            ),
+        ]
+
+        for alternativas, etiqueta in ubicaciones:
+
+            valores = [
+                request.POST.get(nombre, "").strip()
+                for nombre in alternativas
+            ]
+
+            if not any(valores):
+                faltantes.append(etiqueta)
+
+        # ==========================================================
+        # VALIDACIONES ESPECÍFICAS DEL ESTUDIANTE
+        # ==========================================================
+
+        if es_estudiante:
+
+            campos_estudiante = [
+                ("tipos_secundaria", "Tipo de institución de secundaria"),
+                ("nombre_secundaria", "Nombre del liceo"),
+                ("fecha_graduacion", "Fecha de graduación"),
+                ("codigo_opsu", "Código OPSU"),
+            ]
+
+            for nombre_campo, etiqueta in campos_estudiante:
+
+                valor = request.POST.get(nombre_campo, "").strip()
+
+                if not valor:
+                    faltantes.append(etiqueta)
+
+            nucleo_formulario = request.POST.get(
+                "nucleo_seleccionado", ""
+            ).strip()
+
+            pnf_formulario = request.POST.get(
+                "pnf_seleccionado", ""
+            ).strip()
+
+            if not nucleo_formulario or not pnf_formulario:
+
+                faltantes.append("Seleccionar un núcleo y un PNF")
+
+            elif not PNFNucleo.objects.filter(
+                id_nucleo__municipio=nucleo_formulario,
+                id_pnf_id=pnf_formulario,
+            ).exists():
+
+                return JsonResponse({
+                    "estado": "fallo",
+                    "title": "Selección académica no válida",
+                    "descripcion": (
+                        "El PNF seleccionado no pertenece al núcleo indicado."
+                    ),
+                    "icon": "warning",
+                }, status=400)
+
+            documentos_requeridos = [
+                ("CI_estudiante", "Cédula de identidad"),
+                ("TBachiller_estudiante", "Título de bachiller"),
+                ("SNotas_estudiante", "Sábana de notas"),
+                ("OPSU_estudiante", "Documento OPSU"),
+            ]
+
+            for nombre_campo, etiqueta in documentos_requeridos:
+
+                if not request.FILES.get(nombre_campo):
+                    faltantes.append(etiqueta)
+
+        else:
+
+            campos_administrativos = [
+                ("profesion_pregrado", "Profesión de egreso"),
+                ("universidad_pregrado", "Universidad de egreso"),
+                ("pais_profesion", "País de egreso"),
+            ]
+
+            for nombre_campo, etiqueta in campos_administrativos:
+
+                valor = request.POST.get(nombre_campo, "").strip()
+
+                if not valor:
+                    faltantes.append(etiqueta)
+
+        # ==========================================================
+        # RESPUESTA DE CAMPOS FALTANTES
+        # ==========================================================
+
+        if faltantes:
+
+            lista_faltantes = "\n".join(
+                f"• {campo}" for campo in faltantes
+            )
+
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Campos obligatorios pendientes",
+                "descripcion": (
+                    "Completa los siguientes campos antes de continuar:\n"
+                    + lista_faltantes
+                ),
+                "campos_faltantes": faltantes,
+                "icon": "warning"
+            }, status=400)
+
+        # ==========================================================
+        # RECOPILACIÓN DE DATOS
+        # ==========================================================
+
         genero = request.POST.get("genero")
         estado_civil = request.POST.get("estado_civil")
-            
-        prefijo_telefono_principal = request.POST.get("prefijo_telefono_principal")
-        num_telefono_principal = request.POST.get("num_telefono_principal")
-        prefijo_telefono_secundaria = request.POST.get("prefijo_telefono_secundaria")
-        num_telefono_secundaria = request.POST.get("num_telefono_secundaria")
+
+        prefijo_telefono_principal = request.POST.get(
+            "prefijo_telefono_principal"
+        )
+
+        num_telefono_principal = request.POST.get(
+            "num_telefono_principal"
+        )
+
+        prefijo_telefono_secundaria = request.POST.get(
+            "prefijo_telefono_secundaria"
+        )
+
+        num_telefono_secundaria = request.POST.get(
+            "num_telefono_secundaria"
+        )
+
+        # ==========================================================
+        # VALIDACIÓN DEL TELÉFONO SECUNDARIO
+        # ==========================================================
 
         if not prefijo_telefono_secundaria and num_telefono_secundaria:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Debe seleccionar el prefijo telefónico o dejar vacío el número telefónico.",
+                "descripcion": (
+                    "Debe seleccionar el prefijo telefónico o dejar "
+                    "vacío el número telefónico."
+                ),
                 "icon": "warning"
             })
-                            
+
         if prefijo_telefono_secundaria and not num_telefono_secundaria:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Debe ingresar el número telefónico o seleccionar la opción TLF.",
+                "descripcion": (
+                    "Debe ingresar el número telefónico o seleccionar "
+                    "la opción TLF."
+                ),
                 "icon": "warning"
             })
 
@@ -155,60 +468,158 @@ def comp_registro(request):
             if prefijo_telefono_secundaria and num_telefono_secundaria
             else "N/A"
         )
-                    
+
+        # ==========================================================
+        # CORREOS ELECTRÓNICOS
+        # ==========================================================
+
         correo_principal = request.POST.get("correo_principal")
-        dominio_correo_principal = request.POST.get("dominio_correo_principal")
-        correo_secundaria = request.POST.get("correo_secundaria")
-        dominio_correo_secundaria = request.POST.get("dominio_correo_secundaria")
-        
+
+        dominio_correo_principal = request.POST.get(
+            "dominio_correo_principal"
+        )
+
+        correo_secundaria = request.POST.get(
+            "correo_secundaria", ""
+        ).strip()
+
+        dominio_correo_secundaria = request.POST.get(
+            "dominio_correo_secundaria", ""
+        ).strip()
+
+        if bool(correo_secundaria) != bool(dominio_correo_secundaria):
+
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Correo alternativo incompleto",
+                "descripcion": (
+                    "Si deseas registrar un correo alternativo, completa "
+                    "tanto el usuario como el dominio. También puedes "
+                    "dejar ambos campos vacíos."
+                ),
+                "icon": "warning",
+            }, status=400)
+
+        correo_electronico1 = (
+            correo_principal + dominio_correo_principal
+        )
+
+        correo_electronico2 = (
+            correo_secundaria + dominio_correo_secundaria
+            if correo_secundaria and dominio_correo_secundaria
+            else None
+        )
+
+        if (
+            correo_electronico2
+            and correo_electronico1 == correo_electronico2
+        ):
+
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Error",
+                "descripcion": (
+                    "Por favor, ingrese correos electrónicos diferentes."
+                ),
+                "icon": "error"
+            })
+
+        telefono_principal = (
+            prefijo_telefono_principal + num_telefono_principal
+        )
+
+        # ==========================================================
+        # DATOS DE UBICACIÓN Y RESIDENCIA
+        # ==========================================================
+
+        nucleo = request.POST.get("nucleo_seleccionado")
+        pnf = request.POST.get("pnf_seleccionado")
+
         pais_nacimiento = request.POST.get("pais_nacimiento")
-        
-        direccion_nacimiento = request.POST.get("direccion_nacimiento")
+
+        direccion_nacimiento = request.POST.get(
+            "direccion_nacimiento"
+        )
+
         fecha_nacimiento = request.POST.get("fecha_nacimiento")
 
-        condicion_residencia = request.POST.get("condicion_residencia")
-        municipio_residencia = request.POST.get("municipio_residencia")
-        parroquia_residencia = request.POST.get("parroquia_residencia")
-        direccion_domicilio = request.POST.get("direccion_domicilio")
+        condicion_residencia = request.POST.get(
+            "condicion_residencia"
+        )
+
+        municipio_residencia = request.POST.get(
+            "municipio_residencia"
+        )
+
+        parroquia_residencia = request.POST.get(
+            "parroquia_residencia"
+        )
+
+        direccion_domicilio = request.POST.get(
+            "direccion_domicilio"
+        )
+
+        # ==========================================================
+        # DATOS PROFESIONALES
+        # ==========================================================
 
         profesion_pregrado = request.POST.get("profesion_pregrado")
         universidad_pregrado = request.POST.get("universidad_pregrado")
         pais_profesion = request.POST.get("pais_profesion")
-        
+
+        # ==========================================================
+        # DATOS DE SECUNDARIA
+        # ==========================================================
+
         tipos_secundaria = request.POST.get("tipos_secundaria")
         nombre_secundaria = request.POST.get("nombre_secundaria")
         fecha_graduacion = request.POST.get("fecha_graduacion")
         codigo_opsu = request.POST.get("codigo_opsu")
 
-        nacionalidad_auxiliar = request.POST.get("nacionalidad_auxiliar")
+        # ==========================================================
+        # CONTACTO AUXILIAR
+        # ==========================================================
+
+        nacionalidad_auxiliar = request.POST.get(
+            "nacionalidad_auxiliar"
+        )
+
         ci_auxiliar = request.POST.get("ci_auxiliar")
+
         prefijo_auxiliar = request.POST.get("prefijo_auxiliar")
         telefono_auxiliar = request.POST.get("telefono_auxiliar")
 
-        # Contacto Auxiliar
-        if request.POST.get("nombres_auxiliar"):
-            nombres_auxiliar = request.POST.get("nombres_auxiliar")
-        else:
-            nombres_auxiliar = "N/A"
-        
-        if request.POST.get("apellidos_auxiliar"):
-            apellidos_auxiliar = request.POST.get("apellidos_auxiliar")
-        else:
-            apellidos_auxiliar = "N/A"
-        
+        nombres_auxiliar = (
+            request.POST.get("nombres_auxiliar")
+            or "N/A"
+        )
+
+        apellidos_auxiliar = (
+            request.POST.get("apellidos_auxiliar")
+            or "N/A"
+        )
+
         if not nacionalidad_auxiliar and ci_auxiliar:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Debe seleccionar la nacionalidad y sino vacia el campo para los numeros de cedulas.",
+                "descripcion": (
+                    "Debe seleccionar la nacionalidad o vaciar el "
+                    "campo correspondiente al número de cédula."
+                ),
                 "icon": "warning"
             })
-                            
+
         if nacionalidad_auxiliar and not ci_auxiliar:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Debe ingresar los numeros de cedulas o seleccionar la opción N.",
+                "descripcion": (
+                    "Debe ingresar el número de cédula o seleccionar "
+                    "la opción N."
+                ),
                 "icon": "warning"
             })
 
@@ -218,19 +629,27 @@ def comp_registro(request):
             else "N/A"
         )
 
-        if not prefijo_auxiliar and num_telefono_secundaria:
+        if not prefijo_auxiliar and telefono_auxiliar:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Debe seleccionar el prefijo telefónico o dejar vacío el número telefónico.",
+                "descripcion": (
+                    "Debe seleccionar el prefijo telefónico o dejar "
+                    "vacío el número telefónico."
+                ),
                 "icon": "warning"
             })
-                            
+
         if prefijo_auxiliar and not telefono_auxiliar:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Debe ingresar el número telefónico o seleccionar la opción TLF.",
+                "descripcion": (
+                    "Debe ingresar el número telefónico o seleccionar "
+                    "la opción TLF."
+                ),
                 "icon": "warning"
             })
 
@@ -239,116 +658,176 @@ def comp_registro(request):
             if prefijo_auxiliar and telefono_auxiliar
             else "N/A"
         )
-        
-        if request.POST.get("parestenco_auxiliar"):
-            parestenco_auxiliar = request.POST.get("parestenco_auxiliar")
-        else:
-            parestenco_auxiliar = "N/A"
 
-        # Campos discapacidad
-        if request.POST.get("carnet_dispacidad"):
-            carnet_dispacidad = request.POST.get("carnet_dispacidad")
-        else:
-            carnet_dispacidad = "N/A"
-        
-        if request.POST.get("registro_medico"):
-            registro_medico = request.POST.get("registro_medico")
-        else:
-            registro_medico = "N/A"
+        parestenco_auxiliar = (
+            request.POST.get("parestenco_auxiliar")
+            or "N/A"
+        )
 
-        if request.POST.get("tipo_discapacidad"):
-            tipo_discapacidad = request.POST.get("tipo_discapacidad")
-        else:
-            tipo_discapacidad = "N/A"
-        
-        if request.POST.get("grado_discapacidad"):
-            grado_discapacidad = request.POST.get("grado_discapacidad")
-        else:
-            grado_discapacidad = "N/A"
-        
-        if request.POST.get("causa_discapacidad"):
-            causa_discapacidad = request.POST.get("causa_discapacidad")
-        else:
-            causa_discapacidad = "N/A"
+        # ==========================================================
+        # DATOS DE DISCAPACIDAD
+        # ==========================================================
+
+        carnet_dispacidad = (
+            request.POST.get("carnet_dispacidad")
+            or "N/A"
+        )
+
+        registro_medico = (
+            request.POST.get("registro_medico")
+            or "N/A"
+        )
+
+        tipo_discapacidad = (
+            request.POST.get("tipo_discapacidad")
+            or "N/A"
+        )
+
+        grado_discapacidad = (
+            request.POST.get("grado_discapacidad")
+            or "N/A"
+        )
+
+        causa_discapacidad = (
+            request.POST.get("causa_discapacidad")
+            or "N/A"
+        )
+
+        # ==========================================================
+        # VALIDACIONES GENERALES COMPLEMENTARIAS
+        # ==========================================================
 
         campos_generales = [
-            (genero, "Género", "Por favor, seleccione una de las opciones presentes."),
-            (estado_civil, "Estado Civil", "Por favor, seleccione una de las opciones presentadas."),
-            (prefijo_telefono_principal, "Prefijo Telefonico", "Por favor, selecciona uno de los prefijos telefonico."),
-            (num_telefono_principal, "Números Telefonico", "Por favor, ingrese el numero telefonico."),
-            (correo_secundaria, "Correo Alternativo", "Por favor, ingrese el correo electrónico alternativo."),
-            (dominio_correo_secundaria, "Dominio Correo Principal", "Por favor, seleccione una de las opciones."),
-            (pais_nacimiento, "País de Nacimiento", "Por favor, seleccione una de las opciones."),
-            (direccion_nacimiento, "Dirección de Nacimiento", "Por favor, ingrese la dirección de nacimiento."),
-            (fecha_nacimiento, "Fecha de Nacimiento", "Por favor, ingrese la fecha de nacimiento."),
-            (condicion_residencia, "Condición de Residencia", "Por favor, seleccione una de las opciones."),
-            (municipio_residencia, "Municipio de Residencia", "Por favor, seleccione una de las opciones."),
-            (parroquia_residencia, "Parroquia de Residencia", "Por favor, seleccione una de las opciones."),
-            (direccion_domicilio, "Dirección de Residencia", "Por favor, ingrese la dirección de domicilio."),
+            (
+                genero,
+                "Género",
+                "Por favor, seleccione una de las opciones presentes."
+            ),
+            (
+                estado_civil,
+                "Estado Civil",
+                "Por favor, seleccione una de las opciones presentadas."
+            ),
+            (
+                prefijo_telefono_principal,
+                "Prefijo Telefónico",
+                "Por favor, seleccione uno de los prefijos telefónicos."
+            ),
+            (
+                num_telefono_principal,
+                "Número Telefónico",
+                "Por favor, ingrese el número telefónico."
+            ),
+            (
+                pais_nacimiento,
+                "País de Nacimiento",
+                "Por favor, seleccione una de las opciones."
+            ),
+            (
+                direccion_nacimiento,
+                "Dirección de Nacimiento",
+                "Por favor, ingrese la dirección de nacimiento."
+            ),
+            (
+                fecha_nacimiento,
+                "Fecha de Nacimiento",
+                "Por favor, ingrese la fecha de nacimiento."
+            ),
+            (
+                condicion_residencia,
+                "Condición de Residencia",
+                "Por favor, seleccione una de las opciones."
+            ),
+            (
+                municipio_residencia,
+                "Municipio de Residencia",
+                "Por favor, seleccione una de las opciones."
+            ),
+            (
+                parroquia_residencia,
+                "Parroquia de Residencia",
+                "Por favor, seleccione una de las opciones."
+            ),
+            (
+                direccion_domicilio,
+                "Dirección de Residencia",
+                "Por favor, ingrese la dirección de domicilio."
+            ),
         ]
 
         for valor, titulo, mensaje in campos_generales:
+
             if not valor:
+
                 return JsonResponse({
                     "estado": "fallo",
                     "title": titulo,
                     "descripcion": mensaje,
                     "icon": "warning"
                 })
-    
-        if request.POST.get("estado_nacimiento"):
-            estado_nacimiento = request.POST.get("estado_nacimiento")
-        elif request.POST.get("estado_novzla"):
-            estado_nacimiento = request.POST.get("estado_novzla")     
-        else:
+
+        # ==========================================================
+        # UBICACIÓN DE NACIMIENTO
+        # ==========================================================
+
+        estado_nacimiento = (
+            request.POST.get("estado_nacimiento")
+            or request.POST.get("estado_novzla")
+        )
+
+        if not estado_nacimiento:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Por favor, selecciona o ingrese el estado de nacimiento.",
+                "descripcion": (
+                    "Por favor, selecciona o ingresa el estado de nacimiento."
+                ),
                 "icon": "warning"
             })
-        
-        if request.POST.get("municipio_nacimiento"):
-            municipio_nacimiento = request.POST.get("municipio_nacimiento")
-        elif request.POST.get("municipio_novzla"):
-            municipio_nacimiento = request.POST.get("municipio_novzla")
-        else:
+
+        municipio_nacimiento = (
+            request.POST.get("municipio_nacimiento")
+            or request.POST.get("municipio_novzla")
+        )
+
+        if not municipio_nacimiento:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Por favor, selecciona o ingrese el municipio de nacimiento.",
+                "descripcion": (
+                    "Por favor, selecciona o ingresa el municipio de nacimiento."
+                ),
                 "icon": "warning"
             })
-        
-        if request.POST.get("parroquia_nacimiento"):
-            parroquia_nacimiento = request.POST.get("parroquia_nacimiento")
-        elif request.POST.get("parroquia_novzla"):
-            parroquia_nacimiento = request.POST.get("parroquia_novzla")
-        else:
+
+        parroquia_nacimiento = (
+            request.POST.get("parroquia_nacimiento")
+            or request.POST.get("parroquia_novzla")
+        )
+
+        if not parroquia_nacimiento:
+
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Vacío",
-                "descripcion": "Por favor, selecciona o ingrese la parroquia de nacimiento.",
+                "descripcion": (
+                    "Por favor, selecciona o ingresa la parroquia de nacimiento."
+                ),
                 "icon": "warning"
             })
 
-        telefono_principal = prefijo_telefono_principal+num_telefono_principal
-        
-        correo_electronico1 = correo_principal + dominio_correo_principal
-        
-        correo_electronico2 = correo_secundaria + dominio_correo_secundaria
+        # ==========================================================
+        # IDENTIFICACIÓN DEL USUARIO Y SUS ROLES
+        # ==========================================================
 
-        if correo_electronico1 == correo_electronico2:
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Error",
-                "descripcion": "Por favor, ingrese correos electronicos diferentes.",
-                "icon": "error"
-            })
-
-        usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))
+        usuario = Usuario.objects.get(
+            cedula_identidad=request.session.get("cedula_usuario")
+        )
 
         roles = []
+
         if Estudiante.objects.filter(usuario=usuario).exists():
             roles.append("Estudiante")
 
@@ -364,16 +843,34 @@ def comp_registro(request):
         if DirectorGeneral.objects.filter(usuario=usuario).exists():
             roles.append("Director General")
 
-        
+        # ==========================================================
+        # REGISTRO DE USUARIOS ADMINISTRATIVOS
+        # ==========================================================
+
         if "Estudiante" not in roles:
+
             campos_administrativo = [
-                (profesion_pregrado, "Profesión de Egreso", "Por favor, ingrese la profesión de egreso de pregrado."),
-                (universidad_pregrado, "Universidad de Egreso", "Por favor, ingrese la universidad de egreso de pregrado."),
-                (pais_profesion, "País de Egreso Posgrado", "Por favor, seleccione una de las opciones presentes."),
+                (
+                    profesion_pregrado,
+                    "Profesión de Egreso",
+                    "Por favor, ingrese la profesión de egreso de pregrado."
+                ),
+                (
+                    universidad_pregrado,
+                    "Universidad de Egreso",
+                    "Por favor, ingrese la universidad de egreso de pregrado."
+                ),
+                (
+                    pais_profesion,
+                    "País de Egreso",
+                    "Por favor, seleccione una de las opciones presentes."
+                ),
             ]
-    
+
             for valor, titulo, mensaje in campos_administrativo:
+
                 if not valor:
+
                     return JsonResponse({
                         "estado": "fallo",
                         "title": titulo,
@@ -386,195 +883,583 @@ def comp_registro(request):
                 usuario.genero = genero
                 usuario.estado_civil = estado_civil
                 usuario.save()
-        
-                contacto, _ = Contacto.objects.get_or_create(id_usuario=usuario)
-                
+
+                contacto, _ = Contacto.objects.get_or_create(
+                    id_usuario=usuario
+                )
+
                 contacto.telefono_personal = telefono_principal
-        
-                if telefono_secundario: 
-                    contacto.telefono_suplete = telefono_secundario
-                    
+                contacto.telefono_suplete = telefono_secundario
                 contacto.correo_electronico = correo_electronico1
                 contacto.correo_alternativo = correo_electronico2
                 contacto.save()
-        
-                Residencia.objects.create(condicion_residencia=condicion_residencia, municipio=municipio_residencia, parroquia=parroquia_residencia, direccion_residencia=direccion_domicilio, id_usuario=usuario)
-        
-                Nacimiento.objects.create(pais=pais_nacimiento, estado=estado_nacimiento, municipio=municipio_nacimiento, parroquia=parroquia_nacimiento, direccion_nacimiento=direccion_nacimiento, fecha_nacimiento=fecha_nacimiento, id_usuario=usuario)
-        
-                DatosPreofesion.objects.create(profesion_pregrado=profesion_pregrado, universidad_egreso_pregrado=universidad_pregrado, pais_profesion_pregrado=pais_profesion, id_usuario=usuario)
 
-                request.session['registro_completado'] = True
+                Residencia.objects.create(
+                    condicion_residencia=condicion_residencia,
+                    municipio=municipio_residencia,
+                    parroquia=parroquia_residencia,
+                    direccion_residencia=direccion_domicilio,
+                    id_usuario=usuario
+                )
+
+                Nacimiento.objects.create(
+                    pais=pais_nacimiento,
+                    estado=estado_nacimiento,
+                    municipio=municipio_nacimiento,
+                    parroquia=parroquia_nacimiento,
+                    direccion_nacimiento=direccion_nacimiento,
+                    fecha_nacimiento=fecha_nacimiento,
+                    id_usuario=usuario
+                )
+
+                DatosPreofesion.objects.create(
+                    profesion_pregrado=profesion_pregrado,
+                    universidad_egreso_pregrado=universidad_pregrado,
+                    pais_profesion_pregrado=pais_profesion,
+                    id_usuario=usuario
+                )
+
+                request.session["registro_completado"] = True
+
+            return JsonResponse({
+                "estado": "exito",
+                "title": "Éxito",
+                "descripcion": (
+                    "Los datos del usuario se registraron exitosamente."
+                ),
+                "icon": "success",
+                "url": reverse("panel_usuario")
+            })
+
+        # ==========================================================
+        # REGISTRO DE ESTUDIANTES
+        # ==========================================================
+
+        campos_estudiantil = [
+            (
+                tipos_secundaria,
+                "Tipo de Institución",
+                "Por favor, seleccione una de las opciones presentes."
+            ),
+            (
+                nombre_secundaria,
+                "Nombre del Liceo",
+                "Por favor, ingrese la institución de bachillerato."
+            ),
+            (
+                codigo_opsu,
+                "Código OPSU",
+                "Por favor, ingrese el código de la OPSU."
+            ),
+        ]
+
+        for valor, titulo, mensaje in campos_estudiantil:
+
+            if not valor:
 
                 return JsonResponse({
-                    "estado": "exito",
-                    "title": "Exito",
-                    "descripcion": "Los datos del usuario se registraron exitosamente.",
-                    "icon": "success",
-                    "url": reverse("panel_usuario")
+                    "estado": "fallo",
+                    "title": titulo,
+                    "descripcion": mensaje,
+                    "icon": "warning"
                 })
+
+        # ==========================================================
+        # VALIDACIÓN DEL NÚCLEO Y PNF
+        # ==========================================================
+
+        nucleo_seleccionado = Nucleos.objects.filter(
+            municipio=nucleo
+        ).first()
+
+        pnf_seleccionado = (
+            PNFNucleo.objects.filter(
+                id_nucleo=nucleo_seleccionado,
+                id_pnf_id=pnf,
+            ).select_related("id_pnf").first()
+            if nucleo_seleccionado
+            else None
+        )
+
+        if not pnf_seleccionado:
 
             return JsonResponse({
                 "estado": "fallo",
-                "title": "Error",
-                "descripcion": "Ocurrio un erro al momento de registrar los datos.",
-                "icon": "error"
+                "title": "Selección académica no válida",
+                "descripcion": (
+                    "El núcleo y el PNF seleccionados no corresponden "
+                    "a una oferta académica disponible."
+                ),
+                "icon": "warning",
+            }, status=400)
+
+        # ==========================================================
+        # DOCUMENTOS OBLIGATORIOS
+        # ==========================================================
+
+        documentos = {
+            "Cédula de Identidad": request.FILES.get("CI_estudiante"),
+            "Título de Bachiller": request.FILES.get("TBachiller_estudiante"),
+            "Sabana de Notas": request.FILES.get("SNotas_estudiante"),
+            "OPSU": request.FILES.get("OPSU_estudiante"),
+        }
+
+        if not all(documentos.values()):
+
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Documentos incompletos",
+                "descripcion": (
+                    "Debe cargar todos los documentos requeridos para continuar."
+                ),
+                "icon": "warning"
             })
+
+        # ==========================================================
+        # REVISIÓN PRELIMINAR CON GEMINI
+        # ==========================================================
+
+        archivos_revision = {
+            "CI_estudiante": request.FILES.get("CI_estudiante"),
+            "TBachiller_estudiante": request.FILES.get("TBachiller_estudiante"),
+            "SNotas_estudiante": request.FILES.get("SNotas_estudiante"),
+            "OPSU_estudiante": request.FILES.get("OPSU_estudiante"),
+        }
+
+        try:
+
+            resultados_verificacion = verificar_documentos_estudiante(
+                archivos_revision
+            )
+
+            revision_ia_disponible = True
+
+        except ErrorArchivoDocumento as error:
+
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Archivo no válido",
+                "descripcion": str(error),
+                "icon": "warning",
+            }, status=400)
+
+        except ErrorVerificacionGemini:
+
+            revision_ia_disponible = False
+
+            resultados_verificacion = {
+                campo: {
+                    "nombre": nombre,
+                    "estado": "REVISION_MANUAL",
+                    "tipo_detectado": "No determinado",
+                    "legible": False,
+                    "motivo": (
+                        "La revisión automática no estuvo disponible. "
+                        "El documento requiere comprobación por un funcionario."
+                    ),
+                }
+                for campo, nombre in [
+                    ("CI_estudiante", "Cédula de identidad"),
+                    ("TBachiller_estudiante", "Título de bachiller"),
+                    ("SNotas_estudiante", "Sábana de notas"),
+                    ("OPSU_estudiante", "Documento OPSU"),
+                ]
+            }
+
+        # ==========================================================
+        # RESULTADOS DE LA REVISIÓN AUTOMÁTICA
+        # ==========================================================
+
+        observaciones_ia = [
+            (
+                f"{resultado['nombre']}: "
+                f"{resultado['estado']} — {resultado['motivo']}"
+            )
+            for resultado in resultados_verificacion.values()
+            if resultado["estado"] != "VALIDO"
+        ]
+
+        estados_ia = {
+            resultado["estado"]
+            for resultado in resultados_verificacion.values()
+        }
+
+        if not revision_ia_disponible:
+
+            nota_gemini = (
+                "REVISIÓN MANUAL REQUERIDA. La revisión automática no estuvo "
+                "disponible; los cuatro documentos deben ser comprobados "
+                "por un funcionario."
+            )
+
+        elif "NO_VALIDO" in estados_ia:
+
+            nota_gemini = (
+                "CON OBSERVACIONES. " + " ".join(observaciones_ia)
+            )
+
+        elif "REVISION_MANUAL" in estados_ia:
+
+            nota_gemini = (
+                "REVISIÓN MANUAL REQUERIDA. " + " ".join(observaciones_ia)
+            )
+
         else:
-            campos_estudiantil = [
-                (tipos_secundaria, "Tipo de Institución", "Por favor, seleccione una de las opciones presentes."),
-                (nombre_secundaria, "Nombre del Liceo", "Por favor, ingrese la institución de bachillerato."),
-                (codigo_opsu, "Código OPSU", "Por favor, ingrese el código de la opsu."),
-            ]
-    
-            for valor, titulo, mensaje in campos_estudiantil:
-                if not valor:
-                    return JsonResponse({
-                        "estado": "fallo",
-                        "title": titulo,
-                        "descripcion": mensaje,
-                        "icon": "warning"
-                    })
 
-            nucleos = {
-                "Barinas": request.POST.getlist("pnf_Barinas"),
-                "Barinitas": request.POST.getlist("pnf_Barinitas"),
-                "Socopo": request.POST.getlist("pnf_Socopo"),
-                "Pedraza": request.POST.getlist("pnf_Pedraza"),
-            }
+            nota_gemini = (
+                "POSIBLE PARA REGISTRAR. Gemini no detectó observaciones "
+                "preliminares; la documentación todavía requiere revisión "
+                "y validación humana."
+            )
 
-            if not any(nucleos.values()):
-                return JsonResponse({
-                    "estado": "fallo",
-                    "title": "PNF requerido",
-                    "descripcion": "Debe seleccionar al menos un PNF para continuar.",
-                    "icon": "warning"
-                })
+        # ==========================================================
+        # ALMACENAMIENTO DEL REGISTRO ESTUDIANTIL
+        # ==========================================================
 
-            documentos = {
-                "Cédula de Identidad": request.FILES.get("CI_estudiante"),
-                "Título de Bachiller": request.FILES.get("TBachiller_estudiante"),
-                "Sabana de Notas": request.FILES.get("SNotas_estudiante"),
-                "OPSU": request.FILES.get("OPSU_estudiante"),
-            }
+        with transaction.atomic():
 
-            if not all(documentos.values()):
-                return JsonResponse({
-                    "estado": "fallo",
-                    "title": "Documentos incompletos",
-                    "descripcion": "Debe cargar todos los documentos requeridos para continuar.",
-                    "icon": "warning"
-                })
+            usuario.genero = genero
+            usuario.estado_civil = estado_civil
+            usuario.save()
 
-            with transaction.atomic():
-                usuario.genero = genero
-                usuario.estado_civil = estado_civil
-                usuario.save()
-        
-                contacto = Contacto.objects.get(id_usuario=usuario)
-                
-                contacto.telefono_personal = telefono_principal
-        
-                if telefono_secundario: 
-                    contacto.telefono_suplete = telefono_secundario
-                    
-                contacto.correo_electronico = correo_electronico1
-                contacto.correo_alternativo = correo_electronico2
-                contacto.save()
-        
-                Residencia.objects.create(condicion_residencia=condicion_residencia, municipio=municipio_residencia, parroquia=parroquia_residencia, direccion_residencia=direccion_domicilio, id_usuario=usuario)
-        
-                Nacimiento.objects.create(pais=pais_nacimiento, estado=estado_nacimiento, municipio=municipio_nacimiento, parroquia=parroquia_nacimiento, direccion_nacimiento=direccion_nacimiento, fecha_nacimiento=fecha_nacimiento, id_usuario=usuario)
-                    
-                estudiante = Estudiante.objects.get(usuario=usuario)
+            contacto, _ = Contacto.objects.get_or_create(
+                id_usuario=usuario
+            )
 
-                ContactoAuxiliar.objects.create(nombres=nombres_auxiliar, apellidos=apellidos_auxiliar, cedula_identidad=cedula_auxiliar, telefono=telefono_auxiliar, parentesco=parestenco_auxiliar, id_usuario=usuario)
+            contacto.telefono_personal = telefono_principal
+            contacto.telefono_suplete = telefono_secundario
+            contacto.correo_electronico = correo_electronico1
+            contacto.correo_alternativo = correo_electronico2
+            contacto.save()
 
-                Discapacidad.objects.create(codigo_carnet_discapacidad=carnet_dispacidad, nro_registro_medico=registro_medico, tipo_discapacidad=tipo_discapacidad, grado_discapacidad=grado_discapacidad, causa_discapacidad=causa_discapacidad, id_usuario=usuario)
+            Residencia.objects.create(
+                condicion_residencia=condicion_residencia,
+                municipio=municipio_residencia,
+                parroquia=parroquia_residencia,
+                direccion_residencia=direccion_domicilio,
+                id_usuario=usuario
+            )
 
-                InformacionSecundaria.objects.create(tipo_institucion=tipos_secundaria, nombre_institucion=nombre_secundaria, fecha_grado=fecha_graduacion, codigo_sni_opsu=codigo_opsu, id_usuario=usuario)
+            Nacimiento.objects.create(
+                pais=pais_nacimiento,
+                estado=estado_nacimiento,
+                municipio=municipio_nacimiento,
+                parroquia=parroquia_nacimiento,
+                direccion_nacimiento=direccion_nacimiento,
+                fecha_nacimiento=fecha_nacimiento,
+                id_usuario=usuario
+            )
 
-                primer_registro = True
+            # ------------------------------------------------------
+            # ASIGNACIÓN DEL NÚCLEO Y PNF
+            # ------------------------------------------------------
 
-                for nombre_nucleo, lista_pnfs in nucleos.items():
-                    if not lista_pnfs:
-                        continue
+            estudiante = Estudiante.objects.filter(
+                usuario=usuario,
+                nucleo__isnull=True,
+                pnf__isnull=True,
+            ).first()
 
-                    nucleo = Nucleos.objects.filter(municipio=nombre_nucleo).first()
-                    if not nucleo:
-                        continue
+            if estudiante:
 
-                    for id_pnf in lista_pnfs:
-                        pnf_nucleo = PNFNucleo.objects.filter(
-                            id_nucleo=nucleo,
-                            id_pnf_id=id_pnf
-                        ).select_related("id_pnf").first()
-                        if not pnf_nucleo:
-                            continue
+                estudiante.nucleo = nucleo_seleccionado
+                estudiante.pnf = pnf_seleccionado.id_pnf
 
-                        if primer_registro:
-                            estudiante.nucleo = nucleo
-                            estudiante.pnf = pnf_nucleo.id_pnf
-                            estudiante.save()
+                estudiante.save(
+                    update_fields=["nucleo", "pnf"]
+                )
 
-                            primer_registro = False
-                        else:
-                            estudiante = Estudiante.objects.create(
-                                usuario=usuario,
-                                nucleo=nucleo,
-                                pnf=pnf_nucleo.id_pnf
-                            )
+            else:
 
-                        trayecto_inicial = TrayectoAcademico.objects.get(nombre="Trayecto Inicial")
+                estudiante, _ = Estudiante.objects.get_or_create(
+                    usuario=usuario,
+                    nucleo=nucleo_seleccionado,
+                    pnf=pnf_seleccionado.id_pnf,
+                )
 
-                        EstatusEstudiante.objects.create(
-                            estudiante=estudiante,
-                            estatus="Espera",
-                            estado="Espera",
-                            ingreso="Bachiller",
-                            descripcion_ingreso="En espera de la aceptación.",
-                            trayecto=trayecto_inicial,
-                            fecha_ingreso=timezone.now().date()
-                        )
+            # ------------------------------------------------------
+            # CONTACTO AUXILIAR
+            # ------------------------------------------------------
 
-                nombre_estudiante = f"{usuario.nombres}_{usuario.apellidos}".replace(" ", "_")
+            ContactoAuxiliar.objects.create(
+                nombres=nombres_auxiliar,
+                apellidos=apellidos_auxiliar,
+                cedula_identidad=cedula_auxiliar,
+                telefono=telefono_auxiliar,
+                parentesco=parestenco_auxiliar,
+                id_usuario=usuario
+            )
 
-                base_path = os.path.join(settings.BASE_DIR, "media", "documentosEstudiante", nombre_estudiante)
-                
-                os.makedirs(base_path, exist_ok=True)
+            # ------------------------------------------------------
+            # INFORMACIÓN DE DISCAPACIDAD
+            # ------------------------------------------------------
 
-                fs = FileSystemStorage(location=base_path)
+            Discapacidad.objects.create(
+                codigo_carnet_discapacidad=carnet_dispacidad,
+                nro_registro_medico=registro_medico,
+                tipo_discapacidad=tipo_discapacidad,
+                grado_discapacidad=grado_discapacidad,
+                causa_discapacidad=causa_discapacidad,
+                id_usuario=usuario
+            )
 
-                for nombre, archivo in documentos.items():
-                    if archivo:
-                        extension = os.path.splitext(archivo.name)[1]
-                        nuevo_nombre = f"{nombre}{extension}"
-                        filename = fs.save(nuevo_nombre, archivo)
+            # ------------------------------------------------------
+            # INFORMACIÓN DE SECUNDARIA
+            # ------------------------------------------------------
 
-                        file_path = os.path.join("media", "documentosEstudiante", nombre_estudiante, filename)
-                        DocumentosEstudiante.objects.update_or_create(
-                            id_usuario=usuario, 
-                            nombre_documento=nombre,
-                            defaults={
-                                "archivo": file_path
-                            }
-                        )
-                
-                request.session['registro_completado'] = True
+            InformacionSecundaria.objects.create(
+                tipo_institucion=tipos_secundaria,
+                nombre_institucion=nombre_secundaria,
+                fecha_grado=fecha_graduacion,
+                codigo_sni_opsu=codigo_opsu,
+                id_usuario=usuario
+            )
 
-                return JsonResponse({
-                    "estado": "exito",
-                    "title": "Exito",
-                    "descripcion": "Los datos del estudiante se registraron exitosamente.",
-                    "icon": "success",
-                    "url": reverse("panel_usuario")
-                })
+            # ------------------------------------------------------
+            # ESTATUS ACADÉMICO INICIAL
+            # ------------------------------------------------------
 
-            return JsonResponse({
-                "estado": "fallo",
-                "title": "Error",
-                "descripcion": "Ocurrio un erro al momento de registrar los datos.",
-                "icon": "error"
-            })
+            if not EstatusEstudiante.objects.filter(
+                estudiante=estudiante
+            ).exists():
 
-    return render(request, "Others/Login/completar_registro.html", {"sin_estilos": True})
+                trayecto_inicial = TrayectoAcademico.objects.get(
+                    nombre="Trayecto Inicial"
+                )
+
+                EstatusEstudiante.objects.create(
+                    estudiante=estudiante,
+                    estatus="Espera",
+                    estado="Espera",
+                    ingreso="Bachiller",
+                    descripcion_ingreso="En espera de la aceptación.",
+                    trayecto=trayecto_inicial,
+                    fecha_ingreso=timezone.now().date()
+                )
+
+            # ------------------------------------------------------
+            # CREACIÓN DEL EXPEDIENTE
+            # ------------------------------------------------------
+
+            expediente, _ = ExpedienteEstudiante.objects.get_or_create(
+                usuario=usuario,
+                defaults={
+                    "estado": "PENDIENTE_REVISION",
+                    "nota_gemini": nota_gemini,
+                    "resultados_gemini": resultados_verificacion,
+                    "fecha_revision_gemini": (
+                        timezone.now()
+                        if revision_ia_disponible
+                        else None
+                    ),
+                },
+            )
+
+            expediente.estado = "PENDIENTE_REVISION"
+            expediente.nota_gemini = nota_gemini
+            expediente.resultados_gemini = resultados_verificacion
+
+            expediente.fecha_revision_gemini = (
+                timezone.now()
+                if revision_ia_disponible
+                else None
+            )
+
+            expediente.observacion_actual = ""
+            expediente.aprobado_por = None
+            expediente.fecha_aprobacion = None
+            expediente.perfil_aprobacion = ""
+
+            expediente.save()
+
+            # ------------------------------------------------------
+            # HISTORIAL DEL EXPEDIENTE
+            # ------------------------------------------------------
+
+            HistorialExpedienteEstudiante.objects.create(
+                expediente=expediente,
+                estado_anterior="",
+                estado_nuevo="PENDIENTE_REVISION",
+                accion="REGISTRO_RECIBIDO",
+                observacion=(
+                    "El estudiante completó su registro. "
+                    "La revisión administrativa está pendiente."
+                ),
+                realizado_por=usuario,
+                perfil="ESTUDIANTE",
+            )
+
+            # ------------------------------------------------------
+            # ALMACENAMIENTO DE LOS DOCUMENTOS
+            # ------------------------------------------------------
+
+            for nombre, archivo in documentos.items():
+
+                if archivo:
+
+                    extension = Path(archivo.name).suffix.lower()
+                    nuevo_nombre = f"{nombre}{extension}"
+
+                    documento, _ = DocumentosEstudiante.objects.get_or_create(
+                        id_usuario=usuario,
+                        nombre_documento=nombre,
+                    )
+
+                    documento.expediente = expediente
+
+                    documento.archivo.save(
+                        nuevo_nombre,
+                        archivo,
+                        save=True,
+                    )
+
+            request.session["registro_completado"] = True
+
+        # ==========================================================
+        # GENERACIÓN DE LA PLANILLA DE INSCRIPCIÓN
+        #
+        # Se ejecuta después de confirmar la transacción
+        # del registro estudiantil.
+        # ==========================================================
+
+        estado_planilla = "pendiente"
+        mensaje_planilla = ""
+
+        documento_planilla = None
+
+        try:
+
+            # ------------------------------------------------------
+            # BUSCAR UNA PLANILLA EXISTENTE
+            # ------------------------------------------------------
+
+            documento_planilla = DocumentoInstitucional.objects.filter(
+                tipo_documento="PLANILLA_INSCRIPCION",
+                datos_documento__expediente_id=expediente.pk,
+            ).first()
+
+            # ------------------------------------------------------
+            # GENERAR LA PLANILLA SI NO EXISTE
+            # ------------------------------------------------------
+
+            if documento_planilla is None:
+
+                contenido_planilla = construir_contenido_planilla(
+                    estudiante,
+                    expediente,
+                )
+
+                documento_planilla = crear_documento_institucional(
+                    request=request,
+                    tipo_documento="PLANILLA_INSCRIPCION",
+                    titulo="Constancia de recepción de inscripción",
+                    contenido=contenido_planilla,
+                    emitido_por=usuario,
+                    datos_documento={
+                        "estudiante_id": estudiante.pk,
+                        "expediente_id": expediente.pk,
+                        "nucleo_id": nucleo_seleccionado.pk,
+                        "pnf_id": pnf_seleccionado.id_pnf.pk,
+                    },
+                )
+
+            # ------------------------------------------------------
+            # COMPROBAR QUE EL PDF EXISTA
+            # ------------------------------------------------------
+
+            if (
+                documento_planilla is None
+                or not documento_planilla.archivo_pdf
+            ):
+
+                raise RuntimeError(
+                    "La planilla fue registrada, pero no tiene "
+                    "un archivo PDF asociado."
+                )
+
+            estado_planilla = "generada"
+
+        except Exception:
+
+            logger.exception(
+                "Error al generar la planilla de inscripción "
+                "del expediente %s",
+                expediente.pk,
+            )
+
+            estado_planilla = "pendiente"
+
+            mensaje_planilla = (
+                " Tu inscripción fue recibida correctamente, "
+                "pero no fue posible completar la generación "
+                "de la planilla institucional."
+            )
+
+        # ==========================================================
+        # ENVÍO DE LA PLANILLA POR CORREO ELECTRÓNICO
+        # ==========================================================
+
+        if estado_planilla == "generada":
+
+            try:
+
+                enviar_planilla_inscripcion(
+                    contacto=contacto,
+                    documento=documento_planilla,
+                    usuario=usuario,
+                )
+
+                estado_planilla = "enviada"
+
+            except Exception:
+
+                logger.exception(
+                    "Error al enviar la planilla de inscripción "
+                    "del expediente %s",
+                    expediente.pk,
+                )
+
+                # El PDF se conserva. Solo queda pendiente
+                # completar el envío del correo electrónico.
+
+                estado_planilla = "generada"
+
+                mensaje_planilla = (
+                    " Tu inscripción fue recibida y la planilla "
+                    "fue generada correctamente, pero no fue posible "
+                    "enviarla por correo electrónico."
+                )
+
+        # ==========================================================
+        # RESPUESTA FINAL DEL REGISTRO ESTUDIANTIL
+        # ==========================================================
+
+        return JsonResponse({
+            "estado": "exito",
+            "title": "Registro recibido",
+            "descripcion": (
+                "Tu registro estudiantil fue recibido exitosamente. "
+                "El expediente se encuentra pendiente de revisión "
+                "administrativa."
+                + mensaje_planilla
+            ),
+            "icon": "success",
+            "estado_expediente": expediente.estado,
+            "estado_planilla": estado_planilla,
+            "nota_gemini": nota_gemini,
+            "verificacion_documentos": resultados_verificacion,
+            "url": reverse("panel_usuario"),
+        })
+
+    # ==============================================================
+    # CARGA DEL FORMULARIO
+    # ==============================================================
+
+    return render(
+        request,
+        "Sesion/actualizar/completar_registro.html",
+        {
+            "sin_estilos": True,
+            "es_completar_registro": True,
+        }
+    )

@@ -1,0 +1,206 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verificación documental | CASRCE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px 16px;
+            min-height: 100vh;
+            background: #F8FAFC;
+            color: #0F172A;
+            font-family: Arial, sans-serif;
+        }
+
+        .contenedor-verificacion {
+            width: 100%;
+            max-width: 680px;
+            margin: 35px auto;
+            padding: 35px;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.07);
+        }
+
+        .encabezado {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .encabezado h1 {
+            margin: 0 0 8px;
+            font-size: 21px;
+            color: #0F172A;
+        }
+
+        .encabezado p {
+            margin: 0;
+            font-size: 13px;
+            color: #64748B;
+            line-height: 1.6;
+        }
+
+        .estado {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 28px 0;
+            padding: 17px;
+            border-radius: 9px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .vigente {
+            background: #ECFDF5;
+            color: #047857;
+            border: 1px solid #A7F3D0;
+        }
+
+        .anulado {
+            background: #FEF2F2;
+            color: #B91C1C;
+            border: 1px solid #FECACA;
+        }
+
+        .informacion h2 {
+            margin: 0 0 20px;
+            font-size: 16px;
+        }
+
+        .dato {
+            padding: 13px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .dato:last-child {
+            border-bottom: none;
+        }
+
+        .dato span {
+            display: block;
+            margin-bottom: 6px;
+            color: #64748B;
+            font-size: 12px;
+        }
+
+        .dato strong {
+            display: block;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .nota {
+            margin-top: 25px;
+            padding: 15px;
+            background: #F8FAFC;
+            border-radius: 8px;
+            color: #475569;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .pie {
+            margin-top: 30px;
+            text-align: center;
+            color: #94A3B8;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 550px) {
+            .contenedor-verificacion {
+                padding: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="contenedor-verificacion">
+
+        <header class="encabezado">
+            <h1>Verificación de Documento</h1>
+
+            <p>
+                Universidad Politécnica Territorial del Estado
+                Barinas José Félix Ribas
+                <br>
+                Sistema CASRCE
+            </p>
+        </header>
+
+        {% if es_valido %}
+
+            <div class="estado vigente">
+                ✓ DOCUMENTO VIGENTE
+            </div>
+
+        {% else %}
+
+            <div class="estado anulado">
+                ✕ DOCUMENTO ANULADO
+            </div>
+
+        {% endif %}
+
+        <section class="informacion">
+
+            <h2>Información del documento</h2>
+
+            <div class="dato">
+                <span>Código de identificación</span>
+                <strong>{{ documento.codigo_documento }}</strong>
+            </div>
+
+            <div class="dato">
+                <span>Tipo de documento</span>
+                <strong>{{ documento.tipo_documento }}</strong>
+            </div>
+
+            <div class="dato">
+                <span>Título</span>
+                <strong>{{ documento.titulo }}</strong>
+            </div>
+
+            <div class="dato">
+                <span>Fecha de emisión</span>
+                <strong>
+                    {{ documento.fecha_emision|date:"d/m/Y H:i" }}
+                </strong>
+            </div>
+
+        </section>
+
+        <div class="nota">
+            Esta consulta permite comprobar el registro y el estado
+            de vigencia del documento en el sistema institucional CASRCE.
+            La información personal y académica contenida en el documento
+            no se publica en esta página.
+        </div>
+
+        <footer class="pie">
+            CASRCE · Sistema de Gestión Institucional
+            <br>
+            Universidad Politécnica Territorial del Estado Barinas
+            José Félix Ribas
+        </footer>
+
+    </main>
+
+</body>
+</html>

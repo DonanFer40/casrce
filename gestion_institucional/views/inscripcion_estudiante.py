@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.utils import timezone
 from django.conf import settings
+from django.db.models import Q
 
-from inicio_sesion.models import Docente, PNFNucleo, ControlEstudio, CalendarioAcademico, Usuario, Contacto, Nacimiento, Residencia, AulaEstudiante, Bitacora, CoordinadorPNF, EstatusEstudiante, DocumentosEstudiante, ContactoAuxiliar, Discapacidad, InformacionSecundaria, Estudiante, AulaAcademica
+from inicio_sesion.models import Docente, PNFNucleo, ControlEstudio, CalendarioAcademico, Usuario, Contacto, Nacimiento, Residencia, AulaEstudiante, Bitacora, CoordinadorPNF, EstatusEstudiante, DocumentosEstudiante, ContactoAuxiliar, Discapacidad, InformacionSecundaria, Estudiante, AulaAcademica, ExpedienteEstudiante
 
 def perf_asig_coord(request):
     cedula = request.session.get("cedula_usuario")
@@ -395,7 +396,11 @@ def obt_pre_inscrt(request):
         .filter(
             nucleo_id=nucleo_id,
             pnf_id=pnf_id,
-            estatus__estatus="Espera"
+            estatus__estatus="Espera",
+        )
+        .filter(
+            Q(usuario__expediente_estudiantil__estado="INSCRIPCION_APROBADA")
+            | Q(usuario__expediente_estudiantil__isnull=True)
         )
         .select_related(
             "usuario"
@@ -856,6 +861,18 @@ def inscr_est(request):
             )
         })
     
+    expediente = ExpedienteEstudiante.objects.filter(usuario=usuario).first()
+    if expediente and expediente.estado != "INSCRIPCION_APROBADA":
+        return JsonResponse({
+            "titulo": "Expediente pendiente de aprobación",
+            "estado": "fallo",
+            "icon": "warning",
+            "descripcion": (
+                "Antes de formalizar la inscripción académica, el expediente "
+                "debe estar aprobado por el Coordinador de PNF o Control de Estudios."
+            )
+        })
+
     if not id_aula:
         return JsonResponse({
             "titulo": "¡Advertencia!",

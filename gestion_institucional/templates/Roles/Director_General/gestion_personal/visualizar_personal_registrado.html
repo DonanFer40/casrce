@@ -1,207 +1,376 @@
+
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<section id="DirectorPersonalRegistradoCASRCE" class="reveal">
 
-<section id="director-personal-registrado-carsce">
-
-    <div class="director-personal-registrado-carsce-contenedor">
+    <div class="DirectorPersonalRegistradoCASRCE-marco">
 
         <!-- =====================================================
-             ENCABEZADO
+             PANEL INSTITUCIONAL
              ===================================================== -->
 
-        <div class="director-personal-registrado-carsce-encabezado">
+        <aside class="DirectorPersonalRegistradoCASRCE-informacion">
 
-            <div class="director-personal-registrado-carsce-identificacion">
-
-                <span class="director-personal-registrado-carsce-etiqueta">
-                    Gestión de Personal
+            <div class="DirectorPersonalRegistradoCASRCE-marca">
+                <span>CASRCE</span>
+                <span class="DirectorPersonalRegistradoCASRCE-marca-linea"></span>
+                <span class="DirectorPersonalRegistradoCASRCE-marca-tipo">
+                    DIRECCIÓN GENERAL
                 </span>
-
-                <span class="director-personal-registrado-carsce-seccion">
-                    <i class="fa-solid fa-users"></i>
-                    Personal registrado
-                </span>
-
             </div>
 
+            <div class="DirectorPersonalRegistradoCASRCE-ilustracion"
+                 aria-hidden="true">
 
-            <div class="director-personal-registrado-carsce-presentacion">
+                <div class="DirectorPersonalRegistradoCASRCE-circulo DirectorPersonalRegistradoCASRCE-circulo-uno"></div>
+                <div class="DirectorPersonalRegistradoCASRCE-circulo DirectorPersonalRegistradoCASRCE-circulo-dos"></div>
 
-                <h1 class="director-personal-registrado-carsce-titulo">
-                    Visualizar Personal Registrado
-                </h1>
-
-                <p class="director-personal-registrado-carsce-descripcion">
-                    Consulte el personal registrado y filtre la información
-                    según el P.N.F. o el rol asignado.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================================
-             FILTROS
-             ===================================================== -->
-
-        <div class="director-personal-registrado-carsce-filtros">
-
-            <div class="director-personal-registrado-carsce-filtros-cabecera">
-
-                <div class="director-personal-registrado-carsce-filtros-icono">
-                    <i class="fa-solid fa-filter"></i>
+                <div class="DirectorPersonalRegistradoCASRCE-ilustracion-icono">
+                    <i class="fa-solid fa-users-gear"></i>
                 </div>
 
-                <div class="director-personal-registrado-carsce-filtros-titulo">
+                <div class="DirectorPersonalRegistradoCASRCE-ilustracion-insignia">
+                    <i class="fa-solid fa-address-card"></i>
+                </div>
+
+            </div>
+
+            <div class="DirectorPersonalRegistradoCASRCE-informacion-contenido">
+
+                <span class="DirectorPersonalRegistradoCASRCE-indicador">
+                    GESTIÓN INSTITUCIONAL
+                </span>
+
+                <h1>
+                    Personal
+                    <br>
+                    registrado
+                </h1>
+
+                <p>
+                    Consulta y supervisa la información del personal
+                    incorporado al sistema, sus perfiles y las
+                    asignaciones académicas correspondientes.
+                </p>
+
+                <div class="DirectorPersonalRegistradoCASRCE-linea"></div>
+
+                <span class="DirectorPersonalRegistradoCASRCE-submarca">
+                    Universidad Politécnica Territorial del Estado Barinas
+                    José Félix Ribas
+                </span>
+
+            </div>
+
+            <div class="DirectorPersonalRegistradoCASRCE-pie-institucional">
+
+                <i class="fa-solid fa-shield-halved"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Administración y supervisión institucional
+                </span>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             PANEL DE DIRECTORIO
+             ===================================================== -->
+
+        <main class="DirectorPersonalRegistradoCASRCE-directorio">
+
+            <!-- CABECERA -->
+
+            <header class="DirectorPersonalRegistradoCASRCE-cabecera">
+
+                <div class="DirectorPersonalRegistradoCASRCE-cabecera-texto">
+
+                    <span class="DirectorPersonalRegistradoCASRCE-etiqueta">
+                        DIRECTORIO INSTITUCIONAL
+                    </span>
 
                     <h2>
-                        Filtros de búsqueda
+                        Gestión de personal
                     </h2>
 
+                    <p>
+                        Consulta los registros y sus asignaciones dentro
+                        de la institución.
+                    </p>
+
+                </div>
+
+                <div class="DirectorPersonalRegistradoCASRCE-estado">
+
+                    <span class="DirectorPersonalRegistradoCASRCE-estado-punto"></span>
+
                     <span>
-                        Seleccione los criterios para consultar el personal
+                        Sistema activo
                     </span>
 
                 </div>
 
-            </div>
+            </header>
 
 
-            <form
-                method="post"
-                class="director-personal-registrado-carsce-formulario-filtros"
-            >
+            <!-- =================================================
+                 FILTROS DE CONSULTA
+                 ================================================= -->
 
-                {% csrf_token %}
+            <section class="DirectorPersonalRegistradoCASRCE-filtros"
+                     aria-labelledby="DirectorPersonalRegistradoCASRCE-titulo-filtros">
 
+                <div class="DirectorPersonalRegistradoCASRCE-seccion-cabecera">
 
-                <div class="director-personal-registrado-carsce-filtro">
-
-                    <label for="pnf_registrados">
-                        P.N.F
-                    </label>
-
-                    <select
-                        name="pnf_registrados"
-                        id="pnf_registrados"
-                    ></select>
-
-                </div>
-
-
-                <div class="director-personal-registrado-carsce-filtro">
-
-                    <label for="perfiles_registrados">
-                        Rol
-                    </label>
-
-                    <select
-                        name="perfiles_registrados"
-                        id="perfiles_registrados"
-                    >
-
-                        <option value="">
-                            Selecciona un perfil
-                        </option>
-
-                        <option value="Docente">
-                            Docente
-                        </option>
-
-                        <option value="Coordinador de PNF">
-                            Coordinador de PNF
-                        </option>
-
-                        <option value="Encargado de Control de Estudio">
-                            Encargado de Control de Estudio
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </form>
-
-        </div>
-
-
-        <!-- =====================================================
-             TABLA DE PERSONAL
-             ===================================================== -->
-
-        <div class="director-personal-registrado-carsce-tabla-contenedor">
-
-            <div class="director-personal-registrado-carsce-tabla-cabecera">
-
-                <div class="director-personal-registrado-carsce-tabla-titulo">
-
-                    <div class="director-personal-registrado-carsce-tabla-icono">
-                        <i class="fa-solid fa-address-book"></i>
+                    <div class="DirectorPersonalRegistradoCASRCE-seccion-icono">
+                        <i class="fa-solid fa-sliders"
+                           aria-hidden="true"></i>
                     </div>
 
-                    <div>
+                    <div class="DirectorPersonalRegistradoCASRCE-seccion-texto">
 
-                        <h2>
-                            Personal registrado
-                        </h2>
+                        <h3 id="DirectorPersonalRegistradoCASRCE-titulo-filtros">
+                            Criterios de búsqueda
+                        </h3>
 
-                        <span>
-                            Información disponible en el sistema
-                        </span>
+                        <p>
+                            Selecciona los parámetros para filtrar el directorio.
+                        </p>
 
                     </div>
 
                 </div>
 
+
+                <form method="post"
+                      class="DirectorPersonalRegistradoCASRCE-formulario"
+                      aria-label="Filtros del directorio institucional">
+
+                    {% csrf_token %}
+
+                    <!-- FILTRO PNF -->
+
+                    <div class="DirectorPersonalRegistradoCASRCE-grupo">
+
+                        <label for="pnf_registrados">
+                            Programa Nacional de Formación
+                        </label>
+
+                        <div class="DirectorPersonalRegistradoCASRCE-campo">
+
+                            <i class="fa-solid fa-graduation-cap"
+                               aria-hidden="true"></i>
+
+                            <select name="pnf_registrados"
+                                    id="pnf_registrados"
+                                    aria-label="Filtrar por Programa Nacional de Formación">
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down DirectorPersonalRegistradoCASRCE-flecha"
+                               aria-hidden="true"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FILTRO DE ROL -->
+
+                    <div class="DirectorPersonalRegistradoCASRCE-grupo">
+
+                        <label for="perfiles_registrados">
+                            Rol institucional
+                        </label>
+
+                        <div class="DirectorPersonalRegistradoCASRCE-campo">
+
+                            <i class="fa-solid fa-user-tag"
+                               aria-hidden="true"></i>
+
+                            <select name="perfiles_registrados"
+                                    id="perfiles_registrados"
+                                    aria-label="Filtrar por rol institucional">
+
+                                <option value="">
+                                    Todos los perfiles
+                                </option>
+
+                                <option value="Docente">
+                                    Docente
+                                </option>
+
+                                <option value="Coordinador de PNF">
+                                    Coordinador de PNF
+                                </option>
+
+                                <option value="Encargado de Control de Estudio">
+                                    Encargado de Control de Estudio
+                                </option>
+
+                            </select>
+
+                            <i class="fa-solid fa-chevron-down DirectorPersonalRegistradoCASRCE-flecha"
+                               aria-hidden="true"></i>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- =================================================
+                 RESULTADOS
+                 ================================================= -->
+
+            <section class="DirectorPersonalRegistradoCASRCE-resultados"
+                     aria-labelledby="DirectorPersonalRegistradoCASRCE-titulo-resultados">
+
+                <div class="DirectorPersonalRegistradoCASRCE-resultados-cabecera">
+
+                    <div class="DirectorPersonalRegistradoCASRCE-resultados-identidad">
+
+                        <div class="DirectorPersonalRegistradoCASRCE-resultados-icono">
+                            <i class="fa-solid fa-address-book"
+                               aria-hidden="true"></i>
+                        </div>
+
+                        <div>
+
+                            <span>REGISTROS INSTITUCIONALES</span>
+
+                            <h3 id="DirectorPersonalRegistradoCASRCE-titulo-resultados">
+                                Personal disponible
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <span class="DirectorPersonalRegistradoCASRCE-resultados-tipo">
+                        <i class="fa-solid fa-database"
+                           aria-hidden="true"></i>
+                        Directorio CASRCE
+                    </span>
+
+                </div>
+
+
+                <!-- TABLA -->
+
+                <div class="DirectorPersonalRegistradoCASRCE-tabla-marco"
+                     role="region"
+                     aria-label="Tabla de personal registrado"
+                     tabindex="0">
+
+                    <table class="DirectorPersonalRegistradoCASRCE-tabla">
+
+                        <caption class="DirectorPersonalRegistradoCASRCE-caption">
+                            Personal registrado en el sistema CASRCE.
+                        </caption>
+
+                        <thead>
+
+                            <tr>
+
+                                <th scope="col">
+                                    <span>
+                                        <i class="fa-solid fa-hashtag"
+                                           aria-hidden="true"></i>
+                                        Código
+                                    </span>
+                                </th>
+
+                                <th scope="col">
+                                    <span>
+                                        <i class="fa-solid fa-user"
+                                           aria-hidden="true"></i>
+                                        Nombres
+                                    </span>
+                                </th>
+
+                                <th scope="col">
+                                    <span>
+                                        <i class="fa-solid fa-users"
+                                           aria-hidden="true"></i>
+                                        Apellidos
+                                    </span>
+                                </th>
+
+                                <th scope="col">
+                                    <span>
+                                        <i class="fa-solid fa-address-card"
+                                           aria-hidden="true"></i>
+                                        Cédula
+                                    </span>
+                                </th>
+
+                                <th scope="col">
+                                    <span>
+                                        <i class="fa-solid fa-user-shield"
+                                           aria-hidden="true"></i>
+                                        Rol institucional
+                                    </span>
+                                </th>
+
+                                <th scope="col">
+                                    <span>
+                                        <i class="fa-solid fa-graduation-cap"
+                                           aria-hidden="true"></i>
+                                        PNF asignados
+                                    </span>
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="contenedor_personal_registrado"></tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- PIE -->
+
+                <footer class="DirectorPersonalRegistradoCASRCE-resultados-pie">
+
+                    <i class="fa-solid fa-circle-info"
+                       aria-hidden="true"></i>
+
+                    <p>
+                        Los resultados corresponden a los registros
+                        disponibles según los criterios de búsqueda aplicados.
+                    </p>
+
+                </footer>
+
+            </section>
+
+
+            <!-- PIE GENERAL -->
+
+            <div class="DirectorPersonalRegistradoCASRCE-pie">
+
+                <span>
+                    CASRCE · Gestión académica institucional
+                </span>
+
+                <i class="fa-solid fa-shield-halved"
+                   aria-hidden="true"></i>
+
             </div>
 
-
-            <div class="director-personal-registrado-carsce-tabla-scroll">
-
-                <table class="director-personal-registrado-carsce-tabla">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>ID</th>
-
-                            <th>
-                                NOMBRES
-                            </th>
-
-                            <th>
-                                APELLIDOS
-                            </th>
-
-                            <th>
-                                C.I
-                            </th>
-
-                            <th>
-                                ROL
-                            </th>
-
-                            <th>
-                                P.N.F Asignados
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="contenedor_personal_registrado"></tbody>
-
-                </table>
-
-            </div>
-
-        </div>
+        </main>
 
     </div>
 
@@ -212,8 +381,6 @@
      JAVASCRIPT DEL MÓDULO
      ========================================================= -->
 
-<script
-    src="{% static 'Funciones_Asincronas/Director_General/gestion_personal/visualizar_personal_registrado.js' %}">
-</script>
+<script src="{% static 'Funciones_Asincronas/Director_General/gestion_personal/visualizar_personal_registrado.js' %}"></script>
 
 {% endblock %}

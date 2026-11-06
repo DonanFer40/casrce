@@ -1,9 +1,6 @@
 {% load static %}
 
-<header
-    id="encabezado-principal-carsce"
-    class="{% if request.session.usuario_nombre %}header-logueado{% endif %}"
->
+<header id="encabezado-principal-carsce" class="{% if request.session.usuario_nombre %}header-logueado{% endif %}">
 
     <nav id="navegacion-principal-carsce">
 
@@ -15,15 +12,10 @@
 
             <!-- Gobierno Bolivariano -->
 
-            <div
-                class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-gobierno"
-            >
+            <div class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-gobierno">
 
-                <img
-                    src="{% static 'Imagenes/MPPE.png' %}"
-                    alt="Gobierno Bolivariano de Venezuela"
-                    class="encabezado-institucional-carsce-logo-gobierno"
-                >
+                <img src="{% static 'Imagenes/MPPE.png' %}" alt="Gobierno Bolivariano de Venezuela"
+                    class="encabezado-institucional-carsce-logo-gobierno">
 
                 <h1 class="encabezado-institucional-carsce-titulo">
                     Gobierno Bolivariano
@@ -40,9 +32,7 @@
 
             <!-- Ministerio -->
 
-            <div
-                class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-ministerio"
-            >
+            <div class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-ministerio">
 
                 <h1 class="encabezado-institucional-carsce-titulo">
                     Ministerio del Poder Popular
@@ -59,15 +49,10 @@
 
             <!-- Universidad -->
 
-            <div
-                class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-universidad"
-            >
+            <div class="encabezado-institucional-carsce-bloque encabezado-institucional-carsce-universidad">
 
-                <img
-                    src="{% static 'Imagenes/UPT_LOGO.png' %}"
-                    alt="UPT Barinas"
-                    class="encabezado-institucional-carsce-logo-universidad"
-                >
+                <img src="{% static 'Imagenes/UPT_LOGO.png' %}" alt="UPT Barinas"
+                    class="encabezado-institucional-carsce-logo-universidad">
 
                 <h1 class="encabezado-institucional-carsce-titulo">
                     Universidad Politécnica Territorial del
@@ -80,12 +65,8 @@
 
             <!-- Botón hamburguesa -->
 
-            <button
-                type="button"
-                id="hamburger-btn"
-                class="encabezado-institucional-carsce-hamburguesa"
-                aria-label="Abrir menú"
-            >
+            <button type="button" id="hamburger-btn" class="encabezado-institucional-carsce-hamburguesa"
+                aria-label="Abrir menú">
                 <i class="fa-solid fa-bars"></i>
             </button>
 
@@ -98,10 +79,7 @@
 
         {% if not request.session.usuario_nombre %}
 
-        <div
-            id="menu-contenedor"
-            class="navegacion-publica-carsce"
-        >
+        <div id="menu-contenedor" class="navegacion-publica-carsce">
 
             <!-- Marca -->
 
@@ -118,10 +96,7 @@
 
                 <li class="navegacion-publica-carsce-item">
 
-                    <a
-                        href="{% url 'foro' %}"
-                        class="navegacion-publica-carsce-enlace"
-                    >
+                    <a href="{% url 'foro' %}" class="navegacion-publica-carsce-enlace">
 
                         <i class="fa-solid fa-house"></i>
 
@@ -134,14 +109,9 @@
 
                 <!-- Institución -->
 
-                <li
-                    class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown"
-                >
+                <li class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown">
 
-                    <a
-                        href="#"
-                        class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle"
-                    >
+                    <a href="#" class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle">
 
                         <i class="fa-solid fa-building-columns"></i>
 
@@ -156,10 +126,7 @@
 
                         <li class="navegacion-publica-carsce-subitem">
 
-                            <a
-                                href="{% url 'Historia' %}"
-                                class="navegacion-publica-carsce-subenlace"
-                            >
+                            <a href="{% url 'Historia' %}" class="navegacion-publica-carsce-subenlace">
 
                                 <i class="fa-solid fa-book-open"></i>
 
@@ -172,10 +139,7 @@
 
                         <li class="navegacion-publica-carsce-subitem">
 
-                            <a
-                                href="{% url 'mision_vision' %}"
-                                class="navegacion-publica-carsce-subenlace"
-                            >
+                            <a href="{% url 'mision_vision' %}" class="navegacion-publica-carsce-subenlace">
 
                                 <i class="fa-solid fa-bullseye"></i>
 
@@ -192,14 +156,9 @@
 
                 <!-- Formación Estudiantil -->
 
-                <li
-                    class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown"
-                >
+                <li class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown">
 
-                    <a
-                        href="#"
-                        class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle"
-                    >
+                    <a href="#" class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle">
 
                         <i class="fa-solid fa-graduation-cap"></i>
 
@@ -214,10 +173,7 @@
 
                         <li class="navegacion-publica-carsce-subitem">
 
-                            <a
-                                href="{% url 'pst' %}"
-                                class="navegacion-publica-carsce-subenlace"
-                            >
+                            <a href="{% url 'pst' %}" class="navegacion-publica-carsce-subenlace">
 
                                 <i class="fa-solid fa-microchip"></i>
 
@@ -232,10 +188,7 @@
 
                         <li class="navegacion-publica-carsce-subitem">
 
-                            <a
-                                href="{% url 'psc' %}"
-                                class="navegacion-publica-carsce-subenlace"
-                            >
+                            <a href="{% url 'psc' %}" class="navegacion-publica-carsce-subenlace">
 
                                 <i class="fa-solid fa-users"></i>
 
@@ -254,14 +207,9 @@
 
                 <!-- Guía Estudiantil / Docente -->
 
-                <li
-                    class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown"
-                >
+                <li class="navegacion-publica-carsce-item navegacion-publica-carsce-dropdown">
 
-                    <a
-                        href="#"
-                        class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle"
-                    >
+                    <a href="#" class="navegacion-publica-carsce-enlace navegacion-publica-carsce-toggle">
 
                         <i class="fa-solid fa-chalkboard-user"></i>
 
@@ -278,10 +226,7 @@
 
                         <li class="navegacion-publica-carsce-subitem">
 
-                            <a
-                                href="{% url 'trayectoria' %}"
-                                class="navegacion-publica-carsce-subenlace"
-                            >
+                            <a href="{% url 'trayectoria' %}" class="navegacion-publica-carsce-subenlace">
 
                                 <i class="fa-solid fa-route"></i>
 
@@ -296,10 +241,7 @@
 
                         <li class="navegacion-publica-carsce-subitem">
 
-                            <a
-                                href="{% url 'Planificacion_Docente' %}"
-                                class="navegacion-publica-carsce-subenlace"
-                            >
+                            <a href="{% url 'Planificacion_Docente' %}" class="navegacion-publica-carsce-subenlace">
 
                                 <i class="fa-solid fa-calendar-check"></i>
 
@@ -320,10 +262,7 @@
 
                 <li class="navegacion-publica-carsce-item">
 
-                    <a
-                        href="{% url 'carreras_impartidas' %}"
-                        class="navegacion-publica-carsce-enlace"
-                    >
+                    <a href="{% url 'carreras_impartidas' %}" class="navegacion-publica-carsce-enlace">
 
                         <i class="fa-solid fa-book-bookmark"></i>
 
@@ -338,14 +277,9 @@
 
                 <!-- Acceder -->
 
-                <li
-                    class="navegacion-publica-carsce-item navegacion-publica-carsce-acceso"
-                >
+                <li class="navegacion-publica-carsce-item navegacion-publica-carsce-acceso">
 
-                    <a
-                        href="{% url 'inicio_sesion' %}"
-                        class="navegacion-publica-carsce-boton-acceso"
-                    >
+                    <a href="{% url 'inicio_sesion' %}" class="navegacion-publica-carsce-boton-acceso">
 
                         <i class="fa-solid fa-right-to-bracket"></i>
 
@@ -370,10 +304,13 @@
 
         {% if request.session.usuario_nombre %}
 
-        <div
-            id="menu-contenedor-logueado"
-            class="navegacion-autenticada-carsce"
-        >
+        <div id="menu-contenedor-logueado" class="navegacion-autenticada-carsce
+            {% if nucleo_usuario == 'Barinas' %}nucleo-barinas
+            {% elif nucleo_usuario == 'Barinitas' %}nucleo-barinitas
+            {% elif nucleo_usuario == 'Socopo' %}nucleo-socopo
+            {% elif nucleo_usuario == 'Pedraza' %}nucleo-pedraza
+            {% endif %}">
+
 
             <!-- Marca -->
 
@@ -383,10 +320,12 @@
 
 
             <!-- =================================================
-                 NÚCLEO DEL USUARIO
-                 ================================================= -->
+                NÚCLEO DEL USUARIO
+            ================================================= -->
 
             <div class="navegacion-autenticada-carsce-nucleo">
+
+                {% if not es_completar_registro %}
 
                 <span class="directorgeneral-panel-carsce-nucleo">
 
@@ -394,91 +333,27 @@
 
                     <span>Núcleo:</span>
 
-                    <strong>
-                        {{ nucleo_usuario }}
-                    </strong>
+                    <strong>{{ nucleo_usuario }}</strong>
 
                 </span>
 
+                {% else %}
+
+                <a href="{% url 'cerrar_sesion' %}"
+                    class="navegacion-autenticada-carsce-subenlace navegacion-autenticada-carsce-cerrar">
+
+                    <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+
+                    <span>Cerrar sesión</span>
+
+                </a>
+
+                {% endif %}
+
             </div>
 
-
-            <!-- =================================================
-                 MENÚ DEL USUARIO
-                 ================================================= -->
-
-            <ul class="navegacion-autenticada-carsce-lista">
-
-                <li
-                    class="navegacion-autenticada-carsce-item navegacion-autenticada-carsce-dropdown"
-                >
-
-                    <a
-                        href="#"
-                        class="navegacion-autenticada-carsce-enlace"
-                    >
-
-                        <i
-                            class="fa-solid fa-circle-user navegacion-autenticada-carsce-avatar"
-                        ></i>
-
-                        <span class="navegacion-autenticada-carsce-nombre">
-                            {{ request.session.usuario_nombre }}
-                        </span>
-
-                        <i
-                            class="fa-solid fa-chevron-down navegacion-autenticada-carsce-flecha"
-                        ></i>
-
-                    </a>
-
-
-                    <!-- Menú del usuario -->
-
-                    <ul class="navegacion-autenticada-carsce-submenu">
-
-                        <li class="navegacion-autenticada-carsce-subitem">
-
-                            <a
-                                href="#"
-                                class="navegacion-autenticada-carsce-subenlace"
-                            >
-
-                                <i class="fa-solid fa-sliders"></i>
-
-                                <span>
-                                    Configuración
-                                </span>
-
-                            </a>
-
-                        </li>
-
-
-                        <li class="navegacion-autenticada-carsce-subitem">  
-
-                            <a href="{% url 'cerrar_sesion' %}" class="navegacion-autenticada-carsce-subenlace navegacion-autenticada-carsce-cerrar">
-
-                                <i class="fa-solid fa-power-off"></i>
-
-                                <span>
-                                    Cerrar Sesión
-                                </span>
-
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-            </ul>
-
         </div>
-
         {% endif %}
-
     </nav>
 
 </header>

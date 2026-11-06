@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Clases (Tablas) principales 
 class Usuario(models.Model):
@@ -268,11 +269,87 @@ class AulaEstudiante(models.Model):
         default="Curso"
     )
 
+class ExpedienteEstudiante(models.Model):
+    ESTADOS = [
+        ("PENDIENTE_REVISION", "Pendiente por revisión"),
+        ("EN_REVISION", "En revisión"),
+        ("CON_OBSERVACIONES", "Con observaciones"),
+        ("VALIDADO_ADMINISTRATIVAMENTE", "Validado administrativamente"),
+        ("INSCRIPCION_APROBADA", "Inscripción aprobada"),
+    ]
+
+    id_expediente = models.AutoField(primary_key=True)
+    usuario = models.OneToOneField(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name="expediente_estudiantil",
+    )
+    estado = models.CharField(
+        max_length=40,
+        choices=ESTADOS,
+        default="PENDIENTE_REVISION",
+        db_index=True,
+    )
+    nota_gemini = models.TextField(blank=True)
+    resultados_gemini = models.JSONField(default=dict, blank=True)
+    fecha_revision_gemini = models.DateTimeField(null=True, blank=True)
+    observacion_actual = models.TextField(blank=True)
+    creado = models.DateTimeField(auto_now_add=True)
+    actualizado = models.DateTimeField(auto_now=True)
+    aprobado_por = models.ForeignKey(
+        Usuario,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="expedientes_aprobados",
+    )
+    fecha_aprobacion = models.DateTimeField(null=True, blank=True)
+    perfil_aprobacion = models.CharField(max_length=30, blank=True)
+
+    class Meta:
+        ordering = ["-actualizado", "-id_expediente"]
+
+    def __str__(self):
+        return f"Expediente de {self.usuario} - {self.get_estado_display()}"
+
+
 class DocumentosEstudiante(models.Model):
     id_documento = models.AutoField(primary_key=True)
     nombre_documento = models.CharField(max_length=50)
     archivo = models.FileField(upload_to="documentos_estudiante/")
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="documentos")
+    expediente = models.ForeignKey(
+        ExpedienteEstudiante,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="documentos",
+    )
+
+
+class HistorialExpedienteEstudiante(models.Model):
+    expediente = models.ForeignKey(
+        ExpedienteEstudiante,
+        on_delete=models.CASCADE,
+        related_name="historial",
+    )
+    estado_anterior = models.CharField(max_length=40, blank=True)
+    estado_nuevo = models.CharField(max_length=40, choices=ExpedienteEstudiante.ESTADOS)
+    accion = models.CharField(max_length=40)
+    observacion = models.TextField(blank=True)
+    realizado_por = models.ForeignKey(
+        Usuario,
+        on_delete=models.PROTECT,
+        related_name="acciones_expedientes",
+    )
+    perfil = models.CharField(max_length=30)
+    fecha_hora = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-fecha_hora", "-id"]
+
+    def __str__(self):
+        return f"{self.expediente} - {self.accion}"
 
 class InformacionSecundaria(models.Model):
     id_secundaria = models.AutoField(primary_key=True)
@@ -508,3 +585,123 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+# ==========================================================
+# SEGURIDAD DEL ACCESO ADMINISTRATIVO
+# ==========================================================
+
+class ConfiguracionSeguridadAdmin(models.Model):
+
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="configuracion_seguridad_admin"
+    )
+
+    # Se almacenará cifrado mediante Fernet.
+    secreto_totp_cifrado = models.TextField(
+        blank=True,
+        default=""
+    )
+
+    totp_activo = models.BooleanField(default=False)
+
+    # Evita reutilizar un código TOTP que ya fue aceptado.
+    ultimo_uso_totp = models.PositiveBigIntegerField(
+        null=True,
+        blank=True
+    )
+
+    creado = models.DateTimeField(auto_now_add=True)
+    actualizado = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Seguridad administrativa - {self.usuario}"
+
+
+class VerificacionAccesoAdmin(models.Model):
+
+    ETAPAS = [
+        ("CORREO", "Verificación de correo"),
+        ("TOTP", "Verificación TOTP"),
+        ("COMPLETADO", "Verificación completada"),
+        ("INVALIDADO", "Acceso invalidado"),
+    ]
+
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="verificaciones_acceso_admin"
+    )
+
+    # Huella del identificador aleatorio de la sesión.
+    # Nunca almacenamos el token original.
+    token_sesion_hash = models.CharField(
+        max_length=64,
+        unique=True
+    )
+
+    etapa = models.CharField(
+        max_length=20,
+        choices=ETAPAS,
+        default="CORREO",
+        db_index=True
+    )
+
+    # El código se almacena mediante hash, nunca en texto plano.
+    codigo_correo_hash = models.CharField(
+        max_length=128,
+        blank=True,
+        default=""
+    )
+
+    fecha_expiracion_codigo = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    ultimo_envio_codigo = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    intentos_correo = models.PositiveIntegerField(default=0)
+    intentos_totp = models.PositiveIntegerField(default=0)
+
+    bloqueado_hasta = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    correo_verificado = models.BooleanField(default=False)
+    totp_verificado = models.BooleanField(default=False)
+
+    activo = models.BooleanField(default=True)
+
+    creado = models.DateTimeField(auto_now_add=True)
+    actualizado = models.DateTimeField(auto_now=True)
+
+    completado = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        ordering = ["-creado"]
+        indexes = [
+            models.Index(
+                fields=["usuario", "activo"],
+                name="idx_admin_usuario_activo"
+            ),
+            models.Index(
+                fields=["etapa", "activo"],
+                name="idx_admin_etapa_activo"
+            ),
+        ]
+
+    def __str__(self):
+        return (
+            f"Verificación administrativa - "
+            f"{self.usuario} - {self.etapa}"
+        )

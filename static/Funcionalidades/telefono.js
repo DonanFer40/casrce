@@ -1,61 +1,70 @@
 function configurarTelefono(inputTelefono, selectPrefijo) {
 
-    const prefijos = ["0414", "0424", "0416", "0426", "0412", "0422"];
+    const prefijos = [
+        "0414",
+        "0424",
+        "0416",
+        "0426",
+        "0412",
+        "0422"
+    ];
 
     function cargarPrefijos() {
 
-        selectPrefijo.innerHTML = "<option value='' selected>TLF</option>";
+        selectPrefijo.innerHTML = "";
 
-        inputTelefono.placeholder = "Número telefónico debe llevar 7 dígitos";
+        const opcionInicial = document.createElement("option");
+
+        opcionInicial.value = "";
+        opcionInicial.textContent = "TLF";
+        opcionInicial.selected = true;
+
+        selectPrefijo.appendChild(opcionInicial);
 
         prefijos.forEach(prefijo => {
-            const option = document.createElement("option");
-            option.value = prefijo;
-            option.textContent = prefijo;
-            selectPrefijo.appendChild(option);
+
+            const opcion = document.createElement("option");
+
+            opcion.value = prefijo;
+            opcion.textContent = prefijo;
+
+            selectPrefijo.appendChild(opcion);
         });
 
+        inputTelefono.value = "";
+        inputTelefono.maxLength = 7;
+        inputTelefono.minLength = 7;
+        inputTelefono.disabled = true;
+
+        inputTelefono.placeholder = "Seleccione un prefijo";
     }
 
     selectPrefijo.addEventListener("change", function () {
+
         inputTelefono.value = "";
 
-        if (this.value === "") {
-            return;
+        inputTelefono.setCustomValidity("");
+
+        inputTelefono.classList.remove(
+            "is-valid",
+            "is-invalid"
+        );
+
+        if (!this.value) {
+
+            inputTelefono.disabled = true;
+
+            inputTelefono.placeholder = "Seleccione un prefijo";
+
+        } else {
+
+            inputTelefono.disabled = false;
+
+            inputTelefono.placeholder = "Ingrese los 7 dígitos";
+
+            inputTelefono.focus();
         }
 
-        inputTelefono.focus();
-    });
-
-    inputTelefono.addEventListener("keydown", function (e) {
-        const tecla = e.key;
-
-        const teclasPermitidas = [
-            "Backspace",
-            "Delete",
-            "ArrowLeft",
-            "ArrowRight",
-            "Tab",
-            "Home",
-            "End"
-        ];
-
-        if (teclasPermitidas.includes(tecla)) {
-            return;
-        }
-
-        if (!/^\d$/.test(tecla)) {
-            e.preventDefault();
-            return;
-        }
-
-        if (this.value.length >= 7) {
-            e.preventDefault();
-        }
-    });
-
-    inputTelefono.addEventListener("paste", function (e) {
-        e.preventDefault();
     });
 
     cargarPrefijos();

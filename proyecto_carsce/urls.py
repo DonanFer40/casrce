@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('inicio_sesion.urls')),
     path('notas_academicas/', include('notas_academicas.urls')),
-    path('gestion_institucional/', include('gestion_institucional.urls')),
+    path('', include('gestion_institucional.urls')),
+    path('documentos/', include('documentos.urls')),
+    path('bitacora/', include('bitacora.urls')),
 ]

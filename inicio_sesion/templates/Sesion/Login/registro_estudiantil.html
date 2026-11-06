@@ -146,6 +146,7 @@
                                 <input type="text"
                                        name="nombres"
                                        id="nombres"
+                                       class="js-solo-letras"
                                        autocomplete="off"
                                        placeholder="Ingrese nombres completos">
 
@@ -165,6 +166,7 @@
                                 <input type="text"
                                        name="apellidos"
                                        id="apellidos"
+                                       class="js-solo-letras"
                                        autocomplete="off"
                                        placeholder="Ingrese apellidos completos">
 
@@ -404,6 +406,31 @@
     </div>
 
 </section>
+
+
+<!-- Modal de verificación del correo: permanece en la página de registro. -->
+<div id="modal-verificacion-registro" class="CASRCE-verificacion-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="titulo-verificacion-registro">
+    <div class="CASRCE-verificacion-modal" role="document">
+        <button type="button" id="cerrar-modal-verificacion" class="CASRCE-verificacion-cerrar" aria-label="Cerrar ventana" disabled>&times;</button>
+        <div class="CASRCE-verificacion-icono" aria-hidden="true"><i class="fa-solid fa-envelope-circle-check"></i></div>
+        <h2 id="titulo-verificacion-registro">Verifica tu correo electrónico</h2>
+        <p>Hemos enviado un código de seis dígitos a:</p>
+        <p id="correo-destino-verificacion" class="CASRCE-verificacion-correo"></p>
+        <p class="CASRCE-verificacion-ayuda">Introduce el código antes de que transcurran cinco minutos.</p>
+        <form id="formulario-verificacion-registro" novalidate>
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <label for="codigo-verificacion-registro">Código de verificación</label>
+            <input id="codigo-verificacion-registro" name="codigo" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" minlength="6" placeholder="000000" required aria-describedby="mensaje-verificacion-registro">
+            <small id="mensaje-verificacion-registro" class="CASRCE-verificacion-mensaje" role="status" aria-live="polite"></small>
+            <button type="submit" id="btn-confirmar-verificacion" class="CASRCE-verificacion-boton">Verificar correo</button>
+        </form>
+        <div class="CASRCE-verificacion-reenvio">
+            <span id="texto-temporizador-reenvio">Puedes solicitar otro código en 60 segundos.</span>
+            <button type="button" id="btn-reenviar-codigo-registro" disabled>Reenviar código</button>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- =========================================================

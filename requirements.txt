@@ -26,3 +26,12 @@ whitenoise>=6.8,<7.0
 
 # Adaptador de URL de base de datos para Railway
 dj-database-url
+
+# Integración con Google Gemini
+google-genai>=1.0.0,<2.0.0
+
+# Códigos QR de verificación documental
+qrcode[pil]>=7.4,<9.0
+
+cryptography>=44.0,<47.0
+pyotp>=2.9,<3.0

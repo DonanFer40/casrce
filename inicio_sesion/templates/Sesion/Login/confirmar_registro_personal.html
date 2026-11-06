@@ -180,6 +180,126 @@
 
             </form>
 
+            
+<!-- =================================================
+     MODAL — VERIFICACIÓN DEL CORREO DEL PERSONAL
+     ================================================= -->
+
+<div id="modal_verificacion_personal"
+     class="RegistroPersonalCASRCE-modal-verificacion"
+     hidden
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="titulo_verificacion_personal">
+
+    <div class="RegistroPersonalCASRCE-modal-contenido">
+
+        <div class="RegistroPersonalCASRCE-modal-icono">
+            <i class="icon-envelope"></i>
+        </div>
+
+        <div class="RegistroPersonalCASRCE-modal-cabecera">
+
+            <span class="RegistroPersonalCASRCE-etiqueta">
+                SEGURIDAD DE LA CUENTA
+            </span>
+
+            <h3 id="titulo_verificacion_personal">
+                Verifica tu correo electrónico
+            </h3>
+
+            <p>
+                Hemos enviado un código de seguridad a la dirección
+                de correo registrada por la institución.
+            </p>
+
+        </div>
+
+        <div class="RegistroPersonalCASRCE-correo-destino">
+
+            <i class="icon-envelope"></i>
+
+            <span id="correo_verificacion_personal">
+                correo registrado
+            </span>
+
+        </div>
+
+        <form id="formulario_codigo_personal"
+              method="post"
+              class="RegistroPersonalCASRCE-formulario-codigo">
+
+            {% csrf_token %}
+
+            <div class="RegistroPersonalCASRCE-grupo">
+
+                <label for="codigo_verificacion_personal">
+                    Código de verificación
+                </label>
+
+                <input
+                    type="text"
+                    id="codigo_verificacion_personal"
+                    name="codigo"
+                    maxlength="6"
+                    minlength="6"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    placeholder="000000"
+                    required
+                >
+
+                <small>
+                    Introduce los seis dígitos que recibiste.
+                </small>
+
+            </div>
+
+            <button type="submit"
+                    id="btn_verificar_codigo_personal"
+                    class="RegistroPersonalCASRCE-boton-registrar">
+
+                <span>Verificar código</span>
+
+                <i class="icon-right-open"></i>
+
+            </button>
+
+        </form>
+
+        <div class="RegistroPersonalCASRCE-reenvio">
+
+            <p id="contador_reenvio_personal">
+                Podrás reenviar el código en 1:00
+            </p>
+
+            <button
+                type="button"
+                id="btn_reenviar_codigo_personal"
+                disabled>
+
+                Reenviar código
+
+            </button>
+
+        </div>
+
+        <div class="RegistroPersonalCASRCE-modal-nota">
+
+            <i class="icon-info-circled"></i>
+
+            <p>
+                El código tiene una vigencia de cinco minutos.
+                No compartas este código con otras personas.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 
             <!-- =================================================
                  PASO 02 — GUARDAR CREDENCIALES

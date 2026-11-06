@@ -1,0 +1,273 @@
+.casrce-expedientes {
+    width: min(1180px, calc(100% - 32px));
+    margin: 32px auto;
+    color: var(--texto-principal);
+}
+
+.casrce-expedientes__cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 26px 28px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 14px;
+    box-shadow: var(--sombra-elevada);
+}
+
+.casrce-expedientes__cabecera h1 {
+    margin: 4px 0 8px;
+    color: var(--color-azul-profundo);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.casrce-expedientes__cabecera p {
+    margin: 0;
+    color: #64748b;
+}
+
+.casrce-expedientes__eyebrow {
+    color: var(--color-azul-hover) !important;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+}
+
+.casrce-expedientes a {
+    color: var(--color-azul-hover);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.casrce-expedientes a:hover {
+    text-decoration: underline;
+}
+
+.casrce-expedientes__filtros {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding: 20px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 12px;
+}
+
+.casrce-expedientes__filtros label,
+.casrce-expedientes__tarjeta label {
+    display: grid;
+    gap: 7px;
+    color: var(--color-azul-profundo);
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+.casrce-expedientes input,
+.casrce-expedientes select,
+.casrce-expedientes textarea {
+    min-width: 220px;
+    padding: 10px 12px;
+    color: var(--texto-principal);
+    background: #fff;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+    font: inherit;
+}
+
+.casrce-expedientes textarea {
+    width: 100%;
+    min-width: 0;
+    resize: vertical;
+}
+
+.casrce-expedientes button {
+    padding: 11px 16px;
+    color: #fff;
+    background: var(--color-azul-profundo);
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+.casrce-expedientes button:hover {
+    background: var(--color-azul-hover);
+}
+
+.casrce-expedientes__resumen {
+    margin: 16px 2px;
+    color: #64748b;
+}
+
+.casrce-expedientes__tabla-contenedor {
+    overflow-x: auto;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 12px;
+    box-shadow: var(--sombra-elevada);
+}
+
+.casrce-expedientes__tabla {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.casrce-expedientes__tabla th,
+.casrce-expedientes__tabla td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-borde-fino);
+    white-space: nowrap;
+}
+
+.casrce-expedientes__tabla th {
+    color: var(--color-azul-profundo);
+    background: #f8fafc;
+    font-size: .82rem;
+}
+
+.casrce-expedientes__estado {
+    display: inline-block;
+    padding: 6px 9px;
+    color: #92400e;
+    background: #fffbeb;
+    border-radius: 20px;
+    font-size: .78rem;
+    font-weight: 800;
+}
+
+.casrce-expedientes__estado--inscripcion_aprobada,
+.casrce-expedientes__estado--validado_administrativamente {
+    color: #166534;
+    background: #f0fdf4;
+}
+
+.casrce-expedientes__tarjeta {
+    margin: 18px 0;
+    padding: 22px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 12px;
+    box-shadow: var(--sombra-elevada);
+}
+
+.casrce-expedientes__tarjeta h2 {
+    margin: 0 0 14px;
+    color: var(--color-azul-profundo);
+    font-size: 1.12rem;
+}
+
+.casrce-expedientes__aviso {
+    padding: 12px 14px;
+    color: #854d0e;
+    background: #fffbeb;
+    border-left: 3px solid var(--color-amarillo-accion);
+    border-radius: 6px;
+}
+
+.casrce-expedientes__documentos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.casrce-expedientes__documentos > div {
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+}
+
+.casrce-expedientes__documentos strong,
+.casrce-expedientes__documentos span {
+    display: block;
+}
+
+.casrce-expedientes__documentos span {
+    margin-top: 6px;
+    color: var(--color-azul-hover);
+    font-size: .82rem;
+    font-weight: 800;
+}
+
+.casrce-expedientes__documentos p,
+.casrce-expedientes__historial p {
+    margin-bottom: 0;
+    color: #64748b;
+}
+
+.casrce-expedientes__lista-documentos,
+.casrce-expedientes__historial {
+    display: grid;
+    gap: 12px;
+    padding-left: 22px;
+}
+
+.casrce-expedientes__lista-documentos li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+.casrce-expedientes__tarjeta form {
+    display: grid;
+    gap: 12px;
+    margin: 14px 0;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+}
+
+.casrce-expedientes__historial li span {
+    display: block;
+    margin-top: 4px;
+    color: #64748b;
+    font-size: .85rem;
+}
+
+.casrce-expedientes__mensaje {
+    padding: 12px 15px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+    .casrce-expedientes {
+        width: min(100% - 22px, 1180px);
+        margin: 18px auto;
+    }
+
+    .casrce-expedientes__cabecera {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .casrce-expedientes__filtros {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .casrce-expedientes__filtros label,
+    .casrce-expedientes input,
+    .casrce-expedientes select {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .casrce-expedientes__lista-documentos li {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

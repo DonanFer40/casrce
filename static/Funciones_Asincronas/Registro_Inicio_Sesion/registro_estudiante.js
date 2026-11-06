@@ -244,18 +244,82 @@ document.addEventListener("DOMContentLoaded", () => {
         buscar_password(input_password.value);
     });
 
-    formulario_registro.addEventListener("submit", async function(e) {
-        e.preventDefault()
-        try {
-            const formulario = new FormData(formulario_registro);
+    const modalVerificacion = document.getElementById("modal-verificacion-registro");
+    const formularioVerificacion = document.getElementById("formulario-verificacion-registro");
+    const inputCodigoVerificacion = document.getElementById("codigo-verificacion-registro");
+    const mensajeVerificacion = document.getElementById("mensaje-verificacion-registro");
+    const correoDestinoVerificacion = document.getElementById("correo-destino-verificacion");
+    const btnConfirmarVerificacion = document.getElementById("btn-confirmar-verificacion");
+    const btnReenviarCodigo = document.getElementById("btn-reenviar-codigo-registro");
+    const textoTemporizadorReenvio = document.getElementById("texto-temporizador-reenvio");
+    let temporizadorReenvio = null;
+    let segundosReenvio = 0;
 
+    function mostrarMensajeVerificacion(texto, tipo = "") {
+        mensajeVerificacion.textContent = texto;
+        mensajeVerificacion.dataset.tipo = tipo;
+    }
+
+    function abrirModalVerificacion(correo, segundos = 60) {
+        correoDestinoVerificacion.textContent = correo;
+        modalVerificacion.classList.add("activo");
+        modalVerificacion.setAttribute("aria-hidden", "false");
+        inputCodigoVerificacion.value = "";
+        mostrarMensajeVerificacion("");
+        iniciarTemporizadorReenvio(segundos);
+        window.setTimeout(() => inputCodigoVerificacion.focus(), 100);
+    }
+
+    function cerrarModalVerificacion() {
+        modalVerificacion.classList.remove("activo");
+        modalVerificacion.setAttribute("aria-hidden", "true");
+        if (temporizadorReenvio) window.clearInterval(temporizadorReenvio);
+    }
+
+    function iniciarTemporizadorReenvio(segundos) {
+        if (temporizadorReenvio) window.clearInterval(temporizadorReenvio);
+        segundosReenvio = Math.max(0, Number(segundos) || 0);
+        btnReenviarCodigo.disabled = segundosReenvio > 0;
+        actualizarTemporizador();
+        temporizadorReenvio = window.setInterval(() => {
+            if (segundosReenvio > 0) segundosReenvio--;
+            actualizarTemporizador();
+            if (segundosReenvio <= 0) window.clearInterval(temporizadorReenvio);
+        }, 1000);
+    }
+
+    function actualizarTemporizador() {
+        if (segundosReenvio > 0) {
+            textoTemporizadorReenvio.textContent = `Puedes solicitar otro código en ${segundosReenvio} segundo(s).`;
+            btnReenviarCodigo.disabled = true;
+        } else {
+            textoTemporizadorReenvio.textContent = "¿No recibiste el correo?";
+            btnReenviarCodigo.disabled = false;
+        }
+    }
+
+    async function procesarRespuestaVerificacion(respuesta) {
+        const resultado = await respuesta.json();
+        if (!respuesta.ok && !resultado.descripcion) throw new Error("No fue posible procesar la solicitud.");
+        return resultado;
+    }
+
+    formulario_registro.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        if (!formulario_registro.reportValidity()) return;
+        btn_registro.disabled = true;
+        try {
             const respuesta = await fetch("/registro_est/", {
                 method: "POST",
-                body: formulario
+                headers: { "X-CSRFToken": document.querySelector("#formulario_registro [name=csrfmiddlewaretoken]").value },
+                body: new FormData(formulario_registro)
             });
-            const resultado = await respuesta.json();
-            console.log(resultado);
-
+            const resultado = await procesarRespuestaVerificacion(respuesta);
+            if (resultado.estado === "verificacion_requerida") {
+                abrirModalVerificacion(resultado.correo, resultado.segundos_reenvio || 60);
+                mostrarMensajeVerificacion(resultado.descripcion, "info");
+                return;
+            }
             await NotificacionesCASRCE.mostrar({
                 title: resultado.title,
                 icon: resultado.icon,
@@ -263,13 +327,72 @@ document.addEventListener("DOMContentLoaded", () => {
                 allowOutsideClick: false,
                 allowEscapeKey: false
             });
+        } catch (error) {
+            console.error(error);
+            await NotificacionesCASRCE.mostrar({ title: "Error", icon: "error", text: "No fue posible iniciar la verificación. Inténtalo nuevamente." });
+        } finally {
+            btn_registro.disabled = false;
+        }
+    });
 
+    formularioVerificacion.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const codigo = inputCodigoVerificacion.value.trim();
+        if (!/^[0-9]{6}$/.test(codigo)) {
+            mostrarMensajeVerificacion("Introduce los seis dígitos del código.", "error");
+            inputCodigoVerificacion.focus();
+            return;
+        }
+        btnConfirmarVerificacion.disabled = true;
+        try {
+            const datos = new FormData();
+            datos.append("codigo", codigo);
+            const respuesta = await fetch("/verificar_codigo_registro/", {
+                method: "POST",
+                headers: { "X-CSRFToken": document.querySelector("#formulario_registro [name=csrfmiddlewaretoken]").value },
+                body: datos
+            });
+            const resultado = await procesarRespuestaVerificacion(respuesta);
+            mostrarMensajeVerificacion(resultado.descripcion || "", resultado.estado === "exito" ? "exito" : "error");
             if (resultado.estado === "exito") {
+                if (temporizadorReenvio) window.clearInterval(temporizadorReenvio);
+                cerrarModalVerificacion();
                 formulario_registro.reset();
+                formularioVerificacion.reset();
+                await NotificacionesCASRCE.mostrar({ title: resultado.title, icon: resultado.icon, text: resultado.descripcion, allowOutsideClick: false, allowEscapeKey: false });
+            } else if (resultado.estado === "expirado") {
+                iniciarTemporizadorReenvio(0);
             }
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            mostrarMensajeVerificacion("No se pudo verificar el código. Comprueba tu conexión e inténtalo nuevamente.", "error");
+        } finally {
+            btnConfirmarVerificacion.disabled = false;
         }
+    });
+
+    btnReenviarCodigo.addEventListener("click", async () => {
+        btnReenviarCodigo.disabled = true;
+        try {
+            const respuesta = await fetch("/reenviar_codigo_registro/", {
+                method: "POST",
+                headers: { "X-CSRFToken": document.querySelector("#formulario_registro [name=csrfmiddlewaretoken]").value },
+                body: new FormData()
+            });
+            const resultado = await procesarRespuestaVerificacion(respuesta);
+            mostrarMensajeVerificacion(resultado.descripcion || "", resultado.estado === "exito" ? "exito" : "error");
+            if (resultado.estado === "exito") iniciarTemporizadorReenvio(resultado.segundos_reenvio || 60);
+            else if (resultado.estado === "espera") iniciarTemporizadorReenvio(resultado.segundos_reenvio || 1);
+            else btnReenviarCodigo.disabled = false;
+        } catch (error) {
+            console.error(error);
+            mostrarMensajeVerificacion("No fue posible reenviar el código. Inténtalo nuevamente.", "error");
+            btnReenviarCodigo.disabled = false;
+        }
+    });
+
+    inputCodigoVerificacion.addEventListener("input", () => {
+        inputCodigoVerificacion.value = inputCodigoVerificacion.value.replace(/\D/g, "").slice(0, 6);
     });
 
 });

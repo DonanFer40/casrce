@@ -35,3 +35,21 @@ class RecuperarUsuarioTests(TestCase):
         response = self.client.get(reverse("recuperar_usuario"))
 
         self.assertRedirects(response, reverse("buscar_usuario"))
+
+
+class SeguridadMapaPermisosTests(TestCase):
+    def test_modulos_internos_tienen_roles_por_defecto(self):
+        from permisos.mapa_permisos import DEFAULT_MODULE_ROLES
+        self.assertTrue({
+            "inicio_sesion", "gestion_institucional",
+            "notas_academicas", "bitacora"
+        }.issubset(DEFAULT_MODULE_ROLES))
+
+    def test_bitacora_restringida_a_roles_administrativos(self):
+        from permisos.mapa_permisos import URL_PERMISSIONS, ROLES_ADMINISTRATIVOS
+        self.assertEqual(URL_PERMISSIONS["bitacora_acciones"], ROLES_ADMINISTRATIVOS)
+
+    def test_rutas_de_autenticacion_son_publicas(self):
+        from permisos.mapa_permisos import PUBLIC_URL_NAMES
+        self.assertIn("inicio_sesion", PUBLIC_URL_NAMES)
+        self.assertIn("verificar_codigo_correo_admin", PUBLIC_URL_NAMES)

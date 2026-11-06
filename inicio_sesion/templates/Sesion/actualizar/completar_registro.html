@@ -67,11 +67,26 @@
 
             <div class="paso_barra">
                 <span>5</span>
-                <p>Información Académica</p>
+                <p>Contacto Auxiliar</p>
             </div>
 
             <div class="paso_barra">
                 <span>6</span>
+                <p>Datos de Secundaria</p>
+            </div>
+
+            <div class="paso_barra">
+                <span>7</span>
+                <p>Datos de Discapacidad</p>
+            </div>
+
+            <div class="paso_barra">
+                <span>8</span>
+                <p>Núcleo y PNF</p>
+            </div>
+
+            <div class="paso_barra">
+                <span>9</span>
                 <p>Documentos</p>
             </div>
 
@@ -97,7 +112,7 @@
             ================================================== -->
             <div
                 id="contenedor_datos_basicos"
-                class="paso_formulario registro-completo-paso"
+                class="paso_formulario registro-completo-paso activo"
             >
 
                 <div class="registro-completo-paso-encabezado">
@@ -160,6 +175,7 @@
                         <select
                             name="genero"
                             id="genero_usuario"
+                            required
                         ></select>
                     </div>
 
@@ -186,6 +202,7 @@
                         <select
                             name="estado_civil"
                             id="estado_civil_usuario"
+                            required
                         ></select>
                     </div>
 
@@ -261,9 +278,6 @@
 
                         <label for="numero_telefonico_secundario">
                             Teléfono Secundario
-                            <span class="registro-completo-opcional">
-                                Opcional
-                            </span>
                         </label>
 
                         <div class="campo_horizontal">
@@ -312,7 +326,7 @@
 
                         </div>
 
-                        <small id="msg_correo_princ"></small>
+                        <small id="msg_correo_princ" class="mensaje-validacion-campo" aria-live="polite"></small>
 
                     </div>
 
@@ -332,18 +346,16 @@
                                 id="correo_secundario"
                                 placeholder="Ejemplo: ejemplo2026"
                                 autocomplete="off"
-                                required
                             >
 
                             <select
                                 name="dominio_correo_secundaria"
                                 id="dominio_secundario"
-                                required
                             ></select>
 
                         </div>
 
-                        <small id="msg_correo_sec"></small>
+                        <small id="msg_correo_sec" class="mensaje-validacion-campo" aria-live="polite"></small>
 
                     </div>
 
@@ -417,6 +429,7 @@
                             type="text"
                             name="estado_novzla"
                             id="estado_novzla"
+                            class="js-solo-letras"
                             placeholder="Indica el estado o provincia donde naciste"
                             autocomplete="off"
                             hidden
@@ -441,6 +454,7 @@
                             type="text"
                             name="municipio_novzla"
                             id="municipio_novzla"
+                            class="js-solo-letras"
                             placeholder="Indica el municipio o condado donde naciste"
                             autocomplete="off"
                             hidden
@@ -465,6 +479,7 @@
                             type="text"
                             name="parroquia_novzla"
                             id="parroquia_novzla"
+                            class="js-solo-letras"
                             placeholder="Indica la parroquia o distrito donde naciste"
                             autocomplete="off"
                             hidden
@@ -482,8 +497,14 @@
                         <textarea
                             name="direccion_nacimiento"
                             id="direccion_nacimiento"
+                            maxlength="100"
                             required
                         ></textarea>
+
+                        <div class="contador-direccion">
+                            <small>Máximo 100 caracteres</small>
+                            <small id="contador_direccion_nacimiento">0 / 100</small>
+                        </div>
 
                     </div>
 
@@ -608,9 +629,14 @@
                         <textarea
                             name="direccion_domicilio"
                             id="direccion_domicilio"
+                            maxlength="100"
                             required
                         ></textarea>
 
+                        <div class="contador-direccion">
+                            <small>Máximo 100 caracteres</small>
+                            <small id="contador_direccion">0 / 100</small>
+                        </div>
                     </div>
 
                 </div>
@@ -757,6 +783,7 @@
                             type="text"
                             name="nombres_auxiliar"
                             id="nombres_auxiliar"
+                            class="js-solo-letras"
                             autocomplete="off"
                         >
 
@@ -773,6 +800,7 @@
                             type="text"
                             name="apellidos_auxiliar"
                             id="apellidos_auxiliar"
+                            class="js-solo-letras"
                             autocomplete="off"
                         >
 
@@ -804,6 +832,8 @@
                             >
 
                         </div>
+
+                        <small id="msg_ced_aux" class="mensaje-validacion-campo" aria-live="polite"></small>
 
                     </div>
 
@@ -864,8 +894,6 @@
                         </select>
 
                     </div>
-
-                    <small id="msg_ced_aux"></small>
 
                 </div>
 
@@ -975,16 +1003,18 @@
                             type="text"
                             name="codigo_opsu"
                             id="codigo_sin_opsu"
-                            placeholder="Código OPSU de 5 dígitos"
-                            minlength="5"
-                            maxlength="5"
+                            placeholder="Código OPSU de 11 dígitos"
+                            inputmode="numeric"
+                            pattern="[0-9]{11}"
+                            minlength="11"
+                            maxlength="11"
                             autocomplete="off"
                             required
                         >
 
-                    </div>
+                        <small id="msg_codigo_opsu" class="mensaje-validacion-campo" aria-live="polite"></small>
 
-                    <small id="msg_codigo_opsu"></small>
+                    </div>
 
                 </div>
 
@@ -1013,28 +1043,10 @@
                         <h2>Datos de Discapacidad</h2>
 
                         <p>
-                            Esta información es opcional y puede
-                            completarse cuando corresponda.
+                            Indique si posee carnet de discapacidad.
+                            Si selecciona Sí, todos los campos de esta sección serán obligatorios. Si selecciona No, los demás datos serán opcionales.
                         </p>
                     </div>
-
-                </div>
-
-
-                <div class="registro-completo-opcional-barra">
-
-                    <span>
-                        <i class="fa-solid fa-circle-info"></i>
-                        Información opcional
-                    </span>
-
-                    <button
-                        type="button"
-                        id="btn_discapacidad"
-                    >
-                        <span>Mostrar</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
 
                 </div>
 
@@ -1050,12 +1062,15 @@
                                 Carnet de Discapacidad
                             </label>
 
-                            <input
-                                type="text"
+                            <select
                                 name="carnet_dispacidad"
                                 id="codigo_carnet_dispacidad"
-                                autocomplete="off"
+                                required
                             >
+                                <option value="">Selecciona una opción</option>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
 
                         </div>
 
@@ -1070,8 +1085,16 @@
                                 type="text"
                                 name="registro_medico"
                                 id="nro_registro_medico"
+                                placeholder="Ejemplo: D-123456"
+                                maxlength="8"
+                                pattern="[A-Z]-[0-9]{6}"
+                                title="Utilice una letra mayúscula, un guion y seis números. Ejemplo: D-123456."
                                 autocomplete="off"
+                                aria-describedby="ayuda_registro_medico"
                             >
+                            <small id="ayuda_registro_medico">
+                                Formato: una letra, un guion y seis números (D-123456).
+                            </small>
 
                         </div>
 
@@ -1209,8 +1232,8 @@
                         <h2>Datos de Núcleo y PNF</h2>
 
                         <p>
-                            Seleccione el núcleo y el programa de
-                            formación que desea cursar.
+                            Seleccione un núcleo y marque un único Programa
+                            Nacional de Formación (PNF) para continuar.
                         </p>
                     </div>
 
@@ -1230,10 +1253,11 @@
                             </span>
 
                             <input
-                                type="checkbox"
-                                name="nucleoBarinas"
+                                type="radio"
+                                name="nucleo_seleccionado"
                                 id="nucleo_Barinas"
                                 value="Barinas"
+                                required
                             >
 
                         </label>
@@ -1256,10 +1280,11 @@
                             </span>
 
                             <input
-                                type="checkbox"
-                                name="nucleoBarinitas"
+                                type="radio"
+                                name="nucleo_seleccionado"
                                 id="nucleo_Barinitas"
                                 value="Barinitas"
+                                required
                             >
 
                         </label>
@@ -1282,10 +1307,11 @@
                             </span>
 
                             <input
-                                type="checkbox"
-                                name="nucleoSocopo"
+                                type="radio"
+                                name="nucleo_seleccionado"
                                 id="nucleo_Socopo"
                                 value="Socopo"
+                                required
                             >
 
                         </label>
@@ -1308,10 +1334,11 @@
                             </span>
 
                             <input
-                                type="checkbox"
-                                name="nucleoPedraza"
+                                type="radio"
+                                name="nucleo_seleccionado"
                                 id="nucleo_Pedraza"
                                 value="Pedraza"
+                                required
                             >
 
                         </label>
@@ -1380,6 +1407,13 @@
                                 id="documentoCI_estudiante"
                                 required
                             >
+                            <div
+                                id="vista_previa_documentoCI_estudiante"
+                                class="registro-completo-documento-vista-previa"
+                                aria-live="polite"
+                            >
+                                <span class="vista-previa-vacio">Aún no se ha seleccionado un archivo.</span>
+                            </div>
 
                         </div>
 
@@ -1404,6 +1438,13 @@
                                 id="documentoTB_estudiante"
                                 required
                             >
+                            <div
+                                id="vista_previa_documentoTB_estudiante"
+                                class="registro-completo-documento-vista-previa"
+                                aria-live="polite"
+                            >
+                                <span class="vista-previa-vacio">Aún no se ha seleccionado un archivo.</span>
+                            </div>
 
                         </div>
 
@@ -1428,6 +1469,13 @@
                                 id="documentoSN_estudiante"
                                 required
                             >
+                            <div
+                                id="vista_previa_documentoSN_estudiante"
+                                class="registro-completo-documento-vista-previa"
+                                aria-live="polite"
+                            >
+                                <span class="vista-previa-vacio">Aún no se ha seleccionado un archivo.</span>
+                            </div>
 
                         </div>
 
@@ -1452,6 +1500,13 @@
                                 id="documentoOPSU_estudiante"
                                 required
                             >
+                            <div
+                                id="vista_previa_documentoOPSU_estudiante"
+                                class="registro-completo-documento-vista-previa"
+                                aria-live="polite"
+                            >
+                                <span class="vista-previa-vacio">Aún no se ha seleccionado un archivo.</span>
+                            </div>
 
                         </div>
 
@@ -1526,6 +1581,8 @@
 <script src="{% static 'Funcionalidades/fecha_grado.js' %}"></script>
 <script src="{% static 'Funcionalidades/nacimiento.js' %}"></script>
 <script src="{% static 'Funcionalidades/residencia.js' %}"></script>
+
+<script src="{% static 'Funcionalidades/validacion_seguimiento.js' %}"></script>
 
 <!-- =========================================================
      FUNCIONES ASÍNCRONAS

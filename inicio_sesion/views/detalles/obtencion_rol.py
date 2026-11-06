@@ -52,7 +52,7 @@ def datos_usuario_global(request):
         elif control_obj and control_obj.nucleo:
             nucleo_usuario = control_obj.nucleo.municipio
         else:
-            nucleo_usuario = "Sede Central / Sin Núcleo"
+            nucleo_usuario = "Sin Núcleo Asignado"
 
         # -------------------------------------------------------------
         # 2. Conteos y Estadísticas Globales

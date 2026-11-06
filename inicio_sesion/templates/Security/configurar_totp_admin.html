@@ -1,0 +1,804 @@
+
+{% extends 'Estructura/Base.html' %}
+
+{% block content %}
+
+<section id="configuracion-totp-casrce">
+
+    <div class="totp-contenedor">
+
+        <!-- ENCABEZADO -->
+
+        <header class="totp-encabezado">
+
+            <div class="totp-identificacion">
+                <span class="totp-icono">
+                    <i class="fas fa-shield-alt"></i>
+                </span>
+
+                <div>
+                    <span class="totp-etiqueta">SEGURIDAD ADMINISTRATIVA</span>
+                    <h1>Autenticación en dos pasos</h1>
+                    <p>Protección adicional para el acceso administrativo de CASRCE.</p>
+                </div>
+            </div>
+
+            <span class="totp-etiqueta-superior">
+                <i class="fas fa-lock"></i>
+                CONFIGURACIÓN INICIAL
+            </span>
+
+        </header>
+
+        <!-- CONTENIDO -->
+
+        <div class="totp-contenido">
+
+            <div class="totp-introduccion">
+                <span class="totp-numero">01</span>
+
+                <div>
+                    <h2>Vincular Google Authenticator</h2>
+                    <p>
+                        Sigue los pasos indicados para asociar tu aplicación
+                        de autenticación con la cuenta administrativa.
+                    </p>
+                </div>
+            </div>
+
+            {% if error %}
+
+                <div class="totp-alerta totp-alerta-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ error }}</span>
+                </div>
+
+            {% endif %}
+
+            {% if qr_base64 %}
+
+                <div class="totp-panel">
+
+                    <div class="totp-pasos">
+
+                        <article class="totp-paso">
+
+                            <span class="totp-paso-numero">1</span>
+
+                            <div>
+                                <h3>Abre tu aplicación</h3>
+                                <p>
+                                    Ingresa a Google Authenticator desde tu
+                                    teléfono y selecciona la opción para
+                                    agregar una nueva cuenta.
+                                </p>
+                            </div>
+
+                        </article>
+
+                        <article class="totp-paso">
+
+                            <span class="totp-paso-numero">2</span>
+
+                            <div>
+                                <h3>Escanea el código QR</h3>
+                                <p>
+                                    Utiliza la cámara de la aplicación para
+                                    escanear el siguiente código.
+                                </p>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- CÓDIGO QR -->
+
+                    <div class="totp-qr-contenedor">
+
+                        <div class="totp-qr-marco">
+                            <img
+                                src="data:image/png;base64,{{ qr_base64 }}"
+                                alt="Código QR para configurar Google Authenticator"
+                            >
+                        </div>
+
+                        <span class="totp-qr-titulo">
+                            Vinculación de cuenta CASRCE
+                        </span>
+
+                        <span class="totp-qr-descripcion">
+                            Mantén este código privado.
+                        </span>
+
+                    </div>
+
+                    <!-- CONFIRMACIÓN -->
+
+                    <div class="totp-confirmacion">
+
+                        <div class="totp-confirmacion-titulo">
+                            <span class="totp-numero">02</span>
+
+                            <div>
+                                <h2>Verificar configuración</h2>
+                                <p>
+                                    Introduce el código de seis dígitos
+                                    que aparece en Google Authenticator.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form
+                            id="formulario-confirmar-totp"
+                            method="POST"
+                        >
+
+                            {% csrf_token %}
+
+                            <div class="totp-campo">
+
+                                <label for="codigo-totp">
+                                    Código de verificación
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="codigo-totp"
+                                    name="codigo"
+                                    inputmode="numeric"
+                                    autocomplete="one-time-code"
+                                    maxlength="6"
+                                    minlength="6"
+                                    pattern="[0-9]{6}"
+                                    placeholder="000000"
+                                    required
+                                >
+
+                                <small>
+                                    El código cambia automáticamente cada cierto tiempo.
+                                </small>
+
+                            </div>
+
+                            <div
+                                id="mensaje-totp"
+                                class="totp-mensaje"
+                                role="status"
+                                aria-live="polite"
+                            ></div>
+
+                            <button
+                                type="submit"
+                                id="boton-confirmar-totp"
+                                class="totp-boton"
+                            >
+                                <i class="fas fa-check-circle"></i>
+                                Confirmar autenticación
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% elif not totp_configurado and not error %}
+
+                <div class="totp-alerta totp-alerta-error">
+                    No fue posible generar el código QR.
+                </div>
+
+            {% endif %}
+
+            {% if totp_configurado %}
+
+                <div class="totp-alerta totp-alerta-info">
+                    <i class="fas fa-info-circle"></i>
+                    La autenticación TOTP ya está configurada.
+                    No necesitas repetir este procedimiento.
+                </div>
+
+            {% endif %}
+
+            <footer class="totp-pie">
+
+                <span>
+                    <i class="fas fa-university"></i>
+                    Universidad Politécnica Territorial José Félix Ribas
+                </span>
+
+                <span>
+                    CASRCE · Seguridad institucional
+                </span>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   CONFIGURACIÓN TOTP CASRCE
+   ========================================================= */
+
+#configuracion-totp-casrce {
+    width: 100%;
+    padding: 35px 20px;
+    box-sizing: border-box;
+}
+
+#configuracion-totp-casrce * {
+    box-sizing: border-box;
+}
+
+#configuracion-totp-casrce .totp-contenedor {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 15px;
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+/* ENCABEZADO */
+
+#configuracion-totp-casrce .totp-encabezado {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 35px;
+    overflow: hidden;
+    color: #FFFFFF;
+    background: linear-gradient(120deg, #0F172A, #1E3A5F);
+}
+
+#configuracion-totp-casrce .totp-encabezado::after {
+    content: "";
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    right: -65px;
+    top: -115px;
+    border: 35px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+}
+
+#configuracion-totp-casrce .totp-identificacion {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#configuracion-totp-casrce .totp-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    color: #F59E0B;
+    background: rgba(255,255,255,0.11);
+    font-size: 25px;
+}
+
+#configuracion-totp-casrce .totp-etiqueta {
+    display: block;
+    margin-bottom: 7px;
+    color: #FBBF24;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+#configuracion-totp-casrce .totp-encabezado h1 {
+    margin: 0 0 7px;
+    color: #FFFFFF;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+#configuracion-totp-casrce .totp-encabezado p {
+    margin: 0;
+    color: #CBD5E1;
+    font-size: 13px;
+}
+
+#configuracion-totp-casrce .totp-etiqueta-superior {
+    position: relative;
+    z-index: 1;
+    padding: 9px 13px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 30px;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* CONTENIDO */
+
+#configuracion-totp-casrce .totp-contenido {
+    padding: 32px;
+}
+
+#configuracion-totp-casrce .totp-introduccion,
+#configuracion-totp-casrce .totp-confirmacion-titulo {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+#configuracion-totp-casrce .totp-numero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    color: #1D4ED8;
+    background: #EFF6FF;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+#configuracion-totp-casrce h2 {
+    margin: 0 0 7px;
+    color: #0F172A;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+#configuracion-totp-casrce .totp-introduccion p,
+#configuracion-totp-casrce .totp-confirmacion-titulo p {
+    margin: 0;
+    color: #64748B;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* PANEL */
+
+#configuracion-totp-casrce .totp-panel {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    margin-top: 30px;
+    padding: 25px;
+    border: 1px solid #E2E8F0;
+    border-radius: 13px;
+    background: #F8FAFC;
+}
+
+#configuracion-totp-casrce .totp-pasos {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+#configuracion-totp-casrce .totp-paso {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+}
+
+#configuracion-totp-casrce .totp-paso-numero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    color: #FFFFFF;
+    background: #1E3A5F;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+#configuracion-totp-casrce .totp-paso h3 {
+    margin: 2px 0 7px;
+    color: #1E293B;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+#configuracion-totp-casrce .totp-paso p {
+    margin: 0;
+    color: #64748B;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* QR */
+
+#configuracion-totp-casrce .totp-qr-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    background: #FFFFFF;
+}
+
+#configuracion-totp-casrce .totp-qr-marco {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 205px;
+    height: 205px;
+    padding: 10px;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+#configuracion-totp-casrce .totp-qr-marco img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#configuracion-totp-casrce .totp-qr-titulo {
+    margin-top: 15px;
+    color: #1E293B;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#configuracion-totp-casrce .totp-qr-descripcion {
+    margin-top: 5px;
+    color: #94A3B8;
+    font-size: 11px;
+}
+
+/* CONFIRMACIÓN */
+
+#configuracion-totp-casrce .totp-confirmacion {
+    grid-column: 1 / -1;
+    padding-top: 25px;
+    border-top: 1px solid #E2E8F0;
+}
+
+#configuracion-totp-casrce .totp-campo {
+    max-width: 430px;
+    margin-top: 22px;
+}
+
+#configuracion-totp-casrce .totp-campo label {
+    display: block;
+    margin-bottom: 9px;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#configuracion-totp-casrce .totp-campo input {
+    width: 100%;
+    height: 48px;
+    padding: 10px 15px;
+    border: 1px solid #CBD5E1;
+    border-radius: 9px;
+    outline: none;
+    background: #FFFFFF;
+    color: #0F172A;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 9px;
+    text-align: center;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+#configuracion-totp-casrce .totp-campo input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+
+#configuracion-totp-casrce .totp-campo small {
+    display: block;
+    margin-top: 8px;
+    color: #94A3B8;
+    font-size: 11px;
+}
+
+#configuracion-totp-casrce .totp-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 45px;
+    margin-top: 20px;
+    padding: 0 22px;
+    border: none;
+    border-radius: 9px;
+    color: #FFFFFF;
+    background: #1E3A5F;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+#configuracion-totp-casrce .totp-boton:hover {
+    background: #2563EB;
+    transform: translateY(-1px);
+}
+
+#configuracion-totp-casrce .totp-boton:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* MENSAJES */
+
+#configuracion-totp-casrce .totp-alerta,
+#configuracion-totp-casrce .totp-mensaje {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 15px;
+    border-radius: 9px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+#configuracion-totp-casrce .totp-alerta-error {
+    margin-top: 20px;
+    border: 1px solid #FECACA;
+    color: #991B1B;
+    background: #FEF2F2;
+}
+
+#configuracion-totp-casrce .totp-alerta-info {
+    margin-top: 25px;
+    border: 1px solid #BFDBFE;
+    color: #1E40AF;
+    background: #EFF6FF;
+}
+
+#configuracion-totp-casrce .totp-mensaje {
+    display: none;
+    margin-top: 15px;
+}
+
+#configuracion-totp-casrce .totp-mensaje.exito {
+    display: block;
+    color: #166534;
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+}
+
+#configuracion-totp-casrce .totp-mensaje.error {
+    display: block;
+    color: #991B1B;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+}
+
+/* PIE */
+
+#configuracion-totp-casrce .totp-pie {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #E2E8F0;
+    color: #94A3B8;
+    font-size: 10px;
+}
+
+#configuracion-totp-casrce .totp-pie i {
+    margin-right: 5px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 750px) {
+
+    #configuracion-totp-casrce {
+        padding: 20px 12px;
+    }
+
+    #configuracion-totp-casrce .totp-encabezado {
+        align-items: flex-start;
+        padding: 25px 20px;
+    }
+
+    #configuracion-totp-casrce .totp-etiqueta-superior {
+        display: none;
+    }
+
+    #configuracion-totp-casrce .totp-contenido {
+        padding: 22px 18px;
+    }
+
+    #configuracion-totp-casrce .totp-panel {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    #configuracion-totp-casrce .totp-qr-contenedor {
+        grid-row: 1;
+    }
+
+    #configuracion-totp-casrce .totp-confirmacion {
+        grid-column: auto;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    #configuracion-totp-casrce .totp-identificacion {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    #configuracion-totp-casrce .totp-icono {
+        width: 45px;
+        height: 45px;
+        font-size: 19px;
+    }
+
+    #configuracion-totp-casrce .totp-encabezado h1 {
+        font-size: 19px;
+    }
+
+    #configuracion-totp-casrce .totp-encabezado p {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    #configuracion-totp-casrce .totp-pie {
+        flex-direction: column;
+    }
+
+    #configuracion-totp-casrce .totp-boton {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const formulario = document.getElementById(
+        "formulario-confirmar-totp"
+    );
+
+    if (!formulario) return;
+
+    const campoCodigo = document.getElementById("codigo-totp");
+    const boton = document.getElementById("boton-confirmar-totp");
+    const mensaje = document.getElementById("mensaje-totp");
+
+    function mostrarMensaje(texto, tipo) {
+
+        mensaje.textContent = texto;
+        mensaje.className = "totp-mensaje " + tipo;
+
+    }
+
+    campoCodigo.addEventListener("input", function () {
+
+        campoCodigo.value = campoCodigo.value
+            .replace(/\D/g, "")
+            .slice(0, 6);
+
+    });
+
+    formulario.addEventListener("submit", async function (evento) {
+
+        evento.preventDefault();
+
+        const codigo = campoCodigo.value.trim();
+
+        if (!/^\d{6}$/.test(codigo)) {
+
+            mostrarMensaje(
+                "Introduce un código válido de seis dígitos.",
+                "error"
+            );
+
+            campoCodigo.focus();
+            return;
+
+        }
+
+        boton.disabled = true;
+        boton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+
+        try {
+
+            const respuestaServidor = await fetch(
+                "{% url 'confirmar_totp_admin' %}",
+                {
+                    method: "POST",
+                    body: new FormData(formulario),
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
+                    credentials: "same-origin"
+                }
+            );
+
+            const datos = await respuestaServidor.json();
+
+            if (!respuestaServidor.ok || !datos.success) {
+
+                mostrarMensaje(
+                    datos.message || "No fue posible verificar el código.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            mostrarMensaje(
+                datos.message,
+                "exito"
+            );
+
+            campoCodigo.disabled = true;
+
+            boton.innerHTML = '<i class="fas fa-check-circle"></i> Configuración completada';
+
+            boton.disabled = true;
+
+            const enlace = document.createElement("a");
+
+            enlace.href = "/admin/";
+            enlace.className = "totp-boton";
+            enlace.style.textDecoration = "none";
+            enlace.style.marginTop = "15px";
+
+            enlace.innerHTML = '<i class="fas fa-arrow-right"></i> Continuar al administrador';
+
+            formulario.appendChild(enlace);
+
+        } catch (error) {
+
+            mostrarMensaje(
+                "No fue posible comunicarse con el servidor. Inténtalo nuevamente.",
+                "error"
+            );
+
+        } finally {
+
+            if (!campoCodigo.disabled) {
+
+                boton.disabled = false;
+
+                boton.innerHTML = '<i class="fas fa-check-circle"></i> Confirmar autenticación';
+
+            }
+
+        }
+
+    });
+
+});
+</script>
+
+{% endblock %}

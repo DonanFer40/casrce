@@ -1,0 +1,97 @@
+{% extends 'Estructura/Base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'Estilos/Roles/expedientes_estudiantiles.css' %}">
+<section class="casrce-expedientes casrce-expedientes--detalle">
+    <header class="casrce-expedientes__cabecera">
+        <div>
+            <p class="casrce-expedientes__eyebrow">EXPEDIENTE ESTUDIANTIL</p>
+            <h1>{{ expediente.usuario.nombres }} {{ expediente.usuario.apellidos }}</h1>
+            <p>Cédula: {{ expediente.usuario.cedula_identidad }}</p>
+        </div>
+        <a href="{% url 'lista_expedientes' %}">Volver a expedientes</a>
+    </header>
+
+    {% if messages %}
+        {% for message in messages %}<p class="casrce-expedientes__mensaje">{{ message }}</p>{% endfor %}
+    {% endif %}
+
+    <article class="casrce-expedientes__tarjeta">
+        <h2>Estado administrativo</h2>
+        <p><strong>{{ expediente.get_estado_display }}</strong></p>
+        <p>Programa: {{ estudiante.pnf|default:"No asignado" }} · Núcleo: {{ estudiante.nucleo|default:"No asignado" }}</p>
+        {% if expediente.observacion_actual %}<p><strong>Observación vigente:</strong> {{ expediente.observacion_actual }}</p>{% endif %}
+        {% if expediente.aprobado_por %}<p>Aprobado por {{ expediente.aprobado_por }} el {{ expediente.fecha_aprobacion|date:"d/m/Y H:i" }} ({{ expediente.perfil_aprobacion }}).</p>{% endif %}
+    </article>
+
+    <article class="casrce-expedientes__tarjeta">
+        <h2>Nota de revisión automática · Gemini</h2>
+        <p>{{ expediente.nota_gemini|default:"No existe una revisión automática registrada." }}</p>
+        <p class="casrce-expedientes__aviso">Esta nota es orientativa. No constituye validación administrativa ni aprobación de inscripción.</p>
+        <div class="casrce-expedientes__documentos">
+            {% for clave, resultado in expediente.resultados_gemini.items %}
+                <div>
+                    <strong>{{ resultado.nombre|default:clave }}</strong>
+                    <span>{{ resultado.estado|default:"Sin resultado" }}</span>
+                    <p>{{ resultado.motivo|default:"Sin observaciones." }}</p>
+                </div>
+            {% empty %}<p>No hay resultados automáticos disponibles.</p>{% endfor %}
+        </div>
+    </article>
+
+    <article class="casrce-expedientes__tarjeta">
+        <h2>Documentos entregados</h2>
+        <ul class="casrce-expedientes__lista-documentos">
+            {% for documento in documentos %}
+                <li><span>{{ documento.nombre_documento }}</span>
+                    {% if documento.archivo %}<a href="{% url 'descargar_documento_expediente' documento.id_documento %}">Descargar documento</a>{% else %}<span>Archivo no disponible</span>{% endif %}
+                </li>
+            {% empty %}<li>No hay documentos asociados al expediente.</li>{% endfor %}
+        </ul>
+    </article>
+
+    {% if puede_gestionar %}
+    <article class="casrce-expedientes__tarjeta">
+        <h2>Acciones administrativas</h2>
+        <p>Tu perfil de gestión: {{ perfil_gestor }}. Cada acción quedará registrada en el historial.</p>
+        {% if expediente.estado == "PENDIENTE_REVISION" or expediente.estado == "CON_OBSERVACIONES" %}
+            <form method="post" action="{% url 'actualizar_estado_expediente' expediente.id_expediente %}">{% csrf_token %}
+                <button type="submit" name="estado" value="EN_REVISION">Iniciar / continuar revisión</button>
+            </form>
+        {% endif %}
+        {% if expediente.estado == "PENDIENTE_REVISION" or expediente.estado == "EN_REVISION" or expediente.estado == "CON_OBSERVACIONES" or expediente.estado == "VALIDADO_ADMINISTRATIVAMENTE" %}
+            <form method="post" action="{% url 'actualizar_estado_expediente' expediente.id_expediente %}">{% csrf_token %}
+                <label>Observaciones para devolver el expediente
+                    <textarea name="observacion" rows="4" required placeholder="Indica qué debe corregirse o comprobarse..."></textarea>
+                </label>
+                <button type="submit" name="estado" value="CON_OBSERVACIONES">Devolver con observaciones</button>
+            </form>
+        {% endif %}
+        {% if expediente.estado == "EN_REVISION" %}
+            <form method="post" action="{% url 'actualizar_estado_expediente' expediente.id_expediente %}">{% csrf_token %}
+                <button type="submit" name="estado" value="VALIDADO_ADMINISTRATIVAMENTE">Validar administrativamente</button>
+            </form>
+        {% endif %}
+        {% if expediente.estado == "VALIDADO_ADMINISTRATIVAMENTE" %}
+            <form method="post" action="{% url 'actualizar_estado_expediente' expediente.id_expediente %}">{% csrf_token %}
+                <p>Confirma que la documentación fue comprobada y que el expediente cumple los requisitos administrativos.</p>
+                <button type="submit" name="estado" value="INSCRIPCION_APROBADA">Aprobar inscripción</button>
+            </form>
+        {% endif %}
+    </article>
+    {% endif %}
+
+    <article class="casrce-expedientes__tarjeta">
+        <h2>Historial de revisión</h2>
+        <ol class="casrce-expedientes__historial">
+            {% for movimiento in historial %}
+                <li>
+                    <strong>{{ movimiento.get_estado_nuevo_display|default:movimiento.estado_nuevo }}</strong>
+                    <span>{{ movimiento.fecha_hora|date:"d/m/Y H:i" }} · {{ movimiento.realizado_por }} · {{ movimiento.perfil }}</span>
+                    {% if movimiento.observacion %}<p>{{ movimiento.observacion }}</p>{% endif %}
+                </li>
+            {% empty %}<li>Sin movimientos registrados.</li>{% endfor %}
+        </ol>
+    </article>
+</section>
+{% endblock %}

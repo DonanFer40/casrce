@@ -1,3 +1,4 @@
+
 {% extends 'Estructura/Base.html' %}
 {% load static %}
 
@@ -5,171 +6,526 @@
 
 <section id="InformacionInstitucional" class="reveal">
 
-    <div class="InformacionInstitucional-contenedor">
+    <!-- CABECERA INSTITUCIONAL -->
+    <header class="InformacionInstitucional-encabezado">
+        <div class="InformacionInstitucional-encabezado-contenido">
 
-        <div class="InformacionInstitucional-seccion">
+            <span class="InformacionInstitucional-etiqueta">
+                <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                CONOCE NUESTRA INSTITUCIÓN
+            </span>
 
-            <h2 class="InformacionInstitucional-titulo">
-                ¿Qué es la Misión Alma Mater?
-            </h2>
+            <h1 class="InformacionInstitucional-titulo-principal">
+                Información <span>Institucional</span>
+            </h1>
 
-            <div class="InformacionInstitucional-alma-mater">
+            <p class="InformacionInstitucional-subtitulo">
+                Historia, formación y compromiso con el desarrollo
+                educativo de nuestra región.
+            </p>
 
-                <p class="InformacionInstitucional-texto">
-                    La Misión Alma Mater es una política educativa creada en el año 2009 por el presidente Hugo Chávez
-                    con el propósito de transformar y fortalecer la educación universitaria en Venezuela. Su objetivo
-                    principal es garantizar una formación académica de calidad, inclusiva y vinculada a las necesidades
-                    de cada región del país. Gracias a esta iniciativa surgieron diversas universidades politécnicas
-                    territoriales, entre ellas la Universidad Politécnica Territorial del Estado Barinas José Félix
-                    Ribas, producto de la transformación de antiguos institutos universitarios. Asimismo, otras
-                    instituciones como la Universidad Politécnica Territorial de Aragua Federico Brito Figueroa y la
-                    Universidad Politécnica Territorial del Estado Portuguesa Juan de Jesús Montilla también nacieron
-                    bajo este mismo programa, contribuyendo al desarrollo educativo, científico y tecnológico del país.
-                </p>
-
-                <img
-                    class="InformacionInstitucional-imagen-alma-mater"
-                    src="{% static 'Imagenes/alma_mater.png' %}"
-                    alt="Misión Alma Mater">
+            <div class="InformacionInstitucional-indicador">
+                <span aria-hidden="true"></span>
+                UPTJFR · BARINAS, VENEZUELA
             </div>
 
         </div>
+    </header>
 
 
-        <div class="InformacionInstitucional-seccion">
+    <div class="InformacionInstitucional-contenedor">
 
-            <h2 class="InformacionInstitucional-titulo">
-                La UPT en cifras
-            </h2>
+        <!-- MISIÓN ALMA MATER -->
+        <article class="InformacionInstitucional-alma">
+
+            <div class="InformacionInstitucional-alma-imagen">
+                <img
+                    src="{% static 'Imagenes/alma_mater.png' %}"
+                    alt="Representación de la Misión Alma Mater"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="InformacionInstitucional-imagen-etiqueta">
+                    <span>01</span>
+                    <p>Transformación universitaria</p>
+                </div>
+            </div>
+
+            <div class="InformacionInstitucional-alma-contenido">
+
+                <span class="InformacionInstitucional-linea">
+                    EDUCACIÓN UNIVERSITARIA
+                </span>
+
+                <h2 class="InformacionInstitucional-titulo">
+                    ¿Qué es la Misión Alma Mater?
+                </h2>
+
+                <p class="InformacionInstitucional-texto">
+                    La Misión Alma Mater es una política educativa creada
+                    en el año 2009 por el presidente Hugo Chávez con el
+                    propósito de transformar y fortalecer la educación
+                    universitaria en Venezuela. Su objetivo principal es
+                    garantizar una formación académica de calidad,
+                    inclusiva y vinculada a las necesidades de cada región
+                    del país. Gracias a esta iniciativa surgieron diversas
+                    universidades politécnicas territoriales, entre ellas
+                    la Universidad Politécnica Territorial del Estado
+                    Barinas José Félix Ribas, producto de la transformación
+                    de antiguos institutos universitarios. Asimismo, otras
+                    instituciones como la Universidad Politécnica Territorial
+                    de Aragua Federico Brito Figueroa y la Universidad
+                    Politécnica Territorial del Estado Portuguesa Juan de
+                    Jesús Montilla también nacieron bajo este mismo programa,
+                    contribuyendo al desarrollo educativo, científico y
+                    tecnológico del país.
+                </p>
+
+                <div class="InformacionInstitucional-destacado">
+                    <span
+                        class="InformacionInstitucional-destacado-marca"
+                        aria-hidden="true"
+                    ></span>
+
+                    <p>
+                        Educación universitaria vinculada al desarrollo
+                        territorial y las necesidades de la sociedad.
+                    </p>
+                </div>
+
+            </div>
+        </article>
+
+
+        <!-- LA UPT EN CIFRAS -->
+        <section
+            class="InformacionInstitucional-seccion"
+            aria-labelledby="InformacionInstitucional-titulo-cifras"
+        >
+
+            <div class="InformacionInstitucional-seccion-encabezado">
+
+                <div>
+                    <span class="InformacionInstitucional-linea">
+                        NUESTRA ESTRUCTURA
+                    </span>
+
+                    <h2
+                        id="InformacionInstitucional-titulo-cifras"
+                        class="InformacionInstitucional-titulo"
+                    >
+                        La UPT en cifras
+                    </h2>
+                </div>
+
+                <p class="InformacionInstitucional-seccion-descripcion">
+                    Conoce algunos aspectos de nuestra organización
+                    y modelo de formación.
+                </p>
+
+            </div>
+
 
             <div class="InformacionInstitucional-cifras">
 
-                <div class="InformacionInstitucional-cifra">
+                <!-- SEDES -->
+                <article class="InformacionInstitucional-cifra">
 
-                    <div class="InformacionInstitucional-cifra-icono">
-                        <i class="fa-solid fa-location-dot"></i>
+                    <div class="InformacionInstitucional-cifra-superior">
+                        <span
+                            class="InformacionInstitucional-cifra-icono"
+                            aria-hidden="true"
+                        >
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+
+                        <span class="InformacionInstitucional-cifra-marca">
+                            PRESENCIA
+                        </span>
                     </div>
 
-                    <div class="InformacionInstitucional-cifra-contenido">
+                    <strong class="InformacionInstitucional-cifra-numero">
+                        04
+                    </strong>
 
-                        <strong class="InformacionInstitucional-cifra-titulo">
-                            Sedes
-                        </strong>
+                    <h3 class="InformacionInstitucional-cifra-titulo">
+                        Sedes universitarias
+                    </h3>
 
-                        <ul class="InformacionInstitucional-lista">
-                            <li>Barinas <span>Sede Principal</span></li>
-                            <li>Barinitas</li>
-                            <li>Pedraza</li>
-                            <li>Socopó</li>
-                        </ul>
+                    <p class="InformacionInstitucional-cifra-descripcion">
+                        Presencia académica en diferentes localidades
+                        del estado Barinas.
+                    </p>
+
+                    <ul class="InformacionInstitucional-lista">
+                        <li>
+                            <span>Barinas</span>
+                            <span class="InformacionInstitucional-sede-principal">
+                                Sede principal
+                            </span>
+                        </li>
+                        <li><span>Barinitas</span></li>
+                        <li><span>Pedraza</span></li>
+                        <li><span>Socopó</span></li>
+                    </ul>
+
+                </article>
+
+
+                <!-- ENFOQUE FORMATIVO -->
+                <article class="InformacionInstitucional-cifra">
+
+                    <div class="InformacionInstitucional-cifra-superior">
+                        <span
+                            class="InformacionInstitucional-cifra-icono"
+                            aria-hidden="true"
+                        >
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </span>
+
+                        <span class="InformacionInstitucional-cifra-marca">
+                            FORMACIÓN
+                        </span>
+                    </div>
+
+                    <h3 class="InformacionInstitucional-cifra-titulo">
+                        Enfoque formativo
+                    </h3>
+
+                    <p class="InformacionInstitucional-cifra-descripcion">
+                        Equilibrio entre los fundamentos académicos
+                        y su aplicación práctica.
+                    </p>
+
+                    <div class="InformacionInstitucional-balance">
+
+                        <div class="InformacionInstitucional-balance-dato">
+                            <strong>50%</strong>
+                            <span>Teoría</span>
+                        </div>
+
+                        <div class="InformacionInstitucional-balance-dato">
+                            <strong>50%</strong>
+                            <span>Práctica</span>
+                        </div>
 
                     </div>
 
-                </div>
-
-
-                <div class="InformacionInstitucional-cifra">
-
-                    <div class="InformacionInstitucional-cifra-icono">
-                        <i class="fa-solid fa-scale-balanced"></i>
+                    <div
+                        class="InformacionInstitucional-balance-barra"
+                        role="img"
+                        aria-label="Representación visual: 50 por ciento teoría y 50 por ciento práctica"
+                    >
+                        <span></span>
+                        <span></span>
                     </div>
 
-                    <div class="InformacionInstitucional-cifra-contenido">
+                    <p class="InformacionInstitucional-balance-nota">
+                        Conocimiento y aplicación
+                    </p>
 
-                        <strong class="InformacionInstitucional-cifra-titulo">
-                            Enfoque
-                        </strong>
+                </article>
 
-                        <p class="InformacionInstitucional-valor">
-                            50% <span>Teoría</span><br><br>
-                            50% <span>Práctica</span>
-                        </p>
 
+                <!-- MODALIDADES -->
+                <article class="InformacionInstitucional-cifra">
+
+                    <div class="InformacionInstitucional-cifra-superior">
+                        <span
+                            class="InformacionInstitucional-cifra-icono"
+                            aria-hidden="true"
+                        >
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </span>
+
+                        <span class="InformacionInstitucional-cifra-marca">
+                            ACADÉMICO
+                        </span>
                     </div>
 
-                </div>
+                    <h3 class="InformacionInstitucional-cifra-titulo">
+                        Modalidades de egreso
+                    </h3>
+
+                    <p class="InformacionInstitucional-cifra-descripcion">
+                        Distintas titulaciones según el programa
+                        académico cursado.
+                    </p>
+
+                    <ul class="InformacionInstitucional-modalidades">
+
+                        <li>
+                            <span>TSU</span>
+                            <div>
+                                <strong>Técnico Superior Universitario</strong>
+                            </div>
+                        </li>
+
+                        <li>
+                            <span>ING</span>
+                            <div>
+                                <strong>Ingeniero</strong>
+                            </div>
+                        </li>
+
+                        <li>
+                            <span>LIC</span>
+                            <div>
+                                <strong>Licenciado</strong>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </article>
+
+            </div>
+        </section>
 
 
-                <div class="InformacionInstitucional-cifra">
+        <!-- HISTORIA INSTITUCIONAL -->
+        <section
+            class="InformacionInstitucional-seccion InformacionInstitucional-historia"
+            aria-labelledby="InformacionInstitucional-titulo-historia"
+        >
 
-                    <div class="InformacionInstitucional-cifra-icono">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
+            <div class="InformacionInstitucional-historia-cabecera">
 
-                    <div class="InformacionInstitucional-cifra-contenido">
+                <span class="InformacionInstitucional-linea">
+                    NUESTRA TRAYECTORIA
+                </span>
 
-                        <strong class="InformacionInstitucional-cifra-titulo">
-                            Modalidades
-                        </strong>
+                <h2
+                    id="InformacionInstitucional-titulo-historia"
+                    class="InformacionInstitucional-titulo"
+                >
+                    Una historia de transformación
+                </h2>
 
-                        <ul class="InformacionInstitucional-lista">
-                            <li>Técnico Superior Universitario (TSU)</li>
-                            <li>Ingeniero (ING)</li>
-                            <li>Licenciado (LIC)</li>
-                        </ul>
-
-                    </div>
-
-                </div>
+                <p class="InformacionInstitucional-texto">
+                    La institución evolucionó desde sus orígenes como
+                    instituto tecnológico hasta convertirse en una
+                    universidad politécnica territorial.
+                </p>
 
             </div>
 
-        </div>
+
+            <div class="InformacionInstitucional-linea-tiempo">
+
+                <article class="InformacionInstitucional-hito">
+
+                    <div
+                        class="InformacionInstitucional-hito-marca"
+                        aria-hidden="true"
+                    >
+                        <span>
+                            <i class="fa-solid fa-landmark"></i>
+                        </span>
+                    </div>
+
+                    <div class="InformacionInstitucional-hito-contenido">
+
+                        <span class="InformacionInstitucional-hito-fecha">
+                            29 DE ENERO · 2001
+                        </span>
+
+                        <h3>Fundación del IUTEBA</h3>
+
+                        <p class="InformacionInstitucional-texto">
+                            Se crea el Instituto Universitario de Tecnología
+                            del Estado Barinas (IUTEBA), mediante el Decreto
+                            Presidencial N.º 1.184, constituyendo el
+                            antecedente institucional de la actual universidad.
+                        </p>
+
+                    </div>
+                </article>
 
 
-        <div class="InformacionInstitucional-seccion">
+                <article class="InformacionInstitucional-hito">
 
-            <h2 class="InformacionInstitucional-titulo">
-                ¿En qué año se fundó?
-            </h2>
+                    <div
+                        class="InformacionInstitucional-hito-marca"
+                        aria-hidden="true"
+                    >
+                        <span>
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </span>
+                    </div>
 
-            <p class="InformacionInstitucional-texto">
-                La Universidad Politécnica Territorial del Estado Barinas "José Félix Ribas" (UPTJFR) fue creada el
-                16 de julio de 2010 mediante el Decreto Presidencial N.º 7.567, publicado en la Gaceta Oficial
-                N.º 5.987 Extraordinaria. Surge de la transformación del Instituto Universitario de Tecnología del
-                Estado Barinas (IUTEBA), fundado en 2001, como parte de la Misión Alma Mater impulsada por el Estado
-                venezolano.
+                    <div class="InformacionInstitucional-hito-contenido">
+
+                        <span class="InformacionInstitucional-hito-fecha">
+                            2009
+                        </span>
+
+                        <h3>Impulso de la Misión Alma Mater</h3>
+
+                        <p class="InformacionInstitucional-texto">
+                            Se impulsa una política de transformación de
+                            la educación universitaria venezolana orientada
+                            a fortalecer el acceso y la vinculación con
+                            las necesidades de cada territorio.
+                        </p>
+
+                    </div>
+                </article>
+
+
+                <article class="InformacionInstitucional-hito">
+
+                    <div
+                        class="InformacionInstitucional-hito-marca"
+                        aria-hidden="true"
+                    >
+                        <span>
+                            <i class="fa-solid fa-building-columns"></i>
+                        </span>
+                    </div>
+
+                    <div class="InformacionInstitucional-hito-contenido">
+
+                        <span class="InformacionInstitucional-hito-fecha">
+                            16 DE JULIO · 2010
+                        </span>
+
+                        <h3>Nace la UPT José Félix Ribas</h3>
+
+                        <p class="InformacionInstitucional-texto">
+                            La institución es creada como Universidad
+                            Politécnica Territorial del Estado Barinas
+                            José Félix Ribas, mediante el Decreto
+                            Presidencial N.º 7.567, según la información
+                            histórica presentada en esta sección.
+                        </p>
+
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- ACERCA DE LA UNIVERSIDAD -->
+        <section
+            class="InformacionInstitucional-seccion"
+            aria-labelledby="InformacionInstitucional-titulo-acerca"
+        >
+
+            <div class="InformacionInstitucional-seccion-encabezado">
+                <div>
+                    <span class="InformacionInstitucional-linea">
+                        FORMACIÓN Y DESARROLLO
+                    </span>
+
+                    <h2
+                        id="InformacionInstitucional-titulo-acerca"
+                        class="InformacionInstitucional-titulo"
+                    >
+                        Acerca de la Universidad
+                    </h2>
+                </div>
+            </div>
+
+
+            <div class="InformacionInstitucional-acerca">
+
+                <div class="InformacionInstitucional-acerca-contenido">
+
+                    <p class="InformacionInstitucional-texto">
+                        La Universidad Politécnica Territorial del Estado
+                        Barinas “José Félix Ribas” despliega su labor
+                        educativa a través de una infraestructura académica
+                        distribuida estratégicamente en la región. La
+                        institución cuenta con cuatro sedes geográficas
+                        ubicadas en Barinas, Barinitas, Socopó y Pedraza,
+                        funcionando la sede de Barinas como la Sede Central
+                        y núcleo principal de las operaciones universitarias.
+                        En este complejo académico se imparten diversas
+                        carreras diseñadas bajo modelos de formación
+                        adaptados a las necesidades profesionales. Estas
+                        opciones de estudio se organizan bajo distintas
+                        modalidades pedagógicas según la especialidad
+                        académica.
+                    </p>
+
+                    <p class="InformacionInstitucional-texto InformacionInstitucional-parrafo-secundario">
+                        Lo que verdaderamente diferencia la realidad
+                        educativa de esta institución es su enfoque
+                        pedagógico equilibrado de 50% teoría y 50%
+                        práctica. Lejos de limitarse a la ejecución
+                        netamente operativa, este modelo integral garantiza
+                        que los estudiantes adquieran tanto las habilidades
+                        técnicas en el campo real como los fundamentos
+                        conceptuales sólidos que las respaldan. El objetivo
+                        final de este balance es maximizar el potencial
+                        académico de los profesionales, asegurando que
+                        egresen con un nivel superior de conocimiento,
+                        capacidad analítica y liderazgo para resolver
+                        problemas críticos en sus respectivas áreas.
+                    </p>
+
+                </div>
+
+
+                <aside
+                    class="InformacionInstitucional-acerca-destacado"
+                    aria-label="Equilibrio entre teoría y práctica"
+                >
+
+                    <span
+                        class="InformacionInstitucional-acerca-icono"
+                        aria-hidden="true"
+                    >
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </span>
+
+                    <span class="InformacionInstitucional-acerca-numero">
+                        50 / 50
+                    </span>
+
+                    <h3>Teoría y práctica</h3>
+
+                    <p>
+                        Dos dimensiones complementarias para una formación
+                        académica integral.
+                    </p>
+
+                    <div class="InformacionInstitucional-acerca-detalle">
+                        <span>
+                            <i class="fa-solid fa-book" aria-hidden="true"></i>
+                            CONOCER
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-gears" aria-hidden="true"></i>
+                            APLICAR
+                        </span>
+                    </div>
+
+                </aside>
+
+            </div>
+        </section>
+
+
+        <!-- CIERRE INSTITUCIONAL -->
+        <footer class="InformacionInstitucional-pie">
+
+            <span aria-hidden="true"></span>
+
+            <p>
+                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                Educación · Conocimiento · Desarrollo territorial
             </p>
 
-            <p class="InformacionInstitucional-texto InformacionInstitucional-parrafo-secundario">
-                Sin embargo, la institución tiene sus orígenes en el antiguo Instituto Universitario de Tecnología
-                del Estado Barinas (IUTEBA), creado el 29 de enero de 2001 mediante el Decreto Presidencial N.º 1.184.
-                Posteriormente, este instituto fue transformado en la universidad que hoy conocemos como UPT José Félix
-                Ribas.
-            </p>
+            <span aria-hidden="true"></span>
 
-        </div>
-
-
-        <div class="InformacionInstitucional-seccion">
-
-            <h2 class="InformacionInstitucional-titulo">
-                Acerca de la Universidad
-            </h2>
-
-            <p class="InformacionInstitucional-texto">
-                La Universidad Politécnica Territorial del Estado Barinas “José Félix Ribas” despliega su labor
-                educativa a través de una sólida infraestructura académica distribuida estratégicamente en la región.
-                La institución cuenta con cuatro sedes geográficas ubicadas en Barinas, Barinitas, Socopó y Pedraza,
-                funcionando la sede de Barinas como la Sede Central y núcleo principal de las operaciones universitarias.
-                En este complejo académico se imparten diversas carreras diseñadas bajo modelos de formación adaptados
-                a las necesidades profesionales. Estas opciones de estudio se organizan bajo distintas modalidades
-                pedagógicas según la especialidad académica.
-            </p>
-
-            <p class="InformacionInstitucional-texto InformacionInstitucional-parrafo-secundario">
-                Lo que verdaderamente diferencia la realidad educativa de esta institución es su enfoque pedagógico
-                equilibrado de 50% teoría y 50% práctica. Lejos de limitarse a la ejecución netamente operativa, este
-                modelo integral garantiza que los estudiantes adquieran tanto las habilidades técnicas en el campo real
-                como los fundamentos conceptuales sólidos que las respaldan. El objetivo final de este balance es
-                maximizar el potencial académico de los profesionales, asegurando que egresen con un nivel superior de
-                conocimiento, capacidad analítica y liderazgo para resolver problemas críticos en sus respectivas áreas.
-            </p>
-
-        </div>
+        </footer>
 
     </div>
-
 </section>
 
 {% endblock %}

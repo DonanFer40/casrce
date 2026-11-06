@@ -2,8 +2,23 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.hashers import check_password
 from django.http import JsonResponse
+from django.conf import settings
+
+from inicio_sesion.services.seguridad_admin_service import (
+    iniciar_verificacion_admin
+)
 
 from inicio_sesion.models import Nacimiento, Cuenta, Usuario, Estudiante, Docente, CoordinadorPNF, ControlEstudio, DirectorGeneral
+from bitacora.services.registrar_accion import registrar_accion
+
+
+def _registrar_evento_seguro(request, **datos):
+    # La bitácora no debe impedir que el flujo de autenticación responda.
+    try:
+        registrar_accion(request, **datos)
+    except Exception:
+        import logging
+        logging.getLogger(__name__).exception("No se pudo registrar el evento de autenticación.")
 
 def obtener_roles(usuario):
     roles = []
@@ -81,10 +96,75 @@ def autenticacion(request):
                 "icon": "warning",
                 "descripcion": "Por favor, ingresa su contraseña."
             })
+
+                # ==================================================
+        # ACCESO ESPECIAL AL PANEL ADMINISTRATIVO
+        # ==================================================
+
+        usuario_gate = settings.CASRCE_ADMIN_GATE_USERNAME
+        hash_gate = settings.CASRCE_ADMIN_GATE_PASSWORD_HASH
+
+        if usuario_gate and nombre_usuario == usuario_gate:
+
+            if not hash_gate or not check_password(
+                contrasenia,
+                hash_gate
+            ):
+                return JsonResponse({
+                    "estado": "fallo",
+                    "title": "Acceso denegado",
+                    "icon": "error",
+                    "descripcion": "Las credenciales especiales no son correctas."
+                })
+
+            try:
+
+                exito, mensaje = iniciar_verificacion_admin(
+                    request,
+                    nombre_usuario,
+                    contrasenia,
+                )
+                if not exito:
+                    return JsonResponse({
+                        "estado": "fallo",
+                        "title": "Acceso denegado",
+                        "icon": "error",
+                        "descripcion": mensaje,
+                    }, status=403)
+
+                return JsonResponse({
+                    "estado": "exito",
+                    "url": reverse("acceso_admin")
+                })
+
+            except Exception:
+
+                import logging
+
+                logging.getLogger(__name__).exception(
+                    "Error iniciando el acceso administrativo."
+                )
+
+                return JsonResponse({
+                    "estado": "fallo",
+                    "title": "Error de seguridad",
+                    "icon": "error",
+                    "descripcion": "No fue posible iniciar la verificación administrativa."
+                })
         
         try:
             credenciales = Cuenta.objects.get(usuario=nombre_usuario)
         except Cuenta.DoesNotExist:
+            _registrar_evento_seguro(
+                request,
+                categoria="AUTENTICACION",
+                modulo="Inicio de sesión",
+                accion="Intento de inicio de sesión",
+                descripcion="Se intentó acceder con un nombre de usuario no registrado.",
+                resultado="FALLIDO",
+                nivel="ADVERTENCIA",
+                detalles={"usuario_intentado": nombre_usuario[:160]},
+            )
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Error",
@@ -94,6 +174,16 @@ def autenticacion(request):
         
         coincide = check_password(contrasenia, credenciales.clave)
         if not coincide:
+            _registrar_evento_seguro(
+                request,
+                categoria="AUTENTICACION",
+                modulo="Inicio de sesión",
+                accion="Intento de inicio de sesión",
+                descripcion="Se rechazó un intento de acceso por credenciales incorrectas.",
+                resultado="FALLIDO",
+                nivel="ADVERTENCIA",
+                detalles={"usuario_intentado": nombre_usuario[:160]},
+            )
             return JsonResponse({
                 "estado": "fallo",
                 "title": "Error",
@@ -111,6 +201,16 @@ def autenticacion(request):
         roles = obtener_roles(usuario)
         request.session["roles"] = roles
         request.session["rol"] = [r["rol"] for r in roles]
+
+        _registrar_evento_seguro(
+            request,
+            categoria="AUTENTICACION",
+            modulo="Inicio de sesión",
+            accion="Inicio de sesión",
+            descripcion="El usuario inició sesión correctamente.",
+            resultado="EXITOSO",
+            detalles={"cantidad_roles_disponibles": len(roles)},
+        )
 
         registro_basico = Nacimiento.objects.filter(id_usuario=usuario).exists()
 
@@ -132,5 +232,13 @@ def autenticacion(request):
     return render(request, 'Sesion/Login/inicio_sesion.html')
 
 def cerrar_sesion(request):
-    request.session.flush() 
+    _registrar_evento_seguro(
+        request,
+        categoria="AUTENTICACION",
+        modulo="Inicio de sesión",
+        accion="Cierre de sesión",
+        descripcion="El usuario cerró su sesión.",
+        resultado="EXITOSO",
+    )
+    request.session.flush()
     return redirect("inicio_sesion")

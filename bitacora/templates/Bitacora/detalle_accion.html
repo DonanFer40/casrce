@@ -1,0 +1,41 @@
+{% extends 'Estructura/Base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'Estilos/Bitacora/bitacora_acciones.css' %}">
+<section id="bitacora-acciones-carsce">
+    <div class="bitacora-acciones-carsce-contenedor">
+        <header class="bitacora-acciones-carsce-encabezado">
+            <div class="bitacora-acciones-carsce-encabezado-texto">
+                <span class="bitacora-acciones-carsce-etiqueta">TRAZABILIDAD INSTITUCIONAL</span>
+                <h1>Detalle de la operación</h1>
+                <p>Información registrada sobre la acción seleccionada.</p>
+            </div>
+            <div class="bitacora-acciones-carsce-icono"><i class="fa-solid fa-file-shield"></i></div>
+        </header>
+        <article class="bitacora-acciones-carsce-detalle">
+            <div class="bitacora-acciones-carsce-detalle-cabecera">
+                <div><span>Registro #{{ registro.id_registro }}</span><h2>{{ registro.accion }}</h2><p>{{ registro.descripcion }}</p></div>
+                <span class="bitacora-acciones-carsce-estado {{ registro.resultado|lower }}">{{ registro.get_resultado_display }}</span>
+            </div>
+            <dl class="bitacora-acciones-carsce-datos">
+                <div><dt>Fecha y hora</dt><dd>{{ registro.fecha_hora|date:"d/m/Y H:i:s" }}</dd></div>
+                <div><dt>Usuario</dt><dd>{{ registro.nombre_usuario|default:"Sistema" }}</dd></div>
+                <div><dt>Cédula</dt><dd>{{ registro.cedula_usuario|default:"No disponible" }}</dd></div>
+                <div><dt>Rol</dt><dd>{{ registro.rol|default:"Sistema" }}</dd></div>
+                <div><dt>Categoría</dt><dd>{{ registro.get_categoria_display }}</dd></div>
+                <div><dt>Módulo</dt><dd>{{ registro.modulo }}</dd></div>
+                <div><dt>Nivel</dt><dd>{{ registro.get_nivel_display }}</dd></div>
+                <div><dt>Dirección IP</dt><dd>{{ registro.direccion_ip|default:"No disponible" }}</dd></div>
+                <div><dt>Tipo de objeto</dt><dd>{{ registro.tipo_objeto|default:"No aplica" }}</dd></div>
+                <div><dt>Identificador</dt><dd>{{ registro.identificador_objeto|default:"No aplica" }}</dd></div>
+                <div><dt>Método HTTP</dt><dd>{{ registro.metodo_http|default:"No disponible" }}</dd></div>
+                <div><dt>Ruta</dt><dd class="bitacora-acciones-carsce-ruta">{{ registro.ruta|default:"No disponible" }}</dd></div>
+            </dl>
+            {% if registro.detalles %}
+            <div class="bitacora-acciones-carsce-metadatos"><h3>Información complementaria</h3><pre>{{ registro.detalles|pprint }}</pre></div>
+            {% endif %}
+            <a class="bitacora-acciones-carsce-volver" href="{% url 'bitacora_acciones' %}"><i class="fa-solid fa-arrow-left"></i> Volver al historial</a>
+        </article>
+    </div>
+</section>
+{% endblock %}

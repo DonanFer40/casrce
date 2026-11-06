@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .forms import UsuarioAdminForm, CredencialesUsuarioAdminForm, PNFNucleoAdminForm, PnfAdminForm, NucleoAdminForm
 
-from .models import Usuario, Contacto, Pnf, Nucleos, PNFNucleo, PeriodoAcademico, Cuenta, Estudiante, Docente, CoordinadorPNF, ControlEstudio, DirectorGeneral
+from .models import Usuario, Contacto, Pnf, Nucleos, PNFNucleo, PeriodoAcademico, Cuenta, Estudiante, Docente, CoordinadorPNF, ControlEstudio, DirectorGeneral, ExpedienteEstudiante, HistorialExpedienteEstudiante
 
 class UsuarioAdmin(admin.ModelAdmin):
     form = UsuarioAdminForm
@@ -83,3 +83,5 @@ admin.site.register(Nucleos, NucleoAdmin)
 admin.site.register(Cuenta, CredencialesUsuarioAdmin)
 admin.site.register(PNFNucleo, PNFNucleoAdmin)
 admin.site.register(Contacto)
+admin.site.register(ExpedienteEstudiante)
+admin.site.register(HistorialExpedienteEstudiante)

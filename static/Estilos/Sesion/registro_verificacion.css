@@ -1,0 +1,187 @@
+/* Modal de verificación de correo para el registro estudiantil CASRCE. */
+.CASRCE-verificacion-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgb(15 23 42 / 68%);
+    backdrop-filter: blur(4px);
+}
+
+.CASRCE-verificacion-overlay.activo {
+    display: flex;
+}
+
+.CASRCE-verificacion-modal {
+    position: relative;
+    width: min(100%, 460px);
+    max-height: min(90vh, 720px);
+    overflow-y: auto;
+    padding: clamp(1.5rem, 5vw, 2.25rem);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #fff;
+    color: #0f172a;
+    box-shadow: 0 24px 70px rgb(2 6 23 / 28%);
+    text-align: center;
+}
+
+.CASRCE-verificacion-cerrar {
+    position: absolute;
+    top: .75rem;
+    right: .9rem;
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    font-size: 1.8rem;
+    cursor: not-allowed;
+}
+
+.CASRCE-verificacion-icono {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 1.65rem;
+}
+
+.CASRCE-verificacion-modal h2 {
+    margin: 0 0 .75rem;
+    color: #0f172a;
+    font-size: clamp(1.25rem, 4vw, 1.55rem);
+}
+
+.CASRCE-verificacion-modal p {
+    margin: .45rem 0;
+    color: #475569;
+    line-height: 1.55;
+}
+
+.CASRCE-verificacion-correo {
+    overflow-wrap: anywhere;
+    color: #1d4ed8 !important;
+    font-weight: 700;
+}
+
+.CASRCE-verificacion-ayuda {
+    margin-bottom: 1.25rem !important;
+    font-size: .92rem;
+}
+
+#formulario-verificacion-registro {
+    display: grid;
+    gap: .65rem;
+    margin-top: 1rem;
+    text-align: left;
+}
+
+#formulario-verificacion-registro label {
+    color: #334155;
+    font-size: .92rem;
+    font-weight: 600;
+}
+
+#codigo-verificacion-registro {
+    width: 100%;
+    box-sizing: border-box;
+    padding: .9rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    outline: none;
+    background: #f8fafc;
+    color: #0f172a;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: .45rem;
+    text-align: center;
+}
+
+#codigo-verificacion-registro:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
+}
+
+.CASRCE-verificacion-mensaje {
+    min-height: 1.25rem;
+    color: #b91c1c;
+    line-height: 1.4;
+}
+
+.CASRCE-verificacion-mensaje[data-tipo="exito"] {
+    color: #15803d;
+}
+
+.CASRCE-verificacion-mensaje[data-tipo="info"] {
+    color: #1d4ed8;
+}
+
+.CASRCE-verificacion-boton,
+#btn-reenviar-codigo-registro {
+    border: 0;
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    font: inherit;
+    font-weight: 700;
+    transition: background .2s ease, opacity .2s ease;
+}
+
+.CASRCE-verificacion-boton {
+    margin-top: .3rem;
+    background: #0f172a;
+    color: #fff;
+    cursor: pointer;
+}
+
+.CASRCE-verificacion-boton:hover {
+    background: #2563eb;
+}
+
+.CASRCE-verificacion-boton:disabled {
+    cursor: wait;
+    opacity: .65;
+}
+
+.CASRCE-verificacion-reenvio {
+    display: grid;
+    gap: .7rem;
+    margin-top: 1.15rem;
+    color: #64748b;
+    font-size: .9rem;
+}
+
+#btn-reenviar-codigo-registro {
+    background: #eff6ff;
+    color: #1d4ed8;
+    cursor: pointer;
+}
+
+#btn-reenviar-codigo-registro:hover:not(:disabled) {
+    background: #dbeafe;
+}
+
+#btn-reenviar-codigo-registro:disabled {
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    .CASRCE-verificacion-overlay {
+        padding: .75rem;
+    }
+
+    .CASRCE-verificacion-modal {
+        padding: 1.5rem 1.1rem;
+        border-radius: 16px;
+    }
+
+    #codigo-verificacion-registro {
+        letter-spacing: .3rem;
+    }
+}

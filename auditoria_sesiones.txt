@@ -1,0 +1,291 @@
+﻿
+Path                                                                                     LineNumber Line                                                                                                
+----                                                                                     ---------- ----                                                                                                
+C:\Users\Donan_Fer40\carsce\bitacora\views.py                                                    14     rol = request.session.get("rol", "")                                                            
+C:\Users\Donan_Fer40\carsce\bitacora\views.py                                                    21     if not request.session.get("id_cuenta"):                                                        
+C:\Users\Donan_Fer40\carsce\bitacora\middleware\auditoria.py                                     36         if request.method != "POST" or not request.session.get("id_cuenta"):                        
+C:\Users\Donan_Fer40\carsce\bitacora\services\registrar_accion.py                                35     id_cuenta = request.session.get("id_cuenta") if request else None                               
+C:\Users\Donan_Fer40\carsce\bitacora\services\registrar_accion.py                                61     rol = request.session.get("rol", "") if request else ""                                         
+C:\Users\Donan_Fer40\carsce\decorators\permisos.py                                               22             id_cuenta = request.session.get("id_cuenta")                                            
+C:\Users\Donan_Fer40\carsce\decorators\permisos.py                                               30                 request.session.flush()                                                             
+C:\Users\Donan_Fer40\carsce\decorators\permisos.py                                               44         id_cuenta = request.session.get("id_cuenta")                                                
+C:\Users\Donan_Fer40\carsce\decorators\permisos.py                                               48             request.session.flush()                                                                 
+C:\Users\Donan_Fer40\carsce\documentos\views\verificar_documentos.py                             33     id_cuenta = request.session.get("id_cuenta")                                                    
+C:\Users\Donan_Fer40\carsce\documentos\views\verificar_documentos.py                             53     roles = request.session.get("rol", [])                                                          
+C:\Users\Donan_Fer40\carsce\gestion_institucional\services\permisos\permisos_reportes.py         19             id_cuenta = request.session.get("id_cuenta")                                            
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                     9     coordinador = CoordinadorPNF.objects.get(usuario__cedula_identidad=request.session.get("cedul...
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                    45     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                   205     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                   500         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                   900                     nombre_usuario=request.session.get(                                             
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                   935     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                  1027     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                  1219     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                  1514     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                  1831             nombre_usuario=request.session.get(                                                     
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                  1967         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\asignacion_materia.py                  2179                 nombre_usuario=request.session.get(                                                 
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\aula.py                                  11     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\aula.py                                  71         director = DirectorGeneral.objects.get(usuario__cedula_identidad=request.session.get("ced...
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\aula.py                                 213                     nombre_usuario=request.session.get("usuario_nombre"),                           
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\aula.py                                 274                 director = DirectorGeneral.objects.get(usuario__cedula_identidad=request.session....
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\aula.py                                 290                     nombre_usuario=request.session.get("usuario_nombre"),                           
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\autoridades.py                          140                     nombre_usuario=request.session.get("usuario_nombre"),                           
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\autoridades.py                          295                 nombre_usuario=request.session.get("usuario_nombre"),                               
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\calendario_academico.py                 581                 nombre_usuario=request.session.get("usuario_nombre"),                               
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\calendario_academico.py                 796                     nombre_usuario=request.session.get(                                             
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                      25     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                     118             usuario__cedula_identidad=request.session.get(                                          
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                     211             usuario__cedula_identidad=request.session.get(                                          
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                     492         usuario__cedula_identidad=request.session.get(                                              
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                     688         usuario__cedula_identidad=request.session.get("cedula_usuario")                             
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                     838         request.session['cedula_personal'] = nacionalidad + "-" + cedula                            
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                     842             cedula_identidad=request.session.get('cedula_personal')                                 
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                     882             usuario__cedula_identidad=request.session.get("cedula_usuario")                         
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1100         cedula_identidad=request.session.get("cedula_personal")                                     
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1120         usuario__cedula_identidad=request.session.get(                                              
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1352         usuario__cedula_identidad=request.session.get("cedula_usuario")                             
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1369         cedula_identidad=request.session.get('cedula_personal')                                     
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1456     cedula_personal = request.session.get("cedula_personal")                                        
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1556     if "cedula_personal" in request.session:                                                        
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1557         del request.session["cedula_personal"]                                                      
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1590         usuario__cedula_identidad=request.session.get(                                              
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1612         cedula_identidad=request.session.get('cedula_personal')                                     
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1898             cedula_identidad=request.session.get(                                                   
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\gestion_personal.py                    1921             usuario__cedula_identidad=request.session.get(                                          
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\inscripcion_estudiante.py                10     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\inscripcion_estudiante.py                35     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\inscripcion_estudiante.py               137     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\inscripcion_estudiante.py               598     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\inscripcion_estudiante.py              1000         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\materia.py                               23         usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))       
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\materia.py                               82         cedula_usuario = request.session.get("cedula_usuario")                                      
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\materia.py                              382             usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))   
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\materia.py                              502         cedula_usuario = request.session.get("cedula_usuario")                                      
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\materia.py                              705                     nombre_usuario=request.session.get("usuario_nombre"),                           
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\materia.py                              826         cedula_usuario = request.session.get("cedula_usuario")                                      
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\materia.py                              905                 nombre_usuario=request.session.get("usuario_nombre"),                               
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\planificacion_academica.py               18     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\pnf.py                                   10     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\pnf.py                                   77             usuario__cedula_identidad=request.session.get("cedula_usuario")                         
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\pnf.py                                  146                     nombre_usuario=request.session.get("usuario_nombre"),                           
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\pnf.py                                  212             usuario__cedula_identidad=request.session.get("cedula_usuario")                         
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\pnf.py                                  225                 nombre_usuario=request.session.get("usuario_nombre"),                               
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\seccion.py                               99                     nombre_usuario=request.session.get("usuario_nombre"),                           
+C:\Users\Donan_Fer40\carsce\gestion_institucional\views\seccion.py                              148                     nombre_usuario=request.session.get("usuario_nombre"),                           
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   409     token = request.session.get(SESION_TOKEN)                                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   436     token = request.session.get(SESION_TOKEN)                                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   461         request.session.pop(SESION_TOKEN, None)                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   462         request.session.pop(SESION_AUTORIZADO, None)                                                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   463         request.session.pop(SESION_USUARIO, None)                                                   
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   590     request.session.cycle_key()                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   592     request.session[SESION_TOKEN] = token                                                           
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   593     request.session[SESION_AUTORIZADO] = False                                                      
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   595     request.session.pop(                                                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   600     request.session.set_expiry(                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   910     request.session.cycle_key()                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   912     request.session[SESION_AUTORIZADO] = True                                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   913     request.session[SESION_USUARIO] = verificacion.usuario_id                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   915     request.session.set_expiry(                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   928     token = request.session.get(SESION_TOKEN)                                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   948     request.session.pop(                                                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   953     request.session.pop(                                                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\services\seguridad_admin_service.py                   958     request.session.pop(                                                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      11 #     usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))         
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      17 #     if request.session.get("rol") == "Estudiante":                                                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      39 #     if request.session.get("rol") == "Estudiante":                                                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      56 #     request.session['token_recuperacion'] = token                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      58 #     usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))         
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      69 #         cedula = request.session.get("cedula_usuario")                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      86 #             request.session["token_recuperacion"]                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      93 #         usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                      95 #         verificacion = VerificacionCodigo.objects.filter(cedula_identidad=usuario.cedula_identi...
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                     116 #             request.session["token_recuperacion"]                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                     120 #         request.session["correo_verificado"] = True                                               
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                     208 #             usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario")) 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\actualizar_datos_usuario.py                     224 #             if request.session.get("rol") == "Estudiante":                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                197         request.session['id_cuenta'] = credenciales.id_cuenta                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                198         request.session['cedula_usuario'] = usuario.cedula_identidad                                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                199         request.session['usuario_nombre'] = f"{usuario.nombres} {usuario.apellidos}"                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                202         request.session["roles"] = roles                                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                203         request.session["rol"] = [r["rol"] for r in roles]                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                218             request.session['registro_completado'] = True                                           
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                225             request.session['registro_completado'] = False                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\autenticacion.py                                243     request.session.flush()                                                                         
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\completar_registro.py                            52     if not request.session.get("usuario_nombre"):                                                   
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\completar_registro.py                            63     ci_usuario = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\completar_registro.py                           227             cedula_identidad=request.session.get("cedula_usuario")                                  
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\completar_registro.py                           826             cedula_identidad=request.session.get("cedula_usuario")                                  
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\completar_registro.py                           922                 request.session["registro_completado"] = True                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\completar_registro.py                          1316             request.session["registro_completado"] = True                                           
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\expedientes.py                                   21     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      331     request.session["registro_estudiante_pendiente"] = datos_pendientes                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      332     request.session["token_registro_estudiante"] = token                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      333     request.session.modified = True                                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      355     datos = request.session.get("registro_estudiante_pendiente")                                    
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      356     token = request.session.get("token_registro_estudiante")                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      522     request.session.pop("registro_estudiante_pendiente", None)                                      
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      523     request.session.pop("token_registro_estudiante", None)                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      524     request.session.modified = True                                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      544     datos = request.session.get("registro_estudiante_pendiente")                                    
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      545     token = request.session.get("token_registro_estudiante")                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      796         request.session.pop(clave, None)                                                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      893     request.session["cedula_personal_pendiente"] = cedula                                           
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      894     request.session["token_registro_personal"] = token                                              
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      895     request.session.modified = True                                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      925     cedula = request.session.get("cedula_personal_pendiente")                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                      926     token = request.session.get("token_registro_personal")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1037     request.session["correo_personal_verificado"] = token                                           
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1040     request.session["personal_verificado_hasta"] = int(                                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1044     request.session.modified = True                                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1069     cedula = request.session.get("cedula_personal_pendiente")                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1070     token = request.session.get("token_registro_personal")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1080     if request.session.get("correo_personal_verificado") == token:                                  
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1251     cedula = request.session.get("cedula_personal_pendiente")                                       
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1252     token = request.session.get("token_registro_personal")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1253     token_verificado = request.session.get("correo_personal_verificado")                            
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1255     verificado_hasta = request.session.get(                                                         
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1269         request.session.pop("correo_personal_verificado", None)                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1270         request.session.pop("personal_verificado_hasta", None)                                      
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1390             request.session.pop(clave, None)                                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\funciones_inicio_sesion.py                     1392         request.session.modified = True                                                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                      22     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                      33         request.session.flush()                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                      71     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                     245     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                     457     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                     468         request.session.flush()                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                     525     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\noticias.py                                     536         request.session.flush()                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\panel_usuario.py                                  7     id_cuenta = request.session.get("id_cuenta")                                                    
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\panel_usuario.py                                 17         request.session.flush()                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\panel_usuario.py                                 21         request.session.flush()                                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                        56         request.session['cedula_usuario'] = cedula_identidad                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                        57         request.session['flujo_verificacion'] = True                                                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                        58         request.session['token_recuperacion'] = str(uuid.uuid4())                                   
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                        59         request.session.modified = True                                                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                        66     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                        88     token_sesion = request.session.get("token_recuperacion")                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       127     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       183         cedula_identidad=request.session.get("cedula_usuario")                                      
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       201         request.session.get("token_recuperacion")                                                   
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       221         usuario = Usuario.objects.filter(cedula_identidad=request.session.get("cedula_usuario"))....
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       224         token_sesion = request.session.get("token_recuperacion")                                    
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       254             request.session["correo_verificado"] = True                                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       361     cedula_usuario = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       362     if not cedula_usuario or not request.session.get("flujo_verificacion"):                         
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       382     token_sesion = request.session.get("token_recuperacion")                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       641     if not request.session.get("flujo_verificacion"):                                               
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       644     if not request.session['correo_verificado']:                                                    
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       648     token = request.session.get("token_recuperacion")                                               
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       660     if not request.session.get("flujo_verificacion"):                                               
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       663     if not request.session.get("correo_verificado"):                                                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       666     token = request.session.get("token_recuperacion")                                               
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       701         usuario = Usuario.objects.filter(cedula_identidad=request.session.get("cedula_usuario"))....
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       717         verificacion = VerificacionCodigo.objects.filter(cedula_identidad=request.session["cedula...
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       726         request.session.pop("flujo_verificacion", None)                                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       727         request.session.pop("correo_verificado", None)                                              
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       728         request.session.pop("cedula_usuario", None)                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       729         request.session.pop("token_recuperacion", None)                                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       731         request.session.modified = True                                                             
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       746     if not request.session.get("flujo_verificacion"):                                               
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       749     if not request.session.get("correo_verificado"):                                                
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       753         usuario_reg = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))   
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       809     request.session.pop("correo_verificado", None)                                                  
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       810     request.session.pop("cedula_usuario", None)                                                     
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       811     request.session.pop("token_recuperacion", None)                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\recuperar_credenciales.py                       812     request.session.pop("flujo_verificacion", None)                                                 
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\reportes.py                                    1024     usuario_generador = request.session.get(                                                        
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\detalles\obtencion_rol.py                        14     id_cuenta = request.session.get('id_cuenta')                                                    
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\detalles\reportes.py                              7     cuenta = Cuenta.objects.get(id_cuenta=request.session.get('id_cuenta'))                         
+C:\Users\Donan_Fer40\carsce\inicio_sesion\views\__pycache__\expedientes.py                       21     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_admin.py                                        48         autorizado = request.session.get(SESION_AUTORIZADO) is True                                 
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_admin.py                                        49         usuario_id = request.session.get(SESION_USUARIO)                                            
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_admin.py                                        69             request.session.pop(SESION_AUTORIZADO, None)                                            
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_admin.py                                        70             request.session.pop(SESION_USUARIO, None)                                               
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_roles.py                                        14     """Consulta los roles vigentes en BD; nunca confía en request.session['rol']."""                
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_roles.py                                        54         id_cuenta = request.session.get("id_cuenta")                                                
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_roles.py                                        63             request.session.flush()                                                                 
+C:\Users\Donan_Fer40\carsce\middleware\seguridad_roles.py                                        73         request.session["rol"] = sorted(roles)                                                      
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                           16     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                           45         cedula_usuario = request.session.get("cedula_usuario")                                      
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                           84         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          153         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          228         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          316         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          420         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          544         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          619     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          731         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          810         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                          924         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\datos_estudiante.py                         1012         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                           18     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                          108     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                          245     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                          363     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                          513     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                          913     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         1066     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         1374         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         2238     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         2314     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         2442     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         2507     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         2639         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         2840     cedula = request.session.get(                                                                   
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         3103         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         3312         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         3625     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         3722     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         3872     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         3977     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         4228         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         4454         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         4639     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         4924     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\notas_academicas.py                         5309     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                    17     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                    36     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                   183     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                   299     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                   349     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                   448     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                  1031     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                  1534     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                  1626     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                  1707     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                  1773     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\planificacion_academica.py                  2046         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                    15     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                   200     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                   422     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                   672     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                   979     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                  1151     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                  1353     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\remover_notas_academica.py                  1672     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                 19     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                103     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                195     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                279     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                511     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                805         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                874         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                                973         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               1046     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               1156     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               1383         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               1796         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               1903         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               2036         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               2154         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               2405             cedula = request.session.get("cedula_usuario")                                          
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               2667         cedula = request.session.get("cedula_usuario")                                              
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               3050     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               3268     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               3496     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               3709     cedula = request.session.get("cedula_usuario")                                                  
+C:\Users\Donan_Fer40\carsce\notas_academicas\views\reparacion.py                               3942     cedula = request.session.get("cedula_usuario")                                                  
+
+

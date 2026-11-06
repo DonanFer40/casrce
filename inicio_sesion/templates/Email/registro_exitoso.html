@@ -1,0 +1,113 @@
+
+{% extends 'Email/Base.html' %}
+
+{% block titulo_email %}
+    Registro completado - CASRCE
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     CONTENEDOR PRINCIPAL DEL CORREO DE REGISTRO
+     ========================================================= -->
+
+<section id="registro_exitoso_email">
+
+    <div class="contenedor_registro_exitoso">
+
+
+        <!-- =================================================
+             CABECERA DEL CORREO
+             ================================================= -->
+
+        <div class="registro_exitoso-cabecera">
+
+            <span class="registro_exitoso-etiqueta">
+                CASRCE · UPT José Félix Ribas
+            </span>
+
+            <h2>
+                ¡Tu registro ha sido completado!
+            </h2>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTENIDO PRINCIPAL DEL MENSAJE
+             ================================================= -->
+
+        <div class="registro_exitoso-contenido">
+
+            <p>
+                Hola,
+                <strong>{{ nombres }} {{ apellidos }}</strong>:
+            </p>
+
+            <p>
+                ¡Te damos la bienvenida a CASRCE!
+            </p>
+
+            <p>
+                Te informamos que tu registro en el sistema se ha
+                completado correctamente. Tu dirección de correo
+                electrónico fue verificada y tus datos se registraron
+                satisfactoriamente.
+            </p>
+
+
+            <!-- =============================================
+                 DATOS DEL REGISTRO
+                 ============================================= -->
+
+            <div class="registro_exitoso-datos">
+
+                <span class="registro_exitoso-etiqueta-datos">
+                    Tu nombre de usuario
+                </span>
+
+                <strong>
+                    {{ nombre_usuario }}
+                </strong>
+
+            </div>
+
+
+            <!-- =============================================
+                 INFORMACIÓN DE ACCESO Y SEGURIDAD
+                 ============================================= -->
+
+            <p>
+                Ya puedes acceder al sistema utilizando el nombre
+                de usuario y la contraseña que estableciste
+                durante el registro.
+            </p>
+
+            <p>
+                Por tu seguridad, no compartas tu contraseña
+                con otras personas.
+            </p>
+
+
+            <!-- =============================================
+                 DESPEDIDA DEL MENSAJE
+                 ============================================= -->
+
+            <p class="registro_exitoso-despedida">
+
+                Atentamente,<br>
+
+                <strong>Sistema CASRCE</strong><br>
+
+                Coordinación, Admisión, Registro y Seguimiento
+                de Control de Estudio
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

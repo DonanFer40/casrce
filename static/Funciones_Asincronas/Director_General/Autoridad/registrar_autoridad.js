@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formulario_registrar = document.getElementById("formulario_registrar_autoridades");
 
+    const input_nombres_autoridades = document.getElementById("nombres_autoridades");
+    const input_apellidos_autoridades = document.getElementById("apellidos_autoridades");
+
     const input_cedula_identidad = document.getElementById("cedula_identidad");
     const select_nacionalidad = document.getElementById("nacionalidad");
     const msj_cedula_identidad = document.getElementById("mensaje_cedula_identidad");
@@ -57,72 +60,116 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     cargar_cargos();
 
+    let solicitudCedula = 0;
+
     async function validarCedula(selectNacionalidad, inputCedula, mensaje) {
+
+        // Permitir únicamente números
+        inputCedula.value = inputCedula.value.replace(/\D/g, "");
+
         const nacionalidad = selectNacionalidad.value;
         const cedula = inputCedula.value.trim();
 
         if (cedula.length === 0) {
+            solicitudCedula++;
+
             mensaje.textContent = "";
             inputCedula.setCustomValidity("");
             inputCedula.classList.remove("is-valid", "is-invalid");
+
             btn_registrar.disabled = false;
             return;
         }
 
+        const solicitudActual = ++solicitudCedula;
+
         try {
             const formulario = new FormData();
+
             formulario.append("nacionalidad", nacionalidad);
             formulario.append("cedula", cedula);
 
             const respuesta = await fetch("/val_ci_aut/", {
                 method: "POST",
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": document.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    ).value
                 },
                 body: formulario
             });
 
-            const resultado = await respuesta.json();
-            console.log(resultado);
+            if (!respuesta.ok) {
+                throw new Error("Error al consultar la cédula.");
+            }
 
-            if (resultado.existe) {
+            // Django devuelve directamente true o false
+            const existe = await respuesta.json();
+
+            // Ignorar respuestas de solicitudes anteriores
+            if (solicitudActual !== solicitudCedula) return;
+
+            if (existe === true) {
+
                 inputCedula.setCustomValidity(
-                    "Ya se encuentra una autoridad registrado con esta cédula de identidad."
+                    "Esta cédula de identidad ya se encuentra registrada."
                 );
 
                 inputCedula.classList.add("is-invalid");
                 inputCedula.classList.remove("is-valid");
 
-                mensaje.textContent = "Ya se encuentra un autoridad registrado con esta cédula de identidad.";
+                mensaje.textContent =
+                    "Esta cédula de identidad ya se encuentra registrada.";
+
                 mensaje.style.color = "#dc3545";
 
                 btn_registrar.disabled = true;
+
             } else {
+
                 inputCedula.setCustomValidity("");
 
                 inputCedula.classList.remove("is-invalid");
                 inputCedula.classList.add("is-valid");
 
-                mensaje.textContent = "La cédula de identidad está disponible.";
+                mensaje.textContent =
+                    "La cédula de identidad está disponible.";
+
                 mensaje.style.color = "#198754";
 
                 btn_registrar.disabled = false;
             }
 
         } catch (error) {
-            console.error(error);
+
+            if (solicitudActual !== solicitudCedula) return;
+
+            console.error("Error al validar la cédula:", error);
+
+            btn_registrar.disabled = true;
         }
     }
 
-    select_nacionalidad.addEventListener("change", async () => {
-        validarCedula(select_nacionalidad, input_cedula_identidad, msj_cedula_identidad);
+    select_nacionalidad.addEventListener("change", () => {
+        validarCedula(
+            select_nacionalidad,
+            input_cedula_identidad,
+            msj_cedula_identidad
+        );
     });
 
-    input_cedula_identidad.addEventListener("input", async () => {
-        validarCedula(select_nacionalidad, input_cedula_identidad, msj_cedula_identidad);
+    input_cedula_identidad.addEventListener("input", () => {
+        validarCedula(
+            select_nacionalidad,
+            input_cedula_identidad,
+            msj_cedula_identidad
+        );
     });
 
     async function validarResolucion(inputresolucion, mensaje) {
+        // Permitir únicamente números
+        inputresolucion.value = inputresolucion.value.replace(/\D/g, "");
+
         const resolucion = inputresolucion.value.trim();
 
         if (resolucion.length === 0) {
@@ -144,11 +191,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
+
             const resultado = await respuesta.json();
-            console.log(resultado);
 
             if (resultado.existe) {
-                inputresolucion.setCustomValidity("Ya existe una autoridad registrada con esta resolución.");
+                inputresolucion.setCustomValidity(
+                    "Ya existe una autoridad registrada con esta resolución."
+                );
                 inputresolucion.classList.add("is-invalid");
                 inputresolucion.classList.remove("is-valid");
 
@@ -167,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 btn_registrar.disabled = false;
             }
+
         } catch (error) {
             console.error(error);
         }
@@ -176,8 +226,10 @@ document.addEventListener("DOMContentLoaded", () => {
         await validarResolucion(resolucion_autoridades, msg_resolucion);
     });
 
-    resolucion_autoridades.addEventListener("paste", async () => {
-        await validarResolucion(resolucion_autoridades, msg_resolucion);
+    resolucion_autoridades.addEventListener("paste", () => {
+        setTimeout(async () => {
+            await validarResolucion(resolucion_autoridades, msg_resolucion);
+        }, 0);
     });
 
     formulario_registrar.addEventListener("submit", async function (e) {

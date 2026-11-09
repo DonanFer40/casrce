@@ -69,6 +69,8 @@ urlpatterns = [
     path('guardar_act_sec/', views.guardar_act_sec, name="guardar_act_sec"),
     path('reg_sec/', views.reg_sec, name="reg_sec"),
     path('val_sec/', views.val_sec, name="val_sec"),
+    
+    path('reg_horario/', views.reg_horario, name="reg_horario"),
 
     path('docs_reg/', views.docs_reg, name="docs_reg"),
     path('mats_reg/', views.mats_reg, name="mats_reg"),

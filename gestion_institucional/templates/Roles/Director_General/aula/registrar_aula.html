@@ -27,7 +27,8 @@
                 </h3>
 
                 <p class="director-aulas-registrar-carsce-descripcion">
-                    Registra y configura las aulas académicas disponibles para el desarrollo de las actividades institucionales.
+                    Registra y configura las aulas académicas disponibles para el desarrollo de las actividades
+                    institucionales.
                 </p>
 
             </div>
@@ -66,11 +67,7 @@
                  FORMULARIO
                  ================================================= -->
 
-            <form
-                method="post"
-                id="formulario_registrar"
-                class="director-aulas-registrar-carsce-formulario"
-            >
+            <form method="post" id="formulario_registrar" class="director-aulas-registrar-carsce-formulario">
 
                 {% csrf_token %}
 
@@ -83,10 +80,7 @@
 
                     <div class="director-aulas-registrar-carsce-campo director-aulas-registrar-carsce-campo-completo">
 
-                        <label
-                            for="nombre_aula"
-                            class="director-aulas-registrar-carsce-etiqueta"
-                        >
+                        <label for="nombre_aula" class="director-aulas-registrar-carsce-etiqueta">
                             Nombre / Número del Aula:
                         </label>
 
@@ -94,22 +88,13 @@
 
                             <i class="fa-solid fa-door-closed"></i>
 
-                            <input
-                                type="text"
-                                name="nombre_aula"
-                                id="nombre_aula"
-                                placeholder="Máximo 20 caracteres"
-                                maxlength="20"
-                                autocomplete="off"
-                                required
-                            >
+                            <input type="text" name="nombre_aula" id="nombre_aula"
+                                placeholder="Nombre del aula académico (3-40 caracteres)" minlength="3" maxlength="40"
+                                autocomplete="off" required>
 
                         </div>
 
-                        <small
-                            id="mensaje_nombre_aula"
-                            class="director-aulas-registrar-carsce-mensaje"
-                        ></small>
+                        <small id="mensaje_nombre_aula" class="director-aulas-registrar-carsce-mensaje"></small>
 
                     </div>
 
@@ -124,32 +109,21 @@
 
                     <div class="director-aulas-registrar-carsce-campo director-aulas-registrar-carsce-campo-completo">
 
-                        <label
-                            for="observacion_aula"
-                            class="director-aulas-registrar-carsce-etiqueta"
-                        >
+                        <label for="observacion_aula" class="director-aulas-registrar-carsce-etiqueta">
                             Nota / Observación:
                         </label>
 
-                        <div class="director-aulas-registrar-carsce-control director-aulas-registrar-carsce-control-textarea">
+                        <div
+                            class="director-aulas-registrar-carsce-control director-aulas-registrar-carsce-control-textarea">
 
                             <i class="fa-solid fa-note-sticky"></i>
 
-                            <textarea
-                                name="observacion_aula"
-                                id="observacion_aula"
-                                placeholder="Máximo 100 caracteres"
-                                maxlength="100"
-                                autocomplete="off"
-                                required
-                            ></textarea>
+                            <textarea name="observacion_aula" id="observacion_aula" placeholder="Máximo 100 caracteres"
+                                maxlength="100" autocomplete="off" required></textarea>
 
                         </div>
 
-                        <small
-                            id="mensaje_observacion_aula"
-                            class="director-aulas-registrar-carsce-mensaje"
-                        ></small>
+                        <small id="mensaje_observacion_aula" class="director-aulas-registrar-carsce-mensaje"></small>
 
                     </div>
 
@@ -164,10 +138,7 @@
 
                     <div class="director-aulas-registrar-carsce-campo">
 
-                        <label
-                            for="piso_edificio"
-                            class="director-aulas-registrar-carsce-etiqueta"
-                        >
+                        <label for="piso_edificio" class="director-aulas-registrar-carsce-etiqueta">
                             Piso del Edificio:
                         </label>
 
@@ -175,15 +146,8 @@
 
                             <i class="fa-solid fa-layer-group"></i>
 
-                            <input
-                                type="text"
-                                name="piso_edificio"
-                                id="piso_edificio"
-                                placeholder="Máximo 20 caracteres"
-                                maxlength="20"
-                                autocomplete="off"
-                                required
-                            >
+                            <input type="text" name="piso_edificio" id="piso_edificio"
+                                placeholder="Máximo 20 caracteres" maxlength="20" autocomplete="off" required>
 
                         </div>
 
@@ -192,10 +156,7 @@
 
                     <div class="director-aulas-registrar-carsce-campo">
 
-                        <label
-                            for="tipos_aulas"
-                            class="director-aulas-registrar-carsce-etiqueta"
-                        >
+                        <label for="tipos_aulas" class="director-aulas-registrar-carsce-etiqueta">
                             Tipo de Aula:
                         </label>
 
@@ -203,10 +164,7 @@
 
                             <i class="fa-solid fa-flask"></i>
 
-                            <select
-                                name="tipos_aulas"
-                                id="tipos_aulas"
-                            >
+                            <select name="tipos_aulas" id="tipos_aulas">
                                 <option value="">
                                     Selecciona una de las opciones
                                 </option>
@@ -238,10 +196,7 @@
 
                     <div class="director-aulas-registrar-carsce-campo">
 
-                        <label
-                            for="pnfs_imparte"
-                            class="director-aulas-registrar-carsce-etiqueta"
-                        >
+                        <label for="pnfs_imparte" class="director-aulas-registrar-carsce-etiqueta">
                             P.N.F:
                         </label>
 
@@ -249,10 +204,7 @@
 
                             <i class="fa-solid fa-graduation-cap"></i>
 
-                            <select
-                                name="pnfs_imparte"
-                                id="pnfs_imparte"
-                            ></select>
+                            <select name="pnfs_imparte" id="pnfs_imparte"></select>
 
                             <i class="fa-solid fa-chevron-down director-aulas-registrar-carsce-flecha"></i>
 
@@ -263,10 +215,7 @@
 
                     <div class="director-aulas-registrar-carsce-campo">
 
-                        <label
-                            for="secciones_registradas"
-                            class="director-aulas-registrar-carsce-etiqueta"
-                        >
+                        <label for="secciones_registradas" class="director-aulas-registrar-carsce-etiqueta">
                             Secciones Académicas:
                         </label>
 
@@ -274,10 +223,7 @@
 
                             <i class="fa-solid fa-users"></i>
 
-                            <select
-                                name="secciones_registradas"
-                                id="secciones_registradas"
-                            ></select>
+                            <select name="secciones_registradas" id="secciones_registradas"></select>
 
                             <i class="fa-solid fa-chevron-down director-aulas-registrar-carsce-flecha"></i>
 
@@ -294,12 +240,8 @@
 
                 <div class="director-aulas-registrar-carsce-acciones">
 
-                    <input
-                        type="submit"
-                        id="btn_registrar"
-                        class="director-aulas-registrar-carsce-boton"
-                        value="Registrar Aula"
-                    >
+                    <input type="submit" id="btn_registrar" class="director-aulas-registrar-carsce-boton"
+                        value="Registrar Aula">
 
                 </div>
 

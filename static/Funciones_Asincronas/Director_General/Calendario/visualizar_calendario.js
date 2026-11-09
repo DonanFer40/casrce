@@ -9,8 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const formulario_actualizar = document.getElementById("formulario_actualizar");
     const input_fecha_inicio = document.getElementById("fecha_inicio");
     const input_fecha_finalizado = document.getElementById("fecha_finalizado");
-
+    const input_descripcion = document.getElementById("descripcion_calendario");
+    const error_fechas = document.getElementById("error_fechas_calendario");
+    const input_tipo_calendario = document.getElementById("tipo_calendario");
     let periodo = "";
+    let limites_fechas = null;
+
+    function mostrarErrorFechas(mensaje) {
+        error_fechas.textContent = mensaje;
+        error_fechas.hidden = false;
+    }
+
+    function limpiarErrorFechas() {
+        error_fechas.textContent = "";
+        error_fechas.hidden = true;
+    }
 
     async function periodos_academicos_registrados() {
         try {
@@ -82,32 +95,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 const tabla = document.createElement("table");
                 tabla.classList.add("tabla_calendario");
 
-                if (tipo.valor === "CARGA_NOTAS") {
-                    tabla.innerHTML = `
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>DESCRIPCIÓN</th>
-                                <th>FECHA INICIO</th>
-                                <th>FECHA FINALIZADA</th>
-                                <th>ACCIÓN</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    `;
-                } else {
-                    tabla.innerHTML = `
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>DESCRIPCIÓN</th>
-                                <th>FECHA INICIO</th>
-                                <th>FECHA FINALIZADA</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    `;
-                }
+                tabla.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>FECHA INICIO</th>
+                            <th>FECHA FINALIZADA</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                `;
                 const tbody = tabla.querySelector("tbody");
 
                 /*Insertar registros*/
@@ -115,31 +114,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     const fila = document.createElement("tr");
                     fila.dataset.id = calendario.id;
                     fila.dataset.tipo = calendario.tipo_valor;
+                    const id_visible = tipo.valor === "CARGA_NOTAS"
+                        ? index + 1
+                        : calendario.id;
 
-                    if (tipo.valor === "CARGA_NOTAS") {
-                        fila.innerHTML = `
-                            <td>${index + 1}</td>
-                            <td>${calendario.descripcion}</td>
-                            <td>${calendario.fecha_inicio}</td>
-                            <td>${calendario.fecha_final}</td>
-                            <td>
-                                <button 
-                                    type="button" 
-                                    class="btn_abrir_carga_notas" 
-                                    data-id="${calendario.id}" 
-                                    data-tipo="CARGA_NOTAS">
-                                    Ver
-                                </button>
-                            </td>
-                        `;
-                    } else {
-                        fila.innerHTML = `
-                            <td>${calendario.id}</td>
-                            <td>${calendario.descripcion}</td>
-                            <td>${calendario.fecha_inicio}</td>
-                            <td>${calendario.fecha_final}</td>
-                        `;
-                    }
+                    fila.innerHTML = `
+                        <td>${id_visible}</td>
+                        <td>${calendario.descripcion}</td>
+                        <td>${calendario.fecha_inicio}</td>
+                        <td>${calendario.fecha_final}</td>
+                        <td>
+                            <button
+                                type="button"
+                                class="btn_abrir_edicion_calendario"
+                                data-id="${calendario.id}">
+                                Actualizar
+                            </button>
+                        </td>
+                    `;
 
                     tbody.appendChild(fila);
                 });
@@ -158,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     calendario_registrado();
 
     contenedor.addEventListener("click", async (e) => {
-        const boton = e.target.closest(".btn_abrir_carga_notas");
+        const boton = e.target.closest(".btn_abrir_edicion_calendario");
         if (!boton) {
             return;
         }
@@ -181,72 +173,249 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
 
             if (resultado.estado !== "exito") {
+                if (!dialogo_fecha_academica.open) {
+                    dialogo_fecha_academica.showModal();
+                }
+                limpiarErrorFechas();
+                mostrarErrorFechas(resultado.descripcion);
                 return;
             }
 
             dialogo_fecha_academica.showModal();
+            limpiarErrorFechas();
 
             input_id_calendario.value = resultado.calendario.id;
+
+            input_descripcion.value = resultado.calendario.descripcion;
+
             input_fecha_inicio.value = resultado.calendario.fecha_inicio;
+
             input_fecha_finalizado.value = resultado.calendario.fecha_final;
-            input_fecha_inicio.min = resultado.calendario.fecha_inicio;
+
+            input_tipo_calendario.value = resultado.calendario.tipo;
+
+            // -------------------------------------------------
+            // CONFIGURAR FECHA DE FINALIZACIÓN
+            // -------------------------------------------------
+
+            const esCargaNotas =
+                resultado.calendario.tipo === "CARGA_NOTAS";
+
+            input_fecha_finalizado.readOnly = esCargaNotas;
+
+            input_fecha_finalizado.classList.toggle(
+                "fecha_solo_lectura",
+                esCargaNotas
+            );
+
+            limites_fechas = resultado.calendario.limites;
+
+            input_fecha_inicio.min = limites_fechas.fecha_inicio_min;
+            input_fecha_inicio.max = limites_fechas.fecha_inicio_max;
+
+            input_fecha_finalizado.min = limites_fechas.fecha_final_min;
+            input_fecha_finalizado.max = limites_fechas.fecha_final_max;
+
+            ajustarMinimoFechaFinal();
         } catch (error) {
             console.error(error);
+            if (!dialogo_fecha_academica.open) {
+                dialogo_fecha_academica.showModal();
+            }
+            mostrarErrorFechas(
+                "No fue posible cargar el calendario. Inténtalo nuevamente."
+            );
         }
     });
 
-    input_fecha_inicio.addEventListener("change", () => {
-        const fecha_ingresada = input_fecha_inicio.value;
-        if (!fecha_ingresada) {
+    function ajustarMinimoFechaFinal() {
+        if (!limites_fechas) {
             return;
         }
 
-        const fecha = new Date(
-            fecha_ingresada + "T00:00:00"
-        );
+        input_fecha_finalizado.min = input_fecha_inicio.value > limites_fechas.fecha_final_min
+            ? input_fecha_inicio.value
+            : limites_fechas.fecha_final_min;
+    }
 
-        fecha.setDate(fecha.getDate() + 3);
-
-        const año = fecha.getFullYear();
-        const mes = String(fecha.getMonth() + 1).padStart(2, "0");
-        const dia = String(fecha.getDate()).padStart(2, "0");
-
-        input_fecha_finalizado.value = `${año}-${mes}-${dia}`;
+    input_fecha_inicio.addEventListener("change", () => {
+        limpiarErrorFechas();
+        ajustarMinimoFechaFinal();
     });
+
+    input_fecha_finalizado.addEventListener("change", limpiarErrorFechas);
+    input_descripcion.addEventListener("input", limpiarErrorFechas);
 
     btn_cerrar_dialogo.addEventListener("click", () => {
         dialogo_fecha_academica.close();
     });
 
     formulario_actualizar.addEventListener("submit", async (e) => {
+
         e.preventDefault();
+
         try {
-            const formulario = new FormData(formulario_actualizar);
+
+            limpiarErrorFechas();
+
+            const descripcion = input_descripcion.value.trim();
+
+            // -------------------------------------------------
+            // VALIDAR DESCRIPCIÓN
+            // -------------------------------------------------
+
+            if (!descripcion) {
+
+                mostrarErrorFechas(
+                    "La descripción es obligatoria."
+                );
+
+                input_descripcion.focus();
+
+                return;
+            }
+
+            if (descripcion.length > 150) {
+
+                mostrarErrorFechas(
+                    "La descripción no puede superar los 150 caracteres."
+                );
+
+                input_descripcion.focus();
+
+                return;
+            }
+
+            // -------------------------------------------------
+            // VALIDAR FECHAS
+            // -------------------------------------------------
+
+            if (
+                !input_fecha_inicio.value ||
+                !input_fecha_finalizado.value
+            ) {
+
+                mostrarErrorFechas(
+                    "Debes indicar la fecha de inicio y la fecha de finalización."
+                );
+
+                return;
+            }
+
+            if (
+                input_fecha_inicio.value < input_fecha_inicio.min ||
+                input_fecha_inicio.value > input_fecha_inicio.max ||
+                input_fecha_finalizado.value < input_fecha_finalizado.min ||
+                input_fecha_finalizado.value > input_fecha_finalizado.max
+            ) {
+
+                mostrarErrorFechas(
+                    "Las fechas deben respetar los límites permitidos para este calendario."
+                );
+
+                return;
+            }
+
+            if (
+                input_fecha_finalizado.value <
+                input_fecha_inicio.value
+            ) {
+
+                mostrarErrorFechas(
+                    "La fecha de finalización no puede ser anterior a la fecha de inicio."
+                );
+
+                return;
+            }
+
+            // -------------------------------------------------
+            // PREPARAR FORMULARIO
+            // -------------------------------------------------
+
+            const formulario = new FormData(
+                formulario_actualizar
+            );
+
+            formulario.set(
+                "descripcion",
+                descripcion
+            );
+
+            // -------------------------------------------------
+            // ENVIAR ACTUALIZACIÓN
+            // -------------------------------------------------
 
             const respuesta = await fetch("/calendario_guardar/", {
+
                 method: "POST",
+
                 headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    "X-CSRFToken": document.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    ).value
                 },
+
                 body: formulario
+
             });
+
             const resultado = await respuesta.json();
+
             console.log(resultado);
+
+            // -------------------------------------------------
+            // VALIDAR RESPUESTA
+            // -------------------------------------------------
+
+            if (resultado.estado !== "exito") {
+
+                mostrarErrorFechas(
+                    resultado.descripcion
+                );
+
+                return;
+            }
+
+            // -------------------------------------------------
+            // CERRAR DIÁLOGO
+            // -------------------------------------------------
 
             dialogo_fecha_academica.close();
 
+            // -------------------------------------------------
+            // NOTIFICAR ACTUALIZACIÓN
+            // -------------------------------------------------
+
             await NotificacionesCASRCE.mostrar({
+
                 text: resultado.descripcion,
+
                 icon: resultado.icon,
+
                 title: resultado.title,
+
                 allowOutsideClick: false,
+
                 allowEscapeKey: false
+
             });
 
-            await calendario_registrado()
+            // -------------------------------------------------
+            // ACTUALIZAR TABLA
+            // -------------------------------------------------
+
+            await calendario_registrado();
+
         } catch (error) {
-            console.error(error)
+
+            console.error(error);
+
+            mostrarErrorFechas(
+                "No fue posible actualizar el calendario. Inténtalo nuevamente."
+            );
+
         }
+
     });
 
 });

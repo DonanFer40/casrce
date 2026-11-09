@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const input = evento.target;
 
         if (!(input instanceof HTMLInputElement ||
-              input instanceof HTMLTextAreaElement)) {
+            input instanceof HTMLTextAreaElement)) {
             return;
         }
 

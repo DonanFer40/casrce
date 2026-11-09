@@ -24,8 +24,7 @@
    ESTRUCTURA PRINCIPAL
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-estructura {
+#correo-institucional-carsce .correo-institucional-carsce-estructura {
 
     width: 100%;
 
@@ -45,8 +44,7 @@
    CONTENEDOR GENERAL
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenedor {
+#correo-institucional-carsce .correo-institucional-carsce-contenedor {
 
     width: 100%;
 
@@ -68,8 +66,7 @@
    SECCIONES PRINCIPALES
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-seccion {
+#correo-institucional-carsce .correo-institucional-carsce-seccion {
 
     width: 100%;
 
@@ -86,8 +83,7 @@
    ENCABEZADO INSTITUCIONAL
    ========================================================= */
 
-#correo-institucional-carsce
-#correo-institucional-carsce-encabezado {
+#correo-institucional-carsce #correo-institucional-carsce-encabezado {
 
     background: var(--color-azul-profundo);
 
@@ -99,8 +95,7 @@
    CONTENIDO DEL ENCABEZADO
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-encabezado-contenido {
+#correo-institucional-carsce .correo-institucional-carsce-encabezado-contenido {
 
     padding: 32px 36px;
 
@@ -114,8 +109,7 @@
    LOGOTIPO INSTITUCIONAL
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-logotipo {
+#correo-institucional-carsce .correo-institucional-carsce-logotipo {
 
     width: 100%;
 
@@ -129,8 +123,7 @@
    IMAGEN DEL LOGOTIPO
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-logotipo img {
+#correo-institucional-carsce .correo-institucional-carsce-logotipo img {
 
     display: inline-block;
 
@@ -154,8 +147,7 @@
    IDENTIDAD INSTITUCIONAL
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-identidad {
+#correo-institucional-carsce .correo-institucional-carsce-identidad {
 
     width: 100%;
 
@@ -169,8 +161,7 @@
    NOMBRE DE LA UNIVERSIDAD
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-nombre-institucion {
+#correo-institucional-carsce .correo-institucional-carsce-nombre-institucion {
 
     margin: 0;
 
@@ -192,8 +183,7 @@
    NOMBRE CORTO DE LA UNIVERSIDAD
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-nombre-universidad {
+#correo-institucional-carsce .correo-institucional-carsce-nombre-universidad {
 
     margin: 8px 0 0;
 
@@ -213,8 +203,7 @@
    CONTENIDO PRINCIPAL DEL MENSAJE
    ========================================================= */
 
-#correo-institucional-carsce
-#correo-institucional-carsce-contenido {
+#correo-institucional-carsce #correo-institucional-carsce-contenido {
 
     background: var(--color-blanco);
 }
@@ -224,8 +213,7 @@
    CONTENEDOR DEL CONTENIDO
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal {
 
     padding: 36px;
 
@@ -245,14 +233,11 @@
    TÍTULOS DEL CONTENIDO
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal h1,
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal h1,
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal h2,
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal h2,
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal h3 {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal h3 {
 
     color: var(--color-azul-profundo);
 
@@ -268,8 +253,7 @@
    TÍTULO PRINCIPAL DEL MENSAJE
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal h2 {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal h2 {
 
     margin: 0 0 22px;
 
@@ -283,8 +267,7 @@
    PÁRRAFOS DEL CONTENIDO
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal p {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal p {
 
     margin: 0 0 18px;
 
@@ -302,8 +285,7 @@
    TEXTO DESTACADO
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal strong {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal strong {
 
     color: var(--color-azul-hover);
 
@@ -315,8 +297,7 @@
    ENLACES DEL MENSAJE
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal a {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal a {
 
     color: var(--color-azul-hover);
 
@@ -332,11 +313,9 @@
    LISTAS DEL MENSAJE
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal ul,
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal ul,
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal ol {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal ol {
 
     margin: 0 0 20px;
 
@@ -346,8 +325,7 @@
 }
 
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal li {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal li {
 
     margin-bottom: 8px;
 
@@ -359,8 +337,7 @@
    TABLAS DENTRO DEL MENSAJE
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-contenido-principal table {
+#correo-institucional-carsce .correo-institucional-carsce-contenido-principal table {
 
     max-width: 100%;
 
@@ -374,8 +351,7 @@
    PIE INSTITUCIONAL
    ========================================================= */
 
-#correo-institucional-carsce
-#correo-institucional-carsce-pie {
+#correo-institucional-carsce #correo-institucional-carsce-pie {
 
     background: #F8FAFC;
 
@@ -387,8 +363,7 @@
    CONTENIDO DEL PIE
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-pie-contenido {
+#correo-institucional-carsce .correo-institucional-carsce-pie-contenido {
 
     padding: 24px 30px;
 
@@ -402,8 +377,7 @@
    NOMBRE DE LA PLATAFORMA
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-pie-plataforma {
+#correo-institucional-carsce .correo-institucional-carsce-pie-plataforma {
 
     margin: 0 0 9px;
 
@@ -421,8 +395,7 @@
    DERECHOS INSTITUCIONALES
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-pie-derechos {
+#correo-institucional-carsce .correo-institucional-carsce-pie-derechos {
 
     margin: 0 0 9px;
 
@@ -438,8 +411,7 @@
    AVISO AUTOMÁTICO
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-pie-aviso {
+#correo-institucional-carsce .correo-institucional-carsce-pie-aviso {
 
     margin: 0;
 
@@ -455,8 +427,7 @@
    CONTENIDO FINAL DEL PIE
    ========================================================= */
 
-#correo-institucional-carsce
-.correo-institucional-carsce-pie-contenido p:last-child {
+#correo-institucional-carsce .correo-institucional-carsce-pie-contenido p:last-child {
 
     margin-bottom: 0;
 }
@@ -474,29 +445,25 @@
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-encabezado-contenido {
+    #correo-institucional-carsce .correo-institucional-carsce-encabezado-contenido {
 
         padding: 28px 24px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-nombre-institucion {
+    #correo-institucional-carsce .correo-institucional-carsce-nombre-institucion {
 
         font-size: 21px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-contenido-principal {
+    #correo-institucional-carsce .correo-institucional-carsce-contenido-principal {
 
         padding: 30px 26px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-pie-contenido {
+    #correo-institucional-carsce .correo-institucional-carsce-pie-contenido {
 
         padding: 22px 24px;
     }
@@ -516,29 +483,25 @@
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-encabezado-contenido {
+    #correo-institucional-carsce .correo-institucional-carsce-encabezado-contenido {
 
         padding: 24px 17px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-logotipo {
+    #correo-institucional-carsce .correo-institucional-carsce-logotipo {
 
         margin-bottom: 12px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-logotipo img {
+    #correo-institucional-carsce .correo-institucional-carsce-logotipo img {
 
         max-height: 70px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-nombre-institucion {
+    #correo-institucional-carsce .correo-institucional-carsce-nombre-institucion {
 
         font-size: 18px;
 
@@ -546,8 +509,7 @@
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-nombre-universidad {
+    #correo-institucional-carsce .correo-institucional-carsce-nombre-universidad {
 
         margin-top: 6px;
 
@@ -555,8 +517,7 @@
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-contenido-principal {
+    #correo-institucional-carsce .correo-institucional-carsce-contenido-principal {
 
         padding: 25px 19px;
 
@@ -566,8 +527,7 @@
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-contenido-principal h2 {
+    #correo-institucional-carsce .correo-institucional-carsce-contenido-principal h2 {
 
         margin-bottom: 17px;
 
@@ -575,8 +535,7 @@
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-contenido-principal p {
+    #correo-institucional-carsce .correo-institucional-carsce-contenido-principal p {
 
         margin-bottom: 16px;
 
@@ -584,29 +543,25 @@
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-pie-contenido {
+    #correo-institucional-carsce .correo-institucional-carsce-pie-contenido {
 
         padding: 20px 16px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-pie-plataforma {
+    #correo-institucional-carsce .correo-institucional-carsce-pie-plataforma {
 
         font-size: 11px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-pie-derechos {
+    #correo-institucional-carsce .correo-institucional-carsce-pie-derechos {
 
         font-size: 10px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-pie-aviso {
+    #correo-institucional-carsce .correo-institucional-carsce-pie-aviso {
 
         font-size: 9px;
     }
@@ -620,36 +575,31 @@
 
 @media (max-width: 340px) {
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-encabezado-contenido {
+    #correo-institucional-carsce .correo-institucional-carsce-encabezado-contenido {
 
         padding: 20px 12px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-nombre-institucion {
+    #correo-institucional-carsce .correo-institucional-carsce-nombre-institucion {
 
         font-size: 16px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-contenido-principal {
+    #correo-institucional-carsce .correo-institucional-carsce-contenido-principal {
 
         padding: 21px 14px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-contenido-principal h2 {
+    #correo-institucional-carsce .correo-institucional-carsce-contenido-principal h2 {
 
         font-size: 20px;
     }
 
 
-    #correo-institucional-carsce
-    .correo-institucional-carsce-pie-contenido {
+    #correo-institucional-carsce .correo-institucional-carsce-pie-contenido {
 
         padding: 18px 12px;
     }

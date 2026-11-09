@@ -1,13 +1,20 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.db import transaction
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.db import IntegrityError, transaction
+from django.db.models import Q
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+import logging
+import re
 import unicodedata
 
 from inicio_sesion.models import Usuario, Estudiante, Pnf, Contacto, Nucleos, PNFNucleo, DirectorGeneral, Docente, CoordinadorPNF, ControlEstudio
 
 import json
+
+logger = logging.getLogger(__name__)
 
 PERFILES = {
     "1": "Coordinador PNF",
@@ -104,7 +111,6 @@ def obtener_icono_pnf(nombre):
     return "fa-graduation-cap"
 
 def datos_perfiles(request):
-
     if request.method != "GET":
         return JsonResponse(
             {"error": "Método no permitido."},
@@ -316,6 +322,9 @@ def pre_reg_personal(request):
 
     prefijo = request.POST.get("prefijo", "").strip()
     num_telefono = request.POST.get("telefono", "").strip()
+    correo_principal = f"{nombre_correo}{dominio}"
+    cedula_identidad = f"{nacionalidad}-{num_cedula}"
+    telefono_principal = f"{prefijo}{num_telefono}"
 
     perfiles_asignados = [
         perfil.strip()
@@ -389,6 +398,60 @@ def pre_reg_personal(request):
                 campo,
                 mensaje
             )
+
+    longitudes_cedula = {
+        "V": (7, 8),
+        "E": (8, 10),
+    }
+    longitud_cedula = longitudes_cedula.get(nacionalidad)
+
+    if not longitud_cedula or not re.fullmatch(
+        rf"[0-9]{{{longitud_cedula[0]},{longitud_cedula[1]}}}",
+        num_cedula,
+    ):
+        return respuesta_fallo(
+            "Cédula no válida",
+            "La nacionalidad o el formato de la cédula no son válidos."
+        )
+
+    dominios_validos = {
+        "@gmail.com",
+        "@outlook.com",
+        "@yahoo.com",
+    }
+    if (
+        dominio not in dominios_validos
+        or len(correo_principal) > 100
+    ):
+        return respuesta_fallo(
+            "Correo no válido",
+            "El correo electrónico o su dominio no son válidos."
+        )
+
+    try:
+        validate_email(correo_principal)
+    except ValidationError:
+        return respuesta_fallo(
+            "Correo no válido",
+            "El formato del correo electrónico no es válido."
+        )
+
+    prefijos_validos = {
+        "0414",
+        "0424",
+        "0416",
+        "0426",
+        "0412",
+        "0422",
+    }
+    if (
+        prefijo not in prefijos_validos
+        or not re.fullmatch(r"[0-9]{7}", num_telefono)
+    ):
+        return respuesta_fallo(
+            "Teléfono no válido",
+            "El prefijo o el formato del teléfono no son válidos."
+        )
 
     # =========================================================
     # VALIDAR PERFILES
@@ -504,20 +567,37 @@ def pre_reg_personal(request):
     nucleo_director = director.nucleo
 
     # =========================================================
-    # CONSTRUIR DATOS DE CONTACTO
-    # =========================================================
-
-    cedula_identidad = f"{nacionalidad}-{num_cedula}"
-    correo_principal = f"{nombre_correo}{dominio}"
-    telefono_principal = f"{prefijo}{num_telefono}"
-
-    # =========================================================
     # VALIDACIONES Y REGISTRO
     # =========================================================
 
     try:
 
         with transaction.atomic():
+
+            if Usuario.objects.filter(
+                cedula_identidad=cedula_identidad
+            ).exists():
+                return respuesta_fallo(
+                    "Cédula ya registrada",
+                    "Ya existe un usuario registrado con esta cédula."
+                )
+
+            if Contacto.objects.filter(
+                Q(correo_electronico__iexact=correo_principal)
+                | Q(correo_alternativo__iexact=correo_principal)
+            ).exists():
+                return respuesta_fallo(
+                    "Correo ya registrado",
+                    "Ya existe un usuario con este correo electrónico."
+                )
+
+            if Contacto.objects.filter(
+                telefono_personal=telefono_principal
+            ).exists():
+                return respuesta_fallo(
+                    "Teléfono ya registrado",
+                    "Este número telefónico ya se encuentra registrado."
+                )
 
             # =================================================
             # VALIDAR CONTROL DE ESTUDIO
@@ -670,11 +750,16 @@ def pre_reg_personal(request):
             )
         })
 
-    except Exception as error:
-
-        print(
-            f"Error en pre_reg_personal: {error}"
+    except IntegrityError:
+        logger.exception("Conflicto al guardar el pre registro de personal.")
+        return respuesta_fallo(
+            "Datos duplicados",
+            "Uno o más datos ya fueron registrados. Verifícalos e inténtalo nuevamente.",
+            "error"
         )
+
+    except Exception:
+        logger.exception("Error en el pre registro de personal.")
 
         return respuesta_fallo(
             "Error de registro",
@@ -1073,15 +1158,6 @@ def bus_per_asig(request):
         })
 
 def info_per_asig(request):
-
-    if request.method != "POST":
-        return JsonResponse({
-            "estado": "fallo",
-            "icon": "error",
-            "title": "Método no permitido",
-            "descripcion": "La solicitud debe realizarse mediante POST."
-        })
-
     rol = request.POST.get("rol", "").strip()
 
     if not rol:
@@ -1823,15 +1899,6 @@ def agr_per_asig(request):
     })
 
 def act_per_reg(request):
-
-    if request.method != "POST":
-        return JsonResponse({
-            "estado": "fallo",
-            "title": "Método no permitido",
-            "descripcion": "La solicitud debe realizarse mediante POST.",
-            "icon": "error"
-        })
-
     try:
 
         # =========================================================
@@ -1850,6 +1917,14 @@ def act_per_reg(request):
             "pnf_coordinador",
             ""
         ).strip()
+
+        print(id_perfil)
+        print(rol)
+        print(estado)
+
+        print("Docente ", pnfs)
+        print("Cooridnador ", pnf_coordinador)
+       
 
         # =========================================================
         # VALIDACIONES GENERALES
@@ -1966,7 +2041,7 @@ def act_per_reg(request):
                     })
 
                 # -------------------------------------------------
-                # VALIDAR PNF SELECCIONADOS
+                # VALIDAR PNF SELECCIONADO
                 # -------------------------------------------------
 
                 if not pnfs:
@@ -1974,43 +2049,52 @@ def act_per_reg(request):
                         "estado": "fallo",
                         "title": "PNF requerido",
                         "descripcion": (
-                            "Debe seleccionar al menos "
-                            "un PNF para el docente."
+                            "Debe seleccionar un PNF "
+                            "para el docente."
+                        ),
+                        "icon": "warning"
+                    })
+
+                if len(pnfs) > 1:
+                    return JsonResponse({
+                        "estado": "fallo",
+                        "title": "Selección no válida",
+                        "descripcion": (
+                            "Solo puede seleccionar un PNF "
+                            "para el docente."
                         ),
                         "icon": "warning"
                     })
 
                 # -------------------------------------------------
-                # VALIDAR QUE LOS PNF PERTENEZCAN AL NÚCLEO
+                # VALIDAR QUE EL PNF PERTENEZCA AL NÚCLEO
                 # -------------------------------------------------
 
-                pnfs_validos = list(
-                    Pnf.objects.filter(
-                        id_pnf__in=pnfs,
-                        pnfnucleo__id_nucleo=nucleo_director
-                    ).distinct()
-                )
+                pnf_seleccionado = Pnf.objects.filter(
+                    id_pnf=pnfs[0],
+                    pnfnucleo__id_nucleo=nucleo_director
+                ).first()
 
-                if len(pnfs_validos) != len(set(pnfs)):
+                if not pnf_seleccionado:
                     return JsonResponse({
                         "estado": "fallo",
                         "title": "PNF no válido",
                         "descripcion": (
-                            "Uno o más PNF seleccionados "
-                            "no pertenecen al núcleo del "
-                            "Director General."
+                            "El PNF seleccionado no pertenece "
+                            "al núcleo del Director General."
                         ),
                         "icon": "warning"
                     })
 
                 # -------------------------------------------------
-                # ACTUALIZAR ESTADO
+                # ACTUALIZAR PERFIL
                 # -------------------------------------------------
 
+                perfil.pnf = pnf_seleccionado
                 perfil.activo = nuevo_estado
 
                 perfil.save(
-                    update_fields=["activo"]
+                    update_fields=["pnf", "activo"]
                 )
 
             # =====================================================
@@ -2018,6 +2102,10 @@ def act_per_reg(request):
             # =====================================================
 
             elif rol == "Coordinador de PNF":
+
+                # -------------------------------------------------
+                # BUSCAR PERFIL COORDINADOR DE PNF
+                # -------------------------------------------------
 
                 perfil = CoordinadorPNF.objects.filter(
                     id_coordinador=id_perfil,
@@ -2038,7 +2126,7 @@ def act_per_reg(request):
                     })
 
                 # -------------------------------------------------
-                # VALIDAR PNF
+                # VALIDAR PNF SELECCIONADO
                 # -------------------------------------------------
 
                 if not pnf_coordinador:
@@ -2054,11 +2142,9 @@ def act_per_reg(request):
 
                 try:
 
-                    id_pnf = int(
-                        pnf_coordinador
-                    )
+                    id_pnf = int(pnf_coordinador)
 
-                except ValueError:
+                except (ValueError, TypeError):
 
                     return JsonResponse({
                         "estado": "fallo",
@@ -2071,7 +2157,7 @@ def act_per_reg(request):
                     })
 
                 # -------------------------------------------------
-                # BUSCAR PNF EN EL NÚCLEO
+                # BUSCAR PNF EN EL NÚCLEO DEL DIRECTOR
                 # -------------------------------------------------
 
                 pnf = Pnf.objects.filter(
@@ -2084,15 +2170,15 @@ def act_per_reg(request):
                         "estado": "fallo",
                         "title": "PNF no encontrado",
                         "descripcion": (
-                            "El PNF seleccionado "
-                            "no pertenece al núcleo "
-                            "del Director General."
+                            "El PNF seleccionado no pertenece "
+                            "al núcleo del Director General."
                         ),
                         "icon": "warning"
                     })
 
                 # -------------------------------------------------
-                # COMPROBAR SI ESTÁ ASIGNADO A OTRO COORDINADOR
+                # COMPROBAR SI EL PNF ESTÁ ASIGNADO A OTRO
+                # COORDINADOR DEL MISMO NÚCLEO
                 # -------------------------------------------------
 
                 existe_otro = CoordinadorPNF.objects.filter(
@@ -2108,26 +2194,31 @@ def act_per_reg(request):
                         "title": "PNF no disponible",
                         "descripcion": (
                             "El PNF seleccionado ya está "
-                            "asignado a otro Coordinador "
-                            "de PNF."
+                            "asignado a otro Coordinador de PNF."
                         ),
                         "icon": "warning"
                     })
 
                 # -------------------------------------------------
-                # ACTUALIZAR PNF Y ESTADO
+                # ACTUALIZAR PNF Y ESTADO DEL PERFIL
                 # -------------------------------------------------
 
                 perfil.pnf = pnf
                 perfil.activo = nuevo_estado
 
-                perfil.save()
+                perfil.save(
+                    update_fields=["pnf", "activo"]
+                )
 
             # =====================================================
             # CONTROL DE ESTUDIO
             # =====================================================
 
             elif rol == "Encargado de Control de Estudio":
+
+                # -------------------------------------------------
+                # BUSCAR PERFIL CONTROL DE ESTUDIO
+                # -------------------------------------------------
 
                 perfil = ControlEstudio.objects.filter(
                     id_control=id_perfil,
@@ -2147,12 +2238,15 @@ def act_per_reg(request):
                         "icon": "warning"
                     })
 
+                # -------------------------------------------------
+                # ACTUALIZAR ESTADO DEL PERFIL
+                # -------------------------------------------------
+
                 perfil.activo = nuevo_estado
 
                 perfil.save(
                     update_fields=["activo"]
                 )
-
             # =====================================================
             # ROL NO VÁLIDO
             # =====================================================

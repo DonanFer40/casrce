@@ -117,13 +117,8 @@
 
             </div>
 
-            <button
-                type="button"
-                id="cerrar_dialogo"
-                class="director-secciones-visualizar-carsce-modal-cerrar"
-                title="Cerrar"
-                aria-label="Cerrar ventana"
-            >
+            <button type="button" id="cerrar_dialogo" class="director-secciones-visualizar-carsce-modal-cerrar"
+                title="Cerrar" aria-label="Cerrar ventana">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
@@ -131,28 +126,17 @@
 
 
         <!-- FORMULARIO DE ACTUALIZACIÓN -->
-        <form
-            method="post"
-            id="formulario_actualizar_seccion"
-            class="director-secciones-visualizar-carsce-formulario"
-        >
+        <form method="post" id="formulario_actualizar_seccion" class="director-secciones-visualizar-carsce-formulario">
 
             {% csrf_token %}
 
-            <input
-                type="hidden"
-                name="seccion"
-                id="secciones_seleccionado"
-            >
+            <input type="hidden" name="seccion" id="secciones_seleccionado">
 
 
             <!-- SECCIÓN -->
             <div class="director-secciones-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_seccion_registrado"
-                    class="director-secciones-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_seccion_registrado" class="director-secciones-visualizar-carsce-etiqueta">
                     Sección:
                 </label>
 
@@ -160,20 +144,12 @@
 
                     <i class="fa-solid fa-users"></i>
 
-                    <input
-                        type="text"
-                        name="actualizar_seccion"
-                        id="actualizar_seccion_registrado"
-                        autocomplete="off"
-                        required
-                    >
+                    <input type="text" name="actualizar_seccion" id="actualizar_seccion_registrado"
+                        class="js-solo-letras" autocomplete="off" required>
 
                 </div>
 
-                <small
-                    id="mensaje_actualizar_seccion"
-                    class="director-secciones-visualizar-carsce-mensaje"
-                ></small>
+                <small id="mensaje_actualizar_seccion" class="director-secciones-visualizar-carsce-mensaje"></small>
 
             </div>
 
@@ -181,10 +157,7 @@
             <!-- TURNO -->
             <div class="director-secciones-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_turno_registrado"
-                    class="director-secciones-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_turno_registrado" class="director-secciones-visualizar-carsce-etiqueta">
                     Turno:
                 </label>
 
@@ -192,10 +165,7 @@
 
                     <i class="fa-solid fa-clock"></i>
 
-                    <select
-                        name="actualizar_turno"
-                        id="actualizar_turno_registrado"
-                    >
+                    <select name="actualizar_turno" id="actualizar_turno_registrado">
                         <option value="">
                             Seleccione un Turno
                         </option>
@@ -223,12 +193,8 @@
             <!-- ACCIONES -->
             <div class="director-secciones-visualizar-carsce-acciones">
 
-                <input
-                    type="submit"
-                    id="btn_actualizar"
-                    class="director-secciones-visualizar-carsce-boton"
-                    value="Actualizar Sección"
-                >
+                <input type="submit" id="btn_actualizar" class="director-secciones-visualizar-carsce-boton"
+                    value="Actualizar Sección">
 
             </div>
 

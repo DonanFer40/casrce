@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
             input_seccion_oculto.value = resultado.seccion.id_seccion;
             input_actualizar_seccion.value = resultado.seccion.seccion;
 
-
             const option_turno = document.createElement("option");
             option_turno.value = resultado.seccion.turno;
             option_turno.textContent = resultado.seccion.turno;

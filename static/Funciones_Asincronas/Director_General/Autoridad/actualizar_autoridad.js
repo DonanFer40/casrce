@@ -222,6 +222,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 bloquear_controles(controles, true);
                 cargo_anterior = "";
                 select_cargo_actualizar.innerHTML = "<option value=''>Debe realizar la búsqueda</option>";
+
+                msg_resolucion.innerHTML = "";
             }
         } catch (error) {
             console.error(error);

@@ -24,8 +24,10 @@ TODOS_LOS_ROLES = ROLES_PERSONAL | {ROLES["ESTUDIANTE"]}
 # Permisos por módulo. Si una vista no está listada aquí, se aplica el grupo
 # predeterminado del módulo configurado en DEFAULT_MODULE_ROLES.
 DEFAULT_MODULE_ROLES = {
+    "inicio_sesion": TODOS_LOS_ROLES,
     "gestion_institucional": ROLES_PERSONAL,
     "notas_academicas": TODOS_LOS_ROLES,
+    "documentos": TODOS_LOS_ROLES,
     "bitacora": ROLES_ADMINISTRATIVOS,
 }
 
@@ -99,7 +101,8 @@ URL_PERMISSIONS = {
 # Endpoints públicos o de autenticación que nunca deben bloquearse por rol.
 PUBLIC_URL_NAMES = frozenset({
     "inicio_publico", "foro", "inicio_sesion", "cerrar_sesion",
-    "comp_registro", "validar_ci_auxiliar", "validar_cod_opsu",
+    "pagina_no_encontrada", "pagina_vpn",
+    "validar_ci_auxiliar", "validar_cod_opsu",
     "validar_ci_usr", "validar_email", "val_usuario", "val_password",
     "registro_est", "verificar_codigo_registro", "reenviar_codigo_registro",
     "confirmar_reg", "guardar_cred", "pnfs_cursar",

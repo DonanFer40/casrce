@@ -269,6 +269,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const resultado = await respuesta.json();
 
+            if (!resultado || typeof resultado.existe !== "boolean") {
+                throw new Error(
+                    "La respuesta de validación de cédula no es válida."
+                );
+            }
+
             if (
                 selectNacionalidad.value !== nacionalidad ||
                 inputCedula.value.trim() !== cedula
@@ -315,6 +321,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Error al validar la cédula:",
                 error
             );
+
+            if (
+                selectNacionalidad.value !== nacionalidad ||
+                inputCedula.value.trim() !== cedula
+            ) {
+                return;
+            }
+
+            const mensajeError =
+                "No fue posible comprobar la disponibilidad de la cédula. Inténtalo nuevamente.";
+
+            inputCedula.setCustomValidity(mensajeError);
+            inputCedula.classList.add("is-invalid");
+            inputCedula.classList.remove("is-valid");
+            mensaje.textContent = mensajeError;
+            mensaje.classList.add("error");
+            mensaje.classList.remove("exito");
         }
     }
 
@@ -418,6 +441,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const resultado = await respuesta.json();
 
+            if (!resultado || typeof resultado.existe !== "boolean") {
+                throw new Error(
+                    "La respuesta de validación del correo no es válida."
+                );
+            }
+
             if (
                 correo.value.trim() !== valorCorreo ||
                 dominio.value !== valorDominio
@@ -464,6 +493,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Error al validar el correo electrónico:",
                 error
             );
+
+            if (
+                correo.value.trim() !== valorCorreo ||
+                dominio.value !== valorDominio
+            ) {
+                return;
+            }
+
+            const mensajeError =
+                "No fue posible comprobar la disponibilidad del correo. Inténtalo nuevamente.";
+
+            correo.setCustomValidity(mensajeError);
+            correo.classList.add("is-invalid");
+            correo.classList.remove("is-valid");
+            msg.textContent = mensajeError;
+            msg.classList.add("error");
+            msg.classList.remove("exito");
         }
     }
 
@@ -501,11 +547,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const prefijo = select_prefijo.value;
     const telefono = input_telefono.value.trim();
-
-    console.log("Prefijo:", prefijo);
-    console.log("Teléfono:", telefono);
-    console.log("Longitud:", telefono.length);
-    console.log("Solo números:", /^\d{7}$/.test(telefono));
 
     // =====================================================
     // CANCELAR VALIDACIÓN ANTERIOR
@@ -628,6 +669,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const resultado = await respuesta.json();
+
+        if (!resultado || typeof resultado.existe !== "boolean") {
+            throw new Error(
+                "La respuesta de validación del teléfono no es válida."
+            );
+        }
 
         // =================================================
         // COMPROBAR QUE LA CONSULTA SIGA SIENDO VÁLIDA

@@ -44,7 +44,7 @@ def aulas_reg(request):
             })
 
     # OBTENER AULAS DEL NÚCLEO
-    aulas = (
+    aulas = list(
         AulaAcademica.objects
         .filter(id_nucleo=nucleo)
         .values(
@@ -58,10 +58,15 @@ def aulas_reg(request):
         )
     )
 
+    # CAPITALIZAR TIPO DE AULA
+    for aula in aulas:
+        aula["tipo_aula"] = aula["tipo_aula"].capitalize() if aula["tipo_aula"] else ""
+
     return JsonResponse({
         "estado": "exito",
-        "aulas": list(aulas)
+        "aulas": aulas
     })
+
 
 # datos_aula
 def datos_aula(request):
@@ -109,9 +114,6 @@ def act_aula_acad(request):
         tipo_aula = request.POST.get("actualizar_tipos")
         seccion_academica = request.POST.get("actualizar_seccion")
         pnf = request.POST.get("actualizar_pnf")
-
-        print(seccion_academica)
-        print(pnf)
 
         # VALIDAR CAMPOS VACÍOS
         controles = [

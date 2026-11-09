@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.db import transaction
 from django.utils import timezone
 
-from inicio_sesion.models import Autoridades, Bitacora
+from inicio_sesion.models import Autoridades, Bitacora, Usuario
 
 CARGO = [
     "Rector",
@@ -168,7 +168,6 @@ def act_datos_aut(request):
     
     return render(request, "Roles/Director_General/autoridades/actualizar_autoridades.html")
 
-
 def cargo_user(request):
 
     if request.method == "POST":
@@ -206,8 +205,7 @@ def cargo_user(request):
 
             "autoridades": list(autoridades)
         })
-
-    
+  
 def cargo_asig_aut(request):
     cargos_registrados = set(
         Autoridades.objects.values_list("cargo", flat=True)
@@ -224,15 +222,21 @@ def cargo_asig_aut(request):
 
 
 def val_ci_aut(request):
-    if request.method == "POST":
-        nacionalidad = request.POST.get("nacionalidad")
-        cedula = request.POST.get("cedula")
+    nacionalidad = request.POST.get("nacionalidad", "").strip().upper()
+    cedula = request.POST.get("cedula", "").strip()
 
-        existe = Autoridades.objects.filter(cedula_identidad=f"{nacionalidad}-{cedula}").exists()
-        if existe:
-            return JsonResponse({ "existe": True })
+    if not nacionalidad or not cedula or not cedula.isdigit():
+        return JsonResponse(False, safe=False)
 
-        return JsonResponse({ "existe": False })
+    cedula_completa = f"{nacionalidad}-{cedula}"
+
+    existe = (
+        Usuario.objects.filter(cedula_identidad=cedula_completa).exists()
+        or
+        Autoridades.objects.filter(cedula_identidad=cedula_completa).exists()
+    )
+
+    return JsonResponse(existe, safe=False)
 
 def val_resolucion(request):
 

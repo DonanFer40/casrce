@@ -27,7 +27,8 @@
                 </h3>
 
                 <p class="director-secciones-registrar-carsce-descripcion">
-                    Registra las secciones académicas que serán utilizadas para la organización de las actividades institucionales.
+                    Registra las secciones académicas que serán utilizadas para la organización de las actividades
+                    institucionales.
                 </p>
 
             </div>
@@ -66,11 +67,7 @@
                  FORMULARIO
                  ================================================= -->
 
-            <form
-                method="post"
-                id="formulario_registrar"
-                class="director-secciones-registrar-carsce-formulario"
-            >
+            <form method="post" id="formulario_registrar" class="director-secciones-registrar-carsce-formulario">
 
                 {% csrf_token %}
 
@@ -81,10 +78,7 @@
 
                 <div class="director-secciones-registrar-carsce-campo">
 
-                    <label
-                        for="registro_seccion"
-                        class="director-secciones-registrar-carsce-etiqueta"
-                    >
+                    <label for="registro_seccion" class="director-secciones-registrar-carsce-etiqueta">
                         Sección:
                     </label>
 
@@ -92,22 +86,13 @@
 
                         <i class="fa-solid fa-users"></i>
 
-                        <input
-                            type="text"
-                            name="registro_seccion"
-                            id="registro_seccion"
-                            placeholder="Máximo 5 caracteres"
-                            maxlength="5"
-                            autocomplete="off"
-                            required
-                        >
+                        <input type="text" name="registro_seccion" id="registro_seccion"
+                            placeholder="Máximo 5 caracteres" class="js-solo-letras" maxlength="5" autocomplete="off"
+                            required>
 
                     </div>
 
-                    <small
-                        id="mensaje_nombre_seccion"
-                        class="director-secciones-registrar-carsce-mensaje"
-                    ></small>
+                    <small id="mensaje_nombre_seccion" class="director-secciones-registrar-carsce-mensaje"></small>
 
                 </div>
 
@@ -117,11 +102,7 @@
                      ================================================= -->
 
                 <div class="director-secciones-registrar-carsce-campo">
-
-                    <label
-                        for="registro_turno"
-                        class="director-secciones-registrar-carsce-etiqueta"
-                    >
+                    <label for="registro_turno" class="director-secciones-registrar-carsce-etiqueta">
                         Turno:
                     </label>
 
@@ -129,10 +110,7 @@
 
                         <i class="fa-solid fa-clock"></i>
 
-                        <select
-                            name="registro_turno"
-                            id="registro_turno"
-                        >
+                        <select name="registro_turno" id="registro_turno">
 
                             <option value="">
                                 Seleccione un Turno
@@ -165,12 +143,8 @@
 
                 <div class="director-secciones-registrar-carsce-acciones">
 
-                    <input
-                        type="submit"
-                        id="btn_registro"
-                        class="director-secciones-registrar-carsce-boton"
-                        value="Registrar Sección"
-                    >
+                    <input type="submit" id="btn_registro" class="director-secciones-registrar-carsce-boton"
+                        value="Registrar Sección">
 
                 </div>
 

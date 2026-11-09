@@ -66,9 +66,7 @@
                  FORMULARIO
                  ================================================= -->
 
-            <form
-                method="post"
-                id="formulario_registrar_autoridades"
+            <form method="post" id="formulario_registrar_autoridades"
                 class="director-autoridades-registrar-carsce-formulario">
 
                 {% csrf_token %}
@@ -87,12 +85,9 @@
 
                             <i class="fa-solid fa-user"></i>
 
-                            <input
-                                type="text"
-                                name="nombres_registrar"
-                                id="nombres_autoridades"
-                                autocomplete="off"
-                                required>
+                            <input type="text" name="nombres_registrar" class="js-solo-letras"
+                                placeholder="Ingrese los nombres del funcionario (3-30 caracteres)." minlength="3"
+                                maxlength="30" id="nombres_autoridades" autocomplete="off" required>
 
                         </div>
 
@@ -109,12 +104,10 @@
 
                             <i class="fa-solid fa-user"></i>
 
-                            <input
-                                type="text"
-                                name="apellidos_registrar"
-                                id="apellidos_autoridades"
-                                autocomplete="off"
-                                required>
+                            <input type="text" name="apellidos_registrar" id="apellidos_autoridades"
+                                class="js-solo-letras"
+                                placeholder="Ingrese los apellidos del funcionario (3-30 caracteres)." minlength="3"
+                                maxlength="30" autocomplete="off" required>
 
                         </div>
 
@@ -138,10 +131,7 @@
 
                                 <i class="fa-solid fa-earth-americas"></i>
 
-                                <select
-                                    name="nacionalidad_registrar"
-                                    id="nacionalidad"
-                                    required>
+                                <select name="nacionalidad_registrar" id="nacionalidad" required>
 
                                     <option value="">N</option>
                                     <option value="V">V</option>
@@ -155,20 +145,14 @@
 
                                 <i class="fa-solid fa-id-card"></i>
 
-                                <input
-                                    type="text"
-                                    name="cedula_registrar"
-                                    id="cedula_identidad"
-                                    autocomplete="off"
-                                    required>
+                                <input type="text" name="cedula_registrar" class="js-solo-numeros" id="cedula_identidad"
+                                    autocomplete="off" required>
 
                             </div>
 
                         </div>
 
-                        <small
-                            id="mensaje_cedula_identidad"
-                            class="director-autoridades-registrar-carsce-mensaje">
+                        <small id="mensaje_cedula_identidad" class="director-autoridades-registrar-carsce-mensaje">
                         </small>
 
                     </div>
@@ -184,10 +168,7 @@
 
                             <i class="fa-solid fa-venus-mars"></i>
 
-                            <select
-                                name="genero_registrar"
-                                id="genero_autoridades"
-                                required>
+                            <select name="genero_registrar" id="genero_autoridades" required>
 
                                 <option value="">Seleccione</option>
                                 <option value="Masculino">Masculino</option>
@@ -217,10 +198,7 @@
 
                             <i class="fa-solid fa-briefcase"></i>
 
-                            <select
-                                name="cargo_registrar"
-                                id="cargo_autoridades"
-                                required>
+                            <select name="cargo_registrar" id="cargo_autoridades" required>
                             </select>
 
                             <i class="fa-solid fa-chevron-down director-autoridades-registrar-carsce-flecha"></i>
@@ -240,22 +218,13 @@
 
                             <i class="fa-solid fa-file-signature"></i>
 
-                            <input
-                                type="text"
-                                name="resolucion_registrar"
-                                id="resolucion_autoridades"
-                                minlength="5"
-                                maxlength="5"
-                                pattern="[A-Z]{3}[0-9]{2}"
-                                title="Debe contener exactamente 3 letras mayúsculas seguidas de 2 números."
-                                autocomplete="off"
-                                required>
+                            <input type="text" name="resolucion_registrar"
+                                placeholder="Ingrese la resolución solo números (5 digitos)" id="resolucion_autoridades"
+                                minlength="5" maxlength="5" class="js-solo-numeros" autocomplete="off" required>
 
                         </div>
 
-                        <small
-                            id="msg_resolucion"
-                            class="director-autoridades-registrar-carsce-mensaje">
+                        <small id="msg_resolucion" class="director-autoridades-registrar-carsce-mensaje">
                         </small>
 
                     </div>
@@ -269,10 +238,7 @@
 
                 <div class="director-autoridades-registrar-carsce-acciones">
 
-                    <input
-                        type="submit"
-                        id="btn_registrar"
-                        value="Registrar Autoridades"
+                    <input type="submit" id="btn_registrar" value="Registrar Autoridades"
                         class="director-autoridades-registrar-carsce-boton">
 
                 </div>
@@ -287,7 +253,6 @@
 
 
 <script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
-
 <script src="{% static 'Funciones_Asincronas/Director_General/Autoridad/registrar_autoridad.js' %}"></script>
 
 {% endblock %}

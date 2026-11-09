@@ -379,8 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const rol = fila.dataset.rol;
         const idPerfil = fila.dataset.idPerfil;
 
-        console.log(rol);
-
         try {
 
             const formulario = new FormData();
@@ -448,19 +446,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 contenedor.classList.add("pnf_opcion");
 
-                const tipoInput =
-                    rol === "Coordinador de PNF" ? "radio" : "checkbox";
-
-                const nombreInput =
-                    rol === "Coordinador de PNF"
-                        ? "pnf_coordinador"
-                        : "pnf";
-
                 contenedor.innerHTML = `
                     <label>
                         <input
-                            type="${tipoInput}"
-                            name="${nombreInput}"
+                            type="radio"
+                            name="pnf"
                             value="${pnf.id_pnf}"
                             ${asignado ? "checked" : ""}
                         >
@@ -877,16 +867,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <td>
                         ${perfil.pnf
-                            ? perfil.pnf.nombre
-                            : "NO CUENTA CON P.N.F"
-                        }
+                        ? perfil.pnf.nombre
+                        : "NO CUENTA CON P.N.F"
+                    }
                     </td>
 
                     <td>
                         ${perfil.nucleo
-                            ? perfil.nucleo.municipio
-                            : "NO CUENTA CON NÚCLEO"
-                        }
+                        ? perfil.nucleo.municipio
+                        : "NO CUENTA CON NÚCLEO"
+                    }
                     </td>
 
                     <td>

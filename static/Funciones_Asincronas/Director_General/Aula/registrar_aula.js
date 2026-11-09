@@ -119,7 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (resultado.estado == "exito") {
-                formulario_registrar.reset()
+                formulario_registrar.reset();
+                mensaje_nombre_aula.innerHTML = "";
             }
         } catch (error) {
             console.error(error);

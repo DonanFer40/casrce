@@ -194,7 +194,7 @@
     max-width: 100%;
 }
 
-.director-calendario-visualizar-carsce-filtro-control > i:first-child {
+.director-calendario-visualizar-carsce-filtro-control>i:first-child {
     position: absolute;
 
     top: 50%;
@@ -281,8 +281,7 @@
    CADA TIPO DE CALENDARIO
    ========================================================= */
 
-.director-calendario-visualizar-carsce-resultados
-.contenedor_tipo_calendario {
+.director-calendario-visualizar-carsce-resultados .contenedor_tipo_calendario {
     width: 100%;
 
     margin-bottom: 30px;
@@ -299,18 +298,15 @@
    visualizar_calendario.js.
 */
 
-.director-calendario-visualizar-carsce-resultados
-.contenedor_tipo_calendario h3 {
+.director-calendario-visualizar-carsce-resultados .contenedor_tipo_calendario h3 {
     margin: 0;
 
     padding: 12px 16px;
 
     color: #FFFFFF;
-    background: linear-gradient(
-        135deg,
-        #1E293B,
-        #0F172A
-    );
+    background: linear-gradient(135deg,
+            #1E293B,
+            #0F172A);
 
     border-radius: 9px 9px 0 0;
 
@@ -324,8 +320,7 @@
    TABLA GENERADA POR JAVASCRIPT
    ========================================================= */
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario {
     width: 100%;
     min-width: 800px;
 
@@ -340,13 +335,11 @@
     overflow: hidden;
 }
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario thead {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario thead {
     background: #1E293B;
 }
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario th {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario th {
     padding: 13px 15px;
 
     color: #F8FAFC;
@@ -357,11 +350,10 @@
     text-align: center;
     white-space: nowrap;
 
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario td {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario td {
     padding: 13px 15px;
 
     color: #475569;
@@ -374,25 +366,21 @@
     border-bottom: 1px solid #E2E8F0;
 }
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario td:nth-child(2) {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario td:nth-child(2) {
     text-align: left;
 }
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario tbody tr {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario tbody tr {
     background: #FFFFFF;
 
     transition: background 0.18s ease;
 }
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario tbody tr:hover {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario tbody tr:hover {
     background: #F8FAFC;
 }
 
-.director-calendario-visualizar-carsce-resultados
-.tabla_calendario tbody tr:last-child td {
+.director-calendario-visualizar-carsce-resultados .tabla_calendario tbody tr:last-child td {
     border-bottom: none;
 }
 
@@ -401,8 +389,7 @@
    BOTÓN PARA ABRIR LA CARGA DE NOTAS
    ========================================================= */
 
-.director-calendario-visualizar-carsce-resultados
-.btn_abrir_carga_notas {
+.director-calendario-visualizar-carsce-resultados .btn_abrir_carga_notas {
     min-width: 82px;
 
     display: inline-flex;
@@ -430,8 +417,7 @@
         box-shadow 0.18s ease;
 }
 
-.director-calendario-visualizar-carsce-resultados
-.btn_abrir_carga_notas:hover {
+.director-calendario-visualizar-carsce-resultados .btn_abrir_carga_notas:hover {
     background: #1D4ED8;
 
     box-shadow:
@@ -440,8 +426,7 @@
     transform: translateY(-1px);
 }
 
-.director-calendario-visualizar-carsce-resultados
-.btn_abrir_carga_notas:active {
+.director-calendario-visualizar-carsce-resultados .btn_abrir_carga_notas:active {
     transform: translateY(0);
 }
 
@@ -465,7 +450,8 @@
     box-shadow:
         0 20px 50px rgba(15, 23, 42, 0.22);
 
-    overflow: hidden;
+
+    overflow: visible;
 }
 
 #dialogo_fecha_academica::backdrop {
@@ -599,6 +585,53 @@
     width: 100%;
 }
 
+.director-calendario-visualizar-carsce-dialogo-formulario textarea {
+    width: 100%;
+    min-height: 82px;
+    padding: 11px 13px;
+
+    color: #334155;
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+    resize: vertical;
+
+    font-family: "Poppins";
+    font-size: 0.74rem;
+}
+
+.director-calendario-visualizar-carsce-dialogo-formulario textarea:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.director-calendario-visualizar-carsce-dialogo-ayuda {
+    display: block;
+    margin-top: 5px;
+    color: #64748B;
+    font-size: 0.68rem;
+}
+
+.director-calendario-visualizar-carsce-dialogo-error {
+    margin-bottom: 16px;
+    padding: 11px 13px;
+
+    color: #B91C1C;
+    background: #FEF2F2;
+
+    border: 1px solid #FECACA;
+    border-radius: 8px;
+
+    font-size: 0.76rem;
+    line-height: 1.45;
+}
+
+.director-calendario-visualizar-carsce-dialogo-error[hidden] {
+    display: none;
+}
+
 
 /* =========================================================
    CAMPOS DEL DIALOG
@@ -631,7 +664,7 @@
     width: 100%;
 }
 
-.director-calendario-visualizar-carsce-dialogo-control > i {
+.director-calendario-visualizar-carsce-dialogo-control>i {
     position: absolute;
 
     top: 50%;
@@ -672,21 +705,18 @@
         box-shadow 0.2s ease;
 }
 
-.director-calendario-visualizar-carsce-dialogo-control
-input[type="date"]:hover {
+.director-calendario-visualizar-carsce-dialogo-control input[type="date"]:hover {
     border-color: #94A3B8;
 }
 
-.director-calendario-visualizar-carsce-dialogo-control
-input[type="date"]:focus {
+.director-calendario-visualizar-carsce-dialogo-control input[type="date"]:focus {
     border-color: #2563EB;
 
     box-shadow:
         0 0 0 3px rgba(37, 99, 235, 0.10);
 }
 
-.director-calendario-visualizar-carsce-dialogo-control
-input[type="date"][readonly] {
+.director-calendario-visualizar-carsce-dialogo-control input[type="date"][readonly] {
     color: #64748B;
     background: #F1F5F9;
 
@@ -698,8 +728,7 @@ input[type="date"][readonly] {
    INDICADOR NATIVO DEL INPUT DATE
    ========================================================= */
 
-.director-calendario-visualizar-carsce-dialogo-control
-input[type="date"]::-webkit-calendar-picker-indicator {
+.director-calendario-visualizar-carsce-dialogo-control input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
     opacity: 0.55;
 }
@@ -723,11 +752,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 44px;
 
     color: #FFFFFF;
-    background: linear-gradient(
-        135deg,
-        #2563EB,
-        #1D4ED8
-    );
+    background: linear-gradient(135deg,
+            #2563EB,
+            #1D4ED8);
 
     border: none;
     border-radius: 8px;
@@ -748,11 +775,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .director-calendario-visualizar-carsce-dialogo-boton:hover {
-    background: linear-gradient(
-        135deg,
-        #1D4ED8,
-        #1E40AF
-    );
+    background: linear-gradient(135deg,
+            #1D4ED8,
+            #1E40AF);
 
     box-shadow:
         0 8px 17px rgba(37, 99, 235, 0.24);
@@ -809,15 +834,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         width: 100%;
     }
 
-    .director-calendario-visualizar-carsce-resultados
-    .contenedor_tipo_calendario h3 {
+    .director-calendario-visualizar-carsce-resultados .contenedor_tipo_calendario h3 {
         font-size: 0.8rem;
     }
 
-    .director-calendario-visualizar-carsce-resultados
-    .tabla_calendario th,
-    .director-calendario-visualizar-carsce-resultados
-    .tabla_calendario td {
+    .director-calendario-visualizar-carsce-resultados .tabla_calendario th,
+    .director-calendario-visualizar-carsce-resultados .tabla_calendario td {
         padding: 11px 12px;
     }
 }

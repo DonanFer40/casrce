@@ -40,8 +40,34 @@ class Cuenta(models.Model):
             return "Docente"
         if Estudiante.objects.filter(usuario=u).exists():
             return "Estudiante"
-            
+
         return "Sin Rol Asignado"
+
+
+class ControlIntentosInicioSesion(models.Model):
+    cuenta = models.OneToOneField(
+        Cuenta,
+        on_delete=models.CASCADE,
+        related_name="control_intentos_inicio_sesion",
+    )
+    intentos = models.PositiveSmallIntegerField(default=0)
+    bloqueado_hasta = models.DateTimeField(null=True, blank=True)
+    actualizado = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Intentos de inicio de sesión: {self.cuenta.usuario}"
+
+
+class SesionActivaNavegador(models.Model):
+    identificador_navegador = models.CharField(max_length=64, unique=True)
+    cuenta = models.ForeignKey(Cuenta, on_delete=models.CASCADE)
+    clave_sesion = models.CharField(max_length=40)
+    expira = models.DateTimeField()
+    actualizado = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Sesión activa del navegador: {self.cuenta.usuario}"
+
 
 class Residencia(models.Model):
     id_residencia = models.AutoField(primary_key=True)

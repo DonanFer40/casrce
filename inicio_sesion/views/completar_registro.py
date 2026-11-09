@@ -149,8 +149,8 @@ def validar_email(request):
         email = f"{correo}{dominio}"
 
         existe = Contacto.objects.filter(
-            Q(correo_electronico=email) |
-            Q(correo_alternativo=email)
+            Q(correo_electronico__iexact=email) |
+            Q(correo_alternativo__iexact=email)
         ).exists()
 
         return JsonResponse({"existe": existe})

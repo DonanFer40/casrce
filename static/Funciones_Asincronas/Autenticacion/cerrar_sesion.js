@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
             NotificacionesCASRCE.cargar("Cerrando sesión...");
             const urlDestino = botonCerrar.href;
             setTimeout(() => {
-                window.location.href = urlDestino;
+                window.CASRCE_TAB_NAVIGATE(urlDestino);
             }, 1200);
         });
     }

@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(resultado);
             
             if (resultado.estado === "exito") {
-                window.location.href = "/comp_usr/";
+                window.CASRCE_TAB_NAVIGATE("/comp_usr/");
             } else {
                 NotificacionesCASRCE.mostrar({
                     title: resultado.title,

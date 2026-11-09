@@ -57,8 +57,7 @@
 
             </div>
 
-            <form method="post"
-                  class="director-calendario-visualizar-carsce-filtro-formulario">
+            <form method="post" class="director-calendario-visualizar-carsce-filtro-formulario">
 
                 {% csrf_token %}
 
@@ -70,9 +69,7 @@
 
                     <i class="fa-solid fa-graduation-cap"></i>
 
-                    <select
-                        name="periodos_academicos"
-                        id="periodos_academicos">
+                    <select name="periodos_academicos" id="periodos_academicos">
                     </select>
 
                     <i class="fa-solid fa-chevron-down director-calendario-visualizar-carsce-filtro-flecha"></i>
@@ -88,8 +85,7 @@
              CALENDARIO GENERADO DINÁMICAMENTE
              ===================================================== -->
 
-        <div id="contenedor_visualizar_calendario"
-             class="director-calendario-visualizar-carsce-resultados">
+        <div id="contenedor_visualizar_calendario" class="director-calendario-visualizar-carsce-resultados">
         </div>
 
     </div>
@@ -105,10 +101,7 @@
 
     <div class="director-calendario-visualizar-carsce-dialogo">
 
-        <button
-            type="button"
-            id="cerrar_dialogo"
-            class="director-calendario-visualizar-carsce-dialogo-cerrar"
+        <button type="button" id="cerrar_dialogo" class="director-calendario-visualizar-carsce-dialogo-cerrar"
             title="Cerrar">
 
             <i class="fa-solid fa-xmark"></i>
@@ -123,11 +116,11 @@
 
             <div>
                 <h3 class="director-calendario-visualizar-carsce-dialogo-titulo">
-                    Rango de Fecha Académica
+                    Actualizar calendario académico
                 </h3>
 
                 <p class="director-calendario-visualizar-carsce-dialogo-descripcion">
-                    Actualiza las fechas correspondientes al calendario seleccionado.
+                    Modifica la descripción y las fechas del calendario seleccionado.
                 </p>
             </div>
 
@@ -136,17 +129,15 @@
 
         <div class="director-calendario-visualizar-carsce-dialogo-formulario">
 
-            <form
-                method="post"
-                id="formulario_actualizar">
+            <form method="post" id="formulario_actualizar" novalidate>
 
                 {% csrf_token %}
 
-                <input
-                    type="hidden"
-                    name="id_calendario"
-                    id="id_calendario">
+                <input type="hidden" name="id_calendario" id="id_calendario">
+                <input type="hidden" name="tipo" id="tipo_calendario">
 
+                <div id="error_fechas_calendario" class="director-calendario-visualizar-carsce-dialogo-error"
+                    role="alert" aria-live="assertive" hidden></div>
 
                 <div class="director-calendario-visualizar-carsce-dialogo-campo">
 
@@ -158,11 +149,7 @@
 
                         <i class="fa-solid fa-calendar-day"></i>
 
-                        <input
-                            type="date"
-                            name="fecha_inicio"
-                            id="fecha_inicio"
-                            required>
+                        <input type="date" name="fecha_inicio" id="fecha_inicio" required>
 
                     </div>
 
@@ -172,31 +159,37 @@
                 <div class="director-calendario-visualizar-carsce-dialogo-campo">
 
                     <label for="fecha_finalizado">
-                        Fecha de Finalizado:
+                        Fecha de Finalización:
                     </label>
 
                     <div class="director-calendario-visualizar-carsce-dialogo-control">
 
                         <i class="fa-solid fa-calendar-check"></i>
 
-                        <input
-                            type="date"
-                            name="fecha_finalizado"
-                            id="fecha_finalizado"
-                            readonly
-                            required>
+                        <input type="date" name="fecha_finalizado" id="fecha_finalizado" required>
 
                     </div>
 
                 </div>
 
+                <div class="director-calendario-visualizar-carsce-dialogo-campo">
+
+                    <label for="descripcion_calendario">
+                        Descripción:
+                    </label>
+
+                    <textarea name="descripcion" id="descripcion_calendario" maxlength="150"
+                        placeholder="Ingrese la descripción del calendario académico..." required></textarea>
+
+                    <small class="director-calendario-visualizar-carsce-dialogo-ayuda">
+                        Máximo 150 caracteres.
+                    </small>
+
+                </div>
 
                 <div class="director-calendario-visualizar-carsce-dialogo-acciones">
 
-                    <input
-                        type="submit"
-                        value="Actualizar"
-                        class="director-calendario-visualizar-carsce-dialogo-boton">
+                    <input type="submit" value="Actualizar" class="director-calendario-visualizar-carsce-dialogo-boton">
 
                 </div>
 
@@ -209,6 +202,6 @@
 </dialog>
 
 
-<script src="{% static 'Funciones_Asincronas/Director_General/calendario/visualizar_calendario.js' %}"></script>
+<script src="{% static 'Funciones_Asincronas/Director_General/Calendario/visualizar_calendario.js' %}"></script>
 
 {% endblock %}

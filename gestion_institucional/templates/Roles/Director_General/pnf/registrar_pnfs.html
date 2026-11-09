@@ -49,9 +49,7 @@
             </div>
 
 
-            <form method="post"
-                  id="formulario_registrar"
-                  class="director-pnf-registrar-carsce-formulario">
+            <form method="post" id="formulario_registrar" class="director-pnf-registrar-carsce-formulario">
 
                 {% csrf_token %}
 
@@ -68,17 +66,11 @@
                         <div class="director-pnf-registrar-carsce-control">
                             <i class="fa-solid fa-book-open"></i>
 
-                            <input
-                                type="text"
-                                name="nombrepnf"
-                                id="registrar_nombre_pnf"
-                                autocomplete="off"
-                                placeholder="Ej. Informática"
-                                required>
+                            <input type="text" name="nombrepnf" id="registrar_nombre_pnf" autocomplete="off"
+                                placeholder="Ej. Informática" required>
                         </div>
 
-                        <small id="mensaje_nombre_pnf"
-                               class="director-pnf-registrar-carsce-mensaje">
+                        <small id="mensaje_nombre_pnf" class="director-pnf-registrar-carsce-mensaje">
                         </small>
 
                     </div>
@@ -93,21 +85,13 @@
                         <div class="director-pnf-registrar-carsce-control">
                             <i class="fa-solid fa-barcode"></i>
 
-                            <input
-                                type="text"
-                                name="codigopnf"
-                                id="registrar_codigo_pnf"
-                                maxlength="8"
-                                minlength="8"
+                            <input type="text" name="codigopnf" id="registrar_codigo_pnf" maxlength="8" minlength="8"
                                 pattern="[A-Z]{5}[0-9]{3}"
                                 title="Debe contener 5 letras mayúsculas y 3 números. Ejemplo: CARRE010"
-                                placeholder="Ej. INF00101"
-                                autocomplete="off"
-                                required>
+                                placeholder="Ej. INF00101" autocomplete="off" required>
                         </div>
 
-                        <small id="mensaje_codigo_pnf"
-                               class="director-pnf-registrar-carsce-mensaje">
+                        <small id="mensaje_codigo_pnf" class="director-pnf-registrar-carsce-mensaje">
                         </small>
 
                     </div>
@@ -125,10 +109,7 @@
                     <div class="director-pnf-registrar-carsce-control director-pnf-registrar-carsce-control-select">
                         <i class="fa-solid fa-calendar-days"></i>
 
-                        <select
-                            name="periodoacademico"
-                            id="registrar_periodo_academico"
-                            required>
+                        <select name="periodoacademico" id="registrar_periodo_academico" required>
 
                             <option value="">
                                 Elije el Periodo Académico
@@ -153,10 +134,7 @@
                 <!-- ACCIÓN -->
                 <div class="director-pnf-registrar-carsce-acciones">
 
-                    <button
-                        type="submit"
-                        id="btn_registro"
-                        class="director-pnf-registrar-carsce-boton">
+                    <button type="submit" id="btn_registro" class="director-pnf-registrar-carsce-boton">
 
                         <i class="fa-solid fa-plus"></i>
 

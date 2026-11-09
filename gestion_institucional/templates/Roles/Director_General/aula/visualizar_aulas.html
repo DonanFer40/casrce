@@ -66,10 +66,7 @@
                  MENSAJE
                  ================================================= -->
 
-            <div
-                id="mensajede_error"
-                class="director-aulas-visualizar-carsce-mensaje-error"
-            ></div>
+            <div id="mensajede_error" class="director-aulas-visualizar-carsce-mensaje-error"></div>
 
 
             <!-- =================================================
@@ -119,13 +116,8 @@
 
     <div class="director-aulas-visualizar-carsce-modal">
 
-        <button
-            type="button"
-            id="cerrar_dialogo"
-            class="director-aulas-visualizar-carsce-modal-cerrar"
-            title="Cerrar"
-            aria-label="Cerrar ventana"
-        >
+        <button type="button" id="cerrar_dialogo" class="director-aulas-visualizar-carsce-modal-cerrar" title="Cerrar"
+            aria-label="Cerrar ventana">
             <i class="fa-solid fa-xmark"></i>
         </button>
 
@@ -155,39 +147,25 @@
              MENSAJE DE ERROR
              ================================================= -->
 
-        <div
-            id="mensajede_error"
-            class="director-aulas-visualizar-carsce-modal-error"
-        ></div>
+        <div id="mensajede_error" class="director-aulas-visualizar-carsce-modal-error"></div>
 
 
         <!-- =================================================
              FORMULARIO
              ================================================= -->
 
-        <form
-            method="post"
-            id="formulario_actualizar"
-            class="director-aulas-visualizar-carsce-formulario"
-        >
+        <form method="post" id="formulario_actualizar" class="director-aulas-visualizar-carsce-formulario">
 
             {% csrf_token %}
 
-            <input
-                type="hidden"
-                name="aula_seleccionar"
-                id="aula_seleccionar"
-            >
+            <input type="hidden" name="aula_seleccionar" id="aula_seleccionar">
 
 
             <!-- NOMBRE DEL AULA -->
 
             <div class="director-aulas-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_nombre_aula"
-                    class="director-aulas-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_nombre_aula" class="director-aulas-visualizar-carsce-etiqueta">
                     Nombre / Número del Aula:
                 </label>
 
@@ -195,13 +173,7 @@
 
                     <i class="fa-solid fa-door-closed"></i>
 
-                    <input
-                        type="text"
-                        name="actualizar_aula"
-                        id="actualizar_nombre_aula"
-                        autocomplete="off"
-                        required
-                    >
+                    <input type="text" name="actualizar_aula" id="actualizar_nombre_aula" autocomplete="off" required>
 
                 </div>
 
@@ -212,10 +184,7 @@
 
             <div class="director-aulas-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_nota_aula"
-                    class="director-aulas-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_nota_aula" class="director-aulas-visualizar-carsce-etiqueta">
                     Nota / Descripción del Aula:
                 </label>
 
@@ -223,13 +192,7 @@
 
                     <i class="fa-solid fa-note-sticky"></i>
 
-                    <input
-                        type="text"
-                        name="actualizar_nota"
-                        id="actualizar_nota_aula"
-                        autocomplete="off"
-                        required
-                    >
+                    <textarea name="actualizar_nota" id="actualizar_nota_aula" autocomplete="off"></textarea>
 
                 </div>
 
@@ -240,10 +203,7 @@
 
             <div class="director-aulas-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_piso_edificio"
-                    class="director-aulas-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_piso_edificio" class="director-aulas-visualizar-carsce-etiqueta">
                     Piso del Edificio:
                 </label>
 
@@ -251,13 +211,7 @@
 
                     <i class="fa-solid fa-layer-group"></i>
 
-                    <input
-                        type="text"
-                        name="actualizar_piso"
-                        id="actualizar_piso_edificio"
-                        autocomplete="off"
-                        required
-                    >
+                    <input type="text" name="actualizar_piso" id="actualizar_piso_edificio" autocomplete="off" required>
 
                 </div>
 
@@ -268,10 +222,7 @@
 
             <div class="director-aulas-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_tipos_aulas"
-                    class="director-aulas-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_tipos_aulas" class="director-aulas-visualizar-carsce-etiqueta">
                     Tipo del Aula:
                 </label>
 
@@ -279,10 +230,7 @@
 
                     <i class="fa-solid fa-flask"></i>
 
-                    <select
-                        name="actualizar_tipos"
-                        id="actualizar_tipos_aulas"
-                    >
+                    <select name="actualizar_tipos" id="actualizar_tipos_aulas">
 
                         <option value="">
                             Selecciona una de las opciones
@@ -309,10 +257,7 @@
 
             <div class="director-aulas-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_seccion"
-                    class="director-aulas-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_seccion" class="director-aulas-visualizar-carsce-etiqueta">
                     Sección Académica:
                 </label>
 
@@ -320,10 +265,7 @@
 
                     <i class="fa-solid fa-users"></i>
 
-                    <select
-                        name="actualizar_seccion"
-                        id="actualizar_seccion"
-                    ></select>
+                    <select name="actualizar_seccion" id="actualizar_seccion"></select>
 
                     <i class="fa-solid fa-chevron-down director-aulas-visualizar-carsce-flecha"></i>
 
@@ -336,10 +278,7 @@
 
             <div class="director-aulas-visualizar-carsce-campo">
 
-                <label
-                    for="actualizar_pnf"
-                    class="director-aulas-visualizar-carsce-etiqueta"
-                >
+                <label for="actualizar_pnf" class="director-aulas-visualizar-carsce-etiqueta">
                     P.N.F:
                 </label>
 
@@ -347,10 +286,7 @@
 
                     <i class="fa-solid fa-graduation-cap"></i>
 
-                    <select
-                        name="actualizar_pnf"
-                        id="actualizar_pnf"
-                    ></select>
+                    <select name="actualizar_pnf" id="actualizar_pnf"></select>
 
                     <i class="fa-solid fa-chevron-down director-aulas-visualizar-carsce-flecha"></i>
 
@@ -363,12 +299,8 @@
 
             <div class="director-aulas-visualizar-carsce-modal-acciones">
 
-                <input
-                    type="submit"
-                    id="btn_actualizar_aula"
-                    class="director-aulas-visualizar-carsce-boton"
-                    value="Actualizar Aula"
-                >
+                <input type="submit" id="btn_actualizar_aula" class="director-aulas-visualizar-carsce-boton"
+                    value="Actualizar Aula">
 
             </div>
 

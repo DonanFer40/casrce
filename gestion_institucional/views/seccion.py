@@ -5,6 +5,25 @@ from django.utils import timezone
 
 from inicio_sesion.models import SeccionAcademica, Bitacora
 
+
+ALFABETO_SECCIONES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+
+def obtener_siguiente_nombre_seccion():
+    ocupadas = {
+        nombre.strip().upper()
+        for nombre in SeccionAcademica.objects.values_list(
+            "nombre",
+            flat=True,
+        )
+        if nombre
+    }
+    return next(
+        (letra for letra in ALFABETO_SECCIONES if letra not in ocupadas),
+        None,
+    )
+
+
 # secciones_registradas
 def sec_reg(request):
     secciones = list(
@@ -17,7 +36,8 @@ def sec_reg(request):
 
     return JsonResponse({
         "estado": "exito",
-        "secciones": secciones
+        "secciones": secciones,
+        "siguiente": obtener_siguiente_nombre_seccion(),
     })
 
 # validar el nombre de la sección
@@ -40,9 +60,10 @@ def datos_sec(request):
     if request.method == "POST":
         id_seccion = request.POST.get("seccion")
 
-        try:
-            seccion = SeccionAcademica.objects.filter(id_seccion=id_seccion).first()
-        except SeccionAcademica.DoesNotExist:
+        seccion = SeccionAcademica.objects.filter(
+            id_seccion=id_seccion
+        ).first()
+        if seccion is None:
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
@@ -50,24 +71,30 @@ def datos_sec(request):
                 "mensaje": "La sección académica no se encuentra registrada."
             })
 
+        ocupadas = list(
+            SeccionAcademica.objects.order_by("nombre").values_list(
+                "nombre",
+                flat=True,
+            )
+        )
         return JsonResponse({
             "estado": "exito",
             "seccion": {
                 "id_seccion": seccion.id_seccion,
                 "seccion": seccion.nombre,
                 "turno": seccion.turno
-            }
+            },
+            "ocupadas": ocupadas,
+            "siguiente": obtener_siguiente_nombre_seccion(),
         })
 
 # guardar_actualizacion_seccion
 def guardar_act_sec(request):
     if request.method == "POST":
         id_seccion = request.POST.get("seccion")
-        nuevo_seccion = request.POST.get("actualizar_seccion")
         turno = request.POST.get("actualizar_turno")
 
         controles = [
-            (nuevo_seccion, "Nombre Sección", "Por favor, debe ingresar el nombre de la sección."),
             (turno, "Turno Académico", "Por favor, debe seleccionar el turno académico.")
         ]
 
@@ -90,7 +117,19 @@ def guardar_act_sec(request):
                         "title": "Error",
                         "descripcion": "No se encuentra registrada la sección."
                     })
-                
+
+                nuevo_seccion = obtener_siguiente_nombre_seccion()
+                if nuevo_seccion is None:
+                    return JsonResponse({
+                        "estado": "fallo",
+                        "icon": "warning",
+                        "title": "Sin secciones disponibles",
+                        "descripcion": (
+                            "Las letras de la A a la Z están ocupadas. "
+                            "Libera una sección antes de modificar."
+                        ),
+                    }, status=409)
+
                 seccion.nombre = nuevo_seccion
                 seccion.turno = turno
                 seccion.save()
@@ -105,7 +144,10 @@ def guardar_act_sec(request):
                     "estado": "exito",
                     "icon": "success",
                     "title": "Exito",
-                    "descripcion": "La sección se registro exitosamente."
+                    "descripcion": (
+                        f"La sección se actualizó y ahora es {nuevo_seccion}."
+                    ),
+                    "seccion": nuevo_seccion,
                 })
 
             return JsonResponse({
@@ -120,11 +162,9 @@ def guardar_act_sec(request):
 # modulo_seccion
 def reg_sec(request):
     if request.method == "POST":
-        seccion = request.POST.get("registro_seccion")
         turno = request.POST.get("registro_turno")
         
         controles = [
-            (seccion, "Nombre de la Sección", "Por favor, debe ingresar el nombre de la sección."),
             (turno, "Turno Académico", "Por favor, debe seleccione un turno académico."),
         ]
 
@@ -139,6 +179,18 @@ def reg_sec(request):
     
         try:
             with transaction.atomic():
+                seccion = obtener_siguiente_nombre_seccion()
+                if seccion is None:
+                    return JsonResponse({
+                        "estado": "fallo",
+                        "icon": "warning",
+                        "title": "Sin secciones disponibles",
+                        "descripcion": (
+                            "Las letras de la A a la Z están ocupadas. "
+                            "Libera una sección antes de registrar otra."
+                        ),
+                    }, status=409)
+
                 SeccionAcademica.objects.create(
                     nombre=seccion,
                     turno=turno
@@ -154,7 +206,9 @@ def reg_sec(request):
                     "estado": "exito",
                     "icon": "success",
                     "title": "Exito",
-                    "descripcion": "La sección se registro exitosamente."
+                    "descripcion": "La sección se registró exitosamente.",
+                    "seccion": seccion,
+                    "siguiente": obtener_siguiente_nombre_seccion(),
                 })
         except Exception as e:
             return JsonResponse({
@@ -165,4 +219,3 @@ def reg_sec(request):
             })
     
     return render(request, "Roles/Director_General/seccion_academica/registrar_seccion.html")
-

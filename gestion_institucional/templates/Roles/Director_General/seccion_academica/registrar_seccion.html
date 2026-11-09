@@ -1,180 +1,179 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<section id="director-secciones-gestion-carsce">
 
-<section id="director-secciones-registrar-carsce">
-
-    <div class="director-secciones-registrar-carsce-contenedor">
+    <div class="director-secciones-gestion-carsce-contenedor">
 
         <!-- =====================================================
-             ENCABEZADO
+             ENCABEZADO INSTITUCIONAL
              ===================================================== -->
+        <header class="director-secciones-gestion-carsce-encabezado">
+            <div class="director-secciones-gestion-carsce-encabezado-contenido">
 
-        <div class="director-secciones-registrar-carsce-encabezado">
-
-            <div class="director-secciones-registrar-carsce-identificacion">
-                <i class="fa-solid fa-layer-group"></i>
-                <span>GESTIÓN ACADÉMICA</span>
-            </div>
-
-            <div class="director-secciones-registrar-carsce-presentacion">
-
-                <h3 class="director-secciones-registrar-carsce-titulo">
-                    Secciones Académicas
-                    <span>UPT "José Félix Ribas"</span>
-                </h3>
-
-                <p class="director-secciones-registrar-carsce-descripcion">
-                    Registra las secciones académicas que serán utilizadas para la organización de las actividades institucionales.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================================
-             TARJETA PRINCIPAL
-             ===================================================== -->
-
-        <div class="director-secciones-registrar-carsce-tarjeta">
-
-            <div class="director-secciones-registrar-carsce-tarjeta-cabecera">
-
-                <div class="director-secciones-registrar-carsce-tarjeta-icono">
-                    <i class="fa-solid fa-users-rectangle"></i>
+                <div class="director-secciones-gestion-carsce-identificacion">
+                    <span class="director-secciones-gestion-carsce-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
+                    </span>
+                    <span class="director-secciones-gestion-carsce-seccion">
+                        <i class="fa-solid fa-layer-group"></i>
+                        GESTIÓN ACADÉMICA
+                    </span>
                 </div>
 
-                <div class="director-secciones-registrar-carsce-tarjeta-informacion">
-
-                    <h4 class="director-secciones-registrar-carsce-tarjeta-titulo">
-                        Registrar Sección
-                    </h4>
-
-                    <p class="director-secciones-registrar-carsce-tarjeta-descripcion">
-                        Introduce la identificación y el turno correspondiente a la nueva sección.
+                <div class="director-secciones-gestion-carsce-presentacion">
+                    <h1>Secciones Académicas</h1>
+                    <p>
+                        Registra, consulta y administra las secciones académicas utilizadas
+                        para la organización institucional desde un mismo espacio.
                     </p>
+                </div>
 
+                <div class="director-secciones-gestion-carsce-encabezado-pie">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <span>Control de identificación y turnos correspondientes a las secciones</span>
                 </div>
 
             </div>
+        </header>
 
 
-            <!-- =================================================
-                 FORMULARIO
-                 ================================================= -->
+        <!-- =====================================================
+             DISTRIBUCIÓN PRINCIPAL (2 COLUMNAS)
+             ===================================================== -->
+        <div class="director-secciones-gestion-carsce-distribucion">
 
-            <form
-                method="post"
-                id="formulario_registrar"
-                class="director-secciones-registrar-carsce-formulario"
-            >
+            <!-- COLUMNA IZQUIERDA: REGISTRAR SECCIÓN -->
+            <section id="director-secciones-registrar-carsce">
+                <div class="director-secciones-registrar-carsce-tarjeta">
 
-                {% csrf_token %}
-
-
-                <!-- =================================================
-                     SECCIÓN
-                     ================================================= -->
-
-                <div class="director-secciones-registrar-carsce-campo">
-
-                    <label
-                        for="registro_seccion"
-                        class="director-secciones-registrar-carsce-etiqueta"
-                    >
-                        Sección:
-                    </label>
-
-                    <div class="director-secciones-registrar-carsce-control">
-
-                        <i class="fa-solid fa-users"></i>
-
-                        <input
-                            type="text"
-                            name="registro_seccion"
-                            id="registro_seccion"
-                            placeholder="Máximo 5 caracteres"
-                            maxlength="5"
-                            autocomplete="off"
-                            required
-                        >
-
+                    <div class="director-secciones-registrar-carsce-tarjeta-cabecera">
+                        <div class="director-secciones-registrar-carsce-tarjeta-icono">
+                            <i class="fa-solid fa-users-rectangle"></i>
+                        </div>
+                        <div class="director-secciones-registrar-carsce-tarjeta-informacion">
+                            <span class="director-secciones-gestion-carsce-etiqueta-modulo">
+                                NUEVO REGISTRO
+                            </span>
+                            <h2 class="director-secciones-registrar-carsce-tarjeta-titulo">
+                                Registrar Sección
+                            </h2>
+                            <p class="director-secciones-registrar-carsce-tarjeta-descripcion">
+                                Introduce la identificación y el turno correspondiente a la nueva sección.
+                            </p>
+                        </div>
                     </div>
 
-                    <small
-                        id="mensaje_nombre_seccion"
-                        class="director-secciones-registrar-carsce-mensaje"
-                    ></small>
+                    <!-- FORMULARIO DE REGISTRO -->
+                    <form method="post"
+                          id="formulario_registrar"
+                          class="director-secciones-registrar-carsce-formulario">
+
+                        {% csrf_token %}
+
+                        <!-- SECCIÓN -->
+                        <div class="director-secciones-registrar-carsce-campo">
+                            <label for="registro_seccion" class="director-secciones-registrar-carsce-etiqueta">
+                                Sección:
+                            </label>
+                            <div class="director-secciones-registrar-carsce-control">
+                                <i class="fa-solid fa-users"></i>
+                                <input type="text"
+                                       name="registro_seccion"
+                                       id="registro_seccion"
+                                       placeholder="Asignación automática"
+                                       maxlength="1"
+                                       autocomplete="off"
+                                       readonly
+                                       required>
+                            </div>
+                            <small id="mensaje_nombre_seccion" class="director-secciones-registrar-carsce-mensaje">
+                                La letra se asigna automáticamente según las secciones disponibles.
+                            </small>
+                        </div>
+
+                        <!-- TURNO -->
+                        <div class="director-secciones-registrar-carsce-campo">
+                            <label for="registro_turno" class="director-secciones-registrar-carsce-etiqueta">
+                                Turno:
+                            </label>
+                            <div class="director-secciones-registrar-carsce-control">
+                                <i class="fa-solid fa-clock"></i>
+                                <select name="registro_turno" id="registro_turno" required>
+                                    <option value="">Seleccione un Turno</option>
+                                    <option value="Diurno">Diurno</option>
+                                    <option value="Nocturno">Nocturno</option>
+                                    <option value="Fines de Semana">Fines de Semana</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down director-secciones-registrar-carsce-flecha"></i>
+                            </div>
+                        </div>
+
+                        <!-- ACCIÓN -->
+                        <div class="director-secciones-registrar-carsce-acciones">
+                            <button type="submit"
+                                    id="btn_registro"
+                                    class="director-secciones-registrar-carsce-boton">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Registrar Sección</span>
+                            </button>
+                        </div>
+
+                    </form>
 
                 </div>
+            </section>
 
 
-                <!-- =================================================
-                     TURNO
-                     ================================================= -->
+            <!-- COLUMNA DERECHA: VISUALIZACIÓN / TABLA -->
+            <section id="director-secciones-visualizar-carsce">
+                <div class="director-secciones-visualizar-carsce-tarjeta">
 
-                <div class="director-secciones-registrar-carsce-campo">
+                    <div class="director-secciones-visualizar-carsce-tarjeta-cabecera">
+                        <div class="director-secciones-visualizar-carsce-tarjeta-icono">
+                            <i class="fa-solid fa-table-list"></i>
+                        </div>
+                        <div class="director-secciones-visualizar-carsce-tarjeta-informacion">
+                            <span class="director-secciones-gestion-carsce-etiqueta-modulo">
+                                CONSULTA INSTITUCIONAL
+                            </span>
+                            <h2 class="director-secciones-visualizar-carsce-tarjeta-titulo">
+                                Visualizar Secciones
+                            </h2>
+                            <p class="director-secciones-visualizar-carsce-tarjeta-descripcion">
+                                Revisa las secciones registradas y accede a sus opciones de modificación.
+                            </p>
+                        </div>
+                    </div>
 
-                    <label
-                        for="registro_turno"
-                        class="director-secciones-registrar-carsce-etiqueta"
-                    >
-                        Turno:
-                    </label>
+                    <!-- INDICACIÓN -->
+                    <div class="director-secciones-visualizar-carsce-indicacion">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Haz clic sobre cualquier fila de la sección para modificar sus datos.</span>
+                    </div>
 
-                    <div class="director-secciones-registrar-carsce-control">
-
-                        <i class="fa-solid fa-clock"></i>
-
-                        <select
-                            name="registro_turno"
-                            id="registro_turno"
-                        >
-
-                            <option value="">
-                                Seleccione un Turno
-                            </option>
-
-                            <option value="Diurno">
-                                Diurno
-                            </option>
-
-                            <option value="Nocturno">
-                                Nocturno
-                            </option>
-
-                            <option value="Fines de Semana">
-                                Fines de Semana
-                            </option>
-
-                        </select>
-
-                        <i class="fa-solid fa-chevron-down director-secciones-registrar-carsce-flecha"></i>
-
+                    <!-- TABLA -->
+                    <div class="director-secciones-visualizar-carsce-tabla-contenedor">
+                        <div class="director-secciones-visualizar-carsce-tabla-scroll">
+                            <table class="director-secciones-visualizar-carsce-tabla">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Sección</th>
+                                        <th>Turno</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contenedor_secciones">
+                                    <!-- Filas renderizadas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>
-
-
-                <!-- =================================================
-                     ACCIÓN
-                     ================================================= -->
-
-                <div class="director-secciones-registrar-carsce-acciones">
-
-                    <input
-                        type="submit"
-                        id="btn_registro"
-                        class="director-secciones-registrar-carsce-boton"
-                        value="Registrar Sección"
-                    >
-
-                </div>
-
-            </form>
+            </section>
 
         </div>
 
@@ -183,6 +182,101 @@
 </section>
 
 
+<!-- =====================================================
+     MODAL DE ACTUALIZACIÓN
+     ===================================================== -->
+<dialog id="dialogo_actualizar_secciones" class="director-secciones-visualizar-carsce-dialogo">
+    <div class="director-secciones-visualizar-carsce-modal">
+
+        <!-- CABECERA DEL MODAL -->
+        <div class="director-secciones-visualizar-carsce-modal-cabecera">
+            <div class="director-secciones-visualizar-carsce-modal-identificacion">
+                <div class="director-secciones-visualizar-carsce-modal-icono">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <div class="director-secciones-visualizar-carsce-modal-informacion">
+                    <h4 class="director-secciones-visualizar-carsce-modal-titulo">
+                        Modificar Sección
+                    </h4>
+                    <p class="director-secciones-visualizar-carsce-modal-descripcion">
+                        Actualiza los datos correspondientes a la sección seleccionada.
+                    </p>
+                </div>
+            </div>
+
+            <button type="button"
+                    id="cerrar_dialogo"
+                    class="director-secciones-visualizar-carsce-modal-cerrar"
+                    title="Cerrar"
+                    aria-label="Cerrar ventana">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- FORMULARIO DE ACTUALIZACIÓN -->
+        <form method="post"
+              id="formulario_actualizar_seccion"
+              class="director-secciones-visualizar-carsce-formulario">
+
+            {% csrf_token %}
+
+            <input type="hidden"
+                   name="seccion"
+                   id="secciones_seleccionado">
+
+            <!-- SECCIÓN -->
+            <div class="director-secciones-visualizar-carsce-campo">
+                <label for="actualizar_seccion_registrado" class="director-secciones-visualizar-carsce-etiqueta">
+                    Sección:
+                </label>
+                <div class="director-secciones-visualizar-carsce-control">
+                    <i class="fa-solid fa-users"></i>
+                    <input type="text"
+                           name="actualizar_seccion"
+                           id="actualizar_seccion_registrado"
+                           maxlength="1"
+                           autocomplete="off"
+                           readonly
+                           required>
+                </div>
+                <small id="mensaje_actualizar_seccion" class="director-secciones-visualizar-carsce-mensaje"></small>
+            </div>
+
+            <!-- TURNO -->
+            <div class="director-secciones-visualizar-carsce-campo">
+                <label for="actualizar_turno_registrado" class="director-secciones-visualizar-carsce-etiqueta">
+                    Turno:
+                </label>
+                <div class="director-secciones-visualizar-carsce-control">
+                    <i class="fa-solid fa-clock"></i>
+                    <select name="actualizar_turno" id="actualizar_turno_registrado" required>
+                        <option value="">Seleccione un Turno</option>
+                        <option value="Diurno">Diurno</option>
+                        <option value="Nocturno">Nocturno</option>
+                        <option value="Fines de Semana">Fines de Semana</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down director-secciones-visualizar-carsce-flecha"></i>
+                </div>
+            </div>
+
+            <!-- ACCIONES -->
+            <div class="director-secciones-visualizar-carsce-acciones">
+                <button type="submit"
+                        id="btn_actualizar"
+                        class="director-secciones-visualizar-carsce-boton">
+                    <i class="fa-solid fa-rotate"></i>
+                    <span>Actualizar Sección</span>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</dialog>
+
+
+<!-- ARCHIVOS JAVASCRIPT -->
 <script src="{% static 'Funciones_Asincronas/Director_General/Seccion/registrar_sesccion.js' %}"></script>
+<script src="{% static 'Funciones_Asincronas/Director_General/Seccion/visualizar_seccion.js' %}"></script>
 
 {% endblock %}

@@ -359,9 +359,12 @@
                             <input type="password"
                                 name="password"
                                 id="password"
+                                class="js-contrasenia-segura"
                                 autocomplete="new-password"
-                                maxlength="10"
-                                placeholder="Contraseña de 4 a 10 caracteres">
+                                minlength="8"
+                                maxlength="128"
+                                placeholder="Contraseña segura"
+                                required>
 
                             <input type="checkbox" id="oculta_aparecer">
 
@@ -379,7 +382,7 @@
 
                         </div>
 
-                        <small id="mensaje_password"></small>
+                        <small id="mensaje_password">Mínimo 8 caracteres, con mayúscula, minúscula, número y símbolo.</small>
 
                     </div>
                 </div>

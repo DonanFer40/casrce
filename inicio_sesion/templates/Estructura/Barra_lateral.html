@@ -78,15 +78,7 @@
                 <div class="barra-lateral-carsce-submenu">
                     <a href="{% url 'reg_pnf' %}">
                         <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                        <span>Registrar P.N.F.</span>
-                    </a>
-                    <a href="{% url 'ver_pnf' %}">
-                        <i class="fa-solid fa-list" aria-hidden="true"></i>
-                        <span>Consultar P.N.F.</span>
-                    </a>
-                    <a href="{% url 'act_pnf' %}">
-                        <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
-                        <span>Actualizar P.N.F.</span>
+                        <span>Gestionar P.N.F.</span>
                     </a>
                 </div>
             </details>
@@ -106,11 +98,7 @@
                 <div class="barra-lateral-carsce-submenu">
                     <a href="{% url 'reg_calendario' %}">
                         <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
-                        <span>Registrar Calendario</span>
-                    </a>
-                    <a href="{% url 'vis_cal_reg' %}">
-                        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
-                        <span>Visualizar Calendario</span>
+                        <span>Gestionar Calendario</span>
                     </a>
                 </div>
             </details>
@@ -130,15 +118,7 @@
                 <div class="barra-lateral-carsce-submenu">
                     <a href="{% url 'reg_auts' %}">
                         <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
-                        <span>Registrar Autoridad</span>
-                    </a>
-                    <a href="{% url 'vist_auts' %}">
-                        <i class="fa-solid fa-eye" aria-hidden="true"></i>
-                        <span>Visualizar Autoridad</span>
-                    </a>
-                    <a href="{% url 'act_datos_aut' %}">
-                        <i class="fa-solid fa-user-pen" aria-hidden="true"></i>
-                        <span>Actualizar Autoridad</span>
+                        <span>Gestionar Autoridades</span>
                     </a>
                 </div>
             </details>
@@ -158,11 +138,7 @@
                 <div class="barra-lateral-carsce-submenu">
                     <a href="{% url 'reg_aula' %}">
                         <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                        <span>Registrar Aulas</span>
-                    </a>
-                    <a href="{% url 'act_aula_acad' %}">
-                        <i class="fa-solid fa-table-cells-large" aria-hidden="true"></i>
-                        <span>Visualizar Aulas</span>
+                        <span>Gestionar Aulas</span>
                     </a>
                 </div>
             </details>
@@ -182,25 +158,10 @@
                 <div class="barra-lateral-carsce-submenu">
                     <a href="{% url 'reg_sec' %}">
                         <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                        <span>Registrar Sección</span>
-                    </a>
-                    <a href="{% url 'guardar_act_sec' %}">
-                        <i class="fa-solid fa-list" aria-hidden="true"></i>
-                        <span>Visualizar Sección</span>
+                        <span>Gestionar Secciones</span>
                     </a>
                 </div>
             </details>
-
-            <!-- Bitácora institucional -->
-            <a href="{% url 'bitacora_acciones' %}"
-               class="barra-lateral-carsce-enlace-principal">
-                <span class="barra-lateral-carsce-enlace-icono" aria-hidden="true">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                </span>
-                <span class="barra-lateral-carsce-enlace-texto">Bitácora de acciones</span>
-                <i class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
-                   aria-hidden="true"></i>
-            </a>
         </section>
         {% endif %}
 
@@ -215,14 +176,14 @@
             </span>
 
             <!-- Materias -->
-            {% if "Control de Estudio" in request.session.rol or "Director General" in request.session.rol %}
+            {% if "Control de Estudio" in request.session.rol or "Director General" in request.session.rol or "Coordinador PNF" in request.session.rol or "Docente" in request.session.rol or "Estudiante" in request.session.rol %}
             <details class="barra-lateral-carsce-acordeon">
                 <summary class="barra-lateral-carsce-cabecera">
                     <span class="barra-lateral-carsce-cabecera-contenido">
                         <span class="barra-lateral-carsce-modulo-icono" aria-hidden="true">
                             <i class="fa-solid fa-book"></i>
                         </span>
-                        <span class="barra-lateral-carsce-modulo-nombre">Materias</span>
+                        <span class="barra-lateral-carsce-modulo-nombre">Unidades Curriculares</span>
                     </span>
                     <i class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
                        aria-hidden="true"></i>
@@ -230,15 +191,7 @@
                 <div class="barra-lateral-carsce-submenu">
                     <a href="{% url 'reg_mat' %}">
                         <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                        <span>Registrar Materia</span>
-                    </a>
-                    <a href="{% url 'mat_lista' %}">
-                        <i class="fa-solid fa-list" aria-hidden="true"></i>
-                        <span>Visualizar Materias</span>
-                    </a>
-                    <a href="{% url 'mat_guardar' %}">
-                        <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
-                        <span>Actualizar Materia</span>
+                        <span>Gestionar Unidades Curriculares</span>
                     </a>
                 </div>
             </details>
@@ -359,6 +312,28 @@
             </details>
 
             {% endif %}
+
+            {% if "Coordinador PNF" in request.session.rol %}
+            <details class="barra-lateral-carsce-acordeon">
+                <summary class="barra-lateral-carsce-cabecera">
+                    <span class="barra-lateral-carsce-cabecera-contenido">
+                        <span class="barra-lateral-carsce-modulo-icono" aria-hidden="true">
+                            <i class="fa-solid fa-clock"></i>
+                        </span>
+                        <span class="barra-lateral-carsce-modulo-nombre">Horario Académico</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down barra-lateral-carsce-chevron"
+                       aria-hidden="true"></i>
+                </summary>
+                <div class="barra-lateral-carsce-submenu">
+                    <a href="{% url 'registrar_horario' %}">
+                        <i class="fa-solid fa-calendar-week" aria-hidden="true"></i>
+                        <span>Gestionar horarios</span>
+                    </a>
+                </div>
+            </details>
+            {% endif %}
+
         </section>
         {% endif %}
 
@@ -461,7 +436,7 @@
 
 
         <!-- 5. DOCUMENTOS Y REPORTES -->
-        {% if "Control de Estudio" in request.session.rol or "Director General" in request.session.rol %}
+        {% if "Control de Estudio" in request.session.rol or "Director General" in request.session.rol or "Coordinador PNF" in request.session.rol or "Docente" in request.session.rol or "Estudiante" in request.session.rol %}
         <section id="barra-lateral-documentos-carsce"
                  class="barra-lateral-carsce-bloque-principal">
 
@@ -502,13 +477,13 @@
             </a>
 
             <!-- Pendiente de definir la ruta real de la bitácora -->
-            <a href="#"
+            <a href="{% url 'bitacora_acciones' %}"
                class="barra-lateral-carsce-enlace-principal"
                aria-label="Bitácora de acciones, enlace pendiente">
                 <span class="barra-lateral-carsce-enlace-icono" aria-hidden="true">
                     <i class="fa-solid fa-clipboard-list"></i>
                 </span>
-                <span class="barra-lateral-carsce-enlace-texto">Bitácora</span>
+                <span class="barra-lateral-carsce-enlace-texto">Bitácora de acciones</span>
                 <i class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
                    aria-hidden="true"></i>
             </a>
@@ -525,6 +500,27 @@
             <span class="barra-lateral-carsce-etiqueta-seccion">
                 Mi espacio académico
             </span>
+
+            <!-- Información académica -->
+            <a href="{% url 'horario_estudiante' %}"
+               class="barra-lateral-carsce-enlace-principal">
+                <span class="barra-lateral-carsce-enlace-icono" aria-hidden="true">
+                    <i class="fa-solid fa-calendar-week"></i>
+                </span>
+                <span class="barra-lateral-carsce-enlace-texto">Mi horario académico</span>
+                <i class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
+                   aria-hidden="true"></i>
+            </a>
+
+            <a href="{% url 'reportes_control_estudio' %}"
+               class="barra-lateral-carsce-enlace-principal">
+                <span class="barra-lateral-carsce-enlace-icono" aria-hidden="true">
+                    <i class="fa-solid fa-file-pdf"></i>
+                </span>
+                <span class="barra-lateral-carsce-enlace-texto">Mis reportes</span>
+                <i class="fa-solid fa-angle-right barra-lateral-carsce-enlace-indicador"
+                   aria-hidden="true"></i>
+            </a>
 
             <!-- Información académica -->
             <details class="barra-lateral-carsce-acordeon">
@@ -602,7 +598,11 @@
 
                 <span class="navegacion-autenticada-carsce-avatar"
                       aria-hidden="true">
-                    <i class="fa-solid fa-user"></i>
+                    {% if request.session.foto_perfil_url %}
+                        <img src="{{ request.session.foto_perfil_url }}" alt="">
+                    {% else %}
+                        <i class="fa-solid fa-user"></i>
+                    {% endif %}
                 </span>
 
                 <span class="navegacion-autenticada-carsce-datos">
@@ -621,7 +621,7 @@
             <ul class="navegacion-autenticada-carsce-submenu">
 
                 <li class="navegacion-autenticada-carsce-subitem">
-                    <a href="#"
+                    <a href="{% url 'configuracion_usuario' %}"
                        class="navegacion-autenticada-carsce-subenlace">
                         <i class="fa-solid fa-sliders" aria-hidden="true"></i>
                         <span>Configuración</span>

@@ -52,11 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
         await validar_aula();
     });
 
-    input_nombre_aula.addEventListener("paste", async () => {
-        input_nombre_aula.value = input_nombre_aula.value.replace(/[^A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\s_-]/g, "");
-        await validar_seccion();
-    });
-
     async function pnfs_registrados() {
         try {
             const respuesta = await fetch("/pnfs_reg/");
@@ -109,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: formulario
             });
             const resultado = await respuesta.json()
-            console.log(resultado)
 
             await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
@@ -120,9 +114,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (resultado.estado == "exito") {
                 formulario_registrar.reset()
+                window.dispatchEvent(new CustomEvent("aulas:actualizadas"));
             }
         } catch (error) {
             console.error(error);
+            await NotificacionesCASRCE.mostrar({
+                title: "Error",
+                text: "No fue posible registrar el aula.",
+                icon: "error",
+            });
         }
     });
 });

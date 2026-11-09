@@ -30,12 +30,12 @@ NUCLEOS = [
 PNF = [
     {"pnf": "PNF en Sistema e Informática", "codigo": "CARRE001", "periodo_academico": "Trimestre"},
     {"pnf": "PNF en Electrónica", "codigo": "CARRE002", "periodo_academico": "Trimestre"},
-    {"pnf": "PNF en Mediciona Veterinaria", "codigo": "CARRE003", "periodo_academico": "Semestre"},
+    {"pnf": "PNF en Medicina Veterinaria", "codigo": "CARRE003", "periodo_academico": "Semestre"},
     {"pnf": "PNF en Nutrición y Dietética", "codigo": "CARRE004", "periodo_academico": "Trimestre"},
     {"pnf": "PNF en Electricidad", "codigo": "CARRE005", "periodo_academico": "Trimestre"},
     {"pnf": "PNF en Mecánica", "codigo": "CARRE006", "periodo_academico": "Trimestre"},
     {"pnf": "PNF en Agroalimentación", "codigo": "CARRE007", "periodo_academico": "Trimestre"},
-    {"pnf": "PNF en Contrucción Civil", "codigo": "CARRE008", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Construcción Civil", "codigo": "CARRE008", "periodo_academico": "Trimestre"},
     {"pnf": "PNF en Ingeniería Industrial", "codigo": "CARRE009", "periodo_academico": "Trimestre"},
 ]
 

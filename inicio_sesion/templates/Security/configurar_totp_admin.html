@@ -768,12 +768,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const enlace = document.createElement("a");
 
-            enlace.href = "/admin/";
+            enlace.href = "{% url 'inicio_sesion' %}";
             enlace.className = "totp-boton";
             enlace.style.textDecoration = "none";
             enlace.style.marginTop = "15px";
 
-            enlace.innerHTML = '<i class="fas fa-arrow-right"></i> Continuar al administrador';
+            enlace.innerHTML = '<i class="fas fa-arrow-right"></i> Continuar al acceso protegido';
 
             formulario.appendChild(enlace);
 

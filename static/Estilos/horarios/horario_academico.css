@@ -1,0 +1,173 @@
+.horario-academico {
+    --horario-azul: #18324b;
+    --horario-borde: #cbd5e1;
+    --horario-fondo: #f8fafc;
+    --horario-acento: #fef08a;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+    color: #172033;
+}
+
+.horario-academico__encabezado {
+    margin-bottom: 24px;
+}
+
+.horario-academico__encabezado h1 {
+    margin: 4px 0 8px;
+    color: var(--horario-azul);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.horario-academico__encabezado p {
+    margin: 0;
+    color: #526174;
+}
+
+.horario-academico__etiqueta {
+    color: #2563eb !important;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.horario-academico__filtros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.horario-academico__filtros label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.horario-academico__filtros select,
+.horario-academico__tabla select {
+    width: 100%;
+    min-width: 0;
+    padding: 9px;
+    border: 1px solid var(--horario-borde);
+    border-radius: 6px;
+    background: #fff;
+    color: #172033;
+}
+
+.horario-academico__tabla-contenedor {
+    overflow-x: auto;
+    border: 1px solid var(--horario-borde);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.horario-academico__tabla {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.horario-academico__tabla th,
+.horario-academico__tabla td {
+    min-width: 110px;
+    padding: 10px 8px;
+    border: 1px solid var(--horario-borde);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.horario-academico__tabla thead th {
+    background: var(--horario-azul);
+    color: #fff;
+}
+
+.horario-academico__tabla .horario-academico__hora {
+    width: 130px;
+    background: var(--horario-fondo);
+    color: var(--horario-azul);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.horario-academico__tabla tbody tr:nth-child(even) td {
+    background: var(--horario-fondo);
+}
+
+.horario-academico__tabla select {
+    font-size: .9rem;
+}
+
+.horario-academico__mensaje,
+.horario-academico__vacio {
+    margin: 16px 0;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #eff6ff;
+    color: #1e3a8a;
+}
+
+.horario-academico__guardar,
+.horario-academico__enlace-reportes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--horario-azul);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.horario-academico__guardar:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+.horario-academico__grupo {
+    margin: 22px 0;
+}
+
+.horario-academico__grupo-cabecera {
+    margin-bottom: 10px;
+}
+
+.horario-academico__grupo-cabecera h2 {
+    margin: 0 0 4px;
+    color: var(--horario-azul);
+    font-size: 1.2rem;
+}
+
+.horario-academico__grupo-cabecera p {
+    margin: 0;
+    color: #526174;
+}
+
+.horario-academico__docente,
+.horario-academico__libre {
+    display: block;
+    margin-top: 5px;
+    color: #526174;
+    font-size: .85rem;
+}
+
+.horario-academico__libre {
+    color: #94a3b8;
+}
+
+@media (max-width: 640px) {
+    .horario-academico {
+        padding: 20px 12px 32px;
+    }
+
+    .horario-academico__tabla th,
+    .horario-academico__tabla td {
+        padding: 7px 5px;
+    }
+}

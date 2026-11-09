@@ -2,7 +2,29 @@ from functools import wraps
 
 from django.http import HttpResponseForbidden
 
-from inicio_sesion.models import Cuenta
+from inicio_sesion.models import (
+    ControlEstudio,
+    CoordinadorPNF,
+    Cuenta,
+    DirectorGeneral,
+    Docente,
+    Estudiante,
+)
+
+
+def obtener_roles_reporte(usuario):
+    roles = set()
+    if Estudiante.objects.filter(usuario=usuario).exists():
+        roles.add("Estudiante")
+    if Docente.objects.filter(usuario=usuario, activo=True).exists():
+        roles.add("Docente")
+    if CoordinadorPNF.objects.filter(usuario=usuario, activo=True).exists():
+        roles.add("Coordinador PNF")
+    if ControlEstudio.objects.filter(usuario=usuario, activo=True).exists():
+        roles.add("Control de Estudio")
+    if DirectorGeneral.objects.filter(usuario=usuario).exists():
+        roles.add("Director General")
+    return roles
 
 
 def requiere_rol_reporte(*roles_permitidos):
@@ -38,11 +60,10 @@ def requiere_rol_reporte(*roles_permitidos):
                     "Acceso denegado."
                 )
 
-            # Obtener el rol principal desde la BD
-            rol_principal = cuenta.obtener_rol_principal()
+            roles = obtener_roles_reporte(cuenta.id_usuario)
 
             # Verificar autorización
-            if rol_principal not in roles_permitidos:
+            if not roles.intersection(roles_permitidos):
                 return HttpResponseForbidden(
                     "No tienes permisos para acceder a este reporte."
                 )

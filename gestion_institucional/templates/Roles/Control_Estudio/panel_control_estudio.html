@@ -1,196 +1,115 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
-
-{% load static %}
 
 <section id="panel-control-estudio-carsce">
 
     <div class="panel-control-estudio-carsce-contenedor">
 
-
         <!-- =====================================================
-             ENCABEZADO DEL PANEL
+             ENCABEZADO INSTITUCIONAL
              ===================================================== -->
-
         <header class="panel-control-estudio-carsce-encabezado">
+            <div class="panel-control-estudio-carsce-encabezado-contenido">
 
-            <div class="panel-control-estudio-carsce-encabezado-info">
-
-                <span class="panel-control-estudio-carsce-identificacion">
-                    CONTROL DE ESTUDIO
-                </span>
-
-                <h1 class="panel-control-estudio-carsce-titulo">
-                    Gestión Académica Institucional
-                </h1>
-
-                <p class="panel-control-estudio-carsce-descripcion">
-                    Administración, consulta y seguimiento de la información
-                    académica de la institución.
-                </p>
-
-            </div>
-
-
-            <div class="panel-control-estudio-carsce-contexto">
-
-                <div class="panel-control-estudio-carsce-contexto-icono">
-                    <i class="fa-solid fa-building-columns"></i>
-                </div>
-
-                <div class="panel-control-estudio-carsce-contexto-informacion">
-
-                    <span>
-                        Núcleo
+                <div class="panel-control-estudio-carsce-identificacion">
+                    <span class="panel-control-estudio-carsce-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
                     </span>
+                    <span class="panel-control-estudio-carsce-seccion">
+                        <i class="fa-solid fa-building-columns"></i>
+                        CONTROL DE ESTUDIO
+                    </span>
+                </div>
 
-                    <strong>
-                        {{ nucleo_usuario|default:"Sede Central / Sin Núcleo" }}
-                    </strong>
+                <div class="panel-control-estudio-carsce-presentacion">
+                    <div class="panel-control-estudio-carsce-presentacion-principal">
+                        <h1>Gestión Académica Institucional</h1>
+                        <p>
+                            Administración, consulta y seguimiento de la información
+                            académica de la institución.
+                        </p>
+                    </div>
 
                 </div>
 
-            </div>
+                <div class="panel-control-estudio-carsce-encabezado-pie">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Portal central de control de estudio y seguimiento académico</span>
+                </div>
 
+            </div>
         </header>
 
 
         <!-- =====================================================
              INDICADORES
              ===================================================== -->
-
         <section class="panel-control-estudio-carsce-indicadores">
 
-
             <article class="panel-control-estudio-carsce-indicador">
-
-                <div class="panel-control-estudio-carsce-indicador-icono">
+                <div class="panel-control-estudio-carsce-indicador-icono panel-control-estudio-carsce-icono-azul">
                     <i class="fa-solid fa-user-graduate"></i>
                 </div>
-
                 <div class="panel-control-estudio-carsce-indicador-informacion">
-
-                    <span>
-                        Estudiantes registrados
-                    </span>
-
-                    <strong>
-                        {{ total_estudiantes|default:"0" }}
-                    </strong>
-
+                    <span>Estudiantes registrados</span>
+                    <strong>{{ total_estudiantes|default:"0" }}</strong>
                 </div>
-
             </article>
 
-
             <article class="panel-control-estudio-carsce-indicador">
-
-                <div class="panel-control-estudio-carsce-indicador-icono">
+                <div class="panel-control-estudio-carsce-indicador-icono panel-control-estudio-carsce-icono-verde">
                     <i class="fa-solid fa-user-check"></i>
                 </div>
-
                 <div class="panel-control-estudio-carsce-indicador-informacion">
-
-                    <span>
-                        Estudiantes inscritos
-                    </span>
-
-                    <strong>
-                        {{ total_inscritos|default:"0" }}
-                    </strong>
-
+                    <span>Estudiantes inscritos</span>
+                    <strong>{{ total_inscritos|default:"0" }}</strong>
                 </div>
-
             </article>
 
-
             <article class="panel-control-estudio-carsce-indicador">
-
-                <div class="panel-control-estudio-carsce-indicador-icono">
+                <div class="panel-control-estudio-carsce-indicador-icono panel-control-estudio-carsce-icono-naranja">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
-
                 <div class="panel-control-estudio-carsce-indicador-informacion">
-
-                    <span>
-                        Gestión académica
-                    </span>
-
-                    <strong>
-                        Activa
-                    </strong>
-
+                    <span>Gestión académica</span>
+                    <strong>Activa</strong>
                 </div>
-
             </article>
-
 
             <article class="panel-control-estudio-carsce-indicador">
-
-                <div class="panel-control-estudio-carsce-indicador-icono">
+                <div class="panel-control-estudio-carsce-indicador-icono panel-control-estudio-carsce-icono-morado">
                     <i class="fa-solid fa-calendar-check"></i>
                 </div>
-
                 <div class="panel-control-estudio-carsce-indicador-informacion">
-
-                    <span>
-                        Período académico
-                    </span>
-
-                    <strong>
-                        En curso
-                    </strong>
-
+                    <span>Período académico</span>
+                    <strong>En curso</strong>
                 </div>
-
             </article>
-
 
         </section>
 
 
         <!-- =====================================================
-             CONTENIDO PRINCIPAL
+             CONTENIDO PRINCIPAL (Módulos de Opciones)
              ===================================================== -->
-
         <div class="panel-control-estudio-carsce-contenido">
 
-
-            <!-- =================================================
-                 GESTIÓN ACADÉMICA
-                 ================================================= -->
-
+            <!-- 01. GESTIÓN ACADÉMICA -->
             <section class="panel-control-estudio-carsce-modulo">
-
                 <div class="panel-control-estudio-carsce-modulo-cabecera">
-
                     <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
-
                     <div class="panel-control-estudio-carsce-modulo-informacion">
-
-                        <h2>
-                            Gestión Académica
-                        </h2>
-
-                        <p>
-                            Administra y consulta la información académica
-                            de los estudiantes.
-                        </p>
-
+                        <h2>Gestión Académica</h2>
+                        <p>Administra y consulta la información académica de los estudiantes.</p>
                     </div>
-
                 </div>
 
-
                 <div class="panel-control-estudio-carsce-opciones">
-
-                    <a
-                        href="{% url 'lista_expedientes' %}"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
+                    <a href="{% url 'lista_expedientes' %}" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-folder-open"></i>
                         </span>
@@ -201,406 +120,183 @@
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
                     </a>
 
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-users"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Estudiantes
-                            </strong>
-
-                            <small>
-                                Consultar y gestionar información académica.
-                            </small>
-
+                            <strong>Estudiantes</strong>
+                            <small>Consultar y gestionar información académica.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
 
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-file-signature"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Inscripciones
-                            </strong>
-
-                            <small>
-                                Gestionar procesos de inscripción académica.
-                            </small>
-
+                            <strong>Inscripciones</strong>
+                            <small>Gestionar procesos de inscripción académica.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
 
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-book-open-reader"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Unidades Curriculares
-                            </strong>
-
-                            <small>
-                                Consultar materias y organización académica.
-                            </small>
-
+                            <strong>Unidades Curriculares</strong>
+                            <small>Consultar materias y organización académica.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
 
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-layer-group"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Secciones Académicas
-                            </strong>
-
-                            <small>
-                                Consultar y organizar secciones.
-                            </small>
-
+                            <strong>Secciones Académicas</strong>
+                            <small>Consultar y organizar secciones.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
-
-
                 </div>
-
             </section>
 
 
-            <!-- =================================================
-                 CALIFICACIONES
-                 ================================================= -->
-
+            <!-- 02. CALIFICACIONES -->
             <section class="panel-control-estudio-carsce-modulo">
-
                 <div class="panel-control-estudio-carsce-modulo-cabecera">
-
                     <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-chart-column"></i>
                     </div>
-
                     <div class="panel-control-estudio-carsce-modulo-informacion">
-
-                        <h2>
-                            Calificaciones
-                        </h2>
-
-                        <p>
-                            Consulta y supervisa los procesos relacionados
-                            con las evaluaciones académicas.
-                        </p>
-
+                        <h2>Calificaciones</h2>
+                        <p>Consulta y supervisa los procesos relacionados con las evaluaciones académicas.</p>
                     </div>
-
                 </div>
 
-
                 <div class="panel-control-estudio-carsce-opciones">
-
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Registro de Calificaciones
-                            </strong>
-
-                            <small>
-                                Gestionar las calificaciones académicas.
-                            </small>
-
+                            <strong>Registro de Calificaciones</strong>
+                            <small>Gestionar las calificaciones académicas.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
 
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Consulta de Calificaciones
-                            </strong>
-
-                            <small>
-                                Consultar resultados académicos.
-                            </small>
-
+                            <strong>Consulta de Calificaciones</strong>
+                            <small>Consultar resultados académicos.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
 
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-lock"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Cierre de Calificaciones
-                            </strong>
-
-                            <small>
-                                Supervisar el cierre de los períodos académicos.
-                            </small>
-
+                            <strong>Cierre de Calificaciones</strong>
+                            <small>Supervisar el cierre de los períodos académicos.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
-
-
                 </div>
-
             </section>
 
 
-            <!-- =================================================
-                 PLANIFICACIÓN ACADÉMICA
-                 ================================================= -->
-
+            <!-- 03. PLANIFICACIÓN ACADÉMICA -->
             <section class="panel-control-estudio-carsce-modulo">
-
                 <div class="panel-control-estudio-carsce-modulo-cabecera">
-
                     <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-calendar-days"></i>
                     </div>
-
                     <div class="panel-control-estudio-carsce-modulo-informacion">
-
-                        <h2>
-                            Planificación Académica
-                        </h2>
-
-                        <p>
-                            Consulta los períodos y procesos académicos
-                            establecidos por la institución.
-                        </p>
-
+                        <h2>Planificación Académica</h2>
+                        <p>Consulta los períodos y procesos académicos establecidos por la institución.</p>
                     </div>
-
                 </div>
 
-
                 <div class="panel-control-estudio-carsce-opciones">
-
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-calendar"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Calendario Académico
-                            </strong>
-
-                            <small>
-                                Consultar fechas y períodos académicos.
-                            </small>
-
+                            <strong>Calendario Académico</strong>
+                            <small>Consultar fechas y períodos académicos.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
 
-
-                    <a
-                        href="#"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="#" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-clock-rotate-left"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Períodos Académicos
-                            </strong>
-
-                            <small>
-                                Consultar períodos disponibles y activos.
-                            </small>
-
+                            <strong>Períodos Académicos</strong>
+                            <small>Consultar períodos disponibles y activos.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
-
-
                 </div>
-
             </section>
 
 
-            <!-- =================================================
-                 REPORTES ACADÉMICOS
-                 ================================================= -->
-
+            <!-- 04. REPORTES ACADÉMICOS -->
             <section class="panel-control-estudio-carsce-modulo">
-
                 <div class="panel-control-estudio-carsce-modulo-cabecera">
-
                     <div class="panel-control-estudio-carsce-modulo-icono">
                         <i class="fa-solid fa-chart-pie"></i>
                     </div>
-
                     <div class="panel-control-estudio-carsce-modulo-informacion">
-
-                        <h2>
-                            Reportes Académicos
-                        </h2>
-
-                        <p>
-                            Consulta información consolidada para el
-                            seguimiento académico institucional.
-                        </p>
-
+                        <h2>Reportes Académicos</h2>
+                        <p>Consulta información consolidada para el seguimiento académico institucional.</p>
                     </div>
-
                 </div>
 
-
                 <div class="panel-control-estudio-carsce-opciones">
-
-
-                    <a
-                        href="{% url 'reportes_control_estudio' %}"
-                        class="panel-control-estudio-carsce-opcion"
-                    >
-
+                    <a href="{% url 'reportes_control_estudio' %}" class="panel-control-estudio-carsce-opcion">
                         <span class="panel-control-estudio-carsce-opcion-icono">
                             <i class="fa-solid fa-file-lines"></i>
                         </span>
-
                         <span class="panel-control-estudio-carsce-opcion-informacion">
-
-                            <strong>
-                                Centro de Reportes
-                            </strong>
-
-                            <small>
-                                Consultar y generar los reportes académicos
-                                disponibles.
-                            </small>
-
+                            <strong>Centro de Reportes</strong>
+                            <small>Consultar y generar los reportes académicos disponibles.</small>
                         </span>
-
                         <i class="fa-solid fa-chevron-right panel-control-estudio-carsce-opcion-flecha"></i>
-
                     </a>
-
-
                 </div>
-
             </section>
 
 
-            <!-- =================================================
+            <!-- =====================================================
                  PIE INFORMATIVO
-                 ================================================= -->
-
+                 ===================================================== -->
             <footer class="panel-control-estudio-carsce-pie">
-
                 <div class="panel-control-estudio-carsce-pie-icono">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
-
                 <div class="panel-control-estudio-carsce-pie-informacion">
-
-                    <strong>
-                        Control de Estudio
-                    </strong>
-
+                    <strong>Control de Estudio</strong>
                     <span>
                         Gestión y seguimiento de los procesos académicos
                         de la Universidad Politécnica Territorial del Estado
                         Barinas José Félix Ribas.
                     </span>
-
                 </div>
-
             </footer>
-
 
         </div>
 

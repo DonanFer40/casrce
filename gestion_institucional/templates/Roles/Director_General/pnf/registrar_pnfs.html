@@ -1,172 +1,357 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<section id="director-pnf-gestion-carsce">
 
-<section id="director-pnf-registrar-carsce">
+    <div class="director-pnf-gestion-carsce-contenedor">
 
-    <div class="director-pnf-registrar-carsce-contenedor">
+        <!-- ENCABEZADO DEL MÓDULO -->
 
-        <!-- ENCABEZADO DE LA PÁGINA -->
-        <div class="director-pnf-registrar-carsce-encabezado">
-            <div class="director-pnf-registrar-carsce-identificacion">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>GESTIÓN ACADÉMICA</span>
+        <header class="director-pnf-gestion-carsce-encabezado">
+
+            <div class="director-pnf-gestion-carsce-identificacion">
+
+                <span class="director-pnf-gestion-carsce-etiqueta">
+                    Gestión Académica
+                </span>
+
+                <span class="director-pnf-gestion-carsce-seccion">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Programas de Formación
+                </span>
+
             </div>
 
-            <div class="director-pnf-registrar-carsce-presentacion">
-                <h2 class="director-pnf-registrar-carsce-titulo">
-                    Programa Nacional de Formación
-                </h2>
+            <div class="director-pnf-gestion-carsce-presentacion">
 
-                <p class="director-pnf-registrar-carsce-descripcion">
-                    Registra un nuevo Programa Nacional de Formación dentro del sistema CARSCE.
+                <h1 class="director-pnf-gestion-carsce-titulo">
+                    Programas Nacionales de Formación
+                </h1>
+
+                <p class="director-pnf-gestion-carsce-descripcion">
+                    Administra los Programas Nacionales de Formación registrados
+                    en el sistema CASRCE, incorporando nuevos programas y
+                    consultando la información disponible.
                 </p>
-            </div>
-        </div>
-
-
-        <!-- CONTENEDOR DEL FORMULARIO -->
-        <div class="director-pnf-registrar-carsce-formulario-contenedor">
-
-            <div class="director-pnf-registrar-carsce-formulario-cabecera">
-
-                <div class="director-pnf-registrar-carsce-formulario-icono">
-                    <i class="fa-solid fa-plus"></i>
-                </div>
-
-                <div class="director-pnf-registrar-carsce-formulario-informacion">
-                    <h3 class="director-pnf-registrar-carsce-formulario-titulo">
-                        Registrar PNF
-                    </h3>
-
-                    <p class="director-pnf-registrar-carsce-formulario-descripcion">
-                        Completa los datos solicitados para registrar el programa.
-                    </p>
-                </div>
 
             </div>
 
-
-            <form method="post"
-                  id="formulario_registrar"
-                  class="director-pnf-registrar-carsce-formulario">
-
-                {% csrf_token %}
+        </header>
 
 
-                <!-- FILA: NOMBRE Y CÓDIGO -->
-                <div class="director-pnf-registrar-carsce-fila">
+        <!-- DISTRIBUCIÓN: REGISTRO Y LISTADO -->
 
-                    <div class="director-pnf-registrar-carsce-campo">
-
-                        <label for="registrar_nombre_pnf">
-                            Nombre del PNF:
-                        </label>
-
-                        <div class="director-pnf-registrar-carsce-control">
-                            <i class="fa-solid fa-book-open"></i>
-
-                            <input
-                                type="text"
-                                name="nombrepnf"
-                                id="registrar_nombre_pnf"
-                                autocomplete="off"
-                                placeholder="Ej. Informática"
-                                required>
-                        </div>
-
-                        <small id="mensaje_nombre_pnf"
-                               class="director-pnf-registrar-carsce-mensaje">
-                        </small>
-
-                    </div>
+        <div class="director-pnf-gestion-carsce-distribucion">
 
 
-                    <div class="director-pnf-registrar-carsce-campo">
+            <!-- TARJETA DE REGISTRO -->
 
-                        <label for="registrar_codigo_pnf">
-                            Código del PNF:
-                        </label>
+            <div class="director-pnf-gestion-carsce-tarjeta director-pnf-gestion-carsce-tarjeta-registro">
 
-                        <div class="director-pnf-registrar-carsce-control">
-                            <i class="fa-solid fa-barcode"></i>
+                <div class="director-pnf-gestion-carsce-tarjeta-cabecera">
 
-                            <input
-                                type="text"
-                                name="codigopnf"
-                                id="registrar_codigo_pnf"
-                                maxlength="8"
-                                minlength="8"
-                                pattern="[A-Z]{5}[0-9]{3}"
-                                title="Debe contener 5 letras mayúsculas y 3 números. Ejemplo: CARRE010"
-                                placeholder="Ej. INF00101"
-                                autocomplete="off"
-                                required>
-                        </div>
-
-                        <small id="mensaje_codigo_pnf"
-                               class="director-pnf-registrar-carsce-mensaje">
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PERIODO ACADÉMICO -->
-                <div class="director-pnf-registrar-carsce-campo">
-
-                    <label for="registrar_periodo_academico">
-                        Periodo Académico:
-                    </label>
-
-                    <div class="director-pnf-registrar-carsce-control director-pnf-registrar-carsce-control-select">
-                        <i class="fa-solid fa-calendar-days"></i>
-
-                        <select
-                            name="periodoacademico"
-                            id="registrar_periodo_academico"
-                            required>
-
-                            <option value="">
-                                Elije el Periodo Académico
-                            </option>
-
-                            <option value="Trimestre">
-                                Trimestre
-                            </option>
-
-                            <option value="Semestre">
-                                Semestre
-                            </option>
-
-                        </select>
-
-                        <i class="fa-solid fa-chevron-down director-pnf-registrar-carsce-flecha"></i>
-                    </div>
-
-                </div>
-
-
-                <!-- ACCIÓN -->
-                <div class="director-pnf-registrar-carsce-acciones">
-
-                    <button
-                        type="submit"
-                        id="btn_registro"
-                        class="director-pnf-registrar-carsce-boton">
-
+                    <div class="director-pnf-gestion-carsce-tarjeta-icono">
                         <i class="fa-solid fa-plus"></i>
+                    </div>
 
-                        <span>Registrar PNF</span>
+                    <div class="director-pnf-gestion-carsce-tarjeta-informacion">
 
-                    </button>
+                        <h2>Registrar PNF</h2>
+
+                        <span>
+                            Completa los datos solicitados para incorporar un nuevo programa.
+                        </span>
+
+                    </div>
+
+                    <span class="director-pnf-gestion-carsce-distintivo">
+                        <i class="fa-solid fa-book-open"></i>
+                        Registro académico
+                    </span>
 
                 </div>
 
-            </form>
+
+                <form
+                    method="post"
+                    id="formulario_registrar"
+                    class="director-pnf-gestion-carsce-formulario"
+                >
+
+                    {% csrf_token %}
+
+                    <input type="hidden" name="id_pnf" id="id_pnf">
+
+                    <div
+                        id="aviso_modo_edicion"
+                        class="director-pnf-gestion-carsce-aviso-edicion"
+                        role="status"
+                        aria-live="polite"
+                        hidden
+                    >
+                        <div class="director-pnf-gestion-carsce-aviso-icono">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+
+                        <div class="director-pnf-gestion-carsce-aviso-texto">
+                            <strong>Modo de modificación activado</strong>
+                            <span>
+                                Estás modificando un PNF existente. Realiza los cambios necesarios.
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL PROGRAMA -->
+
+                    <div class="director-pnf-gestion-carsce-grupo-seccion">
+
+                        <div class="director-pnf-gestion-carsce-seccion-cabecera">
+
+                            <span class="director-pnf-gestion-carsce-seccion-numero">
+                                01
+                            </span>
+
+                            <div>
+                                <h3>Información del programa</h3>
+                                <p>
+                                    Indica el nombre, código y periodo académico correspondiente.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOMBRE -->
+
+                        <div class="director-pnf-gestion-carsce-campo">
+
+                            <label for="registrar_nombre_pnf">
+                                <i class="fa-solid fa-book-open"></i>
+                                Nombre del PNF
+                            </label>
+
+                            <div class="director-pnf-gestion-carsce-control">
+
+                                <input
+                                    type="text"
+                                    name="nombrepnf"
+                                    id="registrar_nombre_pnf"
+                                    autocomplete="off"
+                                    placeholder="Ej. Informática"
+                                    required
+                                >
+
+                            </div>
+
+                            <small
+                                id="mensaje_nombre_pnf"
+                                class="director-pnf-gestion-carsce-mensaje"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- CÓDIGO -->
+
+                        <div class="director-pnf-gestion-carsce-campo">
+
+                            <label for="registrar_codigo_pnf">
+                                <i class="fa-solid fa-barcode"></i>
+                                Código del PNF
+                            </label>
+
+                            <div class="director-pnf-gestion-carsce-control">
+
+                                <input
+                                    type="text"
+                                    name="codigopnf"
+                                    id="registrar_codigo_pnf"
+                                    maxlength="8"
+                                    minlength="8"
+                                    pattern="[A-Z]{5}[0-9]{3}"
+                                    title="Debe contener 5 letras mayúsculas y 3 números. Ejemplo: CARRE010"
+                                    placeholder="Ej. CARRE010"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                            </div>
+
+                            <small
+                                id="mensaje_codigo_pnf"
+                                class="director-pnf-gestion-carsce-mensaje"
+                                aria-live="polite"
+                            ></small>
+
+                        </div>
+
+
+                        <!-- PERIODO ACADÉMICO -->
+
+                        <div class="director-pnf-gestion-carsce-campo director-pnf-gestion-carsce-campo-periodo">
+
+                            <label for="registrar_periodo_academico">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                Periodo académico
+                            </label>
+
+                            <div class="director-pnf-gestion-carsce-control director-pnf-gestion-carsce-control-select">
+
+                                <select
+                                    name="periodoacademico"
+                                    id="registrar_periodo_academico"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Elige el periodo académico
+                                    </option>
+
+                                    <option value="Trimestre">
+                                        Trimestre
+                                    </option>
+
+                                    <option value="Semestre">
+                                        Semestre
+                                    </option>
+
+                                </select>
+
+                                <i class="fa-solid fa-chevron-down director-pnf-gestion-carsce-flecha"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACCIONES -->
+
+                    <div class="director-pnf-gestion-carsce-acciones">
+
+                        <div class="director-pnf-gestion-carsce-nota">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Verifica la información antes de registrar el programa.
+                        </div>
+
+                        <div class="director-pnf-gestion-carsce-botones">
+
+                            <button
+                                type="button"
+                                id="btn_cancelar_edicion"
+                                class="director-pnf-gestion-carsce-boton-cancelar"
+                                hidden
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Cancelar</span>
+                            </button>
+
+                            <button
+                                type="submit"
+                                id="btn_registro"
+                                class="director-pnf-gestion-carsce-boton"
+                            >
+                                <span class="director-pnf-gestion-carsce-spinner" hidden></span>
+
+                                <i class="fa-solid fa-plus" id="icono_btn_registro"></i>
+
+                                <span id="texto_btn_registro">Registrar PNF</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- TARJETA DE PNFS REGISTRADOS -->
+
+            <div
+                id="tabla_pnfs"
+                class="director-pnf-gestion-carsce-tarjeta director-pnf-gestion-carsce-tarjeta-listado"
+            >
+
+                <div class="director-pnf-gestion-carsce-tarjeta-cabecera">
+
+                    <div class="director-pnf-gestion-carsce-tarjeta-icono director-pnf-gestion-carsce-tarjeta-icono-listado">
+                        <i class="fa-solid fa-list"></i>
+                    </div>
+
+                    <div class="director-pnf-gestion-carsce-tarjeta-informacion">
+
+                        <h2>PNFs Registrados</h2>
+
+                        <span>
+                            Consulta los programas disponibles actualmente en el sistema.
+                        </span>
+
+                    </div>
+
+                    <span class="director-pnf-gestion-carsce-distintivo">
+                        <i class="fa-solid fa-database"></i>
+                        Registro de programas
+                    </span>
+
+                </div>
+
+
+                <!-- CONTENIDO DEL LISTADO -->
+
+                <div class="director-pnf-gestion-carsce-listado">
+
+                    <div class="director-pnf-gestion-carsce-seccion-cabecera">
+
+                        <span class="director-pnf-gestion-carsce-seccion-numero">
+                            02
+                        </span>
+
+                        <div>
+                            <h3>Programas disponibles</h3>
+                            <p>
+                                Listado de los Programas Nacionales de Formación registrados.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- TABLA RESPONSIVE -->
+
+                    <div class="director-pnf-gestion-carsce-tabla-contenedor">
+
+                        <div class="director-pnf-gestion-carsce-tabla-scroll">
+
+                            <table class="director-pnf-gestion-carsce-tabla">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">PNF</th>
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Periodo académico</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="pnfs_registrados">
+                                    <!-- Los datos se cargarán mediante JavaScript. -->
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -175,6 +360,10 @@
 </section>
 
 
+<!-- JAVASCRIPT DEL MÓDULO -->
+
 <script src="{% static 'Funciones_Asincronas/Director_General/PNF/registrar_pnfs.js' %}"></script>
+
+<script src="{% static 'Funciones_Asincronas/Director_General/PNF/visualizar_pnf.js' %}"></script>
 
 {% endblock %}

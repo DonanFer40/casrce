@@ -1,0 +1,41 @@
+[1mdiff --git a/proyecto_carsce/settings.py b/proyecto_carsce/settings.py[m
+[1mindex a969b0c..e12634f 100644[m
+[1m--- a/proyecto_carsce/settings.py[m
+[1m+++ b/proyecto_carsce/settings.py[m
+[36m@@ -4,6 +4,7 @@[m [mConfiguración editable directamente desde este archivo.[m
+ """[m
+ [m
+ from pathlib import Path[m
+[32m+[m[32mimport os[m
+ [m
+ BASE_DIR = Path(__file__).resolve().parent.parent[m
+ [m
+[36m@@ -20,13 +21,13 @@[m [mDEBUG = True[m
+ SECRET_KEY = "gzr28!#=8$5%0$t(dvbrt3r%q_068$08fg@6x#tb(e6=1ap+kz"[m
+ [m
+ ALLOWED_HOSTS = [[m
+[31m-    "localhost",[m
+[31m-    "127.0.0.1",[m
+[31m-    "192.168.0.103",[m
+[31m-    "10.213.194.229",[m
+[31m-    # "tudominio.com",[m
+[32m+[m[32m    "casrce.uptbarinas.online", 'localhost', '127.0.0.1'[m
+ ][m
+ [m
+[32m+[m[32mCSRF_TRUSTED_ORIGINS = [[m
+[32m+[m[32m    "https://casrce.uptbarinas.online",[m
+[32m+[m[32m][m[41m   [m
+[32m+[m
+ CSRF_TRUSTED_ORIGINS = [[m
+     # "https://tudominio.com",[m
+ ][m
+[36m@@ -227,8 +228,7 @@[m [mGEMINI_MODEL = os.environ.get([m
+ # SEGURIDAD ADMINISTRATIVA CASRCE[m
+ # Las credenciales se reciben desde la terminal.[m
+ # ---------------------------------------------------------------------[m
+[31m-from pathlib import Path[m
+[31m-import os[m
+[32m+[m
+ [m
+ CASRCE_ADMIN_USERNAME = os.environ.get("CASRCE_ADMIN_USERNAME")[m
+ [m

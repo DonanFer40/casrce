@@ -26,23 +26,32 @@ class SeguridadAdminMiddleware:
         if not (path == "/admin" or path.startswith("/admin/")):
             return self.get_response(request)
 
-        # Bootstrap inicial: si TOTP aún no está activado, se permite abrir
-        # únicamente el formulario de login de Django para que el superusuario
-        # pueda autenticarse y visitar /seguridad-admin/configurar-totp/.
         es_login = path.rstrip("/") == "/admin/login"
-        if es_login:
-            try:
-                from inicio_sesion.models import ConfiguracionSeguridadAdmin
-                from inicio_sesion.services.seguridad_admin_service import obtener_superusuario_autorizado
-                admin_configurado = obtener_superusuario_autorizado()
-                totp_activado = ConfiguracionSeguridadAdmin.objects.filter(
-                    usuario=admin_configurado, totp_activo=True
-                ).exists()
-                if not totp_activado:
-                    return self.get_response(request)
-            except Exception:
-                logger.exception("No se pudo comprobar el estado inicial de TOTP.")
-                return HttpResponseForbidden("No se puede validar la configuración administrativa.")
+        try:
+            from inicio_sesion.models import ConfiguracionSeguridadAdmin
+            from inicio_sesion.services.seguridad_admin_service import obtener_superusuario_autorizado
+            admin_configurado = obtener_superusuario_autorizado()
+            totp_activado = ConfiguracionSeguridadAdmin.objects.filter(
+                usuario=admin_configurado, totp_activo=True
+            ).exists()
+        except Exception:
+            logger.exception("No se pudo comprobar el estado inicial de TOTP.")
+            return HttpResponseForbidden(
+                "No se puede validar la configuración administrativa."
+            )
+
+        if not totp_activado:
+            if es_login:
+                return self.get_response(request)
+            if (
+                request.user.is_authenticated
+                and request.user.pk == admin_configurado.pk
+                and request.user.is_active
+                and request.user.is_staff
+                and request.user.is_superuser
+            ):
+                return redirect("/seguridad-admin/configurar-totp/")
+            return redirect("/admin/login/")
 
         # La página de login solo se muestra si ya se superó la puerta externa.
         autorizado = request.session.get(SESION_AUTORIZADO) is True
@@ -74,7 +83,7 @@ class SeguridadAdminMiddleware:
         # todas las páginas y operaciones exigen la misma identidad verificada.
         if not es_login:
             if not request.user.is_authenticated:
-                return redirect("/admin/login/")
+                return redirect("/admin/login/?next=/admin/")
             if (
                 not request.user.is_active
                 or not request.user.is_staff

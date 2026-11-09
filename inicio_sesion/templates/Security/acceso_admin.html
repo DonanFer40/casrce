@@ -8,7 +8,13 @@
     <link rel="stylesheet" href="{% static 'Estilos/security/seguridad_admin.css' %}">
 </head>
 <body>
-<main class="seguridad-admin">
+<main class="seguridad-admin"
+      id="seguridad-admin-flujo"
+      data-url-correo="{% url 'verificar_codigo_correo_admin' %}"
+      data-url-totp="{% url 'verificar_totp_admin' %}"
+      data-url-reenviar="{% url 'reenviar_codigo_admin' %}"
+      data-url-cancelar="{% url 'cancelar_acceso_admin' %}"
+      data-url-login="{% url 'inicio_sesion' %}">
     <section class="seguridad-admin__panel">
         <h1>Verificación administrativa</h1>
         <p>Completa las verificaciones para continuar al panel administrativo.</p>

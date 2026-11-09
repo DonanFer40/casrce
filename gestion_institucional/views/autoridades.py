@@ -18,6 +18,7 @@ def auts_reg(request):
         "nombres",
         "apellidos",
         "cedula_identidad",
+        "genero",
         "cargo",
         "resolucion"
     )

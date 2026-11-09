@@ -1,0 +1,421 @@
+#planes-docentes {
+    width: 100%;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL
+   ========================================================= */
+
+#planes-docentes
+.planes-docentes-encabezado {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 215px;
+    padding: 35px 42px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Decoración superior circular estilo CARSCE */
+#planes-docentes
+.planes-docentes-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+#planes-docentes
+.planes-docentes-encabezado p {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+#planes-docentes
+.planes-docentes-encabezado h1 {
+    margin: 4px 0 6px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 2;
+}
+
+#planes-docentes
+.planes-docentes-encabezado span {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 720px;
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   02. AGRUPACIÓN POR NÚCLEO
+   ========================================================= */
+
+#planes-docentes
+.planes-docentes-nucleo {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+#planes-docentes
+.planes-docentes-nucleo > h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 0 0;
+    color: var(--color-azul-profundo);
+    font-size: 18px;
+    font-weight: 800;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+#planes-docentes
+.planes-docentes-nucleo > h2 i {
+    color: var(--color-rojo-acento);
+    font-size: 16px;
+}
+
+#planes-docentes
+.planes-docentes-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+
+/* =========================================================
+   03. TARJETA DE PLANIFICACIÓN DOCENTE
+   ========================================================= */
+
+#planes-docentes
+.planes-docentes-tarjeta {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#planes-docentes
+.planes-docentes-tarjeta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-elevada);
+}
+
+#planes-docentes
+.planes-docentes-tarjeta-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E9EEF5;
+}
+
+#planes-docentes
+.planes-docentes-etiqueta {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: #64748B;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+#planes-docentes
+.planes-docentes-tarjeta-encabezado h3 {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#planes-docentes
+.planes-docentes-periodo {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    border-radius: 6px;
+    color: #2563EB;
+    font-size: 11px;
+    font-weight: 750;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   04. METADATOS DE LA TARJETA (DL)
+   ========================================================= */
+
+#planes-docentes
+.planes-docentes-datos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+#planes-docentes
+.planes-docentes-datos div {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+}
+
+#planes-docentes
+.planes-docentes-datos dt {
+    color: var(--texto-mutado);
+    font-size: 9px;
+    font-weight: 750;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+#planes-docentes
+.planes-docentes-datos dd {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#planes-docentes
+.planes-docentes-observacion {
+    margin: 0;
+    padding: 12px 14px;
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 8px;
+    color: #B45309;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   05. UNIDADES Y EVALUACIONES (DETAILS / SUMMARY)
+   ========================================================= */
+
+#planes-docentes
+.planes-docentes-unidades {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+#planes-docentes
+.planes-docentes-unidades > h4 {
+    margin: 0 0 4px 0;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+#planes-docentes
+.planes-docentes-unidades details {
+    background: var(--color-blanco);
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+#planes-docentes
+.planes-docentes-unidades details[open] {
+    border-color: var(--color-azul-hover);
+}
+
+#planes-docentes
+.planes-docentes-unidades summary {
+    padding: 11px 14px;
+    font-size: 12px;
+    font-weight: 750;
+    color: var(--color-azul-profundo);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-blanco);
+    user-select: none;
+    transition: background 0.15s ease;
+}
+
+#planes-docentes
+.planes-docentes-unidades summary:hover {
+    background: #F1F5F9;
+}
+
+#planes-docentes
+.planes-docentes-unidades summary span {
+    padding: 2px 7px;
+    background: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+#planes-docentes
+.planes-docentes-unidades details > p {
+    margin: 0;
+    padding: 12px 14px;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
+    border-top: 1px solid #F1F5F9;
+    background: #FAFAFA;
+}
+
+#planes-docentes
+.planes-docentes-unidades ul {
+    margin: 0;
+    padding: 8px 14px 12px 30px;
+    border-top: 1px dashed #E2E8F0;
+    background: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#planes-docentes
+.planes-docentes-unidades li {
+    color: var(--texto-principal);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#planes-docentes
+.planes-docentes-vacio {
+    margin: 0;
+    color: var(--texto-mutado);
+    font-size: 11px;
+    font-style: italic;
+    text-align: center;
+    padding: 6px 0;
+}
+
+
+/* =========================================================
+   06. ESTADOS VACÍOS GENERALES
+   ========================================================= */
+
+#planes-docentes
+.planes-docentes-sin-resultados {
+    padding: 40px 20px;
+    text-align: center;
+    background: var(--color-blanco);
+    border: 1px dashed #CBD5E1;
+    border-radius: var(--radio-card);
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 650;
+    box-shadow: var(--sombra-card);
+}
+
+
+/* =========================================================
+   07. RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 800px) {
+    #planes-docentes {
+        padding: 20px 14px 35px;
+    }
+
+    #planes-docentes
+    .planes-docentes-encabezado {
+        padding: 24px 20px;
+    }
+
+    #planes-docentes
+    .planes-docentes-encabezado::before {
+        display: none;
+    }
+
+    #planes-docentes
+    .planes-docentes-lista {
+        grid-template-columns: 1fr;
+    }
+
+    #planes-docentes
+    .planes-docentes-datos {
+        grid-template-columns: 1fr;
+    }
+}

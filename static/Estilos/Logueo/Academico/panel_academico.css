@@ -1,649 +1,551 @@
-/* ============================================================
-   PANEL ACADÉMICO - CARSCE
-   ============================================================ */
-
 #panel-academico-carsce {
     width: 100%;
-    min-height: 100%;
-    padding: 4px 0 30px;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
     color: var(--texto-principal);
+    overflow-x: hidden;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     width: 100%;
-    max-width: 1050px;
+    max-width: 1500px;
+    min-width: 0;
     margin: 0 auto;
 }
 
 
-/* ============================================================
-   ENCABEZADO
-   ============================================================ */
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL
+   ========================================================= */
 
+#panel-academico-carsce
 .panel-academico-carsce-encabezado {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 25px;
-    margin-bottom: 24px;
-}
-
-.panel-academico-carsce-presentacion {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
     min-width: 0;
+    height: auto;
+    min-height: 260px;
+    padding: 42px 48px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
 }
 
+#panel-academico-carsce
+.panel-academico-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 14px;
+}
+
+/* Decoraciones circulares de fondo */
+#panel-academico-carsce
+.panel-academico-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 290px;
+    height: 290px;
+    top: -140px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 130px;
+    height: 130px;
+    right: -45px;
+    bottom: -65px;
+    border: 18px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#panel-academico-carsce
 .panel-academico-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-etiqueta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-
-    padding: 7px 12px;
-
-    color: var(--color-azul-hover);
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-    border-radius: 7px;
-
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .07em;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
 }
 
-.panel-academico-carsce-titulo {
-    margin-top: 9px;
-
-    font-size: 1.55rem;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -.02em;
+#panel-academico-carsce
+.panel-academico-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
-.panel-academico-carsce-titulo span {
-    color: var(--color-azul-hover);
-    font-weight: 600;
+#panel-academico-carsce
+.panel-academico-carsce-presentacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
 }
 
-.panel-academico-carsce-descripcion {
-    max-width: 800px;
-    margin-top: 7px;
+#panel-academico-carsce
+.panel-academico-carsce-informacion {
+    flex: 1;
+    min-width: 280px;
+}
 
+#panel-academico-carsce
+.panel-academico-carsce-informacion h1 {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-sistema {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 6px;
+    color: #2563EB;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: normal;
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-informacion p {
+    max-width: 680px;
+    margin: 0;
     color: var(--texto-secundario);
-
-    font-size: .82rem;
-    line-height: 1.55;
+    font-size: 13px;
+    line-height: 1.7;
 }
 
-
-/* ============================================================
-   ROLES
-   ============================================================ */
-
+#panel-academico-carsce
 .panel-academico-carsce-roles {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 7px;
-
-    max-width: 330px;
+    gap: 8px;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-rol {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-
-    padding: 7px 11px;
-
-    color: #334155;
-    background: #FFFFFF;
-
+    gap: 6px;
+    padding: 8px 14px;
+    background: #F8FAFC;
     border: 1px solid var(--color-borde-fino);
-    border-radius: 7px;
-
-    font-size: .67rem;
-    font-weight: 600;
-
-    box-shadow: var(--sombra-card);
+    border-radius: 8px;
+    color: var(--color-azul-profundo);
+    font-size: 11px;
+    font-weight: 750;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-rol i {
-    color: var(--color-azul-hover);
-    font-size: .75rem;
+    color: var(--color-rojo-acento);
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
 }
 
 
-/* ============================================================
-   RESUMEN
-   ============================================================ */
+/* =========================================================
+   02. RESUMEN DE PERFILES (TARJETAS)
+   ========================================================= */
 
+#panel-academico-carsce
 .panel-academico-carsce-resumen {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 15px;
-
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-resumen-card {
     display: flex;
     align-items: center;
-    gap: 13px;
-
-    min-width: 0;
-    padding: 16px 17px;
-
+    gap: 16px;
+    padding: 20px;
     background: var(--color-blanco);
     border: 1px solid var(--color-borde-fino);
     border-radius: var(--radio-card);
-
     box-shadow: var(--sombra-card);
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-resumen-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    flex: 0 0 40px;
-    width: 40px;
-    height: 40px;
-
-    color: var(--color-azul-hover);
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
     background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-    border-radius: 9px;
+    border: 1px solid #BFDBFE;
+    border-radius: 10px;
+    color: #2563EB;
+    font-size: 18px;
 }
 
-.panel-academico-carsce-resumen-icono i {
-    font-size: .9rem;
-}
-
+#panel-academico-carsce
 .panel-academico-carsce-resumen-contenido {
     display: flex;
     flex-direction: column;
-
     min-width: 0;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-resumen-contenido span {
-    margin-bottom: 3px;
-
-    color: var(--texto-mutado);
-
-    font-size: .59rem;
-    font-weight: 700;
-    letter-spacing: .07em;
-}
-
-.panel-academico-carsce-resumen-contenido strong {
-    overflow: hidden;
-
-    color: var(--color-azul-card);
-
-    font-size: .77rem;
-    font-weight: 650;
-    line-height: 1.3;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.panel-academico-carsce-resumen-contenido small {
-    margin-top: 3px;
-
     color: var(--texto-secundario);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
 
-    font-size: .64rem;
-    line-height: 1.35;
+#panel-academico-carsce
+.panel-academico-carsce-resumen-contenido strong {
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+    font-weight: 800;
+    margin: 2px 0;
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-resumen-contenido small {
+    color: var(--texto-secundario);
+    font-size: 11px;
 }
 
 
-/* ============================================================
-   CONTENIDO
-   ============================================================ */
+/* =========================================================
+   03. CONTENIDO ACADÉMICO Y MÓDULOS
+   ========================================================= */
 
+#panel-academico-carsce
 .panel-academico-carsce-contenido {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 24px;
+    width: 100%;
+}
+
+#panel-academico-carsce
+.panel-academico-carsce-modulo {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-}
-
-
-/* ============================================================
-   MÓDULOS
-   ============================================================ */
-
-.panel-academico-carsce-modulo {
+    gap: 20px;
     width: 100%;
-
-    padding: 24px 26px 25px;
-
+    padding: 25px;
     background: var(--color-blanco);
-
     border: 1px solid var(--color-borde-fino);
     border-radius: var(--radio-card);
-
-    box-shadow: var(--sombra-card);
+    box-shadow: var(--sombra-elevada);
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-modulo-cabecera {
     display: flex;
-    align-items: flex-start;
-    gap: 13px;
-
-    margin-bottom: 20px;
-    padding-bottom: 19px;
-
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 18px;
     border-bottom: 1px solid var(--color-borde-fino);
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-modulo-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    flex: 0 0 43px;
-    width: 43px;
-    height: 43px;
-
-    color: var(--color-blanco);
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563EB 0%,
-            #1D4ED8 100%
-        );
-
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
-
-    box-shadow:
-        0 5px 12px rgba(37, 99, 235, .18);
+    color: var(--color-azul-profundo);
+    font-size: 18px;
 }
 
-.panel-academico-carsce-modulo-icono i {
-    font-size: .9rem;
-}
-
+#panel-academico-carsce
 .panel-academico-carsce-modulo-presentacion {
+    flex: 1;
     min-width: 0;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-modulo-etiqueta {
-    display: block;
-
+    display: inline-block;
     margin-bottom: 3px;
-
-    color: var(--color-azul-hover);
-
-    font-size: .6rem;
-    font-weight: 700;
-    letter-spacing: .08em;
+    color: var(--color-rojo-acento);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-modulo-presentacion h2 {
-    color: var(--color-azul-card);
-
-    font-size: .98rem;
-    font-weight: 650;
-    line-height: 1.35;
+    margin: 0 0 4px 0;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-modulo-presentacion p {
-    max-width: 720px;
-    margin-top: 4px;
-
+    margin: 0;
     color: var(--texto-secundario);
-
-    font-size: .7rem;
+    font-size: 11px;
     line-height: 1.5;
 }
 
 
-/* ============================================================
-   ACCESOS
-   ============================================================ */
+/* =========================================================
+   04. LISTA DE ACCESOS RÁPIDOS
+   ========================================================= */
 
+#panel-academico-carsce
 .panel-academico-carsce-accesos {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-acceso {
     display: flex;
     align-items: center;
-    gap: 12px;
-
-    min-width: 0;
-
-    padding: 13px 14px;
-
-    color: inherit;
-    text-decoration: none;
-
-    background: #FFFFFF;
-
+    gap: 16px;
+    width: 100%;
+    padding: 15px 18px;
+    background: #F8FAFC;
     border: 1px solid var(--color-borde-fino);
     border-radius: 9px;
-
-    transition:
-        border-color .2s ease,
-        box-shadow .2s ease,
-        transform .2s ease,
-        background .2s ease;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-acceso:hover {
-    background: #F8FAFC;
-    border-color: #BFDBFE;
-
-    box-shadow: var(--sombra-card);
-
+    background: #F1F5F9;
+    border-color: var(--color-azul-hover);
     transform: translateY(-1px);
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-acceso-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    flex: 0 0 35px;
-    width: 35px;
-    height: 35px;
-
-    color: var(--color-azul-hover);
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
     border-radius: 8px;
+    color: var(--color-azul-profundo);
+    font-size: 15px;
 }
 
-.panel-academico-carsce-acceso-icono i {
-    font-size: .76rem;
-}
-
+#panel-academico-carsce
 .panel-academico-carsce-acceso-contenido {
     display: flex;
     flex-direction: column;
-
-    min-width: 0;
     flex: 1;
+    min-width: 0;
+    gap: 2px;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-acceso-contenido strong {
-    color: #1E293B;
-
-    font-size: .73rem;
-    font-weight: 650;
-    line-height: 1.35;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-acceso-contenido small {
-    margin-top: 3px;
-
     color: var(--texto-secundario);
-
-    font-size: .63rem;
+    font-size: 11px;
     line-height: 1.4;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-acceso-flecha {
-    flex: 0 0 auto;
-
-    color: #94A3B8;
-
-    font-size: .65rem;
-
-    transition:
-        color .2s ease,
-        transform .2s ease;
+    color: var(--texto-mutado);
+    font-size: 11px;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.panel-academico-carsce-acceso:hover
-.panel-academico-carsce-acceso-flecha {
+#panel-academico-carsce
+.panel-academico-carsce-acceso:hover .panel-academico-carsce-acceso-flecha {
+    transform: translateX(4px);
     color: var(--color-azul-hover);
-    transform: translateX(3px);
 }
 
 
-/* ============================================================
-   AVISO PERFIL INTEGRADO
-   ============================================================ */
+/* =========================================================
+   05. AVISO DE PERFIL INTEGRADO
+   ========================================================= */
 
+#panel-academico-carsce
 .panel-academico-carsce-aviso {
     display: flex;
     align-items: flex-start;
-    gap: 13px;
-
-    margin-top: 18px;
-    padding: 16px 18px;
-
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-    border-radius: 10px;
+    gap: 14px;
+    width: 100%;
+    padding: 18px 22px;
+    background: #F8FAFC;
+    border: 1px solid #CBD5E1;
+    border-left: 4px solid var(--color-azul-profundo);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-aviso-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    flex: 0 0 34px;
-    width: 34px;
-    height: 34px;
-
-    color: var(--color-azul-hover);
-    background: #FFFFFF;
-
-    border: 1px solid #DBEAFE;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
     border-radius: 8px;
+    color: #2563EB;
+    font-size: 15px;
+    margin-top: 2px;
 }
 
-.panel-academico-carsce-aviso-icono i {
-    font-size: .8rem;
-}
-
+#panel-academico-carsce
 .panel-academico-carsce-aviso-contenido {
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-aviso-contenido strong {
-    display: block;
-
-    color: #1E3A8A;
-
-    font-size: .75rem;
-    font-weight: 650;
+    color: var(--color-azul-profundo);
+    font-size: 13px;
+    font-weight: 800;
 }
 
+#panel-academico-carsce
 .panel-academico-carsce-aviso-contenido p {
-    margin-top: 4px;
-
-    color: #475569;
-
-    font-size: .66rem;
-    line-height: 1.5;
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 12px;
+    line-height: 1.6;
 }
 
 
-/* ============================================================
-   RESPONSIVE — 900 PX
-   ============================================================ */
+/* =========================================================
+   06. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================= */
 
-@media (max-width: 900px) {
-
-    .panel-academico-carsce-contenedor {
-        padding: 0 18px;
+@media (max-width: 1024px) {
+    #panel-academico-carsce
+    .panel-academico-carsce-contenido {
+        grid-template-columns: minmax(0, 1fr);
     }
-
-    .panel-academico-carsce-titulo {
-        font-size: 1.4rem;
-    }
-
-    .panel-academico-carsce-encabezado {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 14px;
-    }
-
-    .panel-academico-carsce-roles {
-        justify-content: flex-start;
-        max-width: none;
-    }
-
 }
 
-
-/* ============================================================
-   RESPONSIVE — 700 PX
-   ============================================================ */
-
-@media (max-width: 700px) {
-
+@media (max-width: 650px) {
     #panel-academico-carsce {
-        padding-top: 0;
+        padding: 20px 13px 35px;
     }
 
-    .panel-academico-carsce-contenedor {
-        padding: 0 14px;
+    #panel-academico-carsce
+    .panel-academico-carsce-encabezado {
+        padding: 24px 20px;
+        min-height: auto;
     }
 
-    .panel-academico-carsce-titulo {
-        font-size: 1.28rem;
+    #panel-academico-carsce
+    .panel-academico-carsce-encabezado::before,
+    #panel-academico-carsce
+    .panel-academico-carsce-encabezado::after {
+        display: none;
     }
 
-    .panel-academico-carsce-descripcion {
-        font-size: .78rem;
-    }
-
+    #panel-academico-carsce
     .panel-academico-carsce-resumen {
-        grid-template-columns: 1fr;
-        gap: 10px;
+        grid-template-columns: minmax(0, 1fr);
     }
-
-    .panel-academico-carsce-modulo {
-        padding: 21px;
-    }
-
-    .panel-academico-carsce-accesos {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-
-/* ============================================================
-   RESPONSIVE — 520 PX
-   ============================================================ */
-
-@media (max-width: 520px) {
-
-    .panel-academico-carsce-contenedor {
-        padding: 0 10px;
-    }
-
-    .panel-academico-carsce-identificacion {
-        padding: 6px 9px;
-        font-size: .62rem;
-    }
-
-    .panel-academico-carsce-titulo {
-        font-size: 1.15rem;
-    }
-
-    .panel-academico-carsce-descripcion {
-        font-size: .74rem;
-    }
-
-    .panel-academico-carsce-roles {
-        gap: 5px;
-    }
-
-    .panel-academico-carsce-rol {
-        padding: 6px 9px;
-        font-size: .61rem;
-    }
-
-    .panel-academico-carsce-resumen-card {
-        padding: 14px;
-    }
-
-    .panel-academico-carsce-modulo {
-        padding: 18px 16px 20px;
-    }
-
-    .panel-academico-carsce-modulo-cabecera {
-        gap: 10px;
-        margin-bottom: 17px;
-        padding-bottom: 16px;
-    }
-
-    .panel-academico-carsce-modulo-icono {
-        flex-basis: 38px;
-        width: 38px;
-        height: 38px;
-    }
-
-    .panel-academico-carsce-modulo-presentacion h2 {
-        font-size: .9rem;
-    }
-
-    .panel-academico-carsce-modulo-presentacion p {
-        font-size: .65rem;
-    }
-
-    .panel-academico-carsce-acceso {
-        padding: 12px;
-    }
-
-}
-
-
-/* ============================================================
-   RESPONSIVE — 390 PX
-   ============================================================ */
-
-@media (max-width: 390px) {
-
-    .panel-academico-carsce-contenedor {
-        padding: 0 8px;
-    }
-
-    .panel-academico-carsce-titulo {
-        font-size: 1.05rem;
-    }
-
-    .panel-academico-carsce-modulo {
-        padding: 16px 13px 18px;
-    }
-
-    .panel-academico-carsce-modulo-icono {
-        flex-basis: 34px;
-        width: 34px;
-        height: 34px;
-    }
-
-    .panel-academico-carsce-modulo-presentacion h2 {
-        font-size: .84rem;
-    }
-
-    .panel-academico-carsce-acceso-icono {
-        flex-basis: 32px;
-        width: 32px;
-        height: 32px;
-    }
-
-    .panel-academico-carsce-acceso-contenido strong {
-        font-size: .69rem;
-    }
-
-    .panel-academico-carsce-acceso-contenido small {
-        font-size: .59rem;
-    }
-
 }

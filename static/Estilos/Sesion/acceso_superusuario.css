@@ -1,0 +1,25 @@
+.AccesoInstitucionalCASRCE-admin-inicial {
+    margin: 20px 0 0;
+    padding: 13px 15px;
+    background: #f5f8fb;
+    border: 1px solid #e0e7ef;
+    border-radius: 9px;
+    text-align: center;
+}
+
+.AccesoInstitucionalCASRCE-admin-inicial p {
+    margin: 0 0 6px;
+    color: #637287;
+    font-size: 12px;
+}
+
+.AccesoInstitucionalCASRCE-admin-inicial a {
+    color: #1d5b86;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.AccesoInstitucionalCASRCE-admin-inicial a:hover {
+    text-decoration: underline;
+}

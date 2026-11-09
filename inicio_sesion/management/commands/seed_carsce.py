@@ -1,1307 +1,713 @@
-from datetime import date, timedelta
+# -*- coding: utf-8 -*-
+"""
+Comando de carga sintética para CASRCE.
 
-from django.core.management.base import BaseCommand
-from django.db import transaction
+USO:
+    python manage.py seed_carsce --dry-run
+    python manage.py seed_carsce --confirmar
+
+La simulación es el comportamiento predeterminado: ejecuta las operaciones
+dentro de una transacción y luego revierte todos los cambios.
+
+IMPORTANTE:
+- No actualiza registros existentes.
+- Solo crea registros faltantes.
+- No crea documentos falsos, códigos de verificación ni credenciales TOTP.
+- Las cuentas de personal usan tipo_cuenta="ADMIN" porque el modelo Cuenta
+  actual solo contempla ADMIN y EST. Docente y CoordinadorPNF son perfiles
+  académicos asociados a esas cuentas.
+- No genera materias, planificaciones ni calificaciones. La relación
+  DocenteAsignadoMateria está limitada por el modelo actual a un principal
+  activo y un secundario por MateriaAsignada (globalmente, no por núcleo).
+"""
+
+from datetime import date, timedelta
+import random
+
+from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.hashers import make_password
-from django.utils import timezone
+from django.db import transaction
 
 from inicio_sesion.models import (
     Usuario,
     Cuenta,
-    Nucleos,
-    Pnf,
+    Residencia,
     Contacto,
     Nacimiento,
+    Pnf,
+    Nucleos,
     PNFNucleo,
-    Residencia,
     SeccionAcademica,
     AulaAcademica,
     TrayectoAcademico,
     PeriodoAcademico,
     CalendarioAcademico,
     CalendarioPeriodo,
-    Materia,
-    PeriodoAcademicoMateria,
     DatosPreofesion,
     Estudiante,
     EstatusEstudiante,
     AulaEstudiante,
-    DocumentosEstudiante,
+    ExpedienteEstudiante,
+    HistorialExpedienteEstudiante,
     InformacionSecundaria,
     ContactoAuxiliar,
-    Discapacidad,
     Docente,
-    MateriaAsignada,
-    DocenteAsignadoMateria,
     CoordinadorPNF,
     ControlEstudio,
     DirectorGeneral,
-    Autoridades,
-    Bitacora,
-    VerificacionCodigo,
-    HistorialAsignaciones,
 )
 
-from notas_academicas.models import (
-    PlanificacionAcademica,
-    DetallePlanificacion,
-    DetalleEvaluacion,
-    PromedioFinal,
-    EvaluacionReparacion,
-    DetalleEvaluacionReparacion,
-    Reparacion,
-    ModificacionReparacion,
-    DetalleModificacionReparacion,
-    Calificaciones,
-    DetalleCalificacionesUnidad,
-    HistorialModificacionNotas,
-    HistorialDetalleNota,
-    HistorialTrayectoEstudiante,
-)
+# ---------------------------------------------------------------------
+# DATOS INSTITUCIONALES OFICIALES DEL PROYECTO
+# ---------------------------------------------------------------------
+
+NUCLEOS = [
+    {"municipio": "Barinas", "direccion": "Dirección Barinas"},
+    {"municipio": "Barinitas", "direccion": "Dirección Barinitas"},
+    {"municipio": "Socopo", "direccion": "Dirección Socopó"},
+    {"municipio": "Pedraza", "direccion": "Dirección Ciudad Bolivia"},
+]
+
+PNF = [
+    {"pnf": "PNF en Sistema e Informática", "codigo": "CARRE001", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Electrónica", "codigo": "CARRE002", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Medicina Veterinaria", "codigo": "CARRE003", "periodo_academico": "Semestre"},
+    {"pnf": "PNF en Nutrición y Dietética", "codigo": "CARRE004", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Electricidad", "codigo": "CARRE005", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Mecánica", "codigo": "CARRE006", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Agroalimentación", "codigo": "CARRE007", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Construcción Civil", "codigo": "CARRE008", "periodo_academico": "Trimestre"},
+    {"pnf": "PNF en Ingeniería Industrial", "codigo": "CARRE009", "periodo_academico": "Trimestre"},
+]
+
+PNF_POR_NUCLEO = {
+    "Barinas": ["CARRE001", "CARRE002", "CARRE003", "CARRE004"],
+    "Barinitas": ["CARRE009", "CARRE005", "CARRE006", "CARRE007", "CARRE008", "CARRE001", "CARRE003"],
+    "Socopo": ["CARRE008", "CARRE005", "CARRE007", "CARRE001", "CARRE003"],
+    "Pedraza": ["CARRE007", "CARRE003"],
+}
+
+TRAYECTOS = [
+    "Trayecto Inicial",
+    "Trayecto I",
+    "Trayecto II",
+    "Trayecto III",
+    "Trayecto IV",
+    "Trayecto V",
+]
+
+PERIODOS = [
+    "Inicial Trimestre",
+    "Inicial Semestre",
+    "Reparación",
+    "Tramo I",
+    "Tramo II",
+    "Tramo III",
+    "Semestre I",
+    "Semestre II",
+]
+
+NOMBRES = [
+    "Alejandro", "Andrea", "Andrés", "Ángel", "Camila", "Carlos",
+    "Daniel", "Daniela", "David", "Diego", "Elena", "Fernando",
+    "Gabriela", "Isabel", "Javier", "José", "Laura", "Luis",
+    "María", "Mariana", "Miguel", "Natalia", "Pedro", "Rafael",
+    "Samuel", "Valentina", "Victoria", "William", "Yuliana", "Zuleima",
+]
+APELLIDOS = [
+    "Acosta", "Aguilar", "Aguirre", "Alvarado", "Álvarez", "Arias",
+    "Barrios", "Blanco", "Bravo", "Cabrera", "Castillo", "Contreras",
+    "Díaz", "Domínguez", "Escalona", "Fernández", "Flores", "García",
+    "Gómez", "González", "Gutiérrez", "Hernández", "Jiménez", "López",
+    "Martínez", "Mendoza", "Morales", "Pérez", "Ramírez", "Rivas",
+    "Rodríguez", "Rojas", "Sánchez", "Suárez", "Torres", "Vargas",
+]
+
+PARROQUIAS = [
+    "Barinas", "Alto Barinas", "El Carmen", "Corazón de Jesús",
+    "Barinitas", "Altamira", "Socopó", "Ciudad Bolivia",
+]
+
+PASSWORD_PRUEBA = "CASRCE-Prueba-2026!"
+
+class SimulacionRevertida(Exception):
+    """Señal interna para revertir la transacción de simulación."""
 
 
 class Command(BaseCommand):
+    help = "Genera cuentas y registros sintéticos de prueba para CASRCE."
 
-    help = "Carga datos completos de prueba para CARSCE."
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--confirmar",
+            action="store_true",
+            help="Confirma y guarda la carga. Sin esta opción solo simula.",
+        )
+        parser.add_argument(
+            "--dry-run",
+            action="store_true",
+            help="Ejecuta una simulación y revierte todos los cambios (predeterminado).",
+        )
 
     def handle(self, *args, **options):
+        confirmar = options["confirmar"]
+        if confirmar and options["dry_run"]:
+            raise CommandError("No combines --confirmar con --dry-run.")
 
-        self.stdout.write(
-            self.style.WARNING(
-                "\n============================================\n"
-                "       CARGANDO DATOS DE PRUEBA CARSCE\n"
-                "============================================\n"
+        self.rng = random.Random(20261108)
+        self.contadores = {}
+        self.password_hash = make_password(PASSWORD_PRUEBA)
+
+        modo = "CARGA REAL" if confirmar else "SIMULACIÓN (sin guardar)"
+        self.stdout.write("\n" + "=" * 68)
+        self.stdout.write(self.style.MIGRATE_HEADING(f"CASRCE — {modo}"))
+        self.stdout.write("=" * 68)
+
+        try:
+            with transaction.atomic():
+                self.crear_catalogos()
+                estructura = self.obtener_estructura()
+                personal = self.crear_personal(estructura)
+                self.crear_estudiantes(estructura, personal)
+
+                self.stdout.write("\nRESUMEN DE OPERACIONES:")
+                for nombre, cantidad in sorted(self.contadores.items()):
+                    self.stdout.write(f"  {nombre}: {cantidad}")
+
+                if not confirmar:
+                    raise SimulacionRevertida()
+
+        except SimulacionRevertida:
+            self.stdout.write(self.style.WARNING(
+                "\nSimulación terminada: la transacción fue revertida. "
+                "La base de datos no conserva ningún registro de esta ejecución."
+            ))
+            self.stdout.write(
+                "Si el resumen es correcto, ejecuta nuevamente con --confirmar."
             )
+            return
+
+        self.stdout.write(self.style.SUCCESS(
+            "\nCarga confirmada correctamente. Los registros existentes no fueron modificados."
+        ))
+        self.stdout.write(
+            f"Contraseña temporal común de las cuentas sintéticas: {PASSWORD_PRUEBA}"
+        )
+        self.stdout.write(self.style.WARNING(
+            "Estas son cuentas de prueba. Cámbialas o elimínalas antes de habilitar "
+            "el uso institucional real."
+        ))
+
+    # -----------------------------------------------------------------
+    # UTILIDADES
+    # -----------------------------------------------------------------
+
+    def sumar(self, etiqueta, creado):
+        if creado:
+            self.contadores[etiqueta] = self.contadores.get(etiqueta, 0) + 1
+
+    def obtener_o_crear(self, modelo, etiqueta, criterios, defaults=None):
+        objeto, creado = modelo.objects.get_or_create(
+            **criterios,
+            defaults=defaults or {},
+        )
+        self.sumar(etiqueta, creado)
+        return objeto
+
+    def crear_usuario_cuenta(self, username, cedula, nombres, apellidos, tipo_cuenta):
+        usuario = Usuario.objects.filter(cedula_identidad=cedula).first()
+        if usuario is None:
+            usuario = Usuario.objects.create(
+                nombres=nombres,
+                apellidos=apellidos,
+                genero=self.rng.choice(["Femenino", "Masculino"]),
+                cedula_identidad=cedula,
+                estado_civil=self.rng.choice(["Soltero", "Casado"]),
+            )
+            self.sumar("Usuarios", True)
+        else:
+            self.sumar("Usuarios existentes", False)
+
+        cuenta = Cuenta.objects.filter(usuario=username).first()
+        if cuenta is None:
+            Cuenta.objects.create(
+                id_usuario=usuario,
+                usuario=username,
+                clave=self.password_hash,
+                tipo_cuenta=tipo_cuenta,
+            )
+            self.sumar("Cuentas", True)
+        elif cuenta.id_usuario_id != usuario.id_usuario:
+            raise CommandError(
+                f"El usuario de acceso '{username}' ya pertenece a otra persona. "
+                "Se detuvo la carga para no alterar datos."
+            )
+        else:
+            self.sumar("Cuentas existentes", False)
+
+        self.crear_datos_personales(usuario, username)
+        return usuario
+
+    def crear_datos_personales(self, usuario, username):
+        indice = sum(ord(c) for c in username) % len(PARROQUIAS)
+        municipio = self.rng.choice(["Barinas", "Barinitas", "Socopo", "Pedraza"])
+
+        self.obtener_o_crear(
+            Residencia,
+            "Residencias",
+            {"id_usuario": usuario},
+            {
+                "condicion_residencia": "Familiar",
+                "municipio": municipio,
+                "parroquia": PARROQUIAS[indice],
+                "direccion_residencia": f"Dirección sintética de prueba, sector {indice + 1}",
+            },
         )
 
-        with transaction.atomic():
-
-            # Estructura académica
-            self.crear_calendarios()
-            self.crear_materias()
-            self.crear_secciones()
-            self.crear_aulas()
-
-            # Usuarios y roles
-            self.crear_usuarios_base()
-            self.crear_roles()
-            self.crear_docentes_adicionales()
-
-            # Estudiantes
-            self.crear_estudiantes()
-            self.crear_datos_personales()
-            self.crear_inscripciones()
-
-            # Docencia
-            self.crear_materias_asignadas()
-            self.crear_docentes_asignados()
-
-            # Gestión académica
-            self.crear_planificaciones()
-            self.crear_calificaciones()
-            self.crear_promedios()
-
-            # Casos especiales
-            self.crear_reparaciones()
-            self.crear_historiales()
-
-            # Sistema
-            self.crear_autoridades()
-            self.crear_bitacora()
-            self.crear_verificaciones()
-
-        self.stdout.write(
-            self.style.SUCCESS(
-                "\n============================================\n"
-                "        SEED CARSCE COMPLETADO\n"
-                "============================================\n"
-            )
+        correo = f"{username}@casrce.test"
+        self.obtener_o_crear(
+            Contacto,
+            "Contactos",
+            {"id_usuario": usuario},
+            {
+                "telefono_suplete": None,
+                "telefono_personal": f"+584120{(sum(ord(c) for c in username) % 900000) + 100000:06d}",
+                "correo_electronico": correo,
+                "correo_alternativo": None,
+            },
         )
 
-    # ============================================================
-    # CALENDARIO
-    # ============================================================
+        fecha_nacimiento = date(
+            self.rng.randint(1980, 2007),
+            self.rng.randint(1, 12),
+            self.rng.randint(1, 28),
+        )
+        self.obtener_o_crear(
+            Nacimiento,
+            "Nacimientos",
+            {"id_usuario": usuario},
+            {
+                "pais": "Venezuela",
+                "estado": "Barinas",
+                "municipio": municipio,
+                "parroquia": PARROQUIAS[indice],
+                "direccion_nacimiento": "Centro asistencial (dato sintético)",
+                "fecha_nacimiento": fecha_nacimiento,
+            },
+        )
 
-    def crear_calendarios(self):
+    def crear_catalogos(self):
+        self.stdout.write("\n1. Verificando catálogos institucionales...")
 
-        calendario, _ = CalendarioAcademico.objects.get_or_create(
-            descripcion="Calendario Académico 2026-I",
-            defaults={
-                "fecha_inicio": date(2026, 1, 15),
-                "fecha_final": date(2026, 7, 31),
+        for datos in NUCLEOS:
+            self.obtener_o_crear(
+                Nucleos,
+                "Núcleos",
+                {"municipio": datos["municipio"]},
+                {"direccion": datos["direccion"]},
+            )
+
+        for datos in PNF:
+            self.obtener_o_crear(
+                Pnf,
+                "PNF",
+                {"codigo": datos["codigo"]},
+                {
+                    "pnf": datos["pnf"],
+                    "periodo_academico": datos["periodo_academico"],
+                },
+            )
+
+        for nombre in TRAYECTOS:
+            self.obtener_o_crear(
+                TrayectoAcademico,
+                "Trayectos",
+                {"nombre": nombre},
+            )
+
+        for nombre in PERIODOS:
+            self.obtener_o_crear(
+                PeriodoAcademico,
+                "Períodos académicos",
+                {"nombre": nombre},
+            )
+
+        nucleos = {n.municipio: n for n in Nucleos.objects.all()}
+        pnfs = {p.codigo: p for p in Pnf.objects.all()}
+
+        for municipio, codigos in PNF_POR_NUCLEO.items():
+            nucleo = nucleos.get(municipio)
+            if nucleo is None:
+                raise CommandError(f"No existe el núcleo institucional: {municipio}")
+
+            for codigo in codigos:
+                pnf = pnfs.get(codigo)
+                if pnf is None:
+                    raise CommandError(f"No existe el PNF institucional: {codigo}")
+
+                self.obtener_o_crear(
+                    PNFNucleo,
+                    "Relaciones PNF-núcleo",
+                    {"id_nucleo": nucleo, "id_pnf": pnf},
+                )
+
+        # Un calendario sintético, vinculado a los períodos ya existentes.
+        calendario = self.obtener_o_crear(
+            CalendarioAcademico,
+            "Calendarios",
+            {"descripcion": "Calendario sintético de pruebas CASRCE 2026"},
+            {
+                "fecha_inicio": date(2026, 9, 1),
+                "fecha_final": date(2026, 12, 15),
                 "activo": True,
                 "tipo": "PERIODO",
             },
         )
 
-        periodo = PeriodoAcademico.objects.filter(
-            nombre="Semestre I"
-        ).first()
+        periodos = {p.nombre: p for p in PeriodoAcademico.objects.all()}
+        for nombre in ("Inicial Trimestre", "Inicial Semestre", "Tramo I", "Semestre I"):
+            periodo = periodos.get(nombre)
+            if periodo:
+                self.obtener_o_crear(
+                    CalendarioPeriodo,
+                    "Vínculos calendario-período",
+                    {"calendario": calendario, "periodo": periodo},
+                )
 
-        if periodo:
+    def obtener_estructura(self):
+        nucleos = {n.municipio: n for n in Nucleos.objects.all()}
+        pnfs = {p.codigo: p for p in Pnf.objects.all()}
+        trayectos = {t.nombre: t for t in TrayectoAcademico.objects.all()}
+        combinaciones = []
 
-            CalendarioPeriodo.objects.get_or_create(
-                periodo=periodo,
-                calendario=calendario,
+        for municipio, codigos in PNF_POR_NUCLEO.items():
+            nucleo = nucleos[municipio]
+            for codigo in codigos:
+                combinaciones.append({
+                    "nucleo": nucleo,
+                    "pnf": pnfs[codigo],
+                    "codigo": codigo,
+                })
+
+        if len(combinaciones) != 18:
+            raise CommandError(
+                f"Se esperaban 18 combinaciones PNF-núcleo y se encontraron {len(combinaciones)}."
             )
 
-        self.stdout.write("✓ Calendario académico")
-
-    # ============================================================
-    # MATERIAS
-    # ============================================================
-
-    def crear_materias(self):
-
-        trayecto = TrayectoAcademico.objects.filter(
-            nombre="Trayecto I"
-        ).first()
-
-        if not trayecto:
-            trayecto = TrayectoAcademico.objects.first()
-
-        periodo = PeriodoAcademico.objects.filter(
-            nombre="Semestre I"
-        ).first()
-
-        if not periodo:
-            periodo = PeriodoAcademico.objects.first()
-
-        materias_por_codigo = {
-
-            "CARRE001": [
-                "Programación",
-                "Base de Datos",
-                "Sistemas Operativos",
-                "Redes de Computadoras",
-                "Ingeniería de Software",
-                "Matemática I",
-            ],
-
-            "CARRE002": [
-                "Circuitos Eléctricos",
-                "Electrónica Analógica",
-                "Electrónica Digital",
-                "Instrumentación",
-                "Microcontroladores",
-                "Matemática I",
-            ],
-
-            "CARRE003": [
-                "Anatomía Animal",
-                "Fisiología Animal",
-                "Bioquímica",
-                "Microbiología",
-                "Zoología",
-                "Matemática I",
-            ],
-
-            "CARRE004": [
-                "Circuitos Eléctricos",
-                "Máquinas Eléctricas",
-                "Instalaciones Eléctricas",
-                "Electrotecnia",
-                "Sistemas de Potencia",
-                "Matemática I",
-            ],
-
-            "CARRE005": [
-                "Mecánica I",
-                "Dibujo Técnico",
-                "Resistencia de Materiales",
-                "Termodinámica",
-                "Materiales Industriales",
-                "Matemática I",
-            ],
-
-            "CARRE006": [
-                "Agroecología",
-                "Producción Vegetal",
-                "Producción Animal",
-                "Suelos",
-                "Riego y Drenaje",
-                "Matemática I",
-            ],
-
-            "CARRE007": [
-                "Dibujo Técnico",
-                "Topografía",
-                "Materiales de Construcción",
-                "Resistencia de Materiales",
-                "Construcción I",
-                "Matemática I",
-            ],
-
-            "CARRE008": [
-                "Procesos Industriales",
-                "Control de Calidad",
-                "Seguridad Industrial",
-                "Gestión de Procesos",
-                "Mantenimiento Industrial",
-                "Matemática I",
-            ],
-
-            "CARRE009": [
-                "Fundamentos de Ingeniería",
-                "Procesos Industriales",
-                "Gestión de Calidad",
-                "Seguridad Industrial",
-                "Mantenimiento Industrial",
-                "Matemática I",
-            ],
+        return {
+            "nucleos": nucleos,
+            "pnfs": pnfs,
+            "trayectos": trayectos,
+            "combinaciones": combinaciones,
         }
 
-        for pnf in Pnf.objects.all():
+    # -----------------------------------------------------------------
+    # PERSONAL: 4 DG + 4 CONTROL + 18 COORDINADORES + 36 DOCENTES
+    # -----------------------------------------------------------------
 
-            nombres = materias_por_codigo.get(
-                pnf.codigo,
-                [
-                    "Unidad Curricular I",
-                    "Unidad Curricular II",
-                    "Unidad Curricular III",
-                    "Unidad Curricular IV",
-                    "Unidad Curricular V",
-                ],
-            )
+    def nombre_sintetico(self, numero):
+        nombre = NOMBRES[numero % len(NOMBRES)]
+        apellido1 = APELLIDOS[(numero * 3) % len(APELLIDOS)]
+        apellido2 = APELLIDOS[(numero * 7 + 5) % len(APELLIDOS)]
+        return nombre, f"{apellido1} {apellido2}"
 
-            for numero, nombre in enumerate(
-                nombres,
-                start=1,
-            ):
+    def crear_personal(self, estructura):
+        self.stdout.write("\n2. Creando personal institucional y perfiles académicos...")
 
-                materia, _ = Materia.objects.update_or_create(
-                    codigo=f"{pnf.codigo}-{numero:02d}",
-                    defaults={
-                        "nombre": nombre,
-                        "recuperacion": "Sí",
-                        "htea": 3.0,
-                        "htei": 2.0,
-                        "activa": True,
-                        "tipo_materia": "Curso",
-                        "id_trayecto": trayecto,
-                        "id_pnf": pnf,
-                        "fecha_registro": timezone.now(),
-                        "perfil_registro": "SEED",
-                    },
-                )
-
-                PeriodoAcademicoMateria.objects.get_or_create(
-                    materia=materia,
-                    periodo=periodo,
-                )
-
-        self.stdout.write("✓ Materias")
-
-    # ============================================================
-    # SECCIONES
-    # ============================================================
-
-    def crear_secciones(self):
-
-        for nombre, turno in [
-            ("A", "Diurno"),
-            ("B", "Diurno"),
-            ("C", "Nocturno"),
-        ]:
-
-            SeccionAcademica.objects.get_or_create(
-                nombre=nombre,
-                turno=turno,
-            )
-
-        self.stdout.write("✓ Secciones")
-
-    # ============================================================
-    # AULAS
-    # ============================================================
-
-    def crear_aulas(self):
-
-        secciones = list(
-            SeccionAcademica.objects.all()
-        )
-
-        if not secciones:
-            return
-
-        seccion = secciones[0]
-
-        relaciones = PNFNucleo.objects.select_related(
-            "id_nucleo",
-            "id_pnf",
-        )
-
-        for relacion in relaciones:
-
-            nucleo = relacion.id_nucleo
-            pnf = relacion.id_pnf
-
-            AulaAcademica.objects.get_or_create(
-                nombre_aula=(
-                    f"Aula {pnf.codigo} - "
-                    f"{nucleo.municipio}"
-                ),
-                id_nucleo=nucleo,
-                id_pnf=pnf,
-                defaults={
-                    "Nota": "Aula académica de prueba",
-                    "piso_edificio": "Planta baja",
-                    "tipo_aula": "Aula convencional",
-                    "id_seccion": seccion,
-                },
-            )
-
-        self.stdout.write("✓ Aulas")
-
-    # ============================================================
-    # USUARIOS ADMINISTRATIVOS
-    # ============================================================
-
-    def crear_usuarios_base(self):
-
-        usuarios = [
-            (
-                "Carlos",
-                "Rodríguez",
-                "10000001",
-                "director.general",
-            ),
-            (
-                "María",
-                "González",
-                "10000002",
-                "control.estudio",
-            ),
-            (
-                "Luis",
-                "Hernández",
-                "10000003",
-                "coordinador.pnf",
-            ),
-            (
-                "Ana",
-                "Martínez",
-                "10000004",
-                "docente.sistemas",
-            ),
-        ]
-
-        for nombres, apellidos, cedula, username in usuarios:
-
-            usuario, _ = Usuario.objects.update_or_create(
-                cedula_identidad=cedula,
-                defaults={
-                    "nombres": nombres,
-                    "apellidos": apellidos,
-                    "genero": "No especificado",
-                    "estado_civil": "Soltero(a)",
-                },
-            )
-
-            Cuenta.objects.update_or_create(
-                usuario=username,
-                defaults={
-                    "id_usuario": usuario,
-                    "clave": make_password("12345678"),
-                    "tipo_cuenta": "ADMIN",
-                },
-            )
-
-        self.stdout.write("✓ Usuarios administrativos")
-
-    # ============================================================
-    # ROLES
-    # ============================================================
-
-    def crear_roles(self):
-
-        barinas = Nucleos.objects.filter(
-            municipio="Barinas"
-        ).first()
-
-        if not barinas:
-            return
-
-        pnf = Pnf.objects.first()
-
-        director = Usuario.objects.get(
-            cedula_identidad="10000001"
-        )
-
-        control = Usuario.objects.get(
-            cedula_identidad="10000002"
-        )
-
-        coordinador = Usuario.objects.get(
-            cedula_identidad="10000003"
-        )
-
-        docente = Usuario.objects.get(
-            cedula_identidad="10000004"
-        )
-
-        DirectorGeneral.objects.get_or_create(
-            usuario=director,
-            nucleo=barinas,
-        )
-
-        ControlEstudio.objects.get_or_create(
-            usuario=control,
-            nucleo=barinas,
-        )
-
-        if pnf:
-
-            CoordinadorPNF.objects.get_or_create(
-                usuario=coordinador,
-                nucleo=barinas,
-                pnf=pnf,
-                defaults={
-                    "activo": True,
-                },
-            )
-
-            Docente.objects.get_or_create(
-                usuario=docente,
-                nucleo=barinas,
-                pnf=pnf,
-                defaults={
-                    "activo": True,
-                },
-            )
-
-        self.stdout.write("✓ Roles")
-
-    # ============================================================
-    # DOCENTES ADICIONALES
-    # ============================================================
-
-    def crear_docentes_adicionales(self):
-
-        barinas = Nucleos.objects.filter(
-            municipio="Barinas"
-        ).first()
-
-        if not barinas:
-            return
-
-        docentes = [
-            (
-                "Pedro",
-                "Mendoza",
-                "30000001",
-                "docente.electronica",
-                "CARRE002",
-            ),
-            (
-                "Laura",
-                "Rojas",
-                "30000002",
-                "docente.veterinaria",
-                "CARRE003",
-            ),
-            (
-                "Miguel",
-                "Díaz",
-                "30000003",
-                "docente.electricidad",
-                "CARRE004",
-            ),
-            (
-                "Sofía",
-                "Torres",
-                "30000004",
-                "docente.mecanica",
-                "CARRE005",
-            ),
-            (
-                "Roberto",
-                "Silva",
-                "30000005",
-                "docente.agro",
-                "CARRE006",
-            ),
-            (
-                "Elena",
-                "Vargas",
-                "30000006",
-                "docente.industrial",
-                "CARRE008",
-            ),
-        ]
-
-        for nombres, apellidos, cedula, username, codigo in docentes:
-
-            pnf = Pnf.objects.filter(
-                codigo=codigo
-            ).first()
-
-            if not pnf:
-                continue
-
-            # Solo crear el docente si ese PNF existe
-            # en el núcleo de Barinas.
-            if not PNFNucleo.objects.filter(
-                id_nucleo=barinas,
-                id_pnf=pnf,
-            ).exists():
-                continue
-
-            usuario, _ = Usuario.objects.update_or_create(
-                cedula_identidad=cedula,
-                defaults={
-                    "nombres": nombres,
-                    "apellidos": apellidos,
-                    "genero": "No especificado",
-                    "estado_civil": "Soltero(a)",
-                },
-            )
-
-            Cuenta.objects.update_or_create(
-                usuario=username,
-                defaults={
-                    "id_usuario": usuario,
-                    "clave": make_password("12345678"),
-                    "tipo_cuenta": "ADMIN",
-                },
-            )
-
-            Docente.objects.get_or_create(
-                usuario=usuario,
-                nucleo=barinas,
-                pnf=pnf,
-                defaults={
-                    "activo": True,
-                },
-            )
-
-        self.stdout.write("✓ Docentes adicionales")
-
-    # ============================================================
-    # ESTUDIANTES
-    # ============================================================
-
-    def crear_estudiantes(self):
-
-        nombres = [
-            "Juan",
-            "María",
-            "Pedro",
-            "Ana",
-            "Luis",
-            "Carla",
-            "José",
-            "Daniela",
-            "Miguel",
-            "Sofía",
-        ]
-
-        apellidos = [
-            "Pérez",
-            "González",
-            "Rodríguez",
-            "Hernández",
-            "Martínez",
-            "Díaz",
-            "Rojas",
-            "Mendoza",
-            "Torres",
-            "Silva",
-        ]
-
-        relaciones = list(
-            PNFNucleo.objects.select_related(
-                "id_nucleo",
-                "id_pnf",
-            )
-        )
-
+        resultado = {
+            "directores": {},
+            "controles": {},
+            "coordinadores": {},
+            "docentes": {},
+        }
         contador = 1
 
-        for relacion in relaciones:
+        for municipio, nucleo in estructura["nucleos"].items():
+            nombres, apellidos = self.nombre_sintetico(contador)
+            usuario = self.crear_usuario_cuenta(
+                f"dg_{municipio.lower()}",
+                f"V-{22000000 + contador}",
+                nombres,
+                apellidos,
+                "ADMIN",
+            )
+            self.obtener_o_crear(
+                DirectorGeneral,
+                "Directores Generales",
+                {"usuario": usuario, "nucleo": nucleo},
+            )
+            resultado["directores"][municipio] = usuario
+            contador += 1
 
-            nucleo = relacion.id_nucleo
-            pnf = relacion.id_pnf
+        for municipio, nucleo in estructura["nucleos"].items():
+            nombres, apellidos = self.nombre_sintetico(contador)
+            usuario = self.crear_usuario_cuenta(
+                f"control_{municipio.lower()}",
+                f"V-{22000000 + contador}",
+                nombres,
+                apellidos,
+                "ADMIN",
+            )
+            self.obtener_o_crear(
+                ControlEstudio,
+                "Perfiles Control de Estudio",
+                {"usuario": usuario, "nucleo": nucleo},
+            )
+            resultado["controles"][municipio] = usuario
+            contador += 1
 
-            # Dos estudiantes por combinación PNF/Núcleo.
-            for posicion in range(2):
+        for indice, combo in enumerate(estructura["combinaciones"], start=1):
+            nucleo = combo["nucleo"]
+            pnf = combo["pnf"]
+            username = f"coord_{combo['codigo'].lower()}_{nucleo.municipio.lower()}"
+            nombres, apellidos = self.nombre_sintetico(contador)
+            usuario = self.crear_usuario_cuenta(
+                username,
+                f"V-{22000000 + contador}",
+                nombres,
+                apellidos,
+                "ADMIN",
+            )
+            self.obtener_o_crear(
+                CoordinadorPNF,
+                "Coordinadores PNF",
+                {"usuario": usuario, "nucleo": nucleo, "pnf": pnf},
+                {"activo": True},
+            )
+            resultado["coordinadores"][(nucleo.municipio, pnf.codigo)] = usuario
+            contador += 1
 
-                cedula = str(
-                    20000000 + contador
+        for combo in estructura["combinaciones"]:
+            nucleo = combo["nucleo"]
+            pnf = combo["pnf"]
+            clave = (nucleo.municipio, pnf.codigo)
+            resultado["docentes"][clave] = []
+
+            for numero_docente in (1, 2):
+                username = (
+                    f"doc_{combo['codigo'].lower()}_"
+                    f"{nucleo.municipio.lower()}_{numero_docente}"
                 )
-
-                nombre = nombres[
-                    (contador - 1) % len(nombres)
-                ]
-
-                apellido = apellidos[
-                    (contador - 1) % len(apellidos)
-                ]
-
-                usuario, _ = Usuario.objects.update_or_create(
-                    cedula_identidad=cedula,
-                    defaults={
-                        "nombres": nombre,
-                        "apellidos": apellido,
-                        "genero": "No especificado",
-                        "estado_civil": "Soltero(a)",
-                    },
+                nombres, apellidos = self.nombre_sintetico(contador)
+                usuario = self.crear_usuario_cuenta(
+                    username,
+                    f"V-{22000000 + contador}",
+                    nombres,
+                    apellidos,
+                    "ADMIN",
                 )
-
-                Cuenta.objects.update_or_create(
-                    usuario=f"estudiante{contador:03d}",
-                    defaults={
-                        "id_usuario": usuario,
-                        "clave": make_password("12345678"),
-                        "tipo_cuenta": "EST",
-                    },
+                docente = self.obtener_o_crear(
+                    Docente,
+                    "Perfiles Docente",
+                    {"usuario": usuario, "nucleo": nucleo, "pnf": pnf},
+                    {"activo": True},
                 )
-
-                Estudiante.objects.get_or_create(
-                    usuario=usuario,
-                    nucleo=nucleo,
-                    pnf=pnf,
-                )
-
+                resultado["docentes"][clave].append(docente)
                 contador += 1
 
-        self.stdout.write(
-            f"✓ Estudiantes: {contador - 1}"
-        )
+        # Datos profesionales sintéticos para el personal.
+        perfiles = list(resultado["directores"].values())
+        perfiles += list(resultado["controles"].values())
+        perfiles += list(resultado["coordinadores"].values())
+        for docentes in resultado["docentes"].values():
+            perfiles.extend([d.usuario for d in docentes])
 
-    # ============================================================
-    # DATOS PERSONALES
-    # ============================================================
-
-    def crear_datos_personales(self):
-
-        estudiantes = list(
-            Estudiante.objects.select_related(
-                "usuario",
-                "nucleo",
-            )
-        )
-
-        for indice, estudiante in enumerate(
-            estudiantes,
-            start=1,
-        ):
-
-            usuario = estudiante.usuario
-
-            Contacto.objects.get_or_create(
-                id_usuario=usuario,
-                defaults={
-                    "telefono_personal":
-                        f"0414{indice:07d}",
-                    "telefono_suplete": "",
-                    "correo_electronico":
-                        f"estudiante{indice}@carsce.test",
+        for usuario in perfiles:
+            self.obtener_o_crear(
+                DatosPreofesion,
+                "Datos profesionales",
+                {"id_usuario": usuario},
+                {
+                    "profesion_pregrado": "Profesional (dato sintético)",
+                    "universidad_egreso_pregrado": "Institución de prueba",
+                    "pais_profesion_pregrado": "Venezuela",
                 },
             )
 
-            Nacimiento.objects.get_or_create(
-                id_usuario=usuario,
-                defaults={
-                    "pais": "Venezuela",
-                    "estado": "Barinas",
-                    "municipio": estudiante.nucleo.municipio,
-                    "parroquia": estudiante.nucleo.municipio,
-                    "direccion_nacimiento":
-                        "Dirección de nacimiento de prueba",
-                    "fecha_nacimiento": date(
-                        2000 + (indice % 6),
-                        1 + (indice % 12),
-                        1 + (indice % 25),
-                    ),
+        return resultado
+
+    # -----------------------------------------------------------------
+    # ESTUDIANTES: 36 POR CADA UNA DE LAS 18 COMBINACIONES = 648
+    # -----------------------------------------------------------------
+
+    def crear_estudiantes(self, estructura, personal):
+        self.stdout.write("\n3. Creando 648 estudiantes y sus registros asociados...")
+
+        trayecto_inicial = estructura["trayectos"]["Trayecto Inicial"]
+        numero_estudiante = 0
+        extranjeros_restantes = 65
+        grupos_restantes = len(estructura["combinaciones"])
+
+        for combo_indice, combo in enumerate(estructura["combinaciones"]):
+            nucleo = combo["nucleo"]
+            pnf = combo["pnf"]
+            clave_combo = (nucleo.municipio, pnf.codigo)
+
+            control = personal["controles"][nucleo.municipio]
+            coordinador = personal["coordinadores"][clave_combo]
+
+            codigo_seccion = f"S{combo_indice + 1:02d}"
+            seccion = self.obtener_o_crear(
+                SeccionAcademica,
+                "Secciones académicas",
+                {"nombre": codigo_seccion, "turno": "Mañana"},
+            )
+            aula = self.obtener_o_crear(
+                AulaAcademica,
+                "Aulas académicas",
+                {
+                    "nombre_aula": f"Aula de prueba {nucleo.municipio} {pnf.codigo}",
+                    "id_seccion": seccion,
+                    "id_pnf": pnf,
+                    "id_nucleo": nucleo,
+                },
+                {
+                    "Nota": "Aula creada exclusivamente para pruebas sintéticas de CASRCE.",
+                    "piso_edificio": "Planta baja",
+                    "tipo_aula": "Aula de clases",
                 },
             )
 
-            Residencia.objects.get_or_create(
-                id_usuario=usuario,
-                defaults={
-                    "condicion_residencia": "Propia",
-                    "municipio":
-                        estudiante.nucleo.municipio,
-                    "parroquia":
-                        estudiante.nucleo.municipio,
-                    "direccion_residencia":
-                        "Dirección residencial de prueba",
-                },
-            )
+            # 65 extranjeros distribuidos como 4 en 11 combinaciones y 3 en 7.
+            extranjeros_grupo = 4 if combo_indice < 11 else 3
+            grupos_restantes -= 1
 
-            InformacionSecundaria.objects.get_or_create(
-                id_usuario=usuario,
-                defaults={
-                    "tipo_institucion": "Liceo Público",
-                    "nombre_institucion":
-                        "Institución Educativa de Prueba",
-                    "fecha_grado": date(2019, 7, 15),
-                    "codigo_sni_opsu":
-                        f"OPSUSEED{indice:05d}",
-                },
-            )
+            for posicion in range(1, 37):
+                numero_estudiante += 1
+                es_extranjero = posicion <= extranjeros_grupo
+                prefijo = "E-" if es_extranjero else "V-"
+                cedula = f"{prefijo}{23000000 + numero_estudiante}"
 
-        self.stdout.write("✓ Datos personales")
+                nombres, apellidos = self.nombre_sintetico(100 + numero_estudiante)
+                username = f"estudiante{numero_estudiante:04d}"
 
-    # ============================================================
-    # INSCRIPCIONES
-    # ============================================================
+                usuario = self.crear_usuario_cuenta(
+                    username,
+                    cedula,
+                    nombres,
+                    apellidos,
+                    "EST",
+                )
 
-    def crear_inscripciones(self):
+                estudiante = self.obtener_o_crear(
+                    Estudiante,
+                    "Perfiles Estudiante",
+                    {"usuario": usuario, "nucleo": nucleo, "pnf": pnf},
+                )
 
-        trayecto = TrayectoAcademico.objects.filter(
-            nombre="Trayecto I"
-        ).first()
+                fecha_ingreso = date(2026, 9, 1)
+                estatus = self.obtener_o_crear(
+                    EstatusEstudiante,
+                    "Estatus de estudiantes",
+                    {"estudiante": estudiante, "trayecto": trayecto_inicial},
+                    {
+                        "estatus": "ACTIVO",
+                        "estado": "INSCRITO",
+                        "ingreso": "REGULAR",
+                        "descripcion_ingreso": "PRUEBA SINTETICA",
+                        "fecha_ingreso": fecha_ingreso,
+                        "registrado_por": control,
+                        "perfil_registro": "CONTROL_ESTUDIO",
+                    },
+                )
 
-        if not trayecto:
-            trayecto = TrayectoAcademico.objects.first()
-
-        estudiantes = Estudiante.objects.select_related(
-            "nucleo",
-            "pnf",
-        )
-
-        for estudiante in estudiantes:
-
-            estatus, _ = EstatusEstudiante.objects.get_or_create(
-                estudiante=estudiante,
-                trayecto=trayecto,
-                defaults={
-                    "estatus": "Activo",
-                    "estado": "Activo",
-                    "ingreso": "Regular",
-                    "descripcion_ingreso":
-                        "Ingreso regular",
-                    "fecha_ingreso": date(2026, 1, 15),
-                    "perfil_registro": "SEED",
-                    "fecha_registro": timezone.now(),
-                },
-            )
-
-            aula = AulaAcademica.objects.filter(
-                id_nucleo=estudiante.nucleo,
-                id_pnf=estudiante.pnf,
-            ).first()
-
-            if aula:
-
-                AulaEstudiante.objects.get_or_create(
-                    aula=aula,
-                    estatus=estatus,
-                    defaults={
-                        "fecha_inicio": date(2026, 1, 15),
+                self.obtener_o_crear(
+                    AulaEstudiante,
+                    "Asignaciones de aula",
+                    {"aula": aula, "estatus": estatus},
+                    {
+                        "fecha_inicio": fecha_ingreso,
+                        "fecha_final": None,
                         "estado": "Curso",
                     },
                 )
 
-        self.stdout.write("✓ Inscripciones")
-
-    # ============================================================
-    # MATERIAS ASIGNADAS
-    # ============================================================
-
-    def crear_materias_asignadas(self):
-
-        docentes = Docente.objects.select_related(
-            "usuario",
-            "pnf",
-            "nucleo",
-        )
-
-        for docente in docentes:
-
-            materias = Materia.objects.filter(
-                id_pnf=docente.pnf,
-                activa=True,
-            )[:3]
-
-            for materia in materias:
-
-                MateriaAsignada.objects.get_or_create(
-                    materia=materia,
-                    defaults={
-                        "activo": True,
-                        "registrado_por":
-                            docente.usuario,
-                        "fecha_registro":
-                            timezone.now(),
-                        "perfil_registro":
-                            "SEED",
+                self.obtener_o_crear(
+                    InformacionSecundaria,
+                    "Datos de secundaria",
+                    {"codigo_sni_opsu": f"OPSU-PRUEBA-{numero_estudiante:05d}"},
+                    {
+                        "tipo_institucion": "Pública",
+                        "nombre_institucion": f"Institución educativa de prueba {combo_indice + 1}",
+                        "fecha_grado": date(2025, 7, 15),
+                        "id_usuario": usuario,
                     },
                 )
 
-        self.stdout.write("✓ Materias asignadas")
-
-    # ============================================================
-    # DOCENTES ASIGNADOS
-    # ============================================================
-
-    def crear_docentes_asignados(self):
-
-        docentes = Docente.objects.select_related(
-            "usuario",
-            "pnf",
-        )
-
-        for docente in docentes:
-
-            asignaciones = MateriaAsignada.objects.filter(
-                materia__id_pnf=docente.pnf,
-                activo=True,
-            )[:3]
-
-            for asignacion in asignaciones:
-
-                DocenteAsignadoMateria.objects.get_or_create(
-                    materia_asignada=asignacion,
-                    defaults={
-                        "docente": docente,
-                        "rol": "PRINCIPAL",
-                        "activo": True,
-                        "registrado_por":
-                            docente.usuario,
-                        "fecha_registro":
-                            timezone.now(),
-                        "perfil_registro":
-                            "SEED",
+                self.obtener_o_crear(
+                    ContactoAuxiliar,
+                    "Contactos auxiliares",
+                    {
+                        "id_usuario": usuario,
+                        "cedula_identidad": f"V-{24000000 + numero_estudiante}",
+                    },
+                    {
+                        "nombres": "Contacto",
+                        "apellidos": f"Auxiliar de prueba {numero_estudiante:04d}",
+                        "telefono": f"+584120{(numero_estudiante % 900000) + 100000:06d}",
+                        "parentesco": "Familiar",
                     },
                 )
 
-        self.stdout.write("✓ Docentes asignados")
-
-    # ============================================================
-    # PLANIFICACIONES
-    # ============================================================
-
-    def crear_planificaciones(self):
-
-        periodo = PeriodoAcademico.objects.filter(
-            nombre="Semestre I"
-        ).first()
-
-        if not periodo:
-            periodo = PeriodoAcademico.objects.first()
-
-        for asignacion in MateriaAsignada.objects.select_related(
-            "materia",
-            "materia__id_pnf",
-        ):
-
-            pnf = asignacion.materia.id_pnf
-
-            nucleo = Nucleos.objects.filter(
-                aulas__id_pnf=pnf
-            ).first()
-
-            if not nucleo:
-                continue
-
-            plan, _ = PlanificacionAcademica.objects.get_or_create(
-                pnf=pnf,
-                nucleo=nucleo,
-                materia_asignacion=asignacion,
-                periodo_academico=periodo,
-                defaults={
-                    "activo": True,
-                    "estado_aceptacion": "ACEPTADA",
-                    "observacion":
-                        "Planificación académica de prueba.",
-                },
-            )
-
-            if plan.detalles.exists():
-                continue
-
-            for numero in range(1, 4):
-
-                ponderacion = (
-                    33.33
-                    if numero < 3
-                    else 33.34
-                )
-
-                detalle = DetallePlanificacion.objects.create(
-                    plan_academico=plan,
-                    titulo_unidad=f"Unidad {numero}",
-                    ponderacion=ponderacion,
-                    contenido_unidad=(
-                        f"Contenido académico de prueba "
-                        f"correspondiente a la unidad {numero}."
+                estados = [
+                    "PENDIENTE_REVISION",
+                    "EN_REVISION",
+                    "CON_OBSERVACIONES",
+                    "VALIDADO_ADMINISTRATIVAMENTE",
+                    "INSCRIPCION_APROBADA",
+                ]
+                estado = estados[(numero_estudiante - 1) % len(estados)]
+                defaults_expediente = {
+                    "estado": estado,
+                    "nota_gemini": "",
+                    "resultados_gemini": {},
+                    "observacion_actual": (
+                        "Registro sintético para pruebas. No representa una evaluación real."
+                        if estado == "CON_OBSERVACIONES" else ""
                     ),
-                    fecha_registro=timezone.now(),
+                }
+                if estado == "INSCRIPCION_APROBADA":
+                    defaults_expediente.update({
+                        "aprobado_por": coordinador,
+                        "fecha_aprobacion": date(2026, 9, 2),
+                        "perfil_aprobacion": "COORDINADOR_PNF",
+                    })
+
+                expediente = self.obtener_o_crear(
+                    ExpedienteEstudiante,
+                    "Expedientes estudiantiles",
+                    {"usuario": usuario},
+                    defaults_expediente,
                 )
 
-                DetalleEvaluacion.objects.create(
-                    detalle_plan=detalle,
-                    metodo_evaluacion="Evaluación escrita",
-                    porcentaje_evaluacion=100,
-                    fecha_evaluacion=date(
-                        2026,
-                        numero + 1,
-                        10,
-                    ),
-                )
-
-        self.stdout.write("✓ Planificaciones")
-
-    # ============================================================
-    # CALIFICACIONES
-    # ============================================================
-
-    def crear_calificaciones(self):
-
-        docente = Usuario.objects.filter(
-            cedula_identidad="10000004"
-        ).first()
-
-        estudiantes = Estudiante.objects.select_related(
-            "pnf",
-        )
-
-        for estudiante in estudiantes:
-
-            asignaciones = MateriaAsignada.objects.filter(
-                materia__id_pnf=estudiante.pnf,
-                activo=True,
-            )[:3]
-
-            for indice, asignacion in enumerate(
-                asignaciones
-            ):
-
-                plan = PlanificacionAcademica.objects.filter(
-                    pnf=estudiante.pnf,
-                    materia_asignacion=asignacion,
-                ).first()
-
-                periodo_materia = (
-                    PeriodoAcademicoMateria.objects.filter(
-                        materia=asignacion.materia
-                    ).first()
-                )
-
-                if not plan or not periodo_materia:
-                    continue
-
-                promedio = 12 + (
-                    (
-                        estudiante.id_estudiante
-                        + indice
-                    ) % 9
-                )
-
-                condicion = (
-                    "Aprobado"
-                    if promedio >= 10
-                    else "Reprobado"
-                )
-
-                calificacion, _ = Calificaciones.objects.get_or_create(
-                    estudiante=estudiante,
-                    materia_asignada=asignacion,
-                    trayecto=asignacion.materia.id_trayecto,
-                    defaults={
-                        "planificacion_academica":
-                            plan,
-                        "periodo_materia":
-                            periodo_materia,
-                        "promedio_tramo":
-                            promedio,
-                        "asistencia":
-                            85 + (
-                                estudiante.id_estudiante
-                                % 16
-                            ),
-                        "condicion":
-                            condicion,
-                        "fecha_promedio":
-                            date(2026, 7, 15),
-                        "registrado_por":
-                            docente,
-                        "fecha_registro":
-                            timezone.now(),
-                        "perfil_registro":
-                            "SEED",
-                        "congelada":
-                            False,
-                    },
-                )
-
-                for detalle in plan.detalles.all():
-
-                    DetalleCalificacionesUnidad.objects.get_or_create(
-                        calificacion=calificacion,
-                        unidad=detalle,
-                        defaults={
-                            "nota_unidad":
-                                promedio,
-                            "fecha_registro":
-                                timezone.now(),
-                            "perfil_registro":
-                                "SEED",
-                        },
+                # Se crea un único evento inicial por expediente; no se inventa
+                # una evaluación de Gemini ni se adjuntan archivos inexistentes.
+                if not expediente.historial.exists():
+                    HistorialExpedienteEstudiante.objects.create(
+                        expediente=expediente,
+                        estado_anterior="",
+                        estado_nuevo=expediente.estado,
+                        accion="CREACION",
+                        observacion="Registro sintético generado para pruebas de CASRCE.",
+                        realizado_por=(
+                            coordinador
+                            if expediente.estado == "INSCRIPCION_APROBADA"
+                            else control
+                        ),
+                        perfil=(
+                            "COORDINADOR_PNF"
+                            if expediente.estado == "INSCRIPCION_APROBADA"
+                            else "CONTROL_ESTUDIO"
+                        ),
                     )
+                    self.sumar("Historiales de expedientes", True)
 
-        self.stdout.write("✓ Calificaciones")
-
-    # ============================================================
-    # PROMEDIOS
-    # ============================================================
-
-    def crear_promedios(self):
-
-        for calificacion in Calificaciones.objects.select_related(
-            "estudiante",
-            "materia_asignada",
-            "trayecto",
-        ):
-
-            if not calificacion.estudiante:
-                continue
-
-            PromedioFinal.objects.get_or_create(
-                estudiante=calificacion.estudiante,
-                materia_asignacion=
-                    calificacion.materia_asignada,
-                trayecto=calificacion.trayecto,
-                defaults={
-                    "promedio_final":
-                        calificacion.promedio_tramo or 0,
-                    "asistencia":
-                        calificacion.asistencia,
-                    "estado":
-                        calificacion.condicion or "Pendiente",
-                    "fecha_promedio":
-                        calificacion.fecha_promedio
-                        or date.today(),
-                    "motivo":
-                        "Promedio generado por "
-                        "datos de prueba.",
-                },
+        if numero_estudiante != 648:
+            raise CommandError(
+                f"Se esperaban 648 estudiantes y se procesaron {numero_estudiante}."
             )
 
-        self.stdout.write("✓ Promedios finales")
-
-    # ============================================================
-    # REPARACIONES
-    # ============================================================
-
-    def crear_reparaciones(self):
-
-        nucleo = Nucleos.objects.filter(
-            municipio="Barinas"
-        ).first()
-
-        for asignacion in MateriaAsignada.objects.all()[:5]:
-
-            evaluacion, _ = EvaluacionReparacion.objects.get_or_create(
-                materia_asignacion=asignacion,
-                defaults={
-                    "pnf":
-                        asignacion.materia.id_pnf,
-                    "nucleo":
-                        nucleo,
-                    "activo":
-                        True,
-                },
-            )
-
-            if not evaluacion.detalles.exists():
-
-                DetalleEvaluacionReparacion.objects.create(
-                    evaluacion_reparacion=evaluacion,
-                    porcentaje=100,
-                    tipo_evaluacion="EXAMEN",
-                )
-
-            estudiante = Estudiante.objects.filter(
-                pnf=asignacion.materia.id_pnf
-            ).first()
-
-            if estudiante:
-
-                Reparacion.objects.get_or_create(
-                    estudiante=estudiante,
-                    evaluacion_reparacion=evaluacion,
-                    defaults={
-                        "fecha_reparacion":
-                            date(2026, 8, 10),
-                        "calificacion":
-                            14,
-                        "estado":
-                            "APROBADO",
-                    },
-                )
-
-        self.stdout.write("✓ Reparaciones")
-
-    # ============================================================
-    # HISTORIALES
-    # ============================================================
-
-    def crear_historiales(self):
-
-        usuario = Usuario.objects.filter(
-            cedula_identidad="10000002"
-        ).first()
-
-        nucleo = Nucleos.objects.filter(
-            municipio="Barinas"
-        ).first()
-
-        pnf = Pnf.objects.first()
-
-        if usuario and nucleo and pnf:
-
-            HistorialAsignaciones.objects.get_or_create(
-                usuario=usuario,
-                tipo_perfil="CONTROL_ESTUDIO",
-                nucleo=nucleo,
-                pnf=pnf,
-                accion="ASIGNACION",
-            )
-
-        trayectos = list(
-            TrayectoAcademico.objects.all()
+        self.stdout.write(
+            f"  Estudiantes procesados: {numero_estudiante} "
+            "(583 venezolanos y 65 extranjeros por prefijo de cédula)."
         )
-
-        if len(trayectos) >= 2:
-
-            estudiantes = Estudiante.objects.filter(
-                pnf=pnf
-            )[:3]
-
-            for estudiante in estudiantes:
-
-                HistorialTrayectoEstudiante.objects.get_or_create(
-                    estudiante=estudiante,
-                    anio=2026,
-                    trayecto_anterior=trayectos[0],
-                    trayecto_nuevo=trayectos[1],
-                    defaults={
-                        "cantidad_materias": 3,
-                        "materias_reprobadas": 0,
-                        "materias_mala_asistencia": 0,
-                        "estado": "Aprobado",
-                        "puede_pasar": True,
-                        "motivo":
-                            "Cumplimiento de condiciones "
-                            "académicas.",
-                    },
-                )
-
-        self.stdout.write("✓ Historiales")
-
-    # ============================================================
-    # AUTORIDADES
-    # ============================================================
-
-    def crear_autoridades(self):
-
-        autoridades = [
-            (
-                "Carlos",
-                "Rodríguez",
-                "40000001",
-                "Director General",
-                "RES-2026-001",
-            ),
-            (
-                "María",
-                "González",
-                "40000002",
-                "Control de Estudio",
-                "RES-2026-002",
-            ),
-            (
-                "Luis",
-                "Hernández",
-                "40000003",
-                "Coordinador de PNF",
-                "RES-2026-003",
-            ),
-        ]
-
-        for (
-            nombres,
-            apellidos,
-            cedula,
-            cargo,
-            resolucion,
-        ) in autoridades:
-
-            Autoridades.objects.update_or_create(
-                cedula_identidad=cedula,
-                defaults={
-                    "nombres": nombres,
-                    "apellidos": apellidos,
-                    "genero": "No especificado",
-                    "cargo": cargo,
-                    "resolucion": resolucion,
-                },
-            )
-
-        self.stdout.write("✓ Autoridades")
-
-    # ============================================================
-    # BITÁCORA
-    # ============================================================
-
-    def crear_bitacora(self):
-
-        acciones = [
-            "Inicio de sesión",
-            "Registro de estudiante",
-            "Registro de inscripción",
-            "Registro de calificación",
-            "Generación de reporte académico",
-        ]
-
-        for indice, accion in enumerate(
-            acciones,
-            start=1,
-        ):
-
-            Bitacora.objects.get_or_create(
-                nombre_usuario="seed_carsce",
-                accion=accion,
-                defaults={
-                    "fecha_hora":
-                        timezone.now()
-                        - timedelta(days=indice),
-                },
-            )
-
-        self.stdout.write("✓ Bitácora")
-
-    # ============================================================
-    # VERIFICACIONES
-    # ============================================================
-
-    def crear_verificaciones(self):
-
-        for indice in range(1, 6):
-
-            VerificacionCodigo.objects.get_or_create(
-                cedula_identidad=
-                    f"2000000{indice}",
-                codigo=f"{100000 + indice}",
-                defaults={
-                    "token":
-                        f"TOKEN-SEED-{indice:04d}",
-                    "creado":
-                        timezone.now(),
-                    "intentos":
-                        0,
-                    "activo":
-                        1,
-                    "descripcion":
-                        "Código de verificación de prueba",
-                    "fecha_expiracion":
-                        timezone.now()
-                        + timedelta(minutes=15),
-                },
-            )
-
-        self.stdout.write("✓ Verificaciones")

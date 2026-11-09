@@ -1,795 +1,502 @@
-/* =========================================================
-   PANEL CONTROL DE ESTUDIO - CARSCE
-   ========================================================= */
-
-
-/* =========================================================
-   CONTENEDOR PRINCIPAL
-   ========================================================= */
-
 #panel-control-estudio-carsce {
     width: 100%;
-    min-height: 100%;
-    padding: 4px 0 30px;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
     color: var(--texto-principal);
+    overflow-x: hidden;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-contenedor {
     width: 100%;
-    max-width: 1050px;
+    max-width: 1500px;
+    min-width: 0;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 
 /* =========================================================
-   ENCABEZADO
+   01. ENCABEZADO INSTITUCIONAL
    ========================================================= */
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-encabezado {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 30px;
-
-    margin-bottom: 24px;
-}
-
-.panel-control-estudio-carsce-encabezado-info {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
     min-width: 0;
+    height: auto;
+    min-height: 215px;
+    padding: 35px 42px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
 }
 
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 16px;
+}
+
+/* Decoración superior circular */
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-etiqueta {
     display: inline-flex;
     align-items: center;
-
-    padding: 7px 12px;
-
-    color: var(--color-azul-hover);
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 7px;
-
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .07em;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
 }
 
-.panel-control-estudio-carsce-titulo {
-    margin: 8px 0 0;
-
-    color: var(--texto-principal);
-
-    font-size: 1.55rem;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -.02em;
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
-.panel-control-estudio-carsce-descripcion {
-    max-width: 700px;
-    margin: 7px 0 0;
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-presentacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
 
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-presentacion-principal {
+    flex: 1;
+    min-width: 280px;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-presentacion-principal h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-presentacion-principal p {
+    max-width: 630px;
+    margin: 0;
     color: var(--texto-secundario);
-
-    font-size: .82rem;
-    line-height: 1.55;
+    font-size: 13px;
+    line-height: 1.6;
 }
 
-
-/* =========================================================
-   CONTEXTO DEL NÚCLEO
-   ========================================================= */
-
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-contexto {
-    flex: 0 0 auto;
-
-    display: flex;
-    align-items: center;
-    gap: 11px;
-
-    min-width: 210px;
-
-    padding: 11px 14px;
-
-    background: var(--color-blanco);
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-
-    box-shadow: var(--sombra-card);
-}
-
-.panel-control-estudio-carsce-contexto-icono {
-    flex: 0 0 36px;
-
-    width: 36px;
-    height: 36px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--color-azul-hover);
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 8px;
-
-    font-size: .82rem;
-}
-
-.panel-control-estudio-carsce-contexto-informacion {
-    min-width: 0;
-}
-
-.panel-control-estudio-carsce-contexto-informacion span {
-    display: block;
-
-    margin-bottom: 2px;
-
-    color: var(--texto-secundario);
-
-    font-size: .62rem;
-    font-weight: 500;
-}
-
-.panel-control-estudio-carsce-contexto-informacion strong {
-    display: block;
-
-    overflow: hidden;
-
-    color: var(--color-azul-card);
-
-    font-size: .72rem;
-    font-weight: 650;
-    line-height: 1.35;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   INDICADORES
-   ========================================================= */
-
-.panel-control-estudio-carsce-indicadores {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-
-    margin-bottom: 19px;
-}
-
-.panel-control-estudio-carsce-indicador {
     display: flex;
     align-items: center;
     gap: 12px;
-
-    min-width: 0;
-    padding: 15px;
-
-    background: var(--color-blanco);
+    padding: 14px 18px;
+    background: #F8FAFC;
     border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-
-    box-shadow: var(--sombra-card);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease;
+    border-radius: 8px;
 }
 
-.panel-control-estudio-carsce-indicador:hover {
-    border-color: #CBD5E1;
-    transform: translateY(-1px);
-    box-shadow: var(--sombra-hover);
-}
-
-.panel-control-estudio-carsce-indicador-icono {
-    flex: 0 0 38px;
-
-    width: 38px;
-    height: 38px;
-
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-contexto-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: var(--color-azul-hover);
+    width: 40px;
+    height: 40px;
     background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 9px;
-
-    font-size: .82rem;
+    border-radius: 8px;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
-.panel-control-estudio-carsce-indicador-informacion {
-    min-width: 0;
-}
-
-.panel-control-estudio-carsce-indicador-informacion span {
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: var(--texto-secundario);
-
-    font-size: .63rem;
-    line-height: 1.3;
-}
-
-.panel-control-estudio-carsce-indicador-informacion strong {
-    display: block;
-
-    color: var(--color-azul-card);
-
-    font-size: .92rem;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-
-/* =========================================================
-   CONTENIDO PRINCIPAL
-   ========================================================= */
-
-.panel-control-estudio-carsce-contenido {
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-contexto-informacion {
     display: flex;
     flex-direction: column;
-    gap: 17px;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-contexto-informacion span {
+    color: var(--texto-mutado);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-contexto-informacion strong {
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-encabezado-pie {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 4px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
 }
 
 
 /* =========================================================
-   MÓDULOS
+   02. INDICADORES (STATS)
    ========================================================= */
 
-.panel-control-estudio-carsce-modulo {
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-indicadores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
     width: 100%;
-    padding: 24px 26px 25px;
+}
 
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-indicador {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
     background: var(--color-blanco);
     border: 1px solid var(--color-borde-fino);
     border-radius: var(--radio-card);
-
     box-shadow: var(--sombra-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-indicador:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-elevada);
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-indicador-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+#panel-control-estudio-carsce .panel-control-estudio-carsce-icono-azul { background: #EFF6FF; color: #2563EB; }
+#panel-control-estudio-carsce .panel-control-estudio-carsce-icono-verde { background: #ECFDF5; color: #059669; }
+#panel-control-estudio-carsce .panel-control-estudio-carsce-icono-naranja { background: #FFF7ED; color: #EA580C; }
+#panel-control-estudio-carsce .panel-control-estudio-carsce-icono-morado { background: #F5F3FF; color: #7C3AED; }
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-indicador-informacion {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-indicador-informacion span {
+    color: var(--texto-secundario);
+    font-size: 11px;
+    font-weight: 650;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-indicador-informacion strong {
+    margin: 2px 0 0 0;
+    color: var(--color-azul-profundo);
+    font-size: 20px;
+    font-weight: 800;
 }
 
 
 /* =========================================================
-   CABECERA DE MÓDULO
+   03. CONTENIDO PRINCIPAL Y MÓDULOS DE OPCIONES
    ========================================================= */
 
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-modulo {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    padding: 24px;
+}
+
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-modulo-cabecera {
     display: flex;
-    align-items: flex-start;
-    gap: 13px;
-
+    align-items: center;
+    gap: 14px;
     margin-bottom: 20px;
-    padding-bottom: 18px;
-
-    border-bottom: 1px solid var(--color-borde-fino);
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E9EEF5;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-modulo-icono {
-    flex: 0 0 44px;
-
-    width: 44px;
-    height: 44px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: var(--color-blanco);
-
-    background: linear-gradient(
-        135deg,
-        #2563EB,
-        #1D4ED8
-    );
-
-    border-radius: 10px;
-
-    font-size: .92rem;
-
-    box-shadow:
-        0 5px 12px rgba(37, 99, 235, .18);
+    width: 42px;
+    height: 42px;
+    background: #EFF6FF;
+    color: #2563EB;
+    border-radius: 9px;
+    font-size: 18px;
+    flex-shrink: 0;
 }
 
-.panel-control-estudio-carsce-modulo-informacion {
-    min-width: 0;
-}
-
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-modulo-informacion h2 {
-    margin: 0;
-
-    color: var(--color-azul-card);
-
-    font-size: .98rem;
-    font-weight: 650;
-    line-height: 1.3;
+    margin: 0 0 2px 0;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+    font-weight: 800;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-modulo-informacion p {
-    max-width: 760px;
-    margin: 5px 0 0;
-
+    margin: 0;
     color: var(--texto-secundario);
-
-    font-size: .72rem;
-    line-height: 1.5;
+    font-size: 11px;
 }
 
-
-/* =========================================================
-   OPCIONES
-   ========================================================= */
-
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opciones {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opcion {
-    position: relative;
-
     display: flex;
     align-items: center;
-    gap: 11px;
-
-    min-width: 0;
-    min-height: 65px;
-
-    padding: 11px 12px;
-
-    color: inherit;
+    gap: 14px;
+    padding: 16px;
     background: #F8FAFC;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 9px;
-
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
     text-decoration: none;
-
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease,
-        box-shadow .2s ease;
+    transition: all 0.2s ease;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opcion:hover {
-    color: inherit;
     background: var(--color-blanco);
-    border-color: #BFDBFE;
-
+    border-color: var(--color-azul-hover);
     transform: translateY(-1px);
-
-    box-shadow:
-        0 5px 12px rgba(15, 23, 42, .06);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opcion-icono {
-    flex: 0 0 35px;
-
-    width: 35px;
-    height: 35px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: var(--color-azul-hover);
-
+    width: 40px;
+    height: 40px;
     background: #EFF6FF;
-    border: 1px solid #DBEAFE;
+    color: #2563EB;
     border-radius: 8px;
-
-    font-size: .76rem;
-
-    transition:
-        background .2s ease,
-        color .2s ease;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
-.panel-control-estudio-carsce-opcion:hover
-.panel-control-estudio-carsce-opcion-icono {
-    color: var(--color-blanco);
-    background: var(--color-azul-hover);
-}
-
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opcion-informacion {
     flex: 1;
     min-width: 0;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opcion-informacion strong {
     display: block;
-
-    overflow: hidden;
-
-    color: #334155;
-
-    font-size: .72rem;
-    font-weight: 650;
-    line-height: 1.35;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    margin-bottom: 2px;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opcion-informacion small {
     display: block;
-
-    overflow: hidden;
-
-    margin-top: 2px;
-
     color: var(--texto-secundario);
-
-    font-size: .62rem;
-    line-height: 1.35;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 10px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-opcion-flecha {
-    flex: 0 0 auto;
-
-    color: #94A3B8;
-
-    font-size: .68rem;
-
-    transition:
-        color .2s ease,
-        transform .2s ease;
+    color: var(--texto-mutado);
+    font-size: 11px;
+    transition: transform 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
 }
 
-.panel-control-estudio-carsce-opcion:hover
-.panel-control-estudio-carsce-opcion-flecha {
-    color: var(--color-azul-hover);
-    transform: translateX(2px);
+#panel-control-estudio-carsce
+.panel-control-estudio-carsce-opcion:hover .panel-control-estudio-carsce-opcion-flecha {
+    transform: translateX(3px);
+    color: var(--color-azul-profundo);
 }
 
 
 /* =========================================================
-   PIE INFORMATIVO
+   04. PIE INFORMATIVO
    ========================================================= */
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-pie {
     display: flex;
     align-items: center;
-    gap: 12px;
-
-    padding: 15px 17px;
-
-    background: #F8FAFC;
+    gap: 16px;
+    padding: 22px;
+    background: var(--color-blanco);
     border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-pie-icono {
-    flex: 0 0 35px;
-
-    width: 35px;
-    height: 35px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: var(--color-azul-hover);
-
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 8px;
-
-    font-size: .76rem;
+    width: 44px;
+    height: 44px;
+    background: #FEF2F2;
+    color: var(--color-rojo-acento);
+    border-radius: 10px;
+    font-size: 18px;
+    flex-shrink: 0;
 }
 
-.panel-control-estudio-carsce-pie-informacion {
-    min-width: 0;
-}
-
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-pie-informacion strong {
     display: block;
-
-    margin-bottom: 2px;
-
-    color: var(--color-azul-card);
-
-    font-size: .7rem;
-    font-weight: 650;
+    margin-bottom: 3px;
+    color: var(--color-azul-profundo);
+    font-size: 13px;
+    font-weight: 750;
 }
 
+#panel-control-estudio-carsce
 .panel-control-estudio-carsce-pie-informacion span {
-    display: block;
-
     color: var(--texto-secundario);
-
-    font-size: .63rem;
-    line-height: 1.45;
+    font-size: 11px;
+    line-height: 1.5;
 }
 
 
 /* =========================================================
-   RESPONSIVE — 900px
+   05. RESPONSIVE DESIGN
    ========================================================= */
 
-@media (max-width: 900px) {
-
-    .panel-control-estudio-carsce-titulo {
-        font-size: 1.4rem;
+@media (max-width: 650px) {
+    #panel-control-estudio-carsce {
+        padding: 20px 13px 35px;
     }
 
-    .panel-control-estudio-carsce-indicadores {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .panel-control-estudio-carsce-modulo {
-        padding: 23px 23px 24px;
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE — 700px
-   ========================================================= */
-
-@media (max-width: 700px) {
-
+    #panel-control-estudio-carsce
     .panel-control-estudio-carsce-encabezado {
-        flex-direction: column;
-        gap: 15px;
+        padding: 22px 18px;
     }
 
-    .panel-control-estudio-carsce-contexto {
-        width: 100%;
+    #panel-control-estudio-carsce
+    .panel-control-estudio-carsce-encabezado::before {
+        display: none;
     }
 
-    .panel-control-estudio-carsce-titulo {
-        font-size: 1.28rem;
-    }
-
-    .panel-control-estudio-carsce-descripcion {
-        font-size: .78rem;
-    }
-
+    #panel-control-estudio-carsce
     .panel-control-estudio-carsce-opciones {
         grid-template-columns: 1fr;
     }
 
-    .panel-control-estudio-carsce-modulo {
-        padding: 21px 20px 22px;
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE — 520px
-   ========================================================= */
-
-@media (max-width: 520px) {
-
-    #panel-control-estudio-carsce {
-        padding-top: 2px;
-    }
-
-    .panel-control-estudio-carsce-identificacion {
-        padding: 6px 10px;
-        font-size: .62rem;
-    }
-
-    .panel-control-estudio-carsce-titulo {
-        font-size: 1.15rem;
-    }
-
-    .panel-control-estudio-carsce-descripcion {
-        font-size: .74rem;
-    }
-
-
-    .panel-control-estudio-carsce-indicadores {
-        grid-template-columns: 1fr;
-        gap: 9px;
-    }
-
-    .panel-control-estudio-carsce-indicador {
-        padding: 12px;
-    }
-
-
-    .panel-control-estudio-carsce-modulo {
-        padding: 18px 16px 20px;
-        border-radius: 10px;
-    }
-
-
-    .panel-control-estudio-carsce-modulo-cabecera {
-        gap: 11px;
-
-        margin-bottom: 17px;
-        padding-bottom: 16px;
-    }
-
-
-    .panel-control-estudio-carsce-modulo-icono {
-        flex-basis: 40px;
-
-        width: 40px;
-        height: 40px;
-
-        border-radius: 9px;
-
-        font-size: .84rem;
-    }
-
-
-    .panel-control-estudio-carsce-modulo-informacion h2 {
-        font-size: .9rem;
-    }
-
-    .panel-control-estudio-carsce-modulo-informacion p {
-        font-size: .67rem;
-    }
-
-
-    .panel-control-estudio-carsce-opcion {
-        min-height: 61px;
-        padding: 10px;
-    }
-
-
-    .panel-control-estudio-carsce-opcion-icono {
-        flex-basis: 32px;
-
-        width: 32px;
-        height: 32px;
-
-        font-size: .7rem;
-    }
-
-
-    .panel-control-estudio-carsce-opcion-informacion strong {
-        font-size: .68rem;
-    }
-
-    .panel-control-estudio-carsce-opcion-informacion small {
-        font-size: .59rem;
-    }
-
-
+    #panel-control-estudio-carsce
     .panel-control-estudio-carsce-pie {
-        align-items: flex-start;
-        padding: 13px;
+        flex-direction: column;
+        text-align: center;
     }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE — 390px
-   ========================================================= */
-
-@media (max-width: 390px) {
-
-    .panel-control-estudio-carsce-identificacion {
-        padding: 6px 9px;
-        font-size: .56rem;
-    }
-
-    .panel-control-estudio-carsce-titulo {
-        font-size: 1.05rem;
-    }
-
-    .panel-control-estudio-carsce-descripcion {
-        font-size: .7rem;
-    }
-
-
-    .panel-control-estudio-carsce-contexto {
-        padding: 10px 11px;
-    }
-
-
-    .panel-control-estudio-carsce-contexto-icono {
-        flex-basis: 32px;
-
-        width: 32px;
-        height: 32px;
-
-        font-size: .7rem;
-    }
-
-    .panel-control-estudio-carsce-contexto-informacion span {
-        font-size: .57rem;
-    }
-
-    .panel-control-estudio-carsce-contexto-informacion strong {
-        font-size: .66rem;
-    }
-
-
-    .panel-control-estudio-carsce-indicador-icono {
-        flex-basis: 34px;
-
-        width: 34px;
-        height: 34px;
-
-        border-radius: 8px;
-    }
-
-    .panel-control-estudio-carsce-indicador-informacion span {
-        font-size: .59rem;
-    }
-
-    .panel-control-estudio-carsce-indicador-informacion strong {
-        font-size: .84rem;
-    }
-
-
-    .panel-control-estudio-carsce-modulo {
-        padding: 16px 13px 18px;
-    }
-
-
-    .panel-control-estudio-carsce-modulo-icono {
-        flex-basis: 36px;
-
-        width: 36px;
-        height: 36px;
-
-        font-size: .76rem;
-    }
-
-
-    .panel-control-estudio-carsce-modulo-informacion h2 {
-        font-size: .84rem;
-    }
-
-
-    .panel-control-estudio-carsce-opcion {
-        gap: 9px;
-        padding: 9px;
-    }
-
-
-    .panel-control-estudio-carsce-opcion-icono {
-        flex-basis: 30px;
-
-        width: 30px;
-        height: 30px;
-
-        border-radius: 7px;
-    }
-
-
-    .panel-control-estudio-carsce-opcion-informacion strong {
-        font-size: .65rem;
-    }
-
-    .panel-control-estudio-carsce-opcion-informacion small {
-        font-size: .56rem;
-    }
-
-
-    .panel-control-estudio-carsce-pie-icono {
-        flex-basis: 30px;
-
-        width: 30px;
-        height: 30px;
-
-        font-size: .65rem;
-    }
-
-    .panel-control-estudio-carsce-pie-informacion strong {
-        font-size: .65rem;
-    }
-
-    .panel-control-estudio-carsce-pie-informacion span {
-        font-size: .57rem;
-    }
-
 }

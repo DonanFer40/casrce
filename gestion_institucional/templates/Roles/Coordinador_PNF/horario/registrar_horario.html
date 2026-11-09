@@ -1,66 +1,81 @@
 {% extends 'Estructura/Base.html' %}
-
-{% block content %}
-
 {% load static %}
 
-<section id="modulo_horario_academico">
-   <div class="contenedor_horario_academico"> 
-       
-        <form method="post" id="formulario_registrar"> 
-            {% csrf_token %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'Estilos/horarios/horario_academico.css' %}">
 
+<section class="horario-academico">
+    <header class="horario-academico__encabezado">
+        <p class="horario-academico__etiqueta">Coordinación de PNF</p>
+        <h1>Gestión del horario académico</h1>
+        <p>Selecciona el trayecto, aula y período. Si ya hay un horario registrado, podrás consultarlo y actualizarlo aquí.</p>
+    </header>
+
+    <form method="post" id="formulario_registrar" class="horario-academico__formulario">
+        {% csrf_token %}
+
+        <div class="horario-academico__filtros">
             <div class="grupo_formulario">
-                <label for="trayectos_registrados">Trayecto</label> 
-                <select name="trayecto" id="trayectos_registrados"> 
-                    <option value="">Seleccione un trayecto</option> 
+                <label for="trayectos_registrados">Trayecto</label>
+                <select name="trayecto" id="trayectos_registrados" required>
+                    <option value="">Selecciona un trayecto</option>
                 </select>
-            </div> 
-            <div class="grupo_formulario"> 
-                <label for="periodos_academicas_registrados"> Periodo Académico </label> 
-                <select name="periodo_academico" id="periodos_academicas_registrados"> 
-                    <option value="">Seleccione un periodo</option> 
-                </select> 
-            </div> 
-            <div class="grupo_formulario"> 
-                <label for="aulas_registrados">Aula Académica</label> 
-                <select name="aula" id="aulas_registrados"> 
-                    <option value="">Seleccione un aula</option> 
-                </select> 
-            </div> 
-            <div class="grupo_formulario"> 
-                <label for="seccion_registrados"> Sección Académica </label> 
-                <select name="seccion" id="seccion_registrados"> 
-                    <option value="">Seleccione una sección</option> 
-                </select> 
-            </div> 
-            <div class="grupo_formulario"> 
-                <label for="cantidad_fila">Cantidad de Filas</label> 
-                <input type="number" name="filas" id="cantidad_fila" min="1" max="5" minlength="1" maxlength="1" placeholder="Max 5" disabled> 
-            </div> 
-
-            <div class="contenedor_tabla_horario"> 
-                <table id="tabla_horario"> 
-                    <thead> 
-                        <tr> 
-                            <th>Hora Inicio</th> 
-                            <th>Hora Final</th> 
-                            <th>Lunes</th> 
-                            <th>Martes</th> 
-                            <th>Miércoles</th> 
-                            <th>Jueves</th> 
-                            <th>Viernes</th> 
-                        </tr> 
-                    </thead> 
-                    <tbody id="contenedor_horario"></tbody> 
-                </table> 
             </div>
+            <div class="grupo_formulario">
+                <label for="aulas_registrados">Aula, PNF, núcleo y sección</label>
+                <select name="aula" id="aulas_registrados" required>
+                    <option value="">Selecciona un aula</option>
+                </select>
+            </div>
+            <div class="grupo_formulario">
+                <label for="periodos_academicas_registrados">Período académico</label>
+                <select name="periodo_academico" id="periodos_academicas_registrados" required>
+                    <option value="">Selecciona un período</option>
+                </select>
+            </div>
+        </div>
 
-            <button type="submit" id="generar_pdf"> Generar PDF </button> 
-        </form> 
-    </div>
+        <div class="horario-academico__tabla-contenedor">
+            <table class="horario-academico__tabla" id="tabla_horario">
+                <thead>
+                    <tr>
+                        <th scope="col">Hora</th>
+                        {% for codigo, nombre in dias %}
+                            <th scope="col">{{ nombre }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody id="contenedor_horario">
+                    {% for franja in franjas %}
+                    <tr>
+                        <th scope="row" class="horario-academico__hora">{{ franja.etiqueta }}</th>
+                        {% for codigo, nombre in dias %}
+                        <td>
+                            <select
+                                name="materia_{{ franja.indice }}_{{ forloop.counter0 }}"
+                                data-franja="{{ franja.indice }}"
+                                data-dia="{{ forloop.counter0 }}"
+                                aria-label="{{ nombre }}, {{ franja.etiqueta }}"
+                                disabled>
+                                <option value="">Libre</option>
+                            </select>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p id="horario_mensaje" class="horario-academico__mensaje" role="status" aria-live="polite">
+            Selecciona un trayecto, aula y período para cargar las materias disponibles.
+        </p>
+        <button type="submit" id="generar_pdf" class="horario-academico__guardar" disabled>
+            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+            Guardar o actualizar horario
+        </button>
+    </form>
 </section>
 
 <script src="{% static 'Funciones_Asincronas/Coordinador_PNF/Horario/horario_academico.js' %}"></script>
-
 {% endblock %}

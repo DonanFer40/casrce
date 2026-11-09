@@ -1,750 +1,586 @@
-/* =========================================================
-   REGISTRAR AULAS ACADÉMICAS - CARSCE
-   ========================================================= */
-
-#director-aulas-registrar-carsce {
-
+#director-aulas-gestion-carsce {
     width: 100%;
-    min-height: 100%;
-    padding: 4px 0 30px;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
     color: var(--texto-principal);
+    overflow-x: hidden;
 }
 
-
-/* =========================================================
-   CONTENEDOR PRINCIPAL
-   ========================================================= */
-
-.director-aulas-registrar-carsce-contenedor {
-
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-contenedor {
     width: 100%;
-    max-width: 1050px;
+    max-width: 1500px;
+    min-width: 0;
     margin: 0 auto;
 }
 
 
 /* =========================================================
-   ENCABEZADO
+   01. ENCABEZADO INSTITUCIONAL
    ========================================================= */
 
-.director-aulas-registrar-carsce-encabezado {
-
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
     width: 100%;
-    margin-bottom: 24px;
+    min-width: 0;
+    height: auto;
+    min-height: 215px;
+    padding: 35px 42px;
+    margin-bottom: 27px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
 }
 
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+}
 
-.director-aulas-registrar-carsce-identificacion {
+/* Decoración circular superior */
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
 
+/* Acento rojo inferior */
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 115px;
+    height: 115px;
+    right: -45px;
+    bottom: -65px;
+    border: 17px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-etiqueta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-
-    margin-bottom: 12px;
-    padding: 7px 12px;
-
-    color: var(--color-azul-hover);
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 7px;
-
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
 }
 
-
-.director-aulas-registrar-carsce-identificacion i {
-
-    font-size: 0.72rem;
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
-
-.director-aulas-registrar-carsce-presentacion {
-
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-presentacion {
     width: 100%;
+    max-width: 720px;
 }
 
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(24px, 3.5vw, 37px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
 
-.director-aulas-registrar-carsce-titulo {
-
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-presentacion p {
+    max-width: 630px;
     margin: 0;
-
-    color: var(--texto-principal);
-
-    font-size: 1.55rem;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.7;
 }
 
-
-.director-aulas-registrar-carsce-titulo span {
-
-    color: var(--color-azul-hover);
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
     font-weight: 600;
 }
 
-
-.director-aulas-registrar-carsce-descripcion {
-
-    max-width: 750px;
-
-    margin: 7px 0 0;
-
-    color: var(--texto-secundario);
-
-    font-size: 0.82rem;
-    line-height: 1.55;
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
 }
 
 
 /* =========================================================
-   TARJETA
+   02. DISTRIBUCIÓN PRINCIPAL (2 COLUMNAS)
    ========================================================= */
 
-.director-aulas-registrar-carsce-tarjeta {
-
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-distribucion {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: start;
+    gap: 24px;
     width: 100%;
-
-    padding: 26px 28px 28px;
-
-    background: var(--color-blanco);
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: var(--radio-card);
-
-    box-shadow: var(--sombra-card);
+    min-width: 0;
 }
 
-
-/* =========================================================
-   CABECERA DE TARJETA
-   ========================================================= */
-
-.director-aulas-registrar-carsce-tarjeta-cabecera {
-
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    margin-bottom: 23px;
-    padding-bottom: 21px;
-
-    border-bottom: 1px solid var(--color-borde-fino);
-}
-
-
-.director-aulas-registrar-carsce-tarjeta-icono {
-
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--color-blanco);
-
-    background: linear-gradient(
-        145deg,
-        var(--color-azul-hover),
-        #1D4ED8
-    );
-
-    border-radius: 11px;
-
-    box-shadow:
-        0 6px 14px rgba(37, 99, 235, 0.20);
-}
-
-
-.director-aulas-registrar-carsce-tarjeta-icono i {
-
-    font-size: 1rem;
-}
-
-
-.director-aulas-registrar-carsce-tarjeta-informacion {
-
+#director-aulas-registrar-carsce,
+#director-aulas-visualizar-carsce {
+    width: 100%;
     min-width: 0;
 }
 
 
-.director-aulas-registrar-carsce-tarjeta-titulo {
-
-    margin: 0;
-
-    color: var(--color-azul-card);
-
-    font-size: 1rem;
-    font-weight: 650;
-    line-height: 1.3;
-}
-
-
-.director-aulas-registrar-carsce-tarjeta-descripcion {
-
-    margin: 4px 0 0;
-
-    color: var(--texto-secundario);
-
-    font-size: 0.75rem;
-    line-height: 1.45;
-}
-
-
 /* =========================================================
-   FORMULARIO
+   03. TARJETAS (REGISTRAR Y VISUALIZAR)
    ========================================================= */
 
-.director-aulas-registrar-carsce-formulario {
-
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-tarjeta,
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tarjeta {
     width: 100%;
-}
-
-
-/* =========================================================
-   FILAS
-   ========================================================= */
-
-.director-aulas-registrar-carsce-fila {
-
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
-
-    gap: 20px;
-
-    width: 100%;
-
-    margin-bottom: 18px;
-}
-
-
-/* =========================================================
-   CAMPOS
-   ========================================================= */
-
-.director-aulas-registrar-carsce-campo {
-
-    width: 100%;
-}
-
-
-.director-aulas-registrar-carsce-campo
-> label {
-
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #334155;
-
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-
-/* =========================================================
-   CAMPO COMPLETO
-   ========================================================= */
-
-.director-aulas-registrar-carsce-campo-completo {
-
-    grid-column: 1 / -1;
-}
-
-
-/* =========================================================
-   CONTROLES
-   ========================================================= */
-
-.director-aulas-registrar-carsce-control {
-
-    position: relative;
-
-    width: 100%;
-}
-
-
-.director-aulas-registrar-carsce-control
-> i:first-child {
-
-    position: absolute;
-
-    top: 50%;
-    left: 14px;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: 0.82rem;
-
-    pointer-events: none;
-
-    z-index: 2;
-}
-
-
-/* =========================================================
-   INPUTS Y SELECTS
-   ========================================================= */
-
-.director-aulas-registrar-carsce-control input,
-.director-aulas-registrar-carsce-control select {
-
-    width: 100%;
-    height: 45px;
-
-    padding: 0 40px;
-
-    box-sizing: border-box;
-
-    color: #334155;
-
+    min-width: 0;
+    padding: 25px;
     background: var(--color-blanco);
-
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-
-    outline: none;
-
-    font-family: "Poppins";
-    font-size: 0.76rem;
-    font-weight: 400;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
 }
 
 
 /* =========================================================
-   SELECTS
+   04. CABECERAS DE LAS TARJETAS
    ========================================================= */
 
-.director-aulas-registrar-carsce-control select {
-
-    appearance: none;
-    -webkit-appearance: none;
-
-    cursor: pointer;
-}
-
-
-/* =========================================================
-   FLECHA DE SELECT
-   ========================================================= */
-
-.director-aulas-registrar-carsce-flecha {
-
-    position: absolute;
-
-    top: 50%;
-    right: 14px;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: 0.66rem;
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   HOVER / FOCUS
-   ========================================================= */
-
-.director-aulas-registrar-carsce-control input:hover,
-.director-aulas-registrar-carsce-control select:hover {
-
-    border-color: #94A3B8;
-}
-
-
-.director-aulas-registrar-carsce-control input:focus,
-.director-aulas-registrar-carsce-control select:focus {
-
-    border-color: var(--color-azul-hover);
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-
-/* =========================================================
-   TEXTAREA
-   ========================================================= */
-
-.director-aulas-registrar-carsce-control-textarea
-> i:first-child {
-
-    top: 18px;
-
-    transform: none;
-}
-
-
-.director-aulas-registrar-carsce-control textarea {
-
-    width: 100%;
-    min-height: 100px;
-
-    padding: 13px 14px 13px 40px;
-
-    box-sizing: border-box;
-
-    color: #334155;
-
-    background: var(--color-blanco);
-
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-
-    outline: none;
-
-    resize: vertical;
-
-    font-family: "Poppins";
-    font-size: 0.76rem;
-    font-weight: 400;
-    line-height: 1.5;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-.director-aulas-registrar-carsce-control textarea:hover {
-
-    border-color: #94A3B8;
-}
-
-
-.director-aulas-registrar-carsce-control textarea:focus {
-
-    border-color: var(--color-azul-hover);
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-
-/* =========================================================
-   PLACEHOLDER
-   ========================================================= */
-
-.director-aulas-registrar-carsce-control input::placeholder,
-.director-aulas-registrar-carsce-control textarea::placeholder {
-
-    color: #8A969E;
-}
-
-
-/* =========================================================
-   MENSAJES DE VALIDACIÓN
-   ========================================================= */
-
-.director-aulas-registrar-carsce-mensaje {
-
-    display: block;
-
-    min-height: 16px;
-
-    margin-top: 5px;
-    padding-left: 2px;
-
-    color: var(--color-rojo-acento);
-
-    font-size: 0.66rem;
-    font-weight: 500;
-    line-height: 1.35;
-}
-
-
-/* =========================================================
-   ACCIONES
-   ========================================================= */
-
-.director-aulas-registrar-carsce-acciones {
-
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-tarjeta-cabecera,
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tarjeta-cabecera {
     display: flex;
-    justify-content: flex-end;
-
+    align-items: center;
+    gap: 16px;
     width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
 
-    margin-top: 5px;
-    padding-top: 21px;
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-tarjeta-icono,
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 49px;
+    height: 49px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    color: var(--color-azul-profundo);
+    font-size: 19px;
+}
 
-    border-top: 1px solid var(--color-borde-fino);
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-tarjeta-informacion,
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tarjeta-informacion {
+    flex: 1;
+    min-width: 0;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-gestion-carsce-etiqueta-modulo {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-tarjeta-titulo,
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tarjeta-titulo {
+    margin: 0 0 7px;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-tarjeta-descripcion,
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tarjeta-descripcion {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
 }
 
 
 /* =========================================================
-   BOTÓN
+   05. FORMULARIO Y CAMPOS
    ========================================================= */
 
-.director-aulas-registrar-carsce-boton {
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding-top: 22px;
+}
 
-    min-width: 225px;
-    height: 44px;
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-fila {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+}
 
-    padding: 0 22px;
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-campo {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 8px;
+}
 
-    color: var(--color-blanco);
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-campo-completo {
+    grid-column: span 2;
+}
 
-    background: linear-gradient(
-        135deg,
-        var(--color-azul-hover),
-        #1D4ED8
-    );
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-etiqueta {
+    color: #334155;
+    font-size: 11px;
+    font-weight: 750;
+}
 
+
+/* =========================================================
+   06. CONTROLES, INPUTS Y TEXTAREAS
+   ========================================================= */
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 45px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control:focus-within {
+    background: var(--color-blanco);
+    border-color: var(--color-azul-hover);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control > i:first-child {
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    color: var(--texto-mutado);
+    font-size: 12px;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control input,
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control select {
+    flex: 1;
+    width: 100%;
+    height: 43px;
+    padding: 0 12px 0 0;
+    outline: none;
     border: none;
-    border-radius: 8px;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 12px;
+}
 
-    box-shadow:
-        0 5px 12px rgba(37, 99, 235, 0.20);
-
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control select {
+    padding-right: 30px;
+    appearance: none;
     cursor: pointer;
+}
 
-    font-family: "Poppins";
-    font-size: 0.76rem;
-    font-weight: 600;
+/* Textarea específico */
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control-textarea {
+    align-items: flex-start;
+    min-height: 75px;
+}
 
-    transition:
-        transform 0.18s ease,
-        background 0.18s ease,
-        box-shadow 0.18s ease;
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control-textarea > i:first-child {
+    padding-top: 13px;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-control-textarea textarea {
+    flex: 1;
+    width: 100%;
+    min-height: 70px;
+    padding: 10px 12px 10px 0;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 12px;
+    resize: vertical;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-flecha {
+    position: absolute;
+    right: 12px;
+    color: var(--texto-mutado);
+    font-size: 10px;
+    pointer-events: none;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-mensaje {
+    display: block;
+    min-height: 14px;
+    color: var(--texto-secundario);
+    font-size: 10px;
+    font-weight: 550;
 }
 
 
+/* =========================================================
+   07. BOTÓN DE ACCIÓN
+   ========================================================= */
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-acciones {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid #E9EEF5;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-registrar-carsce-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 46px;
+    padding: 0 20px;
+    background: var(--color-azul-profundo);
+    border: 1px solid var(--color-azul-profundo);
+    border-radius: 7px;
+    color: var(--color-blanco);
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#director-aulas-gestion-carsce
 .director-aulas-registrar-carsce-boton:hover {
-
-    background: linear-gradient(
-        135deg,
-        #1D4ED8,
-        #1E40AF
-    );
-
-    box-shadow:
-        0 8px 17px rgba(37, 99, 235, 0.25);
-
     transform: translateY(-1px);
-}
-
-
-.director-aulas-registrar-carsce-boton:active {
-
-    transform: translateY(0);
-
-    box-shadow:
-        0 3px 8px rgba(37, 99, 235, 0.18);
-}
-
-
-.director-aulas-registrar-carsce-boton:focus-visible {
-
-    outline: 3px solid rgba(37, 99, 235, 0.20);
-    outline-offset: 2px;
+    background: var(--color-azul-hover);
 }
 
 
 /* =========================================================
-   CONTROLES DESHABILITADOS
+   08. SECCIÓN DE VISUALIZACIÓN / TABLA
    ========================================================= */
 
-.director-aulas-registrar-carsce-control input:disabled,
-.director-aulas-registrar-carsce-control select:disabled,
-.director-aulas-registrar-carsce-control textarea:disabled {
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-indicacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 13px;
+    margin: 19px 0;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 3px solid var(--color-azul-profundo);
+    border-radius: 7px;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
+}
 
-    background: #EEF2F4;
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-indicacion i {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-azul-profundo);
+}
 
-    color: #7C878D;
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla-contenedor {
+    width: 100%;
+}
 
-    cursor: not-allowed;
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla-scroll {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla {
+    width: 100%;
+    min-width: 580px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla thead {
+    background: #F8FAFC;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla th {
+    padding: 14px 10px;
+    color: #334155;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla td {
+    padding: 13px 10px;
+    color: #475569;
+    font-size: 11px;
+    border-bottom: 1px solid #E9EEF5;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla tbody tr {
+    background: var(--color-blanco);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#director-aulas-gestion-carsce
+.director-aulas-visualizar-carsce-tabla tbody tr:hover {
+    background: #F8FAFC;
 }
 
 
 /* =========================================================
-   TABLET
+   09. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
    ========================================================= */
 
-@media (max-width: 900px) {
-
-    .director-aulas-registrar-carsce-contenedor {
-
-        max-width: 100%;
-    }
-
-    .director-aulas-registrar-carsce-titulo {
-
-        font-size: 1.4rem;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta {
-
-        padding: 23px;
+@media (max-width: 1024px) {
+    #director-aulas-gestion-carsce
+    .director-aulas-gestion-carsce-distribucion {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
     }
 }
 
-
-/* =========================================================
-   TABLET PEQUEÑA
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    .director-aulas-registrar-carsce-titulo {
-
-        font-size: 1.28rem;
+@media (max-width: 650px) {
+    #director-aulas-gestion-carsce {
+        padding: 20px 13px 35px;
     }
 
-    .director-aulas-registrar-carsce-descripcion {
-
-        font-size: 0.78rem;
+    #director-aulas-gestion-carsce
+    .director-aulas-gestion-carsce-encabezado {
+        padding: 22px 18px;
     }
 
-    .director-aulas-registrar-carsce-tarjeta {
-
-        padding: 21px;
+    #director-aulas-gestion-carsce
+    .director-aulas-gestion-carsce-encabezado::before,
+    #director-aulas-gestion-carsce
+    .director-aulas-gestion-carsce-encabezado::after {
+        display: none;
     }
 
+    #director-aulas-gestion-carsce
     .director-aulas-registrar-carsce-fila {
-
-        grid-template-columns: 1fr;
-
-        gap: 18px;
+        grid-template-columns: minmax(0, 1fr);
     }
 
+    #director-aulas-gestion-carsce
     .director-aulas-registrar-carsce-campo-completo {
-
-        grid-column: 1;
-    }
-
-    .director-aulas-registrar-carsce-acciones {
-
-        justify-content: stretch;
-    }
-
-    .director-aulas-registrar-carsce-boton {
-
-        width: 100%;
-    }
-}
-
-
-/* =========================================================
-   MÓVIL
-   ========================================================= */
-
-@media (max-width: 520px) {
-
-    .director-aulas-registrar-carsce-identificacion {
-
-        font-size: 0.62rem;
-    }
-
-    .director-aulas-registrar-carsce-titulo {
-
-        font-size: 1.15rem;
-    }
-
-    .director-aulas-registrar-carsce-descripcion {
-
-        font-size: 0.74rem;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta {
-
-        padding: 18px 16px 20px;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta-cabecera {
-
-        align-items: flex-start;
-
-        gap: 11px;
-
-        margin-bottom: 20px;
-        padding-bottom: 18px;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta-icono {
-
-        width: 42px;
-        height: 42px;
-
-        flex-basis: 42px;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta-titulo {
-
-        font-size: 0.88rem;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta-descripcion {
-
-        font-size: 0.68rem;
-    }
-
-    .director-aulas-registrar-carsce-control input,
-    .director-aulas-registrar-carsce-control select {
-
-        height: 43px;
-    }
-
-    .director-aulas-registrar-carsce-control textarea {
-
-        min-height: 95px;
-    }
-
-    .director-aulas-registrar-carsce-boton {
-
-        min-width: 0;
-
-        height: 43px;
-
-        font-size: 0.71rem;
-    }
-}
-
-
-/* =========================================================
-   MÓVIL PEQUEÑO
-   ========================================================= */
-
-@media (max-width: 390px) {
-
-    .director-aulas-registrar-carsce-titulo {
-
-        font-size: 1.05rem;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta {
-
-        padding: 16px 13px 18px;
-    }
-
-    .director-aulas-registrar-carsce-identificacion {
-
-        padding: 6px 9px;
-    }
-
-    .director-aulas-registrar-carsce-tarjeta-icono {
-
-        width: 39px;
-        height: 39px;
-
-        flex-basis: 39px;
+        grid-column: span 1;
     }
 }

@@ -1,17 +1,82 @@
 {% extends 'Estructura/Base.html' %}
-
-{% block content %}
-
 {% load static %}
 
-<section id="Contenido" class="reveal mantenimiento-section">
-    <div class="contenedor-mantenimiento">
-        <div class="icono-animado">⚙️</div> <h1 class="titulo-mantenimiento">MÓDULO EN CONSTRUCCIÓN</h1>
-        <h6 class="subtitulo">En Mantenimiento!</h6>
-        <div class="barra-progreso">
-            <div class="linea-progreso"></div>
-        </div>
-    </div>
+{% block content %}
+<section id="planes-docentes">
+
+    <!-- =====================================================
+         ENCABEZADO INSTITUCIONAL
+         ===================================================== -->
+    <header class="planes-docentes-encabezado">
+        <p>FORO ACADÉMICO</p>
+        <h1>Planificación de nuestros docentes</h1>
+        <span>Consulta las planificaciones aprobadas por núcleo, PNF y unidad curricular.</span>
+    </header>
+
+    {% regroup planes by nucleo.municipio as grupos_nucleos %}
+    {% if grupos_nucleos %}
+        {% for grupo in grupos_nucleos %}
+            <section class="planes-docentes-nucleo">
+                <h2><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Núcleo {{ grupo.grouper }}</h2>
+                <div class="planes-docentes-lista">
+                    {% for plan in grupo.list %}
+                        <article class="planes-docentes-tarjeta">
+                            <header class="planes-docentes-tarjeta-encabezado">
+                                <div>
+                                    <span class="planes-docentes-etiqueta">DOCENTE</span>
+                                    {% for asignacion_docente in plan.materia_asignacion.docentes_activos %}
+                                        <h3>{{ asignacion_docente.docente.usuario.nombres }} {{ asignacion_docente.docente.usuario.apellidos }}</h3>
+                                    {% empty %}
+                                        <h3>Docente no disponible</h3>
+                                    {% endfor %}
+                                </div>
+                                <span class="planes-docentes-periodo">{{ plan.periodo_academico.nombre }}</span>
+                            </header>
+
+                            <dl class="planes-docentes-datos">
+                                <div><dt>Materia</dt><dd>{{ plan.materia_asignacion.materia.nombre }}</dd></div>
+                                <div><dt>PNF</dt><dd>{{ plan.pnf.pnf }}</dd></div>
+                                <div><dt>Núcleo</dt><dd>{{ plan.nucleo.municipio }}</dd></div>
+                            </dl>
+
+                            {% if plan.observacion %}
+                                <p class="planes-docentes-observacion">{{ plan.observacion }}</p>
+                            {% endif %}
+
+                            <div class="planes-docentes-unidades">
+                                <h4>Unidades y evaluaciones</h4>
+                                {% for unidad in plan.detalles.all %}
+                                    <details>
+                                        <summary>{{ unidad.titulo_unidad }} <span>{{ unidad.ponderacion }}%</span></summary>
+                                        <p>{{ unidad.contenido_unidad }}</p>
+                                        {% if unidad.evaluaciones.all %}
+                                            <ul>
+                                                {% for evaluacion in unidad.evaluaciones.all %}
+                                                    <li>
+                                                        {{ evaluacion.metodo_evaluacion }}
+                                                        — {{ evaluacion.porcentaje_evaluacion }}%
+                                                        — {{ evaluacion.fecha_evaluacion|date:"d/m/Y" }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </details>
+                                {% empty %}
+                                    <p class="planes-docentes-vacio">Esta planificación aún no tiene unidades publicadas.</p>
+                                {% endfor %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+    {% else %}
+        <p class="planes-docentes-sin-resultados">Todavía no hay planificaciones aprobadas para mostrar.</p>
+    {% endif %}
+
 </section>
+
+<!-- ARCHIVO CSS -->
+<link rel="stylesheet" href="{% static 'Css/Estudiantes/Planificacion_Docente.css' %}">
 
 {% endblock %}

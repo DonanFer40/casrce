@@ -1,1116 +1,623 @@
-/* ============================================================
-   MODIFICAR NOTICIA — DIRECTOR GENERAL
-   CARSCE
-   ============================================================ */
-
-
-/* ============================================================
-   CONTENEDOR PRINCIPAL
-   ============================================================ */
-
-#director-noticias-modificar-carsce {
+#director-noticias-gestion-carsce {
     width: 100%;
-    padding: 35px 30px 50px;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
     background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    overflow-x: hidden;
 }
 
-
-.director-noticias-modificar-carsce-contenedor {
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-contenedor {
     width: 100%;
-    max-width: 1050px;
+    max-width: 1000px;
+    min-width: 0;
     margin: 0 auto;
 }
 
 
-/* ============================================================
-   ENCABEZADO
-   ============================================================ */
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL
+   ========================================================= */
 
-.director-noticias-modificar-carsce-encabezado {
-    margin-bottom: 28px;
-}
-
-
-/* ============================================================
-   IDENTIFICACIÓN
-   ============================================================ */
-
-.director-noticias-modificar-carsce-identificacion {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    margin-bottom: 12px;
-}
-
-
-.director-noticias-modificar-carsce-etiqueta {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 6px 12px;
-
-    border-radius: 6px;
-
-    background: var(--color-azul-profundo);
-    color: var(--color-blanco);
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 0.7px;
-    text-transform: uppercase;
-}
-
-
-.director-noticias-modificar-carsce-seccion {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-
-    color: var(--texto-secundario);
-
-    font-size: 13px;
-    font-weight: 600;
-}
-
-
-.director-noticias-modificar-carsce-seccion i {
-    color: var(--color-azul-hover);
-    font-size: 13px;
-}
-
-
-/* ============================================================
-   PRESENTACIÓN
-   ============================================================ */
-
-.director-noticias-modificar-carsce-presentacion {
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
     width: 100%;
-}
-
-
-.director-noticias-modificar-carsce-titulo {
-    margin: 0;
-
-    color: var(--texto-principal);
-
-    font-size: 30px;
-    font-weight: 700;
-
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-}
-
-
-.director-noticias-modificar-carsce-descripcion {
-    max-width: 760px;
-
-    margin-top: 9px;
-
-    color: var(--texto-secundario);
-
-    font-size: 14px;
-    font-weight: 400;
-
-    line-height: 1.7;
-}
-
-
-/* ============================================================
-   CONTENEDOR DEL FORMULARIO
-   ============================================================ */
-
-.director-noticias-modificar-carsce-formulario-contenedor {
-    width: 100%;
-
+    min-width: 0;
+    height: auto;
+    min-height: 215px;
+    padding: 35px 42px;
+    margin-bottom: 27px;
     background: var(--color-blanco);
-
     border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
     border-radius: var(--radio-card);
-
     box-shadow: var(--sombra-card);
-
     overflow: hidden;
 }
 
-
-/* ============================================================
-   CABECERA DEL FORMULARIO
-   ============================================================ */
-
-.director-noticias-modificar-carsce-formulario-cabecera {
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
     display: flex;
-    align-items: center;
-    gap: 15px;
-
-    padding: 22px 26px;
-
-    background: var(--color-fondo-pagina);
-
-    border-bottom: 1px solid var(--color-borde-fino);
-}
-
-
-.director-noticias-modificar-carsce-formulario-icono {
-    width: 44px;
-    height: 44px;
-
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-
-    flex-shrink: 0;
-
-    border-radius: 10px;
-
-    background: var(--color-azul-profundo);
-    color: var(--color-blanco);
-
-    font-size: 18px;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
 }
 
+/* Decoración superior circular */
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
 
-.director-noticias-modificar-carsce-formulario-titulo h2 {
+/* Acento rojo inferior circular */
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 115px;
+    height: 115px;
+    right: -45px;
+    bottom: -65px;
+    border: 17px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-presentacion {
+    width: 100%;
+    max-width: 720px;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(24px, 3.5vw, 37px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-presentacion p {
+    max-width: 630px;
     margin: 0;
-
-    color: var(--texto-principal);
-
-    font-size: 17px;
-    font-weight: 700;
-}
-
-
-.director-noticias-modificar-carsce-formulario-titulo span {
-    display: block;
-
-    margin-top: 3px;
-
     color: var(--texto-secundario);
-
-    font-size: 12px;
-
-    line-height: 1.5;
-}
-
-
-/* ============================================================
-   FORMULARIO
-   ============================================================ */
-
-.director-noticias-modificar-carsce-formulario {
-    width: 100%;
-    padding: 28px;
-}
-
-
-/* ============================================================
-   FILA DE CAMPOS
-   ============================================================ */
-
-.director-noticias-modificar-carsce-fila {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 22px;
-
-    margin-bottom: 22px;
-}
-
-
-/* ============================================================
-   CAMPOS
-   ============================================================ */
-
-.director-noticias-modificar-carsce-campo {
-    width: 100%;
-}
-
-
-.director-noticias-modificar-carsce-campo label {
-    display: block;
-
-    margin-bottom: 8px;
-
-    color: var(--texto-principal);
-
     font-size: 13px;
+    line-height: 1.7;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
     font-weight: 600;
 }
 
-
-.director-noticias-modificar-carsce-campo label span {
-    margin-left: 2px;
-
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-encabezado-pie i {
     color: var(--color-rojo-acento);
 }
 
 
-.director-noticias-modificar-carsce-campo input,
-.director-noticias-modificar-carsce-campo textarea {
+/* =========================================================
+   02. TARJETA PRINCIPAL
+   ========================================================= */
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-tarjeta {
     width: 100%;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 8px;
-
+    min-width: 0;
+    padding: 25px;
     background: var(--color-blanco);
-    color: var(--texto-principal);
-
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-
-    outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
 }
 
 
-.director-noticias-modificar-carsce-campo input {
-    height: 44px;
+/* =========================================================
+   03. CABECERA DE LA TARJETA
+   ========================================================= */
 
-    padding: 0 13px;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde-fino);
 }
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 49px;
+    height: 49px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    color: var(--color-azul-profundo);
+    font-size: 19px;
+}
 
-.director-noticias-modificar-carsce-campo textarea {
-    min-height: 100px;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-tarjeta-informacion {
+    flex: 1;
+    min-width: 0;
+}
 
-    padding: 12px 13px;
+#director-noticias-gestion-carsce
+.director-noticias-gestion-carsce-etiqueta-modulo {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
 
-    resize: vertical;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-tarjeta-titulo {
+    margin: 0 0 7px;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+}
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-tarjeta-descripcion {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
     line-height: 1.6;
 }
 
 
-.director-noticias-modificar-carsce-campo input:focus,
-.director-noticias-modificar-carsce-campo textarea:focus {
-    border-color: var(--color-azul-hover);
+/* =========================================================
+   04. FORMULARIOS Y CAMPOS
+   ========================================================= */
 
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-
-    background: var(--color-blanco);
-}
-
-
-.director-noticias-modificar-carsce-campo input::placeholder,
-.director-noticias-modificar-carsce-campo textarea::placeholder {
-    color: var(--texto-mutado);
-}
-
-
-.director-noticias-modificar-carsce-campo small {
-    display: block;
-
-    margin-top: 6px;
-
-    color: var(--texto-mutado);
-
-    font-size: 11px;
-
-    line-height: 1.5;
-}
-
-
-/* ============================================================
-   CONTENIDO DE LA NOTICIA
-   ============================================================ */
-
-.director-noticias-modificar-carsce-campo-contenido {
-    margin-bottom: 30px;
-}
-
-
-.director-noticias-modificar-carsce-campo-contenido textarea {
-    min-height: 230px;
-}
-
-
-/* ============================================================
-   BLOQUES INTERNOS
-   ============================================================ */
-
-.director-noticias-modificar-carsce-bloque {
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
-
-    margin-top: 26px;
-
-    padding: 22px;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-
-    background: var(--color-fondo-pagina);
+    padding-top: 22px;
 }
 
-
-/* ============================================================
-   CABECERA DE BLOQUE
-   ============================================================ */
-
-.director-noticias-modificar-carsce-bloque-cabecera {
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-campo {
     display: flex;
-    align-items: center;
-    gap: 13px;
-
-    margin-bottom: 20px;
+    flex-direction: column;
+    min-width: 0;
+    gap: 8px;
 }
 
-
-.director-noticias-modificar-carsce-bloque-icono {
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    border-radius: 8px;
-
-    background: var(--color-azul-card);
-    color: var(--color-blanco);
-
-    font-size: 15px;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-etiqueta {
+    color: #334155;
+    font-size: 11px;
+    font-weight: 750;
 }
 
-
-.director-noticias-modificar-carsce-bloque-informacion h3 {
-    margin: 0;
-
-    color: var(--texto-principal);
-
-    font-size: 14px;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-subetiqueta {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--texto-secundario);
+    font-size: 10px;
     font-weight: 700;
 }
 
 
-.director-noticias-modificar-carsce-bloque-informacion span {
-    display: block;
+/* =========================================================
+   05. CONTROLES E INPUTS
+   ========================================================= */
 
-    margin-top: 3px;
-
-    color: var(--texto-secundario);
-
-    font-size: 11px;
-
-    line-height: 1.5;
-}
-
-
-/* ============================================================
-   IMAGEN ACTUAL
-   ============================================================ */
-
-.director-noticias-modificar-carsce-imagen-actual {
-    width: 100%;
-}
-
-
-.director-noticias-modificar-carsce-etiqueta-imagen {
-    display: block;
-
-    margin-bottom: 9px;
-
-    color: var(--texto-principal);
-
-    font-size: 12px;
-    font-weight: 600;
-}
-
-
-.director-noticias-modificar-carsce-imagen-contenedor {
-    width: 100%;
-
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control {
+    position: relative;
     display: flex;
-    justify-content: center;
-
-    padding: 14px;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 9px;
-
-    background: var(--color-blanco);
-}
-
-
-.director-noticias-modificar-carsce-imagen-actual-img {
-    display: block;
-
-    width: 100%;
-    max-width: 430px;
-    max-height: 500px;
-
-    object-fit: contain;
-
-    border-radius: 7px;
-}
-
-
-/* ============================================================
-   SIN IMAGEN
-   ============================================================ */
-
-.director-noticias-modificar-carsce-imagen-sin-contenido {
-    min-height: 130px;
-
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    padding: 20px;
-
-    border: 1px dashed var(--color-borde-fino);
-    border-radius: 9px;
-
-    background: var(--color-blanco);
-
-    color: var(--texto-mutado);
-
-    text-align: center;
-}
-
-
-.director-noticias-modificar-carsce-imagen-sin-contenido i {
-    font-size: 24px;
-}
-
-
-.director-noticias-modificar-carsce-imagen-sin-contenido span {
-    font-size: 11px;
-}
-
-
-/* ============================================================
-   SELECTOR DE NUEVA IMAGEN
-   ============================================================ */
-
-.director-noticias-modificar-carsce-selector-imagen {
-    display: flex;
-    flex-direction: column;
-
-    gap: 8px;
-
-    margin-top: 20px;
-}
-
-
-.director-noticias-modificar-carsce-selector-imagen label {
-    width: fit-content;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 9px 14px;
-
+    width: 100%;
+    min-height: 45px;
+    background: #F8FAFC;
     border: 1px solid var(--color-borde-fino);
     border-radius: 7px;
-
-    background: var(--color-blanco);
-    color: var(--texto-principal);
-
-    font-size: 12px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        border-color 0.2s ease,
-        background-color 0.2s ease,
-        color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control-textarea {
+    align-items: flex-start;
+    padding-top: 12px;
+}
 
-.director-noticias-modificar-carsce-selector-imagen label:hover {
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control:focus-within {
+    background: var(--color-blanco);
     border-color: var(--color-azul-hover);
-
-    background: #EFF6FF;
-
-    color: var(--color-azul-hover);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
 }
 
-
-.director-noticias-modificar-carsce-selector-imagen input[type="file"] {
-    width: 100%;
-
-    padding: 8px;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 7px;
-
-    background: var(--color-blanco);
-
-    color: var(--texto-secundario);
-
-    font-family: "Poppins", sans-serif;
-    font-size: 11px;
-}
-
-
-.director-noticias-modificar-carsce-selector-imagen input[type="file"]::file-selector-button {
-    margin-right: 10px;
-
-    padding: 7px 11px;
-
-    border: none;
-    border-radius: 6px;
-
-    background: var(--color-azul-profundo);
-    color: var(--color-blanco);
-
-    font-family: "Poppins", sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: background-color 0.2s ease;
-}
-
-
-.director-noticias-modificar-carsce-selector-imagen input[type="file"]::file-selector-button:hover {
-    background: var(--color-azul-hover);
-}
-
-
-.director-noticias-modificar-carsce-selector-imagen small {
-    color: var(--texto-mutado);
-
-    font-size: 11px;
-
-    line-height: 1.5;
-}
-
-
-/* ============================================================
-   PREVISUALIZACIÓN
-   ============================================================ */
-
-.director-noticias-modificar-carsce-imagen-preview {
-    display: none;
-
-    width: 100%;
-
-    margin-top: 22px;
-}
-
-
-.director-noticias-modificar-carsce-imagen-preview-visible {
-    display: block;
-}
-
-
-.director-noticias-modificar-carsce-imagen-preview-contenedor {
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-
-    padding: 14px;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 9px;
-
-    background: var(--color-blanco);
-}
-
-
-.director-noticias-modificar-carsce-imagen-preview-contenedor img {
-    display: block;
-
-    width: 100%;
-    max-width: 430px;
-    max-height: 500px;
-
-    object-fit: contain;
-
-    border-radius: 7px;
-}
-
-
-/* ============================================================
-   NÚCLEO
-   ============================================================ */
-
-.director-noticias-modificar-carsce-nucleo {
-    display: flex;
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 15px 17px;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 9px;
-
-    background: var(--color-blanco);
-}
-
-
-.director-noticias-modificar-carsce-nucleo-icono {
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control > i:first-child {
+    flex-shrink: 0;
     width: 40px;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    border-radius: 8px;
-
-    background: var(--color-azul-profundo);
-    color: var(--color-blanco);
-
-    font-size: 15px;
-}
-
-
-.director-noticias-modificar-carsce-nucleo-informacion {
-    display: flex;
-    flex-direction: column;
-
-    gap: 3px;
-
-    flex: 1;
-}
-
-
-.director-noticias-modificar-carsce-nucleo-informacion span {
+    text-align: center;
     color: var(--texto-mutado);
-
-    font-size: 10px;
-    font-weight: 600;
-
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 12px;
 }
 
-
-.director-noticias-modificar-carsce-nucleo-informacion strong {
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control input,
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control textarea {
+    flex: 1;
+    width: 100%;
+    outline: none;
+    border: none;
+    background: transparent;
     color: var(--texto-principal);
-
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-family: inherit;
 }
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control input {
+    height: 43px;
+    padding: 0 12px 0 0;
+}
 
-.director-noticias-modificar-carsce-nucleo-estado {
-    display: inline-flex;
-    align-items: center;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-control textarea {
+    padding: 0 12px 12px 0;
+    resize: vertical;
+}
 
-    gap: 6px;
-
-    padding: 6px 9px;
-
-    border-radius: 6px;
-
-    background: #F1F5F9;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-mensaje {
+    display: block;
+    min-height: 14px;
     color: var(--texto-secundario);
-
     font-size: 10px;
-    font-weight: 600;
-
-    white-space: nowrap;
+    font-weight: 550;
 }
 
 
-.director-noticias-modificar-carsce-nucleo-estado i {
-    font-size: 10px;
-}
+/* =========================================================
+   06. MANEJO DE IMAGEN ACTUAL Y PREVISUALIZACIÓN
+   ========================================================= */
 
-
-/* ============================================================
-   AVISO
-   ============================================================ */
-
-.director-noticias-modificar-carsce-aviso {
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-bloque {
     display: flex;
     align-items: flex-start;
-
-    gap: 11px;
-
-    margin-top: 25px;
-    padding: 14px 16px;
-
-    border: 1px solid #DBEAFE;
+    gap: 24px;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 16px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
     border-radius: 8px;
-
-    background: #EFF6FF;
 }
 
-
-.director-noticias-modificar-carsce-aviso-icono {
-    width: 26px;
-    height: 26px;
-
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-actual-box,
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-selector-box {
     display: flex;
+    flex-direction: column;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-thumb {
+    width: 70px;
+    height: 70px;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid var(--color-borde-fino);
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-vacia {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    flex-shrink: 0;
-
-    color: var(--color-azul-hover);
-
-    font-size: 15px;
+    width: 70px;
+    height: 70px;
+    background: #FFFFFF;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+    color: var(--texto-mutado);
+    font-size: 9px;
+    gap: 4px;
 }
 
-
-.director-noticias-modificar-carsce-aviso-informacion {
-    flex: 1;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-contenedor {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-
-.director-noticias-modificar-carsce-aviso-informacion strong {
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: var(--texto-principal);
-
-    font-size: 12px;
-    font-weight: 700;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-selector {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: #FFFFFF;
+    border: 1px dashed var(--color-borde-fino);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-selector:hover {
+    background: #F1F5F9;
+    border-color: var(--color-azul-hover);
+}
 
-.director-noticias-modificar-carsce-aviso-informacion p {
-    margin: 0;
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-selector i {
+    font-size: 18px;
+    color: var(--color-azul-profundo);
+}
 
-    color: var(--texto-secundario);
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-texto {
+    display: flex;
+    flex-direction: column;
+}
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-texto strong {
     font-size: 11px;
+    color: var(--color-azul-profundo);
+}
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-imagen-texto span {
+    font-size: 10px;
+    color: var(--texto-secundario);
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-input-file {
+    display: none;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-preview-oculto {
+    display: none;
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-preview-visible {
+    display: block;
+    width: 70px;
+    height: 70px;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid var(--color-azul-hover);
+}
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-preview-visible img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   07. INDICACIÓN INSTITUCIONAL
+   ========================================================= */
+
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-indicacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 13px;
+    margin-top: 5px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 3px solid var(--color-azul-profundo);
+    border-radius: 7px;
+    color: var(--texto-secundario);
+    font-size: 11px;
     line-height: 1.6;
 }
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-indicacion i {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-azul-profundo);
+}
 
-/* ============================================================
-   ACCIONES
-   ============================================================ */
 
+/* =========================================================
+   08. BOTONES DE ACCIÓN
+   ========================================================= */
+
+#director-noticias-gestion-carsce
 .director-noticias-modificar-carsce-acciones {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
-    gap: 11px;
-
-    margin-top: 30px;
-    padding-top: 22px;
-
-    border-top: 1px solid var(--color-borde-fino);
+    gap: 12px;
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid #E9EEF5;
 }
 
-
-/* ============================================================
-   BOTONES
-   ============================================================ */
-
-.director-noticias-modificar-carsce-boton-cancelar,
-.director-noticias-modificar-carsce-boton-guardar {
-    min-height: 42px;
-
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-boton,
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-boton-secundario {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    gap: 8px;
-
-    padding: 0 17px;
-
+    gap: 10px;
+    min-height: 46px;
+    padding: 0 20px;
     border-radius: 7px;
-
-    font-family: "Poppins", sans-serif;
     font-size: 12px;
-    font-weight: 600;
-
-    text-decoration: none;
-
+    font-weight: 750;
     cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-family: inherit;
 }
 
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-boton {
+    background: var(--color-azul-profundo);
+    border: 1px solid var(--color-azul-profundo);
+    color: var(--color-blanco);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+}
 
-/* ============================================================
-   CANCELAR
-   ============================================================ */
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-boton:hover {
+    transform: translateY(-1px);
+    background: var(--color-azul-hover);
+}
 
-.director-noticias-modificar-carsce-boton-cancelar {
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-boton-secundario {
+    background: #F8FAFC;
     border: 1px solid var(--color-borde-fino);
-
-    background: var(--color-blanco);
     color: var(--texto-secundario);
 }
 
-
-.director-noticias-modificar-carsce-boton-cancelar:hover {
-    border-color: #CBD5E1;
-
-    background: #F8FAFC;
-    color: var(--texto-principal);
+#director-noticias-gestion-carsce
+.director-noticias-modificar-carsce-boton-secundario:hover {
+    background: #E2E8F0;
+    color: var(--color-azul-profundo);
 }
 
 
-/* ============================================================
-   GUARDAR CAMBIOS
-   ============================================================ */
+/* =========================================================
+   09. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================= */
 
-.director-noticias-modificar-carsce-boton-guardar {
-    border: 1px solid var(--color-azul-hover);
-
-    background: linear-gradient(
-        135deg,
-        var(--color-azul-hover),
-        #1D4ED8
-    );
-
-    color: var(--color-blanco);
-
-    box-shadow:
-        0 3px 8px rgba(37, 99, 235, 0.20);
-}
-
-
-.director-noticias-modificar-carsce-boton-guardar:hover {
-    background: linear-gradient(
-        135deg,
-        #1D4ED8,
-        #1E40AF
-    );
-
-    box-shadow:
-        0 6px 14px rgba(37, 99, 235, 0.25);
-
-    transform: translateY(-1px);
-}
-
-
-.director-noticias-modificar-carsce-boton-guardar:active {
-    transform: translateY(0);
-}
-
-
-/* ============================================================
-   RESPONSIVE — 900px
-   ============================================================ */
-
-@media (max-width: 900px) {
-
-    #director-noticias-modificar-carsce {
-        padding: 30px 22px 45px;
+@media (max-width: 650px) {
+    #director-noticias-gestion-carsce {
+        padding: 20px 13px 35px;
     }
 
-
-    .director-noticias-modificar-carsce-titulo {
-        font-size: 27px;
+    #director-noticias-gestion-carsce
+    .director-noticias-gestion-carsce-encabezado {
+        padding: 22px 18px;
     }
 
-
-    .director-noticias-modificar-carsce-formulario {
-        padding: 24px;
+    #director-noticias-gestion-carsce
+    .director-noticias-gestion-carsce-encabezado::before,
+    #director-noticias-gestion-carsce
+    .director-noticias-gestion-carsce-encabezado::after {
+        display: none;
     }
 
-
-    .director-noticias-modificar-carsce-fila {
-        grid-template-columns: 1fr;
-
-        gap: 20px;
-    }
-
-}
-
-
-/* ============================================================
-   RESPONSIVE — 700px
-   ============================================================ */
-
-@media (max-width: 700px) {
-
-    #director-noticias-modificar-carsce {
-        padding: 25px 18px 40px;
-    }
-
-
-    .director-noticias-modificar-carsce-identificacion {
-        align-items: flex-start;
-
+    #director-noticias-gestion-carsce
+    .director-noticias-modificar-carsce-imagen-bloque {
         flex-direction: column;
-
-        gap: 7px;
+        gap: 16px;
     }
 
-
-    .director-noticias-modificar-carsce-titulo {
-        font-size: 24px;
-    }
-
-
-    .director-noticias-modificar-carsce-descripcion {
-        font-size: 13px;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario-cabecera {
-        padding: 19px 20px;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario {
-        padding: 20px;
-    }
-
-
-    .director-noticias-modificar-carsce-bloque {
-        padding: 18px;
-    }
-
-
-    .director-noticias-modificar-carsce-nucleo {
-        align-items: flex-start;
-
-        flex-wrap: wrap;
-    }
-
-
-    .director-noticias-modificar-carsce-nucleo-estado {
-        width: 100%;
-
-        justify-content: center;
-    }
-
-
+    #director-noticias-gestion-carsce
     .director-noticias-modificar-carsce-acciones {
         flex-direction: column-reverse;
-
-        align-items: stretch;
     }
 
-
-    .director-noticias-modificar-carsce-boton-cancelar,
-    .director-noticias-modificar-carsce-boton-guardar {
+    #director-noticias-gestion-carsce
+    .director-noticias-modificar-carsce-boton,
+    #director-noticias-gestion-carsce
+    .director-noticias-modificar-carsce-boton-secundario {
         width: 100%;
     }
-
-}
-
-
-/* ============================================================
-   RESPONSIVE — 520px
-   ============================================================ */
-
-@media (max-width: 520px) {
-
-    #director-noticias-modificar-carsce {
-        padding: 22px 13px 35px;
-    }
-
-
-    .director-noticias-modificar-carsce-titulo {
-        font-size: 22px;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario-cabecera {
-        align-items: flex-start;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario-icono {
-        width: 40px;
-        height: 40px;
-
-        font-size: 16px;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario-titulo h2 {
-        font-size: 15px;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario {
-        padding: 17px;
-    }
-
-
-    .director-noticias-modificar-carsce-bloque {
-        padding: 15px;
-    }
-
-
-    .director-noticias-modificar-carsce-bloque-cabecera {
-        align-items: flex-start;
-    }
-
-
-    .director-noticias-modificar-carsce-nucleo {
-        gap: 11px;
-    }
-
-
-    .director-noticias-modificar-carsce-aviso {
-        padding: 12px;
-    }
-
-}
-
-
-/* ============================================================
-   RESPONSIVE — 390px
-   ============================================================ */
-
-@media (max-width: 390px) {
-
-    #director-noticias-modificar-carsce {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-
-    .director-noticias-modificar-carsce-titulo {
-        font-size: 20px;
-    }
-
-
-    .director-noticias-modificar-carsce-descripcion {
-        font-size: 12px;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario {
-        padding: 14px;
-    }
-
-
-    .director-noticias-modificar-carsce-formulario-cabecera {
-        padding: 16px;
-    }
-
-
-    .director-noticias-modificar-carsce-bloque {
-        padding: 13px;
-    }
-
-
-    .director-noticias-modificar-carsce-imagen-actual-img,
-    .director-noticias-modificar-carsce-imagen-preview-contenedor img {
-        max-height: 380px;
-    }
-
 }

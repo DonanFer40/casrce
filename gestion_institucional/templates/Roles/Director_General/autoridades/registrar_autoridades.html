@@ -1,201 +1,416 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<section id="director-autoridades-gestion-carsce">
 
-<section id="director-autoridades-registrar-carsce">
+    <div class="director-autoridades-gestion-carsce-contenedor">
 
-    <div class="director-autoridades-registrar-carsce-contenedor">
+        <!-- ENCABEZADO GENERAL -->
+        <header class="director-autoridades-gestion-carsce-encabezado">
+            <div class="director-autoridades-gestion-carsce-encabezado-contenido">
 
-        <!-- =====================================================
-             ENCABEZADO
-             ===================================================== -->
+                <div class="director-autoridades-gestion-carsce-identificacion">
 
-        <div class="director-autoridades-registrar-carsce-encabezado">
+                    <span class="director-autoridades-gestion-carsce-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
+                    </span>
 
-            <div class="director-autoridades-registrar-carsce-identificacion">
-                <i class="fa-solid fa-user-shield"></i>
-                <span>GESTIÓN INSTITUCIONAL</span>
-            </div>
+                    <span class="director-autoridades-gestion-carsce-seccion">
+                        <i class="fa-solid fa-user-shield"></i>
+                        GESTIÓN INSTITUCIONAL
+                    </span>
 
-            <div class="director-autoridades-registrar-carsce-presentacion">
-
-                <h3 class="director-autoridades-registrar-carsce-titulo">
-                    Gestión de Autoridades
-                    <span>UPT "José Félix Ribas"</span>
-                </h3>
-
-                <p class="director-autoridades-registrar-carsce-descripcion">
-                    Registra los datos personales y administrativos de las autoridades institucionales.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================================
-             TARJETA DE REGISTRO
-             ===================================================== -->
-
-        <div class="director-autoridades-registrar-carsce-tarjeta">
-
-            <div class="director-autoridades-registrar-carsce-tarjeta-cabecera">
-
-                <div class="director-autoridades-registrar-carsce-tarjeta-icono">
-                    <i class="fa-solid fa-user-plus"></i>
                 </div>
 
-                <div class="director-autoridades-registrar-carsce-tarjeta-informacion">
+                <div class="director-autoridades-gestion-carsce-presentacion">
 
-                    <h4 class="director-autoridades-registrar-carsce-tarjeta-titulo">
-                        Registrar Autoridades
-                    </h4>
+                    <h1>Administración de Autoridades</h1>
 
-                    <p class="director-autoridades-registrar-carsce-tarjeta-descripcion">
-                        Completa la información requerida para registrar una nueva autoridad.
+                    <p>
+                        Gestiona el registro y la información administrativa
+                        de las autoridades institucionales desde un mismo espacio.
                     </p>
 
                 </div>
 
+                <div class="director-autoridades-gestion-carsce-encabezado-pie">
+
+                    <i class="fa-solid fa-building-columns"></i>
+
+                    <span>
+                        Universidad Politécnica Territorial del Estado Barinas
+                        "José Félix Ribas"
+                    </span>
+
+                </div>
+
             </div>
+        </header>
+
+
+        <!-- DISTRIBUCIÓN PRINCIPAL -->
+        <div class="director-autoridades-gestion-carsce-distribucion">
 
 
             <!-- =================================================
-                 FORMULARIO
+                 FORMULARIO: REGISTRAR / MODIFICAR
                  ================================================= -->
 
-            <form
-                method="post"
-                id="formulario_registrar_autoridades"
-                class="director-autoridades-registrar-carsce-formulario">
+            <section id="director-autoridades-registrar-carsce">
 
-                {% csrf_token %}
+                <div class="director-autoridades-registrar-carsce-tarjeta">
 
+                    <div class="director-autoridades-registrar-carsce-tarjeta-cabecera">
 
-                <!-- FILA 1 -->
-                <div class="director-autoridades-registrar-carsce-fila">
+                        <div class="director-autoridades-registrar-carsce-tarjeta-icono"
+                             id="icono_modo_autoridad">
 
-                    <div class="director-autoridades-registrar-carsce-campo">
+                            <i class="fa-solid fa-user-plus"></i>
 
-                        <label for="nombres_autoridades">
-                            Nombres:
-                        </label>
+                        </div>
 
-                        <div class="director-autoridades-registrar-carsce-control">
+                        <div class="director-autoridades-registrar-carsce-tarjeta-informacion">
 
-                            <i class="fa-solid fa-user"></i>
+                            <span class="director-autoridades-gestion-carsce-etiqueta-modulo"
+                                  id="etiqueta_modo_autoridad">
+                                NUEVO REGISTRO
+                            </span>
 
-                            <input
-                                type="text"
-                                name="nombres_registrar"
-                                id="nombres_autoridades"
-                                autocomplete="off"
-                                required>
+                            <h2 class="director-autoridades-registrar-carsce-tarjeta-titulo"
+                                id="titulo_modo_autoridad">
+                                Registrar Autoridad
+                            </h2>
+
+                            <p class="director-autoridades-registrar-carsce-tarjeta-descripcion"
+                               id="descripcion_modo_autoridad">
+                                Completa la información personal y administrativa
+                                para registrar una nueva autoridad.
+                            </p>
 
                         </div>
 
                     </div>
 
 
-                    <div class="director-autoridades-registrar-carsce-campo">
+                    <!-- AVISO DE MODIFICACIÓN -->
+                    <div id="aviso_modo_modificacion"
+                         class="director-autoridades-registrar-carsce-aviso-modificacion"
+                         hidden>
 
-                        <label for="apellidos_autoridades">
-                            Apellidos:
-                        </label>
+                        <div class="director-autoridades-registrar-carsce-aviso-icono">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
 
-                        <div class="director-autoridades-registrar-carsce-control">
+                        <div class="director-autoridades-registrar-carsce-aviso-informacion">
 
-                            <i class="fa-solid fa-user"></i>
+                            <strong>Modo de modificación activado</strong>
 
-                            <input
-                                type="text"
-                                name="apellidos_registrar"
-                                id="apellidos_autoridades"
-                                autocomplete="off"
-                                required>
+                            <span>
+                                Estás modificando los datos de una autoridad
+                                seleccionada de la lista.
+                            </span>
 
                         </div>
 
                     </div>
 
-                </div>
+
+                    <!-- FORMULARIO COMPARTIDO -->
+                    <form method="post"
+                          id="formulario_registrar_autoridades"
+                          class="director-autoridades-registrar-carsce-formulario">
+
+                        {% csrf_token %}
+
+                        <input type="hidden"
+                               name="usuarioseleccionado"
+                               id="usuario_seleccionado">
 
 
-                <!-- FILA 2 -->
-                <div class="director-autoridades-registrar-carsce-fila">
+                        <!-- NOMBRES Y APELLIDOS -->
+                        <div class="director-autoridades-registrar-carsce-fila">
 
-                    <div class="director-autoridades-registrar-carsce-campo">
+                            <div class="director-autoridades-registrar-carsce-campo">
 
-                        <label for="cedula_identidad">
-                            Cédula de Identidad:
-                        </label>
+                                <label for="nombres_autoridades">
+                                    Nombres:
+                                </label>
 
-                        <div class="director-autoridades-registrar-carsce-control-cedula">
+                                <div class="director-autoridades-registrar-carsce-control">
 
-                            <div class="director-autoridades-registrar-carsce-nacionalidad">
+                                    <i class="fa-solid fa-user"></i>
 
-                                <i class="fa-solid fa-earth-americas"></i>
+                                    <input type="text"
+                                           name="nombres_registrar"
+                                           id="nombres_autoridades"
+                                           autocomplete="off"
+                                           required>
 
-                                <select
-                                    name="nacionalidad_registrar"
-                                    id="nacionalidad"
-                                    required>
-
-                                    <option value="">N</option>
-                                    <option value="V">V</option>
-                                    <option value="E">E</option>
-
-                                </select>
+                                </div>
 
                             </div>
 
-                            <div class="director-autoridades-registrar-carsce-control-cedula-numero">
 
-                                <i class="fa-solid fa-id-card"></i>
+                            <div class="director-autoridades-registrar-carsce-campo">
 
-                                <input
-                                    type="text"
-                                    name="cedula_registrar"
-                                    id="cedula_identidad"
-                                    autocomplete="off"
-                                    required>
+                                <label for="apellidos_autoridades">
+                                    Apellidos:
+                                </label>
+
+                                <div class="director-autoridades-registrar-carsce-control">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                    <input type="text"
+                                           name="apellidos_registrar"
+                                           id="apellidos_autoridades"
+                                           autocomplete="off"
+                                           required>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                        <small
-                            id="mensaje_cedula_identidad"
-                            class="director-autoridades-registrar-carsce-mensaje">
-                        </small>
+
+                        <!-- CÉDULA Y GÉNERO -->
+                        <div class="director-autoridades-registrar-carsce-fila">
+
+                            <div class="director-autoridades-registrar-carsce-campo">
+
+                                <label for="cedula_identidad">
+                                    Cédula de Identidad:
+                                </label>
+
+                                <div class="director-autoridades-registrar-carsce-control-cedula">
+
+                                    <div class="director-autoridades-registrar-carsce-nacionalidad">
+
+                                        <i class="fa-solid fa-earth-americas"></i>
+
+                                        <select name="nacionalidad_registrar"
+                                                id="nacionalidad"
+                                                required>
+
+                                            <option value="">N</option>
+                                            <option value="V">V</option>
+                                            <option value="E">E</option>
+
+                                        </select>
+
+                                    </div>
+
+                                    <div class="director-autoridades-registrar-carsce-control-cedula-numero">
+
+                                        <i class="fa-solid fa-id-card"></i>
+
+                                        <input type="text"
+                                               name="cedula_registrar"
+                                               id="cedula_identidad"
+                                               autocomplete="off"
+                                               required>
+
+                                    </div>
+
+                                </div>
+
+                                <small id="mensaje_cedula_identidad"
+                                       class="director-autoridades-registrar-carsce-mensaje">
+                                </small>
+
+                            </div>
+
+
+                            <div class="director-autoridades-registrar-carsce-campo">
+
+                                <label for="genero_autoridades">
+                                    Género:
+                                </label>
+
+                                <div class="director-autoridades-registrar-carsce-control">
+
+                                    <i class="fa-solid fa-venus-mars"></i>
+
+                                    <select name="genero_registrar"
+                                            id="genero_autoridades"
+                                            required>
+
+                                        <option value="">Seleccione</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+
+                                    </select>
+
+                                    <i class="fa-solid fa-chevron-down director-autoridades-registrar-carsce-flecha"></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CARGO Y RESOLUCIÓN -->
+                        <div class="director-autoridades-registrar-carsce-fila">
+
+                            <div class="director-autoridades-registrar-carsce-campo">
+
+                                <label for="cargo_autoridades">
+                                    Cargo:
+                                </label>
+
+                                <div class="director-autoridades-registrar-carsce-control">
+
+                                    <i class="fa-solid fa-briefcase"></i>
+
+                                    <select name="cargo_registrar"
+                                            id="cargo_autoridades"
+                                            required>
+                                    </select>
+
+                                    <i class="fa-solid fa-chevron-down director-autoridades-registrar-carsce-flecha"></i>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="director-autoridades-registrar-carsce-campo">
+
+                                <label for="resolucion_autoridades">
+                                    Resolución:
+                                </label>
+
+                                <div class="director-autoridades-registrar-carsce-control">
+
+                                    <i class="fa-solid fa-file-signature"></i>
+
+                                    <input type="text"
+                                           name="resolucion_registrar"
+                                           id="resolucion_autoridades"
+                                           minlength="5"
+                                           maxlength="5"
+                                           pattern="[A-Z]{3}[0-9]{2}"
+                                           title="Debe contener exactamente 3 letras mayúsculas seguidas de 2 números."
+                                           autocomplete="off"
+                                           required>
+
+                                </div>
+
+                                <small id="msg_resolucion"
+                                       class="director-autoridades-registrar-carsce-mensaje">
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACCIONES -->
+                        <div class="director-autoridades-registrar-carsce-acciones">
+
+                            <button type="submit"
+                                    id="btn_registrar"
+                                    class="director-autoridades-registrar-carsce-boton">
+
+                                <i class="fa-solid fa-user-plus"></i>
+
+                                <span>Registrar Autoridad</span>
+
+                            </button>
+
+                            <button type="button"
+                                    id="btn_cancelar_modificacion"
+                                    class="director-autoridades-registrar-carsce-boton-cancelar"
+                                    hidden>
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                                <span>Cancelar modificación</span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 VISUALIZACIÓN DE AUTORIDADES
+                 ================================================= -->
+
+            <section id="director-autoridades-visualizar-carsce">
+
+                <div class="director-autoridades-visualizar-carsce-tarjeta">
+
+                    <div class="director-autoridades-visualizar-carsce-tarjeta-cabecera">
+
+                        <div class="director-autoridades-visualizar-carsce-tarjeta-icono">
+                            <i class="fa-solid fa-users-gear"></i>
+                        </div>
+
+                        <div class="director-autoridades-visualizar-carsce-tarjeta-informacion">
+
+                            <span class="director-autoridades-gestion-carsce-etiqueta-modulo">
+                                CONSULTA INSTITUCIONAL
+                            </span>
+
+                            <h2 class="director-autoridades-visualizar-carsce-tarjeta-titulo">
+                                Autoridades Registradas
+                            </h2>
+
+                            <p class="director-autoridades-visualizar-carsce-tarjeta-descripcion">
+                                Selecciona una autoridad para cargar sus datos
+                                en el formulario y realizar modificaciones.
+                            </p>
+
+                        </div>
 
                     </div>
 
 
-                    <div class="director-autoridades-registrar-carsce-campo">
+                    <!-- INDICACIÓN -->
+                    <div class="director-autoridades-visualizar-carsce-indicacion">
 
-                        <label for="genero_autoridades">
-                            Género:
-                        </label>
+                        <i class="fa-solid fa-circle-info"></i>
 
-                        <div class="director-autoridades-registrar-carsce-control">
+                        <span>
+                            Haz clic sobre una autoridad para modificar sus datos.
+                        </span>
 
-                            <i class="fa-solid fa-venus-mars"></i>
+                    </div>
 
-                            <select
-                                name="genero_registrar"
-                                id="genero_autoridades"
-                                required>
 
-                                <option value="">Seleccione</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
+                    <!-- TABLA -->
+                    <div class="director-autoridades-visualizar-carsce-tabla-contenedor">
 
-                            </select>
+                        <div class="director-autoridades-visualizar-carsce-tabla-scroll">
 
-                            <i class="fa-solid fa-chevron-down director-autoridades-registrar-carsce-flecha"></i>
+                            <table class="director-autoridades-visualizar-carsce-tabla">
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Autoridad</th>
+                                        <th>Cédula</th>
+                                        <th>Cargo</th>
+                                        <th>Resolución</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="contenedor_autoridades">
+                                    <!-- Filas generadas dinámicamente por JavaScript -->
+                                </tbody>
+
+                            </table>
 
                         </div>
 
@@ -203,91 +418,19 @@
 
                 </div>
 
-
-                <!-- FILA 3 -->
-                <div class="director-autoridades-registrar-carsce-fila">
-
-                    <div class="director-autoridades-registrar-carsce-campo">
-
-                        <label for="cargo_autoridades">
-                            Cargo:
-                        </label>
-
-                        <div class="director-autoridades-registrar-carsce-control">
-
-                            <i class="fa-solid fa-briefcase"></i>
-
-                            <select
-                                name="cargo_registrar"
-                                id="cargo_autoridades"
-                                required>
-                            </select>
-
-                            <i class="fa-solid fa-chevron-down director-autoridades-registrar-carsce-flecha"></i>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="director-autoridades-registrar-carsce-campo">
-
-                        <label for="resolucion_autoridades">
-                            Resolución:
-                        </label>
-
-                        <div class="director-autoridades-registrar-carsce-control">
-
-                            <i class="fa-solid fa-file-signature"></i>
-
-                            <input
-                                type="text"
-                                name="resolucion_registrar"
-                                id="resolucion_autoridades"
-                                minlength="5"
-                                maxlength="5"
-                                pattern="[A-Z]{3}[0-9]{2}"
-                                title="Debe contener exactamente 3 letras mayúsculas seguidas de 2 números."
-                                autocomplete="off"
-                                required>
-
-                        </div>
-
-                        <small
-                            id="msg_resolucion"
-                            class="director-autoridades-registrar-carsce-mensaje">
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =================================================
-                     ACCIONES
-                     ================================================= -->
-
-                <div class="director-autoridades-registrar-carsce-acciones">
-
-                    <input
-                        type="submit"
-                        id="btn_registrar"
-                        value="Registrar Autoridades"
-                        class="director-autoridades-registrar-carsce-boton">
-
-                </div>
-
-            </form>
+            </section>
 
         </div>
 
     </div>
 
 </section>
+{% endblock %}  
 
-
+<!-- ARCHIVOS JAVASCRIPT -->
 <script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
 
 <script src="{% static 'Funciones_Asincronas/Director_General/Autoridad/registrar_autoridad.js' %}"></script>
 
-{% endblock %}
+<script src="{% static 'Funciones_Asincronas/Director_General/Autoridad/visualizar_autoridad.js' %}"></script>
+

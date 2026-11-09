@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from ..models import Nucleos, Noticia   
+from django.db.models import Case, IntegerField, Prefetch, Value, When
+from inicio_sesion.models import DocenteAsignadoMateria, Nucleos, Noticia
+from notas_academicas.models import PlanificacionAcademica
 
 
 def foro(request):
@@ -82,9 +84,72 @@ def carreras_impartidas(request):
 
 
 def Planificacion_Docente(request):
-    return render(request, 'foro/Planificacion_Docente.html')
+    orden_nucleos = ["Barinas", "Barinitas", "Socopo", "Pedraza"]
+    docentes_activos = (
+        DocenteAsignadoMateria.objects.filter(
+            activo=True,
+            docente__activo=True,
+        )
+        .select_related("docente__usuario")
+        .order_by(
+            "docente__usuario__apellidos",
+            "docente__usuario__nombres",
+        )
+    )
+    planes = (
+        PlanificacionAcademica.objects.filter(
+            activo=True,
+            estado_aceptacion="ACEPTADA",
+            materia_asignacion__activo=True,
+            materia_asignacion__docentes__activo=True,
+            materia_asignacion__docentes__docente__activo=True,
+        )
+        .select_related(
+            "pnf",
+            "nucleo",
+            "periodo_academico",
+            "materia_asignacion__materia",
+        )
+        .prefetch_related(
+            Prefetch(
+                "materia_asignacion__docentes",
+                queryset=docentes_activos,
+                to_attr="docentes_activos",
+            ),
+            "detalles__evaluaciones",
+        )
+        .distinct()
+        .order_by(
+            Case(
+                When(nucleo__municipio__iexact="Barinas", then=Value(0)),
+                When(nucleo__municipio__iexact="Barinitas", then=Value(1)),
+                When(nucleo__municipio__iexact="Socopo", then=Value(2)),
+                When(nucleo__municipio__iexact="Pedraza", then=Value(3)),
+                default=Value(4),
+                output_field=IntegerField(),
+            ),
+            "nucleo__municipio",
+            "pnf__pnf",
+            "materia_asignacion__materia__nombre",
+        )
+    )
+    ordenados = sorted(
+        planes,
+        key=lambda plan: (
+            orden_nucleos.index(plan.nucleo.municipio)
+            if plan.nucleo.municipio in orden_nucleos
+            else len(orden_nucleos),
+            plan.nucleo.municipio.casefold(),
+            plan.pnf.pnf.casefold(),
+            plan.materia_asignacion.materia.nombre.casefold(),
+        ),
+    )
+    return render(
+        request,
+        "foro/Planificacion_Docente.html",
+        {"planes": ordenados},
+    )
 
 
 def barra_lateral(request):
     return render(request, 'Estructura/Barra_Lateral.html')
-

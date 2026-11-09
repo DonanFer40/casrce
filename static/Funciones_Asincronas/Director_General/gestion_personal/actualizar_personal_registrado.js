@@ -351,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const fila = document.createElement("tr");
 
                 fila.innerHTML = `
-                    <td colspan="3" class="sin_perfiles">
+                    <td colspan="5" class="sin_perfiles">
                         No hay perfiles registrados para este usuario.
                     </td>
                 `;
@@ -504,6 +504,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         input_estado_perfil_seleccionado.value =
             perfilActivo ? "true" : "false";
+
+        if (
+            !input_habilitar_perfil.checked &&
+            !input_deshabilitar_perfil.checked
+        ) {
+            await NotificacionesCASRCE.mostrar({
+                icon: "warning",
+                title: "Estado no seleccionado",
+                text: "Debe seleccionar el estado del perfil."
+            });
+
+            return;
+        }
 
         try {
 

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.utils import timezone
 from datetime import timedelta
@@ -9,6 +10,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from django.conf import settings
 from inicio_sesion.services.correos import procesar_html_correo
+from inicio_sesion.validators import validar_contrasenia_segura
 from django.views.decorators.cache import never_cache
 
 from inicio_sesion.models import Usuario, Contacto, VerificacionCodigo, Cuenta
@@ -696,6 +698,16 @@ def rec_cont(request):
                 "title": "Error",
                 "icon": "error",
                 "descripcion": "No coincide las contraseñas."
+            })
+
+        try:
+            validar_contrasenia_segura(password)
+        except ValidationError as error:
+            return JsonResponse({
+                "estado": "fallo",
+                "title": "Contraseña insegura",
+                "icon": "warning",
+                "descripcion": error.messages[0],
             })
 
         usuario = Usuario.objects.filter(cedula_identidad=request.session.get("cedula_usuario")).first()

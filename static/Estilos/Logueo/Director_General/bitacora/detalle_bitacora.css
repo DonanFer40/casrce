@@ -1,0 +1,476 @@
+#bitacora-acciones-carsce {
+    width: 100%;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    overflow-x: hidden;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 1500px;
+    min-width: 0;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL REFINADO Y ALTURA AMPLIADA
+   ========================================================= */
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 260px;
+    padding: 42px 48px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 14px;
+}
+
+/* Decoración superior circular */
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 290px;
+    height: 290px;
+    top: -140px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+/* Acento rojo inferior circular */
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 130px;
+    height: 130px;
+    right: -45px;
+    bottom: -65px;
+    border: 18px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-presentacion {
+    width: 100%;
+    max-width: 780px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-presentacion p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   02. TARJETA PRINCIPAL
+   ========================================================= */
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-tarjeta {
+    width: 100%;
+    min-width: 0;
+    padding: 25px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 49px;
+    height: 49px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    color: var(--color-azul-profundo);
+    font-size: 19px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-tarjeta-informacion {
+    flex: 1;
+    min-width: 250px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-etiqueta-modulo {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-tarjeta-titulo {
+    margin: 0 0 7px;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-tarjeta-descripcion {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   03. ESTILOS ESPECÍFICOS PARA DETALLE DE ACCIÓN
+   ========================================================= */
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-indicacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 14px;
+    margin: 20px 0;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 3px solid var(--color-azul-profundo);
+    border-radius: 7px;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-indicacion i {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-azul-profundo);
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-datos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 20px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 9px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-dato-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    background: var(--color-blanco);
+    border: 1px solid #E2E8F0;
+    border-radius: 7px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-dato-ancho {
+    grid-column: 1 / -1;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-datos dt {
+    color: var(--texto-secundario);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-datos dd {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    word-break: break-word;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-datos code {
+    padding: 2px 6px;
+    background: #F1F5F9;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    word-break: break-all;
+}
+
+#bitacora-acciones-carsce
+.bitacora-badge-metodo {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 4px;
+    color: #2563EB;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-metadatos {
+    margin-top: 20px;
+    padding: 18px;
+    background: #0F172A;
+    border-radius: 8px;
+    color: #F8FAFC;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-metadatos h3 {
+    margin: 0 0 10px 0;
+    color: #94A3B8;
+    font-size: 11px;
+    font-weight: 750;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-metadatos pre {
+    margin: 0;
+    padding: 12px;
+    background: #1E293B;
+    border-radius: 6px;
+    color: #38BDF8;
+    font-family: monospace;
+    font-size: 11px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-acciones-pie {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #E9EEF5;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-boton-secundario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 18px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+    color: var(--texto-secundario);
+    font-size: 12px;
+    font-weight: 750;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-boton-secundario:hover {
+    background: #E2E8F0;
+    color: var(--color-azul-profundo);
+    border-color: #CBD5E1;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-estado {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-estado.exitoso,
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-estado.éxito {
+    background: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
+}
+
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-estado.fallido,
+#bitacora-acciones-carsce
+.bitacora-acciones-carsce-estado.rechazado {
+    background: var(--color-rojo-soft);
+    color: var(--color-rojo-acento);
+    border: 1px solid #FECACA;
+}
+
+
+/* =========================================================
+   04. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================= */
+
+@media (max-width: 650px) {
+    #bitacora-acciones-carsce {
+        padding: 20px 13px 35px;
+    }
+
+    #bitacora-acciones-carsce
+    .bitacora-acciones-carsce-encabezado {
+        padding: 24px 20px;
+        min-height: auto;
+    }
+
+    #bitacora-acciones-carsce
+    .bitacora-acciones-carsce-encabezado::before,
+    #bitacora-acciones-carsce
+    .bitacora-acciones-carsce-encabezado::after {
+        display: none;
+    }
+
+    #bitacora-acciones-carsce
+    .bitacora-acciones-carsce-datos {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 12px;
+    }
+
+    #bitacora-acciones-carsce
+    .bitacora-acciones-carsce-acciones-pie {
+        justify-content: stretch;
+    }
+
+    #bitacora-acciones-carsce
+    .bitacora-acciones-carsce-boton-secundario {
+        width: 100%;
+    }
+}

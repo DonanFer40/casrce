@@ -1,0 +1,1138 @@
+#configuracion-usuario-carsce {
+    width: 100%;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    overflow-x: hidden;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 0;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL
+   ========================================================= */
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 260px;
+    padding: 42px 48px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 14px;
+}
+
+/* Círculos decorativos de fondo */
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 290px;
+    height: 290px;
+    top: -140px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 130px;
+    height: 130px;
+    right: -45px;
+    bottom: -65px;
+    border: 18px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-presentacion {
+    width: 100%;
+    max-width: 780px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-presentacion p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   02. MENSAJES Y ALERTAS
+   ========================================================= */
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-mensajes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-alerta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-left: 4px solid var(--color-azul-hover);
+    border-radius: 8px;
+    color: #1E3A8A;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-errores-globales {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 18px;
+    background: var(--color-rojo-soft);
+    border: 1px solid #FECACA;
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: 8px;
+    color: #991B1B;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   03. TARJETAS DE SECCIÓN Y FORMULARIO
+   ========================================================= */
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-tarjeta {
+    width: 100%;
+    min-width: 0;
+    padding: 25px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 49px;
+    height: 49px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    color: var(--color-azul-profundo);
+    font-size: 19px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-tarjeta-informacion {
+    flex: 1;
+    min-width: 0;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-etiqueta-modulo {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-tarjeta-titulo {
+    margin: 0 0 7px;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-tarjeta-descripcion {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   04. ÁREA DE FOTO DE PERFIL (REDISEÑO MEJORADO)
+   ========================================================= */
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-foto-contenedor {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+}
+
+/* Marco exterior del Avatar con sombra y anillo decorativo */
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-avatar {
+    position: relative;
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    background: #F8FAFC;
+    border: 3px solid var(--color-blanco);
+    outline: 2px solid var(--color-borde-fino);
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-mutado);
+    font-size: 42px;
+    flex-shrink: 0;
+    transition: outline-color 0.25 ease, transform 0.25s ease;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-avatar:hover {
+    outline-color: var(--color-azul-hover);
+    transform: scale(1.02);
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Detalle del control de carga y campo */
+#configuracion-usuario-carsce
+.flex-1 {
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control-file {
+    position: relative;
+    width: 100%;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control-file input[type="file"] {
+    width: 100%;
+    padding: 10px 14px;
+    background: #F8FAFC;
+    border: 1px dashed #CBD5E1;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #475569;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control-file input[type="file"]:hover {
+    border-color: var(--color-azul-hover);
+    background: #F1F5F9;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-campo small {
+    color: var(--texto-secundario);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* Checkbox para quitar foto con diseño de badge / botón suave */
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin-top: 4px;
+    padding: 7px 12px;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 6px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-checkbox-label:hover {
+    background: #FEE2E2;
+    border-color: #FCA5A5;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-checkbox-label input[type="checkbox"] {
+    accent-color: var(--color-rojo-acento);
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   05. GRID DE CAMPOS Y FORMULARIOS
+   ========================================================= */
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    padding-top: 22px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+#configuracion-usuario-carsce
+.configuracion-campo-ancho {
+    grid-column: 1 / -1;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-campo label {
+    color: #334155;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 45px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control:focus-within {
+    background: var(--color-blanco);
+    border-color: var(--color-azul-hover);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control > i:first-child {
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    color: var(--texto-mutado);
+    font-size: 12px;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control input,
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control select,
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control textarea {
+    flex: 1;
+    width: 100%;
+    height: 43px;
+    padding: 0 12px;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 12px;
+    font-family: inherit;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-control select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 30px;
+}
+
+
+/* =========================================================
+   06. ACCIONES Y BOTONES
+   ========================================================= */
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-boton,
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-boton-secundario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-family: inherit;
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-boton {
+    background: var(--color-azul-profundo);
+    border: 1px solid var(--color-azul-profundo);
+    color: var(--color-blanco);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-boton:hover {
+    transform: translateY(-1px);
+    background: var(--color-azul-hover);
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-boton-secundario {
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    color: var(--texto-secundario);
+}
+
+#configuracion-usuario-carsce
+.configuracion-usuario-carsce-boton-secundario:hover {
+    background: #E2E8F0;
+    color: var(--color-azul-profundo);
+}
+
+
+/* =========================================================
+   07. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================= */
+
+@media (max-width: 650px) {
+    #configuracion-usuario-carsce {
+        padding: 20px 13px 35px;
+    }
+
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-encabezado {
+        padding: 24px 20px;
+        min-height: auto;
+    }
+
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-encabezado::before,
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-encabezado::after {
+        display: none;
+    }
+
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-foto-contenedor {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-acciones {
+        flex-direction: column-reverse;
+    }
+
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-boton,
+    #configuracion-usuario-carsce
+    .configuracion-usuario-carsce-boton-secundario {
+        width: 100%;
+    }
+}
+
+#configuracion-perfil-carsce {
+    width: 100%;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    overflow-x: hidden;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 0;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL (ALTURA AMPLIADA)
+   ========================================================= */
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 260px;
+    padding: 42px 48px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 14px;
+}
+
+/* Decoración superior circular */
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 290px;
+    height: 290px;
+    top: -140px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+/* Acento rojo inferior circular */
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 130px;
+    height: 130px;
+    right: -45px;
+    bottom: -65px;
+    border: 18px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-presentacion {
+    width: 100%;
+    max-width: 780px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-presentacion p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   02. MENSAJES DE ALERTA
+   ========================================================= */
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-mensajes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-alerta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-left: 4px solid var(--color-azul-hover);
+    border-radius: 8px;
+    color: #1E3A8A;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   03. TARJETA RESUMEN DE USUARIO
+   ========================================================= */
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-resumen {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    width: 100%;
+    padding: 25px 30px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #F1F5F9;
+    border: 2px solid var(--color-borde-fino);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-mutado);
+    font-size: 30px;
+    flex-shrink: 0;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-datos {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 240px;
+    gap: 4px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #059669;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-datos h2 {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-datos p {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-rol {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 3px 8px;
+    background: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 750;
+    width: fit-content;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-boton-foto {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 18px;
+    background: var(--color-azul-profundo);
+    border: 1px solid var(--color-azul-profundo);
+    border-radius: 7px;
+    color: var(--color-blanco);
+    font-size: 12px;
+    font-weight: 750;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-boton-foto:hover {
+    transform: translateY(-1px);
+    background: var(--color-azul-hover);
+}
+
+
+/* =========================================================
+   04. SECCIONES Y GRUPOS DE OPCIONES
+   ========================================================= */
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-secciones {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-grupo {
+    width: 100%;
+    padding: 25px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-grupo-titulo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde-fino);
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-grupo-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-grupo-titulo h2 {
+    margin: 0 0 3px 0;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-grupo-titulo p {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 18px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion:hover {
+    background: #F1F5F9;
+    border-color: var(--color-azul-hover);
+    transform: translateY(-1px);
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion-informativa {
+    cursor: default;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion-informativa:hover {
+    background: #F8FAFC;
+    border-color: var(--color-borde-fino);
+    transform: none;
+}
+
+#configuracion-perfil-carsce
+.opcion-peligro:hover {
+    border-color: #FECACA;
+    background: var(--color-rojo-soft);
+}
+
+#configuracion-perfil-carsce
+.opcion-peligro:hover .configuracion-perfil-carsce-opcion-icono {
+    background: var(--color-blanco);
+    color: var(--color-rojo-acento);
+    border-color: #FCA5A5;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+    color: var(--color-azul-profundo);
+    font-size: 14px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    gap: 2px;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion-info strong {
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion-info small {
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion > i.fa-chevron-right {
+    color: var(--texto-mutado);
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion:hover > i.fa-chevron-right {
+    transform: translateX(3px);
+    color: var(--color-azul-hover);
+}
+
+#configuracion-perfil-carsce
+.configuracion-perfil-carsce-opcion-estado {
+    color: var(--texto-mutado);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   05. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================= */
+
+@media (max-width: 650px) {
+    #configuracion-perfil-carsce {
+        padding: 20px 13px 35px;
+    }
+
+    #configuracion-perfil-carsce
+    .configuracion-perfil-carsce-encabezado {
+        padding: 24px 20px;
+        min-height: auto;
+    }
+
+    #configuracion-perfil-carsce
+    .configuracion-perfil-carsce-encabezado::before,
+    #configuracion-perfil-carsce
+    .configuracion-perfil-carsce-encabezado::after {
+        display: none;
+    }
+
+    #configuracion-perfil-carsce
+    .configuracion-perfil-carsce-resumen {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    #configuracion-perfil-carsce
+    .configuracion-perfil-carsce-accion-avatar,
+    #configuracion-perfil-carsce
+    .configuracion-perfil-carsce-boton-foto {
+        width: 100%;
+        justify-content: center;
+    }
+
+    #configuracion-perfil-carsce
+    .configuracion-perfil-carsce-opcion {
+        align-items: flex-start;
+    }
+}

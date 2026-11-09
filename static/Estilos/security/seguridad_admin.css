@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: #233247;
+    background: #f2f5f8;
+    font-family: Arial, sans-serif;
+}
+
+.seguridad-admin {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 24px;
+}
+
+.seguridad-admin__panel {
+    width: min(100%, 480px);
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #dfe6ee;
+    border-radius: 16px;
+    box-shadow: 0 16px 42px rgba(27, 46, 70, .12);
+}
+
+.seguridad-admin__panel h1 {
+    margin: 0 0 8px;
+    color: #183451;
+    font-size: 25px;
+}
+
+.seguridad-admin__panel h2 {
+    margin: 23px 0 7px;
+    color: #214f72;
+    font-size: 18px;
+}
+
+.seguridad-admin__panel p {
+    color: #637287;
+    line-height: 1.55;
+}
+
+.seguridad-admin__panel label {
+    display: block;
+    margin: 14px 0 7px;
+    color: #34445a;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.seguridad-admin__panel input {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font: inherit;
+    letter-spacing: .12em;
+}
+
+.seguridad-admin__panel input:focus {
+    border-color: #3b78ad;
+    outline: 3px solid rgba(59, 120, 173, .16);
+}
+
+.seguridad-admin__panel button {
+    min-height: 42px;
+    margin-top: 12px;
+    padding: 0 15px;
+    color: #fff;
+    background: #1d5b86;
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.seguridad-admin__panel button:hover:not(:disabled) {
+    background: #164769;
+}
+
+.seguridad-admin__panel button:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+#reenviar-codigo {
+    color: #1d5b86;
+    background: #edf4f9;
+}
+
+#mensaje-seguridad {
+    min-height: 22px;
+    padding: 0;
+    font-size: 13px;
+}
+
+#mensaje-seguridad[data-estado="error"] {
+    color: #a12e38;
+}
+
+#mensaje-seguridad[data-estado="exito"] {
+    color: #17613c;
+}
+
+#form-cancelar {
+    padding-top: 8px;
+    border-top: 1px solid #e8edf2;
+}
+
+#form-cancelar button {
+    color: #475569;
+    background: #f1f4f7;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 520px) {
+    .seguridad-admin {
+        padding: 14px;
+    }
+
+    .seguridad-admin__panel {
+        padding: 22px 18px;
+    }
+}

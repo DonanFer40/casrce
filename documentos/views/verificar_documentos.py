@@ -69,6 +69,12 @@ def puede_emitir_reporte(request, usuario, estudiante):
 
     roles = obtener_roles_sesion(request)
 
+    if "Estudiante" in roles and Estudiante.objects.filter(
+        id_estudiante=estudiante.id_estudiante,
+        usuario=usuario,
+    ).exists():
+        return True
+
     # -----------------------------------------------------
     # DIRECTOR GENERAL
     # -----------------------------------------------------
@@ -259,6 +265,18 @@ def emitir_reporte_academico(request, id_estudiante):
         }, status=500)
 
 
+@require_POST
+def emitir_reporte_academico_actual(request):
+    try:
+        id_estudiante = int(request.POST.get("estudiante_id", ""))
+    except (TypeError, ValueError):
+        return JsonResponse({
+            "estado": "fallo",
+            "mensaje": "Selecciona un perfil estudiantil válido.",
+        }, status=400)
+    return emitir_reporte_academico(request, id_estudiante)
+
+
 # =========================================================
 # DESCARGAR DOCUMENTO INSTITUCIONAL
 # =========================================================
@@ -279,6 +297,12 @@ def descargar_documento(request, identificador):
         identificador=identificador,
     )
 
+    if documento.estado != "VIGENTE":
+        return JsonResponse({
+            "estado": "fallo",
+            "mensaje": "Este documento fue anulado y ya no está disponible.",
+        }, status=410)
+
     # -----------------------------------------------------
     # COMPROBAR QUE EXISTA EL ARCHIVO
     # -----------------------------------------------------
@@ -294,7 +318,24 @@ def descargar_documento(request, identificador):
     # VALIDAR TIPO DE DOCUMENTO
     # -----------------------------------------------------
 
-    if documento.tipo_documento not in {"REPORTE_ACADEMICO", "PLANILLA_INSCRIPCION", "CONSTANCIA_ESTUDIOS"}:
+    tipos_personales = {
+        "REPORTE_ACADEMICO",
+        "PLANILLA_INSCRIPCION",
+        "CONSTANCIA_ESTUDIOS",
+        "CONSTANCIA_INSCRIPCION",
+    }
+    tipos_estadisticos = {
+        "REPORTE_MATRICULA",
+        "REPORTE_INSCRIPCIONES",
+        "REPORTE_EGRESADOS",
+        "REPORTE_ESTUDIANTES_ANUALES",
+        "REPORTE_PERSONAL",
+    }
+    if (
+        documento.tipo_documento not in tipos_personales
+        and documento.tipo_documento != "HORARIO_ACADEMICO"
+        and documento.tipo_documento not in tipos_estadisticos
+    ):
 
         return JsonResponse({
             "estado": "fallo",
@@ -306,6 +347,35 @@ def descargar_documento(request, identificador):
     # -----------------------------------------------------
 
     datos = documento.datos_documento or {}
+
+    if documento.tipo_documento in tipos_estadisticos:
+        if str(datos.get("generado_por_usuario_id")) != str(usuario.pk):
+            return JsonResponse({
+                "estado": "fallo",
+                "mensaje": "Solo quien generó este reporte puede descargarlo.",
+            }, status=403)
+        return FileResponse(
+            documento.archivo_pdf.open("rb"),
+            as_attachment=True,
+            filename=f"{documento.codigo_documento}.pdf",
+            content_type="application/pdf",
+        )
+
+    if documento.tipo_documento == "HORARIO_ACADEMICO":
+        if (
+            str(datos.get("usuario_id")) != str(usuario.pk)
+            and documento.emitido_por_id != usuario.pk
+        ):
+            return JsonResponse({
+                "estado": "fallo",
+                "mensaje": "Este horario no corresponde a tu cuenta.",
+            }, status=403)
+        return FileResponse(
+            documento.archivo_pdf.open("rb"),
+            as_attachment=True,
+            filename=f"{documento.codigo_documento}.pdf",
+            content_type="application/pdf",
+        )
 
     id_estudiante = datos.get("estudiante_id")
 

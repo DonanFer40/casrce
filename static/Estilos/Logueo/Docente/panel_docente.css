@@ -1,0 +1,700 @@
+#panel-docente-carsce {
+    width: 100%;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    overflow-x: hidden;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-contenedor {
+    width: 100%;
+    max-width: 1500px;
+    min-width: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL
+   ========================================================= */
+
+#panel-docente-carsce
+.panel-docente-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 215px;
+    padding: 35px 42px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 16px;
+}
+
+/* Decoración superior circular */
+#panel-docente-carsce
+.panel-docente-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    padding: 5px 10px;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    border-radius: 20px;
+    color: #047857;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-estado-punto {
+    width: 7px;
+    height: 7px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-presentacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-presentacion-principal {
+    flex: 1;
+    min-width: 280px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-presentacion-principal h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-presentacion-principal h1 span {
+    color: var(--color-rojo-acento);
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-presentacion-principal p {
+    max-width: 630px;
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-fecha {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-fecha i {
+    font-size: 22px;
+    color: var(--color-azul-profundo);
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-fecha span {
+    display: block;
+    color: var(--texto-mutado);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-fecha strong {
+    color: var(--color-azul-profundo);
+    font-size: 13px;
+    font-weight: 750;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-encabezado-pie {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 4px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   02. TARJETAS DE RESUMEN (STATS)
+   ========================================================= */
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen-tarjeta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen-tarjeta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-elevada);
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+#panel-docente-carsce .panel-docente-carsce-icono-azul { background: #EFF6FF; color: #2563EB; }
+#panel-docente-carsce .panel-docente-carsce-icono-verde { background: #ECFDF5; color: #059669; }
+#panel-docente-carsce .panel-docente-carsce-icono-naranja { background: #FFF7ED; color: #EA580C; }
+#panel-docente-carsce .panel-docente-carsce-icono-morado { background: #F5F3FF; color: #7C3AED; }
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen-informacion {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen-informacion span {
+    color: var(--texto-secundario);
+    font-size: 11px;
+    font-weight: 650;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen-informacion strong {
+    margin: 2px 0;
+    color: var(--color-azul-profundo);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-resumen-informacion small {
+    color: var(--texto-mutado);
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   03. CONTENIDO PRINCIPAL (PANeles Dobles)
+   ========================================================= */
+
+#panel-docente-carsce
+.panel-docente-carsce-contenido {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    #panel-docente-carsce
+    .panel-docente-carsce-contenido {
+        grid-template-columns: 1fr;
+    }
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    padding: 24px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E9EEF5;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #EFF6FF;
+    color: #2563EB;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-icono-naranja {
+    background: #FFF7ED;
+    color: #EA580C;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-titulo h2 {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-titulo p {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-azul-profundo);
+    font-size: 11px;
+    font-weight: 750;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-panel-enlace:hover {
+    color: var(--color-rojo-acento);
+}
+
+/* Lista de Materias */
+#panel-docente-carsce
+.panel-docente-carsce-materias-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia:hover {
+    background: #F1F5F9;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-blanco);
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    color: var(--color-azul-profundo);
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia-informacion {
+    flex: 1;
+    min-width: 0;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia-informacion h3 {
+    margin: 0 0 2px 0;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia-informacion span {
+    color: var(--texto-secundario);
+    font-size: 10px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia-datos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia-datos span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 650;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-materia-datos i {
+    color: var(--texto-mutado);
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+    color: var(--texto-secundario);
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-vacio i {
+    font-size: 28px;
+    color: var(--texto-mutado);
+    margin-bottom: 8px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-vacio p {
+    margin: 0;
+    font-size: 11px;
+}
+
+/* Actividad Académica */
+#panel-docente-carsce
+.panel-docente-carsce-actividad-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-actividad-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-actividad-punto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+#panel-docente-carsce .panel-docente-carsce-punto-azul { background: #2563EB; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+#panel-docente-carsce .panel-docente-carsce-punto-verde { background: #059669; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15); }
+#panel-docente-carsce .panel-docente-carsce-punto-naranja { background: #EA580C; box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15); }
+
+#panel-docente-carsce
+.panel-docente-carsce-actividad-item strong {
+    display: block;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
+    margin-bottom: 2px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-actividad-item p {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   04. ACCESOS RÁPIDOS
+   ========================================================= */
+
+#panel-docente-carsce
+.panel-docente-carsce-accesos {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    padding: 24px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-accesos-cabecera {
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E9EEF5;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-subtitulo-seccion {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-accesos-cabecera h2 {
+    margin: 0;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-accesos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso:hover {
+    background: var(--color-blanco);
+    border-color: var(--color-azul-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+#panel-docente-carsce .panel-docente-carsce-acceso-azul { background: #EFF6FF; color: #2563EB; }
+#panel-docente-carsce .panel-docente-carsce-acceso-verde { background: #ECFDF5; color: #059669; }
+#panel-docente-carsce .panel-docente-carsce-acceso-naranja { background: #FFF7ED; color: #EA580C; }
+#panel-docente-carsce .panel-docente-carsce-acceso-morado { background: #F5F3FF; color: #7C3AED; }
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso div {
+    flex: 1;
+    min-width: 0;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso strong {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso span {
+    display: block;
+    color: var(--texto-secundario);
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso-flecha {
+    color: var(--texto-mutado);
+    font-size: 11px;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+#panel-docente-carsce
+.panel-docente-carsce-acceso:hover .panel-docente-carsce-acceso-flecha {
+    transform: translateX(3px);
+    color: var(--color-azul-profundo);
+}
+
+
+/* =========================================================
+   05. RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 650px) {
+    #panel-docente-carsce {
+        padding: 20px 13px 35px;
+    }
+
+    #panel-docente-carsce
+    .panel-docente-carsce-encabezado {
+        padding: 22px 18px;
+    }
+
+    #panel-docente-carsce
+    .panel-docente-carsce-encabezado::before {
+        display: none;
+    }
+
+    #panel-docente-carsce
+    .panel-docente-carsce-estado {
+        margin-left: 0;
+    }
+}

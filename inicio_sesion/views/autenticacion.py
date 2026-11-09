@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.conf import settings
 
@@ -8,7 +9,17 @@ from inicio_sesion.services.seguridad_admin_service import (
     iniciar_verificacion_admin
 )
 
-from inicio_sesion.models import Nacimiento, Cuenta, Usuario, Estudiante, Docente, CoordinadorPNF, ControlEstudio, DirectorGeneral
+from inicio_sesion.models import (
+    ConfiguracionSeguridadAdmin,
+    Nacimiento,
+    Cuenta,
+    Usuario,
+    Estudiante,
+    Docente,
+    CoordinadorPNF,
+    ControlEstudio,
+    DirectorGeneral,
+)
 from bitacora.services.registrar_accion import registrar_accion
 
 
@@ -43,8 +54,8 @@ def obtener_roles(usuario):
     ).select_related("nucleo", "pnf"):
         roles.append({
             "rol": "Docente",
-            "nucleo": docente.nucleo.municipio,
-            "pnf": docente.pnf.pnf,
+            "nucleo": docente.nucleo.municipio if docente.nucleo else None,
+            "pnf": docente.pnf.pnf if docente.pnf else None,
         })
 
     # Solo coordinadores activos
@@ -54,8 +65,10 @@ def obtener_roles(usuario):
     ).select_related("nucleo", "pnf"):
         roles.append({
             "rol": "Coordinador PNF",
-            "nucleo": coordinador.nucleo.municipio,
-            "pnf": coordinador.pnf.pnf,
+            "nucleo": (
+                coordinador.nucleo.municipio if coordinador.nucleo else None
+            ),
+            "pnf": coordinador.pnf.pnf if coordinador.pnf else None,
         })
 
     # Solo controles de estudio activos
@@ -65,7 +78,7 @@ def obtener_roles(usuario):
     ).select_related("nucleo"):
         roles.append({
             "rol": "Control de Estudio",
-            "nucleo": control.nucleo.municipio,
+            "nucleo": control.nucleo.municipio if control.nucleo else None,
         })
 
     # Director General no tiene campo activo actualmente
@@ -188,7 +201,8 @@ def autenticacion(request):
                 "estado": "fallo",
                 "title": "Error",
                 "icon": "error",
-                "descripcion": "La contraseña no coincide con la que esta registrada."
+                "descripcion": "La contraseña no coincide con la que esta registrada.",
+                "control": "password"
             })
 
         usuario = credenciales.id_usuario
@@ -197,6 +211,9 @@ def autenticacion(request):
         request.session['id_cuenta'] = credenciales.id_cuenta
         request.session['cedula_usuario'] = usuario.cedula_identidad
         request.session['usuario_nombre'] = f"{usuario.nombres} {usuario.apellidos}"
+        request.session["foto_perfil_url"] = (
+            usuario.foto_perfil.url if usuario.foto_perfil else ""
+        )
 
         roles = obtener_roles(usuario)
         request.session["roles"] = roles
@@ -229,7 +246,25 @@ def autenticacion(request):
                 "url": reverse("comp_registro")
             })
     
-    return render(request, 'Sesion/Login/inicio_sesion.html')
+    contexto = {"inicializacion_admin_disponible": False}
+    nombre_superusuario = getattr(settings, "CASRCE_ADMIN_USERNAME", "")
+    if nombre_superusuario:
+        modelo_usuario = get_user_model()
+        superusuario = modelo_usuario.objects.filter(
+            **{modelo_usuario.USERNAME_FIELD: nombre_superusuario},
+            is_active=True,
+            is_staff=True,
+            is_superuser=True,
+        ).first()
+        contexto["inicializacion_admin_disponible"] = bool(
+            superusuario
+            and not ConfiguracionSeguridadAdmin.objects.filter(
+                usuario=superusuario,
+                totp_activo=True,
+            ).exists()
+        )
+
+    return render(request, 'Sesion/Login/inicio_sesion.html', contexto)
 
 def cerrar_sesion(request):
     _registrar_evento_seguro(

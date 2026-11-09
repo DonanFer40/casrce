@@ -1,728 +1,603 @@
-/* =========================================================
-   PLANIFICACIÓN ACADÉMICA DEL ESTUDIANTE — CARSCE
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce {
+#notas-academicas-informacion-carsce {
     width: 100%;
-    min-height: 100%;
-    padding: 4px 0 30px;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
     color: var(--texto-principal);
+    overflow-x: hidden;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-contenedor {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-contenedor {
     width: 100%;
-    max-width: 1050px;
+    max-width: 1500px;
+    min-width: 0;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 
 /* =========================================================
-   ENCABEZADO
+   01. ENCABEZADO INSTITUCIONAL
    ========================================================= */
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-encabezado {
-    margin-bottom: 24px;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 215px;
+    padding: 35px 42px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-identificacion {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+}
+
+/* Decoración superior circular */
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-etiqueta-sup {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 7px 12px;
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 7px;
-    color: #2563EB;
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .07em;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-identificacion i {
-    font-size: .72rem;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-presentacion {
-    margin-top: 10px;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-presentacion {
+    width: 100%;
+    max-width: 720px;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-titulo {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(24px, 3.5vw, 37px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-presentacion h1 span {
+    color: var(--color-rojo-acento);
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-presentacion p {
+    max-width: 630px;
     margin: 0;
-    color: var(--texto-principal);
-    font-size: 1.55rem;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -.02em;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-titulo span {
-    color: #2563EB;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-descripcion {
-    max-width: 800px;
-    margin: 7px 0 0;
     color: var(--texto-secundario);
-    font-size: .82rem;
-    line-height: 1.55;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
 }
 
 
 /* =========================================================
-   TARJETA PRINCIPAL
+   02. TARJETA PRINCIPAL Y FORMULARIO
    ========================================================= */
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-tarjeta {
-    padding: 26px 28px 28px;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta {
+    width: 100%;
+    min-width: 0;
+    padding: 25px;
     background: var(--color-blanco);
     border: 1px solid var(--color-borde-fino);
     border-radius: var(--radio-card);
-    box-shadow: var(--sombra-card);
+    box-shadow: var(--sombra-elevada);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
 }
 
-
-/* =========================================================
-   CABECERA DE TARJETA
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-tarjeta-cabecera {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-cabecera {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 25px;
-    padding-bottom: 21px;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 20px;
     border-bottom: 1px solid var(--color-borde-fino);
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-tarjeta-icono {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 46px;
-    min-width: 46px;
-    height: 46px;
-    background: linear-gradient(135deg, #2563EB, #1D4ED8);
-    border-radius: 11px;
-    color: #FFFFFF;
-    font-size: 1rem;
-    box-shadow: 0 5px 12px rgba(37, 99, 235, .22);
+    flex-shrink: 0;
+    width: 49px;
+    height: 49px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    color: var(--color-azul-profundo);
+    font-size: 19px;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-tarjeta-informacion {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-informacion {
+    flex: 1;
     min-width: 0;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-tarjeta-titulo {
-    margin: 0;
-    color: var(--color-azul-card);
-    font-size: 1rem;
-    font-weight: 650;
-    line-height: 1.35;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-etiqueta-modulo {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-tarjeta-descripcion {
-    margin: 3px 0 0;
-    color: var(--texto-secundario);
-    font-size: .72rem;
-    line-height: 1.5;
-}
-
-
-/* =========================================================
-   BLOQUES GENERALES
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-bloque {
-    width: 100%;
-    margin-bottom: 18px;
-    padding: 21px 20px 22px;
-    background: var(--color-fondo-pagina);
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-bloque-cabecera {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    margin-bottom: 18px;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-bloque-icono {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    min-width: 35px;
-    height: 35px;
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 8px;
-    color: #2563EB;
-    font-size: .78rem;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-bloque-informacion {
-    min-width: 0;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-bloque-titulo {
-    margin: 0;
-    color: var(--color-azul-card);
-    font-size: .82rem;
-    font-weight: 650;
-    line-height: 1.35;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-bloque-descripcion {
-    margin: 2px 0 0;
-    color: var(--texto-secundario);
-    font-size: .68rem;
-    line-height: 1.45;
-}
-
-
-/* =========================================================
-   FORMULARIO DE FILTROS
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-formulario {
-    width: 100%;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-campo {
-    width: 100%;
-    min-width: 0;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-etiqueta {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--texto-principal);
-    font-size: .73rem;
-    font-weight: 600;
-    line-height: 1.35;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-control {
-    position: relative;
-    width: 100%;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-control > i {
-    position: absolute;
-    top: 50%;
-    left: 14px;
-    z-index: 2;
-    transform: translateY(-50%);
-    color: #64748B;
-    font-size: .74rem;
-    pointer-events: none;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-control select {
-    width: 100%;
-    height: 45px;
-    padding: 0 40px;
-    background: #FFFFFF;
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-    outline: none;
-    color: var(--texto-principal);
-    font-family: "Poppins", sans-serif;
-    font-size: .74rem;
-    line-height: 45px;
-    appearance: none;
-    cursor: pointer;
-    transition:
-        border-color .18s ease,
-        box-shadow .18s ease;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-control select:hover {
-    border-color: #94A3B8;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-control select:focus {
-    border-color: #2563EB;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-flecha {
-    position: absolute;
-    top: 50%;
-    right: 14px;
-    z-index: 2;
-    transform: translateY(-50%);
-    color: #64748B;
-    font-size: .62rem;
-    pointer-events: none;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-mensaje {
-    min-height: 16px;
-    margin-top: 4px;
-    color: #DC2626;
-    font-size: .65rem;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-titulo {
+    margin: 0 0 7px;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
     line-height: 1.3;
 }
 
-
-/* =========================================================
-   BLOQUE DE RESULTADOS
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-bloque-resultados {
-    margin-top: 20px;
-    margin-bottom: 0;
-    background: #FFFFFF;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-tarjeta-descripcion {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
 }
 
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-resultados {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-formulario {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    min-width: 0;
 }
 
 
 /* =========================================================
-   MENSAJE SIN PLANIFICACIONES
+   03. BLOQUES Y CONTROLES ACADÉMICOS
    ========================================================= */
 
-#planificacion-academica-estudiante-carsce
-.mensaje_sin_planificaciones {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-cabecera {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 90px;
-    padding: 18px 20px;
-    background: #F8FAFC;
-    border: 1px dashed #CBD5E1;
-    border-radius: 9px;
+    width: 36px;
+    height: 36px;
+    background: var(--color-blanco);
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    color: var(--color-azul-profundo);
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-titulo {
+    margin: 0 0 3px;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-bloque-descripcion {
+    margin: 0;
     color: var(--texto-secundario);
-    font-size: .7rem;
-    line-height: 1.5;
-    text-align: center;
+    font-size: 11px;
 }
 
-
-/* =========================================================
-   BLOQUES INDIVIDUALES DE PLANIFICACIÓN
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
-.bloque_planificacion_academica {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
     width: 100%;
-    margin-top: 18px;
-    padding: 20px;
-    background: #FFFFFF;
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, .03);
 }
 
-#planificacion-academica-estudiante-carsce
-.bloque_planificacion_academica:first-child {
-    margin-top: 0;
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-campo {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 8px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-etiqueta {
+    color: var(--color-azul-profundo);
+    font-size: 11px;
+    font-weight: 750;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 45px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control:focus-within {
+    border-color: var(--color-azul-hover);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control > i:first-child {
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    color: var(--texto-mutado);
+    font-size: 12px;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-control select {
+    flex: 1;
+    width: 100%;
+    height: 43px;
+    padding: 0 30px 0 0;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 12px;
+    font-family: inherit;
+    appearance: none;
+    cursor: pointer;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-flecha {
+    position: absolute;
+    right: 12px;
+    color: var(--texto-mutado);
+    font-size: 10px;
+    pointer-events: none;
+}
+
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-mensaje {
+    display: block;
+    min-height: 14px;
+    color: var(--texto-secundario);
+    font-size: 10px;
+    font-weight: 550;
 }
 
 
 /* =========================================================
-   ENCABEZADO DE PLANIFICACIÓN
+   04. RESULTADOS Y ESTILOS DINÁMICOS DE PLANIFICACIONES
    ========================================================= */
 
-#planificacion-academica-estudiante-carsce
-.encabezado_planificacion {
-    margin-bottom: 17px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-borde-fino);
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-resultados {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-#planificacion-academica-estudiante-carsce
+/* Bloque individual de cada planificación generada por JS */
+#notas-academicas-informacion-carsce
+.bloque_planificacion_academica {
+    background: var(--color-blanco);
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Cabecera interna del bloque de planificación */
+#notas-academicas-informacion-carsce
+.encabezado_planificacion {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E9EEF5;
+}
+
+#notas-academicas-informacion-carsce
 .titulo_planificacion {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .titulo_planificacion h3 {
     margin: 0;
-    color: var(--color-azul-card);
-    font-size: .9rem;
-    font-weight: 650;
-    line-height: 1.35;
+    color: var(--color-azul-profundo);
+    font-size: 14px;
+    font-weight: 800;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .titulo_planificacion span {
-    flex-shrink: 0;
-    padding: 5px 9px;
+    display: inline-flex;
+    padding: 4px 8px;
     background: #EFF6FF;
     border: 1px solid #DBEAFE;
-    border-radius: 6px;
+    border-radius: 4px;
     color: #2563EB;
-    font-size: .61rem;
-    font-weight: 650;
-    line-height: 1.2;
+    font-size: 10px;
+    font-weight: 700;
 }
 
-
-/* =========================================================
-   DATOS GENERALES DE LA PLANIFICACIÓN
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
+/* Grid de datos de metadatos de la materia/planificación */
+#notas-academicas-informacion-carsce
 .datos_planificacion {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 11px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .dato_planificacion {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-    min-height: 68px;
-    padding: 11px 13px;
+    padding: 10px 12px;
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .dato_planificacion span {
-    margin-bottom: 5px;
-    color: #64748B;
-    font-size: .61rem;
-    font-weight: 600;
-    line-height: 1.3;
+    color: var(--texto-mutado);
+    font-size: 9px;
+    font-weight: 750;
+    text-transform: uppercase;
+    margin-bottom: 2px;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .dato_planificacion strong {
-    overflow: hidden;
-    color: #0F172A;
-    font-size: .72rem;
-    font-weight: 650;
-    line-height: 1.4;
-    text-overflow: ellipsis;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-
-/* =========================================================
-   CONTENEDOR DE TABLA
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
+/* Contenedor responsivo con scroll para la tabla */
+#notas-academicas-informacion-carsce
 .contenedor_tabla_planificacion {
     width: 100%;
     overflow-x: auto;
-    padding-bottom: 3px;
+    border-radius: 6px;
+    border: 1px solid #E2E8F0;
 }
 
-
-/* =========================================================
-   TABLA DE PLANIFICACIÓN
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
+/* Estilos profesionales de la tabla */
+#notas-academicas-informacion-carsce
 .tabla_planificacion_academica {
     width: 100%;
-    min-width: 760px;
-    border-collapse: separate;
-    border-spacing: 0;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    background: #FFFFFF;
-    font-size: .68rem;
-    overflow: hidden;
-}
-
-#planificacion-academica-estudiante-carsce
-.tabla_planificacion_academica thead {
-    background: #1E293B;
-}
-
-#planificacion-academica-estudiante-carsce
-.tabla_planificacion_academica th {
-    padding: 11px 12px;
-    border-bottom: 1px solid #334155;
-    color: #FFFFFF;
-    font-size: .65rem;
-    font-weight: 650;
-    line-height: 1.35;
+    border-collapse: collapse;
     text-align: left;
-    vertical-align: middle;
+    font-size: 12px;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_planificacion_academica thead {
+    background: #F8FAFC;
+    color: var(--color-azul-profundo);
+    border-bottom: 1px solid #CBD5E1;
+}
+
+#notas-academicas-informacion-carsce
+.tabla_planificacion_academica th {
+    padding: 12px 16px;
+    font-weight: 750;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     white-space: nowrap;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .tabla_planificacion_academica td {
-    padding: 11px 12px;
-    border-bottom: 1px solid #E2E8F0;
-    color: #475569;
-    font-size: .67rem;
-    line-height: 1.45;
+    padding: 12px 16px;
+    color: var(--texto-principal);
+    border-bottom: 1px solid #F1F5F9;
     vertical-align: middle;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .tabla_planificacion_academica tbody tr:last-child td {
     border-bottom: none;
 }
 
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .tabla_planificacion_academica tbody tr:hover {
-    background: #F8FAFC;
+    background-color: #F8FAFC;
 }
 
-#planificacion-academica-estudiante-carsce
-.tabla_planificacion_academica td[rowspan] {
-    background: #F8FAFC;
-    color: var(--texto-principal);
+/* Mensajes de estados vacíos o alertas dentro de los resultados */
+#notas-academicas-informacion-carsce
+.mensaje_sin_planificaciones {
+    padding: 24px;
+    text-align: center;
+    background: var(--color-blanco);
+    border: 1px dashed #CBD5E1;
+    border-radius: 8px;
+    color: var(--texto-secundario);
+    font-size: 12px;
     font-weight: 600;
 }
 
-
-/* =========================================================
-   MENSAJE DENTRO DE LA TABLA
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
+#notas-academicas-informacion-carsce
 .mensaje_tabla {
-    padding: 22px 16px !important;
-    background: #F8FAFC;
-    color: var(--texto-secundario) !important;
-    font-size: .68rem !important;
-    line-height: 1.5 !important;
     text-align: center;
-}
-
-
-/* =========================================================
-   INFORMACIÓN INFERIOR
-   ========================================================= */
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-informacion {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin-top: 20px;
-    padding-top: 17px;
-    border-top: 1px solid var(--color-borde-fino);
+    padding: 20px !important;
     color: var(--texto-secundario);
-    font-size: .67rem;
-    line-height: 1.5;
-}
-
-#planificacion-academica-estudiante-carsce
-.planificacion-academica-estudiante-carsce-informacion i {
-    margin-top: 2px;
-    color: #2563EB;
-    font-size: .72rem;
+    font-style: italic;
+    background: #FAFAFA;
 }
 
 
 /* =========================================================
-   RESPONSIVE — 900 PX
+   05. PIE E INFORMACIÓN
    ========================================================= */
 
-@media (max-width: 900px) {
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-informacion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
+    padding-top: 16px;
+    border-top: 1px solid #E9EEF5;
+    color: var(--texto-secundario);
+    font-size: 11px;
+}
 
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-contenedor {
-        max-width: 100%;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-tarjeta {
-        padding: 23px 22px 25px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .datos_planificacion {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+#notas-academicas-informacion-carsce
+.notas-academicas-informacion-carsce-informacion i {
+    color: var(--color-azul-profundo);
+    font-size: 13px;
+    flex-shrink: 0;
 }
 
 
 /* =========================================================
-   RESPONSIVE — 700 PX
+   06. RESPONSIVE DESIGN
    ========================================================= */
 
-@media (max-width: 700px) {
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
+@media (max-width: 650px) {
+    #notas-academicas-informacion-carsce {
+        padding: 20px 13px 35px;
     }
 
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-titulo {
-        font-size: 1.35rem;
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-encabezado {
+        padding: 22px 18px;
     }
 
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-tarjeta {
-        padding: 21px 18px 22px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-bloque {
-        padding: 18px 16px 19px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .bloque_planificacion_academica {
-        padding: 17px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .titulo_planificacion {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .titulo_planificacion span {
-        align-self: flex-start;
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVE — 520 PX
-   ========================================================= */
-
-@media (max-width: 520px) {
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-titulo {
-        font-size: 1.2rem;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-descripcion {
-        font-size: .74rem;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-tarjeta-cabecera {
-        align-items: flex-start;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-tarjeta-icono {
-        width: 42px;
-        min-width: 42px;
-        height: 42px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .datos_planificacion {
-        grid-template-columns: 1fr;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .dato_planificacion {
-        min-height: 62px;
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVE — 390 PX
-   ========================================================= */
-
-@media (max-width: 390px) {
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-tarjeta {
-        padding: 18px 14px 19px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-bloque {
-        padding: 16px 13px 17px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-bloque-icono {
-        width: 32px;
-        min-width: 32px;
-        height: 32px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-bloque-titulo {
-        font-size: .76rem;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .planificacion-academica-estudiante-carsce-bloque-descripcion {
-        font-size: .63rem;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .bloque_planificacion_academica {
-        padding: 14px;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .titulo_planificacion h3 {
-        font-size: .78rem;
-    }
-
-    #planificacion-academica-estudiante-carsce
-    .titulo_planificacion span {
-        font-size: .58rem;
+    #notas-academicas-informacion-carsce
+    .notas-academicas-informacion-carsce-encabezado::before {
+        display: none;
     }
 }

@@ -9,6 +9,7 @@ class Usuario(models.Model):
     genero = models.CharField(max_length=50, null=True, blank=True)
     cedula_identidad = models.CharField(max_length=15)
     estado_civil = models.CharField(max_length=50, null=True, blank=True)
+    foto_perfil = models.ImageField(upload_to="perfiles/", blank=True, null=True)
 
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
@@ -451,6 +452,53 @@ class DocenteAsignadoMateria(models.Model):
                 name="uq_docente_secundario"
             ),
         ]
+
+
+class HorarioAcademico(models.Model):
+    DIAS_SEMANA = [
+        ("LUNES", "Lunes"),
+        ("MARTES", "Martes"),
+        ("MIERCOLES", "Miércoles"),
+        ("JUEVES", "Jueves"),
+        ("VIERNES", "Viernes"),
+    ]
+
+    id_horario = models.AutoField(primary_key=True)
+    trayecto = models.ForeignKey(TrayectoAcademico, on_delete=models.PROTECT)
+    periodo = models.ForeignKey(PeriodoAcademico, on_delete=models.PROTECT)
+    aula = models.ForeignKey(
+        AulaAcademica,
+        on_delete=models.CASCADE,
+        related_name="horarios",
+    )
+    materia_asignada = models.ForeignKey(
+        MateriaAsignada,
+        on_delete=models.PROTECT,
+        related_name="horarios",
+    )
+    dia_semana = models.CharField(max_length=10, choices=DIAS_SEMANA)
+    hora_inicio = models.TimeField()
+    hora_final = models.TimeField()
+    registrado_por = models.ForeignKey(
+        Usuario,
+        on_delete=models.PROTECT,
+        related_name="horarios_academicos_registrados",
+    )
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["dia_semana", "hora_inicio"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["aula", "periodo", "dia_semana", "hora_inicio"],
+                name="uq_horario_aula_periodo_dia_inicio",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(hora_inicio__lt=models.F("hora_final")),
+                name="ck_horario_hora_final_posterior",
+            ),
+        ]
+
 
 class CoordinadorPNF(RolAcademico):
     id_coordinador = models.AutoField(primary_key=True)

@@ -1,399 +1,168 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
-
-{% load static %}
 
 <section id="directorgeneral-panel-carsce">
 
     <div class="directorgeneral-panel-carsce-contenedor">
 
         <!-- =====================================================
-             ENCABEZADO DEL PANEL
-        ====================================================== -->
-
+             01. ENCABEZADO INSTITUCIONAL
+             ===================================================== -->
         <header class="directorgeneral-panel-carsce-encabezado">
+            <div class="directorgeneral-panel-carsce-encabezado-contenido">
 
-            <div class="directorgeneral-panel-carsce-identificacion">
-
-                <div class="directorgeneral-panel-carsce-identificacion-icono">
-                    <i class="fa-solid fa-chart-line"></i>
-                </div>
-
-                <div class="directorgeneral-panel-carsce-identificacion-texto">
-
-                    <span class="directorgeneral-panel-carsce-sistema">
-                        SISTEMA CARSCE
+                <div class="directorgeneral-panel-carsce-identificacion">
+                    <span class="directorgeneral-panel-carsce-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
                     </span>
-
-                    <span class="directorgeneral-panel-carsce-modulo">
-                        PANEL DE CONTROL
+                    <span class="directorgeneral-panel-carsce-seccion">
+                        <i class="fa-solid fa-chart-line"></i>
+                        PANEL DE CONTROL — DIRECTOR GENERAL
                     </span>
-
                 </div>
 
-            </div>
-
-
-            <div class="directorgeneral-panel-carsce-presentacion">
-
-                <div class="directorgeneral-panel-carsce-informacion">
-
-                    <h1 class="directorgeneral-panel-carsce-titulo">
-
-                        Panel de Control
-
-                        <span class="directorgeneral-panel-carsce-rol">
-                            {{ rol_principal }}
-                        </span>
-
-                    </h1>
-
-                    <p class="directorgeneral-panel-carsce-descripcion">
-                        Gestiona estudiantes, inscripciones, expedientes y
-                        constancias desde un solo lugar.
-                    </p>
-
-                </div>
-
-
-                <div class="directorgeneral-panel-carsce-fecha-contenedor">
-
-                    <div class="directorgeneral-panel-carsce-fecha">
-
-                        <i class="fa-solid fa-calendar-days"></i>
-
-                        <span>
-                            13 Julio 2026
-                        </span>
-
+                <div class="directorgeneral-panel-carsce-presentacion">
+                    <div class="directorgeneral-panel-carsce-informacion">
+                        <h1>
+                            Panel de Control
+                            <span class="directorgeneral-panel-carsce-rol">
+                                {{ rol_principal|default:"Director General" }}
+                            </span>
+                        </h1>
+                        <p>
+                            Gestiona estudiantes, inscripciones, expedientes institucionales y supervisa la actividad general del sistema desde un solo lugar.
+                        </p>
                     </div>
 
+                    <div class="directorgeneral-panel-carsce-fecha">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>{{ fecha_actual|date:"j F Y" }}</span>
+                    </div>
+                </div>
+
+                <div class="directorgeneral-panel-carsce-encabezado-pie">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Supervisión y control administrativo centralizado</span>
                 </div>
 
             </div>
-
         </header>
 
 
         <!-- =====================================================
-             ESTADÍSTICAS PRINCIPALES
-        ====================================================== -->
+             02. ESTADÍSTICAS / INDICADORES PRINCIPALES
+             ===================================================== -->
+        <section class="directorgeneral-panel-carsce-estadisticas" aria-label="Estadísticas generales">
 
-        <section
-            class="directorgeneral-panel-carsce-estadisticas"
-            aria-label="Estadísticas generales"
-        >
-
-            <!-- Total estudiantes -->
-
+            <!-- Total Estudiantes -->
             <article class="directorgeneral-panel-carsce-estadistica">
-
-                <div
-                    class="directorgeneral-panel-carsce-estadistica-icono directorgeneral-panel-carsce-icono-azul"
-                >
+                <div class="directorgeneral-panel-carsce-estadistica-icono azul">
                     <i class="fa-solid fa-user-graduate"></i>
                 </div>
-
                 <div class="directorgeneral-panel-carsce-estadistica-datos">
-
-                    <span class="directorgeneral-panel-carsce-estadistica-etiqueta">
-                        Total estudiantes
+                    <span>Total estudiantes</span>
+                    <strong>{{ total_estudiantes|default:"0" }}</strong>
+                    <span class="directorgeneral-panel-carsce-estadistica-indicador positivo">
+                        <i class="fa-solid fa-arrow-trend-up"></i> Registros activos
                     </span>
-
-                    <strong class="directorgeneral-panel-carsce-estadistica-numero">
-                        {{ total_estudiantes|default:"0" }}
-                    </strong>
-
-                    <span
-                        class="directorgeneral-panel-carsce-estadistica-indicador directorgeneral-panel-carsce-indicador-positivo"
-                    >
-                        <i class="fa-solid fa-arrow-trend-up"></i>
-                        Total registrados
-                    </span>
-
                 </div>
-
             </article>
-
 
             <!-- Inscripciones -->
-
             <article class="directorgeneral-panel-carsce-estadistica">
-
-                <div
-                    class="directorgeneral-panel-carsce-estadistica-icono directorgeneral-panel-carsce-icono-verde"
-                >
+                <div class="directorgeneral-panel-carsce-estadistica-icono verde">
                     <i class="fa-solid fa-file-signature"></i>
                 </div>
-
                 <div class="directorgeneral-panel-carsce-estadistica-datos">
-
-                    <span class="directorgeneral-panel-carsce-estadistica-etiqueta">
-                        Inscripciones
+                    <span>Inscripciones</span>
+                    <strong>{{ total_inscritos|default:"0" }}</strong>
+                    <span class="directorgeneral-panel-carsce-estadistica-indicador positivo">
+                        <i class="fa-solid fa-check"></i> Con núcleo y P.N.F.
                     </span>
-
-                    <strong class="directorgeneral-panel-carsce-estadistica-numero">
-                        {{ total_inscritos|default:"0" }}
-                    </strong>
-
-                    <span
-                        class="directorgeneral-panel-carsce-estadistica-indicador directorgeneral-panel-carsce-indicador-positivo"
-                    >
-                        <i class="fa-solid fa-check"></i>
-                        Con núcleo y P.N.F.
-                    </span>
-
                 </div>
-
             </article>
 
-
-            <!-- Total personal -->
-
+            <!-- Total Personal -->
             <article class="directorgeneral-panel-carsce-estadistica">
-
-                <div
-                    class="directorgeneral-panel-carsce-estadistica-icono directorgeneral-panel-carsce-icono-naranja"
-                >
+                <div class="directorgeneral-panel-carsce-estadistica-icono naranja">
                     <i class="fa-solid fa-user-shield"></i>
                 </div>
-
                 <div class="directorgeneral-panel-carsce-estadistica-datos">
-
-                    <span class="directorgeneral-panel-carsce-estadistica-etiqueta">
-                        Total personal
+                    <span>Total personal</span>
+                    <strong>{{ total_personal|default:"0" }}</strong>
+                    <span class="directorgeneral-panel-carsce-estadistica-indicador neutral">
+                        Docentes y administrativos
                     </span>
-
-                    <strong class="directorgeneral-panel-carsce-estadistica-numero">
-                        {{ total_personal|default:"0" }}
-                    </strong>
-
-                    <span
-                        class="directorgeneral-panel-carsce-estadistica-indicador directorgeneral-panel-carsce-indicador-neutral"
-                    >
-                        Docentes y personal
-                    </span>
-
                 </div>
-
             </article>
 
         </section>
 
 
         <!-- =====================================================
-             CONTENIDO PRINCIPAL
-        ====================================================== -->
-
+             03. CONTENIDO PRINCIPAL (GRID DOBLE)
+             ===================================================== -->
         <section class="directorgeneral-panel-carsce-contenido">
 
-
-            <!-- =================================================
-                 ACTIVIDAD RECIENTE
-            ================================================== -->
-
+            <!-- ACTIVIDAD RECIENTE -->
             <article class="directorgeneral-panel-carsce-actividad">
-
                 <div class="directorgeneral-panel-carsce-panel-titulo">
-
                     <div class="directorgeneral-panel-carsce-panel-titulo-informacion">
-
-                        <span class="directorgeneral-panel-carsce-panel-etiqueta">
-                            MONITOREO
-                        </span>
-
-                        <h2>
-                            Actividad reciente
-                        </h2>
-
+                        <span class="directorgeneral-panel-carsce-panel-etiqueta">MONITOREO</span>
+                        <h2>Actividad Reciente</h2>
                     </div>
-
-                    <a
-                        href="#"
-                        class="directorgeneral-panel-carsce-panel-enlace"
-                    >
-                        Ver todo
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <a href="{% url 'bitacora_acciones' %}" class="directorgeneral-panel-carsce-panel-enlace">
+                        Ver todo <i class="fa-solid fa-arrow-right"></i>
                     </a>
-
                 </div>
-
 
                 <div class="directorgeneral-panel-carsce-linea-tiempo">
-
-
-                    <!-- Evento 1 -->
-
+                    {% for evento in actividad_reciente %}
                     <div class="directorgeneral-panel-carsce-evento">
-
-                        <span
-                            class="directorgeneral-panel-carsce-evento-punto directorgeneral-panel-carsce-punto-azul"
-                        ></span>
-
+                        <span class="directorgeneral-panel-carsce-evento-punto naranja"></span>
                         <div class="directorgeneral-panel-carsce-evento-contenido">
-
                             <div class="directorgeneral-panel-carsce-evento-cabecera">
-
-                                <strong>
-                                    Administrador
-                                </strong>
-
-                                <small>
-                                    Hace 5 minutos
-                                </small>
-
+                                <strong>{{ evento.nombre_usuario }}</strong>
+                                <small>{{ evento.fecha_hora|timesince }} atrás</small>
                             </div>
-
-                            <p>
-                                Registró un nuevo estudiante.
-                            </p>
-
+                            <p>{{ evento.accion }}</p>
                         </div>
-
                     </div>
-
-
-                    <!-- Evento 2 -->
-
-                    <div class="directorgeneral-panel-carsce-evento">
-
-                        <span
-                            class="directorgeneral-panel-carsce-evento-punto directorgeneral-panel-carsce-punto-verde"
-                        ></span>
-
-                        <div class="directorgeneral-panel-carsce-evento-contenido">
-
-                            <div class="directorgeneral-panel-carsce-evento-cabecera">
-
-                                <strong>
-                                    Secretaría
-                                </strong>
-
-                                <small>
-                                    Hace 25 minutos
-                                </small>
-
-                            </div>
-
-                            <p>
-                                Emitió una constancia.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Evento 3 -->
-
-                    <div class="directorgeneral-panel-carsce-evento">
-
-                        <span
-                            class="directorgeneral-panel-carsce-evento-punto directorgeneral-panel-carsce-punto-naranja"
-                        ></span>
-
-                        <div class="directorgeneral-panel-carsce-evento-contenido">
-
-                            <div class="directorgeneral-panel-carsce-evento-cabecera">
-
-                                <strong>
-                                    Control de Estudios
-                                </strong>
-
-                                <small>
-                                    Ayer
-                                </small>
-
-                            </div>
-
-                            <p>
-                                Actualizó un expediente.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
+                    {% empty %}
+                    <p>No hay actividad registrada todavía.</p>
+                    {% endfor %}
                 </div>
-
             </article>
 
-
-            <!-- =================================================
-                 ESTUDIANTES POR NÚCLEO
-            ================================================== -->
-
+            <!-- ESTUDIANTES POR NÚCLEO (GRÁFICO) -->
             <article class="directorgeneral-panel-carsce-grafico">
-
                 <div class="directorgeneral-panel-carsce-panel-titulo">
-
                     <div class="directorgeneral-panel-carsce-panel-titulo-informacion">
-
-                        <span class="directorgeneral-panel-carsce-panel-etiqueta">
-                            DISTRIBUCIÓN ACADÉMICA
-                        </span>
-
-                        <h2>
-                            Estudiantes por Núcleo
-                        </h2>
-
+                        <span class="directorgeneral-panel-carsce-panel-etiqueta">DISTRIBUCIÓN ACADÉMICA</span>
+                        <h2>Estudiantes por Núcleo</h2>
                     </div>
-
                 </div>
-
-
-                <!-- Resumen de núcleos -->
 
                 <div class="directorgeneral-panel-carsce-resumen">
-
                     {% for n in estudiantes_por_nucleo %}
-
                     <div class="directorgeneral-panel-carsce-resumen-nucleo">
-
-                        <strong>
-                            {{ n.total }}
-                        </strong>
-
-                        <span>
-                            Núcleo {{ n.municipio }}
-                        </span>
-
+                        <strong>{{ n.total }}</strong>
+                        <span>Núcleo {{ n.municipio }}</span>
                     </div>
-
                     {% empty %}
-
                     <div class="directorgeneral-panel-carsce-resumen-nucleo">
-
-                        <strong>
-                            0
-                        </strong>
-
-                        <span>
-                            Sin núcleos registrados
-                        </span>
-
+                        <strong>0</strong>
+                        <span>Sin núcleos registrados</span>
                     </div>
-
                     {% endfor %}
-
                 </div>
-
-
-                <!-- Contenedor del gráfico -->
 
                 <div class="directorgeneral-panel-carsce-grafico-contenedor">
-
-                    <canvas
-                        id="grafico_dashboard"
-                        aria-label="Gráfico de estudiantes por núcleo"
-                    ></canvas>
-
+                    <canvas id="grafico_dashboard" aria-label="Gráfico de estudiantes por núcleo"></canvas>
                 </div>
-
             </article>
-
 
         </section>
 
@@ -403,20 +172,11 @@
 
 
 <!-- =========================================================
-     CHART.JS
-========================================================= -->
-
+     SCRIPTS Y DATOS DE SOPORTE
+     ========================================================= -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
-<!-- =========================================================
-     DATOS DE ESTUDIANTES POR NÚCLEO
-========================================================= -->
-
-<script
-    id="datos-nucleos-json"
-    type="application/json"
->
+<script id="datos-nucleos-json" type="application/json">
 [
     {% for item in estudiantes_por_nucleo %}
     {
@@ -427,21 +187,6 @@
 ]
 </script>
 
-
-<!-- =========================================================
-     DEPURACIÓN
-========================================================= -->
-
-<pre id="debug-nucleos"></pre>
-
-
-<!-- =========================================================
-     JAVASCRIPT DEL DASHBOARD
-========================================================= -->
-
-<script
-    src="{% static 'Funcionalidades/dashboard_director_general.js' %}"
-></script>
-
+<script src="{% static 'Funcionalidades/dashboard_director_general.js' %}"></script>
 
 {% endblock %}

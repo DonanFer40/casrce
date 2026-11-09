@@ -11,6 +11,7 @@ from inicio_sesion.views.seguridad_admin import (
     cancelar_acceso_admin,
     configurar_totp_admin,
     confirmar_totp_admin,
+    acceso_admin,
 )
 
 urlpatterns = [
@@ -18,6 +19,12 @@ urlpatterns = [
     path('', views.foro, name='inicio_publico'),
     path('inicio_sesion/', views.autenticacion, name="inicio_sesion"),
     path('panel_usuario/', views.panel_usuario, name="panel_usuario"),
+    path('configuracion/', views.configuracion_usuario, name="configuracion_usuario"),
+    path(
+        'configuracion/actualizar/',
+        views.actualizar_registro_usuario,
+        name="actualizar_registro_usuario",
+    ),
     path('panel_registro/', views.panel_registro, name="panel_registro"),
     path('cerrar_sesion/', views.cerrar_sesion, name="cerrar_sesion"),
 
@@ -81,6 +88,7 @@ urlpatterns = [
     path('noticias/activar/<int:id_noticia>/', views.activar_noticia, name="activar_noticia"),
 
     # SEGURIDAD DE ACCESO ADMINISTRATIVO
+    path('seguridad-admin/acceso/', acceso_admin, name='acceso_admin'),
     path('seguridad-admin/iniciar/', iniciar_acceso_admin, name='iniciar_acceso_admin'),
     path('seguridad-admin/verificar-correo/', verificar_codigo_correo_admin, name='verificar_codigo_correo_admin'),
     path('seguridad-admin/verificar-totp/', verificar_totp_admin, name='verificar_totp_admin'),

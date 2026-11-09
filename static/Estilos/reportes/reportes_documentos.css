@@ -1,0 +1,125 @@
+.reportes-documentos-carsce {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    border: 1px solid #dbe3ec;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgb(15 23 42 / 7%);
+}
+
+.reportes-documentos-carsce header > span {
+    color: #64748b;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.reportes-documentos-carsce h2 {
+    margin: .35rem 0;
+    color: #12324b;
+}
+
+.reportes-documentos-carsce p {
+    color: #526174;
+}
+
+.reportes-documentos-carsce-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.reportes-documentos-carsce form {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.reportes-documentos-carsce label {
+    display: grid;
+    gap: .35rem;
+    color: #334155;
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.reportes-documentos-carsce input,
+.reportes-documentos-carsce select {
+    min-height: 2.5rem;
+    padding: .5rem .65rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #fff;
+    color: #0f172a;
+}
+
+.reportes-documentos-carsce button,
+.reportes-documentos-carsce-enlace {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.6rem;
+    padding: .65rem 1rem;
+    border: 0;
+    border-radius: 7px;
+    background: #123b59;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reportes-documentos-carsce button:hover,
+.reportes-documentos-carsce-enlace:hover {
+    background: #1d5b82;
+}
+
+.reportes-documentos-carsce-filtros {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-items: end;
+}
+
+.reportes-documentos-carsce-tabla-contenedor {
+    overflow-x: auto;
+}
+
+.reportes-documentos-carsce table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reportes-documentos-carsce th,
+.reportes-documentos-carsce td {
+    padding: .7rem;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.reportes-documentos-carsce th {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.reportes-documentos-carsce td a {
+    margin-right: .55rem;
+    color: #1d5b82;
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    .reportes-documentos-carsce {
+        padding: 1rem;
+    }
+
+    .reportes-documentos-carsce td,
+    .reportes-documentos-carsce th {
+        padding: .55rem .4rem;
+        font-size: .85rem;
+    }
+}

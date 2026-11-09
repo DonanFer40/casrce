@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formulario_autenticacion = document.getElementById("formulario_login");
+    const input_password = document.getElementById("password");
 
     // Función auxiliar para obtener el token CSRF de las cookies
     function getCookie(name) {
@@ -52,6 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            if (resultado.estado === "fallo" && resultado.control === "password"){
+                input_password.value = "";
+            }
+
             const tiposPermitidos = [
                 "exito",
                 "error",
@@ -69,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 resultado.descripcion || "Verifica tus datos e inténtalo nuevamente."
             );
 
-            formulario_autenticacion.reset(); // Corregido para limpiar el form real
+            
 
         } catch (error) {
             NotificacionesCASRCE.detenerCarga();

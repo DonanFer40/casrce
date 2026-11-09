@@ -1,249 +1,189 @@
-# from django.shortcuts import render
-# from django.http import JsonResponse
-# from django.db import transaction
-# from django.utils import timezone
-# from inicio_sesion.models import Usuario, Contacto, Residencia, Discapacidad, VerificacionCodigo
-# import json, uuid
+from django.contrib import messages
+from django.db import transaction
+from django.shortcuts import redirect, render
 
-# from .recuperar_credenciales import *
-
-# def dat_usr(request):
-#     usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))
-
-#     contacto = Contacto.objects.get(id_usuario=usuario)
-
-#     residencia = Residencia.objects.get(id_usuario=usuario)
-
-#     if request.session.get("rol") == "Estudiante":
-#         discapacidad = Discapacidad.objects.get(id_usuario=usuario)
-
-#     datos = {
-#         "id_usuario": usuario.id_usuario,
-#         "nombres": usuario.nombres,
-#         "apellidos": usuario.apellidos,
-#         "genero": usuario.genero,
-#         "cedula_identidad": usuario.cedula_identidad,
-#         "estado_civil": usuario.estado_civil,
-
-#         "telefono_personal": contacto.telefono_personal,
-#         "telefono_suplete": contacto.telefono_suplete,
-#         "correo_electronico": contacto.correo_electronico,
-#         "correo_alternativo": contacto.correo_alternativo,
-
-#         "condicion_residencia": residencia.condicion_residencia,
-#         "municipio": residencia.municipio,
-#         "parroquia": residencia.parroquia,
-#         "direccion_residencia": residencia.direccion_residencia,
-#     }
-
-#     if request.session.get("rol") == "Estudiante":
-#         datos["discapacidad"] = (
-#             {
-#                 "carnet_discapacidad": discapacidad.codigo_carnet_discapacidad,
-#                 "nro_registro_medico": discapacidad.nro_registro_medico,
-#                 "tipo_discapacidad": discapacidad.tipo_discapacidad,
-#                 "grado_discapacidad": discapacidad.grado_discapacidad,
-#                 "causa_discapacidad": discapacidad.causa_discapacidad,
-#             }
-#             if discapacidad
-#             else None
-#         )
-
-#     return JsonResponse(datos)
-
-# def corr_usr(request):
-#     token = str(uuid.uuid4())
-#     request.session['token_recuperacion'] = token
-
-#     usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))
-
-#     contacto = Contacto.objects.get(id_usuario=usuario)
-
-#     return JsonResponse({
-#         "correo_principal": contacto.correo_electronico,
-#         "correo_alternativo": contacto.correo_alternativo,
-#     })
-    
-# def env_cod_act_corr(request):
-#     if request.method == "POST":
-#         cedula = request.session.get("cedula_usuario")
-#         correo_seleccionado = request.POST.get("correo_verificacion")
-
-#         usuario = Usuario.objects.get(cedula_identidad=cedula)
-
-#         contacto = Contacto.objects.get(id_usuario=usuario)
-
-#         if correo_seleccionado == "principal":
-#             correo_electronico = contacto.correo_electronico
-#         else:
-#             correo_electronico = contacto.correo_alternativo
-
-#         return env_cod_ver(
-#             usuario.nombres,
-#             usuario.apellidos,
-#             correo_electronico,
-#             usuario.cedula_identidad,
-#             request.session["token_recuperacion"]
-#         )
-
-# def aut_act_corr(request):
-#     if request.method == "POST":
-#         codigo_ingresado = request.POST.get("codigocorreo")
-
-#         usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))
-        
-#         verificacion = VerificacionCodigo.objects.filter(cedula_identidad=usuario.cedula_identidad,token=request.session.get("token_recuperacion")).first()
-
-#         if not codigo_ingresado:
-#             return JsonResponse({
-#                 "estado": "fallo",
-#                 "icon": "warning",
-#                 "descripcion": "Debe ingresar el código de verificación",
-#                 "accion": "input_vacio"
-#             })
-
-#         if verificacion and verificacion.fecha_expiracion < timezone.now():
-#             return JsonResponse({
-#                 "estado": "fallo",
-#                 "icon": "error",
-#                 "descripcion": "El código ha expirado, debe solicitar el código a través del botón de reenviar código",
-#                 "accion": "expirado"
-#             })
-
-#         respuesta = val_cod(
-#             codigo_ingresado,
-#             usuario.cedula_identidad,
-#             request.session["token_recuperacion"]
-#         )
-
-#         datos = json.loads(respuesta.content)
-#         request.session["correo_verificado"] = True
-        
-#         if datos.get("estado") == "exito":    
-#             verificacion.intentos = 0
-#             verificacion.bloqueado_hasta = None
-#             verificacion.activo = 0
-#             verificacion.save()
-
-#         return respuesta
-
-# def act_dat_usr(request):
-#     if request.method == "POST":
-#         telefono_principal = request.POST.get("telefono_principal")
-#         prefijo_principal = request.POST.get("prefijo_principal")
-
-#         telefono_secundaria = request.POST.get("telefono_secundario")
-#         prefijo_secundaria = request.POST.get("prefijo_secundario")
-
-#         correo_principal = request.POST.get("correo_principal")
-#         dominio_principal = request.POST.get("dominio_principal")
-
-#         correo_secundaria = request.POST.get("correo_secundario")
-#         dominio_secundaria = request.POST.get("dominio_secundario")
-
-#         condicion_residencia = request.POST.get("condicionresidencia")
-#         municipio_residencia = request.POST.get("municipioresidencia")
-#         parroquia_residencia = request.POST.get("parroquiaresidencia")
-#         direccion_domicilio = request.POST.get("direcciondomicilio")
-
-#         if request.POST.get("carnet_dispacidad"):
-#             carnet_discapacidad = request.POST.get("carnet_dispacidad")
-#         else:
-#             carnet_discapacidad = "N/A"
-
-#         if request.POST.get("registro_medico"):
-#             registro_medico = request.POST.get("registro_medico")
-#         else:
-#             registro_medico = "N/A"
-
-#         if request.POST.get("tipos_discapacidad"):
-#             tipos_discapacidad = request.POST.get("tipos_discapacidad")
-#         else:
-#             tipos_discapacidad = "N/A"
-
-#         if request.POST.get("grado_discapacidad"):
-#             grado_discapacidad = request.POST.get("grado_discapacidad")
-#         else:
-#             grado_discapacidad = "N/A"
-
-#         if request.POST.get("causa_discapacidad"):
-#             causa_discapacidad = request.POST.get("causa_discapacidad")
-#         else:
-#             causa_discapacidad = "N/A"
-
-#         controles = [
-#             (telefono_principal, "Número de Teléfono Principal", "Por favor, ingrese el número de teléfono principal."),
-#             (prefijo_principal, "Prefijo del Teléfono Principal", "Por favor, seleccione el prefijo del teléfono principal."),
-#             (correo_principal, "Correo Electrónico Principal", "Por favor, ingrese el correo principal."),
-#             (dominio_principal, "Dominio del Correo Electrónico Principal", "Por favor, seleccione el dominio del correo electrónico principal."),
-#             (correo_secundaria, "Correo Electrónico Secundario", "Por favor, ingrese el correo secundario."),
-#             (dominio_secundaria, "Dominio del Correo Electrónico Secundario", "Por favor, seleccione el dominio del correo electrónico secundario."),
-#             (condicion_residencia, "Condición de Residencia", "Por favor, seleccione la condición de residencia."),
-#             (municipio_residencia, "Municipio de Residencia", "Por favor, seleccione el municipio donde reside."),
-#             (parroquia_residencia, "Parroquia de Residencia", "Por favor, seleccione el parroquia donde reside."),
-#             (direccion_domicilio, "Dirección de Domicilio", "Por favor, ingrese la dirección de domicilio."),
-#         ]  
-
-#         for valor, titulo, descripcion in controles:
-#             if not valor:
-#                 return JsonResponse({
-#                     "estado": "fallo",
-#                     "title": titulo,
-#                     "icon": "warning",
-#                     "descripcion": descripcion,
-#                 })
-
-#         if telefono_secundaria == "" and prefijo_secundaria == "":
-#             telefono_num2 = "N/A"
-#         else:
-#             telefono_num2 = prefijo_secundaria + telefono_secundaria
-        
-#         telefono_num1 = prefijo_principal + telefono_principal
-
-#         correo_num1 = correo_principal + dominio_principal
-
-#         correo_num2 = correo_secundaria + dominio_secundaria
-
-#         with transaction.atomic():
-#             usuario = Usuario.objects.get(cedula_identidad=request.session.get("cedula_usuario"))
-
-#             contacto = Contacto.objects.get(id_usuario=usuario)
-#             contacto.telefono_personal = telefono_num1
-#             contacto.telefono_suplete = telefono_num2
-#             contacto.correo_electronico = correo_num1
-#             contacto.correo_alternativo = correo_num2
-#             contacto.save()
-
-#             residencia = Residencia.objects.get(id_usuario=usuario)
-#             residencia.condicion_residencia = condicion_residencia
-#             residencia.municipio = municipio_residencia
-#             residencia.parroquia = parroquia_residencia
-#             residencia.direccion_residencia = direccion_domicilio
-#             residencia.save()
-
-#             if request.session.get("rol") == "Estudiante":
-#                 discapacidad = Discapacidad.objects.get(id_usuario=usuario)
-#                 discapacidad.codigo_carnet_discapacidad = carnet_discapacidad
-#                 discapacidad.nro_registro_medico = registro_medico
-#                 discapacidad.tipo_discapacidad = tipos_discapacidad
-#                 discapacidad.grado_discapacidad = grado_discapacidad
-#                 discapacidad.causa_discapacidad = causa_discapacidad
-#                 discapacidad.save()
-
-#             return JsonResponse({
-#                 "estado": "exito",
-#                 "icon": "success",
-#                 "title": "Exito",
-#                 "descripcion": "Los datos se actualizaron existosamente."
-#             })
-        
-#         return JsonResponse({
-#             "estado": "fallo",
-#             "icon": "error",
-#             "title": "Error",
-#             "descripcion": "Ocurrio un error al momento de actualizar los datos."
-#         })
-
-#     return render(request, "Actualizaciones/actualizar_registro_usuario.html")
+from inicio_sesion.forms import ConfiguracionUsuarioForm
+from inicio_sesion.models import (
+    Contacto,
+    Discapacidad,
+    Estudiante,
+    Residencia,
+    Usuario,
+)
 
 
+def _usuario_de_sesion(request):
+    cedula = request.session.get("cedula_usuario")
+    if not cedula:
+        return None
+
+    usuario = Usuario.objects.filter(cedula_identidad=cedula).first()
+    if usuario is None:
+        request.session.flush()
+    return usuario
+
+
+def configuracion_usuario(request):
+    usuario = _usuario_de_sesion(request)
+    if usuario is None:
+        return redirect("inicio_sesion")
+
+    contacto = Contacto.objects.filter(id_usuario=usuario).first()
+    roles = request.session.get("rol", [])
+    rol_usuario = roles[0] if roles else "Usuario"
+    return render(
+        request,
+        "Sesion/actualizar/configuracion_usuarios.html",
+        {
+            "usuario": usuario,
+            "usuario_nombre": f"{usuario.nombres} {usuario.apellidos}",
+            "usuario_correo": contacto.correo_electronico if contacto else "",
+            "rol_usuario": rol_usuario,
+            "foto_perfil_url": (
+                usuario.foto_perfil.url if usuario.foto_perfil else ""
+            ),
+        },
+    )
+
+
+def actualizar_registro_usuario(request):
+    usuario = _usuario_de_sesion(request)
+    if usuario is None:
+        return redirect("inicio_sesion")
+
+    contacto = Contacto.objects.filter(id_usuario=usuario).first()
+    residencia = Residencia.objects.filter(id_usuario=usuario).first()
+    es_estudiante = Estudiante.objects.filter(usuario=usuario).exists()
+    discapacidad = (
+        Discapacidad.objects.filter(id_usuario=usuario).first()
+        if es_estudiante
+        else None
+    )
+    iniciales = {
+        "telefono_personal": contacto.telefono_personal if contacto else "",
+        "telefono_suplete": contacto.telefono_suplete if contacto else "",
+        "condicion_residencia": (
+            residencia.condicion_residencia if residencia else ""
+        ),
+        "municipio": residencia.municipio if residencia else "",
+        "parroquia": residencia.parroquia if residencia else "",
+        "direccion_residencia": (
+            residencia.direccion_residencia if residencia else ""
+        ),
+        "carnet_discapacidad": (
+            discapacidad.codigo_carnet_discapacidad if discapacidad else ""
+        ),
+        "registro_medico": (
+            discapacidad.nro_registro_medico if discapacidad else ""
+        ),
+        "tipos_discapacidad": (
+            discapacidad.tipo_discapacidad if discapacidad else ""
+        ),
+        "grado_discapacidad": (
+            discapacidad.grado_discapacidad if discapacidad else ""
+        ),
+        "causa_discapacidad": (
+            discapacidad.causa_discapacidad if discapacidad else ""
+        ),
+    }
+
+    if request.method == "POST":
+        form = ConfiguracionUsuarioForm(
+            request.POST,
+            request.FILES,
+            instance=usuario,
+        )
+        if form.is_valid():
+            foto_anterior = usuario.foto_perfil
+            with transaction.atomic():
+                usuario = form.save()
+                if contacto:
+                    contacto.telefono_personal = (
+                        form.cleaned_data["telefono_personal"]
+                        or contacto.telefono_personal
+                    )
+                    contacto.telefono_suplete = (
+                        form.cleaned_data["telefono_suplete"] or None
+                    )
+                    contacto.save(
+                        update_fields=["telefono_personal", "telefono_suplete"]
+                    )
+
+                datos_residencia = {
+                    "condicion_residencia": form.cleaned_data[
+                        "condicion_residencia"
+                    ],
+                    "municipio": form.cleaned_data["municipio"],
+                    "parroquia": form.cleaned_data["parroquia"],
+                    "direccion_residencia": form.cleaned_data[
+                        "direccion_residencia"
+                    ],
+                }
+                if any(datos_residencia.values()):
+                    Residencia.objects.update_or_create(
+                        id_usuario=usuario,
+                        defaults=datos_residencia,
+                    )
+
+                datos_discapacidad = {
+                    "codigo_carnet_discapacidad": form.cleaned_data[
+                        "carnet_discapacidad"
+                    ],
+                    "nro_registro_medico": form.cleaned_data["registro_medico"],
+                    "tipo_discapacidad": form.cleaned_data["tipos_discapacidad"],
+                    "grado_discapacidad": form.cleaned_data["grado_discapacidad"],
+                    "causa_discapacidad": form.cleaned_data["causa_discapacidad"],
+                }
+                if es_estudiante and any(datos_discapacidad.values()):
+                    if discapacidad:
+                        for campo, valor in datos_discapacidad.items():
+                            setattr(discapacidad, campo, valor)
+                        discapacidad.save()
+                    else:
+                        Discapacidad.objects.create(
+                            id_usuario=usuario,
+                            **datos_discapacidad,
+                        )
+
+                foto_actual = usuario.foto_perfil
+                if foto_anterior and (
+                    not foto_actual or foto_anterior.name != foto_actual.name
+                ):
+                    transaction.on_commit(
+                        lambda archivo=foto_anterior: archivo.storage.delete(
+                            archivo.name
+                        )
+                    )
+
+            iniciales.update(
+                telefono_personal=form.cleaned_data["telefono_personal"],
+                telefono_suplete=form.cleaned_data["telefono_suplete"],
+                **datos_residencia,
+            )
+            iniciales.update(
+                carnet_discapacidad=form.cleaned_data["carnet_discapacidad"],
+                registro_medico=form.cleaned_data["registro_medico"],
+                tipos_discapacidad=form.cleaned_data["tipos_discapacidad"],
+                grado_discapacidad=form.cleaned_data["grado_discapacidad"],
+                causa_discapacidad=form.cleaned_data["causa_discapacidad"],
+            )
+            request.session["usuario_nombre"] = (
+                f"{usuario.nombres} {usuario.apellidos}"
+            )
+            request.session["foto_perfil_url"] = (
+                usuario.foto_perfil.url if usuario.foto_perfil else ""
+            )
+            form = ConfiguracionUsuarioForm(instance=usuario, initial=iniciales)
+            messages.success(request, "Tus datos se actualizaron correctamente.")
+    else:
+        form = ConfiguracionUsuarioForm(instance=usuario, initial=iniciales)
+
+    return render(
+        request,
+        "Sesion/actualizar/actualizar_registro_usuario.html",
+        {
+            "form": form,
+            "correo_principal": contacto.correo_electronico if contacto else "",
+            "es_estudiante": es_estudiante,
+        },
+    )

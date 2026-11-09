@@ -1,171 +1,174 @@
-/* =========================================================
-   PANEL DIRECTOR GENERAL - CARSCE
-   Diseño exclusivo del dashboard
-   ========================================================= */
-
-
-/* =========================================================
-   CONTENEDOR PRINCIPAL
-========================================================= */
-
 #directorgeneral-panel-carsce {
     width: 100%;
+    min-height: 100vh;
     min-width: 0;
-    min-height: 100%;
-    margin: 0;
-    padding: 4px 0 30px;
-    color: #0F172A;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
+    color: var(--texto-principal);
+    overflow-x: hidden;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     width: 100%;
-    max-width: 1150px;
+    max-width: 1500px;
+    min-width: 0;
     margin: 0 auto;
 }
 
 
 /* =========================================================
-   ENCABEZADO
-========================================================= */
+   01. ENCABEZADO INSTITUCIONAL REFINADO
+   ========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
     width: 100%;
-    margin-bottom: 24px;
+    min-width: 0;
+    height: auto;
+    min-height: 260px;
+    padding: 42px 48px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
 }
 
+#directorgeneral-panel-carsce
+.directorgeneral-panel-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 14px;
+}
 
-/* =========================================================
-   IDENTIFICACIÓN DEL SISTEMA
-========================================================= */
+/* Decoración superior circular y acento inferior */
+#directorgeneral-panel-carsce
+.directorgeneral-panel-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 290px;
+    height: 290px;
+    top: -140px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
+    pointer-events: none;
+}
+
+#directorgeneral-panel-carsce
+.directorgeneral-panel-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 130px;
+    height: 130px;
+    right: -45px;
+    bottom: -65px;
+    border: 18px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+    pointer-events: none;
+}
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-identificacion {
     display: flex;
     align-items: center;
-    gap: 10px;
-    width: fit-content;
-    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 11px;
+    width: 100%;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-identificacion-icono {
-    display: flex;
+.directorgeneral-panel-carsce-etiqueta {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    flex-shrink: 0;
-
-    color: #2563EB;
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 8px;
-
-    font-size: 0.78rem;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-identificacion-texto {
-    display: flex;
+.directorgeneral-panel-carsce-seccion {
+    display: inline-flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-sistema {
-    color: #1D4ED8;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-}
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-modulo {
-    padding-left: 9px;
-    border-left: 1px solid #CBD5E1;
-
-    color: #64748B;
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 0.055em;
-}
-
-
-/* =========================================================
-   PRESENTACIÓN
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-presentacion {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
     width: 100%;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-informacion {
-    min-width: 0;
+    flex: 1;
+    min-width: 280px;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-titulo {
+.directorgeneral-panel-carsce-informacion h1 {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 9px;
-
-    margin: 0;
-
-    color: #0F172A;
-
-    font-size: clamp(1.65rem, 2.4vw, 2.05rem);
-    font-weight: 700;
+    gap: 14px;
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 800;
     line-height: 1.2;
-    letter-spacing: -0.025em;
+    letter-spacing: -1.1px;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-rol {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 5px 10px;
-
-    color: #1D4ED8;
+    display: inline-block;
+    padding: 4px 10px;
     background: #EFF6FF;
-    border: 1px solid #DBEAFE;
+    border: 1px solid #BFDBFE;
     border-radius: 6px;
-
-    font-size: 0.55em;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0;
+    color: #2563EB;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: normal;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-descripcion {
-    max-width: 760px;
-    margin: 8px 0 0;
-
-    color: #64748B;
-
-    font-size: 0.82rem;
-    font-weight: 400;
-    line-height: 1.55;
-}
-
-
-/* =========================================================
-   FECHA
-========================================================= */
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-fecha-contenedor {
-    flex-shrink: 0;
+.directorgeneral-panel-carsce-informacion p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.7;
 }
 
 #directorgeneral-panel-carsce
@@ -173,150 +176,120 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-
-    min-height: 40px;
-    padding: 8px 13px;
-
-    color: #475569;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    padding: 10px 16px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
     border-radius: 8px;
-
-    box-shadow:
-        0 1px 3px rgba(15, 23, 42, 0.05);
-
-    font-size: 0.72rem;
-    font-weight: 500;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-fecha i {
-    color: #2563EB;
-    font-size: 0.8rem;
+    color: var(--color-azul-profundo);
+}
+
+#directorgeneral-panel-carsce
+.directorgeneral-panel-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#directorgeneral-panel-carsce
+.directorgeneral-panel-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
 }
 
 
 /* =========================================================
-   ESTADÍSTICAS
-========================================================= */
+   02. ESTADÍSTICAS / INDICADORES PRINCIPALES
+   ========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-estadisticas {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
     width: 100%;
-    margin-bottom: 20px;
 }
-
-
-/* =========================================================
-   TARJETAS DE ESTADÍSTICAS
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-estadistica {
     display: flex;
     align-items: center;
-
-    min-width: 0;
-    min-height: 128px;
-    padding: 20px;
-
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-
-    box-shadow:
-        0 1px 3px rgba(15, 23, 42, 0.05),
-        0 1px 2px rgba(15, 23, 42, 0.04);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
+    gap: 20px;
+    padding: 22px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
 }
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-estadistica:hover {
-    transform: translateY(-2px);
-
-    border-color: #CBD5E1;
-
-    box-shadow:
-        0 10px 20px rgba(15, 23, 42, 0.08);
-}
-
-
-/* =========================================================
-   ICONOS DE ESTADÍSTICAS
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-estadistica-icono {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    width: 48px;
-    height: 48px;
     flex-shrink: 0;
-
-    margin-right: 15px;
-
-    border-radius: 10px;
-    font-size: 1rem;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    font-size: 20px;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-icono-azul {
-    color: #2563EB;
+.directorgeneral-panel-carsce-estadistica-icono.azul {
     background: #EFF6FF;
+    color: #2563EB;
+    border: 1px solid #BFDBFE;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-icono-verde {
-    color: #059669;
+.directorgeneral-panel-carsce-estadistica-icono.verde {
     background: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-icono-naranja {
+.directorgeneral-panel-carsce-estadistica-icono.naranja {
+    background: #FEF3C7;
     color: #D97706;
-    background: #FFF7ED;
+    border: 1px solid #FDE68A;
 }
-
-
-/* =========================================================
-   INFORMACIÓN DE ESTADÍSTICAS
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-estadistica-datos {
     display: flex;
     flex-direction: column;
+    gap: 3px;
     min-width: 0;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-estadistica-etiqueta {
-    color: #64748B;
-
-    font-size: 0.74rem;
-    font-weight: 500;
-    line-height: 1.3;
+.directorgeneral-panel-carsce-estadistica-datos span {
+    color: var(--texto-secundario);
+    font-size: 11px;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-estadistica-numero {
-    margin-top: 4px;
-
-    color: #0F172A;
-
-    font-size: 1.65rem;
-    font-weight: 700;
-    line-height: 1.1;
+.directorgeneral-panel-carsce-estadistica-datos strong {
+    color: var(--color-azul-profundo);
+    font-size: 24px;
+    font-weight: 800;
 }
 
 #directorgeneral-panel-carsce
@@ -324,245 +297,166 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-
-    width: fit-content;
-    margin-top: 5px;
-
-    font-size: 0.68rem;
-    font-weight: 500;
-    line-height: 1.3;
+    font-size: 10px;
+    font-weight: 750;
+    margin-top: 2px;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-indicador-positivo {
+.directorgeneral-panel-carsce-estadistica-indicador.positivo {
     color: #059669;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-indicador-neutral {
+.directorgeneral-panel-carsce-estadistica-indicador.neutral {
     color: #64748B;
-}
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-estadistica-indicador i {
-    font-size: 0.6rem;
 }
 
 
 /* =========================================================
-   CONTENIDO INFERIOR
-========================================================= */
+   03. CONTENIDO PRINCIPAL (GRID DOBLE)
+   ========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-contenido {
     display: grid;
-    grid-template-columns:
-        minmax(0, 0.92fr)
-        minmax(0, 1.08fr);
-
-    gap: 18px;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
     width: 100%;
 }
-
-
-/* =========================================================
-   PANELES
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-actividad,
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-grafico {
-    min-width: 0;
-
-    padding: 21px;
-
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-
-    box-shadow:
-        0 1px 3px rgba(15, 23, 42, 0.05),
-        0 1px 2px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 25px;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
 }
-
-
-/* =========================================================
-   CABECERA DE PANELES
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-panel-titulo {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 15px;
-
-    padding-bottom: 15px;
-
-    border-bottom: 1px solid #F1F5F9;
-}
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-panel-titulo-informacion {
-    min-width: 0;
+    width: 100%;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-borde-fino);
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-panel-etiqueta {
-    display: block;
-
-    margin-bottom: 4px;
-
-    color: #2563EB;
-
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    line-height: 1.2;
+    display: inline-block;
+    margin-bottom: 3px;
+    color: var(--color-rojo-acento);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-panel-titulo h2 {
     margin: 0;
-
-    color: #0F172A;
-
-    font-size: 0.98rem;
-    font-weight: 650;
-    line-height: 1.3;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+    font-weight: 800;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-panel-enlace {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-
-    flex-shrink: 0;
-
-    color: #2563EB;
-
-    font-size: 0.7rem;
-    font-weight: 600;
-
+    gap: 6px;
+    color: var(--color-azul-profundo);
+    font-size: 11px;
+    font-weight: 750;
     text-decoration: none;
-    white-space: nowrap;
-
-    transition:
-        color 0.18s ease,
-        gap 0.18s ease;
+    transition: color 0.2s ease;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-panel-enlace:hover {
-    gap: 7px;
-    color: #1D4ED8;
-}
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-panel-enlace i {
-    font-size: 0.62rem;
+    color: var(--color-azul-hover);
 }
 
 
 /* =========================================================
-   LÍNEA DE TIEMPO
-========================================================= */
+   04. LÍNEA DE TIEMPO (ACTIVIDAD RECIENTE)
+   ========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-linea-tiempo {
-    position: relative;
-
     display: flex;
     flex-direction: column;
-
-    padding-top: 19px;
+    gap: 16px;
+    width: 100%;
+    position: relative;
+    padding-left: 12px;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-linea-tiempo::before {
     content: "";
-
     position: absolute;
-
-    top: 27px;
-    bottom: 25px;
-    left: 5px;
-
-    width: 1px;
-
+    top: 8px;
+    bottom: 8px;
+    left: 19px;
+    width: 2px;
     background: #E2E8F0;
 }
-
-
-/* =========================================================
-   EVENTOS
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-evento {
     position: relative;
-
     display: flex;
-    gap: 14px;
-
-    padding-bottom: 22px;
+    align-items: flex-start;
+    gap: 16px;
 }
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-evento:last-child {
-    padding-bottom: 3px;
-}
-
-
-/* =========================================================
-   PUNTOS
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-evento-punto {
     position: relative;
     z-index: 2;
-
-    width: 11px;
-    height: 11px;
     flex-shrink: 0;
-
-    margin-top: 5px;
-
-    border: 2px solid #FFFFFF;
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
     border-radius: 50%;
-
-    box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.10);
+    border: 3px solid var(--color-blanco);
+    box-shadow: 0 0 0 1px #CBD5E1;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-punto-azul {
+.directorgeneral-panel-carsce-evento-punto.azul {
     background: #2563EB;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-punto-verde {
-    background: #10B981;
+.directorgeneral-panel-carsce-evento-punto.verde {
+    background: #059669;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-punto-naranja {
-    background: #F59E0B;
+.directorgeneral-panel-carsce-evento-punto.naranja {
+    background: #D97706;
 }
-
-
-/* =========================================================
-   INFORMACIÓN DE EVENTOS
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-evento-contenido {
+    flex: 1;
     min-width: 0;
-    width: 100%;
+    padding: 12px 16px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
 }
 
 #directorgeneral-panel-carsce
@@ -570,350 +464,122 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    gap: 12px;
+    gap: 10px;
+    margin-bottom: 4px;
 }
 
 #directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-evento-contenido strong {
-    color: #334155;
+.directorgeneral-panel-carsce-evento-cabecera strong {
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 750;
+}
 
-    font-size: 0.78rem;
+#directorgeneral-panel-carsce
+.directorgeneral-panel-carsce-evento-cabecera small {
+    color: var(--texto-secundario);
+    font-size: 10px;
     font-weight: 600;
-    line-height: 1.3;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-evento-contenido p {
-    margin: 4px 0 3px;
-
-    color: #64748B;
-
-    font-size: 0.74rem;
-    font-weight: 400;
+    margin: 0;
+    color: #475569;
+    font-size: 11px;
     line-height: 1.5;
-}
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-evento-contenido small {
-    color: #94A3B8;
-
-    font-size: 0.66rem;
-    font-weight: 400;
-    line-height: 1.3;
 }
 
 
 /* =========================================================
-   RESUMEN DE NÚCLEOS
-========================================================= */
+   05. RESUMEN Y GRÁFICO DE NÚCLEOS
+   ========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-resumen {
     display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 9px;
-
-    margin-top: 16px;
-    margin-bottom: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    width: 100%;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-resumen-nucleo {
-    min-width: 0;
-
-    padding: 10px 8px;
-
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 14px;
     background: #F8FAFC;
-
-    border: 1px solid #F1F5F9;
-
-    border-radius: 7px;
-
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 8px;
     text-align: center;
-
-    transition:
-        border-color 0.18s ease,
-        background-color 0.18s ease;
-}
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-resumen-nucleo:hover {
-    background: #FFFFFF;
-    border-color: #DBEAFE;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-resumen-nucleo strong {
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: #0F172A;
-
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.2;
+    color: var(--color-azul-profundo);
+    font-size: 18px;
+    font-weight: 800;
 }
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-resumen-nucleo span {
-    display: block;
-
-    overflow: hidden;
-
-    color: #64748B;
-
-    font-size: 0.63rem;
-    font-weight: 400;
-    line-height: 1.3;
-
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    color: var(--texto-secundario);
+    font-size: 10px;
+    font-weight: 650;
 }
-
-
-/* =========================================================
-   GRÁFICO
-========================================================= */
 
 #directorgeneral-panel-carsce
 .directorgeneral-panel-carsce-grafico-contenedor {
     position: relative;
-
     width: 100%;
-    height: 270px;
-
-    margin-top: 4px;
-}
-
-#directorgeneral-panel-carsce
-.directorgeneral-panel-carsce-grafico-contenedor canvas {
-    display: block;
-
-    width: 100% !important;
-    height: 100% !important;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
 /* =========================================================
-   DEPURACIÓN
-========================================================= */
+   06. SOPORTE DEPURACIÓN
+   ========================================================= */
 
-#directorgeneral-panel-carsce
-#debug-nucleos {
+#directorgeneral-panel-carsce #debug-nucleos {
     display: none;
 }
 
 
 /* =========================================================
-   RESPONSIVE — 1050PX
-========================================================= */
+   07. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================= */
 
-@media (max-width: 1050px) {
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-contenedor {
-        max-width: 100%;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadisticas {
-        gap: 13px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadistica {
-        padding: 17px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadistica-icono {
-        width: 44px;
-        height: 44px;
-        margin-right: 12px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadistica-numero {
-        font-size: 1.5rem;
-    }
-
+@media (max-width: 1024px) {
     #directorgeneral-panel-carsce
     .directorgeneral-panel-carsce-contenido {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
-
-/* =========================================================
-   RESPONSIVE — 800PX
-========================================================= */
-
-@media (max-width: 800px) {
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-presentacion {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-fecha-contenedor {
-        width: 100%;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-fecha {
-        width: fit-content;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadisticas {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVE — 600PX
-========================================================= */
-
-@media (max-width: 600px) {
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-identificacion-texto {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 3px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-modulo {
-        padding-left: 0;
-        border-left: none;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-titulo {
-        font-size: 1.55rem;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-rol {
-        font-size: 0.62em;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-descripcion {
-        font-size: 0.78rem;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-panel-titulo {
-        align-items: flex-start;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-panel-enlace {
-        font-size: 0.66rem;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-resumen {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVE — 560PX
-========================================================= */
-
-@media (max-width: 560px) {
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadisticas {
-        grid-template-columns: 1fr;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadistica {
-        min-height: 115px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadistica-numero {
-        font-size: 1.55rem;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-grafico-contenedor {
-        height: 230px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-actividad,
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-grafico {
-        padding: 18px;
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVE — 420PX
-========================================================= */
-
-@media (max-width: 420px) {
-
+@media (max-width: 650px) {
     #directorgeneral-panel-carsce {
-        padding-bottom: 20px;
+        padding: 20px 13px 35px;
     }
 
     #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-titulo {
-        font-size: 1.35rem;
+    .directorgeneral-panel-carsce-encabezado {
+        padding: 24px 20px;
+        min-height: auto;
     }
 
     #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-rol {
-        margin-top: 3px;
+    .directorgeneral-panel-carsce-encabezado::before,
+    #directorgeneral-panel-carsce
+    .directorgeneral-panel-carsce-encabezado::after {
+        display: none;
     }
 
     #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadistica {
-        padding: 16px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-estadistica-icono {
-        width: 42px;
-        height: 42px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-panel-titulo {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 9px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-evento-cabecera {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    #directorgeneral-panel-carsce
-    .directorgeneral-panel-carsce-grafico-contenedor {
-        height: 215px;
+    .directorgeneral-panel-carsce-estadisticas {
+        grid-template-columns: minmax(0, 1fr);
     }
 }

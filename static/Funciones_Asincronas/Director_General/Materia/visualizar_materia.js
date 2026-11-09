@@ -9,9 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
        ========================================================= */
 
     async function pnfs_registrados() {
-
         try {
-
             const respuesta = await fetch("/pnfs_reg/");
             const resultado = await respuesta.json();
 
@@ -22,27 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             resultado.nucleos.forEach(nucleo => {
-
                 nucleo.pnfs.forEach(pnf => {
-
                     const option = document.createElement("option");
-
                     option.value = pnf.id_pnf;
                     option.textContent = pnf.pnf;
-
                     select_busqueda_pnf.appendChild(option);
-
                 });
-
             });
 
         } catch (error) {
-
-            console.error(
-                "Error al cargar los P.N.F:",
-                error
-            );
-
+            console.error("Error al cargar los P.N.F:", error);
         }
     }
 
@@ -52,227 +39,123 @@ document.addEventListener("DOMContentLoaded", () => {
        ========================================================= */
 
     async function materias_registradas() {
-
         try {
-
             const formulario = new FormData();
-
-            formulario.append(
-                "pnf",
-                select_busqueda_pnf.value
-            );
-
+            formulario.append("pnf", select_busqueda_pnf.value);
 
             const respuesta = await fetch("/mat_lista/", {
-
                 method: "POST",
-
                 headers: {
-                    "X-CSRFToken":
-                        document.querySelector(
-                            "[name=csrfmiddlewaretoken]"
-                        ).value
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
                 },
-
                 body: formulario
-
             });
 
-
             const resultado = await respuesta.json();
-
-            console.log(resultado);
-
-
             contenedor_materias.innerHTML = "";
-
 
             /* =================================================
                ORGANIZAR MATERIAS POR PNF
                ================================================= */
-
             const materiasPorPNF = {};
 
-
             resultado.pnfs.forEach(pnf => {
-
                 materiasPorPNF[pnf.id_pnf] = {
-
                     id: pnf.id_pnf,
-
                     nombre: pnf.pnf,
-
                     codigo: pnf.codigo,
-
                     materias: []
-
                 };
-
             });
 
-
             resultado.materias.forEach(materia => {
-
                 if (materiasPorPNF[materia.id_pnf]) {
-
-                    materiasPorPNF[
-                        materia.id_pnf
-                    ].materias.push(materia);
-
+                    materiasPorPNF[materia.id_pnf].materias.push(materia);
                 }
-
             });
 
 
             /* =================================================
                GENERAR RESULTADOS
                ================================================= */
-
             Object.values(materiasPorPNF).forEach(pnf => {
-
                 if (pnf.materias.length === 0) {
                     return;
                 }
 
-
-                /* =============================================
-                   CONTENEDOR DEL PNF
-                   ============================================= */
-
                 const bloque = document.createElement("div");
-
-                bloque.classList.add(
-                    "director-materias-consulta-carsce-bloque"
-                );
-
-
-                /* =============================================
-                   CABECERA DEL RESULTADO
-                   ============================================= */
+                bloque.classList.add("director-materias-consulta-carsce-bloque");
 
                 const cabecera = document.createElement("div");
-
-                cabecera.classList.add(
-                    "director-materias-consulta-carsce-resultado-cabecera"
-                );
-
+                cabecera.classList.add("director-materias-consulta-carsce-resultado-cabecera");
 
                 cabecera.innerHTML = `
-
                     <div class="director-materias-consulta-carsce-resultado-identidad">
-
                         <div class="director-materias-consulta-carsce-resultado-icono">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
-
                         <div>
-
                             <span class="director-materias-consulta-carsce-resultado-etiqueta">
                                 PROGRAMA NACIONAL DE FORMACIÓN
                             </span>
-
                             <h4 class="director-materias-consulta-carsce-resultado-titulo">
                                 ${pnf.nombre}
                             </h4>
-
                         </div>
-
                     </div>
-
-
                     <div class="director-materias-consulta-carsce-contador">
-
-                        <strong>
-                            ${pnf.materias.length}
-                        </strong>
-
-                        <span>
-                            ${pnf.materias.length === 1
-                                ? "materia registrada"
-                                : "materias registradas"}
-                        </span>
-
+                        <strong>${pnf.materias.length}</strong>
+                        <span>${pnf.materias.length === 1 ? "materia registrada" : "materias registradas"}</span>
                     </div>
-
                 `;
 
-
-                /* =============================================
-                   CONTENEDOR DE TABLA
-                   ============================================= */
-
                 const tabla_contenedor = document.createElement("div");
-
-                tabla_contenedor.classList.add(
-                    "director-materias-consulta-carsce-tabla-contenedor"
-                );
-
-
-                /* =============================================
-                   TABLA
-                   ============================================= */
+                tabla_contenedor.classList.add("director-materias-consulta-carsce-tabla-contenedor");
 
                 const tabla = document.createElement("table");
-
-                tabla.classList.add(
-                    "director-materias-consulta-carsce-tabla"
-                );
-
+                tabla.classList.add("director-materias-consulta-carsce-tabla");
 
                 let filas = "";
 
-
                 pnf.materias.forEach((materia, index) => {
-
-                    filas += `
-
-                        <tr>
-
-                            <td class="director-materias-consulta-carsce-columna-id">
-                                ${index + 1}
-                            </td>
-
-                            <td class="director-materias-consulta-carsce-columna-materia">
-                                ${materia.nombre}
-                            </td>
-
-                            <td>
-                                ${materia.codigo}
-                            </td>
-
-                            <td>
-                                ${materia.htea}
-                            </td>
-
-                            <td>
-                                ${materia.htei}
-                            </td>
-
-                            <td>
-                                ${materia.id_trayecto__nombre}
-                            </td>
-
-                            <td>
-                                ${materia.recuperacion}
-                            </td>
-
-                            <td>
-                                ${materia.tipo_materia}
-                            </td>
-
-                        </tr>
-
+                    const tr = document.createElement("tr");
+                    tr.style.cursor = "pointer";
+                    
+                    // Guardamos los datos de la materia directamente en el elemento para usarlos al hacer clic
+                    tr.innerHTML = `
+                        <td class="director-materias-consulta-carsce-columna-id">${index + 1}</td>
+                        <td class="director-materias-consulta-carsce-columna-materia">${materia.nombre}</td>
+                        <td>${materia.codigo}</td>
+                        <td>${materia.htea}</td>
+                        <td>${materia.htei}</td>
+                        <td>${materia.id_trayecto__nombre || ''}</td>
+                        <td>${materia.recuperacion || ''}</td>
+                        <td>${materia.tipo_materia || ''}</td>
                     `;
 
+                    // Evento al hacer clic en la fila para activar el Modo Edición en el formulario izquierdo
+                    tr.addEventListener("click", () => {
+                        if (typeof window.activarModoEdicionMateria === "function") {
+                            window.activarModoEdicionMateria({
+                                id: materia.id_materia || materia.id, // Ajusta según el campo ID de tu backend
+                                nombre: materia.nombre,
+                                codigo: materia.codigo,
+                                thea: materia.htea,
+                                thei: materia.htei,
+                                periodo: materia.periodo,
+                                reparacion: materia.recuperacion,
+                                pnf_id: pnf.id
+                            });
+                        }
+                    });
+
+                    tabla.appendChild(tr);
                 });
 
-
+                // Si prefieres mantener la estructura con innerHTML para el thead y tbody:
                 tabla.innerHTML = `
-
                     <thead>
-
                         <tr>
-
                             <th>ID</th>
                             <th>Materia</th>
                             <th>Código</th>
@@ -281,40 +164,52 @@ document.addEventListener("DOMContentLoaded", () => {
                             <th>Trayecto</th>
                             <th>Recuperación</th>
                             <th>Tipo de Materia</th>
-
                         </tr>
-
                     </thead>
-
-                    <tbody>
-
-                        ${filas}
-
-                    </tbody>
-
+                    <tbody></tbody>
                 `;
 
+                const tbody = tabla.querySelector("tbody");
+                pnf.materias.forEach((materia, index) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td class="director-materias-consulta-carsce-columna-id">${index + 1}</td>
+                        <td class="director-materias-consulta-carsce-columna-materia">${materia.nombre}</td>
+                        <td>${materia.codigo}</td>
+                        <td>${materia.htea}</td>
+                        <td>${materia.htei}</td>
+                        <td>${materia.id_trayecto__nombre || ''}</td>
+                        <td>${materia.recuperacion || ''}</td>
+                        <td>${materia.tipo_materia || ''}</td>
+                    `;
+
+                    // Evento de clic en cada fila para la notificación y cambio de formulario
+                    tr.addEventListener("click", () => {
+                        if (typeof window.activarModoEdicionMateria === "function") {
+                            window.activarModoEdicionMateria({
+                                id: materia.id,
+                                nombre: materia.nombre,
+                                codigo: materia.codigo,
+                                thea: materia.htea,
+                                thei: materia.htei,
+                                periodo: materia.periodo,
+                                reparacion: materia.recuperacion,
+                                pnf_id: pnf.id
+                            });
+                        }
+                    });
+                    tbody.appendChild(tr);
+                });
 
                 tabla_contenedor.appendChild(tabla);
-
                 bloque.appendChild(cabecera);
-
                 bloque.appendChild(tabla_contenedor);
-
                 contenedor_materias.appendChild(bloque);
-
             });
 
-
         } catch (error) {
-
-            console.error(
-                "Error al consultar las materias:",
-                error
-            );
-
+            console.error("Error al consultar las materias:", error);
         }
-
     }
 
 
@@ -323,13 +218,8 @@ document.addEventListener("DOMContentLoaded", () => {
        ========================================================= */
 
     pnfs_registrados();
-
     materias_registradas();
 
-
-    select_busqueda_pnf.addEventListener(
-        "change",
-        materias_registradas
-    );
+    select_busqueda_pnf.addEventListener("change", materias_registradas);
 
 });

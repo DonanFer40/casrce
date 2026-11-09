@@ -1,0 +1,75 @@
+{% extends 'Estructura/Base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Estilos/horarios/horario_academico.css' %}">
+
+<main class="horario-academico horario-academico--estudiante">
+    <header class="horario-academico__encabezado">
+        <p class="horario-academico__etiqueta">Área estudiantil</p>
+        <h1>Mi horario académico</h1>
+        <p>Horario de tu matrícula activa, según tu núcleo, PNF, sección y trayecto.</p>
+    </header>
+
+    {% if sin_matricula %}
+        <p class="horario-academico__vacio" role="status">
+            No tienes una matrícula vigente asociada a un aula.
+        </p>
+    {% elif not horarios %}
+        <p class="horario-academico__vacio" role="status">
+            Todavía no se ha registrado un horario para tu matrícula vigente.
+        </p>
+    {% else %}
+        {% for grupo in horarios %}
+        <section class="horario-academico__grupo" aria-labelledby="horario-{{ forloop.counter }}">
+            <header class="horario-academico__grupo-cabecera">
+                <h2 id="horario-{{ forloop.counter }}">
+                    {{ grupo.aula.id_pnf.pnf }} · {{ grupo.aula.id_nucleo.municipio }}
+                </h2>
+                <p>
+                    {{ grupo.aula.nombre_aula }} · Sección {{ grupo.aula.id_seccion.nombre }}
+                    · {{ grupo.trayecto.nombre }} · {{ grupo.periodo.nombre }}
+                </p>
+            </header>
+            <div class="horario-academico__tabla-contenedor">
+                <table class="horario-academico__tabla">
+                    <thead>
+                        <tr>
+                            <th scope="col">Hora</th>
+                            {% for codigo, nombre in dias %}
+                                <th scope="col">{{ nombre }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fila in grupo.filas %}
+                        <tr>
+                            <th scope="row" class="horario-academico__hora">{{ fila.etiqueta }}</th>
+                            {% for celda in fila.celdas %}
+                            <td>
+                                {% if celda %}
+                                    <strong>{{ celda.materia }}</strong>
+                                    {% for docente in celda.docentes %}
+                                        <span class="horario-academico__docente">{{ docente }}</span>
+                                    {% empty %}
+                                        <span class="horario-academico__docente">Docente por asignar</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span class="horario-academico__libre">Libre</span>
+                                {% endif %}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        {% endfor %}
+    {% endif %}
+
+    <a class="horario-academico__enlace-reportes" href="{% url 'reportes_control_estudio' %}">
+        Consultar mis reportes y documentos
+    </a>
+</main>
+{% endblock %}

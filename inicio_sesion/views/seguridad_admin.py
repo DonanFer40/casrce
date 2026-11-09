@@ -4,6 +4,7 @@ import base64
 import qrcode
 
 from io import BytesIO
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_protect
@@ -18,6 +19,7 @@ from inicio_sesion.services.seguridad_admin_service import (
     verificar_codigo_totp,
     reenviar_codigo_correo,
     invalidar_verificacion_admin,
+    obtener_verificacion_activa,
 )
 
 from inicio_sesion.services.seguridad_admin_service import (
@@ -28,6 +30,18 @@ from inicio_sesion.services.seguridad_admin_service import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def acceso_admin(request):
+    verificacion = obtener_verificacion_activa(request)
+    if not verificacion or verificacion.etapa not in {"CORREO", "TOTP"}:
+        return redirect("inicio_sesion")
+    return render(
+        request,
+        "Security/acceso_admin.html",
+        {"etapa": verificacion.etapa},
+    )
+
 
 # ==========================================================
 # RESPUESTAS JSON
@@ -251,7 +265,7 @@ def verificar_totp_admin(request):
     return respuesta(
         mensaje,
         True,
-        siguiente="/admin/login/"
+        siguiente="/admin/login/?next=/admin/"
     )
 
 
@@ -386,7 +400,7 @@ def configurar_totp_admin(request):
 
         return render(
             request,
-            "Seguridad/configurar_totp_admin.html",
+            "Security/configurar_totp_admin.html",
             {
                 "qr_base64": qr_base64,
             }
@@ -458,6 +472,7 @@ def confirmar_totp_admin(request):
                 400
             )
 
+        logout(request)
         return respuesta(
             "Google Authenticator se ha configurado correctamente.",
             True,

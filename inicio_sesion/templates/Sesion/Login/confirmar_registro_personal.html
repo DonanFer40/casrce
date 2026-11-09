@@ -157,6 +157,7 @@
                                    name="usuario_ci"
                                    autocomplete="off"
                                    id="cedula_identidad"
+                                    class="js-solo-numeros"
                                    placeholder="Ingrese su número de cédula">
 
                         </div>
@@ -363,7 +364,11 @@
                                name="password_usuario"
                                autocomplete="off"
                                id="password"
-                               placeholder="Ingrese su contraseña">
+                               class="js-contrasenia-segura"
+                               minlength="8"
+                               maxlength="128"
+                               placeholder="Ingrese una contraseña segura"
+                               required>
 
 
                         <input type="checkbox"

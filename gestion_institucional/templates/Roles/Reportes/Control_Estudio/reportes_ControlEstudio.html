@@ -1,44 +1,176 @@
-{% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
-
-{% load static %}
 
 <section id="reportes-control-estudio-carsce">
 
     <div class="reportes-control-estudio-carsce-contenedor">
 
-        <header class="reportes-control-estudio-carsce-encabezado">
-
-            <div class="reportes-control-estudio-carsce-identificacion">
-                <i class="fa-solid fa-chart-column"></i>
-                CONTROL DE ESTUDIO
-            </div>
-
-            <div class="reportes-control-estudio-carsce-presentacion">
-
-                <h1 class="reportes-control-estudio-carsce-titulo">
-                    Reportes Académicos
-                    <span>CARSCE</span>
-                </h1>
-
-                <p class="reportes-control-estudio-carsce-descripcion">
-                    Consulte, visualice y genere información académica
-                    gestionada mediante el sistema CARSCE.
-                </p>
-
-            </div>
-
-        </header>
-
-
+        <!-- =====================================================
+             LISTADO DE REPORTES (Tarjetas de Reporte)
+             ===================================================== -->
         <div class="reportes-control-estudio-carsce-listado">
 
-            {% include 'Roles/Reportes/Control_Estudio/reporte_estudiantes.html' %}
+            <!-- 01. REPORTE GENERAL DE ESTUDIANTES -->
+            <article class="reportes-control-estudio-carsce-tarjeta" id="reporte-estudiantes-carsce">
+                <div class="reportes-control-estudio-carsce-tarjeta-cabecera">
+                    <div class="reportes-control-estudio-carsce-icono">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-informacion">
+                        <span class="reportes-control-estudio-carsce-categoria">REPORTE ESTUDIANTIL</span>
+                        <h2 class="reportes-control-estudio-carsce-titulo-tarjeta">Reporte General de Estudiantes</h2>
+                        <p class="reportes-control-estudio-carsce-descripcion">
+                            Consulte la información general de los estudiantes registrados en el sistema CARSCE.
+                        </p>
+                    </div>
+                </div>
 
-            {% include 'Roles/Reportes/Control_Estudio/reporte_academico.html' %}
+                <div class="reportes-control-estudio-carsce-detalles">
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Información</span>
+                            <strong>Estudiantes registrados</strong>
+                        </div>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Organización</span>
+                            <strong>Núcleo y PNF</strong>
+                        </div>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Formato</span>
+                            <strong>Documento PDF</strong>
+                        </div>
+                    </div>
+                </div>
 
-            {% include 'Roles/Reportes/Control_Estudio/reporte_inscripciones.html' %}
+                <div class="reportes-control-estudio-carsce-acciones">
+                    <a href="#reportes-institucionales" class="reportes-control-estudio-carsce-boton-pdf" target="_blank">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar reporte PDF</span>
+                    </a>
+                </div>
+            </article>
+
+
+            <!-- 02. REPORTE ACADÉMICO -->
+            <article class="reportes-control-estudio-carsce-tarjeta" id="reporte-academico-carsce">
+                <div class="reportes-control-estudio-carsce-tarjeta-cabecera">
+                    <div class="reportes-control-estudio-carsce-icono">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-informacion">
+                        <span class="reportes-control-estudio-carsce-categoria">REPORTE ACADÉMICO</span>
+                        <h2 class="reportes-control-estudio-carsce-titulo-tarjeta">Reporte Académico</h2>
+                        <p class="reportes-control-estudio-carsce-descripcion">
+                            Consulte información consolidada sobre el rendimiento académico, promedios, asistencia y condiciones de los estudiantes registrados en CARSCE.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="reportes-control-estudio-carsce-detalles">
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-chart-column"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Información</span>
+                            <strong>Rendimiento académico</strong>
+                        </div>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Datos</span>
+                            <strong>Promedios y condiciones</strong>
+                        </div>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Formato</span>
+                            <strong>Documento PDF</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reportes-control-estudio-carsce-acciones">
+                    <a href="#reportes-institucionales" class="reportes-control-estudio-carsce-boton-pdf" target="_blank">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar reporte PDF</span>
+                    </a>
+                </div>
+            </article>
+
+
+            <!-- 03. REPORTE DE INSCRIPCIONES -->
+            <article class="reportes-control-estudio-carsce-tarjeta" id="reporte-inscripciones-carsce">
+                <div class="reportes-control-estudio-carsce-tarjeta-cabecera">
+                    <div class="reportes-control-estudio-carsce-icono">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-informacion">
+                        <span class="reportes-control-estudio-carsce-categoria">REPORTE DE INSCRIPCIONES</span>
+                        <h2 class="reportes-control-estudio-carsce-titulo-tarjeta">Reporte de Inscripciones</h2>
+                        <p class="reportes-control-estudio-carsce-descripcion">
+                            Consulte información consolidada sobre las inscripciones académicas registradas en CARSCE, incluyendo núcleo, PNF, sección, aula y estado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="reportes-control-estudio-carsce-detalles">
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Información</span>
+                            <strong>Estudiantes inscritos</strong>
+                        </div>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Organización</span>
+                            <strong>Núcleo, PNF y sección</strong>
+                        </div>
+                    </div>
+                    <div class="reportes-control-estudio-carsce-detalle">
+                        <div class="reportes-control-estudio-carsce-detalle-icono">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div class="reportes-control-estudio-carsce-detalle-informacion">
+                            <span>Formato</span>
+                            <strong>Documento PDF</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reportes-control-estudio-carsce-acciones">
+                    <a href="#reportes-institucionales" class="reportes-control-estudio-carsce-boton-pdf" target="_blank">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar reporte PDF</span>
+                    </a>
+                </div>
+            </article>
 
         </div>
 

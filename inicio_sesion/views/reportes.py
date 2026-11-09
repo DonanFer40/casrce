@@ -20,8 +20,12 @@ from reportlab.platypus import (
     TableStyle,
     Image,
 )
-from django.db.models import Avg, Count
-from inicio_sesion.models import AulaEstudiante, Estudiante
+from django.db.models import Avg, Count, Q
+from documentos.models import DocumentoInstitucional
+from gestion_institucional.services.permisos.permisos_reportes import (
+    obtener_roles_reporte,
+)
+from inicio_sesion.models import AulaEstudiante, Cuenta, Estudiante
 from notas_academicas.models import Calificaciones
 from gestion_institucional.services.permisos import requiere_rol_reporte
 
@@ -1489,7 +1493,39 @@ def reporte_inscripciones_pdf(request):
 
 @requiere_rol_reporte(
     "Director General",
-    "Control de Estudio"
+    "Control de Estudio",
+    "Coordinador PNF",
+    "Docente",
+    "Estudiante",
 )
 def reportes_control_estudio(request):
-    return render(request, "Roles/Reportes/Puente_Reportes.html")
+    cuenta = Cuenta.objects.select_related("id_usuario").get(
+        id_cuenta=request.session["id_cuenta"]
+    )
+    usuario = cuenta.id_usuario
+    perfiles_estudiante = list(
+        Estudiante.objects.filter(usuario=usuario).select_related(
+            "nucleo",
+            "pnf",
+        )
+    )
+    ids_estudiante = [perfil.pk for perfil in perfiles_estudiante]
+    documentos = DocumentoInstitucional.objects.filter(
+        Q(emitido_por=usuario)
+        | Q(datos_documento__estudiante_id__in=ids_estudiante)
+        | Q(datos_documento__usuario_id=usuario.pk)
+    ).order_by("-fecha_emision")[:30]
+    roles = obtener_roles_reporte(usuario)
+    return render(
+        request,
+        "Roles/Reportes/Puente_Reportes.html",
+        {
+            "estudiantes_usuario": perfiles_estudiante,
+            "reportes_registrados": documentos,
+            "es_director": "Director General" in roles,
+            "es_control_estudio": "Control de Estudio" in roles,
+            "es_coordinador": "Coordinador PNF" in roles,
+            "es_docente": "Docente" in roles,
+            "es_estudiante": "Estudiante" in roles,
+        },
+    )

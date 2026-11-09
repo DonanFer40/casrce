@@ -1,41 +1,376 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
-
-{% load static %}
 
 <section id="CentroReportesCARSCE">
 
     <div class="CentroReportesCARSCE-contenedor">
 
+        <!-- =====================================================
+             ENCABEZADO INSTITUCIONAL
+             ===================================================== -->
+        <header class="CentroReportesCARSCE-encabezado">
+            <div class="CentroReportesCARSCE-encabezado-contenido">
+
+                <div class="CentroReportesCARSCE-identificacion">
+                    <span class="CentroReportesCARSCE-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
+                    </span>
+                    <span class="CentroReportesCARSCE-seccion">
+                        <i class="fa-solid fa-file-invoice"></i>
+                        CENTRO DE REPORTES Y DOCUMENTOS
+                    </span>
+                </div>
+
+                <div class="CentroReportesCARSCE-presentacion">
+                    <h1>Centro de Documentos</h1>
+                    <p>
+                        Genera, consulta y valida documentos académicos institucionales, comprobantes digitales con código QR y reportes estadísticos desde un mismo espacio.
+                    </p>
+                </div>
+
+                <div class="CentroReportesCARSCE-encabezado-pie">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Emisión oficial con firma y verificación QR de vigencia</span>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- INCLUSIÓN DE PLANTILLAS ESPECÍFICAS SEGÚN ROL -->
         {% if es_director %}
-
             {% include 'Roles/Reportes/Director_General/reportes_DirectorGeneral.html' %}
-
-
         {% elif es_control_estudio %}
-
             {% include 'Roles/Reportes/Control_Estudio/reportes_ControlEstudio.html' %}
-
-
         {% elif es_coordinador %}
-
             {% include 'Roles/Reportes/Coordinador_PNF/reportes_CoordinadorPNF.html' %}
-
-
         {% elif es_docente %}
-
             {% include 'Roles/Reportes/Docente/reportes_Docente.html' %}
-
-
         {% elif es_estudiante %}
-
             {% include 'Roles/Reportes/Estudiante/reportes_Estudiante.html' %}
-
         {% endif %}
+
+
+        <!-- =====================================================
+             DOCUMENTOS PERSONALES (ESTUDIANTES)
+             ===================================================== -->
+        {% if es_estudiante and estudiantes_usuario %}
+        <div class="CentroReportesCARSCE-tarjeta">
+            
+            <div class="CentroReportesCARSCE-tarjeta-cabecera">
+                <div class="CentroReportesCARSCE-tarjeta-icono">
+                    <i class="fa-solid fa-folder-user"></i>
+                </div>
+                <div class="CentroReportesCARSCE-tarjeta-informacion">
+                    <span class="CentroReportesCARSCE-etiqueta-modulo">
+                        DOCUMENTOS PERSONALES
+                    </span>
+                    <h2 class="CentroReportesCARSCE-tarjeta-titulo">
+                        Generar mis documentos
+                    </h2>
+                    <p class="CentroReportesCARSCE-tarjeta-descripcion">
+                        Los documentos emitidos quedan registrados en el sistema y cuentan con verificación mediante código QR.
+                    </p>
+                </div>
+            </div>
+
+            <div class="CentroReportesCARSCE-grid-formularios">
+
+                <!-- RÉCORD ACADÉMICO -->
+                <form method="post" action="{% url 'documentos:emitir_reporte_academico_actual' %}" data-generar-documento class="CentroReportesCARSCE-formulario-item">
+                    {% csrf_token %}
+                    <h3 class="CentroReportesCARSCE-item-titulo"><i class="fa-solid fa-graduation-cap"></i> Récord Académico</h3>
+                    
+                    <div class="CentroReportesCARSCE-campo">
+                        <label class="CentroReportesCARSCE-etiqueta-campo">Perfil académico:</label>
+                        <div class="CentroReportesCARSCE-control">
+                            <i class="fa-solid fa-id-card"></i>
+                            <select name="estudiante_id" required>
+                                {% for perfil in estudiantes_usuario %}
+                                <option value="{{ perfil.pk }}">{{ perfil.pnf.pnf }} · {{ perfil.nucleo.municipio }}</option>
+                                {% endfor %}
+                            </select>
+                            <i class="fa-solid fa-chevron-down CentroReportesCARSCE-flecha"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="CentroReportesCARSCE-boton">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar PDF</span>
+                    </button>
+                </form>
+
+                <!-- CONSTANCIA DE ESTUDIOS -->
+                <form method="post" action="{% url 'documentos:emitir_constancia_estudios_actual' %}" data-generar-documento class="CentroReportesCARSCE-formulario-item">
+                    {% csrf_token %}
+                    <h3 class="CentroReportesCARSCE-item-titulo"><i class="fa-solid fa-certificate"></i> Constancia de Estudios</h3>
+                    
+                    <div class="CentroReportesCARSCE-campo">
+                        <label class="CentroReportesCARSCE-etiqueta-campo">Perfil académico:</label>
+                        <div class="CentroReportesCARSCE-control">
+                            <i class="fa-solid fa-id-card"></i>
+                            <select name="estudiante_id" required>
+                                {% for perfil in estudiantes_usuario %}
+                                <option value="{{ perfil.pk }}">{{ perfil.pnf.pnf }} · {{ perfil.nucleo.municipio }}</option>
+                                {% endfor %}
+                            </select>
+                            <i class="fa-solid fa-chevron-down CentroReportesCARSCE-flecha"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="CentroReportesCARSCE-boton">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar PDF</span>
+                    </button>
+                </form>
+
+                <!-- CONSTANCIA DE INSCRIPCIÓN -->
+                <form method="post" action="{% url 'documentos:emitir_constancia_inscripcion_actual' %}" data-generar-documento class="CentroReportesCARSCE-formulario-item">
+                    {% csrf_token %}
+                    <h3 class="CentroReportesCARSCE-item-titulo"><i class="fa-solid fa-clipboard-check"></i> Constancia de Inscripción</h3>
+                    
+                    <div class="CentroReportesCARSCE-campo">
+                        <label class="CentroReportesCARSCE-etiqueta-campo">Perfil académico:</label>
+                        <div class="CentroReportesCARSCE-control">
+                            <i class="fa-solid fa-id-card"></i>
+                            <select name="estudiante_id" required>
+                                {% for perfil in estudiantes_usuario %}
+                                <option value="{{ perfil.pk }}">{{ perfil.pnf.pnf }} · {{ perfil.nucleo.municipio }}</option>
+                                {% endfor %}
+                            </select>
+                            <i class="fa-solid fa-chevron-down CentroReportesCARSCE-flecha"></i>
+                        </div>
+                    </div>
+
+                    <div class="CentroReportesCARSCE-campo">
+                        <label class="CentroReportesCARSCE-etiqueta-campo">Año de inscripción:</label>
+                        <div class="CentroReportesCARSCE-control">
+                            <i class="fa-solid fa-calendar"></i>
+                            <input type="number" name="anio" min="1900" max="2100" value="{% now 'Y' %}" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="CentroReportesCARSCE-boton">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar PDF</span>
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+        {% endif %}
+
+
+        <!-- =====================================================
+             HORARIO ACADÉMICO (DOCENTES Y ESTUDIANTES)
+             ===================================================== -->
+        {% if es_docente or es_estudiante %}
+        <div class="CentroReportesCARSCE-tarjeta">
+            
+            <div class="CentroReportesCARSCE-tarjeta-cabecera">
+                <div class="CentroReportesCARSCE-tarjeta-icono">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <div class="CentroReportesCARSCE-tarjeta-informacion">
+                    <span class="CentroReportesCARSCE-etiqueta-modulo">
+                        HORARIO ACADÉMICO
+                    </span>
+                    <h2 class="CentroReportesCARSCE-tarjeta-titulo">
+                        Descargar mi horario
+                    </h2>
+                    <p class="CentroReportesCARSCE-tarjeta-descripcion">
+                        Obtén tu comprobante de horario generado según tus secciones o materias activas vinculadas.
+                    </p>
+                </div>
+            </div>
+
+            <form method="post" action="{% url 'documentos:emitir_horario_personal' %}" data-generar-documento class="CentroReportesCARSCE-bloque-horario">
+                {% csrf_token %}
+                <button type="submit" class="CentroReportesCARSCE-boton">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Generar y descargar horario PDF</span>
+                </button>
+            </form>
+
+        </div>
+        {% endif %}
+
+
+        <!-- =====================================================
+             REPORTES INSTITUCIONALES (DIRECTOR, CONTROL ESTUDIO, COORDINADOR)
+             ===================================================== -->
+        {% if es_director or es_control_estudio or es_coordinador %}
+        <div id="reportes-institucionales" class="CentroReportesCARSCE-tarjeta">
+            
+            <div class="CentroReportesCARSCE-tarjeta-cabecera">
+                <div class="CentroReportesCARSCE-tarjeta-icono">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="CentroReportesCARSCE-tarjeta-informacion">
+                    <span class="CentroReportesCARSCE-etiqueta-modulo">
+                        REPORTES INSTITUCIONALES
+                    </span>
+                    <h2 class="CentroReportesCARSCE-tarjeta-titulo">
+                        Estadísticas por ámbito autorizado
+                    </h2>
+                    <p class="CentroReportesCARSCE-tarjeta-descripcion">
+                        Genera informes consolidados según los permisos asignados a tu perfil administrativo.
+                    </p>
+                </div>
+            </div>
+
+            <form method="post" action="{% url 'documentos:emitir_reporte_estadistico' %}" data-generar-documento class="CentroReportesCARSCE-formulario-institucional">
+                {% csrf_token %}
+                
+                <div class="CentroReportesCARSCE-fila-campos">
+
+                    <!-- TIPO DE REPORTE -->
+                    <div class="CentroReportesCARSCE-campo">
+                        <label class="CentroReportesCARSCE-etiqueta-campo">Tipo de reporte: *</label>
+                        <div class="CentroReportesCARSCE-control">
+                            <i class="fa-solid fa-chart-column"></i>
+                            <select name="tipo" required>
+                                <option value="matricula">Estudiantes por núcleo, PNF y trayecto</option>
+                                <option value="inscripciones">Inscripciones por año</option>
+                                <option value="egresados">Egresados por año</option>
+                                <option value="estudiantes_anuales">Estudiantes por año de ingreso</option>
+                                <option value="personal">Docentes, coordinadores y Control de Estudio por núcleo/PNF</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down CentroReportesCARSCE-flecha"></i>
+                        </div>
+                    </div>
+
+                    <!-- AÑO -->
+                    <div class="CentroReportesCARSCE-campo">
+                        <label class="CentroReportesCARSCE-etiqueta-campo">Año (para reportes anuales):</label>
+                        <div class="CentroReportesCARSCE-control">
+                            <i class="fa-solid fa-calendar"></i>
+                            <input type="number" name="anio" min="1900" max="2100" value="{% now 'Y' %}">
+                        </div>
+                    </div>
+
+                    <!-- MODO DE PRESENTACIÓN -->
+                    <div class="CentroReportesCARSCE-campo">
+                        <label class="CentroReportesCARSCE-etiqueta-campo">Presentación: *</label>
+                        <div class="CentroReportesCARSCE-control">
+                            <i class="fa-solid fa-list-check"></i>
+                            <select name="modo" required>
+                                <option value="TOTAL">Totales agrupados</option>
+                                <option value="LISTADO">Listado detallado</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down CentroReportesCARSCE-flecha"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="CentroReportesCARSCE-acciones-institucional">
+                    {% if es_coordinador %}
+                    <a class="CentroReportesCARSCE-boton-secundario" href="{% url 'registrar_horario' %}">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Registrar horario del PNF</span>
+                    </a>
+                    {% endif %}
+
+                    <button type="submit" class="CentroReportesCARSCE-boton">
+                        <i class="fa-solid fa-chart-column"></i>
+                        <span>Generar y registrar reporte</span>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+        {% endif %}
+
+
+        <!-- =====================================================
+             REGISTRO DIGITAL / TABLA DE DOCUMENTOS GENERADOS
+             ===================================================== -->
+        <div class="CentroReportesCARSCE-tarjeta">
+
+            <div class="CentroReportesCARSCE-tarjeta-cabecera">
+                <div class="CentroReportesCARSCE-tarjeta-icono">
+                    <i class="fa-solid fa-table-list"></i>
+                </div>
+                <div class="CentroReportesCARSCE-tarjeta-informacion">
+                    <span class="CentroReportesCARSCE-etiqueta-modulo">
+                        REGISTRO DIGITAL
+                    </span>
+                    <h2 class="CentroReportesCARSCE-tarjeta-titulo">
+                        Mis documentos generados
+                    </h2>
+                    <p class="CentroReportesCARSCE-tarjeta-descripcion">
+                        Consulta, descarga o valida tus últimos documentos oficiales emitidos por el sistema.
+                    </p>
+                </div>
+            </div>
+
+            <!-- INDICACIÓN -->
+            <div class="CentroReportesCARSCE-indicacion">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Haz clic en "Descargar" para guardar la copia PDF o en "Validar QR" para verificar su código único en el sistema.</span>
+            </div>
+
+            {% if reportes_registrados %}
+            <div class="CentroReportesCARSCE-tabla-contenedor">
+                <div class="CentroReportesCARSCE-tabla-scroll">
+                    <table class="CentroReportesCARSCE-tabla">
+                        <thead>
+                            <tr>
+                                <th>Documento</th>
+                                <th>Código</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for documento in reportes_registrados %}
+                            <tr>
+                                <td><strong>{{ documento.titulo }}</strong></td>
+                                <td><code>{{ documento.codigo_documento }}</code></td>
+                                <td>{{ documento.fecha_emision|date:"d/m/Y" }}</td>
+                                <td>
+                                    <span class="CentroReportesCARSCE-badge-estado">
+                                        {{ documento.get_estado_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="CentroReportesCARSCE-acciones-tabla">
+                                        <a href="{% url 'documentos:descargar_documento' documento.identificador %}" class="CentroReportesCARSCE-btn-tabla descargar">
+                                            <i class="fa-solid fa-download"></i> Descargar
+                                        </a>
+                                        <a href="{% url 'documentos:verificar_documento' documento.identificador %}" target="_blank" rel="noopener" class="CentroReportesCARSCE-btn-tabla validar">
+                                            <i class="fa-solid fa-qrcode"></i> Validar QR
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <div class="CentroReportesCARSCE-vacio">
+                <div class="CentroReportesCARSCE-vacio-icono">
+                    <i class="fa-regular fa-folder-open"></i>
+                </div>
+                <h3>Aún no hay documentos registrados</h3>
+                <p>No se han emitido reportes ni constancias asociadas a tu cuenta hasta el momento.</p>
+            </div>
+            {% endif %}
+
+        </div>
 
     </div>
 
 </section>
+
+<!-- SCRIPT ASÍNCRONO DE REPORTES -->
+<script src="{% static 'Funcionalidades/reportes_documentos.js' %}" defer></script>
 
 {% endblock %}

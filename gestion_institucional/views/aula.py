@@ -1,52 +1,46 @@
+import logging
+
+from django.db import IntegrityError
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.utils import timezone
 from django.db import transaction
 
-from inicio_sesion.models import AulaAcademica, DirectorGeneral, CoordinadorPNF, Bitacora, Pnf, SeccionAcademica
+from inicio_sesion.models import (
+    AulaAcademica,
+    Bitacora,
+    DirectorGeneral,
+    PNFNucleo,
+    Pnf,
+    SeccionAcademica,
+)
+
+
+logger = logging.getLogger(__name__)
+
+
+def _director_actual(request):
+    return DirectorGeneral.objects.filter(
+        usuario__cedula_identidad=request.session.get("cedula_usuario")
+    ).select_related("nucleo").first()
 
 # aulas_registrados
 def aulas_reg(request):
-
-    cedula = request.session.get("cedula_usuario")
-
-    # BUSCAR NÚCLEO DEL DIRECTOR
-    director = (
-        DirectorGeneral.objects
-        .filter(usuario__cedula_identidad=cedula)
-        .select_related("nucleo")
-        .first()
-    )
-
-    if director:
-        nucleo = director.nucleo
-
-    else:
-        # BUSCAR NÚCLEO DEL COORDINADOR PNF
-        coordinador = (
-            CoordinadorPNF.objects
-            .filter(usuario__cedula_identidad=cedula)
-            .select_related("nucleo")
-            .first()
-        )
-
-        if coordinador:
-            nucleo = coordinador.nucleo
-
-        else:
-            return JsonResponse({
-                "estado": "fallo",
-                "icon": "error",
-                "title": "Sin núcleo asignado",
-                "descripcion": (
-                    "El usuario no tiene un núcleo académico asignado."
-                )
-            })
+    if request.method != "GET":
+        return JsonResponse({"estado": "fallo"}, status=405)
+    director = _director_actual(request)
+    if director is None:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "error",
+            "title": "Sin núcleo asignado",
+            "descripcion": "No hay un núcleo de Dirección asignado.",
+        }, status=403)
 
     # OBTENER AULAS DEL NÚCLEO
     aulas = (
         AulaAcademica.objects
-        .filter(id_nucleo=nucleo)
+        .filter(id_nucleo=director.nucleo)
         .values(
             "id_aula",
             "nombre_aula",
@@ -63,17 +57,35 @@ def aulas_reg(request):
         "aulas": list(aulas)
     })
 
+
+def visualizar_aula(request):
+    if request.method != "GET":
+        return JsonResponse({"estado": "fallo"}, status=405)
+    director = _director_actual(request)
+    if director is None:
+        return JsonResponse({"estado": "fallo"}, status=403)
+    return render(request, "Roles/Director_General/aula/registrar_aula.html")
+
+
 # datos_aula
 def datos_aula(request):
     if request.method == "POST":
+        director = _director_actual(request)
+        if director is None:
+            return JsonResponse({"estado": "fallo"}, status=403)
         id_aula = request.POST.get("id_aula")
-
-        director = DirectorGeneral.objects.get(usuario__cedula_identidad=request.session.get("cedula_usuario"))
-
-        aula = AulaAcademica.objects.select_related("id_nucleo").get(
+        aula = AulaAcademica.objects.select_related(
+            "id_seccion",
+            "id_pnf",
+        ).filter(
             id_aula=id_aula,
             id_nucleo=director.nucleo
-        )
+        ).first()
+        if aula is None:
+            return JsonResponse({
+                "estado": "fallo",
+                "descripcion": "El aula no existe o no pertenece a tu núcleo.",
+            }, status=404)
 
         return JsonResponse({
             "id_aula": aula.id_aula,
@@ -86,32 +98,42 @@ def datos_aula(request):
             "id_pnf": aula.id_pnf.id_pnf,
             "pnf": aula.id_pnf.pnf,
         })
+    return JsonResponse({"estado": "fallo"}, status=405)
 
 def val_aula(request):
     if request.method == "POST":
-        aula = request.POST.get("aula")
+        director = _director_actual(request)
+        if director is None:
+            return JsonResponse({"existe": False}, status=403)
+        aula = (request.POST.get("aula") or "").strip()
+        if not aula:
+            return JsonResponse({"existe": False}, status=400)
 
-        existe = AulaAcademica.objects.filter(nombre_aula__iexact=aula).exists()
+        existe = AulaAcademica.objects.filter(
+            id_nucleo=director.nucleo,
+            nombre_aula__iexact=aula,
+        ).exists()
         if existe:
-            return JsonResponse({ "existe": True })
+            return JsonResponse({"existe": True})
 
-        return JsonResponse({ "existe": False })
+        return JsonResponse({"existe": False})
+    return JsonResponse({"existe": False}, status=405)
 
 # actualizar_aula_academica
 def act_aula_acad(request):
 
     if request.method == "POST":
+        director = _director_actual(request)
+        if director is None:
+            return JsonResponse({"estado": "fallo"}, status=403)
 
         id_aula = request.POST.get("aula_seleccionar")
-        nombre_aula = request.POST.get("actualizar_aula")
-        descripcion_aula = request.POST.get("actualizar_nota")
-        piso_aula = request.POST.get("actualizar_piso")
-        tipo_aula = request.POST.get("actualizar_tipos")
+        nombre_aula = (request.POST.get("actualizar_aula") or "").strip()
+        descripcion_aula = (request.POST.get("actualizar_nota") or "").strip()
+        piso_aula = (request.POST.get("actualizar_piso") or "").strip()
+        tipo_aula = (request.POST.get("actualizar_tipos") or "").strip()
         seccion_academica = request.POST.get("actualizar_seccion")
         pnf = request.POST.get("actualizar_pnf")
-
-        print(seccion_academica)
-        print(pnf)
 
         # VALIDAR CAMPOS VACÍOS
         controles = [
@@ -135,20 +157,12 @@ def act_aula_acad(request):
                 "Tipo Aula Académica",
                 "Por favor, debe seleccionar el tipo de aula."
             ),
-            (
-                seccion_academica,
-                "Sección Académica",
-                "Por favor, debe seleccionar la sección del aula."
-            ),
-            (
-                pnf,
-                "P.N.F",
-                "Por favor, debe seleccionar el P.N.F."
-            ),
+            (seccion_academica, "Sección Académica", "Por favor, debe seleccionar la sección del aula."),
+            (pnf, "P.N.F", "Por favor, debe seleccionar el P.N.F."),
         ]
 
         for value, field_name, error_message in controles:
-            if not value or not value.strip():
+            if not value or (isinstance(value, str) and not value.strip()):
                 return JsonResponse({
                     "estado": "fallo",
                     "icon": "warning",
@@ -157,9 +171,11 @@ def act_aula_acad(request):
                 })
 
         # BUSCAR AULA
-        try:
-            aula = AulaAcademica.objects.get(id_aula=id_aula)
-        except AulaAcademica.DoesNotExist:
+        aula = AulaAcademica.objects.filter(
+            id_aula=id_aula,
+            id_nucleo=director.nucleo,
+        ).first()
+        if aula is None:
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
@@ -170,9 +186,10 @@ def act_aula_acad(request):
             })
 
         # BUSCAR SECCIÓN
-        try:
-            seccion_obj = SeccionAcademica.objects.get(id_seccion=seccion_academica)
-        except SeccionAcademica.DoesNotExist:
+        seccion_obj = SeccionAcademica.objects.filter(
+            id_seccion=seccion_academica
+        ).first()
+        if seccion_obj is None:
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
@@ -184,9 +201,8 @@ def act_aula_acad(request):
             })
         
         # BUSCAR PNF
-        try:
-            pnf_obj = Pnf.objects.get(id_pnf=pnf)
-        except Pnf.DoesNotExist:
+        pnf_obj = Pnf.objects.filter(id_pnf=pnf).first()
+        if pnf_obj is None:
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
@@ -195,6 +211,28 @@ def act_aula_acad(request):
                     "El PNF seleccionado no se encuentra registrado."
                 )
             })
+
+        if not PNFNucleo.objects.filter(
+            id_pnf=pnf_obj,
+            id_nucleo=director.nucleo,
+        ).exists():
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "PNF no disponible",
+                "descripcion": "El PNF seleccionado no se imparte en este núcleo.",
+            }, status=400)
+
+        if AulaAcademica.objects.filter(
+            id_nucleo=director.nucleo,
+            nombre_aula__iexact=nombre_aula,
+        ).exclude(pk=aula.pk).exists():
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Aula duplicada",
+                "descripcion": "Ya existe un aula con ese nombre en este núcleo.",
+            }, status=409)
 
         # ACTUALIZAR
         try:
@@ -228,29 +266,35 @@ def act_aula_acad(request):
                 )
             })
 
-        except Exception as error:
-            print("ERROR:", error)
+        except IntegrityError:
+            logger.exception("No se pudo actualizar el aula %s.", id_aula)
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
                 "title": "Error",
                 "descripcion": (
-                    "Ocurrió un error al momento de "
-                    "actualizar el aula."
+                    "No se pudo guardar el aula por un conflicto de datos."
                 )
-            })
+            }, status=409)
 
-    return render(request, "Roles/Director_General/aula/visualizar_aulas.html")
+    if request.method == "GET":
+        if _director_actual(request) is None:
+            return JsonResponse({"estado": "fallo"}, status=403)
+        return render(request, "Roles/Director_General/aula/registrar_aula.html")
+    return JsonResponse({"estado": "fallo"}, status=405)
 
 # modulo_aula_academica
 def reg_aula(request):
     if request.method == "POST":
-        nombre_aula = request.POST.get("nombre_aula")
-        observacion = request.POST.get("observacion_aula")
-        piso = request.POST.get("piso_edificio")
-        tipos_aulas = request.POST.get("tipos_aulas")
+        nombre_aula = (request.POST.get("nombre_aula") or "").strip()
+        observacion = (request.POST.get("observacion_aula") or "").strip()
+        piso = (request.POST.get("piso_edificio") or "").strip()
+        tipos_aulas = (request.POST.get("tipos_aulas") or "").strip()
         pnf = request.POST.get("pnfs_imparte")
         seccion = request.POST.get("secciones_registradas")
+        director = _director_actual(request)
+        if director is None:
+            return JsonResponse({"estado": "fallo"}, status=403)
 
         controles = [
             (nombre_aula, "Nombre/Número del Aula", "Por favor, debe ingresar el nombre del aula."),
@@ -261,27 +305,54 @@ def reg_aula(request):
             (seccion, "Sección Académica", "Por favor, debe seleccionar la sección académico.")
         ]
         for value, field_name, error_message in controles:
-            if not value:
+            if not value or (isinstance(value, str) and not value.strip()):
                 return JsonResponse({
                     "estado": "fallo",
                     "icon": "warning",
                     "title": field_name,
                     "descripcion": error_message
-                })
+                }, status=400)
+
+        pnf_seleccionado = Pnf.objects.filter(id_pnf=pnf).first()
+        seccion_seleccionada = SeccionAcademica.objects.filter(
+            id_seccion=seccion
+        ).first()
+        if pnf_seleccionado is None or seccion_seleccionada is None:
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Datos no válidos",
+                "descripcion": "Selecciona un PNF y una sección registrados.",
+            }, status=400)
+        if not PNFNucleo.objects.filter(
+            id_pnf=pnf_seleccionado,
+            id_nucleo=director.nucleo,
+        ).exists():
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "PNF no disponible",
+                "descripcion": "El PNF seleccionado no se imparte en este núcleo.",
+            }, status=400)
+        if AulaAcademica.objects.filter(
+            id_nucleo=director.nucleo,
+            nombre_aula__iexact=nombre_aula,
+        ).exists():
+            return JsonResponse({
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Aula duplicada",
+                "descripcion": "Ya existe un aula con ese nombre en este núcleo.",
+            }, status=409)
 
         try:
             with transaction.atomic():
-                director = DirectorGeneral.objects.get(usuario__cedula_identidad=request.session.get("cedula_usuario"))
-                
-                pnf_seleccionado = Pnf.objects.get(id_pnf=pnf)
-                seccion_seleccionado = SeccionAcademica.objects.get(id_seccion=seccion)
-        
                 AulaAcademica.objects.create(
                     nombre_aula=nombre_aula,
                     Nota=observacion,
                     piso_edificio=piso,
                     tipo_aula=tipos_aulas,
-                    id_seccion=seccion_seleccionado,
+                    id_seccion=seccion_seleccionada,
                     id_pnf=pnf_seleccionado,
                     id_nucleo=director.nucleo
                 )
@@ -289,7 +360,7 @@ def reg_aula(request):
                 Bitacora.objects.create(
                     nombre_usuario=request.session.get("usuario_nombre"),
                     fecha_hora=timezone.now(),
-                    accion=f"Se registro la aula {nombre_aula} del piso {piso}."
+                    accion=f"Se registró el aula {nombre_aula} del piso {piso}."
                 )
         
                 return JsonResponse({
@@ -298,14 +369,17 @@ def reg_aula(request):
                     "title": "Exito",
                     "descripcion": "Se registró exitosamente el aula académica."
                 })
-        except Exception as e:
+        except IntegrityError:
+            logger.exception("No se pudo registrar el aula %s.", nombre_aula)
             return JsonResponse({
                 "estado": "fallo",
                 "icon": "error",
                 "title": "Error",
-                "descripcion": "Ocurrio un error al momento de regsitrar el aula académica."
-            })
+                "descripcion": "No se pudo guardar el aula por un conflicto de datos."
+            }, status=409)
 
-    return render(request, "Roles/Director_General/aula/registrar_aula.html")
-
-
+    if request.method == "GET":
+        if _director_actual(request) is None:
+            return JsonResponse({"estado": "fallo"}, status=403)
+        return render(request, "Roles/Director_General/aula/registrar_aula.html")
+    return JsonResponse({"estado": "fallo"}, status=405)

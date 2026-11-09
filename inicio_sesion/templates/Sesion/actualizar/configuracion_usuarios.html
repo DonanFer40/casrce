@@ -1,0 +1,162 @@
+{% extends 'Estructura/Base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="configuracion-perfil-carsce">
+    <div class="configuracion-perfil-carsce-contenedor">
+
+        <!-- =====================================================
+             ENCABEZADO INSTITUCIONAL
+             ===================================================== -->
+        <header class="configuracion-perfil-carsce-encabezado">
+            <div class="configuracion-perfil-carsce-encabezado-contenido">
+
+                <div class="configuracion-perfil-carsce-identificacion">
+                    <span class="configuracion-perfil-carsce-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
+                    </span>
+                    <span class="configuracion-perfil-carsce-seccion">
+                        <i class="fa-solid fa-user-gear" aria-hidden="true"></i>
+                        CONFIGURACIÓN DE CUENTA
+                    </span>
+                </div>
+
+                <div class="configuracion-perfil-carsce-presentacion">
+                    <h1>Configuración del Perfil</h1>
+                    <p>
+                        Administra tu información personal, preferencias de acceso y fotografía de perfil dentro del sistema CARSCE.
+                    </p>
+                </div>
+
+                <div class="configuracion-perfil-carsce-encabezado-pie">
+                    <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                    <span>Tu información personal y credenciales están protegidas bajo estricta sesión activa.</span>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- MENSAJES DE ALERTA -->
+        {% if messages %}
+            <div class="configuracion-perfil-carsce-mensajes">
+                {% for message in messages %}
+                    <div class="configuracion-perfil-carsce-alerta" role="status">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- RESUMEN / TARJETA DE USUARIO ACTIVO -->
+        <div class="configuracion-perfil-carsce-resumen">
+            <div class="configuracion-perfil-carsce-avatar">
+                {% if foto_perfil_url %}
+                    <img src="{{ foto_perfil_url }}" alt="Fotografía de {{ usuario_nombre }}">
+                {% else %}
+                    <span aria-hidden="true"><i class="fa-solid fa-user"></i></span>
+                {% endif %}
+            </div>
+
+            <div class="configuracion-perfil-carsce-datos">
+                <span class="configuracion-perfil-carsce-estado">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    Sesión activa
+                </span>
+                <h2>{{ usuario_nombre }}</h2>
+                <p>{{ usuario_correo|default:"Correo no registrado" }}</p>
+                <span class="configuracion-perfil-carsce-rol">{{ rol_usuario }}</span>
+
+    
+            </div>
+
+            <div class="configuracion-perfil-carsce-accion-avatar">
+                <a href="{% url 'actualizar_registro_usuario' %}" class="configuracion-perfil-carsce-boton-foto">
+                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                    <span>Cambiar fotografía</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- SECCIONES DE CONFIGURACIÓN -->
+        <div class="configuracion-perfil-carsce-secciones">
+
+            <!-- GRUPO 01: CUENTA PERSONAL -->
+            <section class="configuracion-perfil-carsce-grupo">
+                <div class="configuracion-perfil-carsce-grupo-titulo">
+                    <div class="configuracion-perfil-carsce-grupo-icono" aria-hidden="true">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <h2>Cuenta Personal</h2>
+                        <p>Edita los datos demográficos y de contacto registrados en el sistema.</p>
+                    </div>
+                </div>
+
+                <div class="configuracion-perfil-carsce-opciones">
+                    <a href="{% url 'actualizar_registro_usuario' %}" class="configuracion-perfil-carsce-opcion">
+                        <span class="configuracion-perfil-carsce-opcion-icono" aria-hidden="true">
+                            <i class="fa-solid fa-id-card"></i>
+                        </span>
+                        <span class="configuracion-perfil-carsce-opcion-info">
+                            <strong>Información personal y de contacto</strong>
+                            <small>Actualiza tu nombre, teléfono, residencia y, si aplica, datos de discapacidad.</small>
+                        </span>
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+
+                    <div class="configuracion-perfil-carsce-opcion configuracion-perfil-carsce-opcion-informativa">
+                        <span class="configuracion-perfil-carsce-opcion-icono" aria-hidden="true">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <span class="configuracion-perfil-carsce-opcion-info">
+                            <strong>Correo electrónico</strong>
+                            <small>{{ usuario_correo|default:"No hay correo registrado" }}. Para proteger tu cuenta, el cambio requiere verificación.</small>
+                        </span>
+                        <i class="fa-solid fa-lock configuracion-perfil-carsce-opcion-estado" aria-label="Protegido" title="Protegido por seguridad"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GRUPO 02: ACCESO Y PREFERENCIAS -->
+            <section class="configuracion-perfil-carsce-grupo">
+                <div class="configuracion-perfil-carsce-grupo-titulo">
+                    <div class="configuracion-perfil-carsce-grupo-icono" aria-hidden="true">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h2>Acceso y Preferencias</h2>
+                        <p>Tu acceso a los módulos institucionales se determina por el rol asignado.</p>
+                    </div>
+                </div>
+
+                <div class="configuracion-perfil-carsce-opciones">
+                    <a href="{% url 'panel_usuario' %}" class="configuracion-perfil-carsce-opcion">
+                        <span class="configuracion-perfil-carsce-opcion-icono" aria-hidden="true">
+                            <i class="fa-solid fa-table-columns"></i>
+                        </span>
+                        <span class="configuracion-perfil-carsce-opcion-info">
+                            <strong>Volver a mi panel</strong>
+                            <small>Continúa usando las herramientas disponibles para tu perfil.</small>
+                        </span>
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+
+                    <a href="{% url 'cerrar_sesion' %}" class="configuracion-perfil-carsce-opcion opcion-peligro">
+                        <span class="configuracion-perfil-carsce-opcion-icono" aria-hidden="true">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </span>
+                        <span class="configuracion-perfil-carsce-opcion-info">
+                            <strong>Cerrar sesión</strong>
+                            <small>Finaliza de forma segura el acceso actual a CASRCE.</small>
+                        </span>
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}

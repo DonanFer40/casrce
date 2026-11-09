@@ -40,47 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     secciones_registradas();
 
-    async function validar_seccion() {
-        try {
-            const formulario = new FormData();
-            formulario.append("seccion", input_actualizar_seccion.value);
-            formulario.append("id_seccion", input_seccion_oculto.value);
-
-            const respuesta = await fetch("/val_sec/", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
-                },
-                body: formulario
-            });
-            const resultado = await respuesta.json();
-            console.log(resultado);
-
-            if (resultado.existe) {
-                input_actualizar_seccion.setCustomValidity("Ya existe una sección con el mismo nombre.");
-                input_actualizar_seccion.classList.add("is-invalid");
-                input_actualizar_seccion.classList.remove("is-valid");
-
-                mensaje_actualizar_seccion.textContent = "Ya existe una sección con el mismo nombre.";
-                mensaje_actualizar_seccion.style.color = "#dc3545";
-
-                btn_actualizar.disabled = true;
-            } else {
-                input_actualizar_seccion.setCustomValidity("");
-                input_actualizar_seccion.classList.add("is-valid");
-                input_actualizar_seccion.classList.remove("is-invalid");
-
-                mensaje_actualizar_seccion.textContent = "El nombre de la sección está disponible.";
-                mensaje_actualizar_seccion.style.color = "#198754";
-
-                btn_actualizar.disabled = false;
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    input_actualizar_seccion.addEventListener("input", validar_seccion)
-
     contenedor_secciones.addEventListener("click", async (e) => {
         const fila = e.target.closest("tr");
         if (!fila) return;
@@ -99,12 +58,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.mensaje,
+                    icon: resultado.icon,
+                    title: resultado.title
+                });
+                return;
+            }
+
             dialogo_actualizar.showModal();
 
             input_seccion_oculto.value = resultado.seccion.id_seccion;
-            input_actualizar_seccion.value = resultado.seccion.seccion;
+            input_actualizar_seccion.value = resultado.siguiente || "";
+            btn_actualizar.disabled = !resultado.siguiente;
+            mensaje_actualizar_seccion.textContent = resultado.siguiente
+                ? `Ocupadas: ${resultado.ocupadas.join(", ")}. Al guardar se asignará ${resultado.siguiente}.`
+                : `Ocupadas: ${resultado.ocupadas.join(", ")}. Libera una letra entre A y Z para modificar.`;
 
-
+            select_actualizar_turno.replaceChildren(
+                select_actualizar_turno.options[0]
+            );
             const option_turno = document.createElement("option");
             option_turno.value = resultado.seccion.turno;
             option_turno.textContent = resultado.seccion.turno;
@@ -135,10 +109,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const resultado = await respuesta.json();
             console.log(resultado);
 
+            if (!respuesta.ok || resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion,
+                    icon: resultado.icon,
+                    title: resultado.title
+                });
+                return;
+            }
+
             dialogo_actualizar.close();
 
             filas = "";
             await secciones_registradas();
+            input_actualizar_seccion.value = resultado.seccion;
 
             await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,

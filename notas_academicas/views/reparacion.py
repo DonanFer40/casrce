@@ -501,7 +501,7 @@ def mat_rep_not(request):
 
 def reg_eval_rep(request):
     if request.method != "POST":
-        return render(request, "Reparacion/registrar_examen_reparacion.html")
+        return render(request, "Roles/Docente/Evaluacion Reparacion/registrar_examen_reparacion.html")
 
     id_nucleo = request.POST.get("nucleo_asignado", "").strip()
     id_pnf = request.POST.get("pnf_asignado", "").strip()
@@ -1134,7 +1134,7 @@ def dato_eval_rep(request):
     })
 
 def vis_eval_rep(request):
-    return render(request, "Reparacion/visualizar_evaluaciones_reparar.html")
+    return render(request, "Roles/Docente/Evaluacion Reparacion/visualizar_evaluaciones_reparar.html")
 
 # Modificar
 
@@ -1577,7 +1577,7 @@ def mod_eval_rep(request):
     if request.method != "POST":
         return render(
             request,
-            "Reparacion/modificar_evaluaciones_reparar.html"
+            "Roles/Docente/Evaluacion Reparacion/modificar_evaluaciones_reparar.html"
         )
 
     fecha_actual = timezone.localdate()
@@ -2661,7 +2661,7 @@ def est_rep_not(request):
 
 def reg_rep_not(request):
     if request.method != "POST":
-        return render(request, "Reparacion/registrar_reparacion.html")
+        return render(request, "Roles/Docente/Reparacion/registrar_reparacion.html")
 
     try:
         cedula = request.session.get("cedula_usuario")
@@ -3476,7 +3476,7 @@ def reg_est_rep(request):
         })
         
 def vis_rep_not(request):
-    return render(request, "Reparacion/visualizar_reparacion.html")
+    return render(request, "Roles/Docente/Reparacion/visualizar_reparacion.html")
 
 # Modificar Reparaciones Registradas
 
@@ -3931,7 +3931,7 @@ def mod_not_rep_reg(request):
 
 def mod_rep_reg(request):
     if request.method != "POST":
-        return render(request, "Reparacion/modificar_reparacion.html")
+        return render(request, "Roles/Docente/Reparacion/modificar_reparacion.html")
 
     nucleo = request.POST.get("nucleo_asignado")
     pnf = request.POST.get("pnf_asignado")

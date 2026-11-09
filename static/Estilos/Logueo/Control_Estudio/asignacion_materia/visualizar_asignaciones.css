@@ -1,473 +1,378 @@
-/* ============================================================
-   ASIGNACIÓN DE MATERIAS - VISUALIZAR
-   CARSCE
-============================================================ */
-
 #asignacion-materia-visualizar-carsce {
     width: 100%;
-    min-height: 100%;
-    padding: 4px 0 30px;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+    background: var(--color-fondo-pagina);
     color: var(--texto-principal);
+    overflow-x: hidden;
 }
 
+#asignacion-materia-visualizar-carsce
 .asignacion-materia-visualizar-carsce-contenedor {
     width: 100%;
-    max-width: 1050px;
+    max-width: 1500px;
+    min-width: 0;
     margin: 0 auto;
 }
 
 
-/* ============================================================
-   ENCABEZADO
-============================================================ */
+/* =========================================================
+   01. ENCABEZADO INSTITUCIONAL
+   ========================================================= */
 
+#asignacion-materia-visualizar-carsce
 .asignacion-materia-visualizar-carsce-encabezado {
-    margin-bottom: 24px;
-}
-
-.asignacion-materia-visualizar-carsce-identificacion {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 7px 12px;
-
-    color: var(--color-azul-hover);
-    background: #EFF6FF;
-    border: 1px solid #DBEAFE;
-    border-radius: 7px;
-
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-}
-
-.asignacion-materia-visualizar-carsce-identificacion i {
-    font-size: .72rem;
-}
-
-.asignacion-materia-visualizar-carsce-presentacion {
-    margin-top: 8px;
-}
-
-.asignacion-materia-visualizar-carsce-titulo {
-    margin: 0;
-
-    font-size: 1.55rem;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -.02em;
-
-    color: var(--texto-principal);
-}
-
-.asignacion-materia-visualizar-carsce-titulo span {
-    color: var(--color-azul-hover);
-    font-weight: 600;
-}
-
-.asignacion-materia-visualizar-carsce-descripcion {
-    max-width: 800px;
-    margin: 7px 0 0;
-
-    font-size: .82rem;
-    line-height: 1.55;
-
-    color: var(--texto-secundario);
-}
-
-
-/* ============================================================
-   TARJETA PRINCIPAL
-============================================================ */
-
-.asignacion-materia-visualizar-carsce-tarjeta {
+    position: relative;
+    isolation: isolate;
     width: 100%;
-
-    padding: 26px 28px 28px;
-
+    min-width: 0;
+    height: auto;
+    min-height: 215px;
+    padding: 35px 42px;
+    margin-bottom: 27px;
     background: var(--color-blanco);
     border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
     border-radius: var(--radio-card);
-
     box-shadow: var(--sombra-card);
+    overflow: hidden;
 }
 
-
-/* ============================================================
-   CABECERA DE LA TARJETA
-============================================================ */
-
-.asignacion-materia-visualizar-carsce-tarjeta-cabecera {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    margin-bottom: 25px;
-    padding-bottom: 21px;
-
-    border-bottom: 1px solid var(--color-borde-fino);
-}
-
-.asignacion-materia-visualizar-carsce-tarjeta-icono {
-    width: 46px;
-    height: 46px;
-
-    flex: 0 0 46px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--color-blanco);
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563EB 0%,
-            #1D4ED8 100%
-        );
-
-    border-radius: 11px;
-
-    box-shadow:
-        0 5px 12px rgba(37, 99, 235, .18);
-}
-
-.asignacion-materia-visualizar-carsce-tarjeta-icono i {
-    font-size: 1rem;
-}
-
-.asignacion-materia-visualizar-carsce-tarjeta-informacion {
-    min-width: 0;
-}
-
-.asignacion-materia-visualizar-carsce-tarjeta-titulo {
-    margin: 0;
-
-    color: var(--color-azul-card);
-
-    font-size: 1rem;
-    font-weight: 650;
-    line-height: 1.3;
-}
-
-.asignacion-materia-visualizar-carsce-tarjeta-descripcion {
-    margin: 4px 0 0;
-
-    color: var(--texto-secundario);
-
-    font-size: .75rem;
-    line-height: 1.5;
-}
-
-
-/* ============================================================
-   BLOQUE DE BÚSQUEDA
-============================================================ */
-
-.asignacion-materia-visualizar-carsce-bloque {
-    width: 100%;
-
-    padding: 21px 20px 22px;
-
-    background: #F8FAFC;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-}
-
-.asignacion-materia-visualizar-carsce-bloque-cabecera {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-
-    margin-bottom: 18px;
-}
-
-.asignacion-materia-visualizar-carsce-bloque-icono {
-    width: 35px;
-    height: 35px;
-
-    flex: 0 0 35px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--color-azul-hover);
-
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-    border-radius: 8px;
-}
-
-.asignacion-materia-visualizar-carsce-bloque-icono i {
-    font-size: .78rem;
-}
-
-.asignacion-materia-visualizar-carsce-bloque-informacion {
-    min-width: 0;
-}
-
-.asignacion-materia-visualizar-carsce-bloque-titulo {
-    margin: 0;
-
-    color: var(--color-azul-card);
-
-    font-size: .82rem;
-    font-weight: 650;
-    line-height: 1.3;
-}
-
-.asignacion-materia-visualizar-carsce-bloque-descripcion {
-    margin: 3px 0 0;
-
-    color: var(--texto-secundario);
-
-    font-size: .68rem;
-    line-height: 1.45;
-}
-
-
-/* ============================================================
-   FORMULARIO DE BÚSQUEDA
-============================================================ */
-
-.asignacion-materia-visualizar-carsce-formulario {
-    width: 100%;
-}
-
-.asignacion-materia-visualizar-carsce-grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-}
-
-.asignacion-materia-visualizar-carsce-campo {
-    width: 100%;
-    min-width: 0;
-}
-
-.asignacion-materia-visualizar-carsce-etiqueta {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #334155;
-
-    font-size: .73rem;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-
-/* ============================================================
-   CONTROLES
-============================================================ */
-
-.asignacion-materia-visualizar-carsce-control {
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-encabezado-contenido {
     position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     width: 100%;
+    min-width: 0;
+    gap: 12px;
 }
 
-.asignacion-materia-visualizar-carsce-control > i:first-child {
+/* Decoración superior circular */
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-encabezado::before {
+    content: "";
     position: absolute;
-
-    top: 50%;
-    left: 14px;
-
-    z-index: 2;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: .76rem;
-
+    z-index: 1;
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    right: 65px;
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 30px rgba(15, 23, 42, 0.018), 0 0 0 65px rgba(15, 23, 42, 0.012);
     pointer-events: none;
 }
 
-.asignacion-materia-visualizar-carsce-control input,
-.asignacion-materia-visualizar-carsce-control select {
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
     width: 100%;
-    height: 45px;
+}
 
-    padding: 0 40px;
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 11px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
 
-    color: var(--texto-principal);
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-seccion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rojo-acento);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
 
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-presentacion {
+    width: 100%;
+    max-width: 720px;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+    color: var(--color-azul-profundo);
+    font-size: clamp(24px, 3.5vw, 37px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-presentacion p {
+    max-width: 630px;
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #E9EEF5;
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-encabezado-pie i {
+    color: var(--color-rojo-acento);
+}
+
+
+/* =========================================================
+   02. TARJETA PRINCIPAL
+   ========================================================= */
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-tarjeta {
+    width: 100%;
+    min-width: 0;
+    padding: 25px;
     background: var(--color-blanco);
-
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-
-    outline: none;
-
-    font-family: "Poppins", sans-serif;
-    font-size: .74rem;
-
-    transition:
-        border-color .2s ease,
-        box-shadow .2s ease;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-elevada);
 }
 
-.asignacion-materia-visualizar-carsce-control input::placeholder {
-    color: #94A3B8;
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-tarjeta-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-borde-fino);
 }
 
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-tarjeta-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 49px;
+    height: 49px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    color: var(--color-azul-profundo);
+    font-size: 19px;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-tarjeta-informacion {
+    flex: 1;
+    min-width: 0;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-etiqueta-modulo {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--color-rojo-acento);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-tarjeta-titulo {
+    margin: 0 0 7px;
+    color: var(--color-azul-profundo);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-tarjeta-descripcion {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   03. FORMULARIO Y CAMPOS DE BÚSQUEDA
+   ========================================================= */
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding-top: 22px;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-campo {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 8px;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-etiqueta {
+    color: #334155;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 45px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-control:focus-within {
+    background: var(--color-blanco);
+    border-color: var(--color-azul-hover);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-control > i:first-child {
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    color: var(--texto-mutado);
+    font-size: 12px;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-control input,
+#asignacion-materia-visualizar-carsce
 .asignacion-materia-visualizar-carsce-control select {
+    flex: 1;
+    width: 100%;
+    height: 43px;
+    padding: 0 12px 0 0;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 12px;
+    font-family: inherit;
+}
+
+#asignacion-materia-visualizar-carsce
+.asignacion-materia-visualizar-carsce-control select {
+    padding-right: 30px;
     appearance: none;
     cursor: pointer;
 }
 
-.asignacion-materia-visualizar-carsce-control input:hover,
-.asignacion-materia-visualizar-carsce-control select:hover {
-    border-color: #94A3B8;
-}
-
-.asignacion-materia-visualizar-carsce-control input:focus,
-.asignacion-materia-visualizar-carsce-control select:focus {
-    border-color: var(--color-azul-hover);
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, .12);
-}
-
+#asignacion-materia-visualizar-carsce
 .asignacion-materia-visualizar-carsce-flecha {
     position: absolute;
-
-    top: 50%;
-    right: 14px;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: .65rem;
-
+    right: 12px;
+    color: var(--texto-mutado);
+    font-size: 10px;
     pointer-events: none;
 }
 
 
-/* ============================================================
-   RESULTADOS
-============================================================ */
+/* =========================================================
+   04. RESULTADOS DINÁMICOS Y CONTENEDORES DE TABLAS
+   ========================================================= */
 
+#asignacion-materia-visualizar-carsce
 .asignacion-materia-visualizar-carsce-resultados {
     width: 100%;
-    margin-top: 22px;
-}
-
-
-/* ============================================================
-   CONTENEDOR DINÁMICO POR PNF
-   GENERADO DESDE JAVASCRIPT
-============================================================ */
-
-.contenedor_pnf_materias {
-    width: 100%;
-
-    margin-bottom: 18px;
-    padding: 20px;
-
-    background: var(--color-blanco);
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-
-    box-shadow: var(--sombra-card);
-}
-
-.contenedor_pnf_materias:last-child {
-    margin-bottom: 0;
-}
-
-.contenedor_pnf_materias h2 {
+    margin-top: 25px;
     display: flex;
-    align-items: center;
-
-    min-height: 34px;
-
-    margin: 0 0 18px;
-    padding-bottom: 12px;
-
-    color: var(--color-azul-card);
-
-    border-bottom: 1px solid var(--color-borde-fino);
-
-    font-size: .95rem;
-    font-weight: 700;
-    line-height: 1.3;
+    flex-direction: column;
+    gap: 24px;
 }
 
-
-/* Pequeño indicador institucional delante del PNF */
-
-.contenedor_pnf_materias h2::before {
-    content: "";
-
-    display: inline-block;
-
-    width: 4px;
-    height: 20px;
-
-    margin-right: 10px;
-
-    background: var(--color-azul-hover);
-
-    border-radius: 4px;
+/* Contenedores generados por JS */
+.contenedor_pnf_materias {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #F8FAFC;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    padding: 20px;
 }
 
-
-/* ============================================================
-   CONTENEDOR DINÁMICO POR TRAYECTO
-============================================================ */
+.contenedor_pnf_materias > h2 {
+    color: var(--color-azul-profundo);
+    font-size: 15px;
+    font-weight: 800;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-borde-fino);
+    margin: 0;
+}
 
 .contenedor_trayecto_materias {
-    width: 100%;
-
-    margin-top: 16px;
-    padding: 16px 17px 17px;
-
-    background: #F8FAFC;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.contenedor_trayecto_materias:first-of-type {
-    margin-top: 0;
-}
-
-.contenedor_trayecto_materias h3 {
-    margin: 0 0 12px;
-
+.contenedor_trayecto_materias > h3 {
     color: #334155;
-
-    font-size: .76rem;
-    font-weight: 650;
-    line-height: 1.35;
+    font-size: 13px;
+    font-weight: 750;
+    margin: 0;
 }
 
-
-/* ============================================================
-   TABLA GENERADA POR JAVASCRIPT
-============================================================ */
-
+/* Tablas de materias */
 .tabla-materias {
     width: 100%;
-
-    border-collapse: separate;
-    border-spacing: 0;
-
+    border-collapse: collapse;
     background: var(--color-blanco);
-
     border: 1px solid #E2E8F0;
     border-radius: 8px;
-
     overflow: hidden;
 }
 
@@ -476,786 +381,342 @@
 }
 
 .tabla-materias th {
-    height: 40px;
-
-    padding: 0 13px;
-
-    color: #475569;
-
-    border-bottom: 1px solid #E2E8F0;
-
-    font-size: .67rem;
-    font-weight: 700;
-
+    padding: 12px 14px;
+    color: #334155;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
     text-align: left;
-    text-transform: uppercase;
-    letter-spacing: .035em;
+    border-bottom: 1px solid #E2E8F0;
 }
 
 .tabla-materias td {
-    height: 43px;
-
-    padding: 0 13px;
-
+    padding: 12px 14px;
     color: #475569;
-
-    border-bottom: 1px solid #F1F5F9;
-
-    font-size: .72rem;
-    font-weight: 500;
-
-    vertical-align: middle;
+    font-size: 11px;
+    border-bottom: 1px solid #E9EEF5;
 }
 
 .tabla-materias tbody tr {
     cursor: pointer;
-
-    transition:
-        background-color .16s ease,
-        box-shadow .16s ease;
-}
-
-.tabla-materias tbody tr:last-child td {
-    border-bottom: none;
+    transition: background-color 0.2s ease;
 }
 
 .tabla-materias tbody tr:hover {
-    background: #EFF6FF;
-}
-
-.tabla-materias tbody tr:hover td {
-    color: #1E3A8A;
-}
-
-
-/* ID */
-
-.tabla-materias th:first-child,
-.tabla-materias td:first-child {
-    width: 70px;
-
-    text-align: center;
-}
-
-
-/* CÓDIGO */
-
-.tabla-materias th:last-child,
-.tabla-materias td:last-child {
-    width: 150px;
-}
-
-
-/* ============================================================
-   MENSAJE DE RESULTADOS VACÍOS / ERROR
-============================================================ */
-
-.asignacion-materia-visualizar-carsce-resultados > p {
-    margin: 0;
-    padding: 18px 20px;
-
-    color: var(--texto-secundario);
-
     background: #F8FAFC;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 9px;
-
-    font-size: .74rem;
-    line-height: 1.5;
-
-    text-align: center;
 }
 
 
-/* ============================================================
-   DIÁLOGO
-============================================================ */
+/* =========================================================
+   05. MODAL / DIÁLOGO DE ACTUALIZACIÓN (<dialog>)
+   ========================================================= */
 
-.asignacion-materia-visualizar-carsce-dialogo {
-    width: min(720px, calc(100% - 30px));
-    max-width: 720px;
-
-    max-height: calc(100vh - 30px);
-
+#dialogo_actualizar {
+    display: none;
+    position: fixed;
+    inset: 0;
+    margin: auto;
     padding: 0;
-
-    color: var(--texto-principal);
-
-    background: transparent;
-
     border: none;
-
-    overflow: visible;
+    border-radius: var(--radio-card);
+    background: transparent;
+    max-width: 580px;
+    width: min(580px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    overflow: auto;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    animation: fadeInModal 0.25s ease-out;
 }
 
-.asignacion-materia-visualizar-carsce-dialogo::backdrop {
-    background: rgba(15, 23, 42, .62);
-
-    backdrop-filter: blur(3px);
+#dialogo_actualizar[open] {
+    display: block;
 }
 
+#dialogo_actualizar::backdrop {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-contenedor {
     position: relative;
-
-    width: 100%;
-    max-height: calc(100vh - 30px);
-
-    padding: 27px 28px 28px;
-
     background: var(--color-blanco);
-
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
-
-    box-shadow: var(--sombra-elevada);
-
-    overflow-y: auto;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+    padding: 24px;
+    width: 100%;
 }
 
-
-/* ============================================================
-   BOTÓN CERRAR
-============================================================ */
-
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-cerrar {
     position: absolute;
-
-    top: 18px;
-    right: 18px;
-
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 32px;
     height: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #64748B;
-
     background: #F8FAFC;
-
     border: 1px solid #E2E8F0;
-    border-radius: 7px;
-
+    border-radius: 6px;
+    color: var(--texto-secundario);
     cursor: pointer;
-
-    transition:
-        color .2s ease,
-        background-color .2s ease,
-        border-color .2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-cerrar:hover {
-    color: var(--color-rojo-acento);
-
     background: var(--color-rojo-soft);
-
     border-color: #FECACA;
+    color: var(--color-rojo-acento);
 }
 
-.asignacion-materia-visualizar-carsce-dialogo-cerrar i {
-    font-size: .72rem;
-}
-
-
-/* ============================================================
-   CABECERA DEL DIÁLOGO
-============================================================ */
-
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-cabecera {
     display: flex;
-    align-items: center;
-    gap: 13px;
-
-    margin-bottom: 23px;
-    padding-right: 42px;
-    padding-bottom: 20px;
-
+    align-items: flex-start;
+    gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
     border-bottom: 1px solid var(--color-borde-fino);
+    padding-right: 40px;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-icono {
-    width: 45px;
-    height: 45px;
-
-    flex: 0 0 45px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: var(--color-blanco);
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563EB 0%,
-            #1D4ED8 100%
-        );
-
-    border-radius: 10px;
-
-    box-shadow:
-        0 5px 12px rgba(37, 99, 235, .18);
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
 }
 
-.asignacion-materia-visualizar-carsce-dialogo-icono i {
-    font-size: .95rem;
-}
-
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-titulo {
-    margin: 0;
-
-    color: var(--color-azul-card);
-
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.35;
+    margin: 0 0 4px;
+    color: var(--color-azul-profundo);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-descripcion {
-    margin: 4px 0 0;
-
+    margin: 0;
     color: var(--texto-secundario);
-
-    font-size: .71rem;
+    font-size: 11px;
     line-height: 1.5;
 }
 
-
-/* ============================================================
-   FORMULARIO DEL DIÁLOGO
-============================================================ */
-
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-formulario-actualizar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     width: 100%;
 }
 
-
-/* ============================================================
-   BLOQUES INTERNOS DEL DIÁLOGO
-============================================================ */
-
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-bloque-dialogo {
-    width: 100%;
-
-    margin-bottom: 14px;
-    padding: 17px 18px 18px;
-
+    padding: 16px;
     background: #F8FAFC;
-
-    border: 1px solid var(--color-borde-fino);
-    border-radius: 10px;
-}
-
-.asignacion-materia-visualizar-carsce-bloque-dialogo:last-of-type {
-    margin-bottom: 0;
-}
-
-
-/* ============================================================
-   SUBCABECERAS
-============================================================ */
-
-.asignacion-materia-visualizar-carsce-subcabecera {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.asignacion-materia-visualizar-carsce-subcabecera-icono {
-    width: 34px;
-    height: 34px;
-
-    flex: 0 0 34px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--color-azul-hover);
-
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
+    border: 1px solid #E2E8F0;
     border-radius: 8px;
 }
 
-.asignacion-materia-visualizar-carsce-subcabecera-icono i {
-    font-size: .72rem;
+#dialogo_actualizar
+.asignacion-materia-visualizar-carsce-subcabecera {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
+#dialogo_actualizar
+.asignacion-materia-visualizar-carsce-subcabecera-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--color-blanco);
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-subcabecera h4 {
-    margin: 0;
-
-    color: var(--color-azul-card);
-
-    font-size: .79rem;
-    font-weight: 650;
-    line-height: 1.35;
+    margin: 0 0 2px;
+    color: var(--color-azul-profundo);
+    font-size: 12px;
+    font-weight: 800;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-subcabecera p {
-    margin: 2px 0 0;
-
+    margin: 0;
     color: var(--texto-secundario);
-
-    font-size: .65rem;
-    line-height: 1.4;
+    font-size: 10px;
 }
 
+/* Campos dentro del modal */
+#dialogo_actualizar
+.asignacion-materia-visualizar-carsce-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
 
-/* ============================================================
-   ESTADOS
-============================================================ */
+#dialogo_actualizar
+.asignacion-materia-visualizar-carsce-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 42px;
+    background: var(--color-blanco);
+    border: 1px solid #CBD5E1;
+    border-radius: 7px;
+}
 
+#dialogo_actualizar
+.asignacion-materia-visualizar-carsce-control > i:first-child {
+    width: 36px;
+    text-align: center;
+    color: var(--texto-mutado);
+    font-size: 11px;
+}
+
+#dialogo_actualizar
+.asignacion-materia-visualizar-carsce-control input {
+    flex: 1;
+    width: 100%;
+    height: 40px;
+    padding: 0 12px 0 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 11px;
+    font-family: inherit;
+}
+
+/* Opciones de Radio Estados */
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-estado {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
-
-    margin-top: 15px;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid #E2E8F0;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-estado-titulo {
-    margin-right: 4px;
-
-    color: #475569;
-
-    font-size: .69rem;
-    font-weight: 650;
+    color: #334155;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-
-/* ============================================================
-   RADIO COMO BOTONES DE ESTADO
-============================================================ */
-
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-radio {
-    position: relative;
-
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-
-    min-width: 85px;
-    height: 32px;
-
-    padding: 0 11px;
-
-    color: #64748B;
-
-    background: var(--color-blanco);
-
-    border: 1px solid #CBD5E1;
-    border-radius: 7px;
-
+    gap: 6px;
     cursor: pointer;
-
-    font-size: .67rem;
+    font-size: 11px;
+    color: var(--texto-secundario);
     font-weight: 600;
-
-    transition:
-        color .2s ease,
-        background-color .2s ease,
-        border-color .2s ease,
-        box-shadow .2s ease;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-radio input {
-    position: absolute;
-
-    opacity: 0;
-    pointer-events: none;
+    accent-color: var(--color-azul-hover);
+    cursor: pointer;
 }
 
-.asignacion-materia-visualizar-carsce-radio:hover {
-    border-color: #94A3B8;
-}
-
-
-/* RADIO ACTIVO */
-
-.asignacion-materia-visualizar-carsce-radio:has(input:checked) {
-    color: #1D4ED8;
-
-    background: #EFF6FF;
-
-    border-color: #93C5FD;
-
-    box-shadow:
-        0 0 0 2px rgba(37, 99, 235, .06);
-}
-
-
-/* RADIO DESHABILITADO */
-
-.asignacion-materia-visualizar-carsce-radio:has(input:disabled) {
-    opacity: .48;
-
-    cursor: not-allowed;
-}
-
-.asignacion-materia-visualizar-carsce-radio input:disabled + span {
-    cursor: not-allowed;
-}
-
-
-/* ============================================================
-   ACCIONES DEL DIÁLOGO
-============================================================ */
-
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-dialogo-acciones {
     display: flex;
     justify-content: flex-end;
-
-    margin-top: 21px;
-    padding-top: 21px;
-
-    border-top: 1px solid var(--color-borde-fino);
+    margin-top: 8px;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-boton {
-    min-width: 225px;
-    height: 44px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-
-    padding: 0 18px;
-
-    color: var(--color-blanco);
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563EB 0%,
-            #1D4ED8 100%
-        );
-
+    width: 100%;
+    min-height: 44px;
+    padding: 0 20px;
+    background: var(--color-azul-profundo);
     border: none;
-    border-radius: 8px;
-
-    box-shadow:
-        0 4px 10px rgba(37, 99, 235, .18);
-
+    border-radius: 7px;
+    color: var(--color-blanco);
+    font-size: 12px;
+    font-weight: 750;
     cursor: pointer;
-
-    font-family: "Poppins", sans-serif;
-    font-size: .76rem;
-    font-weight: 600;
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-family: inherit;
 }
 
+#dialogo_actualizar
 .asignacion-materia-visualizar-carsce-boton:hover {
-    background:
-        linear-gradient(
-            135deg,
-            #1D4ED8 0%,
-            #1E40AF 100%
-        );
-
-    box-shadow:
-        0 7px 14px rgba(37, 99, 235, .22);
-
     transform: translateY(-1px);
-}
-
-.asignacion-materia-visualizar-carsce-boton:active {
-    transform: translateY(0);
-}
-
-.asignacion-materia-visualizar-carsce-boton i {
-    font-size: .72rem;
+    background: var(--color-azul-hover);
 }
 
 
-/* ============================================================
-   SCROLLBAR DEL DIÁLOGO
-============================================================ */
+/* =========================================================
+   06. RESPONSIVE DESIGN
+   ========================================================= */
 
-.asignacion-materia-visualizar-carsce-dialogo-contenedor::-webkit-scrollbar {
-    width: 7px;
-}
-
-.asignacion-materia-visualizar-carsce-dialogo-contenedor::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.asignacion-materia-visualizar-carsce-dialogo-contenedor::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
-    border-radius: 10px;
-}
-
-.asignacion-materia-visualizar-carsce-dialogo-contenedor::-webkit-scrollbar-thumb:hover {
-    background: #94A3B8;
-}
-
-
-/* ============================================================
-   RESPONSIVE - 900px
-============================================================ */
-
-@media (max-width: 900px) {
-
-    .asignacion-materia-visualizar-carsce-titulo {
-        font-size: 1.4rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta {
-        padding: 23px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-contenedor {
-        padding: 24px;
-    }
-}
-
-
-/* ============================================================
-   RESPONSIVE - 700px
-============================================================ */
-
-@media (max-width: 700px) {
-
-    .asignacion-materia-visualizar-carsce-titulo {
-        font-size: 1.28rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-descripcion {
-        font-size: .78rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta {
-        padding: 21px;
-    }
-
-    .asignacion-materia-visualizar-carsce-grid-2 {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .contenedor_pnf_materias {
-        padding: 17px;
-    }
-
-    .contenedor_trayecto_materias {
-        padding: 14px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo {
-        width: calc(100% - 24px);
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-contenedor {
-        padding: 22px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-acciones {
-        justify-content: stretch;
-    }
-
-    .asignacion-materia-visualizar-carsce-boton {
-        width: 100%;
-    }
-}
-
-
-/* ============================================================
-   RESPONSIVE - 520px
-============================================================ */
-
-@media (max-width: 520px) {
-
+@media (max-width: 650px) {
     #asignacion-materia-visualizar-carsce {
-        padding-top: 2px;
+        padding: 20px 13px 35px;
     }
 
-    .asignacion-materia-visualizar-carsce-identificacion {
-        padding: 6px 10px;
-
-        font-size: .62rem;
+    #asignacion-materia-visualizar-carsce
+    .asignacion-materia-visualizar-carsce-encabezado {
+        padding: 22px 18px;
     }
 
-    .asignacion-materia-visualizar-carsce-titulo {
-        font-size: 1.15rem;
+    #asignacion-materia-visualizar-carsce
+    .asignacion-materia-visualizar-carsce-encabezado::before {
+        display: none;
     }
 
-    .asignacion-materia-visualizar-carsce-descripcion {
-        font-size: .74rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta {
-        padding: 18px 16px 20px;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta-cabecera {
-        margin-bottom: 20px;
-        padding-bottom: 18px;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta-icono {
-        width: 42px;
-        height: 42px;
-
-        flex-basis: 42px;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta-titulo {
-        font-size: .9rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta-descripcion {
-        font-size: .69rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-bloque {
-        padding: 17px 14px 18px;
-    }
-
-    .asignacion-materia-visualizar-carsce-control input,
-    .asignacion-materia-visualizar-carsce-control select {
-        height: 43px;
-    }
-
-    .contenedor_pnf_materias {
-        padding: 14px;
-    }
-
-    .contenedor_pnf_materias h2 {
-        font-size: .84rem;
-    }
-
-    .contenedor_trayecto_materias {
-        padding: 12px;
-    }
-
-    /*
-       La tabla puede necesitar desplazamiento horizontal
-       en pantallas pequeñas.
-    */
-    .contenedor_trayecto_materias {
-        overflow-x: auto;
-    }
-
-    .tabla-materias {
-        min-width: 470px;
-    }
-
-    .tabla-materias th,
-    .tabla-materias td {
-        padding: 0 10px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo {
-        width: calc(100% - 18px);
-        max-height: calc(100vh - 18px);
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-contenedor {
-        max-height: calc(100vh - 18px);
-
-        padding: 19px 16px 20px;
-
-        border-radius: 12px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-cabecera {
-        gap: 10px;
-
-        margin-bottom: 19px;
-        padding-right: 35px;
-        padding-bottom: 17px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-icono {
-        width: 40px;
-        height: 40px;
-
-        flex-basis: 40px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-titulo {
-        font-size: .87rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-descripcion {
-        font-size: .65rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-bloque-dialogo {
-        padding: 14px 13px 15px;
-    }
-
+    #dialogo_actualizar
     .asignacion-materia-visualizar-carsce-estado {
-        align-items: flex-start;
         flex-direction: column;
-    }
-
-    .asignacion-materia-visualizar-carsce-radio {
-        width: 100%;
-    }
-}
-
-
-/* ============================================================
-   RESPONSIVE - 390px
-============================================================ */
-
-@media (max-width: 390px) {
-
-    .asignacion-materia-visualizar-carsce-titulo {
-        font-size: 1.05rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-tarjeta {
-        padding: 16px 13px 18px;
-    }
-
-    .asignacion-materia-visualizar-carsce-identificacion {
-        padding: 6px 9px;
-
-        font-size: .6rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-bloque {
-        padding: 15px 11px 16px;
-    }
-
-    .asignacion-materia-visualizar-carsce-bloque-icono {
-        width: 30px;
-        height: 30px;
-
-        flex-basis: 30px;
-    }
-
-    .asignacion-materia-visualizar-carsce-bloque-titulo {
-        font-size: .75rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-bloque-descripcion {
-        font-size: .62rem;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-contenedor {
-        padding: 17px 13px 18px;
-    }
-
-    .asignacion-materia-visualizar-carsce-dialogo-cerrar {
-        top: 13px;
-        right: 13px;
-
-        width: 29px;
-        height: 29px;
+        align-items: flex-start;
+        gap: 8px;
     }
 }

@@ -4,6 +4,7 @@ Configuración editable directamente desde este archivo.
 """
 
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,17 +21,12 @@ DEBUG = True
 SECRET_KEY = "gzr28!#=8$5%0$t(dvbrt3r%q_068$08fg@6x#tb(e6=1ap+kz"
 
 ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "192.168.0.103",
-    "10.213.194.229",
-    # "tudominio.com",
+    "casrce.uptbarinas.online", 'localhost', '10.213.194.229'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    # "https://tudominio.com",
+    "https://casrce.uptbarinas.online",
 ]
-
 
 # ---------------------------------------------------------------------
 # APLICACIONES
@@ -227,8 +223,7 @@ GEMINI_MODEL = os.environ.get(
 # SEGURIDAD ADMINISTRATIVA CASRCE
 # Las credenciales se reciben desde la terminal.
 # ---------------------------------------------------------------------
-from pathlib import Path
-import os
+
 
 CASRCE_ADMIN_USERNAME = os.environ.get("CASRCE_ADMIN_USERNAME")
 
@@ -252,16 +247,18 @@ CASRCE_ADMIN_LOGIN_URL = "/inicio_sesion/"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-
-EMAIL_HOST_USER = "uptjfr2025@gmail.com"
-EMAIL_HOST_PASSWORD = "mgrt npjf olsw mjev"
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_TIMEOUT = 20
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "true").lower() in {
+    "1", "true", "yes", "on"
+}
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "false").lower() in {
+    "1", "true", "yes", "on"
+}
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
+EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT", "20"))
 
 
 # ---------------------------------------------------------------------

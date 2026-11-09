@@ -25,6 +25,7 @@ from inicio_sesion.models import (
     ControlEstudio,
 )
 from inicio_sesion.services.correos import procesar_html_correo
+from inicio_sesion.validators import validar_contrasenia_segura
 
 
 # ============================================================
@@ -248,6 +249,15 @@ def registro_est(request):
                 titulo,
                 mensaje
             )
+
+    try:
+        validar_contrasenia_segura(password)
+    except ValidationError as error:
+        return _respuesta_registro(
+            "fallo",
+            "Contraseña insegura",
+            error.messages[0],
+        )
 
     correo = f"{nombre_correo}{dominio}".lower()
     cedula = f"{nacionalidad}-{num_cedula}"
@@ -1297,11 +1307,13 @@ def guardar_cred(request):
             "icon": "warning"
         })
 
-    if len(contrasenia) < 8:
+    try:
+        validar_contrasenia_segura(contrasenia)
+    except ValidationError as error:
         return JsonResponse({
             "estado": "error",
             "title": "Contraseña insegura",
-            "descripcion": "La contraseña debe tener al menos ocho caracteres.",
+            "descripcion": error.messages[0],
             "icon": "warning"
         })
 

@@ -3,7 +3,153 @@ from .models import Usuario, Contacto, Pnf, Nucleos, PNFNucleo, Cuenta
 from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password
 import re
-    
+from .validators import validar_contrasenia_segura
+
+
+class ConfiguracionUsuarioForm(forms.ModelForm):
+    DISCAPACIDAD_CHOICES = [
+        ("", "Seleccione una opción"),
+        ("N/A", "No aplica"),
+    ]
+    telefono_personal = forms.CharField(
+        label="Teléfono principal",
+        max_length=15,
+        required=False,
+        widget=forms.TextInput(attrs={"autocomplete": "tel"}),
+    )
+    telefono_suplete = forms.CharField(
+        label="Teléfono secundario",
+        max_length=15,
+        required=False,
+        widget=forms.TextInput(attrs={"autocomplete": "tel"}),
+    )
+    condicion_residencia = forms.CharField(
+        label="Condición de residencia",
+        max_length=100,
+        required=False,
+    )
+    municipio = forms.CharField(label="Municipio", max_length=100, required=False)
+    parroquia = forms.CharField(label="Parroquia", max_length=100, required=False)
+    direccion_residencia = forms.CharField(
+        label="Dirección de residencia",
+        max_length=100,
+        required=False,
+        widget=forms.Textarea(attrs={"rows": 3}),
+    )
+    carnet_discapacidad = forms.CharField(
+        label="Carnet de discapacidad",
+        max_length=50,
+        required=False,
+    )
+    registro_medico = forms.CharField(
+        label="N.º de registro médico",
+        max_length=5,
+        required=False,
+    )
+    tipos_discapacidad = forms.ChoiceField(
+        label="Tipo de discapacidad",
+        required=False,
+        choices=DISCAPACIDAD_CHOICES + [
+            ("Visual", "Visual"),
+            ("Auditiva", "Auditiva"),
+            ("Lenguaje", "Lenguaje"),
+            ("Lengauje", "Lenguaje (registro anterior)"),
+            ("Intelectual", "Intelectual"),
+            ("Autista", "Autista"),
+            ("Fisica y Motora", "Física y motora"),
+            ("Otro", "Otro"),
+        ],
+    )
+    grado_discapacidad = forms.ChoiceField(
+        label="Grado de discapacidad",
+        required=False,
+        choices=DISCAPACIDAD_CHOICES + [
+            ("Leve", "Leve"),
+            ("Moderada", "Moderada"),
+            ("Grave", "Grave"),
+        ],
+    )
+    causa_discapacidad = forms.ChoiceField(
+        label="Causa de discapacidad",
+        required=False,
+        choices=DISCAPACIDAD_CHOICES + [
+            ("Congenita", "Congénita"),
+            ("Adquirida", "Adquirida"),
+        ],
+    )
+    eliminar_foto = forms.BooleanField(
+        label="Quitar foto actual",
+        required=False,
+    )
+
+    class Meta:
+        model = Usuario
+        fields = (
+            "nombres",
+            "apellidos",
+            "genero",
+            "estado_civil",
+            "foto_perfil",
+        )
+        widgets = {
+            "nombres": forms.TextInput(attrs={"autocomplete": "given-name"}),
+            "apellidos": forms.TextInput(attrs={"autocomplete": "family-name"}),
+            "genero": forms.TextInput(),
+            "estado_civil": forms.TextInput(),
+            "foto_perfil": forms.FileInput(
+                attrs={"accept": "image/jpeg,image/png,image/webp"}
+            ),
+        }
+        labels = {
+            "nombres": "Nombres",
+            "apellidos": "Apellidos",
+            "genero": "Género",
+            "estado_civil": "Estado civil",
+            "foto_perfil": "Foto de perfil",
+        }
+
+    def clean_foto_perfil(self):
+        foto = self.cleaned_data.get("foto_perfil")
+        if foto and foto.size > 5 * 1024 * 1024:
+            raise ValidationError("La foto no debe superar los 5 MB.")
+        return foto
+
+    def clean(self):
+        cleaned_data = super().clean()
+        campos_residencia = (
+            "condicion_residencia",
+            "municipio",
+            "parroquia",
+            "direccion_residencia",
+        )
+        if any(cleaned_data.get(campo) for campo in campos_residencia):
+            for campo in campos_residencia:
+                if not cleaned_data.get(campo):
+                    self.add_error(campo, "Completa todos los datos de residencia.")
+        campos_discapacidad = (
+            "carnet_discapacidad",
+            "registro_medico",
+            "tipos_discapacidad",
+            "grado_discapacidad",
+            "causa_discapacidad",
+        )
+        if any(cleaned_data.get(campo) for campo in campos_discapacidad):
+            for campo in campos_discapacidad:
+                if not cleaned_data.get(campo):
+                    self.add_error(
+                        campo,
+                        "Completa todos los datos de discapacidad.",
+                    )
+        return cleaned_data
+
+    def save(self, commit=True):
+        usuario = super().save(commit=False)
+        if self.cleaned_data.get("eliminar_foto"):
+            usuario.foto_perfil = None
+        if commit:
+            usuario.save()
+        return usuario
+
 class UsuarioAdminForm(forms.ModelForm):
     GENERO_CHOICES = [
         ('', 'Seleccione el Genero'),
@@ -137,35 +283,34 @@ class CredencialesUsuarioAdminForm(forms.ModelForm):
         })
     )
 
-    def clean_nombre_usuario(self):
-        usuario = self.cleaned_data['usuario'].strip()
-
+    def clean_usuario(self):
+        usuario = self.cleaned_data["usuario"].strip()
         if len(usuario) < 4:
-            raise forms.ValidationError(
+            raise ValidationError(
                 "El nombre de usuario debe tener al menos 4 caracteres."
             )
-
         if len(usuario) > 160:
-            raise forms.ValidationError(
-                "El nombre de usuario es demasiado largo."
-            )
-
-        existe = Cuenta.objects.filter(usuario=usuario)
-
+            raise ValidationError("El nombre de usuario es demasiado largo.")
+        consulta = Cuenta.objects.filter(usuario__iexact=usuario)
         if self.instance.pk:
-            existe = existe.exclude(pk=self.instance.pk)
-
-        if existe.exists():
-            raise forms.ValidationError("Este nombre de usuario ya existe.")
-
+            consulta = consulta.exclude(pk=self.instance.pk)
+        if consulta.exists():
+            raise ValidationError("Este nombre de usuario ya existe.")
         return usuario
 
+    def clean_clave(self):
+        clave = self.cleaned_data["clave"]
+        if not (self.instance.pk and clave == self.instance.clave):
+            validar_contrasenia_segura(clave)
+        return clave
+
     def save(self, commit=True):
+        clave_actual = self.instance.clave
         cuenta = super().save(commit=False)
 
         clave = self.cleaned_data.get("clave")
 
-        if clave and not clave.startswith("pbkdf2_"): # Solo encripta si es una clave nueva
+        if clave and clave != clave_actual:
             cuenta.clave = make_password(clave)
 
         if commit:

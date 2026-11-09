@@ -1,240 +1,204 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
-
-{% load static %}
 
 <section id="notas-academicas-informacion-carsce">
 
     <div class="notas-academicas-informacion-carsce-contenedor">
 
+        <!-- =====================================================
+             ENCABEZADO INSTITUCIONAL
+             ===================================================== -->
         <header class="notas-academicas-informacion-carsce-encabezado">
+            <div class="notas-academicas-informacion-carsce-encabezado-contenido">
 
-            <div class="notas-academicas-informacion-carsce-identificacion">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>GESTIÓN ACADÉMICA</span>
+                <div class="notas-academicas-informacion-carsce-identificacion">
+                    <span class="notas-academicas-informacion-carsce-etiqueta-sup">
+                        UPT "JOSÉ FÉLIX RIBAS"
+                    </span>
+                    <span class="notas-academicas-informacion-carsce-seccion">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        GESTIÓN ACADÉMICA
+                    </span>
+                </div>
+
+                <div class="notas-academicas-informacion-carsce-presentacion">
+                    <h1>Notas Académicas</h1>
+                    <p>
+                        Consulta la información académica de acuerdo con el núcleo,
+                        P.N.F., trayecto, materia y período académico correspondiente.
+                    </p>
+                </div>
+
+                <div class="notas-academicas-informacion-carsce-encabezado-pie">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Control institucional de consulta de información y notas académicas</span>
+                </div>
+
             </div>
-
-            <div class="notas-academicas-informacion-carsce-presentacion">
-
-                <h2 class="notas-academicas-informacion-carsce-titulo">
-                    Notas Académicas
-                    <span>CARSCE</span>
-                </h2>
-
-                <p class="notas-academicas-informacion-carsce-descripcion">
-                    Consulta la información académica de acuerdo con el núcleo,
-                    P.N.F., trayecto, materia y período académico correspondiente.
-                </p>
-
-            </div>
-
         </header>
 
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+             ===================================================== -->
         <div class="notas-academicas-informacion-carsce-tarjeta">
 
             <div class="notas-academicas-informacion-carsce-tarjeta-cabecera">
-
                 <div class="notas-academicas-informacion-carsce-tarjeta-icono">
                     <i class="fa-solid fa-file-lines"></i>
                 </div>
-
                 <div class="notas-academicas-informacion-carsce-tarjeta-informacion">
-
-                    <h3 class="notas-academicas-informacion-carsce-tarjeta-titulo">
-                        Consulta de información académica
-                    </h3>
-
+                    <span class="notas-academicas-informacion-carsce-etiqueta-modulo">
+                        MÓDULO DE CONSULTA
+                    </span>
+                    <h2 class="notas-academicas-informacion-carsce-tarjeta-titulo">
+                        Consulta de Información Académica
+                    </h2>
                     <p class="notas-academicas-informacion-carsce-tarjeta-descripcion">
                         Selecciona los criterios académicos para consultar
                         las materias, calificaciones y períodos registrados.
                     </p>
-
                 </div>
-
             </div>
 
-            <div class="notas-academicas-informacion-carsce-bloque">
 
-                <div class="notas-academicas-informacion-carsce-bloque-cabecera">
+            <!-- =====================================================
+                 FORMULARIO DE BÚSQUEDA Y CRITERIOS
+                 ===================================================== -->
+            <form method="post"
+                  class="notas-academicas-informacion-carsce-formulario">
 
-                    <div class="notas-academicas-informacion-carsce-bloque-icono">
-                        <i class="fa-solid fa-filter"></i>
+                {% csrf_token %}
+
+                <div class="notas-academicas-informacion-carsce-bloque">
+
+                    <div class="notas-academicas-informacion-carsce-bloque-cabecera">
+                        <div class="notas-academicas-informacion-carsce-bloque-icono">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+                        <div class="notas-academicas-informacion-carsce-bloque-informacion">
+                            <h4 class="notas-academicas-informacion-carsce-bloque-titulo">
+                                Criterios de consulta
+                            </h4>
+                            <p class="notas-academicas-informacion-carsce-bloque-descripcion">
+                                Define los parámetros académicos que deseas consultar.
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="notas-academicas-informacion-carsce-bloque-informacion">
+                    <div class="notas-academicas-informacion-carsce-grid-2">
 
-                        <h4 class="notas-academicas-informacion-carsce-bloque-titulo">
-                            Criterios de consulta
-                        </h4>
-
-                        <p class="notas-academicas-informacion-carsce-bloque-descripcion">
-                            Define los parámetros académicos que deseas consultar.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <form method="post"
-                      class="notas-academicas-informacion-carsce-formulario">
-
-                    {% csrf_token %}
-
-                    <div class="notas-academicas-informacion-carsce-grid">
-
+                        <!-- NÚCLEO -->
                         <div class="notas-academicas-informacion-carsce-campo">
-
-                            <label for="nucleo_presentar"
-                                   class="notas-academicas-informacion-carsce-etiqueta">
+                            <label for="nucleo_presentar" class="notas-academicas-informacion-carsce-etiqueta">
                                 Núcleo:
                             </label>
-
                             <div class="notas-academicas-informacion-carsce-control">
-
                                 <i class="fa-solid fa-building-columns"></i>
-
-                                <select name="nucleo_presentar"
-                                        id="nucleo_presentar">
+                                <select name="nucleo_presentar" id="nucleo_presentar" required>
+                                    <option value="">Seleccione un Núcleo</option>
                                 </select>
-
                                 <span class="notas-academicas-informacion-carsce-flecha">
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </span>
-
                             </div>
-
                             <div class="notas-academicas-informacion-carsce-mensaje"></div>
-
                         </div>
 
+                        <!-- PNF -->
                         <div class="notas-academicas-informacion-carsce-campo">
-
-                            <label for="pnfs_cursar"
-                                   class="notas-academicas-informacion-carsce-etiqueta">
+                            <label for="pnfs_cursar" class="notas-academicas-informacion-carsce-etiqueta">
                                 P.N.F.:
                             </label>
-
                             <div class="notas-academicas-informacion-carsce-control">
-
                                 <i class="fa-solid fa-graduation-cap"></i>
-
-                                <select name="pnfs_cursar"
-                                        id="pnfs_cursar">
+                                <select name="pnfs_cursar" id="pnfs_cursar" required>
+                                    <option value="">Seleccione un P.N.F.</option>
                                 </select>
-
                                 <span class="notas-academicas-informacion-carsce-flecha">
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </span>
-
                             </div>
-
                             <div class="notas-academicas-informacion-carsce-mensaje"></div>
-
                         </div>
 
+                        <!-- TRAYECTO -->
                         <div class="notas-academicas-informacion-carsce-campo">
-
-                            <label for="trayecto_academico"
-                                   class="notas-academicas-informacion-carsce-etiqueta">
+                            <label for="trayecto_academico" class="notas-academicas-informacion-carsce-etiqueta">
                                 Trayecto Académico:
                             </label>
-
                             <div class="notas-academicas-informacion-carsce-control">
-
                                 <i class="fa-solid fa-route"></i>
-
-                                <select name="trayecto_academico"
-                                        id="trayecto_academico">
+                                <select name="trayecto_academico" id="trayecto_academico" required>
+                                    <option value="">Seleccione un Trayecto</option>
                                 </select>
-
                                 <span class="notas-academicas-informacion-carsce-flecha">
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </span>
-
                             </div>
-
                             <div class="notas-academicas-informacion-carsce-mensaje"></div>
-
                         </div>
 
+                        <!-- MATERIAS -->
                         <div class="notas-academicas-informacion-carsce-campo">
-
-                            <label for="materias_presentadas"
-                                   class="notas-academicas-informacion-carsce-etiqueta">
+                            <label for="materias_presentadas" class="notas-academicas-informacion-carsce-etiqueta">
                                 Materias Presentadas:
                             </label>
-
                             <div class="notas-academicas-informacion-carsce-control">
-
                                 <i class="fa-solid fa-book-open"></i>
-
-                                <select name="materias_presentadas"
-                                        id="materias_presentadas">
+                                <select name="materias_presentadas" id="materias_presentadas" required>
+                                    <option value="">Seleccione una Materia</option>
                                 </select>
-
                                 <span class="notas-academicas-informacion-carsce-flecha">
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </span>
-
                             </div>
-
                             <div class="notas-academicas-informacion-carsce-mensaje"></div>
-
                         </div>
 
+                        <!-- PERÍODO -->
                         <div class="notas-academicas-informacion-carsce-campo">
-
-                            <label for="periodo_academico"
-                                   class="notas-academicas-informacion-carsce-etiqueta">
+                            <label for="periodo_academico" class="notas-academicas-informacion-carsce-etiqueta">
                                 Período(s) Académico(s):
                             </label>
-
                             <div class="notas-academicas-informacion-carsce-control">
-
                                 <i class="fa-solid fa-calendar-days"></i>
-
-                                <select name="periodo_academico"
-                                        id="periodo_academico">
+                                <select name="periodo_academico" id="periodo_academico" required>
+                                    <option value="">Seleccione un Período</option>
                                 </select>
-
                                 <span class="notas-academicas-informacion-carsce-flecha">
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </span>
-
                             </div>
-
                             <div class="notas-academicas-informacion-carsce-mensaje"></div>
-
                         </div>
 
                     </div>
 
-                </form>
+                </div>
 
-            </div>
+            </form>
 
+
+            <!-- =====================================================
+                 BLOQUE: RESULTADOS DINÁMICOS
+                 ===================================================== -->
             <div class="notas-academicas-informacion-carsce-bloque notas-academicas-informacion-carsce-bloque-resultados">
 
                 <div class="notas-academicas-informacion-carsce-bloque-cabecera">
-
                     <div class="notas-academicas-informacion-carsce-bloque-icono">
                         <i class="fa-solid fa-chart-column"></i>
                     </div>
-
                     <div class="notas-academicas-informacion-carsce-bloque-informacion">
-
                         <h4 class="notas-academicas-informacion-carsce-bloque-titulo">
                             Información académica
                         </h4>
-
                         <p class="notas-academicas-informacion-carsce-bloque-descripcion">
-                            Los resultados de la consulta se mostrarán
-                            en esta sección.
+                            Los resultados de la consulta se mostrarán en esta sección.
                         </p>
-
                     </div>
-
                 </div>
 
                 <div id="contenedor_datos_academicos"
@@ -243,15 +207,11 @@
 
             </div>
 
+
+            <!-- PIE / INFORMACIÓN -->
             <div class="notas-academicas-informacion-carsce-informacion">
-
                 <i class="fa-solid fa-circle-info"></i>
-
-                <span>
-                    Selecciona los criterios académicos para consultar
-                    la información correspondiente.
-                </span>
-
+                <span>Selecciona los criterios académicos para consultar la información correspondiente.</span>
             </div>
 
         </div>
@@ -260,6 +220,8 @@
 
 </section>
 
+
+<!-- ARCHIVO JAVASCRIPT -->
 <script src="{% static 'Funciones_Asincronas/Estudiantes/informacion_academica.js' %}"></script>
 
 {% endblock %}

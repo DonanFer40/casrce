@@ -6,45 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btn_registrar = document.getElementById("btn_registro");
 
-    async function validar_seccion() {
+    async function actualizar_siguiente_seccion() {
         try {
-            const formulario = new FormData();
-            formulario.append("seccion", input_registrar_seccion.value);
-
-            const respuesta = await fetch("/val_sec/", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
-                },
-                body: formulario
-            });
+            const respuesta = await fetch("/sec_reg/");
             const resultado = await respuesta.json();
-            console.log(resultado);
-
-            if (resultado.existe) {
-                input_registrar_seccion.setCustomValidity("Ya existe una sección con el mismo nombre.");
-                input_registrar_seccion.classList.add("is-invalid");
-                input_registrar_seccion.classList.remove("is-valid");
-
-                mensaje_nombre_seccion.textContent = "Ya existe una sección con el mismo nombre.";
-                mensaje_nombre_seccion.style.color = "#dc3545";
-
-                btn_registrar.disabled = true;
-            } else {
-                input_registrar_seccion.setCustomValidity("");
-                input_registrar_seccion.classList.add("is-valid");
-                input_registrar_seccion.classList.remove("is-invalid");
-
-                mensaje_nombre_seccion.textContent = "El nombre de la sección está disponible.";
-                mensaje_nombre_seccion.style.color = "#198754";
-
-                btn_registrar.disabled = false;
+            if (!respuesta.ok || resultado.estado !== "exito") {
+                throw new Error("No se pudo consultar la siguiente sección.");
             }
+
+            input_registrar_seccion.value = resultado.siguiente || "";
+            btn_registrar.disabled = !resultado.siguiente;
+            mensaje_nombre_seccion.textContent = resultado.siguiente
+                ? `Se asignará automáticamente la sección ${resultado.siguiente}.`
+                : "Las letras de la A a la Z están ocupadas. Libera una sección para continuar.";
         } catch (error) {
             console.error(error);
+            btn_registrar.disabled = true;
+            mensaje_nombre_seccion.textContent = "No se pudo consultar la disponibilidad de secciones.";
         }
     }
-    input_registrar_seccion.addEventListener("input", validar_seccion);
+
+    actualizar_siguiente_seccion();
 
     formulario_registrar.addEventListener("submit", async (e) => {
         e.preventDefault()
@@ -71,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (resultado.estado == "exito") {
                 formulario_registrar.reset();
+                await actualizar_siguiente_seccion();
             }
         } catch (error) {
             console.error(error);

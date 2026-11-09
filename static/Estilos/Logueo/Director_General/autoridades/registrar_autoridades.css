@@ -1,715 +1,1086 @@
-/* =========================================================
-   REGISTRAR AUTORIDADES - CARSCE
-   ========================================================= */
-
-#director-autoridades-registrar-carsce {
+#director-autoridades-gestion-carsce {
     width: 100%;
-    min-height: 100%;
-    padding: 4px 0 30px;
+    min-height: 100vh;
+    min-width: 0;
+    padding: 32px 24px 55px;
+
+    background: var(--color-fondo-pagina);
     color: var(--texto-principal);
+
+    overflow-x: hidden;
 }
 
-
-/* =========================================================
-   CONTENEDOR PRINCIPAL
-   ========================================================= */
-
-.director-autoridades-registrar-carsce-contenedor {
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-contenedor {
     width: 100%;
-    max-width: 1050px;
+    max-width: 1500px;
+    min-width: 0;
     margin: 0 auto;
 }
 
 
 /* =========================================================
-   ENCABEZADO
+   01. ENCABEZADO INSTITUCIONAL
    ========================================================= */
 
-.director-autoridades-registrar-carsce-encabezado {
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-encabezado {
+    position: relative;
+    isolation: isolate;
+
     width: 100%;
-    margin-bottom: 24px;
+    min-width: 0;
+    height: auto;
+    min-height: 215px;
+
+    padding: 35px 42px;
+    margin-bottom: 27px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-left: 4px solid var(--color-rojo-acento);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
 }
 
-.director-autoridades-registrar-carsce-identificacion {
+/* Capa interna de contenido para control vertical */
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-encabezado-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+}
+
+/* Decoración superior circular */
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-encabezado::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+
+    width: 260px;
+    height: 260px;
+
+    top: -150px;
+    right: 65px;
+
+    border: 1px solid rgba(15, 23, 42, 0.055);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 30px rgba(15, 23, 42, 0.018),
+        0 0 0 65px rgba(15, 23, 42, 0.012);
+
+    pointer-events: none;
+}
+
+/* Acento rojo inferior circular */
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-encabezado::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+
+    width: 115px;
+    height: 115px;
+
+    right: -45px;
+    bottom: -65px;
+
+    border: 17px solid rgba(220, 38, 38, 0.045);
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   IDENTIFICACIÓN E INFORMACIÓN DE ENCABEZADO
+   ========================================================= */
+
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-identificacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+/* Etiqueta institucional */
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-etiqueta {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 11px;
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 5px;
+
+    color: #475569;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+/* Identificación de sección */
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-seccion {
     display: inline-flex;
     align-items: center;
     gap: 8px;
 
-    margin-bottom: 12px;
-    padding: 7px 12px;
+    color: var(--color-rojo-acento);
 
-    color: #1D4ED8;
-    background: #EFF6FF;
-
-    border: 1px solid #DBEAFE;
-    border-radius: 7px;
-
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
-.director-autoridades-registrar-carsce-identificacion i {
-    font-size: 0.72rem;
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-seccion i {
+    font-size: 12px;
 }
 
-.director-autoridades-registrar-carsce-presentacion {
+/* Bloque Presentación */
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-presentacion {
     width: 100%;
+    max-width: 720px;
+    min-width: 0;
 }
 
-.director-autoridades-registrar-carsce-titulo {
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-presentacion h1 {
+    margin: 4px 0 8px 0;
+
+    color: var(--color-azul-profundo);
+
+    font-size: clamp(24px, 3.5vw, 37px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.1px;
+
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-presentacion p {
+    max-width: 630px;
     margin: 0;
-
-    color: var(--texto-principal);
-
-    font-size: 1.55rem;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-}
-
-.director-autoridades-registrar-carsce-titulo span {
-    color: #2563EB;
-    font-weight: 600;
-}
-
-.director-autoridades-registrar-carsce-descripcion {
-    max-width: 750px;
-    margin: 7px 0 0;
 
     color: var(--texto-secundario);
 
-    font-size: 0.82rem;
-    line-height: 1.55;
+    font-size: 13px;
+    line-height: 1.7;
+
+    overflow-wrap: anywhere;
 }
 
+/* Pie Institucional del Encabezado */
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-encabezado-pie {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
 
-/* =========================================================
-   TARJETA
-   ========================================================= */
-
-.director-autoridades-registrar-carsce-tarjeta {
     width: 100%;
+    min-width: 0;
+    margin-top: 8px;
+    padding-top: 14px;
 
-    padding: 26px 28px 28px;
+    border-top: 1px solid #E9EEF5;
 
-    background: #FFFFFF;
+    color: #64748B;
 
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.6;
+}
 
-    box-shadow: var(--sombra-card);
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-encabezado-pie i {
+    flex-shrink: 0;
+    margin-top: 2px;
+
+    color: var(--color-rojo-acento);
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-encabezado-pie span {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 
 /* =========================================================
-   CABECERA DE TARJETA
+   02. DISTRIBUCIÓN PRINCIPAL
    ========================================================= */
 
-.director-autoridades-registrar-carsce-tarjeta-cabecera {
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-distribucion {
+    display: grid;
+
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+
+    align-items: start;
+    gap: 24px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+#director-autoridades-registrar-carsce,
+#director-autoridades-visualizar-carsce {
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   03. TARJETAS PRINCIPALES
+   ========================================================= */
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-tarjeta,
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tarjeta {
+    width: 100%;
+    min-width: 0;
+    padding: 25px;
+
+    background: var(--color-blanco);
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: var(--radio-card);
+
+    box-shadow: var(--sombra-elevada);
+}
+
+
+/* =========================================================
+   04. CABECERAS DE LAS TARJETAS
+   ========================================================= */
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-tarjeta-cabecera,
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tarjeta-cabecera {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 
-    margin-bottom: 23px;
-    padding-bottom: 21px;
+    width: 100%;
+    min-width: 0;
+    padding-bottom: 20px;
 
-    border-bottom: 1px solid #E2E8F0;
+    border-bottom: 1px solid var(--color-borde-fino);
 }
 
-.director-autoridades-registrar-carsce-tarjeta-icono {
-    width: 46px;
-    height: 46px;
-
-    flex: 0 0 46px;
-
+/* Iconos de tarjetas */
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-tarjeta-icono,
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tarjeta-icono {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: #FFFFFF;
+    flex-shrink: 0;
 
-    background: linear-gradient(
-        145deg,
-        #2563EB,
-        #1D4ED8
-    );
+    width: 49px;
+    height: 49px;
 
-    border-radius: 11px;
+    background: #F8FAFC;
 
-    box-shadow:
-        0 6px 14px rgba(37, 99, 235, 0.20);
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 19px;
 }
 
-.director-autoridades-registrar-carsce-tarjeta-icono i {
-    font-size: 1rem;
-}
-
-.director-autoridades-registrar-carsce-tarjeta-informacion {
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-tarjeta-informacion,
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tarjeta-informacion {
+    flex: 1;
     min-width: 0;
 }
 
-.director-autoridades-registrar-carsce-tarjeta-titulo {
+#director-autoridades-gestion-carsce
+.director-autoridades-gestion-carsce-etiqueta-modulo {
+    display: inline-block;
+    margin-bottom: 7px;
+
+    color: var(--color-rojo-acento);
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-tarjeta-titulo,
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tarjeta-titulo {
+    margin: 0 0 7px;
+
+    color: var(--color-azul-profundo);
+
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-tarjeta-descripcion,
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tarjeta-descripcion {
     margin: 0;
 
-    color: #1E293B;
+    color: var(--texto-secundario);
 
-    font-size: 1rem;
-    font-weight: 650;
-    line-height: 1.3;
-}
+    font-size: 11px;
+    line-height: 1.6;
 
-.director-autoridades-registrar-carsce-tarjeta-descripcion {
-    margin: 4px 0 0;
-
-    color: #64748B;
-
-    font-size: 0.75rem;
-    line-height: 1.45;
+    overflow-wrap: anywhere;
 }
 
 
 /* =========================================================
-   FORMULARIO
+   05. AVISO DE MODIFICACIÓN
    ========================================================= */
 
-.director-autoridades-registrar-carsce-formulario {
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-aviso-modificacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
     width: 100%;
+    min-width: 0;
+    padding: 15px;
+    margin-top: 20px;
+
+    background: #FFFBEB;
+
+    border: 1px solid #FDE68A;
+    border-left: 3px solid var(--color-amarillo-hover);
+    border-radius: 8px;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-aviso-modificacion[hidden] {
+    display: none;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-aviso-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 35px;
+    height: 35px;
+
+    background: #FEF3C7;
+    border-radius: 7px;
+
+    color: #B45309;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-aviso-informacion {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    flex: 1;
+    min-width: 0;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-aviso-informacion strong {
+    color: #92400E;
+    font-size: 12px;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-aviso-informacion span {
+    color: #A16207;
+    font-size: 11px;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
 }
 
 
 /* =========================================================
-   FILAS
+   06. FORMULARIO Y CONTROLES
    ========================================================= */
 
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+
+    width: 100%;
+    min-width: 0;
+    padding-top: 25px;
+}
+
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-fila {
     display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 20px;
 
     width: 100%;
-
-    margin-bottom: 18px;
+    min-width: 0;
 }
 
-
-/* =========================================================
-   CAMPOS
-   ========================================================= */
-
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-campo {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    gap: 9px;
 }
 
-.director-autoridades-registrar-carsce-campo > label {
-    display: block;
-
-    margin-bottom: 7px;
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-campo label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
     color: #334155;
 
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1.3;
+    font-size: 11px;
+    font-weight: 750;
 }
 
 
 /* =========================================================
-   CONTROLES
+   07. INPUTS Y SELECTS
    ========================================================= */
 
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-control {
     position: relative;
 
+    display: flex;
+    align-items: center;
+
     width: 100%;
-}
+    min-width: 0;
+    min-height: 45px;
 
-.director-autoridades-registrar-carsce-control > i:first-child {
-    position: absolute;
+    background: #F8FAFC;
 
-    top: 50%;
-    left: 14px;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: 0.82rem;
-
-    pointer-events: none;
-
-    z-index: 2;
-}
-
-
-/* =========================================================
-   INPUTS Y SELECTS
-   ========================================================= */
-
-.director-autoridades-registrar-carsce-control input,
-.director-autoridades-registrar-carsce-control select {
-    width: 100%;
-    height: 45px;
-
-    padding: 0 40px;
-
-    color: #334155;
-    background: #FFFFFF;
-
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-
-    outline: none;
-
-    font-family: "Poppins";
-    font-size: 0.76rem;
-    font-weight: 400;
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
 
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
 }
 
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-control:focus-within {
+    background: var(--color-blanco);
+    border-color: var(--color-azul-hover);
 
-/* =========================================================
-   SELECTS
-   ========================================================= */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
 
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-control > i:first-child {
+    flex-shrink: 0;
+
+    width: 40px;
+    text-align: center;
+
+    color: var(--texto-mutado);
+    font-size: 12px;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-control input {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+    height: 43px;
+
+    padding: 0 12px 0 0;
+
+    outline: none;
+    border: none;
+    background: transparent;
+
+    color: var(--texto-principal);
+
+    font-size: 12px;
+}
+
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-control select {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+    height: 43px;
+
+    padding: 0 30px 0 0;
+
     appearance: none;
-    -webkit-appearance: none;
+    outline: none;
+    border: none;
+    background: transparent;
+
+    color: var(--texto-principal);
+
+    font-size: 12px;
 
     cursor: pointer;
 }
 
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-flecha {
     position: absolute;
+    right: 12px;
 
-    top: 50%;
-    right: 14px;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: 0.66rem;
+    color: var(--texto-mutado);
+    font-size: 10px;
 
     pointer-events: none;
 }
 
-
-/* =========================================================
-   HOVER / FOCUS
-   ========================================================= */
-
-.director-autoridades-registrar-carsce-control input:hover,
-.director-autoridades-registrar-carsce-control select:hover {
-    border-color: #94A3B8;
-}
-
-.director-autoridades-registrar-carsce-control input:focus,
-.director-autoridades-registrar-carsce-control select:focus {
-    border-color: #2563EB;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-control input::placeholder {
+    color: var(--texto-mutado);
 }
 
 
 /* =========================================================
-   CÉDULA
+   08. CAMPO COMPUESTO DE CÉDULA
    ========================================================= */
 
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-control-cedula {
-    display: grid;
-
-    grid-template-columns: 78px minmax(0, 1fr);
-
+    display: flex;
+    align-items: stretch;
     gap: 8px;
 
     width: 100%;
+    min-width: 0;
 }
 
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-nacionalidad {
-    position: relative;
+    display: flex;
+    align-items: center;
 
-    width: 100%;
+    flex: 0 0 78px;
+    min-width: 0;
+    min-height: 45px;
+
+    background: #F1F5F9;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
 }
 
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-nacionalidad i {
-    position: absolute;
+    flex-shrink: 0;
+    margin-left: 9px;
 
-    top: 50%;
-    left: 11px;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: 0.72rem;
-
-    pointer-events: none;
-
-    z-index: 2;
+    color: var(--texto-mutado);
+    font-size: 11px;
 }
 
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-nacionalidad select {
     width: 100%;
-    height: 45px;
+    min-width: 0;
+    height: 43px;
 
-    appearance: none;
-    -webkit-appearance: none;
-
-    padding: 0 8px 0 30px;
-
-    color: #334155;
-    background: #FFFFFF;
-
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
+    padding: 0 5px;
 
     outline: none;
+    border: none;
+    background: transparent;
+
+    color: var(--texto-principal);
+
+    font-size: 12px;
+    font-weight: 750;
 
     cursor: pointer;
+}
 
-    font-family: "Poppins";
-    font-size: 0.74rem;
-    font-weight: 500;
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-control-cedula-numero {
+    display: flex;
+    align-items: center;
+
+    flex: 1;
+    min-width: 0;
+    min-height: 45px;
+
+    background: #F8FAFC;
+
+    border: 1px solid var(--color-borde-fino);
+    border-radius: 7px;
 
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease;
 }
 
-.director-autoridades-registrar-carsce-nacionalidad select:hover {
-    border-color: #94A3B8;
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-control-cedula-numero:focus-within {
+    background: var(--color-blanco);
+    border-color: var(--color-azul-hover);
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
 }
 
-.director-autoridades-registrar-carsce-nacionalidad select:focus {
-    border-color: #2563EB;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-
-.director-autoridades-registrar-carsce-control-cedula-numero {
-    position: relative;
-
-    width: 100%;
-}
-
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-control-cedula-numero i {
-    position: absolute;
+    flex-shrink: 0;
 
-    top: 50%;
-    left: 14px;
+    width: 38px;
+    text-align: center;
 
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-size: 0.8rem;
-
-    pointer-events: none;
-
-    z-index: 2;
+    color: var(--texto-mutado);
+    font-size: 12px;
 }
 
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-control-cedula-numero input {
+    flex: 1;
+
     width: 100%;
-    height: 45px;
+    min-width: 0;
+    height: 43px;
 
-    padding: 0 14px 0 40px;
-
-    color: #334155;
-    background: #FFFFFF;
-
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
+    padding: 0 9px 0 0;
 
     outline: none;
+    border: none;
+    background: transparent;
 
-    font-family: "Poppins";
-    font-size: 0.76rem;
+    color: var(--texto-principal);
 
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    font-size: 12px;
 }
 
-.director-autoridades-registrar-carsce-control-cedula-numero input:hover {
-    border-color: #94A3B8;
-}
-
-.director-autoridades-registrar-carsce-control-cedula-numero input:focus {
-    border-color: #2563EB;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-
-/* =========================================================
-   MENSAJES DE VALIDACIÓN
-   ========================================================= */
-
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-mensaje {
     display: block;
+    min-height: 14px;
 
-    min-height: 16px;
+    color: var(--texto-secundario);
 
-    margin-top: 5px;
-    padding-left: 2px;
+    font-size: 10px;
+    font-weight: 550;
+    line-height: 1.4;
 
-    color: #DC2626;
-
-    font-size: 0.66rem;
-    font-weight: 500;
-    line-height: 1.35;
+    overflow-wrap: anywhere;
 }
 
 
 /* =========================================================
-   RESOLUCIÓN
+   09. ACCIONES DEL FORMULARIO
    ========================================================= */
 
-#resolucion_autoridades {
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   ACCIONES
-   ========================================================= */
-
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-acciones {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
 
+    gap: 12px;
     width: 100%;
-
-    margin-top: 5px;
+    min-width: 0;
     padding-top: 21px;
 
-    border-top: 1px solid #E2E8F0;
+    border-top: 1px solid #E9EEF5;
 }
 
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-boton,
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-boton-cancelar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 
-/* =========================================================
-   BOTÓN
-   ========================================================= */
+    min-height: 46px;
+    max-width: 100%;
+    padding: 0 20px;
 
-.director-autoridades-registrar-carsce-boton {
-    min-width: 225px;
-    height: 44px;
+    border-radius: 7px;
 
-    padding: 0 22px;
-
-    color: #FFFFFF;
-    background: linear-gradient(
-        135deg,
-        #2563EB,
-        #1D4ED8
-    );
-
-    border: none;
-    border-radius: 8px;
-
-    box-shadow:
-        0 5px 12px rgba(37, 99, 235, 0.20);
+    font-size: 12px;
+    font-weight: 750;
 
     cursor: pointer;
 
-    font-family: "Poppins";
-    font-size: 0.76rem;
-    font-weight: 600;
-
     transition:
-        transform 0.18s ease,
-        background 0.18s ease,
-        box-shadow 0.18s ease;
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
+/* Botón Registrar */
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-boton {
+    background: var(--color-azul-profundo);
+
+    border: 1px solid var(--color-azul-profundo);
+
+    color: var(--color-blanco);
+
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+}
+
+#director-autoridades-gestion-carsce
 .director-autoridades-registrar-carsce-boton:hover {
-    background: linear-gradient(
-        135deg,
-        #1D4ED8,
-        #1E40AF
-    );
-
-    box-shadow:
-        0 8px 17px rgba(37, 99, 235, 0.25);
-
     transform: translateY(-1px);
+
+    background: var(--color-azul-hover);
+    border-color: var(--color-azul-hover);
 }
 
-.director-autoridades-registrar-carsce-boton:active {
-    transform: translateY(0);
+/* Botón Cancelar */
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-boton-cancelar {
+    background: var(--color-rojo-soft);
 
-    box-shadow:
-        0 3px 8px rgba(37, 99, 235, 0.18);
+    border: 1px solid #FECACA;
+
+    color: #B91C1C;
 }
 
-.director-autoridades-registrar-carsce-boton:focus-visible {
-    outline: 3px solid rgba(37, 99, 235, 0.20);
-    outline-offset: 2px;
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-boton-cancelar:hover {
+    background: #FEE2E2;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-registrar-carsce-boton-cancelar[hidden] {
+    display: none;
 }
 
 
 /* =========================================================
-   TABLET
+   10. INDICACIÓN DE VISUALIZACIÓN
+   ========================================================= */
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-indicacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    width: 100%;
+    min-width: 0;
+    padding: 12px 13px;
+    margin: 19px 0;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+    border-left: 3px solid var(--color-azul-profundo);
+    border-radius: 7px;
+
+    color: var(--texto-secundario);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-indicacion i {
+    flex-shrink: 0;
+    margin-top: 2px;
+
+    color: var(--color-azul-profundo);
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-indicacion span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   11. TABLA DE AUTORIDADES
+   ========================================================= */
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla-contenedor {
+    width: 100%;
+    min-width: 0;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla-scroll {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto;
+    overflow-y: visible;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla {
+    width: 100%;
+    min-width: 540px;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    text-align: left;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla thead {
+    background: #F8FAFC;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla th {
+    padding: 14px 12px;
+
+    color: #334155;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+
+    border-bottom: 1px solid #E2E8F0;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla td {
+    padding: 13px 12px;
+
+    color: #475569;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    border-bottom: 1px solid #E9EEF5;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla tbody tr {
+    background: var(--color-blanco);
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla tbody tr:hover {
+    background: #F8FAFC;
+}
+
+#director-autoridades-gestion-carsce
+.director-autoridades-visualizar-carsce-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   12. RESPONSIVE — TABLETS
    ========================================================= */
 
 @media (max-width: 900px) {
-
-    .director-autoridades-registrar-carsce-contenedor {
-        max-width: 100%;
+    #director-autoridades-gestion-carsce {
+        padding: 25px 18px 40px;
     }
 
-    .director-autoridades-registrar-carsce-titulo {
-        font-size: 1.4rem;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-encabezado {
+        min-height: auto;
+        padding: 25px 20px;
     }
 
-    .director-autoridades-registrar-carsce-tarjeta {
-        padding: 23px;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-distribucion {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
     }
 }
 
 
 /* =========================================================
-   TABLET PEQUEÑA
+   13. RESPONSIVE — TABLETS PEQUEÑAS
    ========================================================= */
 
-@media (max-width: 700px) {
-
-    .director-autoridades-registrar-carsce-titulo {
-        font-size: 1.28rem;
+@media (max-width: 650px) {
+    #director-autoridades-gestion-carsce {
+        padding: 20px 13px 35px;
     }
 
-    .director-autoridades-registrar-carsce-descripcion {
-        font-size: 0.78rem;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-encabezado {
+        padding: 22px 18px;
+        margin-bottom: 19px;
+        border-radius: 10px;
     }
 
-    .director-autoridades-registrar-carsce-tarjeta {
-        padding: 21px;
+    /* Ocultamos las figuras decorativas en móviles para evitar colisiones */
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-encabezado::before,
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-encabezado::after {
+        display: none;
     }
 
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-identificacion {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-presentacion h1 {
+        font-size: 22px;
+        line-height: 1.25;
+    }
+
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-presentacion p {
+        font-size: 12px;
+    }
+
+    #director-autoridades-gestion-carsce
     .director-autoridades-registrar-carsce-fila {
-        grid-template-columns: 1fr;
-        gap: 18px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 19px;
     }
 
+    #director-autoridades-gestion-carsce
+    .director-autoridades-registrar-carsce-formulario {
+        gap: 19px;
+        padding-top: 22px;
+    }
+
+    #director-autoridades-gestion-carsce
     .director-autoridades-registrar-carsce-acciones {
-        justify-content: stretch;
+        align-items: stretch;
+        flex-direction: column;
     }
 
-    .director-autoridades-registrar-carsce-boton {
+    #director-autoridades-gestion-carsce
+    .director-autoridades-registrar-carsce-boton,
+    #director-autoridades-gestion-carsce
+    .director-autoridades-registrar-carsce-boton-cancelar {
         width: 100%;
     }
 }
 
 
 /* =========================================================
-   MÓVIL
+   14. RESPONSIVE — MÓVILES
    ========================================================= */
 
-@media (max-width: 520px) {
-
-    .director-autoridades-registrar-carsce-identificacion {
-        font-size: 0.62rem;
+@media (max-width: 430px) {
+    #director-autoridades-gestion-carsce {
+        padding: 14px 8px 28px;
     }
 
-    .director-autoridades-registrar-carsce-titulo {
-        font-size: 1.15rem;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-encabezado {
+        padding: 18px 14px;
     }
 
-    .director-autoridades-registrar-carsce-descripcion {
-        font-size: 0.74rem;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-presentacion h1 {
+        font-size: 20px;
     }
 
-    .director-autoridades-registrar-carsce-tarjeta {
-        padding: 18px 16px 20px;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-gestion-carsce-presentacion p {
+        font-size: 11px;
     }
 
-    .director-autoridades-registrar-carsce-tarjeta-cabecera {
-        align-items: flex-start;
-
-        gap: 11px;
-
-        margin-bottom: 20px;
-        padding-bottom: 18px;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-registrar-carsce-tarjeta,
+    #director-autoridades-gestion-carsce
+    .director-autoridades-visualizar-carsce-tarjeta {
+        padding: 16px 12px;
     }
 
-    .director-autoridades-registrar-carsce-tarjeta-icono {
-        width: 42px;
-        height: 42px;
-
-        flex-basis: 42px;
-    }
-
-    .director-autoridades-registrar-carsce-tarjeta-titulo {
-        font-size: 0.88rem;
-    }
-
-    .director-autoridades-registrar-carsce-tarjeta-descripcion {
-        font-size: 0.68rem;
-    }
-
-    .director-autoridades-registrar-carsce-control input,
-    .director-autoridades-registrar-carsce-control select {
-        height: 43px;
-    }
-
+    #director-autoridades-gestion-carsce
     .director-autoridades-registrar-carsce-control-cedula {
-        grid-template-columns: 70px minmax(0, 1fr);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
     }
 
-    .director-autoridades-registrar-carsce-nacionalidad select,
-    .director-autoridades-registrar-carsce-control-cedula-numero input {
-        height: 43px;
-    }
-
-    .director-autoridades-registrar-carsce-boton {
-        min-width: 0;
-        height: 43px;
-        font-size: 0.71rem;
+    #director-autoridades-gestion-carsce
+    .director-autoridades-registrar-carsce-nacionalidad {
+        flex: 1 1 auto;
+        width: 100%;
     }
 }
 
 
 /* =========================================================
-   MÓVIL PEQUEÑO
+   15. ACCESIBILIDAD Y REDUCCIÓN DE MOVIMIENTO
    ========================================================= */
 
-@media (max-width: 390px) {
-
-    .director-autoridades-registrar-carsce-titulo {
-        font-size: 1.05rem;
-    }
-
-    .director-autoridades-registrar-carsce-tarjeta {
-        padding: 16px 13px 18px;
-    }
-
-    .director-autoridades-registrar-carsce-identificacion {
-        padding: 6px 9px;
-    }
-
-    .director-autoridades-registrar-carsce-tarjeta-icono {
-        width: 39px;
-        height: 39px;
-
-        flex-basis: 39px;
-    }
-
-    .director-autoridades-registrar-carsce-control-cedula {
-        grid-template-columns: 65px minmax(0, 1fr);
+@media (prefers-reduced-motion: reduce) {
+    #director-autoridades-gestion-carsce *,
+    #director-autoridades-gestion-carsce *::before,
+    #director-autoridades-gestion-carsce *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
     }
 }

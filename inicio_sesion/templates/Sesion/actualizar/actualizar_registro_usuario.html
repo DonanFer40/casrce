@@ -1,159 +1,212 @@
 {% extends 'Estructura/Base.html' %}
-
-{% block content %}
-
 {% load static %}
 
-<section id="actualizar_datosusuario">
-    <div class="contenedor_actualizar_datos">
-        <h3>Actualizar Datos Básicos</h3>
+{% block content %}
+<section id="configuracion-usuario-carsce">
+    <div class="configuracion-usuario-carsce-contenedor">
 
-        <form method="post" id="formulario_actualizar">
+        <!-- =====================================================
+             ENCABEZADO INSTITUCIONAL
+             ===================================================== -->
+        <header class="configuracion-usuario-carsce-encabezado">
+            <div class="configuracion-usuario-carsce-encabezado-contenido">
+
+                <div class="configuracion-usuario-carsce-identificacion">
+                    <span class="configuracion-usuario-carsce-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
+                    </span>
+                    <span class="configuracion-usuario-carsce-seccion">
+                        <i class="fa-solid fa-user-gear"></i>
+                        MI CUENTA
+                    </span>
+                </div>
+
+                <div class="configuracion-usuario-carsce-presentacion">
+                    <h1>Configuración de Perfil</h1>
+                    <p>
+                        Actualiza tu información personal, datos de residencia, fotografía de perfil y detalles académicos correspondientes a tu cuenta.
+                    </p>
+                </div>
+
+                <div class="configuracion-usuario-carsce-encabezado-pie">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Gestión segura de credenciales e identidad institucional</span>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- MENSAJES DE ALERTA -->
+        {% if messages %}
+            <div class="configuracion-usuario-carsce-mensajes">
+                {% for message in messages %}
+                    <div class="configuracion-usuario-carsce-alerta" role="status">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- FORMULARIO PRINCIPAL -->
+        <form method="post" enctype="multipart/form-data" class="configuracion-usuario-carsce-formulario">
             {% csrf_token %}
-
-            <div id="contenedor_actualizar_Contacto">
-                <h4>Datos de Contacto</h4>
-
-                <label for="prefijo_principal">Telefono (Principal):</label>
-                <div class="campo_horizontal">
-                    <select name="prefijo_principal" id="prefijo_principal"></select>
-                    <input type="text" name="telefono_principal" id="telefono_principal" autocomplete="off">                        
-                </div>
-
-                <label for="prefijo_secundario">Telefono (Secundaria) Opcional:</label>
-                <div class="campo_horizontal">
-                    <select name="prefijo_secundario" id="prefijo_secundario"></select>
-                    <input type="text" name="telefono_secundario" id="telefono_secundario" autocomplete="off">                        
-                </div>
-
-                <label for="correo_principal">Correo Electronico (Principal):</label>
-                <div class="campo_horizontal">
-                    <input type="text" name="correo_principal" id="correo_principal" autocomplete="off">
-                    <select name="dominio_principal" id="dominio_principal"></select>
-                </div>
-
-                <label for="correo_secundario">Correo Electronico (Secundaria):</label>
-                <div class="campo_horizontal">
-                    <input type="text" name="correo_secundario" id="correo_secundario" autocomplete="off">
-                    <select name="dominio_secundario" id="dominio_secundario"></select>
-                </div>
-            </div>
-
-            <div id="contenedor_actualizar_Residencia">
-                <h4>Datos de Residencia</h4>
-
-                <label for="condicion_residencia">Condición de Residencia:</label>
-                <select name="condicionresidencia" id="condicion_residencia">
-                    <option value="">Elije la condición de residencia</option>
-                    <option value="Residente">Residente</option>
-                    <option value="Foraneo">Foraneo</option>
-                </select>
-
-                <label for="municipio_residencia">Municipio de Residencia:</label>
-                <select name="municipioresidencia" id="municipio_residencia"></select>
-
-                <label for="parroquia_residencia">Parroquia de Residencia:</label>
-                <select name="parroquiaresidencia" id="parroquia_residencia"></select>
-
-                <label for="direccion_domicilio">Dirección de Residencia:</label>
-                <textarea name="direcciondomicilio" id="direccion_domicilio"></textarea>
-            </div>
-
-            {% if "Estudiante" in request.session.rol %}
-                <div id="contenedor_actualizar_Discapacidad">
-                    <h4>Datos de Discapacidad</h4>
-
-                    <label for="codigo_carnet_dispacidad">Carnet de Discapacidad:</label>
-                    <input type="text" name="carnet_dispacidad" id="codigo_carnet_dispacidad" autocomplete="off">
-
-                    <label for="nro_registro_medico">Nro de Registro Médico:</label>
-                    <input type="text" name="registro_medico" id="nro_registro_medico" autocomplete="off">
-
-                    <label for="tipos_discapacidad">Tipo de Discapacidad:</label>
-                    <select name="tipos_discapacidad" id="tipos_discapacidad">
-                        <option value="">Elije una opción</option>
-                        <option value="Visual">Visual</option>
-                        <option value="Auditiva">Auditiva</option>
-                        <option value="Lengauje">Lengauje</option>
-                        <option value="Intelectual">Intelectual</option>
-                        <option value="Autista">Autista</option>
-                        <option value="Fisica y Motora">Fisica y Motora</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-        
-                    <label for="grado_discapacidad">Grado de Discapacidad:</label>
-                    <select name="grado_discapacidad" id="grado_discapacidad">
-                        <option value="">Elije una opción</option>
-                        <option value="Leve">Leve</option>
-                        <option value="Moderada">Moderada</option>
-                        <option value="Grave">Grave</option>
-                    </select>
-                
-                    <label for="causa_discapacidad">Causa de Discapacidad:</label>
-                    <select name="causa_discapacidad" id="causa_discapacidad">
-                        <option value="">Elije una opción</option>
-                        <option value="Congenita">Congenita</option>
-                        <option value="Adquirida">Adquirida</option>
-                    </select>
+            
+            {% if form.non_field_errors %}
+                <div class="configuracion-usuario-carsce-errores-globales" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div>{{ form.non_field_errors }}</div>
                 </div>
             {% endif %}
 
-            <input type="submit" value="Actualizar Datos">
+            <!-- SECCIÓN 01: FOTO DE PERFIL -->
+            <div class="configuracion-usuario-carsce-tarjeta">
+                <div class="configuracion-usuario-carsce-tarjeta-cabecera">
+                    <div class="configuracion-usuario-carsce-tarjeta-icono">
+                        <i class="fa-regular fa-image"></i>
+                    </div>
+                    <div class="configuracion-usuario-carsce-tarjeta-informacion">
+                        <span class="configuracion-usuario-carsce-etiqueta-modulo">RECURSO VISUAL</span>
+                        <h2 class="configuracion-usuario-carsce-tarjeta-titulo">Foto de Perfil</h2>
+                        <p class="configuracion-usuario-carsce-tarjeta-descripcion">Personaliza tu imagen visible dentro de la plataforma institucional.</p>
+                    </div>
+                </div>
+
+                <div class="configuracion-usuario-carsce-foto-contenedor">
+                    <div class="configuracion-usuario-carsce-avatar">
+                        {% if form.instance.foto_perfil %}
+                            <img src="{{ form.instance.foto_perfil.url }}" alt="Foto de perfil actual">
+                        {% else %}
+                            <span aria-hidden="true"><i class="fa-solid fa-user"></i></span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="configuracion-usuario-carsce-campo flex-1">
+                        {{ form.foto_perfil.label_tag }}
+                        <div class="configuracion-usuario-carsce-control-file">
+                            {{ form.foto_perfil }}
+                        </div>
+                        <small>Formatos permitidos: JPG, PNG o WebP (Máximo 5 MB).</small>
+                        {{ form.foto_perfil.errors }}
+
+                        {% if form.instance.foto_perfil %}
+                            <label class="configuracion-usuario-carsce-checkbox-label">
+                                {{ form.eliminar_foto }}
+                                <span>Quitar foto actual</span>
+                            </label>
+                        {% endif %}
+                        {{ form.eliminar_foto.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 02: DATOS PERSONALES -->
+            <div class="configuracion-usuario-carsce-tarjeta">
+                <div class="configuracion-usuario-carsce-tarjeta-cabecera">
+                    <div class="configuracion-usuario-carsce-tarjeta-icono">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <div class="configuracion-usuario-carsce-tarjeta-informacion">
+                        <span class="configuracion-usuario-carsce-etiqueta-modulo">IDENTIFICACIÓN</span>
+                        <h2 class="configuracion-usuario-carsce-tarjeta-titulo">Datos Personales</h2>
+                        <p class="configuracion-usuario-carsce-tarjeta-descripcion">Información básica y demográfica registrada en el sistema.</p>
+                    </div>
+                </div>
+
+                <div class="configuracion-usuario-carsce-grid">
+                    {% for field in form %}
+                        {% if field.name == "nombres" or field.name == "apellidos" or field.name == "genero" or field.name == "estado_civil" %}
+                            <div class="configuracion-usuario-carsce-campo">
+                                {{ field.label_tag }}
+                                <div class="configuracion-usuario-carsce-control">
+                                    {{ field }}
+                                </div>
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="configuracion-usuario-carsce-campo">
+                        <label for="correo-principal">Correo principal</label>
+                        <div class="configuracion-usuario-carsce-control">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input id="correo-principal" type="email" value="{{ correo_principal }}" readonly>
+                        </div>
+                        <small>Para modificarlo se requiere un proceso de verificación institucional.</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 03: DATOS DE CONTACTO Y RESIDENCIA -->
+            <div class="configuracion-usuario-carsce-tarjeta">
+                <div class="configuracion-usuario-carsce-tarjeta-cabecera">
+                    <div class="configuracion-usuario-carsce-tarjeta-icono">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <div class="configuracion-usuario-carsce-tarjeta-informacion">
+                        <span class="configuracion-usuario-carsce-etiqueta-modulo">UBICACIÓN Y COMUNICACIÓN</span>
+                        <h2 class="configuracion-usuario-carsce-tarjeta-titulo">Datos de Contacto y Residencia</h2>
+                        <p class="configuracion-usuario-carsce-tarjeta-descripcion">Números telefónicos de contacto y detalles de dirección actual.</p>
+                    </div>
+                </div>
+
+                <div class="configuracion-usuario-carsce-grid">
+                    {% for field in form %}
+                        {% if field.name == "telefono_personal" or field.name == "telefono_suplete" or field.name == "condicion_residencia" or field.name == "municipio" or field.name == "parroquia" or field.name == "direccion_residencia" %}
+                            <div class="configuracion-usuario-carsce-campo {% if field.name == 'direccion_residencia' %}configuracion-campo-ancho{% endif %}">
+                                {{ field.label_tag }}
+                                <div class="configuracion-usuario-carsce-control">
+                                    {{ field }}
+                                </div>
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- SECCIÓN 04: DATOS DE DISCAPACIDAD (SI ES ESTUDIANTE) -->
+            {% if es_estudiante %}
+                <div class="configuracion-usuario-carsce-tarjeta">
+                    <div class="configuracion-usuario-carsce-tarjeta-cabecera">
+                        <div class="configuracion-usuario-carsce-tarjeta-icono">
+                            <i class="fa-solid fa-wheelchair"></i>
+                        </div>
+                        <div class="configuracion-usuario-carsce-tarjeta-informacion">
+                            <span class="configuracion-usuario-carsce-etiqueta-modulo">CONDICIÓN MÉDICA</span>
+                            <h2 class="configuracion-usuario-carsce-tarjeta-titulo">Datos de Discapacidad</h2>
+                            <p class="configuracion-usuario-carsce-tarjeta-descripcion">Información de apoyo y registro médico institucional.</p>
+                        </div>
+                    </div>
+
+                    <div class="configuracion-usuario-carsce-grid">
+                        {% for field in form %}
+                            {% if field.name == "carnet_discapacidad" or field.name == "registro_medico" or field.name == "tipos_discapacidad" or field.name == "grado_discapacidad" or field.name == "causa_discapacidad" %}
+                                <div class="configuracion-usuario-carsce-campo">
+                                    {{ field.label_tag }}
+                                    <div class="configuracion-usuario-carsce-control">
+                                        {{ field }}
+                                    </div>
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- ACCIONES DEL FORMULARIO -->
+            <div class="configuracion-usuario-carsce-acciones">
+                <a href="{% url 'configuracion_usuario' %}" class="configuracion-usuario-carsce-boton-secundario">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Cancelar</span>
+                </a>
+                <button type="submit" class="configuracion-usuario-carsce-boton">
+                    <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+                    <span>Guardar cambios</span>
+                </button>
+            </div>
         </form>
+
     </div>
 </section>
-
-<dialog id="menu_actualizar_correo">
-    <div class="contenedor_menu_actualizar_correo">
-        <i id="cerrar_dialogo_correo" class="icon-cancel-circled"></i>
-        <h4>Verificación de Correo Electrónico</h4>
-
-        <p>Seleccione el correo electrónico al que desea enviar el código de verificación.</p>
-
-        <form method="post" id="formulario_correos">
-            {% csrf_token %}
-
-            <div class="opcion_correo">
-                <label for="correo_principal" id="label_correo_principal"></label>
-                <input type="radio" name="correo_verificacion" id="correo_principal" value="principal" checked>
-            </div>
-
-            <div class="opcion_correo">
-                <label for="correo_secundario" id="label_correo_secundario"></label>
-                <input type="radio" name="correo_verificacion" id="correo_secundario" value="secundario">
-            </div>
-
-            <input type="submit" value="Enviar Código">
-        </form>
-    </div>
-</dialog>
-
-<dialog id="autenticacion_correo">
-    <div class="contenedor_autenticacion_correo">
-        <h4>Verificar Código</h4>
-
-        <p>Se le envio un código al correo seleccionado, verifique e ingrese el código tiempo de expiracion es (<span id="contador_envio">60</span>s).</p>
-
-        <P id="mensaje_correo"></P>
-
-        <form method="post" id="formulario_autenticacion">
-            {% csrf_token %}
-
-            <label for="codigo_correo">Ingrese el código:</label>
-            <input type="text" name="codigocorreo" id="codigo_correo" autocomplete="off" required>
-
-            <button id="reenviar_codigo">Reenviar Código</button>
-
-            <input type="submit" value="Verificar">
-        </form>
-
-        <button type="button" id="btn_reenviar_codigo" disabled>Reenviar código (<span id="contador_reenvio">60</span>s)</button>
-    </div>
-</dialog>
-
-<script src="{% static 'Funcionalidades/residencia.js' %}"></script>
-<script src="{% static 'Funcionalidades/correo_electronico.js' %}"></script>
-<script src="{% static 'Funcionalidades/telefono.js' %}"></script>
-<script src="{% static 'Funciones_Asincronas/Actualizacion_Datos/datos_basicos.js' %}"></script>
-
 {% endblock %}

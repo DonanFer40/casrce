@@ -14,81 +14,113 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btn_cerrar_actualizar = document.getElementById("cerrar_dialogo");
 
+    function notificarError(mensaje) {
+        NotificacionesCASRCE.mostrar({
+            text: mensaje || "No fue posible completar la operación.",
+            icon: "error",
+            title: "Error",
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        });
+    }
+
+    async function respuestaJson(respuesta) {
+        const resultado = await respuesta.json();
+        if (!respuesta.ok) {
+            throw new Error(resultado.descripcion || "Ocurrió un error al comunicarse con el servidor.");
+        }
+        return resultado;
+    }
+
     async function aulas_registradas() {
         try {
             const respuesta = await fetch("/aulas_reg/");
-            const resultado = await respuesta.json();
-            console.log(resultado);
+            const resultado = await respuestaJson(respuesta);
+            if (resultado.estado !== "exito") {
+                throw new Error(resultado.descripcion || "No se pudieron cargar las aulas.");
+            }
 
-            let filas = "";
+            contenedor_aulas.replaceChildren();
+            if (resultado.aulas.length === 0) {
+                const fila = document.createElement("tr");
+                const celda = document.createElement("td");
+                celda.colSpan = 7;
+                celda.textContent = "Todavía no hay aulas registradas en este núcleo.";
+                fila.appendChild(celda);
+                contenedor_aulas.appendChild(fila);
+                return;
+            }
+
             resultado.aulas.forEach((aula, index) => {
-                filas += `
-                <tr data-id="${aula.id_aula}">
-                    <td>${index + 1}</td>
-                    <td>${aula.nombre_aula}</td>
-                    <td>${aula.Nota}</td>
-                    <td>${aula.piso_edificio}</td>
-                    <td>${aula.tipo_aula}</td>
-                    <td>${aula.id_seccion__nombre}</td>
-                    <td>${aula.id_pnf__pnf}</td>
-                </tr>
-            `;
-            });
+                const fila = document.createElement("tr");
+                fila.dataset.id = aula.id_aula;
 
-            contenedor_aulas.innerHTML = filas;
+                [
+                    index + 1,
+                    aula.nombre_aula,
+                    aula.Nota,
+                    aula.piso_edificio,
+                    aula.tipo_aula,
+                    aula.id_seccion__nombre,
+                    aula.id_pnf__pnf
+                ].forEach(valor => {
+                    const celda = document.createElement("td");
+                    celda.textContent = valor ?? "";
+                    fila.appendChild(celda);
+                });
+
+                contenedor_aulas.appendChild(fila);
+            });
         } catch (error) {
-            console.error(error);
+            notificarError(error.message);
         }
     }
-    aulas_registradas();
 
     async function pnfs_registrados() {
-        try {
-            const respuesta = await fetch("/pnfs_reg/");
-            const resultado = await respuesta.json();
-            console.log(resultado);
-
-            select_pnf_actualizar.innerHTML = "<option value=''>Selecciona el P.N.F</option>";
-
-            resultado.nucleos.forEach(nucleo => {
-                nucleo.pnfs.forEach(pnf => {
-                    const opcion = document.createElement("option");
-                    opcion.value = pnf.id_pnf;
-                    opcion.textContent = `${pnf.pnf}`;
-                    select_pnf_actualizar.appendChild(opcion);
-                });
-            });
-        } catch (error) {
-            console.error(error);
+        const respuesta = await fetch("/pnfs_reg/");
+        const resultado = await respuestaJson(respuesta);
+        if (resultado.estado !== "exito") {
+            throw new Error(resultado.descripcion || "No se pudieron cargar los P.N.F.");
         }
+
+        select_pnf_actualizar.replaceChildren(new Option("Selecciona el P.N.F.", ""));
+        resultado.nucleos.forEach(nucleo => {
+            nucleo.pnfs.forEach(pnf => {
+                select_pnf_actualizar.add(new Option(pnf.pnf, pnf.id_pnf));
+            });
+        });
     }
-    pnfs_registrados();
 
     async function secciones_registradas() {
-        try {
-            const respuesta = await fetch("/sec_reg/");
-            const resultado = await respuesta.json();
-            console.log(resultado);
-
-            select_seccion_actualizar.innerHTML = "<option value=''>Selecciona la sección</option>";
-
-            resultado.secciones.forEach(seccion => {
-                const option = document.createElement("option");
-                option.value = seccion.id_seccion;
-                option.textContent = seccion.nombre;
-                select_seccion_actualizar.appendChild(option);
-            });
-        } catch (error) {
-            console.error(error);
+        const respuesta = await fetch("/sec_reg/");
+        const resultado = await respuestaJson(respuesta);
+        if (resultado.estado !== "exito") {
+            throw new Error(resultado.descripcion || "No se pudieron cargar las secciones.");
         }
+
+        select_seccion_actualizar.replaceChildren(new Option("Selecciona la sección", ""));
+        resultado.secciones.forEach(seccion => {
+            select_seccion_actualizar.add(new Option(seccion.nombre, seccion.id_seccion));
+        });
     }
-    secciones_registradas();
+
+    const catalogosListos = Promise.all([
+        pnfs_registrados(),
+        secciones_registradas()
+    ]).catch(error => {
+        notificarError(error.message);
+        return false;
+    });
+
+    aulas_registradas();
+    window.addEventListener("aulas:actualizadas", aulas_registradas);
 
     contenedor_aulas.addEventListener("click", async (e) => {
         const fila = e.target.closest("tr");
-        if (!fila) return;
+        if (!fila || !fila.dataset.id) return;
 
         try {
+            if (!(await catalogosListos)) return;
             const formulario = new FormData();
             formulario.append("id_aula", fila.dataset.id);
 
@@ -99,83 +131,72 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: formulario
             });
-            const resultado = await respuesta.json();
-            console.log(resultado);
-
-            dialogo_actualizar_aula.showModal();
+            const resultado = await respuestaJson(respuesta);
 
             if (resultado.estado === "fallo") {
-                NotificacionesCASRCE.mostrar({
-                    text: resultado.descripcion,
-                    icon: resultado.icon,
-                    title: resultado.title,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false
-                });
-                return;
+                throw new Error(resultado.descripcion || "No se pudo cargar el aula seleccionada.");
             }
 
             input_id_aula_oculto.value = resultado.id_aula;
             input_aula_actualizar.value = resultado.nombre_aula;
             input_piso_actualizar.value = resultado.piso_edificio;
             input_nota_actualizar.value = resultado.Nota;
-
-            const option_tipo_aula = document.createElement("option");
-            option_tipo_aula.value = resultado.tipo_aula;
-            option_tipo_aula.textContent = resultado.tipo_aula;
-            option_tipo_aula.selected = true;
-            option_tipo_aula.hidden = true;
-            select_tipos_aulas_actualizar.append(option_tipo_aula);
-
-            const option_seccion = document.createElement("option");
-            option_seccion.value = resultado.id_seccion;
-            option_seccion.textContent = resultado.seccion;
-            option_seccion.selected = true;
-            option_seccion.hidden = true;
-            select_seccion_actualizar.append(option_seccion);
-
-            const option_pnf = document.createElement("option");
-            option_pnf.value = resultado.id_pnf;
-            option_pnf.textContent = resultado.pnf;
-            option_pnf.selected = true;
-            option_pnf.hidden = true;
-            select_pnf_actualizar.append(option_pnf);
+            select_tipos_aulas_actualizar.value = resultado.tipo_aula;
+            seleccionarOpcion(select_seccion_actualizar, resultado.id_seccion, resultado.seccion);
+            seleccionarOpcion(select_pnf_actualizar, resultado.id_pnf, resultado.pnf);
+            dialogo_actualizar_aula.showModal();
         } catch (error) {
-            console.error(error)
+            notificarError(error.message);
         }
     });
 
+    function seleccionarOpcion(select, value, label) {
+        if (!Array.from(select.options).some(option => option.value === String(value))) {
+            select.add(new Option(label, value));
+        }
+        select.value = value;
+    }
+
     formulario_actualizar.addEventListener("submit", async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            const formulario = new FormData(formulario_actualizar);
+            const datos = new FormData(formulario_actualizar);
 
             const respuesta = await fetch("/act_aula_acad/", {
                 method: "POST",
-                body: formulario
+                headers: {
+                    "X-CSRFToken": formulario_actualizar.querySelector("[name=csrfmiddlewaretoken]").value
+                },
+                body: datos
             });
-            const resultado = await respuesta.json();
-            console.log(resultado);
+            const resultado = await respuestaJson(respuesta);
+
+            if (resultado.estado !== "exito") {
+                await NotificacionesCASRCE.mostrar({
+                    text: resultado.descripcion || "No se pudieron guardar los cambios.",
+                    icon: resultado.icon || "error",
+                    title: resultado.title || "No se pudo actualizar",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                return;
+            }
 
             dialogo_actualizar_aula.close();
-
             await NotificacionesCASRCE.mostrar({
                 text: resultado.descripcion,
-                icon: resultado.icon,
-                title: resultado.title,
+                icon: resultado.icon || "success",
+                title: resultado.title || "Aula actualizada",
                 allowOutsideClick: false,
                 allowEscapeKey: false
             });
-
-            if (resultado.estado == "exito") {
-                await aulas_registradas();
-            }
+            await aulas_registradas();
         } catch (error) {
-            console.error(error);
+            notificarError(error.message);
         }
     });
 
     btn_cerrar_actualizar.addEventListener("click", () => {
-        dialogo_actualizar_aula.close()
+        dialogo_actualizar_aula.close();
     });
 });

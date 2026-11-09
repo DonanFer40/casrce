@@ -25,6 +25,17 @@ window.Validaciones = window.Validaciones || {
         input.value = input.value.replace(/[^a-z0-9]/g, "");
     },
 
+    // Exigir complejidad mínima para contraseñas nuevas.
+    esContraseniaSegura(contrasenia) {
+        return (
+            contrasenia.length >= 8 &&
+            /\p{Lu}/u.test(contrasenia) &&
+            /\p{Ll}/u.test(contrasenia) &&
+            /\p{Nd}/u.test(contrasenia) &&
+            /[^\p{L}\p{N}\s]/u.test(contrasenia)
+        );
+    },
+
     // Primera letra de cada palabra en mayúscula.
     normalizarNombre(input) {
         const posicion = input.selectionStart;
@@ -56,6 +67,18 @@ window.Validaciones = window.Validaciones || {
 // Aplicar las validaciones según la clase CSS del campo.
 document.addEventListener("DOMContentLoaded", function () {
 
+    function validarContrasenia(input) {
+        if (!input.value || Validaciones.esContraseniaSegura(input.value)) {
+            input.setCustomValidity("");
+            return;
+        }
+        input.setCustomValidity(
+            "Usa al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo."
+        );
+    }
+
+    document.querySelectorAll(".js-contrasenia-segura").forEach(validarContrasenia);
+
     document.body.addEventListener("input", function (evento) {
 
         const input = evento.target;
@@ -63,6 +86,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!(input instanceof HTMLInputElement ||
               input instanceof HTMLTextAreaElement)) {
             return;
+        }
+
+        if (input.classList.contains("js-contrasenia-segura")) {
+            validarContrasenia(input);
         }
 
         if (input.classList.contains("js-solo-letras")) {

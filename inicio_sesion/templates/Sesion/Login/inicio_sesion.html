@@ -168,6 +168,14 @@
 
             </div>
 
+            {% if inicializacion_admin_disponible %}
+                <div class="AccesoInstitucionalCASRCE-admin-inicial">
+                    <p>¿Primera configuración del acceso administrativo?</p>
+                    <a href="{% url 'admin:login' %}">
+                        Configurar Google Authenticator
+                    </a>
+                </div>
+            {% endif %}
 
             <div class="AccesoInstitucionalCASRCE-pie">
                 Sistema de gestión académica · CASRCE

@@ -1,207 +1,183 @@
 {% extends 'Estructura/Base.html' %}
+{% load static %}
 
 {% block content %}
-
-{% load static %}
 
 <section id="reparacion-registrar-carsce">
 
     <div class="reparacion-registrar-carsce-contenedor">
 
+        <!-- =====================================================
+             ENCABEZADO INSTITUCIONAL
+             ===================================================== -->
         <header class="reparacion-registrar-carsce-encabezado">
+            <div class="reparacion-registrar-carsce-encabezado-contenido">
 
-            <div class="reparacion-registrar-carsce-identificacion">
-                <i class="fa-solid fa-rotate"></i>
-                <span>GESTIÓN ACADÉMICA</span>
+                <div class="reparacion-registrar-carsce-identificacion">
+                    <span class="reparacion-registrar-carsce-etiqueta">
+                        UPT "JOSÉ FÉLIX RIBAS"
+                    </span>
+                    <span class="reparacion-registrar-carsce-seccion">
+                        <i class="fa-solid fa-rotate"></i>
+                        GESTIÓN ACADÉMICA
+                    </span>
+                </div>
+
+                <div class="reparacion-registrar-carsce-presentacion">
+                    <h1>Registrar Reparación</h1>
+                    <p>
+                        Registra las unidades curriculares que requieren
+                        evaluación de reparación de acuerdo con los criterios académicos.
+                    </p>
+                </div>
+
+                <div class="reparacion-registrar-carsce-encabezado-pie">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    <span>Control institucional de registro de evaluaciones de reparación</span>
+                </div>
+
             </div>
-
-            <div class="reparacion-registrar-carsce-presentacion">
-
-                <h2 class="reparacion-registrar-carsce-titulo">
-                    Registrar Reparación
-                    <span>CARSCE</span>
-                </h2>
-
-                <p class="reparacion-registrar-carsce-descripcion">
-                    Registra las unidades curriculares que requieren
-                    evaluación de reparación de acuerdo con los criterios académicos.
-                </p>
-
-            </div>
-
         </header>
 
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+             ===================================================== -->
         <div class="reparacion-registrar-carsce-tarjeta">
 
             <div class="reparacion-registrar-carsce-tarjeta-cabecera">
-
                 <div class="reparacion-registrar-carsce-tarjeta-icono">
                     <i class="fa-solid fa-file-circle-plus"></i>
                 </div>
-
                 <div class="reparacion-registrar-carsce-tarjeta-informacion">
-
-                    <h3 class="reparacion-registrar-carsce-tarjeta-titulo">
-                        Registro de reparación académica
-                    </h3>
-
+                    <span class="reparacion-registrar-carsce-etiqueta-modulo">
+                        MÓDULO DE REPARACIÓN
+                    </span>
+                    <h2 class="reparacion-registrar-carsce-tarjeta-titulo">
+                        Registro de Reparación Académica
+                    </h2>
                     <p class="reparacion-registrar-carsce-tarjeta-descripcion">
                         Selecciona el núcleo, P.N.F., materia y trayecto
                         correspondientes para registrar la reparación.
                     </p>
-
                 </div>
-
             </div>
 
+
+            <!-- =====================================================
+                 FORMULARIO DE REGISTRO
+                 ===================================================== -->
             <form method="post"
                   id="formulario_registrar"
                   class="reparacion-registrar-carsce-formulario">
 
                 {% csrf_token %}
 
+
+                <!-- =====================================================
+                     BLOQUE: DATOS ACADÉMICOS
+                     ===================================================== -->
                 <div class="reparacion-registrar-carsce-bloque">
 
                     <div class="reparacion-registrar-carsce-bloque-cabecera">
-
                         <div class="reparacion-registrar-carsce-bloque-icono">
                             <i class="fa-solid fa-filter"></i>
                         </div>
-
                         <div class="reparacion-registrar-carsce-bloque-informacion">
-
                             <h4 class="reparacion-registrar-carsce-bloque-titulo">
                                 Datos académicos
                             </h4>
-
                             <p class="reparacion-registrar-carsce-bloque-descripcion">
-                                Define la información académica asociada
-                                al proceso de reparación.
+                                Define la información académica asociada al proceso de reparación.
                             </p>
-
                         </div>
-
                     </div>
 
-                    <div class="reparacion-registrar-carsce-grid">
+                    <div class="reparacion-registrar-carsce-grid-2">
 
+                        <!-- NÚCLEO -->
                         <div class="reparacion-registrar-carsce-campo">
-
-                            <label for="nucleo_asignado"
-                                   class="reparacion-registrar-carsce-etiqueta">
-                                Núcleo Asignado
+                            <label for="nucleo_asignado" class="reparacion-registrar-carsce-etiqueta">
+                                Núcleo Asignado:
                             </label>
-
                             <div class="reparacion-registrar-carsce-control">
-
                                 <i class="fa-solid fa-building-columns"></i>
-
-                                <select name="nucleo_asignado"
-                                        id="nucleo_asignado">
+                                <select name="nucleo_asignado" id="nucleo_asignado" required>
+                                    <option value="">Seleccione un Núcleo</option>
                                 </select>
-
                                 <i class="fa-solid fa-chevron-down reparacion-registrar-carsce-flecha"></i>
-
                             </div>
-
                             <span class="reparacion-registrar-carsce-mensaje"></span>
-
                         </div>
 
+                        <!-- PNF -->
                         <div class="reparacion-registrar-carsce-campo">
-
-                            <label for="pnf_asignado"
-                                   class="reparacion-registrar-carsce-etiqueta">
-                                P.N.F. Asignado
+                            <label for="pnf_asignado" class="reparacion-registrar-carsce-etiqueta">
+                                P.N.F. Asignado:
                             </label>
-
                             <div class="reparacion-registrar-carsce-control">
-
                                 <i class="fa-solid fa-graduation-cap"></i>
-
-                                <select name="pnf_asignado"
-                                        id="pnf_asignado">
+                                <select name="pnf_asignado" id="pnf_asignado" required>
+                                    <option value="">Seleccione un P.N.F.</option>
                                 </select>
-
                                 <i class="fa-solid fa-chevron-down reparacion-registrar-carsce-flecha"></i>
-
                             </div>
-
                             <span class="reparacion-registrar-carsce-mensaje"></span>
-
                         </div>
 
+                        <!-- MATERIA -->
                         <div class="reparacion-registrar-carsce-campo">
-
-                            <label for="materia_asignada"
-                                   class="reparacion-registrar-carsce-etiqueta">
-                                Materia(s) a Reparar
+                            <label for="materia_asignada" class="reparacion-registrar-carsce-etiqueta">
+                                Materia(s) a Reparar:
                             </label>
-
                             <div class="reparacion-registrar-carsce-control">
-
                                 <i class="fa-solid fa-book-open"></i>
-
-                                <select name="materia_asignada"
-                                        id="materia_asignada">
+                                <select name="materia_asignada" id="materia_asignada" required>
+                                    <option value="">Seleccione una Materia</option>
                                 </select>
-
                                 <i class="fa-solid fa-chevron-down reparacion-registrar-carsce-flecha"></i>
-
                             </div>
-
                             <span class="reparacion-registrar-carsce-mensaje"></span>
-
                         </div>
 
+                        <!-- TRAYECTO -->
                         <div class="reparacion-registrar-carsce-campo">
-
-                            <label for="trayecto_academico"
-                                   class="reparacion-registrar-carsce-etiqueta">
-                                Trayecto Académico
+                            <label for="trayecto_academico" class="reparacion-registrar-carsce-etiqueta">
+                                Trayecto Académico:
                             </label>
-
                             <div class="reparacion-registrar-carsce-control">
-
                                 <i class="fa-solid fa-route"></i>
-
                                 <input type="text"
                                        name="trayecto_academico"
                                        id="trayecto_academico"
                                        readonly
                                        placeholder="Cargando trayecto...">
-
                             </div>
-
                             <span class="reparacion-registrar-carsce-mensaje"></span>
-
                         </div>
 
                     </div>
 
                 </div>
 
+
+                <!-- =====================================================
+                     BLOQUE: EVALUACIONES DE REPARACIÓN (Dinámico)
+                     ===================================================== -->
                 <div class="reparacion-registrar-carsce-bloque reparacion-registrar-carsce-bloque-evaluaciones">
 
                     <div class="reparacion-registrar-carsce-bloque-cabecera">
-
                         <div class="reparacion-registrar-carsce-bloque-icono">
                             <i class="fa-solid fa-clipboard-check"></i>
                         </div>
-
                         <div class="reparacion-registrar-carsce-bloque-informacion">
-
                             <h4 class="reparacion-registrar-carsce-bloque-titulo">
                                 Evaluaciones de reparación
                             </h4>
-
                             <p class="reparacion-registrar-carsce-bloque-descripcion">
-                                Las evaluaciones correspondientes se mostrarán
-                                aquí de acuerdo con la configuración registrada.
+                                Las evaluaciones correspondientes se mostrarán aquí de acuerdo con la configuración registrada.
                             </p>
-
                         </div>
-
                     </div>
 
                     <div id="contenedor_evaluaciones"
@@ -210,26 +186,21 @@
 
                 </div>
 
+
+                <!-- =====================================================
+                     ACCIONES
+                     ===================================================== -->
                 <div class="reparacion-registrar-carsce-acciones">
-
                     <div class="reparacion-registrar-carsce-acciones-informacion">
-
                         <i class="fa-solid fa-circle-info"></i>
-
-                        <span>
-                            Verifica los datos académicos antes de registrar la reparación.
-                        </span>
-
+                        <span>Verifica los datos académicos antes de registrar la reparación.</span>
                     </div>
 
                     <button type="submit"
                             class="reparacion-registrar-carsce-boton">
-
                         <i class="fa-solid fa-floppy-disk"></i>
                         <span>Registrar reparación</span>
-
                     </button>
-
                 </div>
 
             </form>
@@ -240,6 +211,8 @@
 
 </section>
 
+
+<!-- ARCHIVO JAVASCRIPT -->
 <script src="{% static 'Funciones_Asincronas/Docente/registrar_reparacion.js' %}"></script>
 
 {% endblock %}

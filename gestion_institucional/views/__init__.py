@@ -7,5 +7,6 @@ from .pnf import *
 from .seccion import *
 from .materia import *
 from .asignacion_materia import *
+from .horario_academico import *
 from .aula import *
 from .horario import *

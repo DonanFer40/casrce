@@ -21,7 +21,11 @@ DEBUG = True
 SECRET_KEY = "gzr28!#=8$5%0$t(dvbrt3r%q_068$08fg@6x#tb(e6=1ap+kz"
 
 ALLOWED_HOSTS = [
-    "casrce.uptbarinas.online", 'localhost', '10.213.194.229'
+    "localhost",
+    "127.0.0.1",
+    "192.168.0.103",
+    "10.213.194.229",
+    # "tudominio.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -68,14 +72,15 @@ JAZZMIN_SETTINGS = {
 
 # ---------------------------------------------------------------------
 # MIDDLEWARE
-# El orden de SessionMiddleware y AuthenticationMiddleware es importante.
-# Los middlewares CASRCE se ejecutan después de ambos.
+# La sesión de cada pestaña se selecciona antes de que otros middlewares
+# lean o modifiquen request.session.
 # ---------------------------------------------------------------------
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "middleware.sesiones_por_pestana.SesionesPorPestanaMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",

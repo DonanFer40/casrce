@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('inicio_sesion', '0008_verificacionaccesoadmin_ultimo_envio_codigo'),
+        ('inicio_sesion', '0004_sesionactivanavegador'),
     ]
 
     operations = [

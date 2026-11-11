@@ -28,6 +28,7 @@ DEFAULT_MODULE_ROLES = {
     "inicio_sesion": TODOS_LOS_ROLES,
     "gestion_institucional": ROLES_PERSONAL,
     "notas_academicas": TODOS_LOS_ROLES,
+    "documentos": TODOS_LOS_ROLES,
     "bitacora": ROLES_ADMINISTRATIVOS,
 }
 

@@ -77,32 +77,44 @@ def bitacora_acciones(request):
     paginator = Paginator(registros, 25)
     pagina = paginator.get_page(request.GET.get("page"))
 
+    parametros_pagina = request.GET.copy()
+    parametros_pagina.pop("page", None)
+    contexto = {
+        "pagina": pagina,
+        "pagina_query": parametros_pagina.urlencode(),
+        "total_registros": total,
+        "total_exitosos": exitosos,
+        "total_fallidos": fallidos,
+        "actividad_hoy": actividad_hoy,
+        "categorias": RegistroAccion.CATEGORIAS,
+        "resultados": RegistroAccion.RESULTADOS,
+        "modulos": (
+            RegistroAccion.objects.order_by("modulo")
+            .values_list("modulo", flat=True).distinct()
+        ),
+        "filtros": {
+            "q": busqueda,
+            "categoria": categoria,
+            "resultado": resultado,
+            "rol": rol,
+            "modulo": modulo,
+            "accion": accion,
+            "desde": request.GET.get("desde", ""),
+            "hasta": request.GET.get("hasta", ""),
+        },
+    }
+
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return render(
+            request,
+            "Bitacora/partials/resultados_acciones.html",
+            contexto,
+        )
+
     return render(
         request,
         "Bitacora/bitacora_acciones.html",
-        {
-            "pagina": pagina,
-            "total_registros": total,
-            "total_exitosos": exitosos,
-            "total_fallidos": fallidos,
-            "actividad_hoy": actividad_hoy,
-            "categorias": RegistroAccion.CATEGORIAS,
-            "resultados": RegistroAccion.RESULTADOS,
-            "modulos": (
-                RegistroAccion.objects.order_by("modulo")
-                .values_list("modulo", flat=True).distinct()
-            ),
-            "filtros": {
-                "q": busqueda,
-                "categoria": categoria,
-                "resultado": resultado,
-                "rol": rol,
-                "modulo": modulo,
-                "accion": accion,
-                "desde": request.GET.get("desde", ""),
-                "hasta": request.GET.get("hasta", ""),
-            },
-        },
+        contexto,
     )
 
 

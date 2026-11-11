@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ================================================= */
 
             if (resultado.estado === "exito") {
-                window.location.href = resultado.redirect_url;
+                window.CASRCE_TAB_NAVIGATE(resultado.redirect_url);
                 return;
             }
 

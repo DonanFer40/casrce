@@ -21,13 +21,22 @@ document.addEventListener("DOMContentLoaded", () => {
     formulario_autenticacion.addEventListener("submit", async (evento) => {
         evento.preventDefault();
 
+        if (!window.CASRCE_BROWSER_ID) {
+            NotificacionesCASRCE.reporte(
+                "error",
+                "No se pudo validar el navegador",
+                "Activa el almacenamiento local del navegador y vuelve a cargar la página."
+            );
+            return;
+        }
+
         NotificacionesCASRCE.cargar("Iniciando sesión...");
 
         try {
             const formulario = new FormData(formulario_autenticacion);
             const csrftoken = getCookie('csrftoken'); // Obtenemos el token
 
-            const [respuesta] = await Promise.all([
+            let [respuesta] = await Promise.all([
                 fetch("/inicio_sesion/", {
                     method: "POST",
                     headers: {
@@ -38,18 +47,56 @@ document.addEventListener("DOMContentLoaded", () => {
                 new Promise(resolve => setTimeout(resolve, 1200)) 
             ]);
             
-            if (!respuesta.ok) {
+            if (
+                !respuesta.ok
+                && respuesta.status !== 429
+                && respuesta.status !== 409
+            ) {
                 throw new Error(
                     `El servidor respondió con el estado ${respuesta.status}.`
                 );
             }
 
-            const resultado = await respuesta.json();
+            let resultado = await respuesta.json();
 
             NotificacionesCASRCE.detenerCarga();
 
+            if (resultado.estado === "advertencia") {
+                const continuar = window.confirm(
+                    `${resultado.title}\n\n${resultado.descripcion}`
+                );
+
+                if (!continuar) {
+                    return;
+                }
+
+                formulario.set("confirmar_nueva_sesion", "1");
+                NotificacionesCASRCE.cargar("Iniciando nueva sesión...");
+
+                respuesta = await fetch("/inicio_sesion/", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                    },
+                    body: formulario
+                });
+
+                if (
+                    !respuesta.ok
+                    && respuesta.status !== 429
+                    && respuesta.status !== 409
+                ) {
+                    throw new Error(
+                        `El servidor respondió con el estado ${respuesta.status}.`
+                    );
+                }
+
+                resultado = await respuesta.json();
+                NotificacionesCASRCE.detenerCarga();
+            }
+
             if (resultado.estado === "exito") {
-                window.location.href = resultado.url;
+                window.CASRCE_TAB_NAVIGATE(resultado.url);
                 return;
             }
 

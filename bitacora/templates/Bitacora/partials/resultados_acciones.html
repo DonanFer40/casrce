@@ -1,0 +1,77 @@
+<div class="bitacora-acciones-carsce-tabla-contenedor">
+    <div class="bitacora-acciones-carsce-tabla-scroll">
+        <table class="bitacora-acciones-carsce-tabla">
+            <thead>
+                <tr>
+                    <th>Fecha y hora</th>
+                    <th>Usuario</th>
+                    <th>Acción / Módulo</th>
+                    <th>Categoría</th>
+                    <th>Resultado</th>
+                    <th>Rol</th>
+                    <th class="text-center">Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in pagina %}
+                <tr>
+                    <td class="bitacora-acciones-carsce-fecha">
+                        <strong>{{ registro.fecha_hora|date:"d/m/Y" }}</strong>
+                        <small>{{ registro.fecha_hora|date:"H:i:s" }}</small>
+                    </td>
+                    <td>
+                        <strong>{{ registro.nombre_usuario|default:"Sistema" }}</strong>
+                        <small>{{ registro.cedula_usuario|default:"Sin identificación" }}</small>
+                    </td>
+                    <td>
+                        <strong>{{ registro.accion }}</strong>
+                        <small>{{ registro.modulo }}</small>
+                    </td>
+                    <td>{{ registro.get_categoria_display }}</td>
+                    <td>
+                        <span class="bitacora-acciones-carsce-estado {{ registro.resultado|lower }}">
+                            {{ registro.get_resultado_display }}
+                        </span>
+                    </td>
+                    <td>{{ registro.rol|default:"Sistema" }}</td>
+                    <td class="text-center">
+                        <a class="bitacora-acciones-carsce-ver" href="{% url 'detalle_accion' registro.id_registro %}" aria-label="Ver detalle" title="Ver detalle completo">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">
+                        <div class="bitacora-acciones-carsce-vacio">
+                            <div class="bitacora-acciones-carsce-vacio-icono">
+                                <i class="fa-regular fa-folder-open"></i>
+                            </div>
+                            <h3>No hay registros para mostrar</h3>
+                            <p>Cuando se ejecuten operaciones en el sistema, aparecerán detalladas en este historial de auditoría.</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if pagina.paginator.num_pages > 1 %}
+<nav class="bitacora-acciones-carsce-paginacion" aria-label="Paginación de bitácora">
+    <span>Página <strong>{{ pagina.number }}</strong> de <strong>{{ pagina.paginator.num_pages }}</strong></span>
+    <div class="bitacora-acciones-carsce-paginacion-botones">
+        {% if pagina.has_previous %}
+        <a href="?{% if pagina_query %}{{ pagina_query }}&amp;{% endif %}page={{ pagina.previous_page_number }}" class="bitacora-acciones-carsce-pag-btn">
+            <i class="fa-solid fa-chevron-left"></i> Anterior
+        </a>
+        {% endif %}
+        {% if pagina.has_next %}
+        <a href="?{% if pagina_query %}{{ pagina_query }}&amp;{% endif %}page={{ pagina.next_page_number }}" class="bitacora-acciones-carsce-pag-btn">
+            Siguiente <i class="fa-solid fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}

@@ -6,6 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.CASRCE_TAB_SESSION_ID = "{{ request.tab_session_id|default:''|escapejs }}";
+    </script>
+    <script src="{% static 'Funcionalidades/sesiones_por_pestana.js' %}"></script>
     <link rel="icon" href="{% static 'Imagenes/UPT_LOGO.png' %}" type="image/png">
     <link rel="stylesheet" href="{% static 'Estilos/Estructura/estilos.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -36,6 +40,15 @@
     <script src="{% static 'Funciones_Asincronas/Docente/Calificaciones_Estudiante/actualizar_trayecto.js' %}"></script>
     
     <script src="{% static 'Funcionalidades/validaciones.js' %}"></script>
+    {% if request.tab_auth_required %}
+        <script>
+            window.addEventListener("pageshow", function (event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+        </script>
+    {% endif %}
 </body>
 
 </html>

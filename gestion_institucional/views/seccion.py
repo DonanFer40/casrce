@@ -218,4 +218,9 @@ def reg_sec(request):
                 "descripcion": "Ocurrio un error en registrar la sección académica."
             })
     
-    return render(request, "Roles/Director_General/seccion_academica/registrar_seccion.html")
+    siguiente = obtener_siguiente_nombre_seccion()
+    return render(
+        request,
+        "Roles/Director_General/seccion_academica/registrar_seccion.html",
+        {"siguiente_seccion": siguiente},
+    )

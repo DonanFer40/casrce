@@ -84,13 +84,18 @@
                                        name="registro_seccion"
                                        id="registro_seccion"
                                        placeholder="Asignación automática"
+                                       value="{{ siguiente_seccion|default:'' }}"
                                        maxlength="1"
                                        autocomplete="off"
                                        readonly
                                        required>
                             </div>
                             <small id="mensaje_nombre_seccion" class="director-secciones-registrar-carsce-mensaje">
-                                La letra se asigna automáticamente según las secciones disponibles.
+                                {% if siguiente_seccion %}
+                                    Se asignará automáticamente la sección {{ siguiente_seccion }}.
+                                {% else %}
+                                    Las letras de la A a la Z están ocupadas. Libera una sección para continuar.
+                                {% endif %}
                             </small>
                         </div>
 
@@ -116,6 +121,7 @@
                             <button type="submit"
                                     id="btn_registro"
                                     class="director-secciones-registrar-carsce-boton">
+                                    {% if not siguiente_seccion %}disabled{% endif %}>
                                 <i class="fa-solid fa-plus"></i>
                                 <span>Registrar Sección</span>
                             </button>

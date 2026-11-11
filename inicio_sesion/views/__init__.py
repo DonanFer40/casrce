@@ -10,3 +10,4 @@ from .reportes import *
 from .noticias import *
 from .expedientes import *
 from .seguridad_admin import *
+from .errores import *

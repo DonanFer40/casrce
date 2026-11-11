@@ -38,7 +38,7 @@ def aulas_reg(request):
         }, status=403)
 
     # OBTENER AULAS DEL NÚCLEO
-    aulas = (
+    aulas = list(
         AulaAcademica.objects
         .filter(id_nucleo=director.nucleo)
         .values(
@@ -52,9 +52,13 @@ def aulas_reg(request):
         )
     )
 
+    # CAPITALIZAR TIPO DE AULA
+    for aula in aulas:
+        aula["tipo_aula"] = aula["tipo_aula"].capitalize() if aula["tipo_aula"] else ""
+
     return JsonResponse({
         "estado": "exito",
-        "aulas": list(aulas)
+        "aulas": aulas
     })
 
 

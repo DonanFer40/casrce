@@ -145,6 +145,7 @@
                                     <input type="text"
                                            name="nombres_registrar"
                                            id="nombres_autoridades"
+                                           class="js-solo-letras"
                                            autocomplete="off"
                                            required>
 
@@ -166,6 +167,7 @@
                                     <input type="text"
                                            name="apellidos_registrar"
                                            id="apellidos_autoridades"
+                                           class="js-solo-letras"
                                            autocomplete="off"
                                            required>
 
@@ -210,6 +212,7 @@
                                         <input type="text"
                                                name="cedula_registrar"
                                                id="cedula_identidad"
+                                               class="js-solo-numeros"
                                                autocomplete="off"
                                                required>
 
@@ -425,12 +428,12 @@
     </div>
 
 </section>
-{% endblock %}  
+ 
 
 <!-- ARCHIVOS JAVASCRIPT -->
 <script src="{% static 'Funcionalidades/cedula_identidad.js' %}"></script>
-
 <script src="{% static 'Funciones_Asincronas/Director_General/Autoridad/registrar_autoridad.js' %}"></script>
 
 <script src="{% static 'Funciones_Asincronas/Director_General/Autoridad/visualizar_autoridad.js' %}"></script>
 
+{% endblock %} 

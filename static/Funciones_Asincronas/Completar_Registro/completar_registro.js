@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     allowOutsideClick: false,
                     allowEscapeKey: false
                 });
-                window.location.href = resultado.url;
+                window.CASRCE_TAB_NAVIGATE(resultado.url);
             }
 
             nombres_usuario.value = resultado.usuario.nombres;
@@ -605,7 +605,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (resultado.estado == "exito") {
-                window.location.href = resultado.url;
+                window.CASRCE_TAB_NAVIGATE(resultado.url);
             }
         } catch (error) {
             console.error(error);

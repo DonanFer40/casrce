@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Código verificado correctamente."
                     );
 
-                    window.location.href = "/panel_rec_cred/";
+                    window.CASRCE_TAB_NAVIGATE("/panel_rec_cred/");
                     return;
                 }
 

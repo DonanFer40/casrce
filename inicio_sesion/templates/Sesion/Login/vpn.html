@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Acceso mediante VPN no permitido | CASRCE</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-width: 320px;
+            height: 100%;
+            min-height: 100%;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+            background: #f7fbff;
+            font-family: system-ui, sans-serif;
+        }
+
+        .pagina-vpn {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            background: #f7fbff;
+        }
+
+        .pagina-vpn__imagen {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .pagina-vpn__enlace {
+            position: absolute;
+            right: clamp(1rem, 4vw, 3rem);
+            bottom: clamp(1rem, 4vw, 2.5rem);
+            padding: .8rem 1.25rem;
+            border: 2px solid #fff;
+            border-radius: .75rem;
+            background: #092f70;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 2px 12px rgb(0 0 0 / 25%);
+        }
+
+        .pagina-vpn__enlace:focus-visible {
+            outline: 3px solid #ffbd00;
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <main class="pagina-vpn">
+        <img
+            class="pagina-vpn__imagen"
+            src="{% static 'Imagenes/pagina_vpn.png' %}"
+            alt="Acceso mediante VPN no permitido. Solo puedes ingresar desde el territorio venezolano."
+        >
+        <a class="pagina-vpn__enlace" href="{% url 'inicio_publico' %}">
+            Volver al inicio
+        </a>
+    </main>
+</body>
+</html>

@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from datetime import datetime, date
 from django.db import transaction
 from django.utils import timezone
+from calendar import monthrange
 
 from inicio_sesion.models import PeriodoAcademico, CalendarioAcademico, Bitacora, CalendarioPeriodo
 
@@ -209,6 +210,82 @@ CALENDARIO_ACADEMICA = [
     },
 
 ]
+
+MESES_PERIODOS = {
+    "Inicial Trimestre": (9, 11),
+    "Inicial Semestre": (9, 11),
+    "Reparación": (11, 12),
+    "Tramo I": (1, 4),
+    "Tramo II": (4, 7),
+    "Tramo III": (9, 11),
+    "Semestre I": (1, 5),
+    "Semestre II": (9, 11),
+}
+
+MESES_CARGA_NOTAS = {
+    "Inicial Trimestre": 11,
+    "Inicial Semestre": 11,
+    "Reparación": 12,
+    "Tramo I": 4,
+    "Tramo II": 7,
+    "Tramo III": 11,
+    "Semestre I": 5,
+    "Semestre II": 11,
+}
+
+MESES_INSCRIPCION = {
+    "INSCRIPCION_TRIMESTRE": 9,
+    "INSCRIPCION_SEMESTRE": 9,
+}
+
+
+def limites_fechas_calendario(calendario, periodo_nombre):
+    anio = calendario.fecha_inicio.year
+
+    def limite_mes(mes, ultimo_dia=False):
+        dia = monthrange(anio, mes)[1] if ultimo_dia else 1
+        return date(anio, mes, dia).isoformat()
+
+    limites = {
+        "fecha_inicio_min": date(anio, 1, 1).isoformat(),
+        "fecha_inicio_max": date(anio, 12, 31).isoformat(),
+        "fecha_final_min": date(anio, 1, 1).isoformat(),
+        "fecha_final_max": date(anio, 12, 31).isoformat(),
+        "tipo": calendario.tipo,
+    }
+
+    if calendario.tipo == "PERIODO":
+        rango = MESES_PERIODOS.get(periodo_nombre)
+        if not rango:
+            return None
+        mes_inicio, mes_final = rango
+        limites.update({
+            "fecha_inicio_min": limite_mes(mes_inicio),
+            "fecha_inicio_max": limite_mes(mes_inicio, ultimo_dia=True),
+            "fecha_final_min": limite_mes(mes_final),
+            "fecha_final_max": limite_mes(mes_final, ultimo_dia=True),
+        })
+    elif calendario.tipo == "CARGA_NOTAS":
+        mes = MESES_CARGA_NOTAS.get(periodo_nombre)
+        if not mes:
+            return None
+        limites.update({
+            "fecha_inicio_min": limite_mes(mes),
+            "fecha_inicio_max": limite_mes(mes, ultimo_dia=True),
+            "fecha_final_min": limite_mes(mes),
+            "fecha_final_max": limite_mes(mes, ultimo_dia=True),
+        })
+    elif calendario.tipo in MESES_INSCRIPCION:
+        mes = MESES_INSCRIPCION[calendario.tipo]
+        limites.update({
+            "fecha_inicio_min": limite_mes(mes),
+            "fecha_inicio_max": limite_mes(mes, ultimo_dia=True),
+            "fecha_final_min": limite_mes(mes),
+            "fecha_final_max": limite_mes(mes, ultimo_dia=True),
+        })
+
+    return limites
+
 
 # periodos_academicos
 def periodos_lista(request):
@@ -487,115 +564,407 @@ def calendarios_lista(request):
 
 #  datos_calendario
 def calendario_datos(request):
-    if request.method == "POST":
-        id_calendario = request.POST.get("id_calendario")
 
-        try:
-            relacion = (
-                CalendarioPeriodo.objects
-                .select_related(
-                    "periodo",
-                    "calendario"
-                )
-                .get(
-                    calendario_id=id_calendario
-                )
-            )
-
-        except CalendarioPeriodo.DoesNotExist:
-            return JsonResponse({
-                "estado": "fallo",
-                "icon": "error",
-                "title": "Error",
-                "descripcion": (
-                    "No se encuentra registrado "
-                    "el calendario académico."
-                )
-            })
-
-        cal = relacion.calendario
-        periodo = relacion.periodo
-
+    if request.method != "POST":
         return JsonResponse({
-            "estado": "exito",
-            "calendario": {
-                "id": cal.id_calendario_academico,
-                "periodo_id": (
-                    periodo.id_periodo_academico
-                ),
-                "periodo": periodo.nombre,
-                "fecha_inicio": cal.fecha_inicio.strftime(
-                    "%Y-%m-%d"
-                ),
-
-                "fecha_final": cal.fecha_final.strftime(
-                    "%Y-%m-%d"
-                ),
-                "descripcion": cal.descripcion,
-                "tipo": cal.tipo,
-                "tipo_display": cal.get_tipo_display(),
-            }
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Solicitud no válida",
+            "descripcion": "Método de solicitud no permitido."
         })
+
+    id_calendario = request.POST.get("id_calendario")
+
+    try:
+        cal = CalendarioAcademico.objects.get(
+            id_calendario_academico=id_calendario
+        )
+
+    except (
+        CalendarioAcademico.DoesNotExist,
+        TypeError,
+        ValueError
+    ):
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "error",
+            "title": "Calendario no encontrado",
+            "descripcion": (
+                "No se encuentra registrado "
+                "el calendario académico."
+            )
+        })
+
+    # -------------------------------------------------
+    # OBTENER PERÍODO ACADÉMICO
+    # -------------------------------------------------
+
+    relacion = (
+        CalendarioPeriodo.objects
+        .filter(calendario=cal)
+        .select_related("periodo")
+        .first()
+    )
+
+    periodo_nombre = (
+        relacion.periodo.nombre
+        if relacion else None
+    )
+
+    # -------------------------------------------------
+    # OBTENER LÍMITES DE FECHAS
+    # -------------------------------------------------
+
+    limites = limites_fechas_calendario(
+        cal,
+        periodo_nombre
+    )
+
+    if limites is None:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "error",
+            "title": "Regla de fechas no disponible",
+            "descripcion": (
+                "No hay una regla de fechas configurada "
+                "para el período académico asociado."
+            )
+        })
+
+    # -------------------------------------------------
+    # RESPUESTA
+    # -------------------------------------------------
+
+    return JsonResponse({
+        "estado": "exito",
+
+        "calendario": {
+            "id": cal.id_calendario_academico,
+
+            "periodo_id": (
+                relacion.periodo_id
+                if relacion else None
+            ),
+
+            "periodo": periodo_nombre,
+
+            "descripcion": cal.descripcion,
+
+            "fecha_inicio": cal.fecha_inicio.strftime(
+                "%Y-%m-%d"
+            ),
+
+            "fecha_final": cal.fecha_final.strftime(
+                "%Y-%m-%d"
+            ),
+
+            "tipo": cal.tipo,
+
+            "tipo_display": cal.get_tipo_display(),
+
+            "limites": limites
+        }
+    })
 
 def vis_cal_reg(request):
     return render(request, "Roles/Director_General/calendario/visualizar_calendario.html")
 
 # guardar_actualizar_calendario
 def calendario_guardar(request):
-    if request.method == "POST":
-        id_calendario = request.POST.get("id_calendario")
-        inicio = request.POST.get("fecha_inicio")
-        final = request.POST.get("fecha_finalizado")
 
-        controles = [
-            (inicio, "Fecha de Inicio del Tramo", "Por favor, ingrese la fecha inicial."),
-        ]
+    if request.method != "POST":
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Solicitud no válida",
+            "descripcion": "Método de solicitud no permitido."
+        })
 
-        for value, field_name, error_message in controles:
-            if not value:
-                return JsonResponse({
-                    "estado": "falla",
-                    "icon": "warning",
-                    "title": field_name,
-                    "descripcion": error_message
-                })
-        try:
-            calendario_original = CalendarioAcademico.objects.get(id_calendario_academico=id_calendario)
-        except CalendarioAcademico.DoesNotExist:
+    # -------------------------------------------------
+    # OBTENER DATOS
+    # -------------------------------------------------
+
+    id_calendario = request.POST.get("id_calendario")
+
+    inicio = request.POST.get("fecha_inicio")
+    final = request.POST.get("fecha_finalizado")
+
+    descripcion = request.POST.get(
+        "descripcion", ""
+    ).strip()
+
+    # -------------------------------------------------
+    # VALIDAR DESCRIPCIÓN
+    # -------------------------------------------------
+
+    if not descripcion:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Descripción requerida",
+            "descripcion": (
+                "Ingrese la descripción del calendario."
+            )
+        })
+
+    if len(descripcion) > 150:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Descripción demasiado larga",
+            "descripcion": (
+                "La descripción no puede superar "
+                "los 150 caracteres."
+            )
+        })
+
+    # -------------------------------------------------
+    # VALIDAR FECHAS
+    # -------------------------------------------------
+
+    controles = [
+        (
+            inicio,
+            "Fecha de Inicio del Tramo",
+            "Por favor, ingrese la fecha inicial."
+        ),
+        (
+            final,
+            "Fecha de Finalización",
+            "Por favor, ingrese la fecha final."
+        )
+    ]
+
+    for value, field_name, error_message in controles:
+
+        if not value:
             return JsonResponse({
-                "estado": "falla",
-                "icon": "error",
-                "title": "Error",
-                "descripcion": "Calendario no encontrado."
+                "estado": "fallo",
+                "icon": "warning",
+                "title": field_name,
+                "descripcion": error_message
             })
 
-        try:
-            fecha_inicio = datetime.strptime(inicio, "%Y-%m-%d").date()
-            fecha_final = datetime.strptime(final, "%Y-%m-%d").date()
-            
-            calendario_original.fecha_inicio = fecha_inicio
-            calendario_original.fecha_final = fecha_final
-            calendario_original.save()
-    
-            Bitacora.objects.create(
-                nombre_usuario=request.session.get("usuario_nombre"),
-                fecha_hora=timezone.now(),
-                accion=f"Se actualizo el calendario académico."
-            ) 
-            
+    # -------------------------------------------------
+    # BUSCAR CALENDARIO
+    # -------------------------------------------------
+
+    try:
+
+        calendario_original = (
+            CalendarioAcademico.objects.get(
+                id_calendario_academico=id_calendario
+            )
+        )
+
+    except (
+        CalendarioAcademico.DoesNotExist,
+        TypeError,
+        ValueError
+    ):
+
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "error",
+            "title": "Calendario no encontrado",
+            "descripcion": (
+                "No se encontró el calendario "
+                "académico que desea actualizar."
+            )
+        })
+
+    # -------------------------------------------------
+    # CONVERTIR FECHAS
+    # -------------------------------------------------
+
+    try:
+
+        fecha_inicio = datetime.strptime(
+            inicio,
+            "%Y-%m-%d"
+        ).date()
+
+        fecha_final = datetime.strptime(
+            final,
+            "%Y-%m-%d"
+        ).date()
+
+    except (ValueError, TypeError):
+
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Fechas no válidas",
+            "descripcion": (
+                "Ingrese fechas válidas para "
+                "actualizar el calendario."
+            )
+        })
+
+    # -------------------------------------------------
+    # OBTENER PERÍODO ACADÉMICO
+    # -------------------------------------------------
+
+    relacion = (
+        CalendarioPeriodo.objects
+        .filter(calendario=calendario_original)
+        .select_related("periodo")
+        .first()
+    )
+
+    periodo_nombre = (
+        relacion.periodo.nombre
+        if relacion else None
+    )
+
+    if (
+        calendario_original.tipo in (
+            "PERIODO",
+            "CARGA_NOTAS"
+        )
+        and not periodo_nombre
+    ):
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "error",
+            "title": "Período no asociado",
+            "descripcion": (
+                "No se puede validar el calendario "
+                "porque no tiene un período académico asociado."
+            )
+        })
+
+    # -------------------------------------------------
+    # OBTENER LÍMITES DE FECHAS
+    # -------------------------------------------------
+
+    limites = limites_fechas_calendario(
+        calendario_original,
+        periodo_nombre
+    )
+
+    if limites is None:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "error",
+            "title": "Regla de fechas no disponible",
+            "descripcion": (
+                "No hay una regla de fechas configurada "
+                "para el período académico asociado."
+            )
+        })
+
+    # -------------------------------------------------
+    # VALIDAR RANGOS PERMITIDOS
+    # -------------------------------------------------
+
+    limites_fecha = {
+        "fecha_inicio": (
+            limites["fecha_inicio_min"],
+            limites["fecha_inicio_max"]
+        ),
+
+        "fecha_final": (
+            limites["fecha_final_min"],
+            limites["fecha_final_max"]
+        )
+    }
+
+    validaciones = [
+        (
+            "inicio",
+            fecha_inicio,
+            limites_fecha["fecha_inicio"]
+        ),
+        (
+            "final",
+            fecha_final,
+            limites_fecha["fecha_final"]
+        )
+    ]
+
+    for campo, fecha, (minimo, maximo) in validaciones:
+
+        if not (
+            date.fromisoformat(minimo)
+            <= fecha
+            <= date.fromisoformat(maximo)
+        ):
+
+            nombre_fecha = (
+                "inicio"
+                if campo == "inicio"
+                else "finalización"
+            )
+
             return JsonResponse({
-                "estado": "exito",
-                "icon": "success",
-                "title": "Exito",
-                "descripcion": "Se actualizo la fecha exitosamente."
+                "estado": "fallo",
+                "icon": "warning",
+                "title": "Fecha fuera del rango permitido",
+                "descripcion": (
+                    f"La fecha de {nombre_fecha} debe estar "
+                    f"entre {minimo} y {maximo}, según el tipo "
+                    "y período académico."
+                )
             })
-        except Exception as e:
-            return JsonResponse({
-                "estado": "falla",
-                "icon": "error",
-                "title": "Error",
-                "descripcion": "Ocurrio un error al momento de realizar la prorroga."
-            })
+
+    # -------------------------------------------------
+    # VALIDAR ORDEN DE FECHAS
+    # -------------------------------------------------
+
+    if fecha_final < fecha_inicio:
+        return JsonResponse({
+            "estado": "fallo",
+            "icon": "warning",
+            "title": "Rango de fechas no válido",
+            "descripcion": (
+                "La fecha final no puede ser anterior "
+                "a la fecha de inicio."
+            )
+        })
+
+    # -------------------------------------------------
+    # ACTUALIZAR CALENDARIO
+    # -------------------------------------------------
+
+    with transaction.atomic():
+
+        calendario_original.fecha_inicio = fecha_inicio
+        calendario_original.fecha_final = fecha_final
+        calendario_original.descripcion = descripcion
+
+        calendario_original.save(
+            update_fields=[
+                "fecha_inicio",
+                "fecha_final",
+                "descripcion"
+            ]
+        )
+
+        # -------------------------------------------------
+        # REGISTRAR BITÁCORA
+        # -------------------------------------------------
+
+        Bitacora.objects.create(
+            nombre_usuario=request.session.get(
+                "usuario_nombre"
+            ),
+            fecha_hora=timezone.now(),
+            accion=(
+                "Se actualizaron la descripción y las fechas "
+                "del calendario académico."
+            )
+        )
+
+    return JsonResponse({
+        "estado": "exito",
+        "icon": "success",
+        "title": "Calendario actualizado",
+        "descripcion": (
+            "Se actualizaron la descripción y las fechas "
+            "del calendario académico exitosamente."
+        )
+    })
 
 def registrar_calendario_anual(anio):
     for evento in CALENDARIO_ACADEMICA:
@@ -830,4 +1199,3 @@ def reg_calendario(request):
             })
 
     return render(request, "Roles/Director_General/calendario/registrar_calendario.html")
-
